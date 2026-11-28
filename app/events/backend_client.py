@@ -10,6 +10,7 @@ inference FPS is never blocked by network I/O.
 import json
 import os
 import queue
+import sys
 import threading
 import time
 import urllib.error
@@ -19,6 +20,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from app.utils.logger import get_logger
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+if str(PROJECT_ROOT / "ml-model" / "src") not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT / "ml-model" / "src"))
+
+try:
+    from reliability_pipeline import FalseDetectionReductionPipeline
+except Exception:
+    FalseDetectionReductionPipeline = None
 
 log = get_logger("events.backend")
 
@@ -67,6 +77,15 @@ class BackendAPIClient:
             camera_code or env_vars.get("CAMERA_CODE", "CAM_001")
         ).upper()
         self.model_version = "yolo11n-ppe-fire-v1"
+
+        self.reliability_pipeline = (
+            FalseDetectionReductionPipeline(
+                camera_code=self.camera_code,
+                model_version=self.model_version,
+            )
+            if FalseDetectionReductionPipeline is not None
+            else None
+        )
 
         self._queue: "queue.Queue[Dict[str, Any]]" = queue.Queue(maxsize=100)
         self._last_sent_state: Optional[str] = None
@@ -124,11 +143,13 @@ class BackendAPIClient:
         fire_results: Dict[str, Any],
         safety_level: str,
         safety_detail: str,
+        frame: Any = None,
     ):
         """
         Convert raw `PPEDetector` and `FireSmokeDetector` outputs into the canonical
-        `POST /api/detections` contract and enqueue when a state transition occurs
-        or the periodic emission window elapses.
+        `POST /api/detections` contract (through the 6-stage false-detection reduction
+        pipeline) and enqueue when a state transition occurs or the periodic emission
+        window elapses.
         """
         if not self.is_configured:
             return
@@ -139,16 +160,21 @@ class BackendAPIClient:
 
         fire_detected = bool(fire_results.get("fire_detected", False))
         smoke_detected = bool(fire_results.get("smoke_detected", False))
-        no_helmet = int(ppe_results.get("no_helmet_count", 0))
-        no_vest = int(ppe_results.get("no_vest_count", 0))
-        no_boots = int(ppe_results.get("no_boots_count", 0))
         total_persons = int(ppe_results.get("total_persons", 0))
 
         # Ignore completely empty frames with no person and no fire/smoke
         if total_persons == 0 and not fire_detected and not smoke_detected:
             return
 
-        state_signature = f"{safety_level}:{safety_detail}:F{int(fire_detected)}:S{int(smoke_detected)}:H{no_helmet}:V{no_vest}:B{no_boots}"
+        payload = self.build_canonical_payload(
+            ppe_results, fire_results, frame=frame
+        )
+
+        det_state = payload["detectionState"]
+        head_vis = int(bool(payload["headRegionVisible"]))
+        missing_sig = ",".join(sorted(payload["missingPPE"]))
+        state_signature = f"{det_state}:{safety_level}:F{int(fire_detected)}:S{int(smoke_detected)}:HV{head_vis}:M[{missing_sig}]"
+
         state_changed = state_signature != self._last_sent_state
         time_elapsed = (now - self._last_sent_time) >= self._min_repeat_interval_sec
 
@@ -158,16 +184,19 @@ class BackendAPIClient:
         self._last_sent_state = state_signature
         self._last_sent_time = now
 
-        payload = self.build_canonical_payload(ppe_results, fire_results)
         self._enqueue("POST", f"{self.api_base_url}/detections", payload)
 
     def build_canonical_payload(
         self,
         ppe_results: Dict[str, Any],
         fire_results: Dict[str, Any],
+        frame: Any = None,
+        single_image_mode: bool = True,
     ) -> Dict[str, Any]:
         """
-        Build a canonical `POST /api/detections` JSON payload from `ppe_results` and `fire_results`.
+        Build a canonical `POST /api/detections` JSON payload from `ppe_results` and `fire_results`,
+        enriched with 6-stage reliability verification (`trackId`, `headRegionVisible`,
+        `detectionState`, `evidenceUrl`, and SHA-256 `evidenceFileHash`).
         """
         detections_list: List[Dict[str, Any]] = []
         confidences: List[float] = []
@@ -222,31 +251,51 @@ class BackendAPIClient:
                 "bbox": list(f.get("box", (0, 0, 0, 0))),
             })
 
-        # Evaluate missingPPE and 3-state detectionState (SAFE / VIOLATION / UNCERTAIN)
-        missing_ppe: List[str] = []
-        if int(ppe_results.get("no_helmet_count", 0)) > 0:
-            missing_ppe.append("helmet")
-        if int(ppe_results.get("no_vest_count", 0)) > 0:
-            missing_ppe.append("safety_vest")
-        if int(ppe_results.get("no_boots_count", 0)) > 0:
-            missing_ppe.append("safety_boots")
+        # Evaluate 6-Stage False-Detection Reduction Pipeline if available
+        track_id: Optional[str] = None
+        head_region_visible: bool = True
+        evidence_url: Optional[str] = None
+        evidence_hash: Optional[str] = None
 
-        fire_detected = bool(fire_results.get("fire_detected", False))
-        smoke_detected = bool(fire_results.get("smoke_detected", False))
-
-        overall_conf = round(min(confidences) if confidences else 0.85, 4)
-
-        if fire_detected or smoke_detected or len(missing_ppe) > 0:
-            # If confidence is very low (< 0.40) and not fire/smoke, mark UNCERTAIN
-            if not fire_detected and not smoke_detected and overall_conf < 0.40:
-                detection_state = "UNCERTAIN"
-                safety_status = "REVIEW_REQUIRED"
-            else:
-                detection_state = "VIOLATION"
-                safety_status = "UNSAFE"
+        if self.reliability_pipeline is not None:
+            rel_out = self.reliability_pipeline.process_frame(
+                frame=frame,
+                ppe_results=ppe_results,
+                fire_results=fire_results,
+                single_image_mode=single_image_mode,
+                save_evidence=(frame is not None),
+            )
+            track_id = rel_out["trackId"]
+            head_region_visible = rel_out["headRegionVisible"]
+            detection_state = rel_out["detectionState"]
+            safety_status = rel_out["safetyStatus"]
+            missing_ppe = rel_out["missingPPE"]
+            overall_conf = rel_out["overallConfidence"]
+            evidence_url = rel_out["evidenceUrl"]
+            evidence_hash = rel_out["evidenceFileHash"]
         else:
-            detection_state = "SAFE"
-            safety_status = "SAFE"
+            missing_ppe = []
+            if int(ppe_results.get("no_helmet_count", 0)) > 0:
+                missing_ppe.append("helmet")
+            if int(ppe_results.get("no_vest_count", 0)) > 0:
+                missing_ppe.append("safety_vest")
+            if int(ppe_results.get("no_boots_count", 0)) > 0:
+                missing_ppe.append("safety_boots")
+
+            fire_detected = bool(fire_results.get("fire_detected", False))
+            smoke_detected = bool(fire_results.get("smoke_detected", False))
+            overall_conf = round(min(confidences) if confidences else 0.85, 4)
+
+            if fire_detected or smoke_detected or len(missing_ppe) > 0:
+                if not fire_detected and not smoke_detected and overall_conf < 0.40:
+                    detection_state = "UNCERTAIN"
+                    safety_status = "REVIEW_REQUIRED"
+                else:
+                    detection_state = "VIOLATION"
+                    safety_status = "UNSAFE"
+            else:
+                detection_state = "SAFE"
+                safety_status = "SAFE"
 
         now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         epoch_ms = int(time.time() * 1000)
@@ -258,14 +307,15 @@ class BackendAPIClient:
             "idempotencyKey": f"{self.camera_code}-{epoch_ms}",
             "isMockDetection": False,
             "verifyWorkerByRfid": True,
+            "trackId": track_id,
             "detections": detections_list,
             "missingPPE": missing_ppe,
             "detectionState": detection_state,
             "safetyStatus": safety_status,
             "overallConfidence": max(0.01, min(1.0, overall_conf)),
-            "headRegionVisible": True,
-            "evidenceUrl": None,
-            "evidenceFileHash": None,
+            "headRegionVisible": head_region_visible,
+            "evidenceUrl": evidence_url,
+            "evidenceFileHash": evidence_hash,
         }
 
     def _enqueue(self, method: str, url: str, payload: Dict[str, Any]):

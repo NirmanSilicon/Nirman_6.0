@@ -941,13 +941,13 @@ class MainWindow:
                 status.level, status.detail, status.icon
             )
 
-            # Non-blocking Backend API synchronization (POST /api/detections & heartbeat)
-            self.backend_client.process_frame_results(
-                ppe_results, fire_results, status.level, status.detail
-            )
-
             # Draw overlays
             self.overlay_renderer.render(frame, ppe_results, fire_results)
+
+            # Non-blocking Backend API synchronization (POST /api/detections & heartbeat)
+            self.backend_client.process_frame_results(
+                ppe_results, fire_results, status.level, status.detail, frame=frame
+            )
 
             # FPS calculation
             fps_counter += 1

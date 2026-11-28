@@ -7,6 +7,7 @@ const {
   updateWorker,
   deleteWorker,
 } = require('../controllers/worker.controller');
+const { getMyIncidents } = require('../controllers/incident.controller');
 const { requireAuth, requireRole } = require('../middleware/auth.middleware');
 const { validate } = require('../middleware/validate.middleware');
 const { createWorkerSchema, updateWorkerSchema } = require('../validators/worker.validator');
@@ -17,6 +18,7 @@ router.use(requireAuth);
 
 router.get('/', getWorkers);
 router.get('/me', getMyWorkerProfile);
+router.get('/me/incidents', getMyIncidents);
 router.get('/:id', getWorkerById);
 
 // Administrator-only worker management routes

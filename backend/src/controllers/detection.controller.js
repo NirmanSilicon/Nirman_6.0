@@ -6,6 +6,10 @@ const { Worker } = require('../models/Worker.model');
 const { Incident } = require('../models/Incident.model');
 const { IncidentEvidence } = require('../models/IncidentEvidence.model');
 const { recordAuditLog } = require('../services/audit.service');
+const { Zone } = require('../models/Zone.model');
+const { playZoneWarningAudio } = require('../services/speaker.service');
+const { handleSafeComplianceRecovery } = require('../services/warningEscalation.service');
+const { eventBus } = require('../services/eventBus');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -356,7 +360,31 @@ const submitDetection = async (req, res, next) => {
             workerIdentificationSource,
           },
         });
+
+        // Normal PPE violation: local speaker warning + 120-second grace period announcement
+        if (!isEmergency) {
+          const zoneDoc = await Zone.findById(camera.zoneId).lean();
+          playZoneWarningAudio({
+            zoneCode: zoneDoc ? zoneDoc.zoneCode : null,
+            zoneName: zoneDoc ? zoneDoc.zoneName : null,
+            missingPPE,
+            isEmergency: false,
+          });
+          eventBus.emit('warning:started', {
+            incidentId: activeIncident.incidentId,
+            zoneId: camera.zoneId.toString(),
+            cameraCode: camera.cameraCode,
+            incidentType,
+            graceExpiresAt: activeIncident.graceExpiresAt,
+          });
+        }
       }
+    }
+
+    // SAFE recovery: a fully compliant frame self-resolves active grace-period warnings on this camera
+    let graceResolvedIncidentIds = [];
+    if (detectionState === 'SAFE') {
+      graceResolvedIncidentIds = await handleSafeComplianceRecovery(camera);
     }
 
     return sendSuccess(res, 201, 'PPE detection recorded', {
@@ -371,6 +399,7 @@ const submitDetection = async (req, res, next) => {
       incidentCreated,
       cooldownMerged,
       incidentId,
+      graceResolvedIncidentIds,
       occurredAt: newDetection.occurredAt,
     });
   } catch (error) {

@@ -26,8 +26,8 @@ A full inspection of the repository was completed before creating this phase-wis
 | **Admin Write CRUD & Audit Logging** | **`COMPLETED`** | `backend/src/controllers/{admin,worker}.controller.js`, `services/audit.service.js`, `models/AuditLog.model.js`, `tests/admin-crud.test.js` | Admin Write CRUD for Zones, Supervisors, ZoneAssignments, Workers, and AuditLog verified with `6/6` tests passing (`16/16` total tests passing). |
 | **All 12 Canonical Database Models** | **`COMPLETED`** | `backend/src/models/{User,Zone,Worker,ZoneAssignment,Device,Camera,RfidLog,PpeDetection,SensorEvent,Incident,IncidentEvidence,AuditLog}.model.js` | All 12 core Mongoose models implemented with indexes, enums, virtual IDs, and secret redaction. |
 | **IoT Device, RFID & Sensor Ingestion** | **`COMPLETED`** | `backend/src/middleware/deviceAuth.middleware.js`, `services/heartbeatMonitor.service.js`, `controllers/{device,rfid,sensor}.controller.js`, `tests/hardware-ingestion.test.js` | `X-Device-Key` constant-time auth, `/api/devices` (with key rotation & 90s heartbeat timeout), `/api/rfid/scan` (with duplicate cooldown & worker zone presence), and `/api/sensors/events` (smoke/flame with Emergency Manual SOS) verified with `7/7` tests (`24/24` total tests passing). |
-| **AI/ML PPE Detection & False-Positive Reduction** | **`PARTIALLY COMPLETED` (Backend & Smartphone Wi-Fi Bridge + Mock ML Service `COMPLETED`; Real ML Model Weights `PENDING` Teammate Push)** | `backend/src/middleware/mlAuth.middleware.js`, `controllers/{camera,detection}.controller.js`, `services/mockMl.service.js`, `scripts/smartphone-camera-mock-runner.js`, `tests/ml-detection.test.js` | `/api/cameras` (with `SMARTPHONE_WIFI` stream probing, reconnection telemetry & 90s heartbeat timeout), `X-ML-Service-Key` auth, `POST /api/detections` (`SAFE`, `VIOLATION`, `UNCERTAIN` states, `headRegionVisible` check, RFID-verified worker association, and `isMockDetection` separation) verified with `5/5` tests (`29/29` total tests passing). Python YOLO/ByteTrack inference awaits ML teammate's model push. |
-| **120-Second Warning, Speaker & SHA-256 Ledger** | **`PENDING` (Next)** | Specs in `docs/plan.md` §4.1 | Add local speaker trigger (`speaker.service.js`), persistent 120s grace timer (`warningEscalation.service.js`), auto-resolution vs. supervisor escalation, and SHA-256 hash chain (Phase 5). |
+| **AI/ML PPE Detection & False-Positive Reduction** | **`COMPLETED`** | `backend/src/middleware/mlAuth.middleware.js`, `controllers/{camera,detection}.controller.js`, `services/mockMl.service.js`, `scripts/smartphone-camera-mock-runner.js`, `tests/ml-detection.test.js`, `ml-model/models/{ppe_best,fire_smoke_best,yolo11n}.pt`, `ml-model/src/reliability_pipeline.py`, `ml-model/scripts/evaluate_reliability.py`, `app/` | `/api/cameras` (`SMARTPHONE_WIFI` stream probing, reconnection telemetry & 90s heartbeat timeout), `X-ML-Service-Key` auth, `POST /api/detections` (`SAFE`, `VIOLATION`, `UNCERTAIN` states, `headRegionVisible` check, RFID-verified worker association, and `isMockDetection` separation) verified with `5/5` tests (`29/29` total backend tests passing) + 6-stage Python false-detection reduction pipeline and trained YOLO model integration (`ppe_best.pt` + `fire_smoke_best.pt` + `yolo11n.pt`) verified with `7/7` benchmark scenarios (`FPR: 0.0`, `FNR: 0.0`). |
+| **120-Second Warning, Speaker & SHA-256 Ledger** | **`COMPLETED` (Phase 5; backend-verified, see notes)** | `backend/src/services/{speaker,warningEscalation,eventBus}.service.js`, `utils/hashChain.util.js`, `controllers/{incident,supervisor}.controller.js`, `routes/{incident,supervisor}.routes.js`, `tests/warning-and-incidents.test.js` | Grace-period state machine (self-resolve on SAFE, escalate to `OPEN` after 120s, boot recovery, 2s sweep), speaker warning (`speaker:play` event + Windows SAPI voice), `/api/incidents*`, `/api/supervisor/*`, `GET /api/workers/me/incidents`, SHA-256 hash chain + `verify-integrity`. `7/7` new tests (`36/36` total). Socket.IO/Web Push delivery to supervisors is Phase 8; audible speaker output not verified on physical speakers. |
 | **Zero-Delay Critical Emergency & Manual SOS** | **`PENDING`** | Specs in `docs/plan.md` §4.2 | Immediate escalation for flame, critical smoke/fire, and person-fall + formatted Manual SOS generator (Phase 6). |
 | **Real-Time Socket.IO, Web Push & Frontend UI** | **`PENDING`** | Specs in `docs/Architecture.md` & `docs/plan.md` §9 | Socket.IO room server, VAPID Web Push, `/api/dashboard/*`, and Role-Based Frontend Dashboards (`frontend/`) (Phases 8 & 9). |
 | **Offline-First & Online Cloud Sync** | **`PENDING`** | Specs in `docs/plan.md` §6 | Startup 120s timer recovery, local LAN autonomy, `SyncOutbox` queue, and idempotent cloud batch replay (Phases 10 & 11). |
@@ -232,7 +232,7 @@ Implement ESP32 device registration with hashed API credentials (`apiKeyHash`), 
 
 ## PHASE 4: Camera Registry, ML Detection Ingestion & False-Detection Reduction Pipeline
 
-- **Current Status:** **`IN PROGRESS` (All Independent Backend, Smartphone Wi-Fi Stream & Mock ML Components `COMPLETED`; Real Trained Model Integration `PENDING` Teammate Push)**
+- **Current Status:** **`COMPLETED`**
 - **Milestone Category:** First Evaluation Requirement
 - **Priority:** **`P0` (Critical)**
 - **Dependencies:** Phase 2 (`COMPLETED`)
@@ -304,14 +304,18 @@ Implement camera registration (`/api/cameras`), ML service authentication (`X-ML
 - [x] Worker identity is attached (`workerIdentificationSource: "RFID_CHECKPOINT_VERIFIED"`) **only** when verified via active RFID zone presence; unverified worker IDs are forced to `null`.
 - [x] Temporary Mock ML detections are strictly separated from real ML detections (`isMockDetection: true`, `modelVersion: "mock-ppe-simulator-v1"`, `[MOCK TEST DETECTION]` incident label).
 - [x] `T06`, `T07`, and `T16` pass in automated tests (`backend/tests/ml-detection.test.js`).
-- [ ] Connect actual trained PPE model weights & Python ByteTrack inference script once pushed by ML teammate.
+- [x] Connected actual trained PPE model weights (`ml-model/models/ppe_best.pt`: `{0: 'head', 1: 'helmet', 2: 'person'}` + `ml-model/models/fire_smoke_best.pt`: `{0: 'smoke', 1: 'fire'}` + companion `ml-model/models/yolo11n.pt`), 6-stage `ml-model/src/reliability_pipeline.py`, and quantitative benchmark `ml-model/scripts/evaluate_reliability.py`.
 
 ---
 
 ## PHASE 5: 120-Second Grace Period Engine, Local Speaker Warning & SHA-256 Tamper-Evident Ledger
 
-- **Current Status:** **`PENDING` (Next Immediate Phase to Execute)**
-- **Milestone Category:** First Evaluation Requirement (Core Differentiator)
+- **Current Status:** **`COMPLETED`** (backend implementation verified by `backend/tests/warning-and-incidents.test.js`, 7/7 passing)
+- **Implementation Notes / Deviations:**
+  1. The canonical hash additionally covers `description`, `isEmergency` and `deviceOrCameraCode` so that the plan's own tamper test (editing `description`) is actually detectable.
+  2. `previousHash` is fixed at first seal and kept on re-seal; `verify-integrity` verifies each record's own hash, it does not yet validate predecessor links.
+  3. Supervisor escalation currently sets `OPEN` + `escalatedToSupervisorAt` and emits `incident:new` on the in-process event bus; Socket.IO and Web Push delivery are Phase 8. `GET /api/incidents/:id/sos` belongs to Phase 6.
+  4. Local speaker output uses Windows SAPI via PowerShell (disabled when `NODE_ENV=test` or `SPEAKER_ENABLED=false`) and always emits `speaker:play`; not verified on a physical speaker.
 - **Priority:** **`P0` (Critical)**
 - **Dependencies:** Phases 3 and 4
 - **Responsible Team Member:** Team Lead / Backend Engineer
@@ -388,10 +392,10 @@ Implement the complete **Normal Safety Violation Workflow**: local speaker audio
   5. **SHA-256 Tamper Detection Test (`T17`):** Call `GET /api/incidents/:id/verify-integrity` (`integrityValid: true`), then directly modify `description` in MongoDB via `Incident.updateOne`, and call `verify-integrity` again -> assert `integrityValid: false`.
 
 ### 5.5 Acceptance Criteria
-- [ ] Normal PPE violations always start with a speaker warning + 120-second grace period.
-- [ ] Self-corrected violations within 120 seconds resolve automatically without supervisor spam.
-- [ ] Unresolved violations after 120 seconds escalate to `"OPEN"` and alert the assigned supervisor.
-- [ ] SHA-256 `recordHash` chaining detects any unauthorized database modification (`T17` passes).
+- [x] Normal PPE violations always start with a speaker warning + 120-second grace period.
+- [x] Self-corrected violations within 120 seconds resolve automatically without supervisor spam.
+- [x] Unresolved violations after 120 seconds escalate to `"OPEN"` (supervisor alert delivery over Socket.IO/Web Push pending Phase 8).
+- [x] SHA-256 `recordHash` chaining detects any unauthorized database modification (`T17` passes).
 
 ---
 

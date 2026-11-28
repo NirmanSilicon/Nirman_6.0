@@ -27,8 +27,16 @@ All payload definitions in this document conform to **Canonical Contract #2 (`PO
 ### 3.1 Model Input
 - Live video stream (webcam, USB camera, RTSP IP camera, or recorded workplace test video feed) associated with a registered `cameraCode` (e.g., `"CAM_001"`).
 
-### 3.2 Supported Class Labels & Performance (`TO BE CONFIRMED`)
-- **Verification Rule:** Because the trained ML model weights and inference script are maintained by the ML team member and are not yet committed to this repository, **exact model class names and accuracy/mAP metrics are marked `TO BE CONFIRMED`** and must not be invented.
+### 3.2 Supported Class Labels & Verified Model Inventory (`COMPLETED`)
+- **Verified Model Files (`ml-model/models/`):**
+  1. `ml-model/models/ppe_best.pt` (`5,455,322 bytes`, trained on `PPE_Tiny_3Class`):
+     - `{0: 'head', 1: 'helmet', 2: 'person'}` (where class `0: 'head'` represents an uncovered head / `no_helmet`).
+  2. `ml-model/models/fire_smoke_best.pt` (`6,229,802 bytes`):
+     - `{0: 'smoke', 1: 'fire'}`.
+  3. `ml-model/models/yolo11n.pt` (`5,613,764 bytes`):
+     - Companion person detector (`class 0: 'person'`) for dual-detector person recall and spatial head-region matching.
+- **6-Stage False-Detection Reduction Pipeline (`ml-model/src/reliability_pipeline.py`) & Benchmark (`ml-model/scripts/evaluate_reliability.py`):**
+  - Enforces canonical label normalization, persistent `trackId` assignment, top-edge/size `headRegionVisible` validation, dual confidence thresholds (`T_low=0.40`, `T_high=0.68`), 5-of-7 multi-frame temporal persistence, and annotated JPEG snapshot SHA-256 hashing (`evidenceFileHash`).
 - **Proposed Canonical Normalization Mapping:** Regardless of raw model label casing (for example, whether a YOLO model outputs `"Hardhat"`, `"NO-Hardhat"`, `"Safety Vest"`, `"NO-Safety Vest"`, `"Person"`), the ML integration bridge should normalize labels into canonical lowercase identifiers before sending `POST /api/detections`:
   - `"person"` — Detected human worker in frame
   - `"helmet"` — Properly worn safety helmet detected
