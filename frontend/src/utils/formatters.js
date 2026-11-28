@@ -1,3 +1,4 @@
+
 /**
  * Shared formatting, badge styles, and chart color tokens for AlarmSense UI.
  */
@@ -41,33 +42,99 @@ export const SEVERITY_STYLES = {
   },
 };
 
+const DEFAULT_SEVERITY_STYLE = {
+  pill: "bg-slate-100 text-slate-700 border border-slate-200",
+  dot: "bg-slate-400",
+};
+
+/**
+ * Normalises severity names into supported keys.
+ * Examples: "high high", "HIGH-HIGH" -> "HIGH_HIGH".
+ */
+export function normalizeSeverity(level) {
+  return String(level || "MEDIUM")
+    .trim()
+    .toUpperCase()
+    .replace(/[\s-]+/g, "_");
+}
+
+/**
+ * Returns the Tailwind badge classes for a severity.
+ */
 export function getSeverityBadgeClass(level) {
-  const key = String(level || "MEDIUM").toUpperCase();
-  return SEVERITY_STYLES[key]?.pill || "bg-slate-100 text-slate-700 border border-slate-200";
+  const key = normalizeSeverity(level);
+  return SEVERITY_STYLES[key]?.pill || DEFAULT_SEVERITY_STYLE.pill;
 }
 
+/**
+ * Returns the Tailwind dot classes for a severity.
+ */
+export function getSeverityDotClass(level) {
+  const key = normalizeSeverity(level);
+  return SEVERITY_STYLES[key]?.dot || DEFAULT_SEVERITY_STYLE.dot;
+}
+
+/**
+ * Safely converts a value into a finite number.
+ */
+function toFiniteNumber(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
+  }
+
+  const number = Number(value);
+
+  return Number.isFinite(number) ? number : null;
+}
+
+/**
+ * Formats a percentage.
+ * Pass isRatio=true when the input is a ratio between 0 and 1.
+ */
 export function formatPct(ratioOrPct, isRatio = false) {
-  if (ratioOrPct === null || ratioOrPct === undefined || Number.isNaN(Number(ratioOrPct))) {
-    return "—";
-  }
-  const value = isRatio ? Number(ratioOrPct) * 100 : Number(ratioOrPct);
-  return `${value.toFixed(1)}%`;
+  const value = toFiniteNumber(ratioOrPct);
+
+  if (value === null) return "—";
+
+  const percentage = isRatio ? value * 100 : value;
+
+  return `${percentage.toFixed(1)}%`;
 }
 
+/**
+ * Formats a numeric value with configurable decimal places.
+ */
 export function formatNumber(val, decimals = 2) {
-  if (val === null || val === undefined || Number.isNaN(Number(val))) {
-    return "—";
-  }
-  return Number(val).toFixed(decimals);
+  const value = toFiniteNumber(val);
+  const precision = Number.isInteger(decimals)
+    ? Math.min(10, Math.max(0, decimals))
+    : 2;
+
+  if (value === null) return "—";
+
+  return value.toFixed(precision);
 }
 
-export function formatTimestamp(isoString) {
+/**
+ * Formats a timestamp for dashboard display.
+ */
+export function formatTimestamp(isoString, options = {}) {
   if (!isoString) return "Just now";
+
   const date = new Date(isoString);
-  if (Number.isNaN(date.getTime())) return String(isoString);
-  return date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
+
+  if (Number.isNaN(date.getTime())) {
+    return String(isoString);
+  }
+
+  return date.toLocaleTimeString(
+    options.locale,
+    {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      ...options,
+    }
+  );
 }
+
