@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { analyzeWindow, retrainPlant } from "../api/client";
+import { AlarmLogAnalyzerCard } from "../components/AlarmLogAnalyzerCard";
 import {
   formatNumber,
   formatPct,
@@ -184,6 +185,7 @@ export function DataUploadView({
   activePlant,
   onPlantRetrained,
   onAnalysisComplete,
+  onAlarmLogAnalyzed,
 }) {
   // --------------------------------------------------
   // RETRAIN FORM STATE
@@ -216,21 +218,16 @@ export function DataUploadView({
   const [analyzeResult, setAnalyzeResult] = useState(null);
 
   // --------------------------------------------------
-  // DOWNLOAD SAMPLE CSV
+  // FILE DOWNLOAD HELPER
   // --------------------------------------------------
 
-  const handleDownloadSampleCsv = () => {
-    const csvContent = buildSamplePlantCsv();
-
-    const blob = new Blob([csvContent], {
-      type: "text/csv;charset=utf-8;",
-    });
-
+  const downloadTextFile = (content, filename, mimeType) => {
+    const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = "sample_plant_telemetry.csv";
+    link.download = filename;
 
     document.body.appendChild(link);
     link.click();
@@ -238,6 +235,14 @@ export function DataUploadView({
 
     // Allow the browser to begin the download before cleanup.
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const handleDownloadSampleCsv = () => {
+    downloadTextFile(
+      buildSamplePlantCsv(),
+      "sample_plant_telemetry.csv",
+      "text/csv;charset=utf-8;"
+    );
   };
 
   // --------------------------------------------------
@@ -1003,6 +1008,11 @@ export function DataUploadView({
         )}
 
       </section>
+
+      <AlarmLogAnalyzerCard
+        onDownloadTextFile={downloadTextFile}
+        onAlarmLogAnalyzed={onAlarmLogAnalyzed}
+      />
 
     </div>
   );

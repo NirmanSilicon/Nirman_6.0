@@ -1,6 +1,6 @@
 
 /**
- * Typed REST client wrapping all 9 AlarmSense FastAPI v1 endpoints.
+ * Typed REST client wrapping all 10 AlarmSense FastAPI v1 endpoints.
  */
 
 const BASE_URL = (import.meta.env.VITE_API_BASE_URL || "")
@@ -33,12 +33,21 @@ async function requestJson(path, options = {}) {
     () => controller.abort(),
     REQUEST_TIMEOUT
   );
+  const externalSignal = options.signal;
+  const onExternalAbort = () => controller.abort();
+  if (externalSignal) {
+    if (externalSignal.aborted) {
+      controller.abort();
+    } else {
+      externalSignal.addEventListener("abort", onExternalAbort, { once: true });
+    }
+  }
 
   try {
     const response = await fetch(url, {
       ...options,
       headers,
-      signal: options.signal || controller.signal,
+      signal: controller.signal,
     });
 
     const text = await response.text();
@@ -85,6 +94,9 @@ async function requestJson(path, options = {}) {
     );
   } finally {
     clearTimeout(timeoutId);
+    if (externalSignal) {
+      externalSignal.removeEventListener("abort", onExternalAbort);
+    }
   }
 }
 
@@ -213,5 +225,21 @@ export function activatePlant(plantId) {
       method: "POST",
     }
   );
+}
+
+/** 10. POST /api/v1/alarms/analyze-log */
+export function analyzeAlarmLog(file, options = {}) {
+  if (!file) {
+    return Promise.reject(new Error("Alarm log file is required."));
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return requestJson("/api/v1/alarms/analyze-log", {
+    method: "POST",
+    body: formData,
+    signal: options.signal,
+  });
 }
 

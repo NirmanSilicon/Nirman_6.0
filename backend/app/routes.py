@@ -33,6 +33,7 @@ from app.config import (
 )
 from app.schemas import (
     ActivatePlantResponse,
+    AlarmLogAnalyzeResponse,
     AnalyzeRequest,
     AnalyzeResponse,
     FaultCatalogItem,
@@ -48,6 +49,7 @@ from app.schemas import (
     SimulateResponse,
 )
 from app.services.alarm_engine import consolidate_alarm_flood
+from app.services.alarm_log import consolidate_alarm_log
 from app.services.causality import compute_causal_links
 from app.services.features import extract_single_window
 from app.services.playbooks import get_playbook
@@ -60,6 +62,8 @@ from training.retrain_custom import train_custom_plant_csv, validate_plant_id
 
 
 router = APIRouter(tags=["AlarmSense API v1"])
+
+MAX_ALARM_LOG_BYTES = 25 * 1024 * 1024
 
 
 def _get_predictor(request: Request) -> PredictorService:
@@ -1271,3 +1275,44 @@ def get_feedback_summary(
         rejected_count=rejected,
         recent_entries=entries[-10:],
     )
+
+
+@router.post(
+    "/alarms/analyze-log",
+    response_model=AlarmLogAnalyzeResponse,
+)
+async def analyze_alarm_log(
+    file: UploadFile = File(...),
+) -> AlarmLogAnalyzeResponse:
+    """Upload a CSV or JSON alarm log to suppress chatter and rank priority alarms."""
+
+    try:
+        raw_bytes = await file.read(MAX_ALARM_LOG_BYTES + 1)
+    finally:
+        await file.close()
+
+    if not raw_bytes:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Uploaded alarm log file is empty.",
+        )
+
+    if len(raw_bytes) > MAX_ALARM_LOG_BYTES:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Uploaded alarm log exceeds maximum allowed size.",
+        )
+
+    try:
+        report = await run_in_threadpool(
+            consolidate_alarm_log,
+            raw_bytes=raw_bytes,
+            filename=file.filename,
+        )
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(exc),
+        ) from exc
+
+    return AlarmLogAnalyzeResponse(**report)

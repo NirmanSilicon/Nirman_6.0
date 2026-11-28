@@ -863,3 +863,254 @@ def test_feedback_accepts_custom_plant_classes_and_logs_name(
     )
 
     assert invalid_response.status_code == 422
+
+
+# ---------------------------------------------------------------------
+# Alarm log flood consolidation endpoint
+# ---------------------------------------------------------------------
+
+def test_analyze_alarm_log_csv_consolidates_and_ranks(client):
+    csv_payload = "\n".join(
+        [
+            "event_id,timestamp,plant_id,tag,severity,value,threshold,unit,state,message",
+            "ALM-3,2026-11-28T14:30:00,alpha_plant,REACTOR_TEMP_C,HIGH_HIGH,202.0,195.0,deg C,ACTIVE,Temp high-high 2",
+            "ALM-1,2026-11-28T14:27:00,alpha_plant,COOLANT_FLOW_LPM,LOW,105.4,112.0,L/min,ACTIVE,Coolant low initial",
+            "ALM-2,2026-11-28T14:27:00,alpha_plant,REACTOR_TEMP_C,HIGH_HIGH,197.5,195.0,deg C,ACTIVE,Temp high-high 1",
+            "ALM-4,2026-11-28T14:33:00,alpha_plant,REACTOR_TEMP_C,HIGH_HIGH,205.0,195.0,deg C,ACTIVE,Temp high-high 3",
+            "ALM-5,2026-11-28T14:33:00,alpha_plant,PUMP_VIBRATION_MMS,LOW_LOW,0.4,1.0,mm/s,ACTIVE,Pump low-low 1",
+            "ALM-6,2026-11-28T14:36:00,alpha_plant,PUMP_VIBRATION_MMS,LOW_LOW,0.3,1.0,mm/s,ACTIVE,Pump low-low 2",
+            "ALM-7,2026-11-28T14:36:00,alpha_plant,LEVEL_IND,INFO,50.0,60.0,%,ACTIVE,Info notice",
+        ]
+    )
+
+    response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={
+            "file": (
+                "custom_plant_alarm_log.csv",
+                csv_payload.encode("utf-8"),
+                "text/csv",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+
+    assert data["format"] == "csv"
+    assert data["filename"] == "custom_plant_alarm_log.csv"
+    assert data["raw_event_count"] == 7
+    assert data["consolidated_alarm_count"] == 4
+    assert data["suppressed_event_count"] == 3
+    assert data["reduction_pct"] == 42.86
+    assert data["first_triggered_tag"] == "COOLANT_FLOW_LPM"
+    assert data["first_triggered_timestamp"] == "2026-11-28T14:27:00"
+    assert data["severity_breakdown"] == {
+        "HIGH_HIGH": 3,
+        "LOW_LOW": 2,
+        "LOW": 1,
+        "INFO": 1,
+    }
+    assert data["alarm_timeline"] == [
+        {"timestamp": "2026-11-28T14:27:00", "count": 2, "critical_count": 1},
+        {"timestamp": "2026-11-28T14:30:00", "count": 1, "critical_count": 1},
+        {"timestamp": "2026-11-28T14:33:00", "count": 2, "critical_count": 2},
+        {"timestamp": "2026-11-28T14:36:00", "count": 2, "critical_count": 1},
+    ]
+
+    ranked = data["priority_alarms"]
+    assert [(item["tag"], item["severity"], item["event_count"]) for item in ranked] == [
+        ("REACTOR_TEMP_C", "HIGH_HIGH", 3),
+        ("PUMP_VIBRATION_MMS", "LOW_LOW", 2),
+        ("COOLANT_FLOW_LPM", "LOW", 1),
+        ("LEVEL_IND", "INFO", 1),
+    ]
+    assert ranked[0]["first_timestamp"] == "2026-11-28T14:27:00"
+    assert ranked[0]["last_timestamp"] == "2026-11-28T14:33:00"
+    assert ranked[0]["latest_value"] == 205.0
+    assert ranked[0]["suppressed_count"] == 2
+
+    # Verify semicolon CSV delimiter + case-insensitive column aliases work too.
+    semicolon_csv = (
+        "SENSOR;TIME;Priority;Description\n"
+        "FIC-101;2026-11-28T15:00:00;Critical;Flow crash\n"
+        "FIC-101;2026-11-28T15:01:00;Critical;Flow crash repeat\n"
+    )
+    semi_response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={"file": ("plant_alarms.csv", semicolon_csv.encode("utf-8"), "text/csv")},
+    )
+    assert semi_response.status_code == 200
+    semi_data = semi_response.json()
+    assert semi_data["raw_event_count"] == 2
+    assert semi_data["consolidated_alarm_count"] == 1
+    assert semi_data["first_triggered_tag"] == "FIC-101"
+
+
+def test_analyze_alarm_log_sample_file(client):
+    sample_path = (
+        Path(__file__).resolve().parent.parent
+        / "data"
+        / "samples"
+        / "custom_plant_alarm_log.csv"
+    )
+    assert sample_path.is_file()
+
+    response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={
+            "file": (
+                sample_path.name,
+                sample_path.read_bytes(),
+                "text/csv",
+            )
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["raw_event_count"] == 48
+    assert data["consolidated_alarm_count"] == 6
+    assert data["suppressed_event_count"] == 42
+    assert data["reduction_pct"] == 87.5
+    assert data["first_triggered_tag"] == "COOLANT_FLOW_LPM"
+
+
+def test_analyze_alarm_log_json_array_and_wrapped_object(client):
+    import json
+
+    array_payload = [
+        {
+            "variable": "TI-201",
+            "datetime": "2026-11-28T10:00:00Z",
+            "level": "High",
+            "value": 190.5,
+            "unit": "C",
+            "description": "Pre-heater high",
+        },
+        {
+            "variable": "PI-301",
+            "datetime": "2026-11-28T10:02:00Z",
+            "level": "Critical",
+            "value": 24.2,
+            "unit": "bar",
+            "description": "Reactor pressure critical",
+        },
+        {
+            "variable": "PI-301",
+            "datetime": "2026-11-28T10:03:00Z",
+            "level": "Critical",
+            "value": 24.8,
+            "unit": "bar",
+            "description": "Reactor pressure critical repeat",
+        },
+    ]
+
+    array_response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={
+            "file": (
+                "events.json",
+                json.dumps(array_payload).encode("utf-8"),
+                "application/json",
+            )
+        },
+    )
+    assert array_response.status_code == 200
+    array_data = array_response.json()
+    assert array_data["format"] == "json"
+    assert array_data["raw_event_count"] == 3
+    assert array_data["consolidated_alarm_count"] == 2
+    assert array_data["first_triggered_tag"] == "TI-201"
+    assert array_data["priority_alarms"][0]["tag"] == "PI-301"
+    assert array_data["priority_alarms"][0]["severity"] == "CRITICAL"
+
+    wrapped_payload = {
+        "alarms": [
+            {"source": "XI-900", "ts": "2026-11-28T11:00:00", "priority": "LOW"},
+            {"source": "XI-900", "ts": "2026-11-28T11:01:00", "priority": "LOW"},
+        ]
+    }
+    wrapped_response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={
+            "file": (
+                "wrapped.json",
+                json.dumps(wrapped_payload).encode("utf-8"),
+                "application/json",
+            )
+        },
+    )
+    assert wrapped_response.status_code == 200
+    assert wrapped_response.json()["suppressed_event_count"] == 1
+
+
+@pytest.mark.parametrize(
+    ("filename", "payload", "expected_detail"),
+    [
+        ("empty.csv", b"", "empty"),
+        ("missing_tag.csv", b"timestamp,severity,value\n2026-11-28T10:00:00,HIGH,12.3\n", "missing a required tag column"),
+        ("blank_tags.csv", b"tag,severity\n  ,HIGH\n", "no valid rows"),
+        ("bad.json", b"{not valid json", "Invalid JSON"),
+        ("empty_wrapped.json", b'{"alarms": []}', "non-empty"),
+        ("notes.txt", b"tag,severity\nA,HIGH\n", "Unsupported alarm log file extension"),
+        ("invalid_utf8.csv", b"\xff\xfe\xfd", "valid UTF-8"),
+        ("non_object_items.json", b"[1, 2]", "must be a JSON object"),
+    ],
+)
+def test_analyze_alarm_log_rejects_invalid_inputs(
+    client, filename, payload, expected_detail
+):
+    response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={"file": (filename, payload, "application/octet-stream")},
+    )
+
+    assert response.status_code == 422
+    assert expected_detail.lower() in response.json()["detail"].lower()
+
+
+def test_analyze_alarm_log_preserves_numeric_tags_na_and_mixed_timestamps(
+    client, monkeypatch
+):
+    from app import routes
+
+    csv_payload = (
+        "tag,timestamp,severity,value\n"
+        "001,2026-11-28T10:00:00,HIGH,12.5\n"
+        "001,,HIGH,13.0\n"
+        "NA,2026-11-28T10:01:00,LOW,4.0\n"
+    )
+    response = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={"file": ("alarm_dump", csv_payload.encode("utf-8"), "text/plain")},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["format"] == "csv"
+    assert [item["tag"] for item in data["priority_alarms"]] == ["001", "NA"]
+    assert data["priority_alarms"][0]["first_timestamp"] == "2026-11-28T10:00:00"
+    assert data["priority_alarms"][0]["last_timestamp"] == "2026-11-28T10:00:00"
+
+    # Verify extensionless JSON sniffing + heterogeneous row keys + size limit.
+    hetero_json = (
+        '[{"tag": "A1", "severity": "HIGH", "value": true}, '
+        '{"sensor": "B2", "priority": "CRITICAL", "value": 99.5}]'
+    )
+    json_res = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={"file": ("events_no_ext", hetero_json.encode("utf-8"), "text/plain")},
+    )
+    assert json_res.status_code == 200
+    assert json_res.json()["format"] == "json"
+    assert json_res.json()["consolidated_alarm_count"] == 2
+    assert json_res.json()["priority_alarms"][1]["latest_value"] is None
+
+    monkeypatch.setattr(routes, "MAX_ALARM_LOG_BYTES", 20)
+    oversized_res = client.post(
+        "/api/v1/alarms/analyze-log",
+        files={"file": ("big.csv", b"tag,severity\n" + b"X,HIGH\n" * 5, "text/csv")},
+    )
+    assert oversized_res.status_code == 422
+    assert "maximum allowed size" in oversized_res.json()["detail"].lower()
