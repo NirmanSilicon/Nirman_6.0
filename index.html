@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sangam | One conversation. Many ways to take part.</title>
+<meta name="description" content="Sangam is a two-way communication relay. Each person picks how they send and how they receive, and the same message arrives in the form that works for them.">
+<meta name="theme-color" content="#16122B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316122B'/%3E%3Ccircle cx='9' cy='16' r='3.4' fill='%23FF9F1C'/%3E%3Ccircle cx='23' cy='16' r='3.4' fill='%23FF5D73'/%3E%3Cpath d='M9 16h14' stroke='%232EC4D6' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/account.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+<symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></symbol>
+<symbol id="i-mic-off" viewBox="0 0 24 24"><line x1="2" x2="22" y1="2" y2="22"></line><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"></path><path d="M5 10v2a7 7 0 0 0 12 5"></path><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"></path><path d="M9 9v3a3 3 0 0 0 5.12 2.12"></path><line x1="12" x2="12" y1="19" y2="22"></line></symbol>
+<symbol id="i-ear-off" viewBox="0 0 24 24"><path d="M6 18.5a3.5 3.5 0 1 0 7 0c0-1.57.92-2.52 2.04-3.46"></path><path d="M6 8.5c0-.75.13-1.47.36-2.14"></path><path d="M8.8 3.15A6.5 6.5 0 0 1 19 8.5c0 1.63-.44 2.81-1.09 3.76"></path><path d="M12.5 6A2.5 2.5 0 0 1 15 8.5M10 13a2 2 0 0 0 1.82-1.18"></path><line x1="2" x2="22" y1="2" y2="22"></line></symbol>
+<symbol id="i-message-square-text" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M13 8H7"></path><path d="M17 12H7"></path></symbol>
+<symbol id="i-hand-helping" viewBox="0 0 24 24"><path d="M11 12h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 14"></path><path d="m7 18 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"></path><path d="m2 13 6 6"></path></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+<symbol id="i-scan-text" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><path d="M7 8h8"></path><path d="M7 12h10"></path><path d="M7 16h6"></path></symbol>
+<symbol id="i-sliders-horizontal" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></symbol>
+<symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></symbol>
+<symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></symbol>
+<symbol id="i-siren" viewBox="0 0 24 24"><path d="M7 18v-6a5 5 0 1 1 10 0v6"></path><path d="M5 21a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z"></path><path d="M21 12h1"></path><path d="M18.5 4.5 18 5"></path><path d="M2 12h1"></path><path d="M12 2v1"></path><path d="m4.929 4.929.707.707"></path><path d="M12 12v6"></path></symbol>
+<symbol id="i-volume-2" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"></path><path d="M16 9a5 5 0 0 1 0 6"></path><path d="M19.364 18.364a9 9 0 0 0 0-12.728"></path></symbol>
+<symbol id="i-vibrate" viewBox="0 0 24 24"><path d="m2 8 2 2-2 2 2 2-2 2"></path><path d="m22 8-2 2 2 2-2 2 2 2"></path><rect width="8" height="14" x="8" y="5" rx="1"></rect></symbol>
+<symbol id="i-captions" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="5" rx="2" ry="2"></rect><path d="M7 15h4M15 15h2M7 11h2M13 11h4"></path></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></symbol>
+<symbol id="i-trash-2" viewBox="0 0 24 24"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></symbol>
+<symbol id="i-delete" viewBox="0 0 24 24"><path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"></path><path d="m12 9 6 6"></path><path d="m18 9-6 6"></path></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></symbol>
+<symbol id="i-square" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"></rect></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></symbol>
+<symbol id="i-thumbs-up" viewBox="0 0 24 24"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path></symbol>
+<symbol id="i-thumbs-down" viewBox="0 0 24 24"><path d="M17 14V2"></path><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"></path></symbol>
+<symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></symbol>
+<symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></symbol>
+<symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M11 2v2"></path><path d="M5 2v2"></path><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"></path><path d="M8 15a6 6 0 0 0 12 0v-3"></path><circle cx="20" cy="10" r="2"></circle></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></symbol>
+<symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></symbol>
+<symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></symbol>
+<symbol id="i-turtle" viewBox="0 0 24 24"><path d="m12 10 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a8 8 0 1 0-16 0v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3l2-4h4Z"></path><path d="M4.82 7.9 8 10"></path><path d="M15.18 7.9 12 10"></path><path d="M16.93 10H20a2 2 0 0 1 0 4H2"></path></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></symbol>
+<symbol id="i-languages" viewBox="0 0 24 24"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></symbol>
+<symbol id="i-heart-handshake" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></symbol>
+<symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></symbol>
+<symbol id="i-circle-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></symbol>
+<symbol id="i-toilet" viewBox="0 0 24 24"><path d="M7 12h13a1 1 0 0 1 1 1 5 5 0 0 1-5 5h-.598a.5.5 0 0 0-.424.765l1.544 2.47a.5.5 0 0 1-.424.765H5.402a.5.5 0 0 1-.424-.765L7 18"></path><path d="M8 18a5 5 0 0 1-5-5V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"></path></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"></circle><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"></path><circle cx="18" cy="5" r="3"></circle></symbol>
+<symbol id="i-frown" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></symbol>
+<symbol id="i-triangle-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></symbol>
+<symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></symbol>
+<symbol id="i-keyboard" viewBox="0 0 24 24"><path d="M10 8h.01"></path><path d="M12 12h.01"></path><path d="M14 8h.01"></path><path d="M16 12h.01"></path><path d="M18 8h.01"></path><path d="M6 8h.01"></path><path d="M7 16h10"></path><path d="M8 12h.01"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></symbol>
+<symbol id="i-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></symbol>
+<symbol id="i-type" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" x2="15" y1="20" y2="20"></line><line x1="12" x2="12" y1="4" y2="20"></line></symbol>
+<symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 18a6 6 0 0 0 0-12v12z"></path></symbol>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></symbol>
+<symbol id="i-pencil" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></symbol>
+<symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></symbol>
+<symbol id="i-monitor-smartphone" viewBox="0 0 24 24"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"></path><path d="M10 19v-3.96 3.15"></path><path d="M7 19h5"></path><rect width="6" height="10" x="16" y="12" rx="2"></rect></symbol>
+<symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"></path></symbol>
+<symbol id="i-split" viewBox="0 0 24 24"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"></path><path d="m15 9 6-6"></path></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></symbol>
+<symbol id="i-glasses" viewBox="0 0 24 24"><circle cx="6" cy="15" r="4"></circle><circle cx="18" cy="15" r="4"></circle><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"></path><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"></path><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"></path></symbol>
+<symbol id="i-accessibility" viewBox="0 0 24 24"><circle cx="16" cy="4" r="1"></circle><path d="m18 19 1-7-6 1"></path><path d="m5 8 3-3 5.5 3-2.36 3.5"></path><path d="M4.24 14.5a5 5 0 0 0 6.88 6"></path><path d="M13.76 17.5a5 5 0 0 0-6.88-6"></path></symbol>
+<symbol id="i-earth" viewBox="0 0 24 24"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"></path><path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"></path><path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"></path><circle cx="12" cy="12" r="10"></circle></symbol>
+<symbol id="i-badge-check" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></symbol>
+<symbol id="i-braille" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="8.5" cy="5.5" r="1.9"/><circle cx="8.5" cy="12" r="1.9"/><circle cx="8.5" cy="18.5" r="1.9"/><circle cx="15.5" cy="5.5" r="1.9"/><circle cx="15.5" cy="12" r="1.9"/><circle cx="15.5" cy="18.5" r="1.9"/></g></symbol>
+<symbol id="i-qr-code" viewBox="0 0 24 24"><rect width="5" height="5" x="3" y="3" rx="1"></rect><rect width="5" height="5" x="16" y="3" rx="1"></rect><rect width="5" height="5" x="3" y="16" rx="1"></rect><path d="M21 16h-3a2 2 0 0 0-2 2v3"></path><path d="M21 21v.01"></path><path d="M12 7v3a2 2 0 0 1-2 2H7"></path><path d="M3 12h.01"></path><path d="M12 3h.01"></path><path d="M12 16v.01"></path><path d="M16 12h1"></path><path d="M21 12v.01"></path><path d="M12 21v-1"></path></symbol>
+<symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></symbol>
+<symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" x2="19" y1="8" y2="14"></line><line x1="22" x2="16" y1="11" y2="11"></line></symbol>
+<symbol id="i-log-in" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" x2="3" y1="12" y2="12"></line></symbol>
+<symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M5 22h14"></path><path d="M5 2h14"></path><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path></symbol>
+<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></symbol>
+</svg>
+
+<header class="bar" id="bar">
+  <div class="bar-in">
+    <a class="logo" href="#/">
+      <svg class="logo-mark sangam-emblem" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="sangamFlowA" x1="8" y1="8" x2="54" y2="54" gradientUnits="userSpaceOnUse"><stop stop-color="#9BE8D6"/><stop offset="1" stop-color="#83A7F4"/></linearGradient>
+          <linearGradient id="sangamFlowB" x1="56" y1="8" x2="10" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#F3B6A2"/><stop offset="1" stop-color="#B6A0E9"/></linearGradient>
+        </defs>
+        <path d="M8 18.5C17 7 31 8 39 17.5c6 7.1 5 15.1-2.5 21.4L20 53" fill="none" stroke="url(#sangamFlowA)" stroke-width="5.2" stroke-linecap="round"/>
+        <path d="M56 45.5C47 57 33 56 25 46.5c-6-7.1-5-15.1 2.5-21.4L44 11" fill="none" stroke="url(#sangamFlowB)" stroke-width="5.2" stroke-linecap="round"/>
+        <path d="M20 32h24" stroke="#F2F3FF" stroke-opacity=".8" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="3.2" fill="#F4D9A5"/>
+      </svg>
+      <span class="logo-wordmark"><span class="logo-type">SANGAM</span><span class="logo-caption">COMMUNICATION, CONNECTED</span></span>
+    </a>
+
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">
+      <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg><span>Menu</span>
+    </button>
+
+    <nav id="nav" class="nav" aria-label="Main">
+      <span class="ax-pub" id="axPub">
+        <a href="#/" data-nav="home">Home</a>
+        <a href="#about">About</a>
+        <a href="#how">How it works</a>
+        <a href="#impact">Impact</a>
+      </span>
+      <!-- Guest demo menu: kept in the page for the existing feature code, but not shown in the header (the demo is offered from the home page and the sign-in page instead). -->
+      <div class="drop" hidden>
+        <button id="dashBtn" class="dash-btn" type="button" aria-expanded="false" aria-controls="dashMenu">
+          <span class="dot" aria-hidden="true"></span>Dashboard
+          <svg class="icon chev" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+        </button>
+        <div class="drop-panel" id="dashMenu" hidden>
+          <p class="drop-head">Open a feature</p>
+          <ul id="dropList"></ul>
+        </div>
+      </div>
+      <span class="ax-nav" id="axNav"></span>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ HOME ============ -->
+<div id="home">
+
+  <section class="hero" aria-labelledby="h1">
+    <div class="hero-in">
+      <div class="hero-text">
+        <p class="kicker"><span class="pulse" aria-hidden="true"></span>Adaptive communication platform</p>
+        <h1 id="h1">One conversation.<br><em>Many ways</em> to take part.</h1>
+        <p class="sub">SANGAM brings people together through accessible communication, helping each person choose how they send, receive and understand a message.</p>
+        <div class="hero-cta">
+          <a class="btn btn-fill" id="heroStart" href="#/register">Get started<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+          <a class="btn btn-line" href="#how">See how it works</a>
+        </div>
+        <p class="hero-demo"><a href="#/dashboard">Or try the tools as a guest, without an account</a> <span>(nothing is saved to an account)</span></p>
+        <dl class="facts">
+          <div><dt>4</dt><dd>ways in</dd></div>
+          <div><dt>4</dt><dd>ways out</dd></div>
+          <div><dt>1</dt><dd>shared conversation</dd></div>
+        </dl>
+      </div>
+
+      <div class="board" aria-labelledby="boardh">
+        <h2 id="boardh" class="board-h">The SANGAM communication relay</h2>
+        <span class="board-note">ILLUSTRATIVE FLOW</span>
+        <svg class="cables" viewBox="0 0 560 420" preserveAspectRatio="none" aria-hidden="true">
+          <g fill="none" stroke-width="3" stroke-linecap="round">
+            <path id="c1" d="M96 70 C 210 70, 190 196, 280 196"/>
+            <path id="c2" d="M96 154 C 200 154, 200 196, 280 196"/>
+            <path id="c3" d="M96 238 C 200 238, 200 200, 280 200"/>
+            <path id="c4" d="M96 322 C 210 322, 190 200, 280 200"/>
+            <path id="c5" d="M280 196 C 370 196, 350 70, 464 70"/>
+            <path id="c6" d="M280 196 C 360 196, 360 154, 464 154"/>
+            <path id="c7" d="M280 200 C 360 200, 360 238, 464 238"/>
+            <path id="c8" d="M280 200 C 370 200, 350 322, 464 322"/>
+          </g>
+        </svg>
+        <div class="col col-in">
+          <p class="col-h in">Input</p>
+          <ul id="inJacks"></ul>
+        </div>
+        <div class="core">
+          <span class="core-ring" aria-hidden="true"></span>
+          <span class="core-label">SANGAM</span>
+          <span class="core-sub">adapt</span>
+        </div>
+        <div class="col col-out">
+          <p class="col-h out">Output</p>
+          <ul id="outJacks"></ul>
+        </div>
+        <p class="board-foot" id="boardFoot" aria-live="off">Voice in, captions out.</p>
+        <button class="btn btn-sm board-pause" id="boardPause" type="button" aria-pressed="false">Pause demo</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-label="What Sangam adds">
+    <div class="wrap strip-in">
+      <p><b>Two-way.</b> Both people can send and receive.</p>
+      <p><b>Profile-led.</b> The person sets their modes, the app never guesses from a label.</p>
+      <p><b>Error-aware.</b> Uncertain text is flagged and can be fixed before it is sent.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="h-about">
+    <div class="wrap two">
+      <div>
+        <p class="sec-tag">About</p>
+        <h2 id="h-about">The tools exist. The conversation is still broken.</h2>
+        <p class="lead">Captions, OCR, scene description and phrase boards all work well on their own. The person still has to move between them, and the other side of the conversation has no shared way to answer.</p>
+        <p class="lead">Sangam does not replace those tools. It connects a chosen input to a chosen output, for both people at once, with a correction step in the middle.</p>
+      </div>
+      <ul class="exist">
+        <li><span>Reads text and scenes</span><b>Seeing AI, Lookout</b></li>
+        <li><span>Speech to captions</span><b>Live Transcribe</b></li>
+        <li><span>Phrases spoken aloud</span><b>AAC apps</b></li>
+        <li><span>Sign interpretation</span><b>SignAble</b></li>
+        <li class="joined"><span>Connects all of it, both ways</span><b>Sangam</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec dark" id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <p class="sec-tag">How it works</p>
+      <h2 id="h-how">Four steps, every message</h2>
+      <ol class="steps">
+        <li><span class="sn">1</span><h3>Input</h3><p>Mic, keyboard, phrase board or camera.</p></li>
+        <li><span class="sn">2</span><h3>Process</h3><p>Speech to text, typed text or text read from a photo.</p></li>
+        <li><span class="sn">3</span><h3>Adapt</h3><p>Match what the other person chose to receive.</p></li>
+        <li><span class="sn">4</span><h3>Output</h3><p>Captions, a spoken reply, or text read aloud.</p></li>
+      </ol>
+      <p class="caveat"><svg class="icon" aria-hidden="true"><use href="#i-triangle-alert"/></svg>If recognition is shaky, Sangam marks the text as uncertain and the sender fixes it before it goes out. Nothing is sent behind the user's back.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="impact" aria-labelledby="h-impact">
+    <div class="wrap">
+      <p class="sec-tag">Impact</p>
+      <h2 id="h-impact">Who it is for</h2>
+      <div class="who" id="whoGrid"></div>
+      <p class="honest">Full sign-language translation is not in the prototype, and the deafblind-friendly options are still under validation. Both need co-design and testing with the people who use them, and we are not going to claim them before that happens.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div id="dash" hidden>
+  <div class="wrap dash-top">
+    <div>
+      <p class="sec-tag">Dashboard</p>
+      <h1 id="dashTitle" tabindex="-1" aria-live="polite">Your communication space</h1>
+      <p class="dash-lead">Choose how you want to send and receive a message. Your preferences stay in your control.</p>
+    </div>
+    <div class="profile-strip" id="profileStrip"></div>
+  </div>
+
+  <div class="wrap">
+    <a class="chat-pill" id="chatPill" href="#/dashboard/connect" hidden></a>
+    <div class="tts-bar" id="ttsBar" role="group" aria-label="Quick controls">
+      <button class="btn btn-sm" id="ttsStop" type="button"><svg class="icon" aria-hidden="true"><use href="#i-volume-2"/></svg>Stop speaking</button>
+      <button class="btn btn-sm" id="ttsRepeat" type="button"><svg class="icon" aria-hidden="true"><use href="#i-rotate-ccw"/></svg>Repeat last</button>
+      <button class="btn btn-emg btn-sm" id="emgGlobal" type="button"><svg class="icon" aria-hidden="true"><use href="#i-siren"/></svg>Emergency</button>
+      <span class="note" id="ttsState" role="status"></span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Dashboard sections"></nav>
+  </div>
+
+  <div class="wrap panels">
+
+    <section class="panel" data-p="overview" aria-label="Overview">
+      <div class="start-grid">
+        <div class="start-copy">
+          <p class="mini-label">START A CONVERSATION</p>
+          <h2>Choose the way that works for you.</h2>
+          <p>Start with captions, build a reply with the phrase board, or read printed text from a photo.</p>
+          <div class="start-actions">
+            <a class="btn btn-fill" href="#/dashboard/relay">Start with captions</a>
+            <a class="btn btn-line" href="#/dashboard/phrases">Build a message</a>
+          </div>
+          <p class="local-note"><span aria-hidden="true">●</span> You stay in control. Review recognised text before sharing.</p>
+        </div>
+        <div class="relay-preview" aria-label="Example communication relay">
+          <div class="relay-step"><span class="step-icon">01</span><div><b>Person A sends</b><small>Spoken message</small></div></div>
+          <div class="relay-connector"><span></span></div>
+          <div class="relay-step active"><span class="step-icon">02</span><div><b>SANGAM adapts</b><small>Caption ready to review</small></div></div>
+          <div class="relay-connector"><span></span></div>
+          <div class="relay-step"><span class="step-icon">03</span><div><b>Person B receives</b><small>In their chosen mode</small></div></div>
+          <p class="example-label">EXAMPLE FLOW · NOT A LIVE CONNECTION</p>
+        </div>
+      </div>
+      <div class="overview-label"><span>Explore your tools</span><small>Choose a feature to get started</small></div>
+      <div class="cards" id="cards"></div>
+      <div class="relay">
+        <div class="relay-head">
+          <h3>Live relay</h3>
+          <p>One message, shown the way each person chose.</p>
+        </div>
+        <div class="relay-body">
+          <div class="person a">
+            <p class="pname"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>Sender speaks</p>
+            <p class="bubble" id="relaySaid">Take one tablet after food.</p>
+            <p class="pmeta">Marked certain. Ready to send.</p>
+          </div>
+          <div class="relay-arrow" aria-hidden="true"><svg viewBox="0 0 80 24"><path d="M2 12h64" stroke="#2EC4D6" stroke-width="3" stroke-linecap="round"/><path d="M62 5l10 7-10 7" fill="none" stroke="#2EC4D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="person b">
+            <p class="pname"><svg class="icon" aria-hidden="true"><use href="#i-captions"/></svg>Receiver gets</p>
+            <p class="bubble big" id="relayGot">Take one tablet after food.</p>
+            <p class="braille" id="relayBraille" aria-hidden="true"></p>
+            <p class="pmeta">Captions, large text and Braille preview</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-p="profile" hidden aria-label="Access profile">
+      <div class="p-head"><h2>Access profile</h2><p>Set it once. Every feature follows it.</p></div>
+      <div class="pgrid">
+        <fieldset class="pbox">
+          <legend>I send with</legend>
+          <div class="chips" id="inChips"></div>
+        </fieldset>
+        <fieldset class="pbox">
+          <legend>I receive as</legend>
+          <div class="chips" id="outChips"></div>
+        </fieldset>
+        <div class="pbox">
+          <label for="rng">Text size <output id="rngOut">100%</output></label>
+          <input type="range" id="rng" min="100" max="160" step="10" value="100">
+          <label for="rate" class="mt">Speaking speed <output id="rateOut">1.0x</output></label>
+          <input type="range" id="rate" min="0.7" max="1.3" step="0.1" value="1">
+        </div>
+        <div class="pbox">
+          <label for="lang">Voice language</label>
+          <select id="lang">
+            <option value="en-IN">English (India)</option>
+            <option value="en-US">English (US)</option>
+            <option value="en-GB">English (UK)</option>
+            <option value="hi-IN">Hindi (हिन्दी)</option>
+            <option value="or-IN">Odia (ଓଡ଼ିଆ)</option>
+          </select>
+          <p class="note" id="langNote" role="status"></p>
+          <label class="sw mt"><input type="checkbox" id="hc"><span class="tr" aria-hidden="true"></span>High contrast</label>
+        </div>
+        <div class="pbox">
+          <label for="voiceSel">Spoken voice</label>
+          <select id="voiceSel"><option value="">Automatic for the chosen language</option></select>
+          <div class="row mt"><button class="btn btn-sm" id="voiceTest" type="button">Test voice</button></div>
+          <label class="sw mt"><input type="checkbox" id="autoRead"><span class="tr" aria-hidden="true"></span>Read incoming chat messages aloud</label>
+          <p class="note" id="voiceNote" role="status"></p>
+        </div>
+        <div class="pbox">
+          <label class="sw"><input type="checkbox" id="scanOn"><span class="tr" aria-hidden="true"></span>Switch scanning</label>
+          <p class="note">Highlights one control at a time. Press Space or Enter (or the key your switch sends) to choose. Works with keyboards and with switches that act like a keyboard; not tested with physical switch hardware.</p>
+          <label for="scanMs" class="mt">Scan speed <output id="scanMsOut">1.2 s</output></label>
+          <input type="range" id="scanMs" min="600" max="3000" step="200" value="1200">
+          <label class="sw mt"><input type="checkbox" id="scanAuto" checked><span class="tr" aria-hidden="true"></span>Move automatically</label>
+          <p class="note">Turn off to step yourself: use the arrow keys or the Next button to move, and Space or Enter to choose (for two-switch use).</p>
+          <label for="scanLoops" class="mt">Pause when nothing is chosen</label>
+          <select id="scanLoops"><option value="0">Never (keep scanning)</option><option value="2">After 2 passes</option><option value="3">After 3 passes</option><option value="5">After 5 passes</option></select>
+          <label class="sw mt"><input type="checkbox" id="scanSpeak"><span class="tr" aria-hidden="true"></span>Speak each highlighted control</label>
+        </div>
+        <div class="pbox wide">
+          <label for="emg">Emergency message</label>
+          <textarea id="emg" rows="2" maxlength="200"></textarea>
+        </div>
+      </div>
+      <div class="pgrid" id="profileExtra"></div>
+      <p class="saved" id="saved" role="status">Saved on this device. These preferences never leave this device, even in a shared chat.</p>
+    </section>
+
+    <section class="panel" data-p="relay" hidden aria-label="Speak and caption">
+      <div class="p-head"><h2>Speak and caption</h2><p>Listen to the other person, then reply in your own modes.</p></div>
+      <div class="two-box">
+        <div class="box">
+          <h3>Listen</h3>
+          <button class="mic" id="mic" type="button" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><span id="micLabel">Start listening</span></button>
+          <p class="note" id="micNote" role="status">Your browser will ask for the microphone.</p>
+          <div class="tscript" id="tscript" role="log" aria-live="polite" tabindex="0"></div>
+          <div class="row"><button class="btn btn-sm" id="useT" type="button">Use as my reply</button><button class="btn btn-sm" id="clrT" type="button">Clear captions</button></div>
+          <div class="review" id="voiceReview">
+            <label for="voiceDraft">Review before sending</label>
+            <textarea id="voiceDraft" rows="3" maxlength="1000" placeholder="What you say is collected here. Fix any mistakes, then send. Nothing is sent until you press the button."></textarea>
+            <div class="row"><button class="btn btn-fill btn-sm" id="voiceSend" type="button" disabled>Send to chat</button><button class="btn btn-sm" id="voiceClear" type="button">Discard</button></div>
+            <p class="note" id="voiceSendNote" role="status"></p>
+          </div>
+        </div>
+        <div class="box">
+          <h3>Reply</h3>
+          <label class="vis-hidden" for="say">Your reply</label>
+          <textarea id="say" rows="3" maxlength="300">I need some water, please.</textarea>
+          <div class="outs" id="outs"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-p="scan" hidden aria-label="Read from a photo">
+      <div class="p-head"><h2>Read from a photo</h2><p>Point at a label, a form or a sign. The text is read out on the device.</p></div>
+      <div class="two-box">
+        <div class="box">
+          <label class="drop-zone" for="file"><svg class="icon big" aria-hidden="true"><use href="#i-camera"/></svg><b>Choose or take a photo</b><span>Printed text in good light works best</span></label>
+          <input id="file" class="vis-hidden" type="file" accept="image/png,image/jpeg,image/webp,image/bmp,image/gif" capture="environment">
+          <p class="note" id="scanFileNote" role="status">PNG, JPEG, WebP, BMP or GIF, up to 12 MB. Reads printed English only.</p>
+          <img id="prev" alt="Your photo" hidden>
+          <div class="row" id="photoActions" hidden><button class="btn btn-sm" id="photoReplace" type="button">Replace photo</button><button class="btn btn-sm" id="photoRemove" type="button">Remove photo</button></div>
+          <div class="row"><button class="btn btn-fill" id="run" type="button" disabled>Read the text</button><button class="btn btn-sm" id="runCancel" type="button" hidden>Cancel</button></div>
+          <div id="prog" hidden><progress id="ocrBar" max="100" value="0" aria-label="Reading progress"></progress><span id="progL" role="status"></span></div>
+          <p class="note" id="scanNote" role="status" hidden></p>
+        </div>
+        <div class="box">
+          <label for="scanText">Text found</label>
+          <textarea id="scanText" rows="8" placeholder="The text appears here and you can edit it."></textarea>
+          <p class="note" id="scanConf" role="status"></p>
+          <div class="row"><button class="btn btn-sm" id="scanSay" type="button">Read aloud</button><button class="btn btn-sm" id="scanCopy" type="button">Copy</button><button class="btn btn-sm" id="scanUse" type="button">Use as my reply</button><button class="btn btn-fill btn-sm" id="scanSend" type="button">Send to chat</button></div>
+          <p class="note" id="scanSendNote" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-p="sounds" hidden aria-label="Sound alerts">
+      <div class="p-head"><h2>Sound alerts</h2><p>SANGAM listens through your microphone for alarms, sirens, doorbells and vehicle horns, and tells you on screen, by flashing, by vibration or out loud, in the ways you choose.</p></div>
+      <div class="box snd-honest">
+        <h3 class="pbox-h">Read this first</h3>
+        <ul class="sign-limits">
+          <li><b>This is not a safety device.</b> It can miss sounds and it can raise false alarms. Do not use it in place of certified smoke or fire alarms, flashing or vibrating alarm kits, or a person who can alert you.</li>
+          <li><b>It only works while this page is open</b> and the microphone is on. Phones and laptops may pause the microphone when the screen is off or the tab is in the background.</li>
+          <li><b>Private by default.</b> Sound is analysed on this device and thrown away straight away. It is never recorded, stored or uploaded. The microphone indicator below stays on while SANGAM listens, and Stop turns it off at once.</li>
+          <li><b>How it decides.</b> A Google sound-recognition model (YAMNet) scores each second of audio against 521 everyday sound types. Its scores are not probabilities, so "confidence" is the model's raw score for the sound it thinks it heard.</li>
+        </ul>
+        <div class="row"><button class="btn btn-fill" id="sndStart" type="button" aria-describedby="sndNote sndModel"><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg><span id="sndLabel">Start listening</span></button></div>
+        <div class="snd-meter-row"><span class="snd-meter" aria-hidden="true"><i id="sndMeterFill"></i></span><span class="note" id="sndLevelText">Microphone is off.</span></div>
+        <p class="note" id="sndNote" role="status">Your browser will ask for the microphone when you press Start. The sound model (about 26 MB) loads first, so you need the SANGAM server reachable the first time.</p>
+        <p class="note" id="sndModel">Sound model: not loaded yet.</p>
+      </div>
+      <div class="box">
+        <h3 class="pbox-h">Sounds to watch for</h3>
+        <div class="chips" id="sndTypes"></div>
+        <h3 class="pbox-h">Sensitivity</h3>
+        <div class="chips" id="sndSens" role="radiogroup" aria-label="Sensitivity"></div>
+        <h3 class="pbox-h">How to alert me</h3>
+        <div class="chips" id="sndModes"></div>
+        <p class="note">One alert is shown when a sound starts. A sound that keeps going does not alert again; the alert stays on screen and says "Still sounding". A new alert for the same sound type can only appear after 4 seconds, and only once it has been quiet for 2 seconds.</p>
+      </div>
+      <div class="box" id="sndLoudBox">
+        <h3 class="pbox-h">Loud sound, not identified <span class="note">(off by default)</span></h3>
+        <p class="note">This is <b>not</b> sound classification: it only measures how loud the microphone is, with no idea what caused it. It only ever fires when none of the sound types above has already recognised the noise, and every alert it shows says plainly that it is unidentified. Turn it on if you also want to know about a loud sound that is not an alarm, siren, doorbell, horn, knock, cry or breaking glass &mdash; an earlier teammate's loudness-only prototype worked this way for every sound; here it is a fallback for what classification misses, not a replacement for it.</p>
+        <div class="chips" id="sndLoudType"></div>
+      </div>
+      <div class="box">
+        <h3 class="pbox-h">Check that it works</h3>
+        <p class="note">Preview buttons show how an alert looks and feels. They are simulated and are labelled that way. They do not test the microphone or the model.</p>
+        <div class="row" id="sndPreview"></div>
+        <p class="note">To test real detection, press Start listening, then play a 4 second smoke-alarm style beep through your speaker. Your microphone has to hear it, so turn the volume up a little.</p>
+        <div class="row"><button class="btn btn-sm" id="sndBeep" type="button" disabled><svg class="icon" aria-hidden="true"><use href="#i-volume-2"/></svg>Play test beep (needs listening on)</button></div>
+      </div>
+      <div class="box">
+        <h3 class="pbox-h">Recent alerts</h3>
+        <ol class="snd-log" id="sndLog"><li>Nothing detected yet.</li></ol>
+        <div class="row"><button class="btn btn-sm" id="sndClear" type="button">Clear history</button></div>
+        <p class="note">History is kept in memory for this visit only and is gone when you close or reload the page. Your settings (which sounds, sensitivity, how to alert) are remembered on this device; no audio is.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-p="sign" hidden aria-label="Sign Language Camera">
+      <div class="p-head"><h2>Sign Language Camera</h2><p>Sign in front of your camera. SANGAM matches what it sees against a vocabulary and shows the words for you to check before anything is spoken or sent.</p></div>
+      <div class="box sign-honest">
+        <h3 class="pbox-h">Read this first</h3>
+        <ul class="sign-limits">
+          <li><b>This is not a full sign-language translator.</b> It recognises single signs from a vocabulary. It does not understand sentences, grammar, facial expression or body posture.</li>
+          <li><b>Indian and American Sign Language use real pretrained models</b> (AI4Bharat OpenHands, trained on the INCLUDE and WLASL datasets). They each recognise one isolated sign at a time from their own fixed vocabulary. SANGAM has not independently tested their accuracy with real signers &mdash; see docs/SIGN_LANGUAGE_MODEL_EVALUATION.md before relying on them.</li>
+          <li><b>What else works:</b> real hand tracking in your browser, plus a recogniser you teach with your own signs. It recognises <em>your</em> performances of the signs <em>you</em> record.</li>
+          <li><b>Private by default.</b> Camera pictures are processed on this device and are never uploaded or recorded. Only the text you confirm and send leaves your device.</li>
+        </ul>
+        <div class="row"><button class="btn btn-fill" id="signOpen" type="button"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>Open Sign Language Camera</button></div>
+        <p class="note" id="signPanelNote" role="status"></p>
+      </div>
+      <div class="box">
+        <h3 class="pbox-h">Recognisers</h3>
+        <ul class="sign-recs" id="signRecList"></ul>
+      </div>
+    </section>
+
+    <section class="panel" data-p="phrases" hidden aria-label="Phrase board">
+      <div class="p-head"><h2>Phrase board</h2><p>Tap tiles to build, edit, speak, or send a message.</p></div>
+      <div class="say-bar">
+        <label for="phraseDraft">Composed message</label>
+        <textarea class="phrase-draft" id="phraseDraft" rows="3" maxlength="1000" aria-describedby="sentenceHelp" placeholder="Choose phrases below or type your own message"></textarea>
+        <p id="sentenceHelp" class="note">Selected phrases are added here. Review or edit the wording before speaking or sending.</p>
+        <div class="row">
+          <button class="btn btn-fill" id="pSpeak" type="button"><svg class="icon" aria-hidden="true"><use href="#i-volume-2"/></svg>Speak</button>
+          <button class="btn btn-sm" id="pBack" type="button">Undo</button>
+          <button class="btn btn-sm" id="pClear" type="button">Clear</button>
+          <button class="btn btn-sm" id="pToMessage" type="button">Edit in messages</button>
+          <button class="btn btn-fill btn-sm" id="pSendChat" type="button">Send to chat</button>
+          <button class="btn btn-emg" id="pEmg" type="button"><svg class="icon" aria-hidden="true"><use href="#i-siren"/></svg>Emergency</button>
+        </div>
+        <p class="note" id="pNote" role="status"></p>
+        <div class="row custom-phrase"><label for="customPhrase" class="vis-hidden">New phrase</label><input id="customPhrase" type="text" maxlength="120" placeholder="Add your own phrase"><button class="btn btn-sm" id="addPhrase" type="button">Save as tile</button></div>
+      </div>
+      <div class="cats" id="cats" role="group" aria-label="Categories"></div>
+      <div class="tiles" id="tiles"></div>
+    </section>
+
+    <section class="panel" data-p="messages" hidden aria-label="Text messages">
+      <div class="p-head"><h2>Text messages</h2><p>Compose a message here, then send it to a live Connect &amp; chat session. Without a session, your draft stays on this device.</p></div>
+      <div class="message-thread" id="messageThread" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Message activity"><p class="message-empty">No message activity yet. Create or join a session in Connect &amp; chat to send messages to another device.</p></div>
+      <p class="note" id="msgConn" role="status"></p>
+      <form class="message-compose" id="messageForm">
+        <label for="messageDraft">Your message</label>
+        <textarea id="messageDraft" rows="3" maxlength="1000" placeholder="Type a message…"></textarea>
+        <div class="message-compose-actions"><span id="messageCount" class="note">0 / 1000</span><div class="row"><button class="btn btn-sm" id="messageClear" type="button">Clear draft</button><button class="btn btn-fill" type="submit">Send to active chat</button></div></div>
+      </form>
+    </section>
+
+    <section class="panel" data-p="connect" hidden aria-label="Connect and chat">
+      <div class="p-head"><h2>Connect &amp; chat</h2><p>Create a session, share the QR code or link, and talk in real time. Both people can send and receive, on separate devices.</p></div>
+      <div id="connectRoot" class="connect"></div>
+    </section>
+
+    <section class="panel" data-p="learn" hidden aria-label="SANGAM Learn">
+      <div class="p-head"><h2>SANGAM Learn</h2><p>Understand accessibility, communication differences and respectful interaction. Short, practical topics.</p></div>
+      <div id="learnRoot"></div>
+    </section>
+
+    <section class="panel" data-p="assist" hidden aria-label="Human assistance">
+      <div class="p-head"><h2>Human assistance</h2><p>Request a volunteer when technology alone is not enough, or offer help as a volunteer. Volunteer help is not the same as qualified interpretation.</p></div>
+      <div id="assistRoot"></div>
+    </section>
+
+    <section class="panel" data-p="next" hidden aria-label="Next">
+      <div class="p-head"><h2>What comes next</h2><p>Named honestly, so nobody is promised something we have not tested.</p></div>
+      <div id="nextRoot"></div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ ACCOUNT AREA (sign in, onboarding, the four role dashboards): rendered by assets/account.js ============ -->
+<div id="acct" class="ax" hidden>
+  <div id="acctView"></div>
+</div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <p class="foot-logo">Sangam</p>
+    <p>Connect the tools. Keep the user in control. Make both sides heard.</p>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#/help">Help</a><a href="#/privacy">Privacy</a><a href="#/terms">Terms</a><a href="#/help">Support</a>
+    </nav>
+    <p class="foot-team">Prototype by team Kernel Panic</p>
+  </div>
+</footer>
+
+<div class="sr-live" id="sangamLive" role="status" aria-live="polite"></div>
+<div class="sr-live" id="sangamAlert" role="alert" aria-live="assertive"></div>
+<div class="snd-bar" id="soundBar" role="region" aria-label="Sound alerts status" hidden><span class="snd-live-dot" aria-hidden="true"></span><span id="sndBarText">Listening for sounds. Microphone is on.</span><button class="btn btn-sm" id="sndBarStop" type="button">Stop listening</button></div>
+<div class="snd-alert" id="soundAlert" aria-label="Sound alerts" hidden><div class="snd-list"></div></div>
+<div class="snd-flash" id="soundFlash" aria-hidden="true"></div>
+<div class="sr-live" id="sndLive" role="status" aria-live="polite"></div>
+
+<dialog id="signDlg" class="sign-dlg" aria-labelledby="signTitle" aria-describedby="signIntro">
+  <div class="sign-in">
+    <div class="sign-top">
+      <div><h2 id="signTitle">Sign Language Camera</h2><p id="signIntro" class="note">Sign in front of your camera. Check the words before you speak or send them.</p></div>
+      <button class="btn btn-sm" id="signClose" type="button">Close</button>
+    </div>
+    <div class="sr-live" id="signLive" role="status" aria-live="polite"></div>
+    <section class="sign-consent" id="signConsent" aria-labelledby="signConsentH">
+      <h3 id="signConsentH">Before the camera opens</h3>
+      <ul>
+        <li>Your camera will be used to follow your hands and match your signs. Nothing is recorded or uploaded; pictures are processed in this browser and discarded.</li>
+        <li>Only the text you confirm and send goes to the other person.</li>
+        <li>Recognition can be wrong. Always check the words before speaking or sending them.</li>
+        <li>You can choose a pretrained Indian or American Sign Language word model, spell words letter by letter with the American fingerspelling alphabet, or teach SANGAM your own signs. None of these has been tested by SANGAM with real signers.</li>
+        <li>The microphone is not used.</li>
+      </ul>
+      <div class="row"><button class="btn btn-fill" id="signConsentGo" type="button">I understand, open my camera</button><button class="btn btn-sm" id="signConsentNo" type="button">Not now</button></div>
+    </section>
+    <div class="sign-grid" id="signMain" hidden>
+      <div class="sign-cam">
+        <div class="sign-stage" id="signStage">
+          <video id="signVideo" playsinline muted autoplay aria-label="Your camera preview. It is mirrored like a mirror."></video>
+          <canvas id="signOverlay" aria-hidden="true"></canvas>
+          <div class="sign-live-dot" id="signDot" hidden><span aria-hidden="true"></span>Camera on</div>
+          <div class="sign-banner" id="signBanner" hidden></div>
+        </div>
+        <p class="note" id="signFrame">Keep both hands and your upper body in view. Good light on your hands helps.</p>
+        <p class="sign-status" id="signCamStatus" role="status"></p>
+        <p class="sign-status" id="signRecStatus" role="status"></p>
+        <p class="sign-status" id="signHands" aria-live="off" hidden></p>
+        <div class="row">
+          <button class="btn btn-sm" id="signCamStart" type="button">Open camera</button>
+          <button class="btn btn-sm" id="signCamSwitch" type="button" hidden>Switch camera</button>
+          <button class="btn btn-fill btn-sm" id="signRecStart" type="button" disabled>Start recognition</button>
+          <button class="btn btn-sm" id="signRecPause" type="button" disabled>Pause</button>
+          <button class="btn btn-sm" id="signCamStop" type="button" disabled>Stop camera</button>
+        </div>
+        <div class="sign-field"><label for="signLang">Sign language or vocabulary</label>
+          <select id="signLang"></select>
+          <p class="note" id="signLangNote"></p>
+        </div>
+        <div class="sign-field" id="signStrictField"><label for="signStrict">Word recognition: how careful?</label>
+          <select id="signStrict">
+            <option value="balanced">Balanced (recommended)</option>
+            <option value="careful">Careful: fewest wrong words, but may miss real signs</option>
+            <option value="loose">Loose: always guesses, many wrong words</option>
+          </select>
+          <p class="note" id="signStrictNote"></p>
+        </div>
+        <label class="sign-check"><input type="checkbox" id="signTrack" checked> Show hand tracking on the picture</label>
+      </div>
+      <div class="sign-out">
+        <label for="signText">Recognised text (you can edit it)</label>
+        <textarea id="signText" rows="5" maxlength="1000" placeholder="Words or letters appear here as you sign. Edit them, then confirm."></textarea>
+        <p class="sign-status" id="signPartial" role="status"></p>
+        <p class="note" id="signConf"></p>
+        <div class="row">
+          <button class="btn btn-sm" id="signUndo" type="button" disabled>Undo last word</button>
+          <button class="btn btn-sm" id="signSpace" type="button" disabled>Add space</button>
+          <button class="btn btn-sm" id="signClear" type="button" disabled>Clear</button>
+          <button class="btn btn-sm" id="signCopy" type="button" disabled>Copy</button>
+        </div>
+        <div class="row">
+          <button class="btn btn-fill btn-sm" id="signConfirm" type="button" disabled>Confirm text</button>
+          <button class="btn btn-sm" id="signSpeak" type="button" disabled><svg class="icon" aria-hidden="true"><use href="#i-volume-2"/></svg>Speak</button>
+          <button class="btn btn-sm" id="signStopSpeak" type="button">Stop speaking</button>
+          <button class="btn btn-fill btn-sm" id="signSend" type="button" disabled>Send to chat</button>
+        </div>
+        <label class="sign-check"><input type="checkbox" id="signAuto"> Speak each new word as it is added (off by default)</label>
+        <p class="note" id="signSendNote" role="status"></p>
+        <details class="sign-teach" id="signTeach" open>
+          <summary>Teach a sign</summary>
+          <p class="note">Give a sign a name (the word it should produce), press Record, then perform the sign once. Record at least 2 examples of each sign, ideally 3 to 5, at different speeds. Examples are saved on this device only.</p>
+          <div class="sign-field"><label for="signLabel">Word for this sign</label><input id="signLabel" type="text" maxlength="40" autocomplete="off"></div>
+          <div class="row"><button class="btn btn-sm" id="signRecord" type="button" disabled>Record an example</button><button class="btn btn-sm" id="signRecordCancel" type="button" hidden>Cancel recording</button></div>
+          <p class="sign-status" id="signTeachStatus" role="status"></p>
+          <ul class="sign-taught" id="signTaught" aria-label="Signs you have taught"></ul>
+          <div class="row"><button class="btn btn-sm" id="signForgetAll" type="button" disabled>Delete all taught signs</button></div>
+        </details>
+        <details class="sign-teach" id="signPoseTeach">
+          <summary>Teach a held pose (one hand, hold still)</summary>
+          <p class="note">For a hand shape you can hold still, such as a gesture you and the people you talk to already use. Name it, press Capture, then hold the shape still in front of the camera until the capture finishes. Teach at least two different poses, capturing each three or more times (move your hand a little closer, further or tilted between captures). Use the same hand every time. These are your own gestures: they are not Indian Sign Language, American Sign Language or any other language. Only numbers (hand positions) are saved on this device, never pictures. Choose “My held poses” in the language list to use them.</p>
+          <div class="sign-field"><label for="signPoseLabel">Word for this pose</label><input id="signPoseLabel" type="text" maxlength="40" autocomplete="off"></div>
+          <div class="row"><button class="btn btn-sm" id="signPoseCapture" type="button" disabled>Capture this pose</button><button class="btn btn-sm" id="signPoseCancel" type="button" hidden>Cancel capture</button></div>
+          <p class="sign-status" id="signPoseStatus" role="status"></p>
+          <ul class="sign-taught" id="signPoses" aria-label="Held poses you have taught"></ul>
+          <div class="row"><button class="btn btn-sm" id="signPoseCheck" type="button" disabled>Check how well my poses work</button><button class="btn btn-sm" id="signPoseExport" type="button" disabled>Download my poses (numbers only)</button><button class="btn btn-sm" id="signPoseForget" type="button" disabled>Delete all held poses</button></div>
+          <div class="note" id="signPoseReport" role="status"></div>
+        </details>
+        <details class="sign-about" id="signAbout">
+          <summary>About this recogniser</summary>
+          <dl id="signAboutBody"></dl>
+        </details>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="emgDlg" class="emg-dlg" aria-labelledby="emgTitle">
+  <div class="emg-in">
+    <h2 id="emgTitle">Emergency alert</h2>
+    <label for="emgText">Message to send (you can edit it)</label>
+    <textarea id="emgText" rows="3" maxlength="300"></textarea>
+    <p class="note" id="emgTarget"></p>
+    <div class="row">
+      <button class="btn btn-emg" id="emgSend" type="button">Send alert</button>
+      <button class="btn btn-sm" id="emgSay" type="button">Speak aloud</button>
+      <button class="btn btn-sm" id="emgShow" type="button">Show to a person nearby</button>
+      <button class="btn btn-line" id="emgClose" type="button">Close</button>
+    </div>
+    <p id="emgStatus" class="emg-status" role="status" aria-live="polite"></p>
+    <div class="emg-alt">
+      <p><b>No one else in a session?</b> SANGAM cannot reach emergency services. Show the message to someone nearby, or open your phone's dialer yourself.</p>
+      <div class="row"><label for="emgNum">Number to dial</label><input id="emgNum" type="tel" inputmode="tel" maxlength="20" value="112"><a class="btn btn-sm" id="emgDial" href="tel:112">Open dialer</a></div>
+    </div>
+  </div>
+</dialog>
+<dialog id="emgShowDlg" class="emg-show" aria-labelledby="emgShowLbl">
+  <p class="vis-hidden" id="emgShowLbl">Emergency message to show to a person nearby</p>
+  <p class="emg-big" id="emgBig"></p>
+  <button class="btn btn-line" id="emgShowClose" type="button">Close</button>
+</dialog>
+<dialog id="emgIn" class="emg-dlg emg-incoming" role="alertdialog" aria-labelledby="emgInTitle" aria-describedby="emgInText">
+  <div class="emg-in">
+    <h2 id="emgInTitle">EMERGENCY ALERT</h2>
+    <p class="emg-from" id="emgInFrom"></p>
+    <p class="emg-big" id="emgInText"></p>
+    <div class="row"><button class="btn btn-emg" id="emgInAck" type="button">I have seen this</button><button class="btn btn-sm" id="emgInSay" type="button">Read aloud</button><button class="btn btn-line" id="emgInClose" type="button">Close without acknowledging</button></div>
+    <p class="note" id="emgInStatus" role="status"></p>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Person 5: full-screen join experience for someone arriving from a QR code / link -->
+<div id="joinOverlay" class="join-overlay" hidden role="dialog" aria-modal="true" aria-label="Join a SANGAM conversation"></div>
+
+<script src="assets/app.js"></script>
+<script src="assets/outputs.js"></script>
+<script src="assets/access.js"></script>
+<script src="assets/translate.js"></script>
+<script src="assets/connect.js"></script>
+<script src="assets/emergency.js"></script>
+<script src="assets/live.js"></script>
+<script src="assets/switch.js"></script>
+<script src="assets/sound-engine.js"></script>
+<script src="assets/sound.js"></script>
+<script src="assets/sign-engine.js"></script>
+<script src="assets/sign-model.js"></script>
+<script src="assets/sign-letters.js"></script>
+<script src="assets/sign-static.js"></script>
+<script src="assets/sign.js"></script>
+<script src="assets/next.js"></script>
+<script src="assets/learn.js"></script>
+<script src="assets/assist.js"></script>
+<script src="assets/account.js"></script>
+<script src="assets/account-dash.js"></script>
+<script src="assets/voice-nav.js"></script>
+</body>
+</html>

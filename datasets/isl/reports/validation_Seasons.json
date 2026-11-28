@@ -1,0 +1,43 @@
+{
+ "category": "Seasons",
+ "archive": "Seasons_1of1.zip",
+ "archive_md5": "56e2f91d852574c8995320d6e4d8205c",
+ "excluded": [],
+ "archive_entries": 92,
+ "metadata_rows": 85,
+ "kept_videos": 85,
+ "excluded_count": 0,
+ "classes": 6,
+ "per_class_split": {
+  "61. Summer": {
+   "test": 3,
+   "train": 11
+  },
+  "62. Spring": {
+   "test": 3,
+   "train": 11
+  },
+  "63. Winter": {
+   "test": 3,
+   "train": 11
+  },
+  "64. Fall": {
+   "test": 3,
+   "train": 12
+  },
+  "65. Season": {
+   "test": 3,
+   "train": 11
+  },
+  "Ex. Monsoon": {
+   "test": 3,
+   "train": 11
+  }
+ },
+ "fps_values": [
+  25.0
+ ],
+ "source_sizes": [
+  "1920x1080"
+ ]
+}

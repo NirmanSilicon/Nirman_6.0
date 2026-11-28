@@ -1,0 +1,10081 @@
+{
+ "summary": {
+  "mode": "seasons_c1_live10",
+  "videos": 85,
+  "skipped": 0,
+  "by_split": {
+   "train": {
+    "whole_clip": {
+     "videos": 67,
+     "usable": 67,
+     "top1_accuracy_pct": 77.6,
+     "loose": {
+      "typed_correct_pct": 76.1,
+      "typed_wrong_pct": 16.4,
+      "rejected_pct": 7.5,
+      "precision_of_typed_pct": 82.3
+     },
+     "balanced": {
+      "typed_correct_pct": 55.2,
+      "typed_wrong_pct": 7.5,
+      "rejected_pct": 37.3,
+      "precision_of_typed_pct": 88.1
+     },
+     "careful": {
+      "typed_correct_pct": 50.7,
+      "typed_wrong_pct": 6,
+      "rejected_pct": 43.3,
+      "precision_of_typed_pct": 89.5
+     }
+    },
+    "app_segment": {
+     "videos": 67,
+     "usable": 65,
+     "top1_accuracy_pct": 78.5,
+     "loose": {
+      "typed_correct_pct": 76.9,
+      "typed_wrong_pct": 18.5,
+      "rejected_pct": 4.6,
+      "precision_of_typed_pct": 80.6
+     },
+     "balanced": {
+      "typed_correct_pct": 50.8,
+      "typed_wrong_pct": 10.8,
+      "rejected_pct": 38.5,
+      "precision_of_typed_pct": 82.5
+     },
+     "careful": {
+      "typed_correct_pct": 44.6,
+      "typed_wrong_pct": 6.2,
+      "rejected_pct": 49.2,
+      "precision_of_typed_pct": 87.9
+     }
+    }
+   },
+   "test": {
+    "whole_clip": {
+     "videos": 18,
+     "usable": 18,
+     "top1_accuracy_pct": 72.2,
+     "loose": {
+      "typed_correct_pct": 72.2,
+      "typed_wrong_pct": 27.8,
+      "rejected_pct": 0,
+      "precision_of_typed_pct": 72.2
+     },
+     "balanced": {
+      "typed_correct_pct": 50,
+      "typed_wrong_pct": 22.2,
+      "rejected_pct": 27.8,
+      "precision_of_typed_pct": 69.2
+     },
+     "careful": {
+      "typed_correct_pct": 33.3,
+      "typed_wrong_pct": 0,
+      "rejected_pct": 66.7,
+      "precision_of_typed_pct": 100
+     }
+    },
+    "app_segment": {
+     "videos": 18,
+     "usable": 18,
+     "top1_accuracy_pct": 72.2,
+     "loose": {
+      "typed_correct_pct": 72.2,
+      "typed_wrong_pct": 27.8,
+      "rejected_pct": 0,
+      "precision_of_typed_pct": 72.2
+     },
+     "balanced": {
+      "typed_correct_pct": 50,
+      "typed_wrong_pct": 16.7,
+      "rejected_pct": 33.3,
+      "precision_of_typed_pct": 75
+     },
+     "careful": {
+      "typed_correct_pct": 33.3,
+      "typed_wrong_pct": 0,
+      "rejected_pct": 66.7,
+      "precision_of_typed_pct": 100
+     }
+    }
+   },
+   "all": {
+    "whole_clip": {
+     "videos": 85,
+     "usable": 85,
+     "top1_accuracy_pct": 76.5,
+     "loose": {
+      "typed_correct_pct": 75.3,
+      "typed_wrong_pct": 18.8,
+      "rejected_pct": 5.9,
+      "precision_of_typed_pct": 80
+     },
+     "balanced": {
+      "typed_correct_pct": 54.1,
+      "typed_wrong_pct": 10.6,
+      "rejected_pct": 35.3,
+      "precision_of_typed_pct": 83.6
+     },
+     "careful": {
+      "typed_correct_pct": 47.1,
+      "typed_wrong_pct": 4.7,
+      "rejected_pct": 48.2,
+      "precision_of_typed_pct": 90.9
+     }
+    },
+    "app_segment": {
+     "videos": 85,
+     "usable": 83,
+     "top1_accuracy_pct": 77.1,
+     "loose": {
+      "typed_correct_pct": 75.9,
+      "typed_wrong_pct": 20.5,
+      "rejected_pct": 3.6,
+      "precision_of_typed_pct": 78.8
+     },
+     "balanced": {
+      "typed_correct_pct": 50.6,
+      "typed_wrong_pct": 12,
+      "rejected_pct": 37.3,
+      "precision_of_typed_pct": 80.8
+     },
+     "careful": {
+      "typed_correct_pct": 42.2,
+      "typed_wrong_pct": 4.8,
+      "rejected_pct": 53,
+      "precision_of_typed_pct": 89.7
+     }
+    }
+   }
+  },
+  "negatives": {
+   "reversed": {
+    "clips": 83,
+    "loose": {
+     "typed_a_word_pct": 92.8
+    },
+    "balanced": {
+     "typed_a_word_pct": 53
+    },
+    "careful": {
+     "typed_a_word_pct": 25.3
+    }
+   },
+   "scrambled": {
+    "clips": 83,
+    "loose": {
+     "typed_a_word_pct": 94
+    },
+    "balanced": {
+     "typed_a_word_pct": 32.5
+    },
+    "careful": {
+     "typed_a_word_pct": 22.9
+    }
+   }
+  },
+  "per_class_test": {
+   "65. Season": "3/3",
+   "Ex. Monsoon": "2/3",
+   "61. Summer": "3/3",
+   "64. Fall": "1/3",
+   "63. Winter": "1/3",
+   "62. Spring": "3/3"
+  },
+  "confusions_test": {
+   "63. Winter -> Bedroom": 1,
+   "63. Winter -> cold": 1,
+   "64. Fall -> Pleased": 2,
+   "Ex. Monsoon -> Afternoon": 1
+  }
+ },
+ "rows": [
+  {
+   "id": "008106f9a3fe",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 20,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.978,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.995,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.806,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.995,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.995
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 19,
+       "p": 0.594,
+       "label": "Newspaper"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 19,
+       "p": 0.594,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 19,
+       "p": 0.594,
+       "label": null
+      }
+     },
+     "top1": 19,
+     "top1_p": 0.594
+    }
+   }
+  },
+  {
+   "id": "14ab09ee8bf8",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 22,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.764,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.706,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.768,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.764
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 62,
+       "p": 0.652,
+       "label": "shallow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 62,
+       "p": 0.652,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 62,
+       "p": 0.652,
+       "label": null
+      }
+     },
+     "top1": 62,
+     "top1_p": 0.652
+    }
+   }
+  },
+  {
+   "id": "257505809eb4",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 25,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.997,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.874,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.997,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.997
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.994,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.994,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.994,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.994
+    }
+   }
+  },
+  {
+   "id": "3a7f84314342",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 27,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.997,
+       "label": "Plane"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.997,
+       "label": "Plane"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.997,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.997
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 181,
+       "p": 0.514,
+       "label": "Grandfather"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 181,
+       "p": 0.514,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 181,
+       "p": 0.514,
+       "label": null
+      }
+     },
+     "top1": 181,
+     "top1_p": 0.514
+    }
+   }
+  },
+  {
+   "id": "4d975f33bce1",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 14,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 247,
+       "p": 0.93,
+       "label": "Soldier"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 247,
+       "p": 0.93,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 247,
+       "p": 0.93,
+       "label": null
+      }
+     },
+     "top1": 247,
+     "top1_p": 0.93
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 23,
+       "p": 0.76,
+       "label": "trainticket"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 23,
+       "p": 0.87,
+       "label": "trainticket"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 23,
+       "p": 0.76,
+       "label": null
+      }
+     },
+     "top1": 23,
+     "top1_p": 0.76
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 27,
+       "p": 0.72,
+       "label": "City"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 27,
+       "p": 0.72,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 27,
+       "p": 0.72,
+       "label": null
+      }
+     },
+     "top1": 27,
+     "top1_p": 0.72
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 247,
+       "p": 0.691,
+       "label": "Soldier"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 247,
+       "p": 0.691,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 247,
+       "p": 0.691,
+       "label": null
+      }
+     },
+     "top1": 247,
+     "top1_p": 0.691
+    }
+   }
+  },
+  {
+   "id": "64be893b098a",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 38,
+   "seg_frames": 38,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.963,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.741,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.731,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.963
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    }
+   }
+  },
+  {
+   "id": "74ad8276fb24",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 234,
+       "p": 0.644,
+       "label": "Patient"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 234,
+       "p": 0.744,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 234,
+       "p": 0.644,
+       "label": null
+      }
+     },
+     "top1": 234,
+     "top1_p": 0.644
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 234,
+       "p": 0.644,
+       "label": "Patient"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 234,
+       "p": 0.744,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 234,
+       "p": 0.644,
+       "label": null
+      }
+     },
+     "top1": 234,
+     "top1_p": 0.644
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.973,
+       "label": "Mouse"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.961,
+       "label": "Mouse"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 161,
+       "p": 0.801,
+       "label": null
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.973
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.999,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.999,
+       "label": "you (plural)"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.998,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "8844f337ea43",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 22,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.998,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.998,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 5,
+       "p": 0.515,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 5,
+       "p": 0.515,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 5,
+       "p": 0.515,
+       "label": null
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.515
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.774,
+       "label": "they"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.859,
+       "label": "they"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 123,
+       "p": 0.774,
+       "label": null
+      }
+     },
+     "top1": 123,
+     "top1_p": 0.774
+    }
+   }
+  },
+  {
+   "id": "93e18c02a9d9",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.996,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.998,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.997,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.996
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.996,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.998,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.997,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.996
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 135,
+       "p": 0.759,
+       "label": "Yellow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 135,
+       "p": 0.703,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 135,
+       "p": 0.592,
+       "label": null
+      }
+     },
+     "top1": 135,
+     "top1_p": 0.759
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 259,
+       "p": 0.48,
+       "label": "Job"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.48,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.48,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.48
+    }
+   }
+  },
+  {
+   "id": "aa04d00da3e3",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 29,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.979,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.961,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.924,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.979
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 128,
+       "p": 0.863,
+       "label": "Howareyou"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 128,
+       "p": 0.85,
+       "label": "Howareyou"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 128,
+       "p": 0.739,
+       "label": null
+      }
+     },
+     "top1": 128,
+     "top1_p": 0.863
+    }
+   }
+  },
+  {
+   "id": "b728aab9c444",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 43,
+   "seg_frames": 37,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.965,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.997,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.973,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.997,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.997
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.911,
+       "label": "Author"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.946,
+       "label": "Author"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.962,
+       "label": "Author"
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.911
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.622,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.622,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.622,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.622
+    }
+   }
+  },
+  {
+   "id": "c3fec877481a",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 17,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.951,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.994,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.922,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.922,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.922,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.922
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.984,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 132,
+       "p": 0.984,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 132,
+       "p": 0.83,
+       "label": null
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.984
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 255,
+       "p": 0.931,
+       "label": "Reporter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 255,
+       "p": 0.743,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 255,
+       "p": 0.931,
+       "label": null
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.931
+    }
+   }
+  },
+  {
+   "id": "e25de300c376",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 43,
+   "seg_frames": 38,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.983,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.95,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.983,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.983
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.999,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.824,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "ead7b1343552",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 38,
+   "seg_frames": 34,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.942,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.942,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.942,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.942
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.876,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    }
+   }
+  },
+  {
+   "id": "f433231a3e9d",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.971,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.871,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.889,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.966,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.999,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.993,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.994,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.999
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.818,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.908,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.818,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.818
+    }
+   }
+  },
+  {
+   "id": "01a87eb26e63",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 13,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 1,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.985,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.997,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.996,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.93,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.997
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 12,
+       "p": 0.483,
+       "label": "Attack"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 12,
+       "p": 0.483,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 12,
+       "p": 0.483,
+       "label": null
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.483
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.544,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.544,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.544,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.544
+    }
+   }
+  },
+  {
+   "id": "14b89b60d490",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 25,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.983,
+       "label": "Plane"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.959,
+       "label": "Plane"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.968,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.983
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.995,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.993,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.94,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.995
+    }
+   }
+  },
+  {
+   "id": "2584bedcf9db",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 15,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.941,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.896,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.936,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.975,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.873,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 132,
+       "p": 0.975,
+       "label": null
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.975
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.984,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.988,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.978,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.984
+    }
+   }
+  },
+  {
+   "id": "3ea1edc51cfa",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.989,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.85,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.989,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.85,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.985,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.989,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.957,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.985
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.999,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 166,
+       "p": 0.999,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.913,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "4def4ba91488",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 18,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.914,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.914,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.914,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.914
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.914,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.914,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.914,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.914
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 80,
+       "p": 0.381,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 80,
+       "p": 0.381,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 80,
+       "p": 0.381,
+       "label": null
+      }
+     },
+     "top1": 80,
+     "top1_p": 0.381
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.36,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.36,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.36,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.36
+    }
+   }
+  },
+  {
+   "id": "67a4ca0d107c",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 19,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.756,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.871,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.756,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.756
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.575,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.575,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.575,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.575
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 256,
+       "p": 0.492,
+       "label": "dry"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 256,
+       "p": 0.492,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 256,
+       "p": 0.492,
+       "label": null
+      }
+     },
+     "top1": 256,
+     "top1_p": 0.492
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.998,
+       "label": "Author"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.994,
+       "label": "Author"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 251,
+       "p": 0.998,
+       "label": null
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.998
+    }
+   }
+  },
+  {
+   "id": "79288c0df374",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.807,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.9,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.852,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.807
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.857,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.857,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.857,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.857
+    }
+   }
+  },
+  {
+   "id": "89701d514c9a",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.994,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.994,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.776,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.994
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.994,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.994,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.776,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.994
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.934,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.934,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.934,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.934
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.702,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.847,
+       "label": "Fall"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.702,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.702
+    }
+   }
+  },
+  {
+   "id": "9aca72ae344f",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 29,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.979,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.91,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.897,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.979
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.431,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.431,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.431,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.431
+    }
+   }
+  },
+  {
+   "id": "aa753fa420b6",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 16,
+   "seg_frames": 13,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.988,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.988,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.988
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.776,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.776,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.776,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.776
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.567,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 132,
+       "p": 0.567,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 132,
+       "p": 0.567,
+       "label": null
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.567
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.658,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.783,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.658,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.658
+    }
+   }
+  },
+  {
+   "id": "b795289e8141",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 15,
+   "seg_frames": 15,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.999,
+       "label": "Thursday"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.887,
+       "label": "Thursday"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 187,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.999
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.999,
+       "label": "Thursday"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.887,
+       "label": "Thursday"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 187,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 231,
+       "p": 0.765,
+       "label": "fast"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 231,
+       "p": 0.845,
+       "label": "fast"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 231,
+       "p": 0.765,
+       "label": null
+      }
+     },
+     "top1": 231,
+     "top1_p": 0.765
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.798,
+       "label": "I"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 100,
+       "p": 0.798,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 100,
+       "p": 0.798,
+       "label": null
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.798
+    }
+   }
+  },
+  {
+   "id": "c656ffce71b9",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 20,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.981,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 1,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.983,
+       "label": "School"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 48,
+       "p": 0.744,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 48,
+       "p": 0.875,
+       "label": null
+      }
+     },
+     "top1": 48,
+     "top1_p": 0.983
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 93,
+       "p": 0.895,
+       "label": "Page"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 93,
+       "p": 0.895,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 93,
+       "p": 0.895,
+       "label": null
+      }
+     },
+     "top1": 93,
+     "top1_p": 0.895
+    }
+   }
+  },
+  {
+   "id": "e2e72cef06e3",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 30,
+   "seg_frames": 25,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.939,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.991,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.99,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.996,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.996,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.813,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.996
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 255,
+       "p": 0.577,
+       "label": "Reporter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 255,
+       "p": 0.577,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 255,
+       "p": 0.577,
+       "label": null
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.577
+    }
+   }
+  },
+  {
+   "id": "ec377bad5bd2",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 19,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.806,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.806,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.659,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.806
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.806,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.806,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.659,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.806
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.934,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.917,
+       "label": "you (plural)"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.77,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.934
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.953,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.953,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.884,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.953
+    }
+   }
+  },
+  {
+   "id": "0242074168ab",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 22,
+   "seg_frames": 17,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.99,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.988,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.998,
+       "label": "School"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.999,
+       "label": "School"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.992,
+       "label": "School"
+      }
+     },
+     "top1": 48,
+     "top1_p": 0.998
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 93,
+       "p": 0.906,
+       "label": "Page"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 93,
+       "p": 0.78,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 93,
+       "p": 0.866,
+       "label": null
+      }
+     },
+     "top1": 93,
+     "top1_p": 0.906
+    }
+   }
+  },
+  {
+   "id": "1d4105d49463",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.436,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.436,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.436,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.436
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.511,
+       "label": "Author"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 251,
+       "p": 0.511,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 251,
+       "p": 0.511,
+       "label": null
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.511
+    }
+   }
+  },
+  {
+   "id": "2a398658baaf",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 23,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.988,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.988
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.988,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.988
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.986,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.854,
+       "label": "Fall"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.832,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.986
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.501,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.501,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 171,
+       "p": 0.501,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.501
+    }
+   }
+  },
+  {
+   "id": "41d379cdc123",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 32,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.997,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.993,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.919,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.757,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.757,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.757,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.757
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.611,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.611,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.611,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.611
+    }
+   }
+  },
+  {
+   "id": "4ef28b7dec99",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 16,
+   "seg_frames": 11,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.842,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.842,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.842,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.842
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.973,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.973,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.973,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.973
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.742,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "6a1fc43a273c",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 18,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.908,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.908,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.75,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.908
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.654,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.595,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.654,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.654
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.847,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 132,
+       "p": 0.847,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 132,
+       "p": 0.847,
+       "label": null
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.847
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.629,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.629,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.629,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.629
+    }
+   }
+  },
+  {
+   "id": "79a50a5cde78",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 18,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.975,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.94,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 235,
+       "p": 0.975,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.975
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.992,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.966,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.792,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.992
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.983,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.893,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 235,
+       "p": 0.983,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.983
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 12,
+       "p": 0.357,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 12,
+       "p": 0.357,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 12,
+       "p": 0.357,
+       "label": null
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.357
+    }
+   }
+  },
+  {
+   "id": "8a99fdb7b0fc",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 41,
+   "seg_frames": 36,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.856,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.979,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.869,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.999
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.991,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.995,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.99,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.991
+    }
+   }
+  },
+  {
+   "id": "a50e57aa0ae2",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 32,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.99,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.994,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.994,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.994,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.994
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 97,
+       "p": 0.932,
+       "label": "Bird"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 97,
+       "p": 0.924,
+       "label": "Bird"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 97,
+       "p": 0.908,
+       "label": "Bird"
+      }
+     },
+     "top1": 97,
+     "top1_p": 0.932
+    }
+   }
+  },
+  {
+   "id": "ab3f57e7971b",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 23,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.666,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.793,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.666,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.666
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.945,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.945,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.945,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.945
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 208,
+       "p": 0.513,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.513,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.513,
+       "label": null
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.513
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.854,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.854,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.854,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.854
+    }
+   }
+  },
+  {
+   "id": "b91a540458f8",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.905,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.952,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.922,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.905
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.917,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 166,
+       "p": 0.917,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 166,
+       "p": 0.917,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.917
+    }
+   }
+  },
+  {
+   "id": "c7e12852bcbd",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 17,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 161,
+       "p": 0.334,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 161,
+       "p": 0.334,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 161,
+       "p": 0.334,
+       "label": null
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.334
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.723,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.723,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.723,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.723
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 123,
+       "p": 0.289,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 123,
+       "p": 0.289,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 123,
+       "p": 0.289,
+       "label": null
+      }
+     },
+     "top1": 123,
+     "top1_p": 0.289
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.788,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.815,
+       "label": "it"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 114,
+       "p": 0.788,
+       "label": null
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.788
+    }
+   }
+  },
+  {
+   "id": "e4d9aa24fc54",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 15,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.981,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.992,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.99,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.99,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.99,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.99
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.999,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.908,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.943,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 132,
+       "p": 0.908,
+       "label": null
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.908
+    }
+   }
+  },
+  {
+   "id": "ec91c6f33864",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 42,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.993,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.993,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.993,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.993
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.994,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.994,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.994,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.994
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.613,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.613,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.613,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.613
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.982,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.982,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.982,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.982
+    }
+   }
+  },
+  {
+   "id": "08a1a3fb81a6",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.998,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.998,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.838,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.995,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.724,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.871,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.995
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 33,
+       "p": 0.998,
+       "label": "Cat"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 33,
+       "p": 0.999,
+       "label": "Cat"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 33,
+       "p": 0.998,
+       "label": "Cat"
+      }
+     },
+     "top1": 33,
+     "top1_p": 0.998
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.936,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.966,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.936,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.936
+    }
+   }
+  },
+  {
+   "id": "1ef2647916c0",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 26,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.862,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.995,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.988,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.919,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.988
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.994,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.793,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.983,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.994
+    }
+   }
+  },
+  {
+   "id": "2d8f29a6bb39",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 13,
+   "seg_frames": 13,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      }
+     },
+     "top1": 236,
+     "top1_p": 0.527
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 236,
+       "p": 0.527,
+       "label": null
+      }
+     },
+     "top1": 236,
+     "top1_p": 0.527
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 231,
+       "p": 0.982,
+       "label": "fast"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 231,
+       "p": 0.761,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 231,
+       "p": 0.982,
+       "label": null
+      }
+     },
+     "top1": 231,
+     "top1_p": 0.982
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.949,
+       "label": "Thursday"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.972,
+       "label": "Thursday"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.958,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.949
+    }
+   }
+  },
+  {
+   "id": "4869e12ed577",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 9,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 10,
+       "p": 0.704,
+       "label": "Truck"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 10,
+       "p": 0.753,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 10,
+       "p": 0.704,
+       "label": null
+      }
+     },
+     "top1": 10,
+     "top1_p": 0.704
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 64,
+       "p": 0.838,
+       "label": "Library"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 64,
+       "p": 0.838,
+       "label": "Library"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 64,
+       "p": 0.905,
+       "label": "Library"
+      }
+     },
+     "top1": 64,
+     "top1_p": 0.838
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 169,
+       "p": 0.472,
+       "label": "Baby"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 169,
+       "p": 0.472,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 169,
+       "p": 0.472,
+       "label": null
+      }
+     },
+     "top1": 169,
+     "top1_p": 0.472
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.892,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.892,
+       "label": "it"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 114,
+       "p": 0.892,
+       "label": null
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.892
+    }
+   }
+  },
+  {
+   "id": "5ebb3d9fd29c",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.992,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.989,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 235,
+       "p": 0.998,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.998
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.905,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.878,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 235,
+       "p": 0.905,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.905
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.988,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.969,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.964,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.988
+    }
+   }
+  },
+  {
+   "id": "6aaefee5df3e",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.999,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.817,
+       "label": "Fall"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.949,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.999
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.999,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.817,
+       "label": "Fall"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.949,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.998,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.961,
+       "label": "Fall"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.956,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.998
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.39,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.39,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.39,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.39
+    }
+   }
+  },
+  {
+   "id": "7c7103cd8ad4",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.989,
+       "label": "Plane"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.976,
+       "label": "Plane"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.987,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.989
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.206,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.206,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.206,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.206
+    }
+   }
+  },
+  {
+   "id": "8ba090a0c2be",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 71,
+       "p": 0.209,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 71,
+       "p": 0.209,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 71,
+       "p": 0.209,
+       "label": null
+      }
+     },
+     "top1": 71,
+     "top1_p": 0.209
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.917,
+       "label": "I"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 100,
+       "p": 0.917,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 100,
+       "p": 0.917,
+       "label": null
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.917
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.817,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.889,
+       "label": "it"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 114,
+       "p": 0.793,
+       "label": null
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.817
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.998,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.999,
+       "label": "it"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.906,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.998
+    }
+   }
+  },
+  {
+   "id": "a72eccb1b228",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 14,
+   "seg_frames": 14,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.985,
+       "label": "Thursday"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.992,
+       "label": "Thursday"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.992,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.985
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.985,
+       "label": "Thursday"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.992,
+       "label": "Thursday"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.992,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.985
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 39,
+       "p": 0.625,
+       "label": "Sign"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 39,
+       "p": 0.625,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 39,
+       "p": 0.625,
+       "label": null
+      }
+     },
+     "top1": 39,
+     "top1_p": 0.625
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.887,
+       "label": "they"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.903,
+       "label": "they"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 123,
+       "p": 0.896,
+       "label": null
+      }
+     },
+     "top1": 123,
+     "top1_p": 0.887
+    }
+   }
+  },
+  {
+   "id": "b148cb99d5bd",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.978,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.917,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.83,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.912,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.912,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.912,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.912
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.894,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.827,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.906,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.894
+    }
+   }
+  },
+  {
+   "id": "bb096ba5362c",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.943,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.943,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.943,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.943
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.943,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.943,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.943,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.943
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.891,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.922,
+       "label": "you (plural)"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 120,
+       "p": 0.882,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.891
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.737,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 114,
+       "p": 0.714,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 114,
+       "p": 0.758,
+       "label": null
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.737
+    }
+   }
+  },
+  {
+   "id": "ce3365d7884a",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.777,
+       "label": "Pleased"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.844,
+       "label": "Pleased"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 153,
+       "p": 0.777,
+       "label": null
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.777
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.777,
+       "label": "Pleased"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.844,
+       "label": "Pleased"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 153,
+       "p": 0.777,
+       "label": null
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.777
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.556,
+       "label": "I"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 100,
+       "p": 0.556,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 100,
+       "p": 0.556,
+       "label": null
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.556
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.859,
+       "label": "you (plural)"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.859,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 120,
+       "p": 0.859,
+       "label": null
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.859
+    }
+   }
+  },
+  {
+   "id": "e79eac6503be",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 30,
+   "seg_frames": 25,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 1,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.954,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.917,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.916,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.916,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.916,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.916
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.955,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.955,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.955,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.955
+    }
+   }
+  },
+  {
+   "id": "ed5af9947dc7",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 12,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 170,
+       "p": 0.459,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.459,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.459,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.459
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 170,
+       "p": 0.49,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.49,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.49,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.49
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 27,
+       "p": 0.699,
+       "label": "City"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 27,
+       "p": 0.699,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 27,
+       "p": 0.699,
+       "label": null
+      }
+     },
+     "top1": 27,
+     "top1_p": 0.699
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 10,
+       "p": 0.763,
+       "label": "Truck"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 10,
+       "p": 0.763,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 10,
+       "p": 0.763,
+       "label": null
+      }
+     },
+     "top1": 10,
+     "top1_p": 0.763
+    }
+   }
+  },
+  {
+   "id": "1014b5173db1",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 19,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.99,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.94,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.932,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.86,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.94
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 260,
+       "p": 0.996,
+       "label": "healthy"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 260,
+       "p": 0.996,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 260,
+       "p": 0.928,
+       "label": "healthy"
+      }
+     },
+     "top1": 260,
+     "top1_p": 0.996
+    }
+   }
+  },
+  {
+   "id": "1fc814bdfaf9",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 19,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.998,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.922,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.989,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.965,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.989,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.989
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.999,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.999,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.833,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.833,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.833,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.833
+    }
+   }
+  },
+  {
+   "id": "2e0d30091fbc",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 25,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.989,
+       "label": "Plane"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.981,
+       "label": "Plane"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.945,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.989
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.936,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 166,
+       "p": 0.936,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 166,
+       "p": 0.936,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.936
+    }
+   }
+  },
+  {
+   "id": "4b3840c923cf",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.701,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.701,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.701,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.701
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 41,
+       "p": 0.367,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 41,
+       "p": 0.367,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 41,
+       "p": 0.367,
+       "label": null
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.367
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.843,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.882,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.843,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.843
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.976,
+       "label": "tight"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 41,
+       "p": 0.976,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 41,
+       "p": 0.672,
+       "label": null
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.976
+    }
+   }
+  },
+  {
+   "id": "631b6b412389",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.999,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.999,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.336,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.336,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.336,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.336
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 259,
+       "p": 0.494,
+       "label": "Job"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.494,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.494,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.494
+    }
+   }
+  },
+  {
+   "id": "71682cd65ee8",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.982,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.954,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.888,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.982
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.982,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.954,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 166,
+       "p": 0.888,
+       "label": null
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.982
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 135,
+       "p": 0.667,
+       "label": "Yellow"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 135,
+       "p": 0.667,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 135,
+       "p": 0.667,
+       "label": null
+      }
+     },
+     "top1": 135,
+     "top1_p": 0.667
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 259,
+       "p": 0.987,
+       "label": "Job"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.759,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 259,
+       "p": 0.969,
+       "label": "Job"
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.987
+    }
+   }
+  },
+  {
+   "id": "8424fdc1aca5",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 30,
+   "seg_frames": 22,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.99,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.995,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.99,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.99
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.95,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.718,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.941,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.95
+    }
+   }
+  },
+  {
+   "id": "8e2e1c47b57e",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 0,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.997,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.997,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.994,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.997
+    },
+    "app_segment": {
+     "error": "too few frames"
+    },
+    "reversed": {
+     "error": "too few frames"
+    },
+    "scrambled": {
+     "error": "too few frames"
+    }
+   }
+  },
+  {
+   "id": "a8cdc9d13cb1",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.606,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.606,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.606,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.606
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 260,
+       "p": 0.906,
+       "label": "healthy"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 260,
+       "p": 0.755,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 260,
+       "p": 0.906,
+       "label": null
+      }
+     },
+     "top1": 260,
+     "top1_p": 0.906
+    }
+   }
+  },
+  {
+   "id": "b302a9e1e081",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 46,
+   "seg_frames": 23,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.959,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.604,
+       "label": "Animal"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.604,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.604,
+       "label": null
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.604
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.959,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.832,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.959,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.959
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.828,
+       "label": "Window"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.831,
+       "label": "Window"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 61,
+       "p": 0.781,
+       "label": null
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.828
+    }
+   }
+  },
+  {
+   "id": "c064f49dbc37",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 1,
+       "label": "Plane"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 1,
+       "label": "Plane"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 1,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 181,
+       "p": 0.615,
+       "label": "Grandfather"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 181,
+       "p": 0.615,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 181,
+       "p": 0.615,
+       "label": null
+      }
+     },
+     "top1": 181,
+     "top1_p": 0.615
+    }
+   }
+  },
+  {
+   "id": "d1f14bac333a",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 43,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.998,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.998,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.723,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.991,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.963,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.991,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.991
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.99,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.986,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.978,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.99
+    }
+   }
+  },
+  {
+   "id": "e8913f5fff4d",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 21,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.998,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.827,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.862,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.827,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.827
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.975,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.917,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 168,
+       "p": 0.866,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.975
+    }
+   }
+  },
+  {
+   "id": "f1b0d10b5e93",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 40,
+   "seg_frames": 37,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.877,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.853,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.882,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.882,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 69,
+       "p": 0.882,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.882
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.921,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.921,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.921,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.921
+    }
+   }
+  },
+  {
+   "id": "1367fbf2e04b",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 0,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 3,
+       "p": 0.743,
+       "label": "Energy"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 3,
+       "p": 0.743,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 3,
+       "p": 0.743,
+       "label": null
+      }
+     },
+     "top1": 3,
+     "top1_p": 0.743
+    },
+    "app_segment": {
+     "error": "too few frames"
+    },
+    "reversed": {
+     "error": "too few frames"
+    },
+    "scrambled": {
+     "error": "too few frames"
+    }
+   }
+  },
+  {
+   "id": "2172aa7edcab",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.988,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.988
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.988,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.988,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.988
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.954,
+       "label": "Fall"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.954,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 171,
+       "p": 0.954,
+       "label": null
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.954
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 91,
+       "p": 0.779,
+       "label": "Hat"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 91,
+       "p": 0.779,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 91,
+       "p": 0.779,
+       "label": null
+      }
+     },
+     "top1": 91,
+     "top1_p": 0.779
+    }
+   }
+  },
+  {
+   "id": "32e5351c7876",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 36,
+   "seg_frames": 35,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.982,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.982,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.516,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.516,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.516,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.516
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.863,
+       "label": "Author"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.908,
+       "label": "Author"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 251,
+       "p": 0.863,
+       "label": null
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.863
+    }
+   }
+  },
+  {
+   "id": "4d972748b10e",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 25,
+   "seg_frames": 20,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.7,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.841,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.7,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.7
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.806,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.806,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 170,
+       "p": 0.806,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.806
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.503,
+       "label": "Animal"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.503,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 208,
+       "p": 0.503,
+       "label": null
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.503
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.927,
+       "label": "tight"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 41,
+       "p": 0.927,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 41,
+       "p": 0.927,
+       "label": null
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.927
+    }
+   }
+  },
+  {
+   "id": "6438ef8e13f4",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 225,
+       "p": 0.652,
+       "label": "smalllittle"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 225,
+       "p": 0.652,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 225,
+       "p": 0.652,
+       "label": null
+      }
+     },
+     "top1": 225,
+     "top1_p": 0.652
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.786,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.786,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 168,
+       "p": 0.786,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.786
+    }
+   }
+  },
+  {
+   "id": "719dace90067",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 44,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.984,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 1,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.996,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.897,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.96,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.926,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.839,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.96
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.944,
+       "label": "Season"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.838,
+       "label": "Season"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 173,
+       "p": 0.944,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.944
+    }
+   }
+  },
+  {
+   "id": "84934c0b9d75",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 19,
+   "seg_frames": 14,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.958,
+       "label": "Mouse"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 161,
+       "p": 0.958,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 161,
+       "p": 0.958,
+       "label": null
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.958
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.832,
+       "label": "Pleased"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 153,
+       "p": 0.832,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 153,
+       "p": 0.832,
+       "label": null
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.832
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.57,
+       "label": "Pleased"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 153,
+       "p": 0.57,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 153,
+       "p": 0.57,
+       "label": null
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.57
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.995,
+       "label": "it"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 114,
+       "p": 0.995,
+       "label": null
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.966,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.995
+    }
+   }
+  },
+  {
+   "id": "8ff5883e3f12",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 34,
+   "seg_frames": 22,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.998,
+       "label": "Spring"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.998,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.998
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 1,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.999,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.999,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 1,
+       "label": "Bedroom"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.999,
+       "label": "Bedroom"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.996,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 1
+    }
+   }
+  },
+  {
+   "id": "a9e9c9cb7e35",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 16,
+   "seg_frames": 11,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.829,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.84,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 220,
+       "p": 0.699,
+       "label": "Afternoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 220,
+       "p": 0.846,
+       "label": "Afternoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 220,
+       "p": 0.699,
+       "label": null
+      }
+     },
+     "top1": 220,
+     "top1_p": 0.699
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 2,
+       "p": 0.968,
+       "label": "loud"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 2,
+       "p": 0.973,
+       "label": "loud"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 2,
+       "p": 0.951,
+       "label": "loud"
+      }
+     },
+     "top1": 2,
+     "top1_p": 0.968
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.521,
+       "label": "Window"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 61,
+       "p": 0.521,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 61,
+       "p": 0.521,
+       "label": null
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.521
+    }
+   }
+  },
+  {
+   "id": "b71f16f55d0e",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 18,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.997,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.966,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.788,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.997
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.994,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.988,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.882,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.994
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.876,
+       "label": "Window"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 61,
+       "p": 0.876,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 61,
+       "p": 0.876,
+       "label": null
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.876
+    }
+   }
+  },
+  {
+   "id": "c1724fdc62b2",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 15,
+   "seg_frames": 12,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.66,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.66,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.66,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.66
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.552,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.552,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.552,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.552
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 33,
+       "p": 0.871,
+       "label": "Cat"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 33,
+       "p": 0.871,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 33,
+       "p": 0.871,
+       "label": null
+      }
+     },
+     "top1": 33,
+     "top1_p": 0.871
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.897,
+       "label": "Window"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 61,
+       "p": 0.897,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 61,
+       "p": 0.897,
+       "label": null
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.897
+    }
+   }
+  },
+  {
+   "id": "d83f3db85759",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 21,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 235,
+       "p": 0.52,
+       "label": null
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.52,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 235,
+       "p": 0.52,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.52
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.995,
+       "label": "cold"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.997,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.995
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.999,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.998,
+       "label": "Winter"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.999,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.999
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.836,
+       "label": "tight"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 41,
+       "p": 0.836,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 41,
+       "p": 0.836,
+       "label": null
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.836
+    }
+   }
+  },
+  {
+   "id": "e8f03176735e",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 14,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.994,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.768,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.862,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.994
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.998,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.922,
+       "label": "Winter"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.99,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.998
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.491,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.491,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.491,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.491
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.879,
+       "label": "Winter"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.922,
+       "label": "Winter"
+      },
+      "careful": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.906,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.879
+    }
+   }
+  },
+  {
+   "id": "f294962a3ba6",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 16,
+   "seg_frames": 13,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.809,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 261,
+       "p": 0.889,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.97,
+       "label": "Monsoon"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 261,
+       "p": 0.999,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 2,
+       "p": 0.694,
+       "label": "loud"
+      },
+      "balanced": {
+       "state": "match",
+       "reason": null,
+       "top": 2,
+       "p": 0.806,
+       "label": "loud"
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": null,
+       "top": 2,
+       "p": 0.694,
+       "label": null
+      }
+     },
+     "top1": 2,
+     "top1_p": 0.694
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 255,
+       "p": 0.811,
+       "label": "Reporter"
+      },
+      "balanced": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 255,
+       "p": 0.811,
+       "label": null
+      },
+      "careful": {
+       "state": "unknown",
+       "reason": "unstable",
+       "top": 255,
+       "p": 0.811,
+       "label": null
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.811
+    }
+   }
+  }
+ ]
+}

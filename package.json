@@ -1,0 +1,44 @@
+{
+  "name": "sangam-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SANGAM assistive communication relay — static frontend plus Person 5 backend (QR sessions, real-time chat, volunteer assistance).",
+  "type": "commonjs",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "test": "node server/smoke-test.js",
+    "test:e2e": "node test-e2e.js",
+    "test:integration": "node test-integration-fixes.js",
+    "test:features": "node server/test-features.js",
+    "test:reliability": "node server/test-reliability.js",
+    "test:browser": "node test-browser.js",
+    "test:a11y": "node test-a11y.js",
+    "test:sign-engine": "node test-sign-engine.js",
+    "test:sign-model": "node test-sign-model.js",
+    "test:sign-letters": "node test-sign-letters.js",
+    "test:sign-static": "node test-sign-static.js",
+    "test:accounts": "node server/test-accounts.js",
+    "test:access-browser": "node test-access-browser.js",
+    "test:sign-browser": "node test-sign-browser.js",
+    "test:sign-video": "node test-sign-video.js",
+    "test:sound-engine": "node test-sound-engine.js",
+    "test:sound-browser": "node test-sound-browser.js",
+    "test:all": "node run-all-tests.js",
+    "models:install": "node scripts/sign-models/install.js",
+    "models:verify": "node scripts/sign-models/install.js --verify"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "express": "^4.19.2",
+    "qrcode": "^1.5.4",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.1"
+  }
+}
