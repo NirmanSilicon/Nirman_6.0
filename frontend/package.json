@@ -1,3 +1,4 @@
+
 {
   "name": "alarmsense-frontend",
   "private": true,
@@ -21,3 +22,5 @@
     "vite": "^6.3.2"
   }
 }
+
+

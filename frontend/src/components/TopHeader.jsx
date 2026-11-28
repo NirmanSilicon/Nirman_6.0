@@ -1,32 +1,44 @@
+
 import { useEffect, useRef, useState } from "react";
-import { Bell, Database, Menu, UploadCloud } from "lucide-react";
+import {
+  Bell,
+  Database,
+  Menu,
+  UploadCloud,
+  X,
+} from "lucide-react";
 import { getSeverityBadgeClass } from "../utils/formatters";
 
-/**
- * Top application bar featuring view title with teal underline accent,
- * active plant dataset switcher, Upload Data CTA, alarm notification bell, and team badge.
- */
 export function TopHeader({
   title,
-  plants,
+  plants = [],
   activePlantId,
-  activatingPlant,
+  activatingPlant = false,
   onSelectPlant,
   onNavigateUpload,
   onNavigateAlarms,
-  confirmedAlarmCount,
+  confirmedAlarmCount = 0,
   priorityAlarms = [],
   onOpenMobileMenu,
 }) {
   const [bellOpen, setBellOpen] = useState(false);
-  const bellContainerRef = useRef(null);
-  const bellButtonRef = useRef(null);
+  const bellRef = useRef(null);
 
+  const safePlants = Array.isArray(plants) ? plants : [];
+  const safeAlarms = Array.isArray(priorityAlarms) ? priorityAlarms : [];
+
+  const alarmCount = Math.max(0, Number(confirmedAlarmCount) || 0);
+  const displayedCount = alarmCount > 99 ? "99+" : alarmCount;
+
+  // Close notification panel when clicking outside or pressing Escape.
   useEffect(() => {
-    if (!bellOpen) return undefined;
+    if (!bellOpen) return;
 
     const handlePointerDown = (event) => {
-      if (bellContainerRef.current && !bellContainerRef.current.contains(event.target)) {
+      if (
+        bellRef.current &&
+        !bellRef.current.contains(event.target)
+      ) {
         setBellOpen(false);
       }
     };
@@ -34,22 +46,28 @@ export function TopHeader({
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setBellOpen(false);
-        bellButtonRef.current?.focus();
       }
     };
 
-    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleKeyDown);
+
     return () => {
-      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [bellOpen]);
 
+  const handleOpenAlarms = () => {
+    setBellOpen(false);
+    onNavigateAlarms?.();
+  };
+
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-3.5">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Left: View Title & Teal Underline */}
+
+        {/* Left: View Title */}
         <div className="flex items-center gap-3 min-w-0">
           <button
             type="button"
@@ -57,9 +75,10 @@ export function TopHeader({
             aria-label="Open navigation menu"
             className="lg:hidden p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A8B5]"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-5 h-5" aria-hidden="true" />
           </button>
-          <div>
+
+          <div className="min-w-0">
             <h1 className="text-xl font-bold tracking-tight text-[#0F172A] truncate">
               {title}
             </h1>
@@ -67,34 +86,43 @@ export function TopHeader({
           </div>
         </div>
 
-        {/* Right: Dataset Selector, Upload CTA, Bell & User Badge */}
+        {/* Right: Dashboard Actions */}
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-          {/* Select Dataset / Plant Dropdown */}
+
+          {/* Plant Selector */}
           <div className="flex items-center gap-2 bg-[#F4F8FB] border border-slate-200 rounded-xl px-3 py-1.5">
-            <Database className="w-4 h-4 text-[#00A8B5] shrink-0" aria-hidden="true" />
+            <Database
+              className="w-4 h-4 text-[#00A8B5] shrink-0"
+              aria-hidden="true"
+            />
+
             <label htmlFor="header-plant-select" className="sr-only">
               Select Dataset / Plant
             </label>
+
             <select
               id="header-plant-select"
               value={activePlantId || "tep"}
-              disabled={activatingPlant || plants.length === 0}
-              onChange={(e) => onSelectPlant(e.target.value)}
-              className="bg-transparent text-xs sm:text-sm font-medium text-[#0F172A] focus:outline-none cursor-pointer pr-1 max-w-[190px]"
+              disabled={activatingPlant || safePlants.length === 0}
+              onChange={(e) => onSelectPlant?.(e.target.value)}
+              className="bg-transparent text-xs sm:text-sm font-medium text-[#0F172A] focus:outline-none cursor-pointer pr-1 max-w-[190px] disabled:opacity-50"
             >
-              {plants.length === 0 ? (
+              {safePlants.length === 0 ? (
                 <option value="tep">Tennessee Eastman Process</option>
               ) : (
-                plants.map((plant) => (
+                safePlants.map((plant) => (
                   <option key={plant.plant_id} value={plant.plant_id}>
-                    {plant.plant_name} ({plant.n_sensors} sensors)
+                    {plant.plant_name || plant.plant_id}
+                    {Number.isFinite(plant.n_sensors)
+                      ? ` (${plant.n_sensors} sensors)`
+                      : ""}
                   </option>
                 ))
               )}
             </select>
           </div>
 
-          {/* Upload Data CTA */}
+          {/* Upload Data */}
           <button
             type="button"
             onClick={onNavigateUpload}
@@ -104,61 +132,97 @@ export function TopHeader({
             <span>Upload Data</span>
           </button>
 
-          {/* Notification Bell */}
-          <div ref={bellContainerRef} className="relative">
+          {/* Alarm Notifications */}
+          <div className="relative" ref={bellRef}>
             <button
-              ref={bellButtonRef}
               type="button"
               onClick={() => setBellOpen((prev) => !prev)}
-              aria-label={`Confirmed alarms notification (${confirmedAlarmCount ?? 0} active)`}
+              aria-label={`Confirmed alarms: ${alarmCount} active`}
               aria-expanded={bellOpen}
+              aria-controls="alarm-notification-panel"
               className="relative p-2.5 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#0F172A] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A8B5]"
             >
-              <Bell className="w-4.5 h-4.5" aria-hidden="true" />
-              <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-rose-500 text-white text-[11px] font-bold flex items-center justify-center tabular-nums shadow-xs">
-                {confirmedAlarmCount ?? 0}
+              <Bell className="w-[18px] h-[18px]" aria-hidden="true" />
+
+              <span
+                aria-hidden="true"
+                className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-rose-500 text-white text-[11px] font-bold flex items-center justify-center tabular-nums shadow-xs"
+              >
+                {displayedCount}
               </span>
             </button>
 
             {bellOpen && (
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl border border-slate-200 shadow-lg p-4 z-40">
-                <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
+              <div
+                id="alarm-notification-panel"
+                className="absolute right-0 mt-2 w-[min(20rem,calc(100vw-2rem))] bg-white rounded-2xl border border-slate-200 shadow-lg p-4 z-40"
+              >
+                <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                     Confirmed Priority Alarms
                   </span>
-                  <span className="text-xs font-semibold text-rose-600 tabular-nums">
-                    {confirmedAlarmCount ?? 0} active
-                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-rose-600 tabular-nums">
+                      {alarmCount} active
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => setBellOpen(false)}
+                      aria-label="Close notifications"
+                      className="p-1 rounded-lg text-slate-400 hover:bg-slate-100"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-                {priorityAlarms.length === 0 ? (
+
+                {safeAlarms.length === 0 ? (
                   <p className="py-4 text-xs text-slate-500 text-center">
-                    No confirmed alarms in the active window. Run a fault simulation to inspect ISA-18.2 alerts.
+                    No confirmed alarms in the active window. Run a fault simulation to inspect the generated alerts.
                   </p>
                 ) : (
                   <ul className="divide-y divide-slate-100 max-h-60 overflow-y-auto my-1">
-                    {priorityAlarms.map((alarm) => (
-                      <li key={`${alarm.tag}-${alarm.first_step}`} className="py-2 flex items-center justify-between gap-2">
-                        <div className="min-w-0">
-                          <div className="text-xs font-semibold text-[#0F172A] truncate">
-                            {alarm.label || alarm.tag}
+                    {safeAlarms.map((alarm, index) => {
+                      const severity = alarm.severity || "Unknown";
+                      const severityClass = getSeverityBadgeClass(severity);
+
+                      const peakZ = Number(alarm.peak_z);
+
+                      return (
+                        <li
+                          key={`${alarm.tag || "alarm"}-${alarm.first_step ?? index}`}
+                          className="py-2 flex items-center justify-between gap-2"
+                        >
+                          <div className="min-w-0">
+                            <div className="text-xs font-semibold text-[#0F172A] truncate">
+                              {alarm.label || alarm.tag || "Unnamed Alarm"}
+                            </div>
+
+                            <div className="text-[11px] text-slate-500 font-mono truncate">
+                              {alarm.tag || "Unknown tag"}
+                              {" • "}
+                              Step {alarm.first_step ?? "—"}
+                              {" • "}
+                              |z|={Number.isFinite(peakZ) ? peakZ.toFixed(1) : "—"}
+                            </div>
                           </div>
-                          <div className="text-[11px] text-slate-500 font-mono">
-                            {alarm.tag} • step {alarm.first_step} • |z|={alarm.peak_z.toFixed(1)}
-                          </div>
-                        </div>
-                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${getSeverityBadgeClass(alarm.severity)}`}>
-                          {alarm.severity}
-                        </span>
-                      </li>
-                    ))}
+
+                          <span
+                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${severityClass}`}
+                          >
+                            {severity}
+                          </span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
+
                 <button
                   type="button"
-                  onClick={() => {
-                    setBellOpen(false);
-                    onNavigateAlarms();
-                  }}
+                  onClick={handleOpenAlarms}
                   className="mt-2 w-full py-2 rounded-xl bg-[#F4F8FB] hover:bg-slate-100 text-xs font-semibold text-[#008B96] transition-colors cursor-pointer"
                 >
                   Open Alarm Analysis →
@@ -167,9 +231,10 @@ export function TopHeader({
             )}
           </div>
 
-          {/* User Badge */}
+          {/* Team Badge */}
           <div
-            title="Team Synaptix (SK)"
+            title="Team Synaptix"
+            aria-label="Team Synaptix"
             className="w-9 h-9 rounded-xl bg-[#0F172A] text-white text-xs font-bold flex items-center justify-center tracking-wide shrink-0 select-none"
           >
             TS
@@ -179,3 +244,4 @@ export function TopHeader({
     </header>
   );
 }
+
