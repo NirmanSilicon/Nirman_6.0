@@ -59,6 +59,8 @@ mobile/node_modules/
 .vite/
 !frontend/dist/
 !frontend/dist/**
+!frontend/src/lib/
+!frontend/src/lib/**
 
 # Local Findings & History Ledger
 FINDINGS.md

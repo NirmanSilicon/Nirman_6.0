@@ -1,20 +1,21 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import {
   Clock,
   ArrowLeftRight,
   ArrowRight,
   Info,
   ChevronDown,
-  X,
+  Search,
+  TrainFront,
   GitBranch,
 } from 'lucide-react';
 import { useRailStore } from '../../stores/useRailStore';
+import Stepper, { Step } from '../ui/Stepper';
 import { TRANSLATIONS } from './translations';
 import {
   getStationsForCorridor,
   getTrainsForCorridor,
   getDefaultRecentForCorridor,
-  getAllPilotTrains,
   type PilotTrain,
   type RecentItem,
 } from './searchConstants';
@@ -77,36 +78,41 @@ const TrainCardIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6 
   </svg>
 );
 
-export const SearchCard: React.FC = () => {
+export interface SearchTabRequest {
+  tab: 'find' | 'track';
+  nonce: number;
+}
+
+interface SearchCardProps {
+  requestedTab?: SearchTabRequest | null;
+}
+
+export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   const {
     language,
     navigateToDashboardWithTrain,
     setSelectedTrain,
     activeCorridorId,
-    switchCorridor,
+    updateSnapshot,
+    triggerRefresh,
   } = useRailStore();
   const t = TRANSLATIONS[language].search;
   const skipNextSyncRef = useRef(false);
+  const lastRequestedNonceRef = useRef<number | null>(null);
 
   const isKolkata = activeCorridorId === 'SER_HWH_KGP';
   const ecorStations = useMemo(() => getStationsForCorridor('ECoR_BHC_PURI'), []);
   const serStations = useMemo(() => getStationsForCorridor('SER_HWH_KGP'), []);
   const corridorStations = useMemo(() => getStationsForCorridor(activeCorridorId), [activeCorridorId]);
   const allCorridorTrains = useMemo(() => getTrainsForCorridor(activeCorridorId), [activeCorridorId]);
-  const allAvailableTrains = useMemo(() => getAllPilotTrains(), []);
 
-  const [activeTab, setActiveTab] = useState<'find' | 'track'>('find');
-  const [fromStation, setFromStation] = useState(() => (isKolkata ? 'HWH' : 'BHC'));
-  const [toStation, setToStation] = useState(() => (isKolkata ? 'KGP' : 'BBS'));
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [fromStation, setFromStation] = useState('');
+  const [toStation, setToStation] = useState('');
   const [trainQuery, setTrainQuery] = useState('');
   const [searchResults, setSearchResults] = useState<PilotTrain[] | null>(null);
-  const [showFindPopover, setShowFindPopover] = useState(false);
-  const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [selectedRouteTrain, setSelectedRouteTrain] = useState<string | null>(null);
   const [unmatchedNotice, setUnmatchedNotice] = useState<string | null>(null);
-
-  const findPopoverRef = useRef<HTMLDivElement>(null);
-  const searchButtonRef = useRef<HTMLButtonElement>(null);
-  const autocompleteRef = useRef<HTMLDivElement>(null);
 
   const recentStorageKey = `rp_recent_routes_${activeCorridorId}`;
 
@@ -125,58 +131,67 @@ export const SearchCard: React.FC = () => {
 
   const [recent, setRecent] = useState<RecentItem[]>(() => loadRecentForCorridor(activeCorridorId));
 
+  const filterTrains = useCallback(
+    (fromCode: string, toCode: string): PilotTrain[] | null => {
+      if (!fromCode || !toCode || fromCode === toCode) {
+        setSearchResults(null);
+        setSelectedRouteTrain(null);
+        return null;
+      }
+
+      const routeCorridorId = serStations.some((s) => s.code === fromCode)
+        ? 'SER_HWH_KGP'
+        : 'ECoR_BHC_PURI';
+      const stations = getStationsForCorridor(routeCorridorId);
+      const trains = getTrainsForCorridor(routeCorridorId);
+      const fromStn = stations.find((s) => s.code === fromCode);
+      const toStn = stations.find((s) => s.code === toCode);
+      const fromKm = fromStn?.km ?? 0;
+      const toKm = toStn?.km ?? 0;
+
+      const matches =
+        fromKm < toKm
+          ? trains.filter((tr) => tr.direction === 'DN')
+          : trains.filter((tr) => tr.direction === 'UP');
+
+      setSearchResults(matches);
+      setSelectedRouteTrain(matches[0]?.no ?? null);
+      return matches;
+    },
+    [serStations],
+  );
+
   // Synchronize stations and recent routes on corridor switch
   useEffect(() => {
     if (skipNextSyncRef.current) {
       skipNextSyncRef.current = false;
-    } else if (isKolkata) {
-      setFromStation('HWH');
-      setToStation('KGP');
     } else {
-      setFromStation('BHC');
-      setToStation('BBS');
+      setFromStation('');
+      setToStation('');
     }
     setRecent(loadRecentForCorridor(activeCorridorId));
     setSearchResults(null);
-    setShowFindPopover(false);
-  }, [isKolkata, activeCorridorId]);
+    setSelectedRouteTrain(null);
+    setUnmatchedNotice(null);
+  }, [activeCorridorId]);
 
-  // Handle outside click and Escape key for Find popover and Autocomplete
+  // Handle footer & navbar navigation requests cleanly
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (
-        findPopoverRef.current &&
-        !findPopoverRef.current.contains(target) &&
-        !searchButtonRef.current?.contains(target) &&
-        !target.closest('.recent-route-pill')
-      ) {
-        setShowFindPopover(false);
-      }
-      if (autocompleteRef.current && !autocompleteRef.current.contains(target)) {
-        setShowAutocomplete(false);
-      }
-    };
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setShowFindPopover(false);
-        setShowAutocomplete(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleOutsideClick);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+    if (!requestedTab || lastRequestedNonceRef.current === requestedTab.nonce) return;
+    lastRequestedNonceRef.current = requestedTab.nonce;
+    setUnmatchedNotice(null);
+    if (requestedTab.tab === 'find') {
+      setCurrentStep(1);
+    } else {
+      filterTrains(fromStation, toStation);
+      setCurrentStep(2);
+    }
+  }, [requestedTab, filterTrains, fromStation, toStation]);
 
   const saveRecent = (item: Omit<RecentItem, 'id'>) => {
     setRecent((prev) => {
       const filtered = prev.filter(
-        (r) => !(r.fromCode === item.fromCode && r.toCode === item.toCode)
+        (r) => !(r.fromCode === item.fromCode && r.toCode === item.toCode),
       );
       const updated = [{ ...item, id: String(Date.now()) }, ...filtered].slice(0, 2);
       try {
@@ -188,27 +203,6 @@ export const SearchCard: React.FC = () => {
     });
   };
 
-  const filterTrains = (fromCode: string, toCode: string) => {
-    if (!fromCode || !toCode || fromCode === toCode) {
-      setSearchResults(null);
-      return;
-    }
-
-    const fromStn = corridorStations.find((s) => s.code === fromCode);
-    const toStn = corridorStations.find((s) => s.code === toCode);
-    const fromKm = fromStn?.km ?? 0;
-    const toKm = toStn?.km ?? 0;
-
-    let matches: PilotTrain[] = [];
-    if (fromKm < toKm) {
-      matches = allCorridorTrains.filter((t) => t.direction === 'DN');
-    } else {
-      matches = allCorridorTrains.filter((t) => t.direction === 'UP');
-    }
-
-    setSearchResults(matches);
-  };
-
   const switchCorridorForStation = async (code: string, isFrom: boolean) => {
     const isSerStation = serStations.some((s) => s.code === code);
     const targetCorridor = isSerStation ? 'SER_HWH_KGP' : 'ECoR_BHC_PURI';
@@ -216,31 +210,42 @@ export const SearchCard: React.FC = () => {
 
     skipNextSyncRef.current = true;
     if (isSerStation) {
-      if (isFrom) {
-        setToStation(code === 'KGP' ? 'HWH' : 'KGP');
-      } else {
-        setFromStation(code === 'HWH' ? 'KGP' : 'HWH');
+      if (isFrom && toStation && !serStations.some((s) => s.code === toStation)) {
+        setToStation('');
+      } else if (!isFrom && fromStation && !serStations.some((s) => s.code === fromStation)) {
+        setFromStation('');
       }
     } else {
-      if (isFrom) {
-        setToStation(code === 'BBS' ? 'PURI' : 'BBS');
-      } else {
-        setFromStation(code === 'BHC' ? 'BBS' : 'BHC');
+      if (isFrom && toStation && !ecorStations.some((s) => s.code === toStation)) {
+        setToStation('');
+      } else if (!isFrom && fromStation && !ecorStations.some((s) => s.code === fromStation)) {
+        setFromStation('');
       }
     }
 
-    await switchCorridor(targetCorridor);
+    try {
+      const res = await fetch('/api/v1/corridor/switch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ corridor_id: targetCorridor, speed_multiplier: 1 }),
+      });
+      if (res.ok) {
+        const snap = await res.json();
+        if (snap?.trains) updateSnapshot(snap);
+        triggerRefresh();
+      }
+    } catch {
+      /* ignore network errors */
+    }
   };
 
   const handleFromChange = (newFrom: string) => {
     setFromStation(newFrom);
-    setShowFindPopover(false);
     void switchCorridorForStation(newFrom, true);
   };
 
   const handleToChange = (newTo: string) => {
     setToStation(newTo);
-    setShowFindPopover(false);
     void switchCorridorForStation(newTo, false);
   };
 
@@ -248,26 +253,9 @@ export const SearchCard: React.FC = () => {
     const temp = fromStation;
     setFromStation(toStation);
     setToStation(temp);
-    setShowFindPopover(false);
-  };
-
-  const handleSearch = () => {
-    if (searchDisabled) return;
-    filterTrains(fromStation, toStation);
-    setShowFindPopover(true);
-    if (fromStation && toStation && fromStation !== toStation) {
-      const fromStn = corridorStations.find((s) => s.code === fromStation);
-      const toStn = corridorStations.find((s) => s.code === toStation);
-      saveRecent({
-        label: `${fromStn?.name} (${fromStation}) → ${toStn?.name} (${toStation})`,
-        fromCode: fromStation,
-        toCode: toStation,
-      });
-    }
   };
 
   const handleSelectTrainAndNavigate = async (trainNo: string, targetCorridorId?: string) => {
-    setShowFindPopover(false);
     if (targetCorridorId && targetCorridorId !== activeCorridorId) {
       await switchCorridor(targetCorridorId);
     }
@@ -275,43 +263,13 @@ export const SearchCard: React.FC = () => {
     navigateToDashboardWithTrain(trainNo);
   };
 
-  const handleTrackSubmit = () => {
-    const q = trainQuery.trim();
-    if (!q) return;
-
-    // Search against all available trains across both corridors
-    const qLower = q.toLowerCase();
-    const exactNoMatch = allAvailableTrains.find((t) => t.no === q);
-    const exactNameMatch = allAvailableTrains.find(
-      (t) => t.name.toLowerCase() === qLower
-    );
-    const partialMatch =
-      q.length >= 2
-        ? allAvailableTrains.find(
-            (t) =>
-              t.no.includes(q) ||
-              t.name.toLowerCase().includes(qLower) ||
-              qLower.includes(t.name.toLowerCase())
-          )
-        : null;
-
-    const match = exactNoMatch || exactNameMatch || partialMatch;
-
-    if (match) {
-      setUnmatchedNotice(null);
-      void handleSelectTrainAndNavigate(match.no, match.corridorId);
-    } else {
-      setUnmatchedNotice(q);
-      setShowAutocomplete(false);
-    }
-  };
-
   const handleRecentClick = (item: RecentItem) => {
     setFromStation(item.fromCode);
     setToStation(item.toCode);
-    setActiveTab('find');
+    void switchCorridorForStation(item.fromCode, true);
     filterTrains(item.fromCode, item.toCode);
-    setShowFindPopover(true);
+    setUnmatchedNotice(null);
+    setCurrentStep(2);
   };
 
   const handleClearRecent = () => {
@@ -323,450 +281,424 @@ export const SearchCard: React.FC = () => {
     }
   };
 
-  // Autocomplete suggestions based on query across both corridors
+  const handleTrackSubmit = () => {
+    const q = trainQuery.trim();
+    if (!q) {
+      if (selectedRouteTrain) {
+        void handleSelectTrainAndNavigate(selectedRouteTrain);
+      }
+      return;
+    }
+
+    // Search across all available trains in both corridors
+    const qLower = q.toLowerCase();
+    const exactNoMatch = allAvailableTrains.find((tr) => tr.no === q);
+    const exactNameMatch = allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower);
+    const partialMatch =
+      q.length >= 2
+        ? allAvailableTrains.find(
+          (tr) =>
+            tr.no.includes(q) ||
+            tr.name.toLowerCase().includes(qLower) ||
+            qLower.includes(tr.name.toLowerCase()),
+        )
+        : null;
+
+    const match = exactNoMatch || exactNameMatch || partialMatch;
+
+    if (match) {
+      setUnmatchedNotice(null);
+      void handleSelectTrainAndNavigate(match.no, match.corridorId);
+    } else {
+      setUnmatchedNotice(q);
+    }
+  };
+
+  const handleStepChange = (nextStep: number) => {
+    setUnmatchedNotice(null);
+    if (nextStep === 2) {
+      filterTrains(fromStation, toStation);
+      if (fromStation && toStation && fromStation !== toStation) {
+        const fromStn = corridorStations.find((s) => s.code === fromStation);
+        const toStn = corridorStations.find((s) => s.code === toStation);
+        saveRecent({
+          label: `${fromStn?.name} (${fromStation}) → ${toStn?.name} (${toStation})`,
+          fromCode: fromStation,
+          toCode: toStation,
+        });
+      }
+    }
+    setCurrentStep(nextStep);
+  };
+
+  // Universal cross-corridor search suggestions when typing
   const autocompleteSuggestions = useMemo(() => {
     const q = trainQuery.trim().toLowerCase();
-    if (!q) return allAvailableTrains;
+    if (!q) return [];
     return allAvailableTrains.filter(
-      (t) =>
-        t.no.toLowerCase().includes(q) ||
-        t.name.toLowerCase().includes(q) ||
-        t.origin.toLowerCase().includes(q) ||
-        t.destination.toLowerCase().includes(q)
+      (tr) =>
+        tr.no.toLowerCase().includes(q) ||
+        tr.name.toLowerCase().includes(q) ||
+        tr.origin.toLowerCase().includes(q) ||
+        tr.destination.toLowerCase().includes(q),
     );
-  }, [allAvailableTrains, trainQuery]);
+  }, [allCorridorTrains, trainQuery]);
 
   const searchDisabled = !fromStation || !toStation || fromStation === toStation;
+  const displayedTrains = trainQuery.trim()
+    ? autocompleteSuggestions
+    : (searchResults ?? []).map((tr) => ({
+        ...tr,
+        corridorId: activeCorridorId,
+        corridorName: isKolkata ? 'SER • Kolkata' : 'ECoR • Odisha',
+      }));
+  const trackDisabled =
+    currentStep === 2 && !trainQuery.trim() && !(searchResults && searchResults.length > 0);
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4">
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-visible relative">
-        {/* Dedicated Corridor Selector Banner */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-slate-50/90 border-b border-slate-200 text-xs rounded-t-2xl">
-          <div className="flex items-center gap-1.5 font-bold text-slate-700 tracking-wider">
-            <GitBranch className="w-4 h-4 text-[#0F294A]" />
-            <span className="uppercase text-[11px] text-slate-500">Pilot Corridor:</span>
-          </div>
-          <div className="flex items-center gap-1 bg-slate-200/80 p-0.5 rounded-lg w-full sm:w-auto">
-            <button
-              type="button"
-              onClick={() => void switchCorridor('ECoR_BHC_PURI')}
-              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-md font-mono text-xs font-bold transition-all cursor-pointer ${
-                !isKolkata
-                  ? 'bg-white text-indigo-950 shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              ECoR • Odisha (BHC–PURI)
-            </button>
-            <button
-              type="button"
-              onClick={() => void switchCorridor('SER_HWH_KGP')}
-              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-md font-mono text-xs font-bold transition-all cursor-pointer ${
-                isKolkata
-                  ? 'bg-white text-amber-950 shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              SER • Kolkata (HWH–KGP)
-            </button>
-          </div>
+    <div className="w-full max-w-3xl mx-auto px-4 space-y-2.5">
+      {/* Dedicated Pilot Corridor Selector Bar */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-4 py-2.5 bg-white/85 backdrop-blur-md border border-slate-200/80 text-xs rounded-2xl shadow-xs">
+        <div className="flex items-center gap-1.5 font-bold text-slate-700 tracking-wider">
+          <GitBranch className="w-4 h-4 text-[#0F294A]" />
+          <span className="uppercase text-[11px] text-slate-500">Pilot Corridor:</span>
         </div>
-
-        {/* Tab Switcher - Clean, starts immediately without top banner */}
-        <div className="flex border-b border-slate-200 overflow-hidden">
-          {(['find', 'track'] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => {
-                setActiveTab(tab);
-                setUnmatchedNotice(null);
-                setShowFindPopover(false);
-                setShowAutocomplete(false);
-              }}
-              className={`flex-1 py-3 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap cursor-pointer ${
-                activeTab === tab
-                  ? 'text-[#0F294A] border-b-2 border-[#0F294A] bg-white font-bold'
-                  : 'text-slate-400 hover:text-slate-600 bg-slate-50'
-              }`}
-            >
-              {tab === 'find' ? t.tabFind : t.tabTrack}
-            </button>
-          ))}
+        <div className="flex items-center gap-1 bg-slate-200/75 p-0.5 rounded-xl w-full sm:w-auto">
+          <button
+            type="button"
+            onClick={() => void switchCorridor('ECoR_BHC_PURI')}
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
+              !isKolkata
+                ? 'bg-white text-indigo-950 shadow-2xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            ECoR • Odisha (BHC–PURI)
+          </button>
+          <button
+            type="button"
+            onClick={() => void switchCorridor('SER_HWH_KGP')}
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
+              isKolkata
+                ? 'bg-white text-amber-950 shadow-2xs'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            SER • Kolkata (HWH–KGP)
+          </button>
         </div>
+      </div>
 
-        {/* Card Body with locked consistent height */}
-        <div className="p-4 sm:p-5 min-h-[148px] flex flex-col justify-between">
-          {activeTab === 'find' ? (
-            /* ── Find Trains ── */
-            <div className="space-y-3.5 flex flex-col justify-between flex-1">
-              <div className="relative">
-                <div className="flex flex-col md:flex-row md:items-end gap-2.5">
-                  {/* From Station */}
-                  <div className="relative w-full min-w-0 md:flex-1">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
-                      FROM
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={fromStation}
-                        onChange={(e) => handleFromChange(e.target.value)}
-                        className="w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs"
-                      >
-                        <option value="" disabled>
-                          {t.fromPlaceholder}
-                        </option>
-                        <optgroup label="Bhadrak – Puri (ECoR)">
-                          {ecorStations.map((s) => (
-                            <option key={s.code} value={s.code}>
-                              {s.name} ({s.code})
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Howrah – Kharagpur (SER)">
-                          {serStations.map((s) => (
-                            <option key={s.code} value={s.code}>
-                              {s.name} ({s.code})
-                            </option>
-                          ))}
-                        </optgroup>
-                      </select>
-                      <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Swap Stations Button */}
-                  <div className="shrink-0 self-center -my-1 md:my-0 md:self-auto rotate-90 md:rotate-0 md:pb-0.5">
-                    <button
-                      type="button"
-                      onClick={handleSwap}
-                      aria-label="Swap stations"
-                      className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-500 transition-all active:scale-90 cursor-pointer shadow-2xs"
-                      title="Swap Origin & Destination"
-                    >
-                      <ArrowLeftRight className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  {/* To Station */}
-                  <div className="relative w-full min-w-0 md:flex-1">
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
-                      TO
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={toStation}
-                        onChange={(e) => handleToChange(e.target.value)}
-                        className="w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs"
-                      >
-                        <option value="" disabled>
-                          {t.toPlaceholder}
-                        </option>
-                        <optgroup label="Bhadrak – Puri (ECoR)">
-                          {ecorStations.map((s) => (
-                            <option key={s.code} value={s.code}>
-                              {s.name} ({s.code})
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Howrah – Kharagpur (SER)">
-                          {serStations.map((s) => (
-                            <option key={s.code} value={s.code}>
-                              {s.name} ({s.code})
-                            </option>
-                          ))}
-                        </optgroup>
-                      </select>
-                      <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Search Button */}
-                  <div className="w-full md:w-auto shrink-0">
-                    <button
-                      ref={searchButtonRef}
-                      type="button"
-                      onClick={handleSearch}
-                      disabled={searchDisabled}
-                      className="w-full md:w-auto h-11 px-5 sm:px-6 rounded-xl bg-[#0F294A] text-white text-xs sm:text-sm font-bold hover:bg-[#1a3a60] disabled:opacity-40 disabled:cursor-not-allowed transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center"
-                    >
-                      {t.btnSearch}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Floating Results Popover (Matching Track Train) */}
-                {showFindPopover && searchResults && (
-                  <div
-                    key={`${fromStation}-${toStation}-${searchResults.length}`}
-                    ref={findPopoverRef}
-                    className="rp-popover-enter absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-2xl border border-slate-200 shadow-xl p-3"
+      <Stepper
+        step={currentStep}
+        onStepChange={handleStepChange}
+        theme="light"
+        accentColor="#0F294A"
+        width="100%"
+        radius={20}
+        backButtonText="Back"
+        nextButtonText={t.btnSearch}
+        completeButtonText={t.btnTrack}
+        nextButtonProps={{
+          disabled: currentStep === 1 ? searchDisabled : trackDisabled,
+          onClick: (e) => {
+            if (currentStep === 2) {
+              e.preventDefault();
+              handleTrackSubmit();
+            }
+          },
+        }}
+        className="border border-slate-200/80"
+      >
+        {/* Step 1: From / To Station Selection */}
+        <Step title={t.tabFind} icon={<Search className="w-3.5 h-3.5" />}>
+          <div className="space-y-4">
+            <div className="flex flex-col md:flex-row md:items-end gap-2.5">
+              {/* From Station */}
+              <div className="relative w-full min-w-0 md:flex-1">
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
+                  FROM
+                </label>
+                <div className="relative">
+                  <select
+                    value={fromStation}
+                    onChange={(e) => handleFromChange(e.target.value)}
+                    className={`w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs ${fromStation ? 'text-slate-900 font-semibold' : 'text-slate-400 font-normal'
+                      }`}
                   >
-                    {/* Header: MATCHING TRAINS ([count]) + × Close button */}
-                    <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2 px-1">
-                      <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                        MATCHING TRAINS ({searchResults.length})
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setShowFindPopover(false)}
-                        className="p-1 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-                        title="Close"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-
-                    {/* Matched Train Rows */}
-                    <div className="space-y-2 max-h-[300px] overflow-y-auto overflow-x-hidden py-0.5">
-                      {searchResults.length === 0 ? (
-                        <div className="p-4 text-center text-xs text-slate-500 font-medium">
-                          No live trains found for this route.
-                        </div>
-                      ) : (
-                        searchResults.map((tr, idx) => {
-                          const rowDelayMs = 55 + Math.min(idx, 5) * 65;
-                          const iconDelayMs = rowDelayMs + 45;
-                          const ctaDelayMs = rowDelayMs + 85;
-                          return (
-                            <button
-                              type="button"
-                              key={tr.no}
-                              onClick={() => handleSelectTrainAndNavigate(tr.no)}
-                              style={{ animationDelay: `${rowDelayMs}ms` }}
-                              className="rp-row-follow w-full text-left p-3 sm:p-3.5 rounded-xl border border-slate-200 hover:border-[#0F294A] hover:bg-slate-50/80 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-xs"
-                            >
-                              <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                                <div
-                                  style={{ animationDelay: `${iconDelayMs}ms` }}
-                                  className="rp-chip-follow w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 p-1.5 shadow-2xs transition-transform duration-300 delay-50 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:scale-105"
-                                >
-                                  <TrainCardIcon className="w-6 h-6 sm:w-7 sm:h-7" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                                    <span className="font-mono font-bold text-sm sm:text-base text-[#0F294A] shrink-0">
-                                      {tr.no}
-                                    </span>
-                                    <span className="text-slate-300 font-bold hidden sm:inline">•</span>
-                                    <span className="font-bold text-sm sm:text-base text-slate-800">
-                                      {tr.name}
-                                    </span>
-                                    <span
-                                      className={`hidden sm:inline-flex text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
-                                        tr.statusColor === 'emerald'
-                                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                          : 'bg-amber-50 text-amber-700 border-amber-200'
-                                      }`}
-                                    >
-                                      {tr.delayStatus}
-                                    </span>
-                                  </div>
-
-                                  <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium mt-1">
-                                    <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                                    <span className="leading-snug">
-                                      Departs {tr.departureTime} • {tr.origin.replace(/ \([A-Z]+\)/g, '')} → {tr.destination.replace(/ \([A-Z]+\)/g, '')}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0 sm:ml-2">
-                                <span
-                                  className={`sm:hidden text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${
-                                    tr.statusColor === 'emerald'
-                                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                      : 'bg-amber-50 text-amber-700 border-amber-200'
-                                  }`}
-                                >
-                                  {tr.delayStatus}
-                                </span>
-                                <div
-                                  style={{ animationDelay: `${ctaDelayMs}ms` }}
-                                  className="rp-chip-follow flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F294A]/5 group-hover:bg-[#0F294A] group-hover:text-white text-[#0F294A] text-xs font-bold transition-all duration-300 delay-50 ease-[cubic-bezier(0.22,1,0.36,1)] shrink-0 shadow-2xs whitespace-nowrap ml-auto sm:ml-0"
-                                >
-                                  <span>Live ETA</span>
-                                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]" />
-                                </div>
-                              </div>
-                            </button>
-                          );
-                        })
-                      )}
-                    </div>
-                  </div>
-                )}
+                    <option value="" disabled>
+                      {t.fromPlaceholder}
+                    </option>
+                    <optgroup label="Bhadrak – Puri (ECoR)">
+                      {ecorStations.map((s) => (
+                        <option key={s.code} value={s.code}>
+                          {s.name} ({s.code})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Howrah – Kharagpur (SER)">
+                      {serStations.map((s) => (
+                        <option key={s.code} value={s.code}>
+                          {s.name} ({s.code})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
+                </div>
               </div>
 
-              {/* Single horizontal strip with route pills and subtle Clear link - ALWAYS stays in place without shifting card */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2 text-xs text-slate-500">
-                <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
-                  <span className="text-xs font-semibold text-slate-400 shrink-0">Recent:</span>
-                  {recent.length === 0 ? (
-                    <span className="text-xs text-slate-400 italic">No recent routes</span>
-                  ) : (
-                    recent.slice(0, 2).map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => handleRecentClick(item)}
-                        className="recent-route-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors cursor-pointer truncate max-w-full"
-                      >
-                        {item.label}
-                      </button>
-                    ))
-                  )}
-                </div>
+              {/* Swap Stations Button */}
+              <div className="shrink-0 self-center -my-1 md:my-0 md:self-auto rotate-90 md:rotate-0 md:pb-0.5">
+                <button
+                  type="button"
+                  onClick={handleSwap}
+                  aria-label="Swap stations"
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-slate-500 transition-all active:scale-90 cursor-pointer shadow-2xs"
+                  title="Swap Origin & Destination"
+                >
+                  <ArrowLeftRight className="w-4 h-4" />
+                </button>
+              </div>
 
-                {recent.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={handleClearRecent}
-                    className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer shrink-0 ml-1"
+              {/* To Station */}
+              <div className="relative w-full min-w-0 md:flex-1">
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
+                  TO
+                </label>
+                <div className="relative">
+                  <select
+                    value={toStation}
+                    onChange={(e) => handleToChange(e.target.value)}
+                    className={`w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs ${toStation ? 'text-slate-900 font-semibold' : 'text-slate-400 font-normal'
+                      }`}
                   >
-                    Clear
-                  </button>
-                )}
+                    <option value="" disabled>
+                      {t.toPlaceholder}
+                    </option>
+                    <optgroup label="Bhadrak – Puri (ECoR)">
+                      {ecorStations.map((s) => (
+                        <option key={s.code} value={s.code}>
+                          {s.name} ({s.code})
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Howrah – Kharagpur (SER)">
+                      {serStations.map((s) => (
+                        <option key={s.code} value={s.code}>
+                          {s.name} ({s.code})
+                        </option>
+                      ))}
+                    </optgroup>
+                  </select>
+                  <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
+                </div>
               </div>
             </div>
-          ) : (
-            /* ── Track Train ── */
-            <div className="space-y-3 flex flex-col justify-between flex-1">
-              <div ref={autocompleteRef}>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
-                  TRAIN NUMBER OR NAME
-                </label>
-                <div className="relative flex flex-col sm:flex-row gap-2.5">
-                  <input
-                    type="text"
-                    value={trainQuery}
-                    onChange={(e) => {
-                      setTrainQuery(e.target.value);
-                      setShowAutocomplete(true);
-                      setUnmatchedNotice(null);
-                    }}
-                    onFocus={() => setShowAutocomplete(true)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleTrackSubmit()}
-                    placeholder="Enter train no. or name (e.g. 12821, Vande Bharat)"
-                    className="w-full sm:flex-1 min-w-0 px-4 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all shadow-2xs"
-                  />
 
-                  <button
-                    type="button"
-                    onClick={handleTrackSubmit}
-                    disabled={!trainQuery.trim()}
-                    className="w-full sm:w-auto h-11 px-5 sm:px-6 rounded-xl bg-[#0F294A] text-white text-xs sm:text-sm font-bold hover:bg-[#1a3a60] disabled:opacity-40 disabled:cursor-not-allowed transition-colors whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center"
-                  >
-                    {t.btnTrack}
-                  </button>
-
-                  {/* Autocomplete Dropdown - Spans full width of input + button row */}
-                  {showAutocomplete && autocompleteSuggestions.length > 0 && (
-                    <div className="absolute left-0 right-0 top-full mt-2 z-50 bg-white rounded-xl border border-slate-200 shadow-xl py-1 max-h-[300px] overflow-y-auto">
-                      <div className="px-3.5 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-100">
-                        Live Corridor Trains
-                      </div>
-                      {autocompleteSuggestions.map((t) => (
-                        <div
-                          key={t.no + t.corridorId}
-                          onClick={() => {
-                            setShowAutocomplete(false);
-                            void handleSelectTrainAndNavigate(t.no, t.corridorId);
-                          }}
-                          className="px-3 sm:px-3.5 py-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between gap-2 border-b border-slate-50 last:border-0 group"
-                        >
-                          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                            <div className="w-8 h-8 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 p-1">
-                              <TrainCardIcon className="w-6 h-6" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="font-mono font-bold text-[#0F294A] text-xs sm:text-sm shrink-0">
-                                  {t.no}
-                                </span>
-                                <span className="font-semibold text-slate-800 text-xs sm:text-sm truncate">
-                                  {t.name}
-                                </span>
-                                <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded border ${
-                                  t.corridorId === 'SER_HWH_KGP'
-                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
-                                    : 'bg-indigo-50 text-indigo-800 border-indigo-200'
-                                }`}>
-                                  {t.corridorName}
-                                </span>
-                              </div>
-                              <p className="text-[11px] sm:text-xs text-slate-500 truncate">
-                                {t.subtitle}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-                            <span
-                              className={`text-[11px] sm:text-xs font-mono font-bold px-2 sm:px-2.5 py-0.5 rounded-full border whitespace-nowrap ${
-                                t.statusColor === 'emerald'
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                  : 'bg-amber-50 text-amber-700 border-amber-200'
-                              }`}
-                            >
-                              {t.delayStatus}
-                            </span>
-                            <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-[#0F294A] group-hover:translate-x-0.5 transition-all" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+            {/* Recent Routes Strip */}
+            <div className="pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2 text-xs text-slate-500">
+              <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
+                <span className="text-xs font-semibold text-slate-400 shrink-0">Recent:</span>
+                {recent.length === 0 ? (
+                  <span className="text-xs text-slate-400 italic">No recent routes</span>
+                ) : (
+                  recent.slice(0, 2).map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => handleRecentClick(item)}
+                      className="recent-route-pill px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors cursor-pointer truncate max-w-full"
+                    >
+                      {item.label}
+                    </button>
+                  ))
+                )}
               </div>
 
-              {/* Unmatched Fallback Banner with Quick-Select Pills */}
-              {unmatchedNotice && (
-                <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-slate-800 space-y-2">
-                  <div className="flex items-start gap-2">
-                    <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    <p className="text-xs text-slate-700 leading-relaxed">
-                      Live telemetry is currently active for the <strong>{isKolkata ? 'Howrah–Kharagpur pilot corridor' : 'Bhadrak–Puri pilot corridor'}</strong>. Choose one of the {allCorridorTrains.length} live trains below:
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 flex-wrap pt-0.5 pl-6">
-                    {allCorridorTrains.map((tr) => (
-                      <button
-                        type="button"
-                        key={tr.no}
-                        onClick={() => handleSelectTrainAndNavigate(tr.no)}
-                        className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[#0F294A] font-semibold text-xs border border-amber-200 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <TrainCardIcon className="w-4 h-4" />
-                        <span className="font-mono font-bold">{tr.no}</span>
-                        <span>{tr.name}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+              {recent.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearRecent}
+                  className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer shrink-0 ml-1"
+                >
+                  Clear
+                </button>
               )}
+            </div>
+          </div>
+        </Step>
 
-              {/* Quick corridor train pills in Track tab (hidden while autocomplete dropdown is open) */}
-              {!unmatchedNotice && !showAutocomplete && (
-                <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
-                  <span className="text-xs font-semibold text-slate-400 shrink-0">Quick select:</span>
-                  {allCorridorTrains.slice(0, 5).map((tr) => (
+        {/* Step 2: Matching Route Trains & Universal Cross-Corridor Train Search */}
+        <Step title={t.tabTrack} icon={<TrainFront className="w-3.5 h-3.5" />}>
+          <div className="space-y-4">
+            {/* Train Number or Name Input */}
+            <div>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
+                TRAIN NUMBER OR NAME
+              </label>
+              <input
+                type="text"
+                value={trainQuery}
+                onChange={(e) => {
+                  setTrainQuery(e.target.value);
+                  setUnmatchedNotice(null);
+                }}
+                onKeyDown={(e) => e.key === 'Enter' && handleTrackSubmit()}
+                placeholder="Enter train no. or name (e.g. 12821, Vande Bharat)"
+                className="w-full min-w-0 px-4 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all shadow-2xs"
+              />
+            </div>
+
+            {/* Unmatched Fallback Banner */}
+            {unmatchedNotice && (
+              <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-slate-800 space-y-2">
+                <div className="flex items-start gap-2">
+                  <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <p className="text-xs text-slate-700 leading-relaxed">
+                    Live telemetry is currently active for the{' '}
+                    <strong>
+                      {isKolkata ? 'Howrah–Kharagpur pilot corridor' : 'Bhadrak–Puri pilot corridor'}
+                    </strong>
+                    . Choose one of the {allCorridorTrains.length} live trains below:
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap pt-0.5 pl-6">
+                  {allCorridorTrains.map((tr) => (
                     <button
                       type="button"
                       key={tr.no}
-                      onClick={() => handleSelectTrainAndNavigate(tr.no)}
-                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors cursor-pointer"
+                      onClick={() => void handleSelectTrainAndNavigate(tr.no)}
+                      className="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[#0F294A] font-semibold text-xs border border-amber-200 shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
                     >
-                      {tr.no} {tr.name}
+                      <TrainCardIcon className="w-4 h-4" />
+                      <span className="font-mono font-bold">{tr.no}</span>
+                      <span>{tr.name}</span>
                     </button>
                   ))}
                 </div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+              </div>
+            )}
+
+            {/* Matching Route Trains / Live Search Results */}
+            {!unmatchedNotice && (trainQuery.trim() || !searchDisabled) && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between px-0.5">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    {trainQuery.trim()
+                      ? `MATCHING TRAINS (${displayedTrains.length})`
+                      : `TRAINS ON ${fromStation} → ${toStation} (${displayedTrains.length})`}
+                  </span>
+                </div>
+
+                {displayedTrains.length === 0 ? (
+                  <div className="p-4 rounded-xl border border-slate-200/80 bg-slate-50/70 text-center text-xs text-slate-500 font-medium">
+                    {trainQuery.trim()
+                      ? `No corridor trains matching "${trainQuery.trim()}". Press ${t.btnTrack} to see all live trains.`
+                      : 'Select different origin and destination stations or search by train number above.'}
+                  </div>
+                ) : (
+                  <div className="space-y-2 max-h-[260px] overflow-y-auto overflow-x-hidden pr-0.5">
+                    {displayedTrains.map((tr) => {
+                      const isSelected = selectedRouteTrain === tr.no && !trainQuery.trim();
+                      return (
+                        <button
+                          type="button"
+                          key={`${tr.no}-${tr.corridorId}`}
+                          onClick={() => {
+                            setSelectedRouteTrain(tr.no);
+                            void handleSelectTrainAndNavigate(tr.no, tr.corridorId);
+                          }}
+                          className={`w-full text-left p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-xs ${isSelected
+                            ? 'border-[#0F294A]/40 bg-slate-50/90 hover:border-[#0F294A]'
+                            : 'border-slate-200 bg-white hover:border-[#0F294A] hover:bg-slate-50/80'
+                            }`}
+                        >
+                          <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 p-1.5 shadow-2xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-105">
+                              <TrainCardIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                                <span className="font-mono font-bold text-sm sm:text-base text-[#0F294A] shrink-0">
+                                  {tr.no}
+                                </span>
+                                <span className="text-slate-300 font-bold hidden sm:inline">•</span>
+                                <span className="font-bold text-sm sm:text-base text-slate-800">
+                                  {tr.name}
+                                </span>
+                                <span
+                                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border whitespace-nowrap shrink-0 ${
+                                    tr.corridorId === 'SER_HWH_KGP'
+                                      ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                      : 'bg-indigo-50 text-indigo-800 border-indigo-200'
+                                  }`}
+                                >
+                                  {tr.corridorName}
+                                </span>
+                                <span
+                                  className={`hidden sm:inline-flex text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${tr.statusColor === 'emerald'
+                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                    : 'bg-amber-50 text-amber-700 border-amber-200'
+                                    }`}
+                                >
+                                  {tr.delayStatus}
+                                </span>
+                              </div>
+
+                              <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium mt-1">
+                                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                                <span className="leading-snug">
+                                  Departs {tr.departureTime} •{' '}
+                                  {tr.origin.replace(/ \([A-Z]+\)/g, '')} →{' '}
+                                  {tr.destination.replace(/ \([A-Z]+\)/g, '')}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0 sm:ml-2">
+                            <span
+                              className={`sm:hidden text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${tr.statusColor === 'emerald'
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                : 'bg-amber-50 text-amber-700 border-amber-200'
+                                }`}
+                            >
+                              {tr.delayStatus}
+                            </span>
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F294A]/5 group-hover:bg-[#0F294A] group-hover:text-white text-[#0F294A] text-xs font-bold transition-all duration-200 shrink-0 shadow-2xs whitespace-nowrap ml-auto sm:ml-0">
+                              <span>Live ETA</span>
+                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Quick Select Corridor Train Pills */}
+            {!unmatchedNotice && !trainQuery.trim() && (
+              <div className="pt-3 border-t border-slate-200/70 flex items-center gap-1.5 text-xs text-slate-500 flex-wrap">
+                <span className="text-xs font-semibold text-slate-400 shrink-0">Quick select:</span>
+                {allCorridorTrains.slice(0, 5).map((tr) => (
+                  <button
+                    type="button"
+                    key={tr.no}
+                    onClick={() => void handleSelectTrainAndNavigate(tr.no)}
+                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors cursor-pointer"
+                  >
+                    {tr.no} {tr.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </Step>
+      </Stepper>
     </div>
   );
 };

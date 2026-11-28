@@ -4,7 +4,7 @@ import type {
   ForecastResponse,
   RescueEvaluationResponse,
 } from '../types/corridor';
-import { MOCK_SNAPSHOT } from '../services/mockFallback';
+import { MOCK_SNAPSHOT, getMockSnapshot } from '../services/mockFallback';
 
 interface ConnectionTargetState {
   station_code: string;
@@ -154,10 +154,20 @@ export const useRailStore = create<RailStore>((set, get) => ({
     } catch (err) {
       console.warn('Corridor switch network error:', err);
     }
-    // Fallback update
+    // Fallback update with corridor-matched snapshot
+    const fallbackSnap = getMockSnapshot(targetCorridorId);
+    const currentTrain = get().selectedTrain;
+    const validTrain = fallbackSnap.trains.some((t) => t.train_no === currentTrain)
+      ? currentTrain
+      : defaultTrain;
     set({
       activeCorridorId: targetCorridorId,
-      selectedTrain: defaultTrain,
+      activeSnapshot: {
+        ...fallbackSnap,
+        corridor_id: targetCorridorId,
+        speed_multiplier: get().activeSnapshot.speed_multiplier || fallbackSnap.speed_multiplier,
+      },
+      selectedTrain: validTrain,
       connectionTarget: {
         station_code: defaultDest,
         deadline_time: isKolkata ? '13:00' : '12:15',
