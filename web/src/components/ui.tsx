@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as store from "../lib/store";
+import Toasts from "./Toasts";
 
 /** Round rating dots, like the deck's route-scoring table (dots + label: colour-blind safe). */
 export function Dots({ n, label }: { n: number; label: string }) {
@@ -31,8 +32,8 @@ export function LangToggle() {
 }
 
 const NAV = [
-  { to: "/", key: "scan", icon: "◉", end: true }, { to: "/history", key: "history", icon: "◷" },
-  { to: "/recyclers", key: "recyclers", icon: "⌖" }, { to: "/how", key: "how", icon: "?" }, { to: "/more", key: "more", icon: "⋯" },
+  { to: "/", key: "home", icon: "⌂", end: true }, { to: "/map", key: "map", icon: "⌖" }, { to: "/scan", key: "scan", icon: "◉", fab: true },
+  { to: "/impact", key: "impact", icon: "★" }, { to: "/about", key: "about", icon: "ⓘ" },
 ];
 
 export function Layout() {
@@ -46,23 +47,28 @@ export function Layout() {
     refresh(); if (navigator.onLine) store.flush();
     return () => { window.removeEventListener("online", up); window.removeEventListener("offline", down); window.removeEventListener("queue-changed", refresh); };
   }, []);
-  const mobile = ({ isActive }: { isActive: boolean }) => `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold ${isActive ? "text-orange" : "text-cream/60"}`;
   const desk = ({ isActive }: { isActive: boolean }) => `rounded-full px-4 py-1.5 text-sm font-semibold ${isActive ? "bg-orange text-white" : "text-cream/80 hover:text-cream"}`;
+  const mobile = ({ isActive }: { isActive: boolean }) => `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold ${isActive ? "text-orange" : "text-cream/60"}`;
   return (
     <div className="flex h-dvh flex-col">
+      <Toasts />
       <header className="bg-ink text-cream">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-          <Logo />
-          <nav className="hidden gap-1 md:flex">{NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={desk}>{t(`nav.${n.key}`)}</NavLink>)}</nav>
+          <NavLink to="/"><Logo /></NavLink>
+          <nav className="hidden items-center gap-1 md:flex">{NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={desk}>{t(`nav.${n.key}`)}</NavLink>)}</nav>
           <div className="flex items-center gap-2">
             {(!online || q > 0) && <span className="rounded-full bg-amber px-2 py-0.5 text-xs font-bold text-ink">{online ? `${q} ↑` : `Offline${q ? ` · ${q}` : ""}`}</span>}
             <LangToggle />
+            <NavLink to="/profile" aria-label="Profile" className="flex h-8 w-8 items-center justify-center rounded-full border border-cream/40 text-sm">☺</NavLink>
           </div>
         </div>
       </header>
       <main className="min-h-0 flex-1 overflow-y-auto"><div className="mx-auto h-full max-w-6xl"><Outlet /></div></main>
-      <nav className="flex bg-ink pb-[env(safe-area-inset-bottom)] md:hidden">
-        {NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={mobile}><span className="text-lg leading-none">{n.icon}</span>{t(`nav.${n.key}`)}</NavLink>)}
+      <nav className="flex items-end bg-ink pb-[env(safe-area-inset-bottom)] md:hidden">
+        {NAV.map((n) => n.fab
+          ? <NavLink key={n.to} to={n.to} aria-label={t("nav.scan")} className="-mt-5 flex flex-1 flex-col items-center gap-0.5 pb-2 text-[11px] font-semibold text-cream">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange text-2xl text-white shadow-lg ring-4 ring-ink">◉</span>{t("nav.scan")}</NavLink>
+          : <NavLink key={n.to} to={n.to} end={n.end} className={mobile}><span className="text-lg leading-none">{n.icon}</span>{t(`nav.${n.key}`)}</NavLink>)}
       </nav>
     </div>
   );

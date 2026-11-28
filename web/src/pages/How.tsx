@@ -6,7 +6,7 @@ export default function How() {
   const { t } = useTranslation();
   const diffs = ["value", "reuse", "route", "phone"];
   return (
-    <div className="space-y-8 p-4 md:p-8">
+    <div className="space-y-8">
       <section>
         <p className="eyebrow">{t("how.eyebrow")}</p>
         <h1 className="text-4xl md:text-5xl">{t("how.title")}</h1>

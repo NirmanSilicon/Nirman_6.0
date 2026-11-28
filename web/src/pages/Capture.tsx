@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import * as api from "../lib/api";
 import { fileToBitmap, measure, toJpeg, type Quality } from "../lib/imaging";
 import * as store from "../lib/store";
+import { refreshImpact } from "../lib/impact";
 
 export default function Capture() {
   const { t } = useTranslation();
@@ -38,6 +39,7 @@ export default function Capture() {
       if (!navigator.onLine) throw new api.NetworkError("offline");
       const r = await api.postScan(blob, opts);
       await store.saveResult(r, blob);
+      refreshImpact();
       nav(`/result/${r.scan_id}`);
     } catch (e) {
       setBusy(false);

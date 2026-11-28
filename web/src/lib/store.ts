@@ -50,7 +50,7 @@ export async function flush(): Promise<number> {
       }
     }
   } finally { flushing = false; }
-  if (done) window.dispatchEvent(new Event("history-changed"));
+  if (done) { window.dispatchEvent(new Event("history-changed")); import("./impact").then((m) => m.refreshImpact()); }
   return done;
 }
 

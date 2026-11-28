@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import BBoxOverlay from "../components/BBoxOverlay";
 import Nearby from "../components/Nearby";
 import { Dots, Pipeline, inr } from "../components/ui";
@@ -95,6 +95,10 @@ export default function Result() {
 
           <section className="space-y-2">
             <p className="eyebrow">{t("result.whereToGo")}</p>
+            {hero && <Link to={`/map?scan=${r.scan_id}`} className="card-dark block">
+              <p className="eyebrow !text-orange">{t("result.nextStep")}</p>
+              <p className="mt-1 text-lg font-semibold">{t("result.nextText")}</p>
+              <span className="btn btn-accent mt-3 inline-block">{t("result.openMap")} →</span></Link>}
             <Nearby />
           </section>
         </div>
@@ -125,6 +129,7 @@ export default function Result() {
           <div className="flex gap-2 pb-4">
             <button className="btn btn-primary flex-1" onClick={share}>{t("result.share")}</button>
             <a className="btn btn-ghost flex-1 text-center" href={api.reportUrl(r.scan_id, "pdf")} target="_blank" rel="noreferrer">PDF</a>
+            <a className="btn btn-ghost flex-1 text-center" href={api.recordUrl(r.scan_id)} target="_blank" rel="noreferrer" title={t("result.recordHint")}>EPR/DPP</a>
             <button className="btn btn-ghost" onClick={remove} aria-label={t("result.delete")}>🗑</button>
           </div>
         </section>

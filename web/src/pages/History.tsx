@@ -7,7 +7,7 @@ import * as store from "../lib/store";
 
 interface Item { scan_id: string; created_at: string; value_low: number | null; value_high: number | null; top_route: string | null; warning?: string | null }
 
-export default function History() {
+export default function History({ embedded = false }: { embedded?: boolean }) {
   const { t } = useTranslation();
   const [items, setItems] = useState<Item[]>([]);
   const [pend, setPend] = useState(0);
@@ -26,8 +26,8 @@ export default function History() {
     return () => { window.removeEventListener("history-changed", load); window.removeEventListener("queue-changed", load); };
   }, []);
   return (
-    <div className="space-y-3 p-4 md:p-8">
-      <h1 className="text-3xl">{t("history.title")}</h1>
+    <div className={embedded ? "space-y-3" : "space-y-3 p-4 md:p-8"}>
+      {embedded ? <p className="eyebrow">{t("history.title")}</p> : <h1 className="text-3xl">{t("history.title")}</h1>}
       {pend > 0 && (
         <div className="card flex items-center justify-between border-amber bg-cream">
           <span>{pend} {t("history.pending")}</span>

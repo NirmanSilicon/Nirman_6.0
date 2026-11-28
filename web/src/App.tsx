@@ -1,26 +1,37 @@
+import { lazy, Suspense, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Onboarding from "./components/Onboarding";
 import { Layout } from "./components/ui";
 import Capture from "./pages/Capture";
-import How from "./pages/How";
-import History from "./pages/History";
-import More from "./pages/More";
-import Prices from "./pages/Prices";
-import Recyclers from "./pages/Recyclers";
-import Result from "./pages/Result";
+import Home from "./pages/Home";
+
+const Result = lazy(() => import("./pages/Result"));
+const History = lazy(() => import("./pages/History"));
+const MapPage = lazy(() => import("./pages/Map"));
+const Impact = lazy(() => import("./pages/Impact"));
+const About = lazy(() => import("./pages/About"));
+const More = lazy(() => import("./pages/More"));
 
 export default function App() {
+  const [onboarded, setOnboarded] = useState(localStorage.getItem("onboarded") === "1");
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route index element={<Capture />} />
-        <Route path="result/:id" element={<Result />} />
-        <Route path="history" element={<History />} />
-        <Route path="recyclers" element={<Recyclers />} />
-        <Route path="how" element={<How />} />
-        <Route path="prices" element={<Prices />} />
-        <Route path="more" element={<More />} />
-        <Route path="*" element={<Capture />} />
-      </Route>
-    </Routes>
+    <>
+      {!onboarded && <Onboarding onDone={() => { localStorage.setItem("onboarded", "1"); setOnboarded(true); }} />}
+      <Suspense fallback={<p className="p-6 text-mute">…</p>}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="scan" element={<Capture />} />
+            <Route path="result/:id" element={<Result />} />
+            <Route path="history" element={<History />} />
+            <Route path="map" element={<MapPage />} />
+            <Route path="impact" element={<Impact />} />
+            <Route path="about" element={<About />} />
+            <Route path="profile" element={<More />} />
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 }

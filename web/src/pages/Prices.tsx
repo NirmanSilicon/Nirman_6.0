@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as api from "../lib/api";
 
-export default function Prices() {
+export default function Prices({ embedded = false }: { embedded?: boolean }) {
   const { t } = useTranslation();
   const [d, setD] = useState<any>(null);
   useEffect(() => { api.getPrices().then(setD).catch(() => {}); }, []);
   if (!d) return <p className="p-6">{t("common.loading")}</p>;
   return (
-    <div className="space-y-4 p-4 text-sm md:p-8">
+    <div className={embedded ? "space-y-4 text-sm" : "space-y-4 p-4 text-sm md:p-8"}>
       <h1 className="text-3xl">{t("prices.title")}</h1>
       <p>{t("prices.intro")} {t("result.asOf")}: {d.as_of?.slice(0, 10)}</p>
       <h2 className="font-bold">Prices</h2>
