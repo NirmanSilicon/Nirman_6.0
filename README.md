@@ -6,6 +6,7 @@
 
 **From sensor to street to smartphone: live IoT telemetry, a geospatial backend, an operations portal and a driver app, all in one platform.**
 
+  
 <br/>
 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
