@@ -1,4 +1,29 @@
-# NIRMAN 6.0 — HACKNATION 2026
+# RAIL-PULSE (v1.0.0) — NIRMAN 6.0 HACKNATION 2026
+
+> **First Release (`v1.0.0`) is live on GitHub!**  
+> Download the Android APK directly from **[GitHub Releases](https://github.com/jyotiswadhindibya-bit/Nirman_6.0/releases)**.
+
+## What's in RAIL-PULSE v1.0.0
+
+**RAIL-PULSE** is a predictive rail intelligence and multimodal rescue platform covering the **ECoR Odisha (`BHC–PURI`)** and **SER Kolkata (`HWH–KGP`)** corridors.
+
+- **Android Mobile App (`mobile/` — Expo / React Native)**:
+  - Multilingual Landing UI (`EN`, `HI`, `OR`) with Pilot Corridor Selector and 2-Step Train Search Stepper.
+  - Live Dashboard with **Best (P10) / Likely (P50) / Worst (P90)** arrival windows, Connection Guard, Journey Timeline & Delay Causes, MapLibre GL Live Map, NH-16 / Kona Expressway Rescue Cab modal, and Demo Controls.
+  - Built-in offline **Demo Mode** simulation fallback so the standalone APK works even without a live backend connection.
+- **Web Application (`frontend/` — React + Vite + MapLibre GL)**:
+  - Interactive corridor map with 60 FPS train tracking, overtake markers, and real-time WebSocket telemetry.
+- **AI & Physics Backend (`app/` + `ml/` — FastAPI + LightGBM + CQR)**:
+  - Physics-guided residual **LightGBM** quantile models (`lgbm_p10`, `lgbm_p50`, `lgbm_p90`) with Split Conformal (**CQR**) calibration (`2.69` min MAE, `80.3%` empirical coverage) and Bayesian **Phantom Freight Shadow** inference.
+
+### Installing the Android APK (`v1.0.0`)
+1. Open the **[Releases page](https://github.com/jyotiswadhindibya-bit/Nirman_6.0/releases)** and download the `v1.0.0` `.apk` asset.
+2. Allow installation from unknown sources on your Android device if prompted and install.
+3. Launch **RAIL-PULSE** — runs immediately in offline Demo Mode, or tap the `DEMO` pill in the top bar to connect to a running backend URL.
+
+---
+
+## NIRMAN 6.0 — Team Collaboration Workflow
 
 Welcome to the **NIRMAN 6.0 HACKNATION** project repository.
 
