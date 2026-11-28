@@ -22,6 +22,10 @@ export interface Translations {
     gameTitlePlaceholder: string;
     policyLabel: string;
     policyPlaceholder: string;
+    fetchPolicyButton: string;
+    fetchingPolicyButton: string;
+    policyAutoHint: string;
+    sourcesTitle: string;
     analyzeButton: string;
     analyzingButton: string;
     downloadReport: string;
@@ -119,11 +123,16 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       presetsLabel: "One-Click Demo Presets",
       gameTitleLabel: "Game Title",
       gameTitlePlaceholder: "e.g. Aether Gacha RPG or Stardew Valley",
-      policyLabel: "Monetization Policy or In-Game Shop Description",
+      policyLabel: "Monetization Policy (Auto-Generated via Web Search)",
       policyPlaceholder:
-        "Paste shop text, drop rates (e.g. 0.6% mythic banner), currency packs, or countdown timers...",
+        "Leave blank to auto-search the web when scanning, or click 'Auto-Fetch from Web' after typing a game title...",
+      fetchPolicyButton: "Auto-Fetch from Web",
+      fetchingPolicyButton: "Searching Web...",
+      policyAutoHint:
+        "Just enter a game title — AI searches the live web to generate its monetization policy automatically.",
+      sourcesTitle: "Web Sources Referenced",
       analyzeButton: "Scan Predatory Risk",
-      analyzingButton: "Analyzing Mechanics...",
+      analyzingButton: "Searching & Analyzing...",
       downloadReport: "Download Risk Report (Print / PDF)",
       riskScoreLabel: "Predatory Risk Score",
       breakdownTitle: "Mechanic Classification",
@@ -226,11 +235,16 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       presetsLabel: "वन-क्लिक डेमो प्रीसेट",
       gameTitleLabel: "गेम का नाम",
       gameTitlePlaceholder: "जैसे: Aether Gacha RPG या Stardew Valley",
-      policyLabel: "मुद्रीकरण नीति या इन-गेम शॉप विवरण",
+      policyLabel: "मुद्रीकरण नीति (वेब सर्च से ऑटो-जनरेटेड)",
       policyPlaceholder:
-        "शॉप टेक्स्ट, ड्रॉप रेट (जैसे 0.6% बैनर), वर्चुअल कॉइन पैक या टाइमर पेस्ट करें...",
+        "खाली छोड़ें तो स्कैन करते समय AI अपने-आप वेब से नीति खोज लेगा, या गेम का नाम लिखकर 'वेब से खोजें' पर क्लिक करें...",
+      fetchPolicyButton: "वेब से खोजें",
+      fetchingPolicyButton: "वेब खोज जारी है...",
+      policyAutoHint:
+        "बस गेम का नाम दर्ज करें — AI इंटरनेट पर खोजकर इसकी मुद्रीकरण नीति अपने-आप तैयार कर देगा।",
+      sourcesTitle: "संदर्भित वेब स्रोत",
       analyzeButton: "जोखिम स्कैन करें",
-      analyzingButton: "विश्लेषण हो रहा है...",
+      analyzingButton: "खोज और विश्लेषण हो रहा है...",
       downloadReport: "जोखिम रिपोर्ट डाउनलोड करें (Print / PDF)",
       riskScoreLabel: "प्रिडेटरी जोखिम स्कोर",
       breakdownTitle: "मैकेनिक वर्गीकरण",
