@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+html, body, #root { height: 100%; }
+body { background: #fafaf9; color: #18181b; -webkit-tap-highlight-color: transparent; }
+.btn { @apply rounded-2xl px-5 py-3 font-semibold active:scale-95 transition disabled:opacity-50; }
+.btn-primary { @apply bg-green-800 text-white; }
+.btn-ghost { @apply bg-white border border-zinc-300 text-zinc-800; }
+.card { @apply bg-white rounded-2xl border border-zinc-200 p-4; }
