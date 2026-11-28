@@ -78,7 +78,7 @@ const ECOR_PILOT_TRAINS: PilotTrain[] = [
 const SER_PILOT_TRAINS: PilotTrain[] = [
   {
     no: '12821',
-    name: 'Dhauli Express',
+    name: 'Steel Express',
     direction: 'DN',
     delayStatus: '+28m late',
     statusColor: 'amber',
@@ -89,7 +89,7 @@ const SER_PILOT_TRAINS: PilotTrain[] = [
   },
   {
     no: '22895',
-    name: 'Vande Bharat',
+    name: 'Howrah–Ranchi Vande Bharat Express',
     direction: 'DN',
     delayStatus: '+2m late',
     statusColor: 'emerald',
@@ -100,7 +100,7 @@ const SER_PILOT_TRAINS: PilotTrain[] = [
   },
   {
     no: '12822',
-    name: 'Dhauli Express UP',
+    name: 'Steel Express UP',
     direction: 'UP',
     delayStatus: '+4m late',
     statusColor: 'amber',

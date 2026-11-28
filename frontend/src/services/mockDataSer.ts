@@ -8,7 +8,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
   trains: [
     {
       train_no: '12821',
-      train_name: 'Dhauli Express',
+      train_name: 'Steel Express',
       direction: 'DN',
       priority_rank: 2,
       chainage_km: 58.0,
@@ -23,7 +23,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
     },
     {
       train_no: '22895',
-      train_name: 'Howrah-Puri Vande Bharat Express',
+      train_name: 'Howrah–Ranchi Vande Bharat Express',
       direction: 'DN',
       priority_rank: 1,
       chainage_km: 7.0,
@@ -38,7 +38,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
     },
     {
       train_no: '12822',
-      train_name: 'Dhauli Express UP',
+      train_name: 'Steel Express UP',
       direction: 'UP',
       priority_rank: 2,
       chainage_km: 71.0,
@@ -73,7 +73,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
 
 export const MOCK_FORECAST_SER_12821: ForecastResponse = {
   train_no: '12821',
-  train_name: 'Dhauli Express',
+  train_name: 'Steel Express',
   direction: 'DN',
   current_chainage_km: 58.0,
   current_delay_mins: 28.0,
@@ -214,7 +214,7 @@ export const MOCK_FORECAST_SER_12821: ForecastResponse = {
 
 export const MOCK_FORECAST_SER_22895: ForecastResponse = {
   train_no: '22895',
-  train_name: 'Howrah-Puri Vande Bharat Express',
+  train_name: 'Howrah–Ranchi Vande Bharat Express',
   direction: 'DN',
   current_chainage_km: 7.0,
   current_delay_mins: 2.0,
@@ -282,7 +282,7 @@ export const MOCK_FORECAST_SER_22895: ForecastResponse = {
 
 export const MOCK_FORECAST_SER_12822: ForecastResponse = {
   train_no: '12822',
-  train_name: 'Dhauli Express UP',
+  train_name: 'Steel Express UP',
   direction: 'UP',
   current_chainage_km: 71.0,
   current_delay_mins: 4.0,

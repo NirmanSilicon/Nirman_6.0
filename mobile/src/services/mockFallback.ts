@@ -109,7 +109,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
   trains: [
     {
       train_no: '12821',
-      train_name: 'Dhauli Express',
+      train_name: 'Steel Express',
       direction: 'DN',
       priority_rank: 2,
       chainage_km: 58.0,
@@ -124,7 +124,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
     },
     {
       train_no: '22895',
-      train_name: 'Howrah-Puri Vande Bharat Express',
+      train_name: 'Howrah–Ranchi Vande Bharat Express',
       direction: 'DN',
       priority_rank: 1,
       chainage_km: 7.0,
@@ -139,7 +139,7 @@ export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
     },
     {
       train_no: '12822',
-      train_name: 'Dhauli Express UP',
+      train_name: 'Steel Express UP',
       direction: 'UP',
       priority_rank: 2,
       chainage_km: 71.0,

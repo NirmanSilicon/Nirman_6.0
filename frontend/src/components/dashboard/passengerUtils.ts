@@ -115,12 +115,19 @@ export function getTrainIdentity(
 ): TrainIdentity {
   const train = snapshot.trains.find((t) => t.train_no === trainNo);
 
-  const fallbackNames: Record<string, string> = {
-    '12821': 'Dhauli Express',
-    '22895': 'Howrah-Puri Vande Bharat Express',
-    '18410': 'Sri Jagannath Express',
-    '12822': 'Dhauli Express (UP)',
-  };
+  const isKolkata = snapshot.corridor_id === 'SER_HWH_KGP' || trainNo === '12822';
+  const fallbackNames: Record<string, string> = isKolkata
+    ? {
+        '12821': 'Steel Express',
+        '22895': 'Howrah–Ranchi Vande Bharat Express',
+        '12822': 'Steel Express (UP)',
+      }
+    : {
+        '12821': 'Dhauli Express',
+        '22895': 'Howrah-Puri Vande Bharat Express',
+        '18410': 'Sri Jagannath Express',
+        '12822': 'Steel Express (UP)',
+      };
 
   const trainName = train?.train_name || fallbackNames[trainNo] || `Express ${trainNo}`;
 
@@ -253,7 +260,23 @@ export function getArrivalPrediction(
     };
   }
 
-  // Default for 12821 Dhauli Express
+  if (destinationCode === 'KGP') {
+    return {
+      destinationCode: 'KGP',
+      destinationName: 'Kharagpur Junction',
+      expectedTime: '07:45 AM',
+      likelyWindow: '07:40 AM – 08:00 AM',
+      worstCaseTime: '08:00 AM',
+      p10Time: '07:40 AM',
+      p50Time: '07:45 AM',
+      p90Time: '08:00 AM',
+      p10DelayMins: 14,
+      p50DelayMins: 23,
+      p90DelayMins: 34,
+    };
+  }
+
+  // Default for 12821 Dhauli Express (ECoR)
   return {
     destinationCode: 'BBS',
     destinationName: 'Bhubaneswar',

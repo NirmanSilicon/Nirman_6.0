@@ -93,11 +93,12 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigateToSearch }) =>
 
   return (
     <header className="sticky top-0 z-40 pointer-events-none px-3 sm:px-6 pt-3 pb-1">
-      <div className="max-w-5xl mx-auto w-full flex items-center justify-between gap-2 sm:gap-3">
-        {/* Left/Center: React Bits PillNav with Logo Bubble & Animated Pills */}
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between gap-2.5 sm:gap-4">
+        {/* Left & Center: Brand Lockup (Logo + Name) + React Bits PillNav */}
         <div className="pointer-events-auto flex-1 min-w-0 flex items-center">
           <PillNav
             logo="/logo.png"
+            logoLabel={t.nav.brand}
             logoAlt={t.nav.brand}
             logoHref="#top"
             onLogoClick={(e) => {
@@ -116,6 +117,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigateToSearch }) =>
             highlightColor="#0F294A"
             collapse="auto"
             ariaLabel={t.nav.brand}
+            className="pill-nav--spread"
           />
         </div>
 
@@ -129,7 +131,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigateToSearch }) =>
                 activeCorridorId === 'SER_HWH_KGP' ? 'ECoR_BHC_PURI' : 'SER_HWH_KGP',
               )
             }
-            className={`inline-flex items-center gap-1.5 h-11 px-3 sm:px-3.5 rounded-full backdrop-blur-md border text-xs font-mono font-bold shadow-sm cursor-pointer transition-all hover:opacity-90 shrink-0 ${
+            className={`inline-flex items-center gap-1.5 h-11 px-2.5 sm:px-3.5 rounded-full backdrop-blur-md border text-xs font-mono font-bold shadow-sm cursor-pointer transition-all hover:opacity-90 shrink-0 ${
               activeCorridorId === 'SER_HWH_KGP'
                 ? 'bg-amber-50/95 text-amber-900 border-amber-300'
                 : 'bg-indigo-50/95 text-indigo-900 border-indigo-200'
@@ -140,8 +142,11 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigateToSearch }) =>
             <span className="hidden lg:inline">
               {activeCorridorId === 'SER_HWH_KGP' ? 'SER • Kolkata (HWH–KGP)' : 'ECoR • Odisha (BHC–PURI)'}
             </span>
-            <span className="lg:hidden">
+            <span className="hidden sm:inline lg:hidden">
               {activeCorridorId === 'SER_HWH_KGP' ? 'SER • HWH' : 'ECoR • BHC'}
+            </span>
+            <span className="sm:hidden">
+              {activeCorridorId === 'SER_HWH_KGP' ? 'SER' : 'ECoR'}
             </span>
           </button>
 

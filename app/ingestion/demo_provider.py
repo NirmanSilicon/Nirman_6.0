@@ -50,11 +50,11 @@ class DemoSimulationProvider(CorridorDataProvider):
 
         if scenario_mode and scenario_name in ("SANTRAGACHI_CASCADE", "SRC_CASCADE"):
             # Santragachi Junction Disruption & Kona Expressway Road Rescue:
-            # 12821 holds at Santragachi Junction (7 km from Howrah) with DN_SRC_ULB freight blockade,
+            # 12821 Steel Express holds at Santragachi Junction (7 km from Howrah) with DN_SRC_ULB freight blockade,
             # while 22895 approaches on mainline, triggering Kona Expressway / Vidyasagar Setu road rescue (18 min drive)
             self._trains = {
                 "12821": {
-                    "name": "Dhauli Express",
+                    "name": "Steel Express",
                     "direction": "DN",
                     "priority_rank": 2,
                     "chainage_km": 7.0,
@@ -65,7 +65,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                     "next_station": "ULB",
                 },
                 "22895": {
-                    "name": "Howrah-Puri Vande Bharat Express",
+                    "name": "Howrah–Ranchi Vande Bharat Express",
                     "direction": "DN",
                     "priority_rank": 1,
                     "chainage_km": 0.0,
@@ -76,7 +76,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                     "next_station": "SRC",
                 },
                 "12822": {
-                    "name": "Dhauli Express",
+                    "name": "Steel Express",
                     "direction": "UP",
                     "priority_rank": 2,
                     "chainage_km": 58.0,
@@ -98,12 +98,12 @@ class DemoSimulationProvider(CorridorDataProvider):
             )
         ):
             # Kolkata Trunk Line Disruption & Loop Overtake Scenario:
-            # 12821 holds at Mecheda Junction (58 km) loop line with DN_MCA_PKU freight drag,
-            # while 22895 Vande Bharat closes at 130 km/h on mainline,
+            # 12821 Steel Express holds at Mecheda Junction (58 km) loop line with DN_MCA_PKU freight drag,
+            # while 22895 Howrah–Ranchi Vande Bharat closes at 130 km/h on mainline,
             # triggering Kona Expressway / NH-16 road rescue back to Howrah or ahead to Kharagpur
             self._trains = {
                 "12821": {
-                    "name": "Dhauli Express",
+                    "name": "Steel Express",
                     "direction": "DN",
                     "priority_rank": 2,
                     "chainage_km": 58.0,
@@ -114,7 +114,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                     "next_station": "PKU",
                 },
                 "22895": {
-                    "name": "Howrah-Puri Vande Bharat Express",
+                    "name": "Howrah–Ranchi Vande Bharat Express",
                     "direction": "DN",
                     "priority_rank": 1,
                     "chainage_km": 32.0,
@@ -125,7 +125,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                     "next_station": "MCA",
                 },
                 "12822": {
-                    "name": "Dhauli Express",
+                    "name": "Steel Express",
                     "direction": "UP",
                     "priority_rank": 2,
                     "chainage_km": 91.0,
@@ -266,7 +266,7 @@ class DemoSimulationProvider(CorridorDataProvider):
             if self.corridor_id == "SER_HWH_KGP":
                 self._trains = {
                     "12821": {
-                        "name": "Dhauli Express",
+                        "name": "Steel Express",
                         "direction": "DN",
                         "priority_rank": 2,
                         "chainage_km": 58.0,
@@ -277,7 +277,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                         "next_station": "PKU",
                     },
                     "22895": {
-                        "name": "Howrah-Puri Vande Bharat Express",
+                        "name": "Howrah–Ranchi Vande Bharat Express",
                         "direction": "DN",
                         "priority_rank": 1,
                         "chainage_km": 20.0,
@@ -288,7 +288,7 @@ class DemoSimulationProvider(CorridorDataProvider):
                         "next_station": "ULB",
                     },
                     "12822": {
-                        "name": "Dhauli Express",
+                        "name": "Steel Express",
                         "direction": "UP",
                         "priority_rank": 2,
                         "chainage_km": 95.0,

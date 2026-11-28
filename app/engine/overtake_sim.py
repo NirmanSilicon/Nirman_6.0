@@ -168,13 +168,15 @@ def simulate_corridor_overtakes(
             hold_mins = round(float(loop_hold_override_mins), 1)
             total_loop_hold_mins += hold_mins
             overtakes_count += 1
+            vande_master = trains_master_map.get("22895", {})
+            vande_name = vande_master.get("train_name", "Vande Bharat Express")
             causal_cards.append(
                 CausalCard(
                     event="PRIORITY_OVERTAKE_HOLD",
                     station_code=stn_code,
                     station_name=stn_name,
                     added_delay_mins=hold_mins,
-                    caused_by_train="22895 Howrah-Puri Vande Bharat Express",
+                    caused_by_train=f"22895 {vande_name}",
                     human_message=f"Holding at {stn_name} Loop Line (~{hold_mins:.0f}m left) for priority overtake clearance",
                 )
             )

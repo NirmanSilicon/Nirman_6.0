@@ -94,3 +94,18 @@ export async function switchCorridorApi(
     body: JSON.stringify({ corridor_id: corridorId, speed_multiplier: speedMultiplier }),
   });
 }
+
+export async function setSpeedMultiplierApi(
+  backendOrigin: string,
+  speedMultiplier: number
+): Promise<void> {
+  await fetch(`${backendOrigin}/api/v1/demo/speed`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ speed_multiplier: speedMultiplier }),
+  });
+}
+
+export async function spawnGoodsTrainApi(backendOrigin: string): Promise<void> {
+  await fetch(`${backendOrigin}/api/v1/demo/spawn-goods`, { method: 'POST' });
+}
