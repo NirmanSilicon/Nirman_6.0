@@ -1,7 +1,11 @@
+import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 
 from .config import get_settings
@@ -35,3 +39,17 @@ def healthz():
     with engine.connect() as c:
         c.execute(text("SELECT 1"))
     return {"ok": True}
+
+
+# Serve the built PWA from the same process (single deployable). Registered last so API routes win.
+_static = Path(os.getenv("STATIC_DIR", "/srv/static"))
+if _static.is_dir():
+    app.mount("/assets", StaticFiles(directory=_static / "assets"), name="assets")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def spa(path: str):
+        f = (_static / path).resolve()
+        if path and f.is_file() and _static.resolve() in f.parents:
+            headers = {"Cache-Control": "no-cache"} if path in ("sw.js", "index.html") else {}
+            return FileResponse(f, headers=headers)
+        return FileResponse(_static / "index.html", headers={"Cache-Control": "no-cache"})
