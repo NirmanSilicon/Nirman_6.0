@@ -213,7 +213,24 @@ export function getArrivalPrediction(
   }
 
   // Train-specific fallback defaults when live forecast is loading
-  if (trainNo === '12822') {
+  if (destinationCode === 'KGP') {
+    const isVande = trainNo === '22895';
+    return {
+      destinationCode: 'KGP',
+      destinationName: 'Kharagpur Junction',
+      expectedTime: isVande ? '07:17 AM' : '07:45 AM',
+      likelyWindow: isVande ? '07:15 AM – 07:22 AM' : '07:40 AM – 08:00 AM',
+      worstCaseTime: isVande ? '07:22 AM' : '08:00 AM',
+      p10Time: isVande ? '07:15 AM' : '07:40 AM',
+      p50Time: isVande ? '07:17 AM' : '07:45 AM',
+      p90Time: isVande ? '07:22 AM' : '08:00 AM',
+      p10DelayMins: isVande ? 2 : 14,
+      p50DelayMins: isVande ? 4 : 23,
+      p90DelayMins: isVande ? 9 : 34,
+    };
+  }
+
+  if (destinationCode === 'HWH' || trainNo === '12822') {
     return {
       destinationCode: 'HWH',
       destinationName: 'Howrah Junction',
@@ -258,22 +275,6 @@ export function getArrivalPrediction(
       p10DelayMins: 0,
       p50DelayMins: 2,
       p90DelayMins: 7,
-    };
-  }
-
-  if (destinationCode === 'KGP') {
-    return {
-      destinationCode: 'KGP',
-      destinationName: 'Kharagpur Junction',
-      expectedTime: '07:45 AM',
-      likelyWindow: '07:40 AM – 08:00 AM',
-      worstCaseTime: '08:00 AM',
-      p10Time: '07:40 AM',
-      p50Time: '07:45 AM',
-      p90Time: '08:00 AM',
-      p10DelayMins: 14,
-      p50DelayMins: 23,
-      p90DelayMins: 34,
     };
   }
 
