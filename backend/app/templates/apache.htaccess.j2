@@ -1,0 +1,39 @@
+# CyberGuard MSME — Recommended Apache (.htaccess) Hardening for {{ domain }}
+# Ensure mod_headers and mod_rewrite are enabled on your server.
+{% if "NO_HTTPS_REDIRECT" in codes %}
+
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+{% endif %}
+{% if "MISSING_HSTS" in codes or "WEAK_HSTS" in codes or "MISSING_CSP" in codes or "MISSING_X_FRAME_OPTIONS" in codes or "MISSING_X_CONTENT_TYPE_OPTIONS" in codes or "MISSING_REFERRER_POLICY" in codes %}
+
+<IfModule mod_headers.c>
+{% if "MISSING_HSTS" in codes or "WEAK_HSTS" in codes %}
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+{% endif %}
+{% if "MISSING_CSP" in codes %}
+    Header always set Content-Security-Policy "default-src 'self'; object-src 'none'; frame-ancestors 'self';"
+{% endif %}
+{% if "MISSING_X_FRAME_OPTIONS" in codes %}
+    Header always set X-Frame-Options "SAMEORIGIN"
+{% endif %}
+{% if "MISSING_X_CONTENT_TYPE_OPTIONS" in codes %}
+    Header always set X-Content-Type-Options "nosniff"
+{% endif %}
+{% if "MISSING_REFERRER_POLICY" in codes %}
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+{% endif %}
+{% if "SERVER_BANNER_LEAK" in codes %}
+    Header always unset X-Powered-By
+{% endif %}
+</IfModule>
+{% endif %}
+{% if "EXPOSED_SENSITIVE_FILE" in codes %}
+
+# Block public access to .env and .git directories
+<FilesMatch "^\.(env|git)">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+{% endif %}

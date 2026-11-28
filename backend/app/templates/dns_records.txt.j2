@@ -1,0 +1,23 @@
+# CyberGuard MSME — Recommended DNS Zone Records for {{ domain }}
+# Add these records in your domain registrar (GoDaddy, Cloudflare, Namecheap, BigRock).
+{% if "MISSING_SPF" in codes or "PERMISSIVE_SPF" in codes %}
+
+Type:  TXT
+Host:  @ ({{ domain }})
+Value: v=spf1 include:_spf.google.com ~all
+# Note: Replace include:_spf.google.com with your actual email provider (Zoho, Microsoft 365, etc.)
+# or use "v=spf1 -all" if this domain does NOT send any email.
+{% endif %}
+{% if "MISSING_DMARC" in codes or "WEAK_DMARC_POLICY" in codes %}
+
+Type:  TXT
+Host:  _dmarc
+Value: v=DMARC1; p=quarantine; pct=100; rua=mailto:security@{{ domain }}
+{% endif %}
+{% if "MISSING_CAA" in codes %}
+
+Type:  CAA
+Host:  @ ({{ domain }})
+Value: 0 issue "letsencrypt.org"
+# Note: Change "letsencrypt.org" to your SSL provider if different (e.g., "digicert.com", "pki.goog").
+{% endif %}
