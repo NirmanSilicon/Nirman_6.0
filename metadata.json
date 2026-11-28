@@ -1,0 +1,6 @@
+{
+  "name": "AccessWay - Sugamya Accessible Journey Planner",
+  "description": "Personalized accessible journey planner with Sugamya AI Accessible Travel Assistant, verified hotel booking, real-time barrier tracker, PRM assistance mapping, zero-stairs route engine, multilingual support, and voice navigation.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

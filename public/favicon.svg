@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="favOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#FF8C00" />
+      <stop offset="60%" stopColor="#FF7000" />
+      <stop offset="100%" stopColor="#F95700" />
+    </linearGradient>
+
+    <linearGradient id="favBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#0066CC" />
+      <stop offset="50%" stopColor="#0052B4" />
+      <stop offset="100%" stopColor="#003D88" />
+    </linearGradient>
+
+    <linearGradient id="favGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#3CD070" />
+      <stop offset="60%" stopColor="#22B14C" />
+      <stop offset="100%" stopColor="#138834" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(4, 4)">
+    <ellipse cx="68" cy="148" rx="34" ry="7" fill="#CBD5E1" opacity="0.6" />
+    <path d="M68 12 C30 12, 18 42, 18 72 C18 96, 42 124, 68 148 C94 124, 118 96, 118 72 C118 42, 106 12, 68 12 Z" fill="url(#favOrange)" />
+    <path d="M68 12 C88 12, 118 36, 118 72 C118 96, 94 124, 68 148 C72 130, 88 106, 114 74 C116 52, 98 22, 68 12 Z" fill="url(#favGreen)" />
+    <path d="M68 148 C52 130, 22 96, 22 74 C22 56, 32 40, 48 30 C58 38, 86 52, 114 74 C94 124, 76 140, 68 148 Z" fill="url(#favBlue)" />
+
+    <!-- White Road dashes -->
+    <path d="M48 98 L50 90 M56 78 L60 70 M68 60 L74 54 M84 46 L92 41" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeDasharray="5 5" />
+
+    <!-- Wheelchair user -->
+    <circle cx="50" cy="40" r="5" fill="#FFFFFF" />
+    <path d="M50 47 L50 63 L66 63" fill="none" stroke="#FFFFFF" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M58 63 L68 63 L74 77" fill="none" stroke="#FFFFFF" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="53" cy="69" r="14" fill="none" stroke="#FFFFFF" strokeWidth="4" />
+    <circle cx="53" cy="69" r="2.5" fill="#FFFFFF" />
+
+    <!-- Wifi Waves -->
+    <g stroke="#0066CC" strokeWidth="3.8" fill="none" strokeLinecap="round">
+      <path d="M106 32 C114 26, 122 26, 128 32" />
+      <path d="M108 20 C120 12, 132 12, 142 20" />
+      <path d="M110 8 C126 -2, 142 -2, 156 8" />
+    </g>
+  </g>
+</svg>

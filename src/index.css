@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+}
+
+@layer base {
+  :root {
+    --font-dyslexic: "OpenDyslexic", "Comic Sans MS", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  html,
+  body {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  input,
+  button,
+  textarea,
+  select,
+  optgroup {
+    font-family: inherit;
+  }
+}
+
+/* Dyslexia-friendly mode */
+body.font-dyslexic {
+  font-family: var(--font-dyslexic), sans-serif !important;
+  letter-spacing: 0.05em;
+  word-spacing: 0.15em;
+  line-height: 1.8 !important;
+}
+
+/* High contrast mode */
+body.high-contrast-mode {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast-mode .bg-white {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border-color: #ffff00 !important;
+}
+
+body.high-contrast-mode .bg-slate-50,
+body.high-contrast-mode .bg-slate-100,
+body.high-contrast-mode .bg-gray-50,
+body.high-contrast-mode .bg-gray-100 {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast-mode .text-slate-600,
+body.high-contrast-mode .text-slate-500,
+body.high-contrast-mode .text-gray-600,
+body.high-contrast-mode .text-gray-500 {
+  color: #e5e5e5 !important;
+}
+
+body.high-contrast-mode a,
+body.high-contrast-mode button {
+  outline: 2px solid transparent;
+}
+
+body.high-contrast-mode button:focus-visible,
+body.high-contrast-mode a:focus-visible,
+body.high-contrast-mode input:focus-visible,
+body.high-contrast-mode select:focus-visible {
+  outline: 3px solid #ffff00 !important;
+  outline-offset: 3px !important;
+}
+
+/* Font size scalers */
+html.text-size-large {
+  font-size: 112.5%; /* 18px */
+}
+
+html.text-size-xlarge {
+  font-size: 125%; /* 20px */
+}
+
+/* Focus styles for keyboard accessibility */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body.reduced-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Leaflet map styles */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  z-index: 10;
+}
+
+.custom-map-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.custom-map-marker:hover {
+  transform: scale(1.15);
+}
+
+/* Scrollbar cleanup utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
