@@ -7,7 +7,7 @@ from threading import RLock
 from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException, Request, Response
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from pydantic import Field
 import httpx
 
@@ -64,6 +64,9 @@ def create_app(client=None) -> FastAPI:
 
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     def index():
+        frontend = os.getenv("AGENT_X_FRONTEND_URL", "")
+        if frontend:
+            return RedirectResponse(frontend.rstrip("/") + "/lab", status_code=307)
         return files("agent_x_sandbox").joinpath("web/index.html").read_text(encoding="utf-8")
 
     @app.get("/api/fixtures")
@@ -164,10 +167,16 @@ def create_app(client=None) -> FastAPI:
             result = owned_comparison(comparison_id, request)["result"]
             run_id = result["modes"]["ENFORCE"]["run_id"]
         try:
-            return product.operator_action(f"/v1/runs/{run_id}/stop", {}, authorization)
+            stopped = product.operator_action(f"/v1/runs/{run_id}/stop", {}, authorization)
+            with lock:
+                result["run_status"] = stopped["status"]
+                result["modes"]["ENFORCE"]["execution_status"] = "STOPPED"
+            return stopped
         except httpx.HTTPStatusError as error:
             code = error.response.status_code
             raise HTTPException(code if code in (401, 403, 409) else 503, "Stop request rejected") from None
+        except Exception:
+            raise HTTPException(503, "Stop service unavailable") from None
 
     @app.post("/api/agents", status_code=201)
     def start_agent(payload: AgentRequest, request: Request, response: Response):

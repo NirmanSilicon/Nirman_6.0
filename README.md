@@ -4,6 +4,32 @@ Agent-X includes a self-contained **initial evaluation**, the product/sandbox ba
 
 The initial evaluation follows [the evaluation brief](docs/AGENT-X-INITIAL-EVALUATION.md). The extended lab includes a live OpenAI-compatible agent over guarded mock tools. Production connectors and remaining controls are tracked in [implementation status](docs/IMPLEMENTATION.md).
 
+## Upload, inspect sources, and test your own document
+
+Open **http://localhost:18082** or **http://localhost:13080/evaluation** and choose **Upload your document**. PDF, PNG/JPG, TXT, CSV, JSON and DOCX are supported, with an 8 MB limit. You can also paste invoice text or JSON.
+
+1. Upload and inspect the original, extracted page/line text, filename, SHA-256 and field references.
+2. Review suggested invoice fields. Optional model extraction/OCR requires explicit consent before content is sent to the configured provider. Missing fields are not replaced with demo values.
+3. Check schema and totals, then confirm the reviewed invoice. This creates an immutable, session-owned task record and pins its exact scope.
+4. Compare Off/Enforce, or run the local/live uploaded-record agent. Select a benign case or one of the negative cases: transfer outside scope, wrong record, invalid arguments, unknown tool, tampered output, stopped run or guard outage.
+5. Inspect actual decisions, dispatch, mock effects and the validated/withheld answer; export evidence with its source metadata.
+
+**Data origins:** built-in samples are explicitly synthetic records from `src/agent_x_evaluation/core.py`; the extended catalog comes from `src/agent_x_shared/fixtures/catalog.json`. Source cards link to these definitions. Uploaded data comes from the file supplied in the current browser session, and the original bytes remain downloadable. Source spans locate value occurrences; model OCR and manual edits are not claimed as independent vendor verification.
+
+Uploads live in local memory for one hour or until process restart and can be removed earlier. Text PDFs support 20 pages; model image/scanned-PDF OCR supports four. JSON/CSV/TXT examples and synthetic sample PDFs/images are downloadable on the screen, including invalid-total and untrusted-instruction PDF test cases.
+
+The lab now separates **Scenario comparison**, **Agent runtime**, and **Draft routing & approvals**. Inbox panels show actual attachment records; draft boards appear only for routing. An Enforce draft intentionally waits for a reviewer, moves once after approval, or remains in Drafts after rejection. Execution/approval status and previously observed effects are displayed separately.
+
+The [demo guide](docs/DEMO-GUIDE.md) maps each visible panel to the final architecture, code file, implemented layer and remaining boundary. An expandable architecture map is also on the evaluation screen.
+
+```powershell
+python scripts/check_documents.py
+# Makes actual model OCR and uploaded-record agent calls using the server-side configuration:
+python scripts/check_documents.py --live
+# With the app running; isolated browser, without using your personal browser profile:
+npm.cmd run test:e2e --prefix web
+```
+
 ## Present the initial evaluation
 
 ```powershell
@@ -127,7 +153,7 @@ uvicorn agent_x_sandbox.app:create_app --factory --host 127.0.0.1 --port 8080 --
 
 ## Final architecture
 
-The following target architecture comes from the supplied [AGENT-X-FINAL-ARCHITECTURE.md](docs/AGENT-X-FINAL-ARCHITECTURE.md), which is the architectural reference for this scaffold. Working components and remaining integrations are distinguished in [implementation status](docs/IMPLEMENTATION.md). The broker remains a stub; live agent, MCP transport, real extraction, and production tool dispatch are planned.
+The following target architecture comes from the supplied [AGENT-X-FINAL-ARCHITECTURE.md](docs/AGENT-X-FINAL-ARCHITECTURE.md). Working components and remaining integrations are distinguished in [implementation status](docs/IMPLEMENTATION.md), and the [demo guide](docs/DEMO-GUIDE.md) maps every visible panel to its code and layer. Document parsing, optional model OCR, guarded local/live agents, source provenance and the in-process MCP proxy are implemented for the local demo. The credential broker, remote MCP hosting, production identity and real external dispatch remain later work.
 
 AGENT-X mediates tool execution and final output for tool-calling agents. A trusted request selects a versioned Task Contract. The gateway checks every proposed tool call against that contract and validates every final answer before delivery. The dashboard shows the decisions and their observed outcomes. The sandbox uses the same policy implementation to compare outcomes in an isolated mock world.
 
@@ -261,12 +287,19 @@ Run each comparison mode from the same fixture version and starting-state digest
 ```text
 .
 ├── src/
+│   ├── agent_x_evaluation/
+│   │   ├── app.py                  # Upload/review/compare/agent APIs and bounded bodies
+│   │   ├── core.py                 # Exact invoice contracts, shared policy and output checks
+│   │   ├── ingestion.py            # PDF, image OCR, TXT/CSV/JSON/DOCX and field references
+│   │   ├── documents.py            # Session sources, hashes, immutable reviewed records
+│   │   ├── agent.py                # Uploaded-record agents and explicit negative cases
+│   │   └── web/                    # Studio UI, source workflow and architecture map
 │   ├── agent_x_product/
 │   │   ├── app.py                  # API composition, identity, approval and mock gate
 │   │   ├── config.py               # Explicit runtime profile and credential settings
 │   │   ├── audit.py                # Redaction helper and ordered hash-chain events
 │   │   ├── core/                   # HTTP-independent contracts, policy, output checks
-│   │   ├── integrations/           # Dispatcher/ingestion ports and explicit MCP/broker stubs
+│   │   ├── integrations/           # MCP JSON-RPC proxy; production dispatcher/broker ports
 │   │   ├── storage/
 │   │   │   └── migrations/         # Versioned SQLite schema
 │   │   └── web/                    # Operator dashboard

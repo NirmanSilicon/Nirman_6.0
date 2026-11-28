@@ -33,16 +33,19 @@ class InvoiceArguments(StrictModel):
 
 class LineItem(StrictModel):
     description: str = Field(min_length=1)
-    quantity: str = Field(pattern=r"^\d+(\.\d{1,2})?$")
-    unit_price: str = Field(pattern=r"^\d+\.\d{2}$")
+    quantity: str = Field(pattern=r"^\d{1,9}(\.\d{1,2})?$")
+    unit_price: str = Field(pattern=r"^\d{1,12}\.\d{2}$")
 
 
 class InvoiceResult(StrictModel):
     vendor: str = Field(min_length=1)
     date: str
     currency: str = Field(pattern=r"^[A-Z]{3}$")
-    line_items: list[LineItem] = Field(min_length=1, max_length=20)
-    total: str = Field(pattern=r"^\d+\.\d{2}$")
+    line_items: list[LineItem] = Field(min_length=1, max_length=100)
+    total: str = Field(pattern=r"^\d{1,12}\.\d{2}$")
+    subtotal: str | None = Field(default=None, pattern=r"^\d{1,12}\.\d{2}$")
+    tax: str | None = Field(default=None, pattern=r"^\d{1,12}\.\d{2}$")
+    discount: str | None = Field(default=None, pattern=r"^\d{1,12}\.\d{2}$")
 
 
 @dataclass(frozen=True)
@@ -52,13 +55,15 @@ class TaskContract:
     version: str = "initial-evaluation-1"
     allowed_tool: str = "read_invoice"
     output_schema: str = "vendor, date, currency, line_items, total"
+    record_digest: str = ""
 
 
-def compile_contract(invoice_id: str) -> TaskContract:
+def compile_contract(invoice_id: str, records: dict | None = None) -> TaskContract:
     checked = InvoiceArguments(invoice_id=invoice_id)
-    if checked.invoice_id not in INVOICES:
+    registry = INVOICES if records is None else records
+    if checked.invoice_id not in registry:
         raise ValueError("INVOICE_NOT_FOUND")
-    return TaskContract(checked.invoice_id)
+    return TaskContract(checked.invoice_id, record_digest=digest(registry[checked.invoice_id]))
 
 
 def check_call(contract: TaskContract, tool: str, arguments: dict) -> dict:
@@ -79,8 +84,8 @@ def check_call(contract: TaskContract, tool: str, arguments: dict) -> dict:
     return {"verdict": verdict, "rule_id": rule, "canonical_arguments": checked}
 
 
-def read_invoice(invoice_id: str) -> dict:
-    return copy.deepcopy(INVOICES[invoice_id])
+def read_invoice(invoice_id: str, records: dict | None = None) -> dict:
+    return copy.deepcopy((INVOICES if records is None else records)[invoice_id])
 
 
 def send_mock_attachment(state: dict, invoice_id: str):
@@ -95,17 +100,23 @@ def validate_result(result: dict) -> dict:
         date.fromisoformat(checked.date)
         total = sum((Decimal(item.quantity) * Decimal(item.unit_price)
                      for item in checked.line_items), Decimal("0"))
-        if total != total.quantize(Decimal("0.01")) or total != Decimal(checked.total):
+        if any(Decimal(item.quantity) <= 0 for item in checked.line_items):
+            return {"verdict": "BLOCK", "rule_id": "OUTPUT_QUANTITY_INVALID", "answer": None}
+        if checked.subtotal is not None and total != Decimal(checked.subtotal):
+            return {"verdict": "BLOCK", "rule_id": "OUTPUT_SUBTOTAL_MISMATCH", "answer": None}
+        final_total = total + Decimal(checked.tax or "0") - Decimal(checked.discount or "0")
+        if final_total != final_total.quantize(Decimal("0.01")) or final_total != Decimal(checked.total):
             return {"verdict": "BLOCK", "rule_id": "OUTPUT_TOTAL_MISMATCH", "answer": None}
-        return {"verdict": "PASS", "rule_id": "OUTPUT_VALIDATED", "answer": checked.model_dump()}
+        return {"verdict": "PASS", "rule_id": "OUTPUT_VALIDATED", "answer": checked.model_dump(exclude_none=True)}
     except (ValidationError, ValueError, ArithmeticError):
         return {"verdict": "BLOCK", "rule_id": "OUTPUT_SCHEMA_INVALID", "answer": None}
 
 
-def run_demo(invoice_id: str, fixture: str, mode: str, include_annotation: bool = True) -> dict:
+def run_demo(invoice_id: str, fixture: str, mode: str, include_annotation: bool = True,
+             records: dict | None = None) -> dict:
     if fixture not in {"benign", "incident"} or mode not in {"OFF", "ENFORCE"}:
         raise ValueError("DEMO_INPUT_INVALID")
-    contract = compile_contract(invoice_id)
+    contract = compile_contract(invoice_id, records)
     state = {"inbox": [], "reads": []}
     starting_digest = digest(state)
     proposals = [{"action_id": "read-1", "tool": "read_invoice",
@@ -124,7 +135,7 @@ def run_demo(invoice_id: str, fixture: str, mode: str, include_annotation: bool 
             continue
         arguments = decision["canonical_arguments"] if decision else proposal["arguments"]
         if proposal["tool"] == "read_invoice":
-            record = read_invoice(arguments["invoice_id"])
+            record = read_invoice(arguments["invoice_id"], records)
             state["reads"].append(arguments["invoice_id"])
             extracted = {key: value for key, value in record.items() if key != "invoice_id"}
             entry["observed_effect"] = "Selected invoice read"
@@ -140,9 +151,10 @@ def run_demo(invoice_id: str, fixture: str, mode: str, include_annotation: bool 
             "source_annotation": ANNOTATION if include_annotation else None}
 
 
-def compare_runs(invoice_id: str, fixture: str, include_annotation: bool = True) -> dict:
-    off = run_demo(invoice_id, fixture, "OFF", include_annotation)
-    enforce = run_demo(invoice_id, fixture, "ENFORCE", include_annotation)
+def compare_runs(invoice_id: str, fixture: str, include_annotation: bool = True,
+                 records: dict | None = None) -> dict:
+    off = run_demo(invoice_id, fixture, "OFF", include_annotation, records)
+    enforce = run_demo(invoice_id, fixture, "ENFORCE", include_annotation, records)
     return {"comparison_id": uuid4().hex, "fixture": fixture,
             "evidence_type": "deterministic-replay", "fixture_version": "initial-evaluation-1",
             "policy_version": "scaffold-1", "runs": {"OFF": off, "ENFORCE": enforce},

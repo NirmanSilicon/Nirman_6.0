@@ -12,6 +12,14 @@ The imported Next.js frontend originally contained a landing page and hard-coded
 
 The agent path includes an in-process MCP 2025-11-25 JSON-RPC tool proxy, an injected guarded mock dispatcher, bounded OpenAI-compatible function-calling loop, and mandatory final-output hook. Local and actual provider-driven invoice/quote tasks are supported. Evidence distinguishes live-model-over-mock-tools from deterministic replay. Remote MCP hosting and production connectors remain future work.
 
+### Uploaded sources and corrected execution views
+
+The evaluation studio now accepts PDF, PNG/JPG, TXT, CSV, JSON, DOCX and pasted text/JSON. Local adapters preserve original bytes, SHA-256, extraction method, page/logical-line spans and value references. PDFium renders PDF previews; optional consent-based model OCR handles images/scans. Missing fields are not replaced by fixture values. Original data and suggested extraction remain distinct from the immutable user-confirmed task record.
+
+Reviewed uploads are session-owned, expire after one hour, and have bounded local memory retention. They can run fixed Off/Enforce comparisons and real local/live agent tasks over the same policy core. The uploaded-agent output must match the reviewed record as well as pass schema/Decimal checks. Eight explicit benign/negative cases cover scope, wrong records, argument types, unknown tools, tampered output, stop and guard outage. Reports label injected probes and whether the model was invoked.
+
+The lab now has separate scenario, agent and draft-routing tabs. Draft boards are shown only for routing; inbox panels show actual attachment records for read/transfer scenarios. Approval and execution phases are separate. Approve moves once, reject leaves the draft, repeated resume is idempotent, and a later stop does not erase an already observed move. The full screen/architecture/code mapping is in `DEMO-GUIDE.md` and the on-screen architecture explainer.
+
 | Area | Current behavior |
 | --- | --- |
 | Task contracts | All six templates, strict parameters, authorized local record/type checks, immutable scope snapshot, template/policy versions |
@@ -31,8 +39,8 @@ The agent path includes an in-process MCP 2025-11-25 JSON-RPC tool proxy, an inj
 - Implement versioned template administration and an authorized production resource provider. Production currently has no resource provider and therefore cannot compile real tasks.
 - Implement MCP/OpenAPI manifest import, review workflow, connector allowlists, descriptions/data labels/privileges/sinks, and full identity/schema fingerprint lifecycle. Current fingerprints cover local mock connector ID, tool ID, and argument schema.
 - Implement the production guarded dispatcher, executor-supported idempotency/uncertain outcomes, Python decorator, and remote MCP transport. The extended lab now has a real model loop and final-answer hook over a guarded local mock dispatcher and MCP JSON-RPC proxy. It does not execute production tools; legacy production transport/broker stubs remain explicit.
-- Implement image OCR, PDF, webpage, and tool-result ingestion adapters with source spans, provenance, normalized representations, trust/sensitivity labels, and visible/extracted differences. Current carriers are text annotations, not physical image/PDF assets or parser output.
-- Extend output validation beyond known seed answers: schema registry, data-flow/rendering rules, sensitive-data filtering, sanitation followed by revalidation, and incomplete/missing-field comparison results.
+- Extend the implemented bounded local PDF/image/text/CSV/JSON/DOCX adapters into production ingestion, including richer trust/sensitivity classification, robust layout-specific extraction, independent semantic source verification, webpage/tool-result integrations and broader OCR coverage. The original sandbox carriers remain fixed annotations; actual uploads use the separate source/review workflow.
+- Extend output validation into a production schema registry with data-flow/rendering rules, sensitive-data filtering, sanitation followed by revalidation, and incomplete/missing-field quote comparisons. Uploaded invoice outputs already support schema/arithmetic checks and equality to the user-reviewed record.
 - Add repeat-call limits, full byte accounting for returned data, tighten-only intent signals, quarantine, persistent-memory controls, inventory, and baseline deviation alerts. Current byte budget covers canonical arguments only.
 - Implement scoped credential issuance; `CredentialBrokerStub` explicitly cannot issue credentials.
 - Expand dashboard reporting, connector/missing-manifest alerts, frequently-approved rules, richer rule/effect visualization, reviewer before/after record resolution, robust export redaction, audit verification UI, and externally anchored audit integrity.

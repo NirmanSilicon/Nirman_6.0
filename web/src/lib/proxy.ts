@@ -1,14 +1,16 @@
 import "server-only";
 
 export async function proxy(request: Request, target: string, path: string) {
-  const headers = new Headers({ "Content-Type": "application/json" });
+  const headers = new Headers({ "Content-Type": request.headers.get("content-type") || "application/json" });
   for (const name of ["cookie", "authorization"]) {
     const value = request.headers.get(name);
     if (value) headers.set(name, value);
   }
   try {
-    const body = request.method === "GET" ? undefined : await request.text();
-    if (body && body.length > 1_000_000) return Response.json({ detail: "Request too large" }, { status: 413 });
+    const limit = 8 * 1024 * 1024 + 128 * 1024;
+    if (Number(request.headers.get("content-length") || 0) > limit) return Response.json({ detail: "Files are limited to 8 MB" }, { status: 413 });
+    const body = request.method === "GET" ? undefined : await request.arrayBuffer();
+    if (body && body.byteLength > limit) return Response.json({ detail: "Files are limited to 8 MB" }, { status: 413 });
     const upstream = await fetch(new URL(path, target), {
       method: request.method, headers, body, cache: "no-store", redirect: "manual",
       signal: AbortSignal.timeout(180_000),

@@ -7,6 +7,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+if (ROOT / ".runtime-deps").exists():
+    sys.path.insert(0, str(ROOT / ".runtime-deps"))
 
 import uvicorn
 
@@ -25,6 +27,7 @@ def configure():
         "AGENT_X_DATABASE": str(ROOT / "data/presentation.sqlite3"),
         "AGENT_X_PRODUCT_URL": "http://127.0.0.1:18000",
         "AGENT_X_DASHBOARD_URL": "http://localhost:18000",
+        "AGENT_X_FRONTEND_URL": "http://localhost:13080",
     }
     for key, value in defaults.items():
         os.environ.setdefault(key, value)
