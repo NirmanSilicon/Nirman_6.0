@@ -1,10 +1,64 @@
 # Agent-X
 
-Runnable Python scaffold for the two supplied AGENT-X briefs: an enforcement product and a deterministic, isolated attack simulator. Uses Python 3.13, FastAPI, Pydantic, SQLite, and small browser dashboards, as requested by the briefs. No Node build, external database, or model-provider credential is required for the seeded demo.
+Agent-X includes a self-contained **initial evaluation**, the product/sandbox backend, and the team's Next.js frontend connected to real evaluation, comparison, approval, evidence, and agent endpoints.
 
-This is a foundation for development, not the completed security product. See [implementation status](docs/IMPLEMENTATION.md) for the implemented slice, explicit stubs, and remaining deliverables.
+The initial evaluation follows [the evaluation brief](docs/AGENT-X-INITIAL-EVALUATION.md). The extended lab includes a live OpenAI-compatible agent over guarded mock tools. Production connectors and remaining controls are tracked in [implementation status](docs/IMPLEMENTATION.md).
+
+## Present the initial evaluation
+
+```powershell
+python scripts/present.py
+```
+
+Open **http://localhost:18082**. This is one Python process, one screen, and fresh in-memory state per comparison. It requires neither a model key nor the product/sandbox services nor Node. Install Python dependencies from `requirements.lock` first on a clean machine.
+
+Select the seeded two-line invoice, inspect the Task Contract, choose **Simulated incident**, and select **Compare Off vs Enforce**. Inspect the `TOOL_OUTSIDE_CONTRACT` decision, the actual mock inboxes (**1 vs 0**), and the validated **USD 40.00** invoice result. Benign mode, source highlighting, annotation-free replay, reset, and downloadable evidence are included. See the [90-second judge guide](docs/DEMO-GUIDE.md).
+
+## Run the connected frontend and agents
+
+```powershell
+# Installs frontend dependencies if needed, builds, and starts hidden local services.
+.\scripts\start-presentation.ps1
+```
+
+| URL | Screen |
+| --- | --- |
+| http://localhost:13080 | Imported landing page; policy demo now calls the backend |
+| http://localhost:13080/evaluation | Same evaluation studio through the frontend proxy |
+| http://localhost:13080/lab | Eight scenarios, approvals, audit evidence, local/live agents |
+| http://localhost:18082 | Independent single-process evaluation |
+
+The new operational screens follow `src/DESIGN.md`: light paper surfaces, serif headings, peach accents, rounded cards, and restrained color. The original landing page is retained.
+
+For live agents, put `OPENAI_API_KEY` in the ignored root `.env`. Optional overrides are `AGENT_X_MODEL` (default `gpt-4.1-mini`) and `AGENT_X_MODEL_BASE_URL` (default `https://api.openai.com/v1`). Keys remain server-side. Restart the sandbox service after changing model settings. The local task agent remains available independently; live failures never silently switch providers.
+
+The reviewer token for local presentation defaults to `local-operator-change-me` unless overridden in `.env`. It is a local demo identity, required only for extended approval/stop controls. Process IDs and logs are under `reports/presentation/`. An already-running service is reused.
+
+Stop the background processes with `.\scripts\stop-presentation.ps1`. A separately launched `python scripts/present.py` process can be stopped with Ctrl+C in its terminal.
+
+```powershell
+python scripts/check_presentation.py
+# Optional: actually call your configured provider for both core tasks.
+python scripts/check_presentation.py --live
+```
+
+The original single-line extended invoice fixture is USD 25.00; the independent initial-evaluation fixture has two lines totaling USD 40.00. Their evidence is labelled separately.
 
 ## Start with Docker
+
+For the evaluation only:
+
+```powershell
+docker compose --profile evaluation up --build --wait
+```
+
+For the complete frontend, evaluation, product, sandbox, and agent lab:
+
+```powershell
+docker compose --profile presentation up --build --wait
+```
+
+The evaluation profile is one container and has no service or model credential dependency. The presentation profile also runs the standalone Next.js image from `web/Dockerfile`. Use available host ports in `.env` if other apps already occupy 8000/8080. The local non-Docker launcher uses 18000/18081 for the two backend services.
 
 From the repository root, with Docker Desktop running Linux containers:
 

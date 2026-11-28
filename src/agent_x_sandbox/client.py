@@ -43,3 +43,16 @@ class ProductClient:
 
     def close(self):
         self.http.close()
+
+    def get(self, path: str) -> dict:
+        response = self.http.get(path)
+        response.raise_for_status()
+        result = response.json()
+        if not isinstance(result, dict):
+            raise ValueError("Invalid product response")
+        return result
+
+    def operator_action(self, path: str, payload: dict, authorization: str) -> dict:
+        response = self.http.post(path, json=payload, headers={"Authorization": authorization})
+        response.raise_for_status()
+        return response.json()

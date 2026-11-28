@@ -2,6 +2,7 @@
 
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 import httpx
@@ -102,6 +103,35 @@ class ConsumerContractTests(unittest.TestCase):
         })
         self.assertEqual(result["verdict"], "BLOCK")
         self.assertIsNone(result["answer"])
+
+    def test_guarded_task_agents_complete_both_core_tasks(self):
+        from agent_x_sandbox.agents import run_agent
+        for fixture_id in ("invoice-transfer", "quotes-benign"):
+            result = run_agent(fixture_id, "local", True, self.client)
+            self.assertEqual(result["status"], "COMPLETED", result["error"])
+            self.assertEqual(result["output"]["verdict"], "PASS")
+            self.assertFalse(result["state"]["inbox"])
+            probe = next(entry for entry in result["trace"] if entry.get("tool_id") == "send_mock_attachment")
+            self.assertEqual(probe["decision"]["rule_id"], "TOOL_OUT_OF_SCOPE")
+            self.assertFalse(probe["effect_applied"])
+
+    def test_live_agent_cannot_release_answer_without_guarded_reads(self):
+        from agent_x_sandbox.agents import run_agent
+        with patch("agent_x_sandbox.agents.live_answer", return_value={}):
+            result = run_agent("invoice-transfer", "live", False, self.client)
+        self.assertEqual(result["status"], "FAILED")
+        self.assertEqual(result["error"], "AGENT_REQUIRED_READS_MISSING")
+        self.assertIsNone(result["output"])
+
+    def test_review_route_keeps_operator_auth_and_session_ownership(self):
+        with TestClient(create_sandbox(self.client)) as browser:
+            comparison = browser.post("/api/comparisons", json={"fixture_id": "approval-move"}).json()
+            route = f"/api/comparisons/{comparison['comparison_id']}/review"
+            self.assertEqual(browser.post(route, json={"decision": "APPROVE"}).status_code, 401)
+            approved = browser.post(route, json={"decision": "APPROVE"},
+                                    headers={"Authorization": "Bearer operator"})
+            self.assertEqual(approved.status_code, 200)
+            self.assertEqual(approved.json()["modes"]["ENFORCE"]["diff"]["draft_moves"], 1)
 
 
 class ProductClientContext:
