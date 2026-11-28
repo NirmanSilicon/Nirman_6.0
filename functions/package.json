@@ -1,0 +1,16 @@
+{
+  "name": "manas-functions",
+  "description": "Manas callable Cloud Functions for Zedtron and trusted-contact alerts.",
+  "private": true,
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "scripts": {
+    "lint": "node --check index.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.0.0",
+    "firebase-functions": "^6.0.0"
+  }
+}
