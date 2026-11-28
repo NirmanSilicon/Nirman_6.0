@@ -20,7 +20,8 @@ export function useRunStream(
       return;
     }
 
-    const wsUrl = `ws://localhost:8000/api/v1/ws/runs/${runId}`;
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsUrl = `${protocol}//${window.location.host}/api/v1/ws/runs/${runId}`;
     let socket: WebSocket | null = null;
     let pollInterval: any = null;
 
