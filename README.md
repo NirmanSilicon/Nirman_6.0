@@ -1,7 +1,7 @@
 # JanmaSaathi
 
 <p align="center">
-  <strong>An offline-first maternal health support and care-coordination platform</strong><br />
+  <strong>An Offline-first Maternal Healthcare Monitoring and Emergency Response Platform</strong><br />
   <em>Connecting mothers, community health workers, supervisors, and hospitals through accessible digital care workflows.</em>
 </p>
 
