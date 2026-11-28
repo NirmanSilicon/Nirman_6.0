@@ -42,6 +42,7 @@ backend/.cache/
 
 # ESP32 / Arduino local secret headers and build artifacts
 hardware/**/secrets.h
+hardware/**/config.h
 .pio/
 build_esp32/
 

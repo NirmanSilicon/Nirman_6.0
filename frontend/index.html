@@ -310,16 +310,52 @@ function dayRows(d){const t=same(d,TODAY);return W.map((w,i)=>{if(t)return w;con
 
 function Attend(){
  const [q,setQ]=useState("");const [f,setF]=useState("All");const [r,setR]=useState("Daily");const [scan,setScan]=useState(null);
- const [sel,setSel]=useState(TODAY);const [mon,setMon]=useState(new Date(2026,10,1));
- const all=dayRows(sel);const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
+ const [sel,setSel]=useState(TODAY);const [mon,setMon]=useState(new Date(2026,10,1));const [liveLogs,setLiveLogs]=useState([]);
+ useEffect(()=>{
+  let alive=true;
+  const loadRfid=async()=>{
+   try{
+    const tok=localStorage.getItem("we-token");
+    if(!tok)return;
+    const res=await fetch(`${API_BASE}/rfid/logs?limit=15`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(res.ok){
+     const j=await res.json();
+     if(alive&&j.data&&Array.isArray(j.data.logs)&&j.data.logs.length){
+      const latest=j.data.logs[0];
+      const wName=latest.workerId?.name||"Unregistered Card";
+      const tStr=latest.scannedAt?new Date(latest.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"Now";
+      setScan(`[ESP32 ${latest.deviceId?.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.eventType}) at ${tStr}`);
+      const mapped=j.data.logs.map((lg,idx)=>({
+       id:lg.workerId?.employeeCode||`RFID-${idx+1}`,
+       name:lg.workerId?.name||`Card ${lg.rfidUid}`,
+       rfid:lg.rfidUid,
+       in:lg.scannedAt?new Date(lg.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—",
+       out:lg.eventType==="EXIT"?new Date(lg.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—",
+       st:lg.scanStatus==="MATCHED_ACTIVE_WORKER"?"Present":"Late"
+      }));
+      setLiveLogs(mapped);
+     }
+    }
+   }catch(_e){}
+  };
+  loadRfid();
+  const id=setInterval(loadRfid,2000);
+  return()=>{alive=false;clearInterval(id)};
+ },[]);
+ const all=liveLogs.length?[...liveLogs,...dayRows(sel)]:dayRows(sel);const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
  const abs=all.filter(w=>w.st==="Absent").length,late=all.filter(w=>w.st==="Late").length,pres=all.length-abs;
  const ws=new Date(sel);ws.setDate(sel.getDate()-(sel.getDay()+6)%7);const we=new Date(ws);we.setDate(ws.getDate()+6);
  const dl=r==="Daily"?fmt(sel):r==="Weekly"?fmt(ws)+" – "+fmt(we):sel.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
- const sim=()=>{const w=W[Math.floor(Math.random()*W.length)];setScan(w.name+" scanned "+w.rfid+" at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}))};
+ const sim=async()=>{
+  try{
+   await fetch(`${API_BASE}/rfid/scan`,{method:"POST",headers:{"Content-Type":"application/json","X-Device-Key":"esp32_dev_local_node_001_key"},body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:"A1B2C3D4",eventType:"ENTRY"})});
+  }catch(_e){}
+  const w=W[Math.floor(Math.random()*W.length)];setScan(w.name+" scanned "+w.rfid+" at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}));
+ };
  return <div className="grid" style={{gap:16}}><div className="card"><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label></div>
- <div className="card row"><span className="live"><span className="dot"/> RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate scan</button></div>
+ <div className="card row"><span className="live"><span className="dot"/> ESP32 RC522 RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate scan</button></div>
  <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or card" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
- <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map(w=><tr key={w.id}><td>{w.id}</td><td>{w.name}</td><td>{w.rfid}</td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
+ <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.id+"-"+idx}><td>{w.id}</td><td>{w.name}</td><td>{w.rfid}</td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
 function Reports({zones}){
  const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);const [liveInc,setLiveInc]=useState([]);
  useEffect(()=>{
@@ -440,7 +476,7 @@ function App(){
   const ensureToken=async()=>{
    try{
     if(localStorage.getItem("we-token"))return;
-    const res=await fetch(`${API_BASE}/auth/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@smartppe.local",password:"Admin@12345"})});
+    const res=await fetch(`${API_BASE}/auth/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@smartppe.local",password:"AdminPassword123!"})});
     if(res.ok){const j=await res.json();if(j.success&&j.data?.token){localStorage.setItem("we-token",j.data.token);localStorage.setItem("we-user",JSON.stringify(j.data.user))}}
    }catch(_e){}
   };
