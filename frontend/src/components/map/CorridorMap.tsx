@@ -118,8 +118,12 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
   const activeTrackCoords = isKolkata ? SMOOTH_HWH_KGP_TRACK_COORDS : SMOOTH_TRACK_COORDS;
   const totalKm = isKolkata ? 115.0 : 206.0;
 
-  // Synchronize 60 FPS GPU vector animator
-  useTrainAnimator(mapRef);
+  // Active tracking flag - true when camera should follow the monitored train
+  const isTrackingTrainRef = useRef<boolean>(true);
+  const isFlyingRef = useRef<boolean>(false);
+
+  // Synchronize 60 FPS GPU vector animator with continuous camera frame tracking
+  useTrainAnimator(mapRef, { isTrackingRef: isTrackingTrainRef, isFlyingRef });
 
   // Authoritative current train from store
   const currentTrain = useMemo(() => {
@@ -130,6 +134,14 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
   }, [activeSnapshot.trains, selectedTrain]);
 
   const trainKm = currentTrain?.chainage_km ?? (isKolkata ? 58.0 : 115.0);
+
+  // Live coordinates of the monitored train snapped to active corridor tracks
+  const getSelectedTrainCoords = useCallback((): [number, number] => {
+    const defaultCoord: [number, number] = isKolkata ? [87.9700, 22.4600] : [85.8829, 20.4625];
+    const rawLon = currentTrain?.lon ?? defaultCoord[0];
+    const rawLat = currentTrain?.lat ?? defaultCoord[1];
+    return snapPointToTrack(rawLon, rawLat, activeTrackCoords);
+  }, [currentTrain?.lon, currentTrain?.lat, isKolkata, activeTrackCoords]);
 
   // Connection evaluation for journey status synchronization
   const prediction = getArrivalPrediction(selectedTrain, forecast);
@@ -295,6 +307,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
       const preset = presets[view];
 
       if (view === 'delays_ahead') {
+        isTrackingTrainRef.current = false;
         setSelectedDelayId('cause-2');
         // Smoothly zoom in on the dynamic delay zone ahead of the train
         map.flyTo({
@@ -311,6 +324,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           openGoodsTrainPopup(mapRef.current);
         }, 200);
       } else if (view === 'alternative_route') {
+        isTrackingTrainRef.current = false;
         ['nh16-highway-casing', 'nh16-highway-line', 'nh16-highway-badge'].forEach((layerId) => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'visible');
@@ -323,8 +337,25 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           ? ([[85.70, 20.15], [85.86, 20.30]] as [[number, number], [number, number]])
           : preset.bounds;
         map.fitBounds(bounds, { padding: preset.padding, duration: preset.duration });
+      } else if (view === 'my_train') {
+        setSelectedDelayId(null);
+        isTrackingTrainRef.current = true;
+        isFlyingRef.current = true;
+        const coords = getSelectedTrainCoords();
+        map.flyTo({
+          center: coords,
+          zoom: 13.2,
+          speed: 1.4,
+          curve: 1.2,
+          duration: 800,
+        });
+        map.once('moveend', () => {
+          isFlyingRef.current = false;
+        });
       } else {
         setSelectedDelayId(null);
+        isTrackingTrainRef.current = false;
+        isFlyingRef.current = false;
         map.fitBounds(preset.bounds, { padding: preset.padding, duration: preset.duration });
       }
     },
@@ -336,6 +367,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
       activeFreightGeom.midpoint,
       isKolkata,
       rescue?.bailout_plan?.deboard_station_code,
+      getSelectedTrainCoords,
     ]
   );
 
@@ -394,11 +426,19 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           }
 
           setActiveMapView('my_train');
-          const presets = isKolkata ? SER_CAMERA_PRESETS : CAMERA_PRESETS;
-          const defaultPreset = presets.my_train;
-          map.fitBounds(defaultPreset.bounds, {
-            padding: defaultPreset.padding,
-            duration: defaultPreset.duration,
+          isTrackingTrainRef.current = true;
+          const initialCoords = getSelectedTrainCoords();
+          map.jumpTo({
+            center: initialCoords,
+            zoom: 13.0,
+          });
+
+          // Disable auto-tracking when the user manually pans or drags the map
+          map.on('dragstart', () => {
+            isTrackingTrainRef.current = false;
+          });
+          map.on('touchstart', () => {
+            isTrackingTrainRef.current = false;
           });
 
           // Prepare Station GeoJSON
@@ -732,6 +772,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
     const preset = presets[activeMapView];
     if (preset) {
       if (activeMapView === 'alternative_route') {
+        isTrackingTrainRef.current = false;
         const isKhurda = rescueDeboardCode === 'KUR';
         const bounds = isKolkata
           ? preset.bounds
@@ -739,11 +780,48 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           ? ([[85.70, 20.15], [85.86, 20.30]] as [[number, number], [number, number]])
           : preset.bounds;
         map.fitBounds(bounds, { padding: preset.padding, duration: preset.duration });
+      } else if (activeMapView === 'my_train') {
+        setSelectedDelayId(null);
+        isTrackingTrainRef.current = true;
+        isFlyingRef.current = true;
+        const coords = getSelectedTrainCoords();
+        map.flyTo({
+          center: coords,
+          zoom: 13.2,
+          speed: 1.4,
+          curve: 1.2,
+          duration: 800,
+        });
+        map.once('moveend', () => {
+          isFlyingRef.current = false;
+        });
       } else {
+        isTrackingTrainRef.current = false;
+        isFlyingRef.current = false;
         map.fitBounds(preset.bounds, { padding: preset.padding, duration: preset.duration });
       }
     }
-  }, [activeMapView, isKolkata, rescueDeboardCode]);
+  }, [activeMapView, isKolkata, rescueDeboardCode, getSelectedTrainCoords, setSelectedDelayId]);
+
+  // Re-center on train when selectedTrain changes while in "My Train" mode
+  useEffect(() => {
+    if (activeMapView !== 'my_train') return;
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded()) return;
+    isTrackingTrainRef.current = true;
+    isFlyingRef.current = true;
+    const coords = getSelectedTrainCoords();
+    map.flyTo({
+      center: coords,
+      zoom: 13.2,
+      speed: 1.4,
+      curve: 1.2,
+      duration: 700,
+    });
+    map.once('moveend', () => {
+      isFlyingRef.current = false;
+    });
+  }, [selectedTrain, activeMapView, getSelectedTrainCoords]);
 
   return (
     <div className={`relative w-full ${isModal ? 'h-full' : 'h-full min-h-[460px]'} bg-[#FAF9F6] overflow-hidden`}>
@@ -764,10 +842,13 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
               ? 'bg-[#0F294A] text-white shadow-2xs'
               : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
           }`}
-          title="Focus on monitored train"
+          title="Focus and track monitored train"
         >
           <Train className="w-3.5 h-3.5 shrink-0" />
           <span>My Train</span>
+          {activeMapView === 'my_train' && (
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+          )}
         </button>
 
         <button
@@ -823,10 +904,10 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
         <button
           type="button"
           onClick={() => handleCameraView('my_train')}
-          title="Center on My Train"
+          title="Center and track My Train"
           className="w-9 h-9 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors cursor-pointer"
         >
-          <LocateFixed className="w-4 h-4 text-orange-600" />
+          <LocateFixed className={`w-4 h-4 ${activeMapView === 'my_train' ? 'text-emerald-600' : 'text-orange-600'}`} />
         </button>
         <button
           type="button"

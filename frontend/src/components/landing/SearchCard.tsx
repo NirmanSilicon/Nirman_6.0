@@ -320,7 +320,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   };
 
   // Universal cross-corridor search suggestions when typing
-  const autocompleteSuggestions = useMemo(() => {
+  const autocompleteSuggestions: AllPilotTrain[] = useMemo(() => {
     const q = trainQuery.trim().toLowerCase();
     if (!q) return [];
     return allAvailableTrains.filter(
@@ -333,7 +333,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   }, [allAvailableTrains, trainQuery]);
 
   const searchDisabled = !fromStation || !toStation || fromStation === toStation;
-  const displayedTrains = trainQuery.trim()
+  const displayedTrains: AllPilotTrain[] = trainQuery.trim()
     ? autocompleteSuggestions
     : (searchResults ?? []).map((tr) => ({
       ...tr,
