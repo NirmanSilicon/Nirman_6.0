@@ -16,6 +16,8 @@ import {
   getStationsForCorridor,
   getTrainsForCorridor,
   getDefaultRecentForCorridor,
+  getAllPilotTrains,
+  type AllPilotTrain,
   type PilotTrain,
   type RecentItem,
 } from './searchConstants';
@@ -93,6 +95,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
     navigateToDashboardWithTrain,
     setSelectedTrain,
     activeCorridorId,
+    switchCorridor,
     updateSnapshot,
     triggerRefresh,
   } = useRailStore();
@@ -105,6 +108,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   const serStations = useMemo(() => getStationsForCorridor('SER_HWH_KGP'), []);
   const corridorStations = useMemo(() => getStationsForCorridor(activeCorridorId), [activeCorridorId]);
   const allCorridorTrains = useMemo(() => getTrainsForCorridor(activeCorridorId), [activeCorridorId]);
+  const allAvailableTrains = useMemo(() => getAllPilotTrains(), []);
 
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [fromStation, setFromStation] = useState('');
@@ -332,7 +336,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   };
 
   // Universal cross-corridor search suggestions when typing
-  const autocompleteSuggestions = useMemo(() => {
+  const autocompleteSuggestions: AllPilotTrain[] = useMemo(() => {
     const q = trainQuery.trim().toLowerCase();
     if (!q) return [];
     return allAvailableTrains.filter(
@@ -342,10 +346,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
         tr.origin.toLowerCase().includes(q) ||
         tr.destination.toLowerCase().includes(q),
     );
-  }, [allCorridorTrains, trainQuery]);
+  }, [allAvailableTrains, trainQuery]);
 
   const searchDisabled = !fromStation || !toStation || fromStation === toStation;
-  const displayedTrains = trainQuery.trim()
+  const displayedTrains: AllPilotTrain[] = trainQuery.trim()
     ? autocompleteSuggestions
     : (searchResults ?? []).map((tr) => ({
         ...tr,
