@@ -1,0 +1,17 @@
+# Netlify Configuration for AccessWay (Sugamya)
+[build]
+  publish = "dist"
+  command = "npm run build"
+
+# Single Page Application (SPA) Routing Rule
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security & CORS Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "ALLOWALL"
+    Access-Control-Allow-Origin = "*"
