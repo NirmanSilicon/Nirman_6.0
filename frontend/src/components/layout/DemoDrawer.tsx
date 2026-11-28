@@ -346,9 +346,9 @@ export const DemoDrawer: React.FC = () => {
             <div className="grid grid-cols-3 gap-2">
               {(activeCorridorId === 'SER_HWH_KGP'
                 ? [
-                    { no: '12821', name: 'Dhauli DN' },
+                    { no: '12821', name: 'Steel DN' },
                     { no: '22895', name: 'Vande Bharat DN' },
-                    { no: '12822', name: 'Dhauli UP' },
+                    { no: '12822', name: 'Steel UP' },
                   ]
                 : [
                     { no: '12821', name: 'Dhauli DN' },
@@ -579,7 +579,7 @@ export const DemoDrawer: React.FC = () => {
                   </div>
                   <div className="text-xs text-[#64748B]">
                     {isKolkata
-                      ? 'Loads 12821 Dhauli Express (+24m) at Mecheda (MCA, 58 km) with DN_MCA_PKU freight drag, triggering Santragachi loop hold and Kona Expressway road transfer.'
+                      ? 'Loads 12821 Steel Express (+24m) at Mecheda (MCA, 58 km) with DN_MCA_PKU freight drag, triggering Santragachi loop hold and Kona Expressway road transfer.'
                       : 'Loads 12821 Dhauli Express (+28m) with DN_CTC_BRAG Phantom Freight shadow, triggering loop hold and NH-16 rescue.'}
                   </div>
                 </div>

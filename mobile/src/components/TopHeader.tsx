@@ -31,7 +31,8 @@ export const TopHeader: React.FC = () => {
   const isKolkata = activeCorridorId === 'SER_HWH_KGP';
   const simSpeed = activeSnapshot.speed_multiplier || 1;
   const liveTrain = activeSnapshot.trains?.find((t) => t.train_no === selectedTrain);
-  const trainName = liveTrain?.train_name ?? 'Dhauli Express';
+  const fallbackDefault = isKolkata ? 'Steel Express' : 'Dhauli Express';
+  const trainName = liveTrain?.train_name ?? fallbackDefault;
 
   const clockAnchorRef = useRef({
     tickUtc: activeSnapshot.tick_utc || 1795067700,

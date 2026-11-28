@@ -390,6 +390,10 @@ async def test_corridor_list_and_switch():
             assert "12821" in t_nos
             assert "22895" in t_nos
             assert "12822" in t_nos
+            t_names = {t["train_no"]: t["train_name"] for t in snap["trains"]}
+            assert t_names["12821"] == "Steel Express"
+            assert t_names["22895"] == "Howrah–Ranchi Vande Bharat Express"
+            assert t_names["12822"] == "Steel Express"
 
             # 3. Verify Kolkata topology endpoint
             topo_resp = await client.get("/api/v1/corridor/topology?corridor_id=SER_HWH_KGP")

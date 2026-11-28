@@ -292,7 +292,7 @@
   "trains": [
     {
       "train_no": "12821",
-      "train_name": "Dhauli Express",
+      "train_name": "Steel Express",
       "train_class": "Express",
       "priority_rank": 2,
       "direction": "DN",
@@ -334,7 +334,7 @@
     },
     {
       "train_no": "22895",
-      "train_name": "Howrah-Puri Vande Bharat Express",
+      "train_name": "Howrah–Ranchi Vande Bharat Express",
       "train_class": "Vande Bharat",
       "priority_rank": 1,
       "direction": "DN",
@@ -368,7 +368,7 @@
     },
     {
       "train_no": "12822",
-      "train_name": "Dhauli Express",
+      "train_name": "Steel Express",
       "train_class": "Express",
       "priority_rank": 2,
       "direction": "UP",
