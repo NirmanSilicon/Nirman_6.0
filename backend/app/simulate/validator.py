@@ -49,6 +49,8 @@ VALID_UNITS = {
     "dimensionless",
     "s",
     "ms",
+    "hPa",
+    "m/s2",
 }
 
 

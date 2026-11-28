@@ -1,0 +1,37 @@
+{
+  "name": "axyra-zk-chain-service",
+  "version": "1.0.0",
+  "description": "Zero-Knowledge & Blockchain Verification Microservice for AXYRA",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "compile:circuit": "tsx scripts/compile_circuit.ts",
+    "setup:ceremony": "tsx scripts/setup_ceremony.ts",
+    "hardhat:node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:policy": "hardhat run scripts/deploy_policy.ts --network localhost",
+    "test": "tsx node_modules/mocha/bin/mocha.js \"tests/**/*.test.ts\" --timeout 120000"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "express": "^4.21.2",
+    "snarkjs": "^0.7.5"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.4",
+    "hardhat": "^2.22.18",
+    "mocha": "^10.8.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}

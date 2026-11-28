@@ -1124,6 +1124,40 @@ def simulation_upload_api(request):
     }, status=status.HTTP_201_CREATED)
 
 
+@api_view(['POST'])
+def esp32_capture_api(request):
+    """Capture ESP32 JSON frames, persist their provenance, and prepare CAELIS analysis.
+
+    This is deliberately backend-only.  It never changes the existing frontend or
+    reclassifies degraded estimates as observed sensor data.
+    """
+    from app.core.esp32_telemetry import DEFAULT_PORT, ESP32TelemetryAdapter
+
+    port = str(request.data.get("port", DEFAULT_PORT))
+    max_frames = max(1, min(int(request.data.get("max_frames", 10)), 120))
+    timeout_seconds = max(1.0, min(float(request.data.get("timeout_seconds", 8.0)), 30.0))
+    adapter = ESP32TelemetryAdapter()
+    frames, connection = adapter.read_serial_frames(port, max_frames, timeout_seconds)
+    if not frames:
+        return Response({
+            "error": "No real ESP32 telemetry was persisted.",
+            "connection": connection,
+            "hint": "Install pyserial, close Serial Monitor, verify COM port and upload sketch_nov27a.ino.",
+        }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+    dataset = adapter.build_dataset(frames, connection)
+    db_adapter.save_simulation_dataset(dataset.to_dict(include_records=True))
+    return Response({
+        "simulation_id": dataset.simulation_id,
+        "status": dataset.status,
+        "connection": connection,
+        "total_packets": len(dataset.records),
+        "events": dataset.events,
+        "validation": dataset.summary["validation"],
+        "provenance": "REAL raw frames are retained separately from SIMULATED controlled scenarios and DEGRADED fallbacks.",
+    }, status=status.HTTP_201_CREATED)
+
+
 # =============================================================================
 # ENGINEER FEEDBACK — ACTIVE LEARNING DATA FLYWHEEL
 # =============================================================================

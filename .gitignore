@@ -1,2 +1,33 @@
-branchcreation.sh
+# Node dependencies & builds
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# Python bytecode & environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+backend/venv/
+
+# SQLite databases & journals
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-shm
+*.sqlite3-wal
+backend/*.sqlite3*
+
+# Environment and keys
 .env
+.env.local
+*.pem
+*.key
+firebase-key*.json
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
