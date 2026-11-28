@@ -31,9 +31,23 @@ open http://localhost:8080          # API docs: /docs
 
 Frontend dev: `cd web && npm i && npm run dev` (proxies `/v1` to `localhost:8000`). Backend tests: `cd backend && pip install -r requirements-dev.txt && pytest`.
 
+## User journey
+
+Onboarding → **Home** (recovery loop, level, recent scans) → **Scan** (live camera guide, quality checks, offline queue) → **Result** (₹ range, route scores, how it was calculated) → **Map** (all listed stores, save ★, log a hand-over) → **Impact** (points, badges, rules).
+**About** explains the product: how it works, the business model (with a take-rate calculator) and the "under the hood" model status.
+
+## Gamification (rules are in `backend/app/services/gamify.py`, shown in the app)
+Scan +10, clear photo +5, reusable part flagged +1 (max 20/scan), hand-over to a listed recycler +50, daily streak +5. Levels: Scout, Sorter, Recoverer, Loop Keeper. Points only reward scanning before shredding and reaching recyclers.
+
+## Recycler data and central registries
+`scripts/build_recyclers.py` parses the CPCB list of authorised dismantlers/recyclers (as on 2023-06-08, 22 states) and geocodes it via OpenStreetMap Nominatim (cached in `data/recyclers/geocode_cache.json`). Odisha/Bhubaneswar entries are curated in `data/recyclers/curated.json` with state-board contacts and validity notes. Each store links to the CPCB EPR portal and, where known, the state board. Hand-overs are user-reported (`POST /v1/dropoffs`), not certificates. `GET /v1/scan/{id}/record` returns a versioned, EPR/DPP-ready record.
+
+## Models (to be integrated)
+Nothing is trained here. `inference/` exposes `/predict` and `/info`; the app's About → Under the hood shows whether weights are present.
+
 ## Notes
 - All ₹ tables in `backend/app/seed/data.py` are **placeholder estimates** with a `source` per row; replace with recycler assay/quotes, then `python -m app.seed --force`.
-- Seeded recyclers are **sample rows, not real CPCB listings**; load the real list with `python -m app.seed.import_recyclers file.csv`.
+- The CPCB list is dated and authorisations expire; the UI says to confirm validity with the State Pollution Control Board. Some stores are placed approximately (flagged in the UI).
 - Images are stored only when the user consents; `DELETE /v1/scan/{id}` removes record and image (DPDP).
-- Reports (PNG/PDF) are English only. Hindi covers the UI and recommendations.
+- Reports (PNG/PDF) are English only. The UI is English and Hindi (some new screens fall back to English).
 - Dev OTP codes are echoed in the API response when `APP_ENV=dev`; wire an SMS provider in `backend/app/services/otp.py`.

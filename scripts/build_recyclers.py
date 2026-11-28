@@ -60,6 +60,13 @@ def geocode(addr, city, dist, state, cache, override=None):
     parts = [p.strip() for p in addr.split(",") if p.strip()]
     if len(parts) >= 3:
         tries.append((f"{', '.join(parts[-3:])}, {st}, India", "locality"))
+    pin = re.search(r"\b(\d{3}) ?(\d{3})\b", addr)
+    if pin:
+        tries.append((f"{pin.group(1)}{pin.group(2)}, India", "locality"))
+    if len(parts) >= 2:
+        tries.append((f"{', '.join(parts[-2:])}, {st}, India", "locality"))
+    if parts:
+        tries.append((f"{parts[-1]}, {st}, India", "city"))
     if city:
         tries.append((f"{city}, {st}, India", "city"))
     if dist:
