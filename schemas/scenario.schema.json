@@ -1,0 +1,92 @@
+{
+  "$defs": {
+    "FloodSource": {
+      "properties": {
+        "center_x": {
+          "title": "Center X",
+          "type": "number"
+        },
+        "center_y": {
+          "title": "Center Y",
+          "type": "number"
+        },
+        "radius": {
+          "title": "Radius",
+          "type": "number"
+        },
+        "peak_intensity": {
+          "title": "Peak Intensity",
+          "type": "number"
+        },
+        "start_tick": {
+          "title": "Start Tick",
+          "type": "integer"
+        },
+        "peak_tick": {
+          "title": "Peak Tick",
+          "type": "integer"
+        },
+        "end_tick": {
+          "title": "End Tick",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "center_x",
+        "center_y",
+        "radius",
+        "peak_intensity",
+        "start_tick",
+        "peak_tick",
+        "end_tick"
+      ],
+      "title": "FloodSource",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "hazard_type": {
+      "default": "synthetic_flood",
+      "title": "Hazard Type",
+      "type": "string"
+    },
+    "flood_sources": {
+      "items": {
+        "$ref": "#/$defs/FloodSource"
+      },
+      "title": "Flood Sources",
+      "type": "array"
+    },
+    "seed": {
+      "default": 1947,
+      "title": "Seed",
+      "type": "integer"
+    },
+    "horizon_ticks": {
+      "default": 360,
+      "title": "Horizon Ticks",
+      "type": "integer"
+    },
+    "tick_seconds": {
+      "default": 60,
+      "title": "Tick Seconds",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "name",
+    "flood_sources"
+  ],
+  "title": "Scenario",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

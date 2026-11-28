@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "InterventionType": {
+      "enum": [
+        "protect_asset",
+        "deploy_backup",
+        "temporary_service",
+        "repair_asset",
+        "clear_access"
+      ],
+      "title": "InterventionType",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "intervention_id": {
+      "title": "Intervention Id",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/$defs/InterventionType"
+    },
+    "target_asset_id": {
+      "title": "Target Asset Id",
+      "type": "string"
+    },
+    "start_tick": {
+      "default": 0,
+      "title": "Start Tick",
+      "type": "integer"
+    },
+    "duration_ticks": {
+      "default": 60,
+      "title": "Duration Ticks",
+      "type": "integer"
+    },
+    "resource_cost": {
+      "default": 1,
+      "title": "Resource Cost",
+      "type": "integer"
+    },
+    "effect": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Effect",
+      "type": "object"
+    }
+  },
+  "required": [
+    "intervention_id",
+    "type",
+    "target_asset_id"
+  ],
+  "title": "Intervention",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

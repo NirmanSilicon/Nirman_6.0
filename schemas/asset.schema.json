@@ -1,0 +1,180 @@
+{
+  "$defs": {
+    "AssetType": {
+      "enum": [
+        "power_substation",
+        "water_pump",
+        "hospital",
+        "road_segment",
+        "telecom_tower"
+      ],
+      "title": "AssetType",
+      "type": "string"
+    },
+    "BackupResource": {
+      "properties": {
+        "resource_type": {
+          "default": "backup_power",
+          "title": "Resource Type",
+          "type": "string"
+        },
+        "remaining_inventory": {
+          "minimum": 0,
+          "title": "Remaining Inventory",
+          "type": "number"
+        },
+        "max_output_per_tick": {
+          "default": 1.0,
+          "minimum": 0,
+          "title": "Max Output Per Tick",
+          "type": "number"
+        },
+        "conversion_efficiency": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "maximum": 1.0,
+          "title": "Conversion Efficiency",
+          "type": "number"
+        },
+        "is_active": {
+          "default": false,
+          "title": "Is Active",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "remaining_inventory"
+      ],
+      "title": "BackupResource",
+      "type": "object"
+    },
+    "LogicalState": {
+      "enum": [
+        "operational",
+        "degraded",
+        "unavailable",
+        "repairing",
+        "recovered"
+      ],
+      "title": "LogicalState",
+      "type": "string"
+    },
+    "Position": {
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        },
+        "z": {
+          "default": 0.0,
+          "title": "Z",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Position",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "asset_id": {
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "asset_type": {
+      "$ref": "#/$defs/AssetType"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "position": {
+      "$ref": "#/$defs/Position"
+    },
+    "physical_damage": {
+      "default": 0.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Physical Damage",
+      "type": "number"
+    },
+    "nominal_capacity": {
+      "default": 1.0,
+      "minimum": 0.0,
+      "title": "Nominal Capacity",
+      "type": "number"
+    },
+    "intrinsic_capacity_fraction": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Intrinsic Capacity Fraction",
+      "type": "number"
+    },
+    "delivered_service_fraction": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Delivered Service Fraction",
+      "type": "number"
+    },
+    "minimum_operational_service": {
+      "default": 0.6,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Minimum Operational Service",
+      "type": "number"
+    },
+    "criticality_weight": {
+      "default": 1.0,
+      "minimum": 0.0,
+      "title": "Criticality Weight",
+      "type": "number"
+    },
+    "is_critical": {
+      "default": false,
+      "title": "Is Critical",
+      "type": "boolean"
+    },
+    "vulnerability_scale": {
+      "default": 1.0,
+      "minimum": 0.0,
+      "title": "Vulnerability Scale",
+      "type": "number"
+    },
+    "resistance_threshold": {
+      "default": 0.1,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Resistance Threshold",
+      "type": "number"
+    },
+    "backup": {
+      "items": {
+        "$ref": "#/$defs/BackupResource"
+      },
+      "title": "Backup",
+      "type": "array"
+    },
+    "logical_state": {
+      "$ref": "#/$defs/LogicalState",
+      "default": "operational"
+    }
+  },
+  "required": [
+    "asset_id",
+    "asset_type",
+    "name",
+    "position"
+  ],
+  "title": "Asset",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
