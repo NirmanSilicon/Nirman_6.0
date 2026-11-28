@@ -8,6 +8,7 @@ import { ProbabilityLab } from "./components/ProbabilityLab";
 import { FairPlayShield } from "./components/FairPlayShield";
 import { ParentalHub } from "./components/ParentalHub";
 import { ArchitectureRoadmap } from "./components/ArchitectureRoadmap";
+import { FairPlayAssistantWidget } from "./components/FairPlayAssistantWidget";
 
 const TAB_ORDER: TabId[] = ["scanner", "audit", "lab", "shield", "hub", "roadmap"];
 
@@ -204,6 +205,11 @@ export default function App() {
           </button>
         </div>
       </footer>
+
+      <FairPlayAssistantWidget
+        language={language}
+        onAnnouncement={setLiveAnnouncement}
+      />
     </div>
   );
 }
