@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Genealogy Tracer 3",
+  "description": "Spacecraft failure root-cause analysis dossier and causal chain investigation system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

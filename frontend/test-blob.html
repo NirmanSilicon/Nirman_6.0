@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+  const blob = new Blob(["Hello"], {type: "text/plain"});
+  const url = URL.createObjectURL(blob);
+  fetch(url).then(r => r.text()).then(t => console.log("Fetch:", t)).catch(e => console.error("Fetch Error:", e));
+  const img = new Image();
+  img.onload = () => console.log("Img loaded");
+  img.onerror = (e) => console.error("Img error");
+  img.src = url;
+</script>
+</body>
+</html>
