@@ -10,6 +10,11 @@ export interface DetectedPattern {
   explanation: string;
 }
 
+export interface WebSource {
+  title: string;
+  uri: string;
+}
+
 export interface RiskReport {
   gameTitle: string;
   riskScore: number;
@@ -24,6 +29,8 @@ export interface RiskReport {
   parentAlert: string;
   summary: string;
   analysisSource: "gemini" | "heuristic" | "preset";
+  fetchedPolicy?: string;
+  sources?: WebSource[];
 }
 
 export interface ScannerPreset {
