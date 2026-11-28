@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Warden Eye – Smart Workforce Monitoring System</title>
+<style>
+:root{--bg:#fff;--surf:#f4f5f7;--card:#fff;--line:#e3e6ea;--tx:#1c2128;--mut:#667085;--red:#d93a37;--grn:#1f9d55;--rl:#fdeceb;--gl:#e6f6ec;--amb:#b7791f;--al:#fdf4e1;--sh:0 1px 2px rgba(20,30,40,.06);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+:root[data-theme="dark"]{--bg:#121416;--surf:#1a1d20;--card:#202428;--line:#32373d;--tx:#eceef0;--mut:#9aa3ad;--rl:#3a1f1f;--gl:#16301f;--al:#3a301a;--sh:none;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.5 "Times New Roman",Times,serif}
+h1,h2,h3,.brand{font-family:"Times New Roman",Times,serif;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:8px;font-weight:500;transition:.15s}
+.btn:hover{border-color:var(--tx)}.btn:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--grn);outline-offset:2px}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.red:hover{filter:brightness(.92)}
+.btn.grn{background:var(--grn);border-color:var(--grn);color:#fff}
+.in{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--red);color:#fff;display:grid;place-items:center}
+.logo svg{width:20px;height:20px}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(20px,5vw,96px)}
+.nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav a.l{margin:0 14px;color:var(--mut);text-decoration:none;cursor:pointer;font-weight:500}.nav a.l:hover{color:var(--tx)}
+.hero{padding-top:56px;padding-bottom:56px;min-height:calc(100vh - 64px);display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,4.6vw,76px);line-height:1.1;margin-bottom:16px}
+.hero p{color:var(--mut);max-width:54ch;font-size:clamp(17px,1.3vw,21px)}
+.pill{display:inline-flex;gap:8px;align-items:center;background:var(--gl);color:var(--grn);padding:5px 12px;border-radius:99px;font-weight:600;font-size:13px;margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);display:inline-block}.dot.r{background:var(--red)}
+.live .dot{animation:pulse 1.6s infinite}@keyframes pulse{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.live .dot{animation:none}}
+.mock{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:16px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.ph{aspect-ratio:3/4;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;color:#fff;font-weight:600;font-size:13px;position:relative;overflow:hidden}
+.ph svg{position:absolute;inset:auto 0 0 0;width:100%;opacity:.28}
+.sec{padding:56px 0}.sec.alt{background:var(--surf)}
+.sec h2{font-size:30px;margin-bottom:10px}.sec .sub{color:var(--mut);max-width:60ch;margin:0 0 28px}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--sh)}
+.fi{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;background:var(--gl);color:var(--grn)}.fi.r{background:var(--rl);color:var(--red)}
+.card h3{font-size:16px;margin-bottom:6px}.card p{margin:0;color:var(--mut);font-size:14px}
+footer{background:#14171a;color:#c9ced4;padding:36px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.auth .side{background:linear-gradient(160deg,var(--red),#8f1f1d);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+.auth .side h2{font-size:34px;max-width:14ch}.auth .main{display:grid;place-items:center;padding:24px}
+.form{width:100%;max-width:380px;display:grid;gap:14px}.form label{font-weight:500;font-size:14px;display:grid;gap:6px}
+.pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--mut);padding:6px}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:14px;gap:10px}
+.shell{display:flex;min-height:100vh}
+.side-nav{position:fixed;left:0;top:env(safe-area-inset-top,0px);bottom:0;width:240px;background:var(--card);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;transition:width .2s,transform .2s;z-index:8}
+.side-nav.col{width:68px}.side-nav.col .t{display:none}
+.side-nav .brand{padding:4px 6px 16px}
+.nv{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;border:0;background:none;text-align:left;color:var(--mut);font-weight:500;width:100%}
+.nv:hover{background:var(--surf);color:var(--tx)}.nv.on{background:var(--rl);color:var(--red)}
+.main-c{flex:1;margin-left:240px;transition:margin .2s;min-width:0}.main-c.col{margin-left:68px}
+.top{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:4}
+.top h1{font-size:20px;flex:1}.page{padding:24px}
+.stat{display:flex;gap:14px;align-items:center}.stat b{font-family:Sora;font-size:26px;display:block;line-height:1.1}.stat span{color:var(--mut);font-size:13px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;color:var(--mut);font-weight:500;padding:10px 12px;background:var(--surf);white-space:nowrap}td{padding:11px 12px;border-top:1px solid var(--line);white-space:nowrap}
+.bd{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--surf)}
+.bd.g{background:var(--gl);color:var(--grn)}.bd.r{background:var(--rl);color:var(--red)}.bd.a{background:var(--al);color:var(--amb)}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;flex:none}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.bar .in{width:auto;flex:1;min-width:150px}
+.tabs{display:inline-flex;background:var(--surf);border-radius:8px;padding:3px}.tabs button{border:0;background:none;padding:6px 14px;border-radius:6px;font-weight:500;color:var(--mut)}.tabs button.on{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:16px;display:grid;gap:14px}.tl div{position:relative;font-size:14px}.tl div:before{content:"";position:absolute;left:-23px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--grn)}.tl div.o:before{background:var(--red)}.tl small{color:var(--mut);display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:20;padding:16px}.modal .card{width:100%;max-width:440px;display:grid;gap:12px}
+.chat{display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 150px);min-height:420px;padding:0;overflow:hidden}
+.ct{border-right:1px solid var(--line);overflow:auto}.ci{display:flex;gap:10px;align-items:center;padding:12px;cursor:pointer;border:0;background:none;width:100%;text-align:left}.ci:hover,.ci.on{background:var(--surf)}
+.msgs{display:flex;flex-direction:column;overflow:auto;padding:16px;gap:10px;flex:1}.m{max-width:70%;padding:9px 13px;border-radius:12px;background:var(--surf);font-size:14px}.m.me{align-self:flex-end;background:var(--grn);color:#fff}.m small{display:block;opacity:.7;font-size:11px;margin-top:2px}
+.cm{display:flex;flex-direction:column;min-width:0}.cm form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.cam{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+.feed{position:relative;aspect-ratio:16/9;background:#0d1114;overflow:hidden;border:3px solid #1b2024;border-radius:10px 10px 0 0}
+.feed svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .25s}
+.feed .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px);pointer-events:none;box-shadow:inset 0 0 40px rgba(0,0,0,.5)}
+.ov{position:absolute;color:#fff;font:600 11px/1.2 ui-monospace,Menlo,monospace;text-shadow:0 1px 2px #000;padding:6px 8px;display:flex;gap:6px;align-items:center}
+.ov.tl{top:0;left:0}.ov.tr{top:0;right:0}.ov.bl{bottom:0;left:0}.ov.br{bottom:0;right:0}
+.blink{animation:pulse 1s infinite}
+.nosig{position:absolute;inset:0;display:grid;place-items:center;color:#9aa3ad;font:600 14px ui-monospace,monospace;background:repeating-linear-gradient(90deg,#1a1d20 0 2px,#24282c 2px 4px);text-align:center}
+.cc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px}.cc .sp{flex:1;min-width:120px}.cc .btn{padding:5px 10px;font-size:13px}
+.list{grid-template-columns:1fr}.list .cam{display:grid;grid-template-columns:minmax(260px,1.2fr) 1fr}.list .feed{aspect-ratio:auto;min-height:200px;border-radius:10px 0 0 10px}
+.big .cam{border:0;box-shadow:none}
+@media(max-width:700px){.list .cam{grid-template-columns:1fr}.list .feed{aspect-ratio:16/9;border-radius:10px 10px 0 0}}
+@media(prefers-reduced-motion:reduce){.blink{animation:none}}
+.lg{min-height:100vh;display:grid;grid-template-columns:1.15fr 1fr;background:var(--bg);overflow:hidden}
+.lg-l{position:relative;padding:48px 56px;display:flex;flex-direction:column;justify-content:center;gap:24px;background:linear-gradient(135deg,var(--bg),var(--surf));overflow:hidden}
+.lg-l:before{content:"";position:absolute;top:-30px;left:-70px;width:280px;height:60px;background:var(--red);transform:rotate(-35deg)}
+.lg-l:after{content:"";position:absolute;bottom:-20px;right:-60px;width:260px;height:44px;background:var(--grn);transform:rotate(-35deg)}
+.lg-l>*{position:relative;z-index:1}
+.lg-brand{display:flex;gap:16px;align-items:center}.lg-brand .div{width:1px;height:52px;background:var(--line)}
+.lg-h{font-size:clamp(34px,4.4vw,56px);line-height:1.1;font-style:italic}.lg-h em{color:var(--red)}
+.lg-f{display:grid;grid-template-columns:repeat(4,1fr);max-width:580px}.lg-f div{text-align:center;padding:0 8px;border-left:1px solid var(--line);font-size:14px}.lg-f div:first-child{border:0}
+.lg-ic{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin:0 auto 8px;color:var(--grn);background:var(--card)}
+.lg-s{font-style:italic;font-size:26px;transform:rotate(-5deg);transform-origin:left;margin-top:8px}
+.lg-r{display:grid;place-items:center;padding:24px}
+.lg-card{width:100%;max-width:460px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 14px 40px rgba(20,30,40,.14);display:grid;gap:14px;text-align:center}
+.lg-in{position:relative}.lg-in>.i{position:absolute;left:14px;top:50%;transform:translateY(-50%);z-index:1}.lg-in .in{padding-left:44px;height:48px;border-radius:12px}.lg-in.pw button{z-index:1;display:grid;place-items:center;width:34px;height:34px;padding:0;border-radius:8px;color:var(--mut)}.lg-in.pw button:hover{color:var(--tx);background:var(--surf)}.lg-in.pw .in{padding-right:48px}
+.lg-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lg-roles .btn{padding:9px 6px;font-size:14px;border-radius:12px}.lg-roles .btn.on{border-color:var(--red);background:var(--rl)}
+.lg-or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px}.lg-or:before,.lg-or:after{content:"";flex:1;height:1px;background:var(--line)}
+@media(max-width:900px){.lg{grid-template-columns:1fr}.lg-r{order:-1}.lg-l{padding:32px 20px}.lg-f{grid-template-columns:1fr 1fr;gap:16px}.lg-f div:nth-child(3){border-left:0}}
+.cal{display:grid;grid-template-columns:1fr minmax(280px,340px);gap:16px;align-items:start}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.cal-h .btn{padding:5px 9px}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cal-g span{color:var(--mut);font-size:12px;padding:4px 0}
+.cd{aspect-ratio:1;border:1px solid transparent;border-radius:8px;background:none;font-size:14px}.cd:hover:not(:disabled){background:var(--surf)}.cd.td{border-color:var(--grn)}.cd.on{background:var(--red);color:#fff}.cd:disabled{opacity:.35;cursor:default}
+.sum{display:grid;grid-template-columns:repeat(3,1fr)}.sum div{padding:4px 16px;border-left:1px solid var(--line)}.sum div:first-child{border:0;padding-left:0}.sum b{display:block;font-size:30px;line-height:1.1}.sum span{color:var(--mut);font-size:14px}
+@media(max-width:700px){.cal{grid-template-columns:1fr}.sum b{font-size:24px}.sum div{padding:4px 8px}}
+.nv.sub{padding-left:38px;font-size:14px}.side-nav.col .nv.sub{padding-left:12px}
+.hero-img{justify-self:end;align-self:end;width:100%;max-width:clamp(380px,46vw,780px);height:auto;display:block;border-radius:20px}
+.curl{padding-bottom:.14em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 Q50 1 100 6 T198 5' fill='none' stroke='%23d93a37' stroke-opacity='.4' stroke-width='3.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat 0 100%/100% .32em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+@media(max-width:900px){.hero{min-height:0}}
+.side-nav.hov{box-shadow:6px 0 24px rgba(0,0,0,.18)}
+.burger{display:inline-flex}
+@media(max-width:900px){.hero,.auth,.g2{grid-template-columns:1fr}.auth .side{display:none}.g3,.g4{grid-template-columns:1fr 1fr}.nav .l{display:none}}
+@media(max-width:700px){.g3,.g4{grid-template-columns:1fr}.side-nav{transform:translateX(-100%);width:240px}.side-nav.open{transform:none}.side-nav.col .t{display:inline}.main-c,.main-c.col{margin-left:0}.burger{display:inline-flex}.chat{grid-template-columns:1fr}.ct{max-height:150px;border-right:0;border-bottom:1px solid var(--line)}.page{padding:16px}}
+</style></head>
+<body><div id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useRef}=React;
+const P={dash:"M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",live:"M2 12h4l3-8 6 16 3-8h4",att:"M2 5h20v14H2zM6 10h5M6 14h3M15 10h3v4h-3z",rep:"M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8",zone:"M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 7a3 3 0 100 6 3 3 0 000-6z",chat:"M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z",set:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",moon:"M21 13A9 9 0 1111 3a7 7 0 0010 10z",sun:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",out:"M9 21H5V3h4M16 17l5-5-5-5M21 12H9",menu:"M3 6h18M3 12h18M3 18h18",eye:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 9a3 3 0 100 6 3 3 0 000-6z",eyeoff:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM3 3l18 18",x:"M18 6L6 18M6 6l12 12",plus:"M12 5v14M5 12h14",dl:"M12 3v12M7 10l5 5 5-5M4 21h16",send:"M22 2L11 13M22 2l-7 20-4-9-9-4z",search:"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5",edit:"M4 20h4L19 9l-4-4L4 16z",trash:"M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15",users:"M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2",shield:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z",chev:"M15 6l-6 6 6 6"};
+Object.assign(P,{mail:"M3 5h18v14H3zM3 6l9 7 9-7",lock:"M5 11h14v10H5zM8 11V7a4 4 0 018 0v4",cam:"M3 7h4l2-3h6l2 3h4v13H3zM12 10a4 4 0 100 8 4 4 0 000-8z",shieldck:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5zM8.5 12l2.5 2.5 4.5-5",chart:"M5 20V10M12 20V4M19 20v-7",crown:"M3 8l4 4 5-7 5 7 4-4-2 11H5z",user:"M12 11a4 4 0 100-8 4 4 0 000 8zM4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1",arrow:"M5 12h14M13 6l6 6-6 6"});
+Object.assign(P,{video:"M3 6h12v12H3zM15 10l6-3v10l-6-3",cal:"M4 5h16v16H4zM4 10h16M8 3v4M16 3v4M9 15l2 2 4-4",clock:"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2",down:"M6 9l6 6 6-6"});
+const Ic=({n})=><svg className="i" viewBox="0 0 24 24"><path d={P[n]}/></svg>;
+const Logo=()=><span className="brand"><span className="logo"><Ic n="shield"/></span><span className="t">Warden Eye</span></span>;
+const COL=["#d93a37","#1f9d55","#4a5568","#2b6cb0","#b7791f","#805ad5"];
+const Av=({name,i=0})=><span className="av" style={{background:COL[i%6]}}>{name.split(" ").map(s=>s[0]).join("")}</span>;
+const W=[["W-101","Ravi Kumar","Zone A","RF-48A1","08:52","—","Present"],["W-102","Anita Das","Zone C","RF-48B7","09:21","—","Late"],["W-103","Suresh Nayak","Zone D","RF-49C2","08:45","—","Present"],["W-104","Priya Sahoo","Zone F","RF-4A10","08:58","—","Present"],["W-105","Manoj Behera","Zone B","RF-4B33","—","—","Absent"],["W-106","Kavita Rao","Zone C","RF-4C5D","08:40","17:05","Present"],["W-107","Imran Khan","Zone D","RF-4D71","09:34","—","Late"],["W-108","Deepa Mishra","Zone E","RF-4E02","—","—","Absent"]].map(a=>({id:a[0],name:a[1],zone:a[2],rfid:a[3],in:a[4],out:a[5],st:a[6]}));
+const Z0=[{id:1,name:"Zone A",on:true,mon:"Active"},{id:2,name:"Zone B",on:true,mon:"Active"},{id:3,name:"Zone C",on:true,mon:"Active"},{id:4,name:"Zone D",on:true,mon:"Active"},{id:5,name:"Zone E",on:false,mon:"Inactive"},{id:6,name:"Zone F",on:true,mon:"Active"}];
+const RP=[["R-2041","Ravi Kumar","W-101","Zone A","Unauthorised vehicle entry noted at 09:10","2026-11-28 09:12","Pending"],["R-2040","Anita Das","W-102","Zone C","Late arrival, badge scanned twice","2026-11-28 09:25","In Progress"],["R-2039","Suresh Nayak","W-103","Zone D","Restricted shelf area accessed","2026-11-27 15:40","Resolved"],["R-2038","Priya Sahoo","W-104","Zone F","Camera 4 offline for 12 minutes","2026-11-27 11:05","Resolved"],["R-2037","Imran Khan","W-107","Zone D","Missing check-out on previous shift","2026-11-26 18:30","In Progress"]].map(a=>({id:a[0],w:a[1],wid:a[2],zone:a[3],d:a[4],t:a[5],st:a[6]}));
+const bc=s=>({Present:"g",Active:"g",Resolved:"g",Late:"a","In Progress":"a",Absent:"r",Pending:"r",Inactive:"r"}[s]||"");
+const Badge=({s})=><span className={"bd "+bc(s)}>{s}</span>;
+const go=h=>{location.hash=h};
+
+function Monitor(){
+ const T=[["CAM-01","gate",20,60],["CAM-02","floor",70,64],["CAM-03","shelf",110,62],["CAM-04","ctrl",50,66]];
+ return <svg className="hero-img" viewBox="0 0 400 310" role="img" aria-label="Computer showing live CCTV monitoring">
+ <ellipse cx="200" cy="300" rx="150" ry="7" fill="#000" opacity=".12"/>
+ <rect x="10" y="8" width="380" height="236" rx="14" fill="#1b2024"/><rect x="22" y="20" width="356" height="212" rx="6" fill="#0d1114"/>
+ <rect x="22" y="20" width="356" height="18" rx="6" fill="#161b1f"/><circle cx="34" cy="29" r="3" fill="#d93a37" className="blink"/><text x="43" y="32" fontSize="8" fill="#e8ecef" fontFamily="monospace" fontWeight="700">WARDEN EYE · LIVE MONITORING</text><text x="366" y="32" textAnchor="end" fontSize="8" fill="#2fd36f" fontFamily="monospace">4 ONLINE</text>
+ {T.map((c,i)=>{const x=26+(i%2)*176,y=42+Math.floor(i/2)*92,wx=c[2],wy=c[3];
+ return <svg key={c[0]} x={x} y={y} width="172" height="88" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"><Scene k={c[1]} t={0}/>
+ <circle cx={wx} cy={wy-14} r="3" fill="#cfd6dc"/><rect x={wx-3.5} y={wy-11} width="7" height="14" rx="1" fill="#e08a2f"/><rect x={wx-6} y={wy-19} width="12" height="23" fill="none" stroke="#2fd36f" strokeWidth=".8"/><rect x={wx-6} y={wy-24} width="22" height="5" fill="#2fd36f"/><text x={wx-5} y={wy-20} fontSize="3.6" fontWeight="700" fill="#000" fontFamily="monospace">W-10{i+1}</text>
+ <rect width="160" height="90" fill="none" stroke="#000" strokeOpacity=".5" strokeWidth="2"/><text x="4" y="9" fontSize="6" fill="#fff" fontFamily="monospace" fontWeight="700">{c[0]}</text><circle cx="152" cy="6" r="2.2" fill="#d93a37" className="blink"/></svg>})}
+ <rect x="182" y="244" width="36" height="34" fill="#8b949b"/><rect x="182" y="244" width="36" height="6" fill="#6f7a82"/><rect x="125" y="276" width="150" height="10" rx="5" fill="#5b666e"/>
+ <circle cx="200" cy="238" r="2" fill="#1f9d55"/></svg>}
+function Home(){
+ const sc=id=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+ const F=[["live","Live monitoring","See who is in which zone, with entry and exit events as they happen."],["att","RFID attendance","Card scans become check-in and check-out records, flagged late or absent."],["zone","Zone management","Create zones, assign workers, and switch monitoring on or off."],["rep","Incident reports","Log, filter, and resolve reports by zone and status."],["chat","Team chat","Message workers and administrators from the same console."],["dash","Clear dashboards","Headcount, presence, and zone activity at a glance."]];
+ return <div>
+ <header className="nav"><div className="wrap"><Logo/><nav><a className="l" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>Home</a><a className="l" onClick={()=>sc("about")}>About</a><a className="l" onClick={()=>sc("features")}>Features</a><button className="btn red" onClick={()=>go("signin")}>Sign In</button></nav></div></header>
+ <div className="wrap hero"><div><span className="pill live"><span className="dot"/>Monitoring live</span><h1><span className="curl">Smart Workforce Monitoring</span> &amp; Management</h1><p>Warden Eye gives security teams and site managers one place to see where every worker is, confirm who has arrived, and act on incidents quickly.</p><div style={{display:"flex",gap:10,marginTop:24,flexWrap:"wrap"}}><button className="btn red" onClick={()=>go("signin")}>Sign In</button><button className="btn" onClick={()=>sc("features")}>See features</button></div></div>
+ <Monitor/></div>
+ <section id="about" className="sec alt"><div className="wrap"><h2>About Warden Eye</h2><p className="sub">Built for sites where knowing who is where matters. Warden Eye brings four jobs into one platform.</p><div className="grid g4">{[["Monitor workers","Track each worker’s current zone and recent movement."],["Manage attendance","RFID card scans record arrivals, departures, and lateness."],["Track zones","Know which areas are staffed and which are not."],["Generate reports","Turn incidents and attendance into reports you can download."]].map(([a,b],i)=><div className="card" key={a}><div className={"fi "+(i%2?"":"r")}><Ic n={["eye","att","zone","rep"][i]}/></div><h3>{a}</h3><p>{b}</p></div>)}</div></div></section>
+ <section id="features" className="sec"><div className="wrap"><h2>Features</h2><p className="sub">Everything a control room needs, without the clutter.</p><div className="grid g3">{F.map(([i,a,b],k)=><div className="card" key={a}><div className={"fi "+(k%2?"r":"")}><Ic n={i}/></div><h3>{a}</h3><p>{b}</p></div>)}</div></div></section>
+ <footer><div className="wrap"><div><Logo/><p style={{margin:"8px 0 0"}}>Smart Workforce Monitoring System</p></div><div>© 2026 Warden Eye. Demo build with sample data.</div></div></footer></div>}
+
+const EyeLogo=({w=64})=><svg viewBox="0 0 120 64" width={w} aria-hidden="true"><path d="M4 34C24 8 96 8 116 34C96 58 24 58 4 34Z" fill="none" stroke="var(--tx)" strokeWidth="5" strokeLinejoin="round"/><circle cx="60" cy="33" r="17" fill="var(--red)"/><g stroke="#fff" strokeWidth="2" opacity=".85">{[0,60,120].map(a=><line key={a} x1="60" y1="18" x2="60" y2="48" transform={`rotate(${a} 60 33)`}/>)}</g><circle cx="60" cy="33" r="6" fill="#14181c"/></svg>;
+const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,height:20}} aria-hidden="true"><path d="M2 12c3-5.5 6.5-7 10-7s7 1.5 10 7c-3 5.5-6.5 7-10 7S5 17.5 2 12z"/><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/>{off&&<path d="M4 4l16 16" strokeWidth="2.4"/>}</svg>;
+function SignIn(){
+ const [show,setShow]=useState(false);const [u,setU]=useState("");const [p,setP]=useState("");const [role,setRole]=useState("Admin");
+ const F=[["shieldck","Real-Time Monitoring"],["cam","AI-Powered Detection"],["users","Worker Safety First"],["chart","Smart Analytics"]];
+ return <div className="lg"><div className="lg-l">
+ <div className="lg-brand"><EyeLogo w={92}/><span className="div"/><div><div className="brand" style={{fontSize:30}}>WARDEN’S <span style={{color:"var(--red)"}}>EYE</span></div><div>AI-Powered Safety Monitoring</div></div></div>
+ <h1 className="lg-h">Smarter Monitoring.<br/><em>Safer</em> Workplace.</h1>
+ <p style={{color:"var(--mut)",maxWidth:"40ch",fontSize:18,margin:0}}>Detect risks, ensure safety and build a secure workplace with the power of AI.</p>
+ <div className="lg-f">{F.map(f=><div key={f[1]}><span className="lg-ic"><Ic n={f[0]}/></span>{f[1]}</div>)}</div>
+ <div className="lg-s"><span style={{borderBottom:"3px solid var(--red)"}}>Safety Today… A Better Tomorrow…</span></div></div>
+ <div className="lg-r"><form className="lg-card" onSubmit={e=>{e.preventDefault();go("live")}}>
+ <div style={{display:"grid",justifyItems:"center",gap:4}}><EyeLogo/><div className="brand" style={{fontSize:26}}>WARDEN’S <span style={{color:"var(--red)",marginLeft:6}}>EYE</span></div><small style={{color:"var(--mut)"}}>Secure • Monitor • Ensure</small></div>
+ <h2 style={{fontSize:32}}>Welcome Back!</h2><p style={{margin:0,color:"var(--mut)"}}>Sign in to continue to your dashboard</p>
+ <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder="Email Address" value={u} onChange={e=>setU(e.target.value)} aria-label="Email address" required/></div>
+ <div className="lg-in pw"><span className="i"><Ic n="lock"/></span><input className="in" type={show?"text":"password"} placeholder="Password" value={p} onChange={e=>setP(e.target.value)} aria-label="Password" required/><button type="button" aria-label="Show or hide password" onClick={()=>setShow(!show)}><PwEye off={!show}/></button></div>
+ <div className="row"><label style={{display:"flex",gap:8,alignItems:"center"}}><input type="checkbox"/>Remember Me</label><a href="#signin" onClick={e=>{e.preventDefault();alert("A reset link would be sent in the full product.")}} style={{color:"var(--red)",fontWeight:600}}>Forgot Password?</a></div>
+ <button className="btn red" style={{height:48,fontSize:17}}>Sign In <Ic n="arrow"/></button>
+ <div className="lg-or">or continue with</div>
+ <div className="lg-roles">{[["Super Admin","crown"],["Admin","shieldck"],["Employee","user"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>setRole(r[0])}><Ic n={r[1]}/>{r[0]}</button>)}</div>
+ <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · A Safer Workplace. A Smarter Tomorrow.</small></form></div></div>}
+
+const CAMS=[{id:"CAM-01",name:"Entrance",zone:"Zone A",k:"gate",on:true},{id:"CAM-02",name:"Exit",zone:"Zone B",k:"gate",on:true},{id:"CAM-03",name:"Factory Floor",zone:"Zone C",k:"floor",on:true},{id:"CAM-04",name:"Storage Aisle",zone:"Zone D",k:"shelf",on:true},{id:"CAM-05",name:"Loading Dock",zone:"Zone E",k:"dock",on:false},{id:"CAM-06",name:"Control Room",zone:"Zone F",k:"ctrl",on:true}];
+const inZone=z=>W.filter(w=>w.zone===z&&w.st!=="Absent"&&w.out==="—");
+function Scene({k,t}){
+ const base=<g><rect width="160" height="58" fill="#38434a"/><polygon points="0,58 160,58 160,90 0,90" fill="#2a3036"/><path d="M80 58L20 90M80 58L140 90M80 58V90" stroke="#3d464d" strokeWidth=".5"/></g>;
+ let s=null;
+ if(k==="gate")s=<g><rect x="12" y="26" width="22" height="32" fill="#1f2529"/><rect x="15" y="30" width="16" height="10" fill="#6aa6a0" opacity=".5"/><line x1="36" y1="46" x2="104" y2="42" stroke="#d93a37" strokeWidth="2.4"/><line x1="36" y1="46" x2="104" y2="42" stroke="#fff" strokeWidth="2.4" strokeDasharray="4 4"/><rect x="104" y="30" width="4" height="28" fill="#596268"/><rect x="130" y="14" width="22" height="44" fill="#2f3a40"/></g>;
+ if(k==="floor")s=<g>{[[10,28,28,30],[50,36,24,22],[118,26,32,32]].map((m,i)=><g key={i}><rect x={m[0]} y={m[1]} width={m[2]} height={m[3]} fill="#2f3a40" stroke="#4b565e" strokeWidth=".5"/><rect x={m[0]+3} y={m[1]+3} width="4" height="2" fill={i==1?"#d93a37":"#1f9d55"}/></g>)}<rect x="0" y="56" width="160" height="5" fill="#222a2f"/><line x1="0" y1="58.5" x2="160" y2="58.5" stroke="#8a949b" strokeWidth="1" strokeDasharray="3 3" strokeDashoffset={-t*8}/></g>;
+ if(k==="shelf")s=<g>{[0,1,2].map(r=><g key={r}><rect x={8+r*52} y="8" width="42" height="50" fill="none" stroke="#5b666e" strokeWidth=".8"/>{[20,33,46].map(y=><g key={y}><line x1={8+r*52} x2={50+r*52} y1={y} y2={y} stroke="#5b666e" strokeWidth=".8"/><rect x={11+r*52} y={y-9} width="9" height="9" fill="#8a6f4d"/><rect x={26+r*52} y={y-7} width="11" height="7" fill="#7a6044"/></g>)}</g>)}</g>;
+ if(k==="dock")s=<g>{[0,1,2].map(i=><g key={i}><rect x={10+i*50} y="14" width="40" height="44" fill="#1d2226" stroke="#59636a" strokeWidth=".6"/>{[20,26,32,38,44,50].map(y=><line key={y} x1={10+i*50} x2={50+i*50} y1={y} y2={y} stroke="#2c343a" strokeWidth=".6"/>)}</g>)}</g>;
+ if(k==="ctrl")s=<g>{[0,1,2,3].map(c=>[0,1].map(r=><rect key={c+"-"+r} x={12+c*36} y={8+r*24} width="32" height="20" fill="#12353a" stroke="#5b666e" strokeWidth=".6" opacity={.7+.3*Math.sin(t*2+c+r*3)}/>))}<rect x="20" y="52" width="120" height="6" fill="#222a2f"/></g>;
+ return <g>{base}{s}</g>}
+function Feed({cam,cmd,big,onFull,list}){
+ const [p,setP]=useState(false);const [z,setZ]=useState(1);const [t,setT]=useState(0);const [now,setNow]=useState(new Date());
+ useEffect(()=>{if(cmd.n)setP(cmd.val)},[cmd]);
+ useEffect(()=>{if(p||!cam.on)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date())},120);return()=>clearInterval(i)},[p,cam.on]);
+ const ws=cam.on?inZone(cam.zone):[];
+ return <div className="cam"><div className="feed">
+ {cam.on?<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" style={{transform:`scale(${z})`}} role="img" aria-label={`${cam.name} camera feed`}><Scene k={cam.k} t={t}/>
+ {ws.map((w,i)=>{const x=20+(i*43)%110+9*Math.sin(t*.6+i*2),y=62+(i%3)*7,s=.9+(y-62)/30,late=w.st==="Late",c=late?"#d93a37":"#2fd36f";
+ return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={c} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={c}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id} {late?"LATE":"OK"}</text></g>})}
+ </svg>:<div className="nosig"><div>NO SIGNAL<br/><small>Camera offline. Check connection.</small></div></div>}
+ <div className="scan"/>
+ <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {cam.name}</div>
+ <div className="ov tr">{cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
+ <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}</div>
+ <div className="ov br">{cam.on?ws.length+" detected":"--"}</div></div>
+ <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{cam.name}{list&&ws.length?" · "+ws.map(w=>w.id).join(", "):""}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/><Badge s={cam.on?"Active":"Inactive"}/>
+ {cam.on&&<><button className="btn" onClick={()=>setP(!p)}>{p?"Play":"Pause"}</button><button className="btn" onClick={()=>setZ(z>=2?1:z+.5)}>Zoom {z}x</button></>}
+ {!big&&<button className="btn" onClick={()=>onFull(cam)}>Full screen</button>}</div></div>}
+function Live({zones}){
+ const [zf,setZf]=useState("All zones");const [cs,setCs]=useState("All cameras");const [view,setView]=useState("grid");const [cmd,setCmd]=useState({n:0,val:false});const [full,setFull]=useState(null);const [gp,setGp]=useState(false);
+ const shown=CAMS.filter(c=>(zf==="All zones"||c.zone===zf)&&(cs==="All cameras"||c.id===cs));
+ const on=CAMS.filter(c=>c.on).length;const det=CAMS.reduce((a,c)=>a+(c.on?inZone(c.zone).length:0),0);
+ const toggle=()=>{setCmd({n:cmd.n+1,val:!gp});setGp(!gp)};
+ return <div className="grid" style={{gap:16}}>
+  <div className="bar"><select className="in" style={{flex:"0 0 170px"}} aria-label="Camera" value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option>{CAMS.map(c=><option key={c.id} value={c.id}>{c.id} {c.name}</option>)}</select>
+ <select className="in" style={{flex:"0 0 170px"}} aria-label="Zone" value={zf} onChange={e=>setZf(e.target.value)}><option>All zones</option>{zones.map(z=><option key={z.id}>{z.name}</option>)}</select>
+ <div className="tabs">{["grid","list"].map(v=><button key={v} className={view===v?"on":""} onClick={()=>setView(v)}>{v==="grid"?"Grid":"List"}</button>)}</div>
+ <button className={"btn "+(gp?"grn":"")} onClick={toggle}>{gp?"Play all":"Pause all"}</button></div>
+ {shown.length?<div className={"grid "+(view==="grid"?"g3":"list")}>{shown.map(c=><Feed key={c.id} cam={c} cmd={cmd} list={view==="list"} onFull={setFull}/>)}</div>:<div className="card">No cameras match this zone and camera selection. Reset a filter to see feeds.</div>}
+ 
+ {full&&<div className="modal" onClick={()=>setFull(null)}><div className="card" style={{maxWidth:1100}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{full.id} · {full.zone} · {full.name}</h3><button className="btn" onClick={()=>setFull(null)}><Ic n="x"/>Close</button></div><div className="big"><Feed cam={full} cmd={{n:0}} big/></div></div></div>}</div>}
+
+
+const TODAY=new Date(2026,10,28);
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const same=(a,b)=>a.toDateString()===b.toDateString();
+const fmt=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+function dayRows(d){const t=same(d,TODAY);return W.map((w,i)=>{if(t)return w;const v=(i*5+d.getDate()*3+d.getMonth())%8,st=v<2?"Absent":v<4?"Late":"Present";return {...w,st,in:st==="Absent"?"—":st==="Late"?"09:"+String(10+i*3).padStart(2,"0"):"08:"+String(40+i*2),out:st==="Absent"?"—":"17:0"+(i%6)}})}
+
+function Attend(){
+ const [q,setQ]=useState("");const [f,setF]=useState("All");const [r,setR]=useState("Daily");const [scan,setScan]=useState(null);
+ const [sel,setSel]=useState(TODAY);const [mon,setMon]=useState(new Date(2026,10,1));
+ const all=dayRows(sel);const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
+ const abs=all.filter(w=>w.st==="Absent").length,late=all.filter(w=>w.st==="Late").length,pres=all.length-abs;
+ const ws=new Date(sel);ws.setDate(sel.getDate()-(sel.getDay()+6)%7);const we=new Date(ws);we.setDate(ws.getDate()+6);
+ const dl=r==="Daily"?fmt(sel):r==="Weekly"?fmt(ws)+" – "+fmt(we):sel.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+ const sim=()=>{const w=W[Math.floor(Math.random()*W.length)];setScan(w.name+" scanned "+w.rfid+" at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}))};
+ return <div className="grid" style={{gap:16}}><div className="card"><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label></div>
+ <div className="card row"><span className="live"><span className="dot"/> RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate scan</button></div>
+ <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or card" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
+ <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map(w=><tr key={w.id}><td>{w.id}</td><td>{w.name}</td><td>{w.rfid}</td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
+function Reports({zones}){
+ const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);
+ const rows=RP.filter(r=>(z==="All"||r.zone===z)&&(s==="All"||r.st===s)&&(r.w+r.id+r.d).toLowerCase().includes(q.toLowerCase()));
+ const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
+ return <div><div className="bar"><input className="in" placeholder="Search reports" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select></div>
+ <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:240,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>setSel(r)}>View</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No reports match these filters.</td></tr>}</tbody></table></div>
+ {sel&&<div className="modal" onClick={()=>setSel(null)}><div className="card" onClick={e=>e.stopPropagation()}><div className="row"><h3>{sel.id}</h3><Badge s={sel.st}/></div><p><b>{sel.w}</b> ({sel.wid}) in {sel.zone}</p><p>{sel.d}</p><small style={{color:"var(--mut)"}}>{sel.t}</small><div className="row"><button className="btn" onClick={()=>setSel(null)}>Close</button><button className="btn red" onClick={()=>dl(sel)}><Ic n="dl"/>Download report</button></div></div></div>}</div>}
+
+function Zones({zones,setZones}){
+ const [m,setM]=useState(null);
+ const save=e=>{e.preventDefault();const f=new FormData(e.target),name=f.get("name").trim(),on=f.get("on")==="1";if(!name)return;
+  setZones(m.id?zones.map(z=>z.id===m.id?{...z,name,on,mon:on?"Active":"Inactive"}:z):[...zones,{id:Date.now(),name,on,mon:on?"Active":"Inactive"}]);setM(null)};
+ const assign=(zn,wid)=>{const w=W.find(x=>x.id===wid);if(w)w.zone=zn;setZones([...zones])};
+ return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>{zones.length} zones, {zones.filter(z=>z.on).length} active</span><button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone</button></div>
+ <div className="grid g3">{zones.map(z=><div className="card" key={z.id}><div className="row"><h3>{z.name}</h3><Badge s={z.mon}/></div><p style={{margin:"10px 0"}}><Ic n="users"/> {W.filter(w=>w.zone===z.name).length} workers assigned</p>
+ <select className="in" value="" onChange={e=>assign(z.name,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker…</option>{W.filter(w=>w.zone!==z.name).map(w=><option key={w.id} value={w.id}>{w.name}</option>)}</select>
+ <div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>confirm("Remove "+z.name+"?")&&setZones(zones.filter(x=>x.id!==z.id))}><Ic n="trash"/>Remove</button></div></div>)}</div>
+ {m&&<div className="modal"><form className="card" onSubmit={save}><div className="row"><h3>{m.id?"Edit zone":"Add zone"}</h3><button type="button" className="btn" aria-label="Close" onClick={()=>setM(null)}><Ic n="x"/></button></div><label>Zone name<input className="in" name="name" defaultValue={m.name||""} required autoFocus/></label><label>Monitoring<select className="in" name="on" defaultValue={m.id&&!m.on?"0":"1"}><option value="1">Active</option><option value="0">Inactive</option></select></label><button className="btn red">{m.id?"Save changes":"Add zone"}</button></form></div>}</div>}
+
+const CT=[["Admin Desk","Online"],["Ravi Kumar","Online"],["Anita Das","Offline"],["Priya Sahoo","Online"],["Suresh Nayak","Offline"]];
+function Chat(){
+ const [a,setA]=useState(1);const [q,setQ]=useState("");const [t,setT]=useState("");
+ const [M,setM]=useState({1:[["them","Zone A is clear. Shift handover done.","09:02"],["me","Thanks Ravi. Please log the delivery truck.","09:04"]],3:[["them","Camera 4 is back online.","11:20"]]});
+ const send=e=>{e.preventDefault();if(!t.trim())return;const now=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});setM({...M,[a]:[...(M[a]||[]),["me",t,now]]});setT("")};
+ const box=useRef();useEffect(()=>{box.current&&(box.current.scrollTop=1e5)},[M,a]);
+ return <div className="card chat"><div className="ct"><div style={{padding:10}}><input className="in" placeholder="Search contacts" value={q} onChange={e=>setQ(e.target.value)}/></div>{CT.map((c,i)=>c[0].toLowerCase().includes(q.toLowerCase())&&<button key={c[0]} className={"ci "+(a===i?"on":"")} onClick={()=>setA(i)}><Av name={c[0]} i={i}/><span style={{flex:1}}>{c[0]}</span><span className={"dot "+(c[1]==="Online"?"":"r")} title={c[1]}/></button>)}</div>
+ <div className="cm"><div className="row" style={{padding:"12px 16px",borderBottom:"1px solid var(--line)",justifyContent:"flex-start"}}><b>{CT[a][0]}</b><span className="bd">{CT[a][1]}</span></div><div className="msgs" ref={box}>{(M[a]||[]).map((m,i)=><div key={i} className={"m "+(m[0]==="me"?"me":"")}>{m[1]}<small>{m[2]}</small></div>)}{!(M[a]||[]).length&&<p style={{color:"var(--mut)"}}>No messages yet. Say hello.</p>}</div>
+ <form onSubmit={send}><input className="in" placeholder="Type a message" value={t} onChange={e=>setT(e.target.value)}/><button className="btn grn" aria-label="Send"><Ic n="send"/></button></form></div></div>}
+
+const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["chat","chat","Chat"],["prefs","set","Settings"]];
+const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
+const ALL=NAV.concat(HIST);
+const SLOTS=["06:00","12:00","18:00"];
+function Player({r,onClose}){
+ const [pl,setPl]=useState(true);const [p,setP]=useState(0);
+ useEffect(()=>{if(!pl)return;const i=setInterval(()=>setP(x=>Math.min(100,x+.15)),120);return()=>clearInterval(i)},[pl]);
+ useEffect(()=>{if(p>=100)setPl(false)},[p]);
+ const c=r.cam,ws=inZone(c.zone),t=p*3,sec=Math.floor(p/100*3600),hh=String(+r.start.slice(0,2)+Math.floor(sec/3600)).padStart(2,"0"),mm=String(Math.floor(sec%3600/60)).padStart(2,"0"),ss=String(sec%60).padStart(2,"0");
+ return <div className="modal" onClick={onClose}><div className="card" style={{maxWidth:900}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{c.id} · {c.zone} · {c.name}</h3><button className="btn" onClick={onClose}><Ic n="x"/>Close</button></div>
+ <div className="feed" style={{borderRadius:10}}><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Recorded footage"><Scene k={c.k} t={t}/>
+ {ws.map((w,i)=>{const x=20+(i*43)%110+9*Math.sin(t*.6+i*2),y=62+(i%3)*7,s=.9+(y-62)/30,col=w.st==="Late"?"#d93a37":"#2fd36f";return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={col} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={col}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id}</text></g>})}</svg><div className="scan"/>
+ <div className="ov tl"><b>{c.id}</b> {c.zone}</div><div className="ov tr"><span className="dot r"/>RECORDED</div><div className="ov bl">{fmt(r.d)} {hh}:{mm}:{ss}</div></div>
+ <div className="cc"><button className="btn" onClick={()=>{if(p>=100)setP(0);setPl(!pl)}}>{pl?"Pause":"Play"}</button><input type="range" min="0" max="100" step=".1" value={p} onChange={e=>setP(+e.target.value)} style={{flex:1,accentColor:"var(--red)"}} aria-label="Seek"/><small>{r.start}–{r.end}</small></div></div></div>}
+function RecVideos(){
+ const [d,setD]=useState(TODAY);const [cs,setCs]=useState("All cameras");const [play,setPlay]=useState(null);
+ const list=CAMS.filter(c=>c.on&&(cs==="All cameras"||c.id===cs)).flatMap(c=>SLOTS.map((s,i)=>({cam:c,d,start:s,end:String(+s.slice(0,2)+1).padStart(2,"0")+":00",mb:480+c.id.charCodeAt(5)*7+i*53})));
+ return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>Date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(d)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,dd]=v.split("-").map(Number);setD(new Date(y,m-1,dd))}}/></label>
+ <select className="in" style={{flex:"0 0 190px"}} aria-label="Camera" value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option>{CAMS.map(c=><option key={c.id} value={c.id}>{c.id} {c.zone}</option>)}</select></div>
+ <div className="grid g3">{list.map(r=><div className="cam" key={r.cam.id+r.start}><div className="feed"><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"><Scene k={r.cam.k} t={0}/></svg><div className="scan"/><div className="ov tl"><b>{r.cam.id}</b> {r.cam.zone}</div><div className="ov tr"><span className="dot r"/>REC</div><div className="ov bl">{fmt(d)} {r.start}</div><div className="ov br">60:00</div></div>
+ <div className="cc"><div className="sp"><b>{r.cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{r.cam.name} · {r.start}–{r.end} · {r.mb} MB</small></div><button className="btn red" onClick={()=>setPlay(r)}>Play</button></div></div>)}</div>
+ <p style={{color:"var(--mut)",margin:0,fontSize:14}}>CAM-05 (Zone E) is offline, so it has no recordings.</p>
+ {play&&<Player r={play} onClose={()=>setPlay(null)}/>}</div>}
+function RecAttend(){
+ const [from,setFrom]=useState(()=>{const x=new Date(TODAY);x.setDate(x.getDate()-6);return x});const [to,setTo]=useState(TODAY);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const a=from<=to?from:to,b=from<=to?to:from,rows=[];
+ for(let x=new Date(b),k=0;x>=a&&k<62;x.setDate(x.getDate()-1),k++){const r=dayRows(new Date(x)),ab=r.filter(w=>w.st==="Absent").length,la=r.filter(w=>w.st==="Late").length;rows.push({d:new Date(x),n:r.length,p:r.length-ab-la,l:la,a:ab})}
+ const csv=()=>{const t="Date,Total,Present,Late,Absent\n"+rows.map(r=>[iso(r.d),r.n,r.p,r.l,r.a].join(",")).join("\n"),el=document.createElement("a");el.href="data:text/csv,"+encodeURIComponent(t);el.download="attendance-history.csv";el.click()};
+ return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(from)} onChange={pick(setFrom)}/></label><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(to)} onChange={pick(setTo)}/></label><button className="btn" onClick={csv}><Ic n="dl"/>Download CSV</button></div>
+ <div className="card tw"><table><thead><tr><th>Date</th><th>Total workers</th><th>Present</th><th>Late</th><th>Absent</th><th>Attendance</th></tr></thead><tbody>{rows.map(r=><tr key={r.d.getTime()}><td>{r.d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}</td><td>{r.n}</td><td><Badge s="Present"/> {r.p}</td><td><Badge s="Late"/> {r.l}</td><td><Badge s="Absent"/> {r.a}</td><td>{Math.round((r.n-r.a)/r.n*100)}%</td></tr>)}</tbody></table></div></div>}
+function RecReports(){
+ const [q,setQ]=useState("");
+ const rows=RP.filter(r=>(r.st==="Resolved"||r.t<"2026-11-28")&&(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
+ const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
+ return <div><div className="bar"><input className="in" placeholder="Search past reports" value={q} onChange={e=>setQ(e.target.value)}/></div><div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="7">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+function Shell({page,dark,setDark}){
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);
+ const [hist,setHist]=useState(()=>HIST.some(h=>h[0]===page));const isH=HIST.some(h=>h[0]===page);
+ const title=ALL.find(n=>n[0]===page)[2];
+ const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
+ const nav=h=>{go(h);setOpen(false)};
+ return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
+ {NAV.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={()=>setHist(!hist)} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(NAV[NAV.length-1])}
+ <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
+ 
+ <button className="nv" onClick={()=>go("home")}><Ic n="out"/><span className="t">Logout</span></button></aside>
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0}}><span className="dot"/>System online</span><Av name="Admin User"/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones}/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
+ {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
+
+function App(){
+ const get=()=>location.hash.slice(1)||"home";const [pg,setPg]=useState(get());
+ const [dark,setDark]=useState(()=>{try{return localStorage.getItem("we-theme")==="dark"}catch(e){return false}});
+ useEffect(()=>{const f=()=>{setPg(get());window.scrollTo(0,0)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ useEffect(()=>{document.documentElement.dataset.theme=dark?"dark":"light";try{localStorage.setItem("we-theme",dark?"dark":"light")}catch(e){}},[dark]);
+ if(pg==="signin")return <SignIn/>;
+ if(ALL.some(n=>n[0]===pg))return <Shell page={pg} dark={dark} setDark={setDark}/>;
+ return <Home/>}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script></body></html>
