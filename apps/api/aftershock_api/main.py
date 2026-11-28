@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from apps.api.aftershock_api.bus import event_bus
 from apps.api.aftershock_api.service import run_service
-from apps.api.aftershock_api.routes import projects, scenarios, runs, optimization, comparisons
+from apps.api.aftershock_api.routes import projects, scenarios, runs, optimization, comparisons, simulations
 
 app = FastAPI(
     title="AFTERSHOCK Resilience Lab API",
@@ -27,6 +27,7 @@ app.include_router(scenarios.router)
 app.include_router(runs.router)
 app.include_router(optimization.router)
 app.include_router(comparisons.router)
+app.include_router(simulations.router)
 
 
 @app.get("/health")
@@ -70,3 +71,9 @@ async def run_websocket_stream(websocket: WebSocket, run_id: str):
         pass
     finally:
         await event_bus.unsubscribe(run_id, queue)
+
+
+@app.websocket("/ws/{client_id}")
+async def generic_simulation_websocket(websocket: WebSocket, client_id: str):
+    """Guide §4 & §8: Global simulation WebSocket endpoint /ws/{clientId}"""
+    await simulations.websocket_endpoint(websocket, client_id)

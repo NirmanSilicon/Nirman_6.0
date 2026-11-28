@@ -11,6 +11,7 @@ import { FloodSurface } from "./city/FloodSurface";
 import { InfrastructureLandmarks } from "./city/InfrastructureLandmarks";
 import { HeatmapLayer } from "./city/HeatmapLayer";
 import { CityHUD } from "./city/CityHUD";
+import { CityEnvironment } from "./city/CityEnvironment";
 
 interface DigitalTwinProps {
   assets: Asset[];
@@ -138,6 +139,9 @@ export function DigitalTwin({
         <pointLight position={[-40, 45, -40]} color="#38bdf8" intensity={isNightMode ? 0.8 : 0.4} />
 
         <CameraController targetPos={cameraTarget} />
+
+        {/* 0. Sky, Stars, Environment Map (guide §7.2) */}
+        <CityEnvironment isNightMode={isNightMode} tick={tick} />
 
         {/* 1. Procedural Terrain, River, Parks, and Harbors */}
         <CityTerrain />

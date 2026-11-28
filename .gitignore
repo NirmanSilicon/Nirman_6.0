@@ -1,2 +1,38 @@
-branchcreation.sh
+# Environment & secrets
 .env
+.env.*
+!.env.example
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.npm
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+*.egg
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary & cloned repos
+branchcreation.sh
+Nirman_6.0/
