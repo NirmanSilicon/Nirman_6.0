@@ -1,0 +1,14 @@
+pandas
+pyarrow
+numpy
+scikit-learn
+xgboost
+shap
+statsmodels
+fastapi
+python-multipart
+uvicorn[standard]
+pydantic
+joblib
+pytest
+httpx

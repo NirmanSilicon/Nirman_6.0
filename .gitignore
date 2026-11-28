@@ -1,2 +1,57 @@
+
+# Existing NIRMAN files
 branchcreation.sh
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node.js
+node_modules/
+dist/
+build/
+.vite/
+
+# Datasets
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Large datasets, artifacts, and local feedback logs
+*.txt
+!synaptix.txt
+!backend/requirements.txt
+
+# Ignore Parquet files by default
+*.parquet
+
+# Allow required AlarmSense TEP dataset
+!backend/data/
+!backend/data/processed/
+!backend/data/processed/tep_3years.parquet
+
+# ML artifacts
+**/artifacts/*
+!backend/artifacts/
+!backend/artifacts/*
+
+backend/artifacts/plants/
+data/feedback.jsonl
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
