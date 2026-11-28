@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ParkSMART Camera ROI Mapping Contract",
+  "description": "Defines regions of interest (ROIs) for parking bays monitored by a single edge camera. Thresholds and geometry are unvalidated placeholders.",
+  "camera_id": "c1a1a1a1-1111-4111-8111-111111111111",
+  "zone_id": "a1a1a1a1-1111-4111-8111-111111111111",
+  "resolution": {
+    "width": 1920,
+    "height": 1080
+  },
+  "coordinate_type": "normalized",
+  "notice": "UNVALIDATED: ROI geometry and thresholds have not been calibrated or verified for physical Bhubaneswar locations.",
+  "bays": [
+    {
+      "bay_id": "b1a1a1a1-1111-4111-8111-111111111111",
+      "bay_identifier": "BAY-A01",
+      "polygon": [
+        [0.05, 0.40],
+        [0.20, 0.40],
+        [0.18, 0.85],
+        [0.02, 0.85]
+      ]
+    },
+    {
+      "bay_id": "b2a2a2a2-2222-4222-8222-222222222222",
+      "bay_identifier": "BAY-A02",
+      "polygon": [
+        [0.22, 0.40],
+        [0.37, 0.40],
+        [0.35, 0.85],
+        [0.20, 0.85]
+      ]
+    },
+    {
+      "bay_id": "b3a3a3a3-3333-4333-8333-333333333333",
+      "bay_identifier": "BAY-A03",
+      "polygon": [
+        [0.39, 0.40],
+        [0.54, 0.40],
+        [0.52, 0.85],
+        [0.37, 0.85]
+      ]
+    },
+    {
+      "bay_id": "b4a4a4a4-4444-4444-8444-444444444444",
+      "bay_identifier": "BAY-A04",
+      "polygon": [
+        [0.56, 0.40],
+        [0.71, 0.40],
+        [0.69, 0.85],
+        [0.54, 0.85]
+      ]
+    }
+  ]
+}

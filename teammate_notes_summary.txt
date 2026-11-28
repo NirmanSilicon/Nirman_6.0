@@ -1,0 +1,25 @@
+TEAMMATE MESSAGES SUMMARY & ACTION ITEMS
+======================================
+
+1. Mock Fixtures & Export Styles (1:32 AM)
+------------------------------------------
+- Teammate will add `web/src/api/mock-fixtures.json` after their next push for you to reuse.
+- When you push `web/src/business/`, you need to tell them each file's export style (`default` or `named`) so they can link those pages in `App.tsx`.
+
+2. Mock Flag & Shared API Client (1:54 AM)
+------------------------------------------
+- Problem they fixed: `USE_MOCK` in `web/src/business/businessApi.ts` was hard-coded to `false`, causing "Internal Server Error" when the backend was down.
+- They changed it to:
+  `USE_MOCK = import.meta.env.DEV && import.meta.env.VITE_USE_MOCK !== "false";`
+- Action items:
+  - Keep that line as-is.
+  - Later, migrate your pages to use `../api/client` (`USE_MOCK`, `request` function, `ApiError`) so everything shares the same mock setup.
+
+3. OpenAPI Schema Mismatches & Hold (2:25 AM)
+---------------------------------------------
+- Per `openapi.json`, there are schema/endpoint differences to fix later:
+  - `LoadingReservationCreate` requires `business_id` in the request body.
+  - It uses `delivery_manifest_ref` (string), NOT a nested `delivery_info` object.
+  - Reservation status changes use `PATCH`.
+  - Vehicle categories may change (e.g., `lcv`, `hcv`, `auto_rickshaw`).
+- IMPORTANT: Wait for Himani's answers before changing any of these.

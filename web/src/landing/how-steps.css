@@ -1,0 +1,30 @@
+.ps-how { box-sizing: border-box; padding: 4rem 0; color: #1F1C28; font-family: ui-sans-serif, system-ui, sans-serif; background: repeating-linear-gradient(to bottom, transparent 0 31px, rgba(31, 28, 40, 0.07) 31px 32px), #FFF6D6; }
+.ps-how *, .ps-how *::before, .ps-how *::after { box-sizing: border-box; }
+.ps-how h2 { margin: 0 0 1.5rem; padding: 0 clamp(1rem, 5vw, 5rem); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; }
+
+.ps-how-scroll { overflow-x: auto; padding: 1.5rem clamp(0.5rem, 3vw, 3rem); }
+.ps-how-scroll:focus-visible { outline: 3px solid #7A66B0; outline-offset: -3px; }
+.ps-how-track { position: relative; min-width: 980px; max-width: 1280px; height: 440px; margin: 0 auto; }
+.ps-how-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ps-how-line path { fill: none; stroke: #7A66B0; stroke-width: 2.5; stroke-dasharray: 8 6; stroke-linecap: round; vector-effect: non-scaling-stroke; animation: ps-dash 3s linear infinite; }
+@keyframes ps-dash { to { stroke-dashoffset: -140; } }
+
+.ps-how ol { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.ps-how li { display: flex; justify-content: center; align-items: flex-start; padding: 20px 14px 0; }
+.ps-how li:nth-child(even) { padding-top: 110px; }
+
+.ps-note { width: 100%; max-width: 270px; padding: 8px; border: 1px solid #F0E6BC; border-radius: 25px; background: #FFFFFF; box-shadow: 0 14px 28px rgba(31, 28, 40, 0.14); transform: rotate(5deg); transition: transform 0.3s ease; }
+.ps-how li:nth-child(even) .ps-note { transform: rotate(-5deg); }
+.ps-how li .ps-note:hover { position: relative; z-index: 2; transform: rotate(0deg) scale(1.05); }
+.ps-pin { display: block; width: 34px; height: 34px; margin: 0 auto 1.25rem; color: #7A66B0; }
+.ps-gold .ps-pin { color: #D9A600; }
+.ps-note > div { min-height: 200px; padding: 18px; border: 1px solid #EBDC8F; border-radius: 16px; background: #FFF1B8; }
+.ps-note.ps-lavender > div { border-color: #CBBCF3; background: #EDE6FF; }
+.ps-note span { display: block; margin-bottom: 1.25rem; font-family: "Comic Sans MS", "Chalkboard SE", cursive; font-size: 2.25rem; line-height: 1; color: #1F1C28; }
+.ps-note h3 { margin: 0 0 0.6rem; font-size: 1.5rem; line-height: 1.1; }
+.ps-note p { margin: 0; font-size: 0.95rem; line-height: 1.45; color: #4A4458; }
+
+@media (prefers-reduced-motion: reduce) { .ps-how-line path { animation: none; } .ps-note { transition: none; } }
+.ps-note img { display: block; width: 100%; height: 180px; margin-bottom: 0.75rem; object-fit: cover; border-radius: 10px; }
+.ps-how-track { height: 640px; }
+.ps-how-line { height: 440px; }

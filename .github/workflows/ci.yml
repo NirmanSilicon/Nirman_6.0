@@ -1,0 +1,169 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: parksmart
+          POSTGRES_PASSWORD: CHANGE_ME
+          POSTGRES_DB: parksmart
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check backend readiness
+        id: backend-status
+        shell: bash
+        run: |
+          if [ -s backend/pyproject.toml ] &&
+             [ -s backend/alembic.ini ] &&
+             grep -qE '^[[:space:]]*class Settings' backend/app/config.py; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Backend checks skipped because its project configuration and Settings class are not present."
+            echo "Backend checks skipped: project configuration and Settings class are not present." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Set up Python 3.12
+        if: steps.backend-status.outputs.ready == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e "backend[dev]"
+          pip install ruff
+
+      - name: Lint with ruff
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          ruff check backend edge forecast_worker
+
+      - name: Verify .env.example and Settings parity
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          python backend/app/core/env_parity.py
+
+      - name: Run Alembic migrations
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          alembic -c backend/alembic.ini upgrade head
+        env:
+          DATABASE_URL: postgresql+asyncpg://parksmart:CHANGE_ME@localhost:5432/parksmart
+
+      - name: Run Unit and Integration tests
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          pytest backend/tests/unit backend/tests/integration
+        env:
+          DATABASE_URL: postgresql+asyncpg://parksmart:CHANGE_ME@localhost:5432/parksmart
+
+      - name: Run End-to-End tests
+        if: steps.backend-status.outputs.ready == 'true'
+        run: |
+          pytest backend/tests/e2e
+        env:
+          DATABASE_URL: postgresql+asyncpg://parksmart:CHANGE_ME@localhost:5432/parksmart
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check web readiness
+        id: web-status
+        shell: bash
+        run: |
+          if [ -s web/package.json ] && [ -s web/package-lock.json ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Web checks skipped because package.json or package-lock.json is missing or empty."
+            echo "Web checks skipped: package.json or package-lock.json is missing or empty." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Set up Node.js 20
+        if: steps.web-status.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        if: steps.web-status.outputs.ready == 'true'
+        run: |
+          npm ci
+
+      - name: Lint web
+        if: steps.web-status.outputs.ready == 'true'
+        run: |
+          npm run lint
+
+      - name: Typecheck web
+        if: steps.web-status.outputs.ready == 'true'
+        run: |
+          npm run typecheck
+
+      - name: Build web
+        if: steps.web-status.outputs.ready == 'true'
+        run: |
+          npm run build
+
+  driver-app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: driver-app
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check driver-app readiness
+        id: driver-status
+        shell: bash
+        run: |
+          if [ -s driver-app/package.json ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Driver app checks skipped because package.json is missing or empty."
+            echo "Driver app checks skipped: package.json is missing or empty." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Set up Node.js 20
+        if: steps.driver-status.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        if: steps.driver-status.outputs.ready == 'true'
+        run: |
+          npm install
+
+      - name: Typecheck driver-app
+        if: steps.driver-status.outputs.ready == 'true'
+        run: |
+          npm run typecheck
