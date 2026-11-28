@@ -1,0 +1,44 @@
+Date,Description,Debit,Credit,Balance,TransactionID,Category
+2026-01-01,Test opening transfer,,1,12001,fixture-01-01,own_transfer
+2026-01-02,Test salary,,50000,62001,fixture-01-02,salary
+2026-01-04,Test rent,12000,,50001,fixture-01-04,rent
+2026-01-08,Test groceries,7500,,42501,fixture-01-08,groceries
+2026-01-12,Test utility,2000,,40501,fixture-01-12,utility
+2026-01-18,Test loan payment,4000,,36501,fixture-01-18,loan_payment
+2026-01-23,Test transport,3500,,33001,fixture-01-23,transport
+2026-01-27,Test discretionary,6000,,27001,fixture-01-27,shopping
+2026-02-02,Test salary,,50000,77001,fixture-02-02,salary
+2026-02-04,Test rent,12000,,65001,fixture-02-04,rent
+2026-02-08,Test groceries,7500,,57501,fixture-02-08,groceries
+2026-02-12,Test utility,2000,,55501,fixture-02-12,utility
+2026-02-18,Test loan payment,4000,,51501,fixture-02-18,loan_payment
+2026-02-23,Test transport,3500,,48001,fixture-02-23,transport
+2026-02-27,Test discretionary,6000,,42001,fixture-02-27,shopping
+2026-03-02,Test salary,,50000,92001,fixture-03-02,salary
+2026-03-04,Test rent,12000,,80001,fixture-03-04,rent
+2026-03-08,Test groceries,7500,,72501,fixture-03-08,groceries
+2026-03-12,Test utility,2000,,70501,fixture-03-12,utility
+2026-03-18,Test loan payment,4000,,66501,fixture-03-18,loan_payment
+2026-03-23,Test transport,3500,,63001,fixture-03-23,transport
+2026-03-27,Test discretionary,6000,,57001,fixture-03-27,shopping
+2026-04-02,Test salary,,50000,107001,fixture-04-02,salary
+2026-04-04,Test rent,12000,,95001,fixture-04-04,rent
+2026-04-08,Test groceries,7500,,87501,fixture-04-08,groceries
+2026-04-12,Test utility,2000,,85501,fixture-04-12,utility
+2026-04-18,Test loan payment,4000,,81501,fixture-04-18,loan_payment
+2026-04-23,Test transport,3500,,78001,fixture-04-23,transport
+2026-04-27,Test discretionary,6000,,72001,fixture-04-27,shopping
+2026-05-02,Test salary,,50000,122001,fixture-05-02,salary
+2026-05-04,Test rent,12000,,110001,fixture-05-04,rent
+2026-05-08,Test groceries,7500,,102501,fixture-05-08,groceries
+2026-05-12,Test utility,2000,,100501,fixture-05-12,utility
+2026-05-18,Test loan payment,4000,,96501,fixture-05-18,loan_payment
+2026-05-23,Test transport,3500,,93001,fixture-05-23,transport
+2026-05-27,Test discretionary,6000,,87001,fixture-05-27,shopping
+2026-06-02,Test salary,,50000,137001,fixture-06-02,salary
+2026-06-04,Test rent,12000,,125001,fixture-06-04,rent
+2026-06-08,Test groceries,7500,,117501,fixture-06-08,groceries
+2026-06-12,Test utility,2000,,115501,fixture-06-12,utility
+2026-06-18,Test loan payment,4000,,111501,fixture-06-18,loan_payment
+2026-06-23,Test transport,3500,,108001,fixture-06-23,transport
+2026-06-27,Test discretionary,6000,,102001,fixture-06-27,shopping

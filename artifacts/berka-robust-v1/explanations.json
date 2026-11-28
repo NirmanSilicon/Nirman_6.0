@@ -1,0 +1,372 @@
+[
+  [
+    {
+      "feature": "credit_count_share",
+      "value": 0.5689655172413793,
+      "shap_contribution": 0.8790442799923174,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "outflow_to_total_30d",
+      "value": 0.2447690610057275,
+      "shap_contribution": 0.7461246179809876,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "balance_std_to_monthly_credits",
+      "value": 1.4334528006026483,
+      "shap_contribution": 0.6000772346501134,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.021085565223677685,
+      "shap_contribution": 0.42751483514993827,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_30d",
+      "value": -0.6536031238906639,
+      "shap_contribution": 0.23540158211333917,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "balance_trend_normalized",
+      "value": -0.05428260414336733,
+      "shap_contribution": 1.2947967833131424,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.02727299531199324,
+      "shap_contribution": 0.7934452073447692,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "balance_std_to_monthly_credits",
+      "value": 0.8222275005531418,
+      "shap_contribution": 0.5977085815938928,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "low_buffer_day_share",
+      "value": 0.006006006006006006,
+      "shap_contribution": 0.2653728318909351,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_30d",
+      "value": -0.3597908128256958,
+      "shap_contribution": 0.15464167602667953,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "balance_trend_normalized",
+      "value": -0.06951595201096888,
+      "shap_contribution": 1.2911451543677128,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "credit_count_share",
+      "value": 0.5,
+      "shap_contribution": 0.8572740549080988,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.027647478562522133,
+      "shap_contribution": 0.840083045069729,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "balance_std_to_monthly_credits",
+      "value": 0.7452759420054497,
+      "shap_contribution": 0.6003438960450641,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "low_buffer_day_share",
+      "value": 0.014545454545454545,
+      "shap_contribution": 0.3146590094303867,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.016281463417841993,
+      "shap_contribution": 1.2040154232719245,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "outflow_cv",
+      "value": 0.40811141932110173,
+      "shap_contribution": 0.45996900940400004,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_90d",
+      "value": -0.29915140424150316,
+      "shap_contribution": 0.3439385901496939,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "obligation_to_credits",
+      "value": 0.0,
+      "shap_contribution": 0.1965015673911759,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "low_buffer_day_share",
+      "value": 0.06406685236768803,
+      "shap_contribution": 0.18093869186900202,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.016278277839822653,
+      "shap_contribution": 1.2100133807240132,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "outflow_cv",
+      "value": 0.41969219995197543,
+      "shap_contribution": 0.45996900940400004,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_90d",
+      "value": -0.2727315631897982,
+      "shap_contribution": 0.3439385901496939,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "obligation_to_credits",
+      "value": 0.0,
+      "shap_contribution": 0.1965015673911759,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "low_buffer_day_share",
+      "value": 0.06406685236768803,
+      "shap_contribution": 0.18093869186900202,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.027240851083274186,
+      "shap_contribution": 0.478030213235875,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "largest_debit_share",
+      "value": 0.11535730121593804,
+      "shap_contribution": 0.31113177356713134,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "low_buffer_day_share",
+      "value": 0.00967741935483871,
+      "shap_contribution": 0.27913105399532717,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "bank_fee_to_credits",
+      "value": 0.0005773302955390689,
+      "shap_contribution": 0.04248086260513016,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_180d",
+      "value": -0.04321456756203793,
+      "shap_contribution": 0.02197087392024267,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "outflow_cv",
+      "value": 0.4820915841649898,
+      "shap_contribution": 0.43497035810132634,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "mean_balance_to_monthly_credits",
+      "value": 1.0981480160087078,
+      "shap_contribution": 0.09139968157102757,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "negative_balance_day_share",
+      "value": 0.0,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "debit_to_credit_ratio",
+      "value": 0.85844471908662,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "penalty_to_credits",
+      "value": 0.0,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "balance_trend_normalized",
+      "value": -0.04082114285719822,
+      "shap_contribution": 1.2765788468196688,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "largest_credit_share",
+      "value": 0.07627350451328736,
+      "shap_contribution": 1.2735865689016896,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "min_balance_to_monthly_credits",
+      "value": 0.03199980361764355,
+      "shap_contribution": 0.8641603239859709,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "credit_count_share",
+      "value": 0.4857142857142857,
+      "shap_contribution": 0.8569173701072945,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "inflow_recent_to_prior",
+      "value": 1.3814564765797765,
+      "shap_contribution": 0.807809647388057,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "obligation_to_credits",
+      "value": 0.0,
+      "shap_contribution": 0.20210963972878682,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "spending_category_entropy",
+      "value": 0.0019838217817483503,
+      "shap_contribution": 0.13548672603013784,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_30d",
+      "value": -0.20888063020418232,
+      "shap_contribution": 0.07355935688988932,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_180d",
+      "value": -0.020222580882360296,
+      "shap_contribution": 0.0012540715288862426,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "surplus_ratio_365d",
+      "value": 0.05482433725484206,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ],
+  [
+    {
+      "feature": "outflow_cv",
+      "value": 0.24465366374061318,
+      "shap_contribution": 0.45996900940400004,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "bank_fee_to_credits",
+      "value": 0.0005504270679422416,
+      "shap_contribution": 0.012653873967485579,
+      "direction": "increases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "debit_to_credit_ratio",
+      "value": 0.9925632653394629,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "penalty_to_credits",
+      "value": 0.0,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    },
+    {
+      "feature": "negative_cashflow_month_share",
+      "value": 0.45454545454545453,
+      "shap_contribution": 0.0,
+      "direction": "decreases_raw_model_risk",
+      "scope": "Raw model attribution after fitted preprocessing; not calibrated probability points or causal advice"
+    }
+  ]
+]
