@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krushak Drishti — Smart Crop Leaf Diagnosis &amp; Agro-Advisory</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top Header & 30-Language Switcher -->
+    <header class="top-header">
+      <div class="brand-wrap">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title" data-i18n="app_title">Krushak Drishti</h1>
+          <p class="brand-subtitle" data-i18n="app_subtitle">Fast Offline-Ready Agronomy Diagnostic &amp; Crop Care Suite</p>
+        </div>
+      </div>
+
+      <div class="lang-control">
+        <label for="lang-select" class="lang-label" data-i18n="lang_label">Language</label>
+        <select id="lang-select" class="select-input" aria-label="Select Website Language"></select>
+      </div>
+    </header>
+
+    <!-- Inline Farmer Pass (Never a blocking modal) -->
+    <section class="card farmer-pass-bar" aria-label="Farmer Pass">
+      <div class="pass-header-row">
+        <div class="pass-badge-group">
+          <span class="pass-title" data-i18n="pass_title">Krushak Drishti Farmer Pass</span>
+          <span id="pass-id-badge" class="pill-badge pill-mint">KR-IN-0001</span>
+        </div>
+        <span id="pass-status" class="status-inline" aria-live="polite">Ready</span>
+      </div>
+      <form id="farmer-pass-form" class="pass-grid" autocomplete="off">
+        <input type="text" id="pass-name" class="text-input" data-i18n-placeholder="pass_name_ph" placeholder="Farmer Name" maxlength="60">
+        <input type="text" id="pass-village" class="text-input" data-i18n-placeholder="pass_village_ph" placeholder="Village / Block" maxlength="60">
+        <input type="text" id="pass-crop" class="text-input" data-i18n-placeholder="pass_crop_ph" placeholder="Primary Crop" maxlength="40">
+        <button type="submit" class="btn btn-primary btn-sm" data-i18n="pass_save">Save Pass</button>
+      </form>
+    </section>
+
+    <!-- Complete 6-Digit Indian PIN-Code Area Weather Dashboard -->
+    <section class="card weather-bar" aria-label="Area Weather by 6-Digit PIN Code">
+      <div class="weather-top">
+        <div class="weather-title-group">
+          <h2 class="weather-heading" data-i18n="weather_area_heading">Area Weather by 6-Digit PIN Code</h2>
+          <div class="weather-pin-form">
+            <label for="pin-input" class="weather-pin-label" data-i18n="weather_pin_label">6-Digit PIN</label>
+            <input type="text" id="pin-input" class="text-input pin-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" value="751024" placeholder="751024">
+            <button type="button" id="btn-check-weather" class="btn btn-primary btn-sm" data-i18n="weather_check">Get Forecast</button>
+            <button type="button" id="btn-use-gps" class="btn btn-outline btn-sm" data-i18n="weather_use_gps">Use GPS</button>
+          </div>
+        </div>
+
+        <!-- 1. Resolved Location Header -->
+        <div class="weather-location-header">
+          <div class="weather-location-text">
+            <strong id="weather-loc-primary">KIIT / Patia, Khordha, Odisha — PIN 751024</strong>
+            <span id="weather-loc-coords" class="weather-coords">Lat 20.3555, Lon 85.8189</span>
+          </div>
+          <span id="weather-source-badge" class="pill-badge pill-mint">Offline Regional Profile</span>
+        </div>
+      </div>
+
+      <!-- 2. Agronomy Spray Safety Verdict Banner -->
+      <div id="spray-verdict-banner" class="spray-verdict-banner verdict-caution" role="status">
+        <div class="verdict-main">
+          <strong id="w-verdict-title" class="verdict-title">Caution — High Wind/Humidity</strong>
+          <span id="w-verdict-reason" class="verdict-reason">Elevated humidity/dewpoint risk; follow spray window timing closely.</span>
+        </div>
+        <span id="w-verdict-badge" class="pill-badge pill-neutral">Spray Check</span>
+      </div>
+
+      <div class="weather-metrics-grid">
+        <div class="weather-tile">
+          <span class="weather-tile-label" data-i18n="weather_rain_lbl">4-Hr Rainfastness Check</span>
+          <strong id="w-rain" class="weather-tile-val">Safe: 4+ hr dry window</strong>
+        </div>
+        <div class="weather-tile">
+          <span class="weather-tile-label" data-i18n="weather_wind_lbl">Wind &amp; Gust Drift (&gt;15 km/h)</span>
+          <strong id="w-wind" class="weather-tile-val">Low (9 km/h, gusts 14 km/h)</strong>
+        </div>
+        <div class="weather-tile">
+          <span class="weather-tile-label" data-i18n="weather_dew_lbl">Dewpoint Fungal Alert</span>
+          <strong id="w-dew" class="weather-tile-val">Elevated (RH 80%, Dew 24°C)</strong>
+        </div>
+        <div class="weather-tile">
+          <span class="weather-tile-label" data-i18n="weather_window_lbl">Next Best Spray Window</span>
+          <strong id="w-window" class="weather-tile-val">Today 16:30 – 18:30</strong>
+        </div>
+      </div>
+
+      <!-- 3. Current Conditions & Soil Telemetry -->
+      <div class="weather-subpanel">
+        <h3 class="weather-subhead" data-i18n="weather_current_lbl">Current Area Conditions</h3>
+        <div id="weather-current-grid" class="weather-current-grid">
+          <div class="weather-mini"><span class="weather-tile-label">Temp / Feels Like</span><strong id="wc-temp">28°C / 31°C</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">Sky Condition</span><strong id="wc-sky">Partly Cloudy</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">Humidity / Cloud</span><strong id="wc-rh">80% RH • 32% Cloud</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">Wind / Dir / Gust</span><strong id="wc-wind">9 km/h SE (14 km/h gust)</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">Pressure / Rain Now</span><strong id="wc-press">1012 hPa • 0.0 mm</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">Soil Temp / Moisture</span><strong id="wc-soil">26°C • 0.32 m³/m³</strong></div>
+          <div class="weather-mini"><span class="weather-tile-label">UV Max / Sun</span><strong id="wc-sun">UV 6.4 • 06:02–17:12</strong></div>
+        </div>
+      </div>
+
+      <!-- 4. Hourly & 7-Day Forecast Strips -->
+      <div class="weather-forecasts-split">
+        <div class="weather-subpanel">
+          <h3 class="weather-subhead" data-i18n="weather_soil_lbl">Soil &amp; Hourly Spray Outlook</h3>
+          <div id="weather-hourly-grid" class="forecast-strip"></div>
+        </div>
+        <div class="weather-subpanel">
+          <h3 class="weather-subhead" data-i18n="weather_daily_lbl">7-Day Area Forecast</h3>
+          <div id="weather-daily-grid" class="forecast-strip"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Tab Navigation -->
+    <nav class="tab-nav" role="tablist" aria-label="Krushak Drishti Sections">
+      <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="panel-scan" id="tab-btn-scan" data-tab="scan" data-i18n="tab_scan">1. Leaf Scan</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-meds" id="tab-btn-meds" data-tab="meds" data-i18n="tab_meds">2. Medicines &amp; Dosage</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-crops" id="tab-btn-crops" data-tab="crops" data-i18n="tab_crops">3. 45+ Crops</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-care" id="tab-btn-care" data-tab="care" data-i18n="tab_care">4. Voice &amp; Care</button>
+    </nav>
+
+    <!-- TAB 1: LEAF SCAN -->
+    <main>
+      <section id="panel-scan" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-btn-scan">
+        <div class="two-col-layout">
+          <!-- Left Column: Refined Camera Suite & Quick Samples -->
+          <div class="card">
+            <h2 class="section-heading" data-i18n="cam_heading">Field Camera &amp; Leaf Scanner</h2>
+
+            <!-- Clean 4:3 video viewfinder with ZERO overlays on top of video -->
+            <div class="viewfinder-box">
+              <video id="leaf-video" class="leaf-video" autoplay playsinline muted></video>
+            </div>
+            <div id="leaf-gate-pill" class="leaf-gate-pill gate-invalid" hidden aria-live="polite">
+              <span id="leaf-gate-text" data-i18n="no_leaf_live_hint">Invalid Object — No Leaf Detected (Hold a plant leaf in front of camera)</span>
+            </div>
+            <p id="camera-status-text" class="camera-status-bar">Camera idle. Press Start Camera, upload a photo, or choose a Quick Sample Leaf below.</p>
+
+            <!-- 4 Camera Buttons below the video -->
+            <div class="cam-controls-grid">
+              <button type="button" id="btn-start-cam" class="btn btn-primary" data-i18n="btn_start_cam">Start Camera</button>
+              <button type="button" id="btn-pause-cam" class="btn btn-secondary" disabled data-i18n="btn_pause_cam">Pause</button>
+              <button type="button" id="btn-stop-cam" class="btn btn-secondary" disabled data-i18n="btn_stop_cam">Stop Camera</button>
+              <button type="button" id="btn-capture-scan" class="btn btn-primary" disabled data-i18n="btn_capture_scan">Capture &amp; Scan Leaf</button>
+            </div>
+
+            <!-- Upload Leaf Photo + 224x224 Canvas Preview -->
+            <div class="upload-canvas-row">
+              <label for="leaf-file-input" class="upload-label">
+                <span class="btn btn-outline" data-i18n="btn_upload_leaf">Upload Leaf Photo</span>
+                <input type="file" id="leaf-file-input" accept="image/*" class="sr-only">
+              </label>
+              <div class="canvas-preview-wrap">
+                <canvas id="leaf-canvas" width="224" height="224" aria-label="224 by 224 leaf analysis frame"></canvas>
+                <span class="canvas-caption">224×224 Scan Frame</span>
+              </div>
+            </div>
+
+            <!-- 6-Card Quick Sample Leaves -->
+            <div class="samples-section">
+              <h3 class="sub-heading" data-i18n="samples_heading">Quick Sample Leaves (Test Without Camera)</h3>
+              <div class="samples-grid" id="samples-grid">
+                <button type="button" class="sample-card" data-sample="leaf_mold">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#ECFDF5" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2"></path>
+                    <circle cx="28" cy="30" r="4.5" fill="#CA8A04" opacity="0.75"></circle>
+                    <circle cx="38" cy="24" r="3.5" fill="#A16207" opacity="0.8"></circle>
+                    <circle cx="24" cy="40" r="3" fill="#CA8A04" opacity="0.75"></circle>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_leaf_mold">Leaf Mold</span>
+                </button>
+
+                <button type="button" class="sample-card" data-sample="early_blight">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#ECFDF5" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2"></path>
+                    <circle cx="30" cy="32" r="7" fill="#FDE047" opacity="0.85"></circle>
+                    <circle cx="30" cy="32" r="4.5" fill="#78350F"></circle>
+                    <circle cx="30" cy="32" r="2" fill="#451A03"></circle>
+                    <circle cx="40" cy="22" r="4" fill="#92400E"></circle>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_early_blight">Early Blight</span>
+                </button>
+
+                <button type="button" class="sample-card" data-sample="late_blight">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#ECFDF5" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2"></path>
+                    <path d="M22 36c6-9 18-13 24-10-4 12-13 18-24 10Z" fill="#3F3F46" opacity="0.85"></path>
+                    <path d="M24 36c4-6 12-9 18-7" fill="none" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="2 2"></path>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_late_blight">Late Blight</span>
+                </button>
+
+                <button type="button" class="sample-card" data-sample="powdery_mildew">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#D1FAE5" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2"></path>
+                    <circle cx="29" cy="29" r="5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1"></circle>
+                    <circle cx="39" cy="23" r="4" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1"></circle>
+                    <circle cx="25" cy="39" r="3.5" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1"></circle>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_powdery_mildew">Powdery Mildew</span>
+                </button>
+
+                <button type="button" class="sample-card" data-sample="leaf_blast_spot">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#ECFDF5" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2"></path>
+                    <ellipse cx="31" cy="29" rx="7" ry="3.2" transform="rotate(-35 31 29)" fill="#78350F"></ellipse>
+                    <ellipse cx="31" cy="29" rx="3.5" ry="1.4" transform="rotate(-35 31 29)" fill="#CBD5E1"></ellipse>
+                    <circle cx="24" cy="39" r="2.2" fill="#451A03"></circle>
+                    <circle cx="38" cy="21" r="2.2" fill="#451A03"></circle>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_leaf_blast">Leaf Blast &amp; Bacterial Spot</span>
+                </button>
+
+                <button type="button" class="sample-card" data-sample="healthy">
+                  <svg class="sample-svg" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true">
+                    <path d="M12 52C14 26 28 12 52 10c-2 24-16 38-40 42Z" fill="#BBF7D0" stroke="#15803D" stroke-width="2.5"></path>
+                    <path d="M12 52L46 16" stroke="#15803D" stroke-width="2.2"></path>
+                    <path d="M24 40l8-2M30 34l9-2M36 28l7-2" stroke="#15803D" stroke-width="1.6" stroke-linecap="round"></path>
+                  </svg>
+                  <span class="sample-name" data-i18n="sample_healthy">Healthy Vigorous Leaf</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Leaf Scan Results & Clinical Confirmation -->
+          <div class="card">
+            <div class="diag-header-row">
+              <h2 class="section-heading" data-i18n="diag_heading">Leaf Scan Diagnosis</h2>
+              <span id="diag-confidence-badge" class="pill-badge pill-mint">Confidence: 88%</span>
+            </div>
+
+            <!-- Leaf-Only Gate Rejection Warning Card -->
+            <div id="diag-invalid-card" class="alert-box alert-danger" role="alert" hidden>
+              <strong class="alert-title" data-i18n="invalid_object_title">Invalid Object / Leaf Not Detected</strong>
+              <p class="alert-body" data-i18n="invalid_object_desc">Only real plant leaves can be analyzed. Please hold a clear plant leaf in front of the camera or upload a close-up leaf photo.</p>
+              <p id="diag-invalid-reason" class="alert-reason-note"></p>
+            </div>
+
+            <div id="diag-valid-content">
+              <div class="diag-result-banner">
+                <div>
+                  <h3 id="diag-disease-name" class="diag-disease-title">Early Blight</h3>
+                  <p id="diag-pathogen" class="diag-pathogen">Alternaria solani</p>
+                </div>
+                <span id="diag-source-tag" class="pill-badge pill-neutral">Sample Leaf</span>
+              </div>
+
+              <p id="diag-summary" class="diag-summary"></p>
+
+              <!-- Healthy / Yellowing / Lesion % Bars -->
+              <div class="bars-stack">
+                <div class="bar-row">
+                  <div class="bar-labels">
+                    <span data-i18n="lbl_healthy_pct">Healthy Tissue</span>
+                    <strong id="pct-healthy-val">48%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <div id="bar-healthy" class="progress-fill fill-green" style="width: 48%"></div>
+                  </div>
+                </div>
+
+                <div class="bar-row">
+                  <div class="bar-labels">
+                    <span data-i18n="lbl_yellow_pct">Yellowing / Chlorosis</span>
+                    <strong id="pct-yellow-val">27%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <div id="bar-yellow" class="progress-fill fill-amber" style="width: 27%"></div>
+                  </div>
+                </div>
+
+                <div class="bar-row">
+                  <div class="bar-labels">
+                    <span data-i18n="lbl_lesion_pct">Lesion / Spot Area</span>
+                    <strong id="pct-lesion-val">25%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <div id="bar-lesion" class="progress-fill fill-red" style="width: 25%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Early Stage vs Late Stage Toggle Pill -->
+              <div class="stage-toggle-box">
+                <span class="stage-label" data-i18n="stage_label">Infection Stage</span>
+                <div class="pill-switch" role="group" aria-label="Infection Stage">
+                  <button type="button" id="stage-early-btn" class="pill-switch-btn is-selected" data-stage="early" data-i18n="stage_early">Early Stage</button>
+                  <button type="button" id="stage-late-btn" class="pill-switch-btn" data-stage="late" data-i18n="stage_late">Late Stage</button>
+                </div>
+              </div>
+
+              <!-- 2-Tap Symptom Confirmation -->
+              <div class="confirm-box">
+                <div class="confirm-header">
+                  <h3 class="sub-heading" data-i18n="confirm_heading">2-Tap Symptom Confirmation</h3>
+                  <span id="confirm-status-badge" class="pill-badge pill-neutral">0 / 2 Verified</span>
+                </div>
+                <div id="confirm-questions-list" class="confirm-list"></div>
+              </div>
+
+              <!-- Nutrient Deficiency Rule-Out Alert -->
+              <div class="alert-box alert-info" role="note">
+                <strong id="nutrient-title" class="alert-title">Rule Out: Nutrient Deficiency</strong>
+                <p id="nutrient-detail" class="alert-body"></p>
+              </div>
+
+              <div class="action-row-end">
+                <button type="button" id="btn-goto-tab2" class="btn btn-primary btn-lg" data-i18n="btn_goto_tab2">View Medicines &amp; Dosage</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: MEDICINES & DOSAGE -->
+      <section id="panel-meds" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-meds" hidden>
+        <div class="card">
+          <div class="med-top-bar">
+            <div>
+              <h2 class="section-heading" data-i18n="med_heading">Recommended Treatment &amp; Sprayer Calculator</h2>
+              <p id="med-crop-context" class="muted-text">General Crop Guidance (Select any crop in Tab 3 to customize)</p>
+            </div>
+            <div class="med-controls-inline">
+              <label for="med-disease-select" class="inline-label" data-i18n="med_select_disease">Active Diagnosis</label>
+              <select id="med-disease-select" class="select-input"></select>
+              <div class="pill-switch" role="group" aria-label="Treatment Stage">
+                <button type="button" id="med-stage-early" class="pill-switch-btn is-selected" data-stage="early" data-i18n="stage_early">Early Stage</button>
+                <button type="button" id="med-stage-late" class="pill-switch-btn" data-stage="late" data-i18n="stage_late">Late Stage</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col-layout">
+            <!-- Left: Active Chemical, Organic Bio-Control, Viral Alert -->
+            <div class="stack-col">
+              <div class="treatment-card">
+                <div class="treatment-header">
+                  <span id="med-mode-badge" class="mode-badge mode-contact">[Contact Shield]</span>
+                  <span id="med-phi-badge" class="phi-badge"><span data-i18n="calc_phi_label">Pre-Harvest Interval (PHI)</span>: <strong id="med-phi-days">7 Days</strong></span>
+                </div>
+                <h3 id="med-chemical-name" class="treatment-title">Mancozeb 75% WP</h3>
+                <p id="med-dose-rate" class="dose-highlight">Standard Dose: 2.5 g per Liter of water</p>
+                <p id="med-interval-text" class="muted-text"></p>
+                <p id="med-notes-text" class="notes-text"></p>
+              </div>
+
+              <div class="alert-box alert-mint">
+                <strong class="alert-title" data-i18n="med_organic_title">Organic Bio-Control Option</strong>
+                <p id="med-organic-text" class="alert-body"></p>
+              </div>
+
+              <div class="alert-box alert-warning">
+                <strong class="alert-title" data-i18n="med_viral_title">Viral Disease Differential Alert</strong>
+                <p id="med-viral-text" class="alert-body"></p>
+              </div>
+            </div>
+
+            <!-- Right: 15L / 16L / 20L Knapsack Sprayer Tank Calculator & Slip Copy -->
+            <div class="calc-card">
+              <h3 class="section-heading" data-i18n="calc_title">Knapsack Sprayer Tank Calculator</h3>
+
+              <div class="calc-field">
+                <span class="calc-label" data-i18n="calc_tank_size">Tank Capacity</span>
+                <div class="tank-size-pills" id="tank-size-pills">
+                  <button type="button" class="pill-switch-btn" data-tank="15">15L</button>
+                  <button type="button" class="pill-switch-btn is-selected" data-tank="16">16L</button>
+                  <button type="button" class="pill-switch-btn" data-tank="20">20L</button>
+                </div>
+              </div>
+
+              <div class="calc-field">
+                <label for="tank-count-input" class="calc-label" data-i18n="calc_tanks_count">Number of Tanks</label>
+                <input type="number" id="tank-count-input" class="text-input tank-count-input" min="1" max="25" value="2">
+              </div>
+
+              <div class="calc-summary-box">
+                <div class="calc-stat">
+                  <span>Per Tank (<span id="calc-per-tank-liters">16</span>L)</span>
+                  <strong id="calc-per-tank-dose">40 g</strong>
+                </div>
+                <div class="calc-stat">
+                  <span>Total Chemical (<span id="calc-total-tanks">2</span> Tanks)</span>
+                  <strong id="calc-total-dose">80 g</strong>
+                </div>
+                <div class="calc-stat">
+                  <span>Total Water Volume</span>
+                  <strong id="calc-total-water">32 L</strong>
+                </div>
+                <div class="calc-stat">
+                  <span>Non-Ionic Sticker / Adjuvant</span>
+                  <strong id="calc-sticker-dose">8 ml per tank</strong>
+                </div>
+              </div>
+
+              <div class="slip-preview-box">
+                <pre id="agri-slip-preview" class="slip-pre"></pre>
+              </div>
+
+              <div class="slip-actions">
+                <button type="button" id="btn-copy-slip" class="btn btn-primary btn-lg" data-i18n="btn_copy_slip">Copy Agri-Shop Slip</button>
+                <span id="copy-slip-status" class="status-inline" aria-live="polite"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: 45+ CROPS -->
+      <section id="panel-crops" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-crops" hidden>
+        <div class="card">
+          <div class="crops-header">
+            <h2 class="section-heading" data-i18n="crops_heading">Searchable 45+ Crops Directory</h2>
+            <span id="crops-count-badge" class="pill-badge pill-mint">48 Crops</span>
+          </div>
+
+          <div class="crops-filter-bar">
+            <input type="search" id="crops-search-input" class="text-input crops-search" data-i18n-placeholder="crops_search_ph" placeholder="Search crop (e.g., Tomato, Rice, Cumin)...">
+            <div class="category-pills" id="crop-category-pills">
+              <button type="button" class="pill-switch-btn is-selected" data-cat="All">All</button>
+              <button type="button" class="pill-switch-btn" data-cat="Cereals">Cereals</button>
+              <button type="button" class="pill-switch-btn" data-cat="Vegetables">Vegetables</button>
+              <button type="button" class="pill-switch-btn" data-cat="Fruits">Fruits</button>
+              <button type="button" class="pill-switch-btn" data-cat="Pulses">Pulses</button>
+              <button type="button" class="pill-switch-btn" data-cat="Oilseeds">Oilseeds</button>
+              <button type="button" class="pill-switch-btn" data-cat="Cash & Spices">Cash &amp; Spices</button>
+            </div>
+          </div>
+
+          <div id="crops-grid" class="crops-grid"></div>
+        </div>
+      </section>
+
+      <!-- TAB 4: VOICE & CARE -->
+      <section id="panel-care" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-care" hidden>
+        <div class="two-col-layout">
+          <!-- Left: Voice & Conversational Agronomy Assistant -->
+          <div class="card">
+            <h2 class="section-heading" data-i18n="care_assistant_title">Voice &amp; Agronomy Care Assistant</h2>
+
+            <div class="quick-prompts" id="quick-prompts">
+              <button type="button" class="chip-btn" data-prompt="What is the spray mixing order for knapsack tank?">Mixing order?</button>
+              <button type="button" class="chip-btn" data-prompt="How do I know if my leaf problem is nutrient deficiency instead of fungus?">Nutrient vs Fungus?</button>
+              <button type="button" class="chip-btn" data-prompt="Can I spray right now based on rainfastness and wind?">Safe to spray now?</button>
+              <button type="button" class="chip-btn" data-prompt="Give me the organic bio-control option for my current diagnosis.">Organic alternative?</button>
+            </div>
+
+            <div id="assistant-chat-log" class="chat-log" aria-live="polite"></div>
+
+            <form id="assistant-form" class="assistant-input-row" autocomplete="off">
+              <input type="text" id="assistant-input" class="text-input" data-i18n-placeholder="care_ask_ph" placeholder="Ask about dosage, mixing order, blight, or rainfastness...">
+              <button type="submit" class="btn btn-primary" data-i18n="btn_ask">Ask</button>
+              <button type="button" id="btn-voice-input" class="btn btn-secondary" data-i18n="btn_voice">Voice Input</button>
+              <button type="button" id="btn-speak-reply" class="btn btn-outline" data-i18n="btn_speak">Read Aloud</button>
+            </form>
+            <p id="voice-status" class="muted-text"></p>
+          </div>
+
+          <!-- Right: 7-Day After-Care Checklist & Farmer Case Logbook -->
+          <div class="stack-col">
+            <div class="card">
+              <div class="diag-header-row">
+                <h2 class="section-heading" data-i18n="checklist_title">7-Day After-Care Checklist</h2>
+                <button type="button" id="btn-reset-checklist" class="btn btn-outline btn-sm" data-i18n="btn_reset_checklist">Reset Checklist</button>
+              </div>
+              <div class="progress-track checklist-progress-wrap">
+                <div id="checklist-progress-bar" class="progress-fill fill-green" style="width: 0%"></div>
+              </div>
+              <p id="checklist-progress-text" class="muted-text">0 of 7 days completed</p>
+              <div id="aftercare-list" class="aftercare-list"></div>
+            </div>
+
+            <div class="card">
+              <div class="diag-header-row">
+                <h2 class="section-heading" data-i18n="logbook_title">Farmer Case Logbook</h2>
+                <button type="button" id="btn-save-case" class="btn btn-primary btn-sm" data-i18n="btn_save_case">Save Current Case</button>
+              </div>
+              <div id="case-logbook-list" class="logbook-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/camera-voice.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
