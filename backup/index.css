@@ -1,0 +1,29 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #070B14;
+  color: #E5E7EB;
+  font-family: Inter, Arial, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.glow {
+  box-shadow: 0 0 20px rgba(6,182,212,0.15);
+}
+
+.panel {
+  background: #101827;
+  border: 1px solid #1E293B;
+  border-radius: 14px;
+}
