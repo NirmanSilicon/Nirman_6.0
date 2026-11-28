@@ -1,0 +1,14 @@
+{
+  "agent_name": "grid_carbon",
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "training_samples": 4,
+  "epochs": 1,
+  "final_loss": 1.6929,
+  "status": "COMPLETED",
+  "reward_weights": {
+    "w_carbon": 0.35,
+    "w_cost": 0.3,
+    "w_schedule": 0.25,
+    "w_worker": 0.1
+  }
+}

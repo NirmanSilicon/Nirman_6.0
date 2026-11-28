@@ -1,0 +1,81 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: vidyutsync-timescaledb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vidyutsync
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+      - ./timescaledb/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d vidyutsync"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: vidyutsync-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mosquitto_data:/mosquitto/data
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_sub -t '$$SYS/#' -C 1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vidyutsync-backend
+    command: python -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - TIMESCALE_HOST=timescaledb
+      - TIMESCALE_PORT=5432
+      - TIMESCALE_USER=postgres
+      - TIMESCALE_PASSWORD=postgres
+      - TIMESCALE_DB=vidyutsync
+      - MQTT_BROKER_HOST=mosquitto
+      - MQTT_BROKER_PORT=1883
+      - OPCUA_SERVER_ENDPOINT=opc.tcp://opcua-simulator:4840/freeopcua/server/
+      - ORCHESTRATOR_MODE=shadow
+      - USE_MOCK_LLM=true
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      mosquitto:
+        condition: service_healthy
+    restart: unless-stopped
+
+  opcua-simulator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vidyutsync-opcua-simulator
+    command: python -m src.connectors.opcua_bridge
+    ports:
+      - "4840:4840"
+    environment:
+      - OPCUA_SIMULATOR_PORT=4840
+      - MQTT_BROKER_HOST=mosquitto
+      - MQTT_BROKER_PORT=1883
+    depends_on:
+      mosquitto:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  timescale_data:
+  mosquitto_data:
