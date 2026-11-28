@@ -16,6 +16,11 @@ interface DetectedPattern {
   explanation: string;
 }
 
+interface WebSource {
+  title: string;
+  uri: string;
+}
+
 interface RiskAnalysisResponse {
   gameTitle: string;
   riskScore: number;
@@ -30,6 +35,116 @@ interface RiskAnalysisResponse {
   parentAlert: string;
   summary: string;
   analysisSource: "gemini" | "heuristic";
+  fetchedPolicy?: string;
+  sources?: WebSource[];
+}
+
+function getGeminiClient(): GoogleGenAI {
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
+    throw new Error(
+      "GEMINI_API_KEY is not configured. Please check your API key in Settings > Secrets."
+    );
+  }
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        "User-Agent": "aistudio-build",
+      },
+    },
+  });
+}
+
+function formatGeminiError(err: unknown): { status: number; message: string } {
+  const raw = err instanceof Error ? err.message : String(err);
+  if (raw.includes("GEMINI_API_KEY")) {
+    return { status: 503, message: raw };
+  }
+  if (raw.includes("RESOURCE_EXHAUSTED") || raw.includes("429")) {
+    return {
+      status: 429,
+      message:
+        "Gemini API quota limit reached. Please wait a moment or check your billing-enabled key in Settings > Secrets.",
+    };
+  }
+  if (raw.includes("API_KEY_INVALID") || raw.includes("PERMISSION_DENIED") || raw.includes("403")) {
+    return {
+      status: 403,
+      message:
+        "Gemini API key was rejected. Please verify your GEMINI_API_KEY in Settings > Secrets.",
+    };
+  }
+  return {
+    status: 502,
+    message: "Unable to search the web right now. Please try again shortly.",
+  };
+}
+
+function extractSafeWebSources(
+  groundingChunks?: Array<{ web?: { uri?: string; title?: string } }>
+): WebSource[] {
+  if (!Array.isArray(groundingChunks)) return [];
+  const seen = new Set<string>();
+  const sources: WebSource[] = [];
+
+  for (const chunk of groundingChunks) {
+    const uri = chunk?.web?.uri?.trim();
+    if (!uri || seen.has(uri)) continue;
+    try {
+      const parsed = new URL(uri);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") continue;
+      seen.add(uri);
+      sources.push({
+        title: chunk?.web?.title?.trim() || parsed.hostname,
+        uri: parsed.toString(),
+      });
+    } catch {
+      continue;
+    }
+  }
+
+  return sources.slice(0, 6);
+}
+
+async function fetchMonetizationPolicyWithSearch(
+  title: string,
+  language: "en" | "hi"
+): Promise<{ policyText: string; sources: WebSource[] }> {
+  const ai = getGeminiClient();
+
+  const langInstruction =
+    language === "hi"
+      ? "Write the summary in clear, natural Hindi (Devanagari script)."
+      : "Write the summary in clear, factual plain English.";
+
+  const response = await ai.models.generateContent({
+    model: "gemini-4-hydrogen",
+    contents: `Search the web for the official monetization policy, store mechanics, and in-app purchase structure of the video game "${title}".
+Summarize in one concise plain-text paragraph (3 to 5 sentences, no markdown headings or bullet points) covering:
+- Whether it is free-to-play or a one-time paid purchase
+- Any virtual currencies, gacha banners, loot boxes, crates, or published drop rates / pity systems
+- Any battle passes, rotating limited-time shops, FOMO timers, or pay-to-win stat boosts
+- If it has zero microtransactions or cosmetic-only monetization, state that clearly.
+${langInstruction}`,
+    config: {
+      systemInstruction:
+        "You are a factual video game consumer-protection researcher. Use live Google Search results to accurately describe a game's monetization mechanics in concise plain text without markdown formatting.",
+      tools: [{ googleSearch: {} }],
+    },
+  });
+
+  const policyText = response.text?.trim();
+  if (!policyText) {
+    throw new Error("Could not generate a monetization policy for that title. Please try again.");
+  }
+
+  const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks as
+    | Array<{ web?: { uri?: string; title?: string } }>
+    | undefined;
+  const sources = extractSafeWebSources(chunks);
+
+  return { policyText, sources };
 }
 
 function clamp(num: number, min: number, max: number): number {
@@ -238,20 +353,14 @@ async function analyzeWithGemini(
   description: string,
   language: "en" | "hi"
 ): Promise<RiskAnalysisResponse> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
+  let ai: GoogleGenAI;
+  try {
+    ai = getGeminiClient();
+  } catch {
     return analyzeHeuristically(title, description, language);
   }
 
   try {
-    const ai = new GoogleGenAI({
-      apiKey,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
-    });
 
     const langInstruction =
       language === "hi"
@@ -382,20 +491,65 @@ async function startServer() {
     res.json({ ok: true });
   });
 
-  app.post("/api/analyze", async (req: Request, res: Response) => {
-    const body = req.body as { title?: unknown; description?: unknown; language?: unknown };
-    const title = typeof body.title === "string" ? body.title.slice(0, 200) : "";
-    const description =
-      typeof body.description === "string" ? body.description.slice(0, 4000) : "";
+  app.post("/api/fetch-policy", async (req: Request, res: Response) => {
+    const body = req.body as { title?: unknown; language?: unknown };
+    const title = typeof body.title === "string" ? body.title.trim().slice(0, 200) : "";
     const language: "en" | "hi" = body.language === "hi" ? "hi" : "en";
 
-    if (!title.trim() && !description.trim()) {
+    if (!title) {
+      res.status(400).json({ error: "Please enter a game title to search its monetization policy." });
+      return;
+    }
+
+    try {
+      const result = await fetchMonetizationPolicyWithSearch(title, language);
+      res.json(result);
+    } catch (err) {
+      const { status, message } = formatGeminiError(err);
+      res.status(status).json({ error: message });
+    }
+  });
+
+  app.post("/api/analyze", async (req: Request, res: Response) => {
+    const body = req.body as {
+      title?: unknown;
+      description?: unknown;
+      language?: unknown;
+      autoSearch?: unknown;
+    };
+    const title = typeof body.title === "string" ? body.title.trim().slice(0, 200) : "";
+    let description =
+      typeof body.description === "string" ? body.description.trim().slice(0, 4000) : "";
+    const language: "en" | "hi" = body.language === "hi" ? "hi" : "en";
+    const autoSearch = Boolean(body.autoSearch);
+
+    if (!title && !description) {
       res.status(400).json({ error: "Please provide a game title or monetization description." });
       return;
     }
 
+    let fetchedPolicy: string | undefined;
+    let sources: WebSource[] | undefined;
+
+    if (title && (!description || autoSearch)) {
+      try {
+        const fetched = await fetchMonetizationPolicyWithSearch(title, language);
+        description = fetched.policyText;
+        fetchedPolicy = fetched.policyText;
+        sources = fetched.sources;
+      } catch (err) {
+        const { status, message } = formatGeminiError(err);
+        res.status(status).json({ error: message });
+        return;
+      }
+    }
+
     const result = await analyzeWithGemini(title, description, language);
-    res.json(result);
+    res.json({
+      ...result,
+      ...(fetchedPolicy ? { fetchedPolicy } : {}),
+      ...(sources && sources.length > 0 ? { sources } : {}),
+    });
   });
 
   const isProd = process.env.NODE_ENV === "production";
