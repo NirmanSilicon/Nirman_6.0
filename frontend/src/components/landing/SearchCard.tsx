@@ -17,6 +17,7 @@ import {
   getTrainsForCorridor,
   getDefaultRecentForCorridor,
   getAllPilotTrains,
+  type AllPilotTrain,
   type PilotTrain,
   type RecentItem,
 } from './searchConstants';
