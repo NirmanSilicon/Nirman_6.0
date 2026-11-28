@@ -7,3 +7,6 @@ __pycache__/
 .venv/
 models/*
 !models/README.md
+!models/metrics/
+outputs/
+*.pt

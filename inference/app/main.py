@@ -7,6 +7,8 @@ Contract:  POST /predict  (multipart field `image`)
       "image": {"width": int, "height": int},
       "model": {"name": str, "version": str, "mode": "mock"|"yolo"}}
 
+INFERENCE_MODE=auto (default) picks pcb_classifier / yolo when weights exist, else mock
+INFERENCE_MODE=pcb_classifier  /models/ouroboros_pcb_classifier.pt (timm ConvNeXt multi-label presence model)
 INFERENCE_MODE=mock  deterministic DEMO output, clearly flagged mode="mock" (UI shows a banner)
 INFERENCE_MODE=yolo  Ultralytics weights from /models (see models/README.md)
 """
@@ -18,9 +20,22 @@ import random
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from PIL import Image
 
-MODE = os.getenv("INFERENCE_MODE", "mock")
+MODE_ENV = os.getenv("INFERENCE_MODE", "auto")
 MODELS_DIR = os.getenv("MODELS_DIR", "/models")
 BOARD_TYPE = "DDR4_RAM"
+CLASSIFIER = "ouroboros_pcb_classifier.pt"
+
+
+def resolve_mode() -> str:
+    """auto: trained weights if present, else clearly-flagged mock."""
+    if MODE_ENV != "auto":
+        return MODE_ENV
+    if os.path.exists(os.path.join(MODELS_DIR, CLASSIFIER)):
+        return "pcb_classifier"
+    return "yolo" if os.path.exists(os.path.join(MODELS_DIR, "detector.pt")) else "mock"
+
+
+MODE = resolve_mode()
 
 app = FastAPI(title="Ouroboros inference", version="1.0.0")
 _detector = None
@@ -88,6 +103,53 @@ def yolo_predict(img: Image.Image) -> dict:
             "model": {"name": "yolo", "version": os.getenv("MODEL_VERSION", "unversioned"), "mode": "yolo"}}
 
 
+_clf = None
+
+
+def _classifier():
+    global _clf
+    if _clf is None:
+        import torch, timm  # imported lazily: only needed for this mode
+        ck = torch.load(os.path.join(MODELS_DIR, CLASSIFIER), map_location="cpu", weights_only=True)
+        net = timm.create_model(ck["model_name"], pretrained=False, num_classes=len(ck["classes"]))
+        net.load_state_dict(ck["state_dict"], strict=True)
+        net.eval()
+        _clf = {"net": net, "classes": ck["classes"], "thr": ck["thresholds"], "img": int(ck["img"]), "name": ck["model_name"], "torch": torch}
+    return _clf
+
+
+def classifier_predict(img: Image.Image) -> dict:
+    """Multi-label component *presence* model (timm ConvNeXt). It says which part types appear, not where or how many.
+    confidence = margin above the class's tuned threshold, mapped to 0.5..1 (probabilities are not calibrated)."""
+    import numpy as np
+    c = _classifier(); torch = c["torch"]
+    x = np.asarray(img.convert("RGB").resize((c["img"], c["img"]), Image.BICUBIC), dtype=np.float32) / 255.0
+    x = (x - np.array([0.485, 0.456, 0.406], dtype=np.float32)) / np.array([0.229, 0.224, 0.225], dtype=np.float32)
+    with torch.inference_mode():
+        prob = torch.sigmoid(c["net"](torch.from_numpy(x).permute(2, 0, 1).unsqueeze(0)))[0].tolist()
+    presence = []
+    for name, p, t in zip(c["classes"], prob, c["thr"]):
+        if p >= t:
+            presence.append({"class": name, "probability": round(p, 4), "threshold": round(t, 3),
+                             "confidence": round(0.5 + 0.5 * (p - t) / max(1e-6, 1 - t), 3)})
+    presence.sort(key=lambda d: -d["confidence"])
+    top = [d["confidence"] for d in presence[:3]]
+    # Heuristic gate: the model has no "not a PCB" class, so require several component types.
+    conf = round(sum(top) / len(top), 3) if len(presence) >= 3 else 0.4
+    return {"board": {"type": "GENERIC_PCB", "confidence": conf}, "detections": [], "presence": presence,
+            "model": {"name": c["name"], "version": os.getenv("MODEL_VERSION", "ouroboros_pcb_classifier"), "mode": "classifier", "kind": "presence"}}
+
+
+def _metrics():
+    import csv
+    d = os.path.join(MODELS_DIR, "metrics")
+    try:
+        rows = {r[""]: r for r in csv.DictReader(open(os.path.join(d, "metrics.csv")))}
+        return {k: round(float(rows[k]["TEST"]), 3) for k in ("mAP", "micro_F1", "micro_precision", "micro_recall", "macro_F1") if k in rows}
+    except Exception:
+        return None
+
+
 @app.get("/healthz")
 def healthz():
     return {"ok": True, "mode": MODE}
@@ -95,8 +157,10 @@ def healthz():
 
 @app.get("/info")
 def info():
-    present = {f: os.path.exists(os.path.join(MODELS_DIR, f)) for f in ("detector.pt", "board_classifier.pt", "classes.json")}
-    return {"mode": MODE, "board_type": BOARD_TYPE, "weights": present, "ready": MODE == "mock" or present["detector.pt"],
+    present = {f: os.path.exists(os.path.join(MODELS_DIR, f)) for f in (CLASSIFIER, "detector.pt", "board_classifier.pt", "classes.json")}
+    return {"mode": MODE, "board_type": BOARD_TYPE, "weights": present, "test_metrics": _metrics() if MODE == "pcb_classifier" else None,
+            "kind": "presence" if MODE == "pcb_classifier" else ("boxes" if MODE == "yolo" else "demo"),
+            "ready": MODE == "mock" or (MODE == "pcb_classifier" and present[CLASSIFIER]) or (MODE == "yolo" and present["detector.pt"]),
             "classes": ["RAM_IC", "IC", "CAPACITOR", "RESISTOR", "CONNECTOR", "CRYSTAL"]}
 
 
@@ -107,5 +171,5 @@ def predict(image: UploadFile = File(...)):
         img = Image.open(io.BytesIO(raw)).convert("RGB")
     except Exception:
         raise HTTPException(400, "Not a valid image")
-    out = mock_predict(img, raw) if MODE == "mock" else yolo_predict(img)
+    out = mock_predict(img, raw) if MODE == "mock" else classifier_predict(img) if MODE == "pcb_classifier" else yolo_predict(img)
     return {**out, "image": {"width": img.width, "height": img.height}}
