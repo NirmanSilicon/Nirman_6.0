@@ -65,6 +65,7 @@ export function ProbabilityLab({
   const [betType, setBetType] = useState<"red" | "black" | "number">("red");
   const [chosenNumber, setChosenNumber] = useState<number>(17);
   const [betAmount, setBetAmount] = useState<number>(defaultBet);
+  const [multiplierInput, setMultiplierInput] = useState<string>("1.98");
   const [euBalance, setEuBalance] = useState<number>(startBankroll);
   const [usBalance, setUsBalance] = useState<number>(startBankroll);
   const [euBalanceStandard, setEuBalanceStandard] = useState<number>(startBankroll);
@@ -77,6 +78,14 @@ export function ProbabilityLab({
   const [rouletteHistory, setRouletteHistory] = useState<RoulettePoint[]>([
     { spin: 0, euBalance: startBankroll, usBalance: startBankroll, euHouseProfit: 0, usHouseProfit: 0 },
   ]);
+
+  const parsedMultiplier = Number.parseFloat(multiplierInput);
+  const activeMultiplier =
+    Number.isFinite(parsedMultiplier) && parsedMultiplier >= 1.01
+      ? Math.min(100, parsedMultiplier)
+      : 1.98;
+  const activeMultiplierLabel = Number(activeMultiplier.toFixed(2)).toString();
+  const activeNetWinMult = Number((activeMultiplier - 1).toFixed(2));
 
   const resetRoulette = (nextBankroll = startBankroll) => {
     setEuBalance(nextBankroll);
@@ -133,7 +142,7 @@ export function ProbabilityLab({
     let curUsStd = usBalanceStandard;
     let curSpin = spinCount;
     const wager = Math.max(1, betAmount);
-    const winMult = betType === "number" ? 35 : 0.98; // Default 1.98x total return = 0.98x net profit
+    const winMult = betType === "number" ? 35 : activeMultiplier - 1;
     const winMultStandard = betType === "number" ? 35 : 1.0;
 
     const newPoints: RoulettePoint[] = [...rouletteHistory];
@@ -512,22 +521,22 @@ export function ProbabilityLab({
                 </div>
               </div>
 
-              {/* 1.98x Multiplier Breakdown Card */}
+              {/* Custom Payout Multiplier Breakdown Card */}
               <div className="rounded-xl border border-indigo-500/30 bg-[#111827] p-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="text-sm font-semibold text-slate-100">
-                    Winnings &amp; Losses Under 1.98x Payout
+                    Winnings &amp; Losses Under {activeMultiplierLabel}x Payout
                   </h3>
                   <span className="text-xs text-slate-400 font-mono tabular-nums">
-                    Default Multiplier · 1.98x Return (0.98x Net Win)
+                    Custom Multiplier · {activeMultiplierLabel}x Return ({activeNetWinMult}x Net Win)
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* European 1.98x Card */}
+                  {/* European Custom Multiplier Card */}
                   <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
                     <div className="flex justify-between items-center text-xs text-emerald-400 font-medium">
-                      <span>European Wheel (1.98x)</span>
+                      <span>European Wheel ({activeMultiplierLabel}x)</span>
                       <span className="font-mono tabular-nums">{spinCount.toLocaleString()} spins</span>
                     </div>
                     <div className="flex justify-between items-baseline">
@@ -548,10 +557,10 @@ export function ProbabilityLab({
                     </div>
                   </div>
 
-                  {/* American 1.98x Card */}
+                  {/* American Custom Multiplier Card */}
                   <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
                     <div className="flex justify-between items-center text-xs text-red-400 font-medium">
-                      <span>American Wheel (1.98x)</span>
+                      <span>American Wheel ({activeMultiplierLabel}x)</span>
                       <span className="font-mono tabular-nums">{spinCount.toLocaleString()} spins</span>
                     </div>
                     <div className="flex justify-between items-baseline">
@@ -575,15 +584,15 @@ export function ProbabilityLab({
 
                 <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-3 text-xs text-indigo-200 leading-relaxed">
                   <span className="font-semibold text-indigo-300">Analysis: </span>
-                  With the default 1.98x payout multiplier, winning even-money bets return 0.98x net profit instead of 1.0x. Over {spinCount.toLocaleString()} spins, this extra operator cut reduces your winnings by{" "}
+                  At a {activeMultiplierLabel}x payout multiplier, winning even-money bets return {activeNetWinMult}x net profit instead of 1.0x. Over {spinCount.toLocaleString()} spins, compared to a standard 2.0x payout, your difference is{" "}
                   <span className="font-mono font-semibold tabular-nums">
-                    {formatMoney(Math.max(0, euBalanceStandard - euBalance))}
+                    {formatSignedMoney(euBalance - euBalanceStandard)}
                   </span>{" "}
                   on European roulette and{" "}
                   <span className="font-mono font-semibold tabular-nums">
-                    {formatMoney(Math.max(0, usBalanceStandard - usBalance))}
+                    {formatSignedMoney(usBalance - usBalanceStandard)}
                   </span>{" "}
-                  on American roulette compared to a fair 2.0x payout.
+                  on American roulette.
                 </div>
               </div>
             </div>
@@ -595,12 +604,29 @@ export function ProbabilityLab({
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">{t.rouletteDesc}</p>
               </div>
 
-              {/* Active 1.98x Default Payout Display */}
-              <div className="rounded-lg border border-indigo-500/40 bg-indigo-500/10 px-3.5 py-2.5 flex items-center justify-between gap-2">
-                <span className="text-xs font-medium text-indigo-200">Even-Money Payout</span>
-                <span className="font-mono text-xs font-semibold text-indigo-300 tabular-nums">
-                  1.98x (Default)
-                </span>
+              {/* Manual Payout Multiplier Input */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <label htmlFor="roulette-multiplier" className="block text-xs font-medium text-slate-300">
+                    Even-Money Multiplier (x)
+                  </label>
+                  <span className="font-mono text-[11px] text-indigo-300 tabular-nums">
+                    Net win: +{activeNetWinMult}x
+                  </span>
+                </div>
+                <input
+                  id="roulette-multiplier"
+                  type="number"
+                  min={1.01}
+                  max={100}
+                  step={0.01}
+                  value={multiplierInput}
+                  onChange={(e) => setMultiplierInput(e.target.value)}
+                  onBlur={() => setMultiplierInput(activeMultiplierLabel)}
+                  placeholder="e.g. 1.98"
+                  aria-label="Enter custom even-money payout multiplier"
+                  className="w-full rounded-lg border border-slate-700 bg-[#0B1120] px-3 py-2 font-mono text-sm text-slate-100 focus:border-indigo-500 focus:outline-none"
+                />
               </div>
 
               <div className="space-y-2">
@@ -608,8 +634,8 @@ export function ProbabilityLab({
                 <div className="grid grid-cols-3 gap-2" role="group" aria-label="Roulette bet type">
                   {(
                     [
-                      { id: "red", label: "Red (1.98x)" },
-                      { id: "black", label: "Black (1.98x)" },
+                      { id: "red", label: `Red (${activeMultiplierLabel}x)` },
+                      { id: "black", label: `Black (${activeMultiplierLabel}x)` },
                       { id: "number", label: "Single # (35:1)" },
                     ] as const
                   ).map((opt) => (
