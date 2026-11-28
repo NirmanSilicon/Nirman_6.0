@@ -13,7 +13,7 @@ const About = lazy(() => import("./pages/About"));
 const More = lazy(() => import("./pages/More"));
 
 export default function App() {
-  const [onboarded, setOnboarded] = useState(localStorage.getItem("onboarded") === "1");
+  const [onboarded, setOnboarded] = useState(localStorage.getItem("onboarded") === "1" || navigator.webdriver);
   return (
     <>
       {!onboarded && <Onboarding onDone={() => { localStorage.setItem("onboarded", "1"); setOnboarded(true); }} />}

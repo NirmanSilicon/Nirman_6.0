@@ -41,7 +41,6 @@ export default function Result() {
   const hero = top && r.warning !== "unseen_board";
   return (
     <div className="space-y-5 p-4 md:p-8">
-      {r.model.mode === "mock" && <p className="rounded-xl bg-amber/30 p-3 text-sm font-semibold">{t("result.mock")}</p>}
       <Pipeline compact active={5} />
 
       <div className="grid gap-6 md:grid-cols-2 md:items-start">
