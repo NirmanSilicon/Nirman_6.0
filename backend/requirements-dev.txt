@@ -1,0 +1,6 @@
+# Test dependencies. The suite is documented in the README (`python -m pytest
+# tests/ -v`) but pytest is not a runtime dependency, so it stays out of the
+# files the server and the Render build install.
+-r requirements.txt
+
+pytest>=8.2

@@ -1,0 +1,480 @@
+"""Postgres persistence for stream sessions and incidents, hosted on Supabase.
+
+Deliberately synchronous rather than async: writes originate on the inference
+thread, and a connection pool is simpler and more predictable than marshalling
+every insert onto the event loop. Request handlers reach these methods through
+``run_in_threadpool``. Volumes here are tiny -- a handful of incidents per
+minute, not a firehose -- so a four-connection pool is generous.
+
+The ``incidents`` table is also the substrate for the deferred predictive
+phase: defect growth rates and remaining-useful-life estimates are queries over
+this history.
+"""
+from __future__ import annotations
+
+import json
+import logging
+import threading
+import time
+from typing import Any
+
+from psycopg.rows import dict_row
+from psycopg_pool import ConnectionPool
+
+log = logging.getLogger(__name__)
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS sessions (
+    id          BIGSERIAL PRIMARY KEY,
+    source_uri  TEXT NOT NULL,
+    source_kind TEXT NOT NULL,
+    label       TEXT NOT NULL,
+    detector    TEXT NOT NULL,
+    started_at  DOUBLE PRECISION NOT NULL,
+    ended_at    DOUBLE PRECISION,
+    frames_read INTEGER DEFAULT 0,
+    frames_processed INTEGER DEFAULT 0,
+    frames_skipped   INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS incidents (
+    id          BIGSERIAL PRIMARY KEY,
+    session_id  BIGINT REFERENCES sessions(id) ON DELETE CASCADE,
+    track_id    INTEGER,
+    cls         TEXT NOT NULL,
+    label       TEXT NOT NULL,
+    severity    TEXT NOT NULL,
+    confidence  DOUBLE PRECISION NOT NULL,
+    opened_at   DOUBLE PRECISION NOT NULL,
+    closed_at   DOUBLE PRECISION,
+    duration    DOUBLE PRECISION,
+    first_frame INTEGER,
+    last_frame  INTEGER,
+    snapshot    TEXT,
+    box         TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_incidents_session  ON incidents(session_id);
+CREATE INDEX IF NOT EXISTS idx_incidents_opened   ON incidents(opened_at DESC);
+CREATE INDEX IF NOT EXISTS idx_incidents_severity ON incidents(severity);
+
+-- Belts: one row per physical belt carrying a printed QR label. The id is the
+-- string encoded in the label, so it never changes once a label is printed.
+CREATE TABLE IF NOT EXISTS belts (
+    id          TEXT PRIMARY KEY,
+    name        TEXT NOT NULL,
+    location    TEXT NOT NULL DEFAULT '',
+    source_uri  TEXT NOT NULL DEFAULT '',
+    tags        INTEGER NOT NULL DEFAULT 1,
+    created_at  DOUBLE PRECISION NOT NULL
+);
+
+-- Added after the first schema: older databases pick the columns up here.
+-- Rows written before belts existed stay NULL and belong to no belt.
+ALTER TABLE sessions  ADD COLUMN IF NOT EXISTS belt_id TEXT;
+ALTER TABLE incidents ADD COLUMN IF NOT EXISTS belt_id TEXT;
+CREATE INDEX IF NOT EXISTS idx_incidents_belt ON incidents(belt_id, opened_at DESC);
+CREATE INDEX IF NOT EXISTS idx_sessions_belt  ON sessions(belt_id);
+"""
+
+
+class Database:
+    def __init__(self, dsn: str) -> None:
+        if not dsn:
+            raise RuntimeError("DATABASE_URL is not set; see backend/.env.example")
+        # prepare_threshold=None: Supabase's transaction pooler multiplexes
+        # connections and cannot carry server-side prepared statements.
+        self._pool = ConnectionPool(
+            conninfo=dsn, min_size=1, max_size=4, open=True,
+            kwargs={"row_factory": dict_row, "autocommit": True,
+                    "prepare_threshold": None},
+        )
+        try:
+            with self._pool.connection(timeout=20) as conn:
+                conn.execute(SCHEMA)
+        except Exception as exc:
+            self._pool.close()
+            host = dsn.rsplit("@", 1)[-1].split("/", 1)[0]
+            raise RuntimeError(
+                f"Cannot reach the database at {host}. This is a network problem, "
+                "not a code one: many college and office Wi-Fi networks block "
+                "port 6543. Try a phone hotspot, or switch DATABASE_URL to the "
+                "Supabase *session* pooler on port 5432."
+            ) from exc
+        log.info("Database ready")
+
+    def close(self) -> None:
+        self._pool.close()
+
+    @property
+    def pool(self) -> ConnectionPool:
+        """For the maintenance scripts, which need SQL this class does not."""
+        return self._pool
+
+    # -- sessions ------------------------------------------------------------
+
+    def start_session(self, source_uri: str, source_kind: str, label: str,
+                      detector: str, belt_id: str | None = None) -> int:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "INSERT INTO sessions (source_uri, source_kind, label, detector,"
+                " started_at, belt_id) VALUES (%s,%s,%s,%s,%s,%s) RETURNING id",
+                (source_uri, source_kind, label, detector, time.time(), belt_id),
+            ).fetchone()
+        return int(row["id"])
+
+    def end_session(self, session_id: int, frames_read: int,
+                    frames_processed: int, frames_skipped: int) -> None:
+        with self._pool.connection() as conn:
+            conn.execute(
+                "UPDATE sessions SET ended_at=%s, frames_read=%s,"
+                " frames_processed=%s, frames_skipped=%s WHERE id=%s",
+                (time.time(), frames_read, frames_processed, frames_skipped,
+                 session_id),
+            )
+
+    # -- incidents -----------------------------------------------------------
+
+    def insert_incident(self, session_id: int | None, incident: Any,
+                        snapshot: str | None, belt_id: str | None = None) -> int:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "INSERT INTO incidents (session_id, track_id, cls, label, severity,"
+                " confidence, opened_at, first_frame, last_frame, snapshot, box,"
+                " belt_id)"
+                " VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) RETURNING id",
+                (session_id, incident.track_id, incident.cls, incident.label,
+                 incident.severity.value, incident.confidence, incident.opened_at,
+                 incident.first_frame, incident.last_frame, snapshot,
+                 json.dumps([round(v, 5) for v in incident.box]), belt_id),
+            ).fetchone()
+        return int(row["id"])
+
+    def update_incident(self, row_id: int, severity: str, label: str, cls: str) -> None:
+        with self._pool.connection() as conn:
+            conn.execute(
+                "UPDATE incidents SET severity=%s, label=%s, cls=%s WHERE id=%s",
+                (severity, label, cls, row_id),
+            )
+
+    def close_incident(self, row_id: int, closed_at: float, duration: float,
+                       last_frame: int) -> None:
+        with self._pool.connection() as conn:
+            conn.execute(
+                "UPDATE incidents SET closed_at=%s, duration=%s, last_frame=%s"
+                " WHERE id=%s",
+                (closed_at, duration, last_frame, row_id),
+            )
+
+    def list_incidents(self, limit: int = 100, offset: int = 0,
+                       severity: str | None = None, cls: str | None = None,
+                       session_id: int | None = None,
+                       belt_id: str | None = None,
+                       since: float | None = None) -> list[dict]:
+        clauses, params = [], []
+        if belt_id:
+            clauses.append("belt_id = %s")
+            params.append(belt_id)
+        if since is not None:
+            clauses.append("opened_at >= %s")
+            params.append(since)
+        if severity:
+            clauses.append("severity = %s")
+            params.append(severity)
+        if cls:
+            clauses.append("cls = %s")
+            params.append(cls)
+        if session_id is not None:
+            clauses.append("session_id = %s")
+            params.append(session_id)
+        where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
+        params.extend([limit, offset])
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                f"SELECT * FROM incidents {where} ORDER BY opened_at DESC"
+                " LIMIT %s OFFSET %s", params,
+            ).fetchall()
+        return [self._row_to_incident(r) for r in rows]
+
+    def count_incidents(self, severity: str | None = None,
+                        cls: str | None = None,
+                        belt_id: str | None = None) -> int:
+        clauses, params = [], []
+        if belt_id:
+            clauses.append("belt_id = %s")
+            params.append(belt_id)
+        if severity:
+            clauses.append("severity = %s")
+            params.append(severity)
+        if cls:
+            clauses.append("cls = %s")
+            params.append(cls)
+        where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                f"SELECT COUNT(*) AS n FROM incidents {where}", params).fetchone()
+        return int(row["n"])
+
+    def clear_incidents(self, session_id: int | None = None) -> tuple[int, list[str]]:
+        """Delete incidents, either for one session or the whole history.
+
+        Returns the row count and the snapshot keys the deleted rows owned, so
+        the caller can remove the matching objects from Storage -- a row and
+        its evidence image are deleted together, never one without the other.
+        """
+        where = "WHERE session_id = %s" if session_id is not None else ""
+        params = [session_id] if session_id is not None else []
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                f"DELETE FROM incidents {where} RETURNING snapshot", params
+            ).fetchall()
+        return len(rows), [r["snapshot"] for r in rows if r["snapshot"]]
+
+    def get_incident(self, row_id: int) -> dict | None:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM incidents WHERE id=%s", (row_id,)).fetchone()
+        return self._row_to_incident(row) if row else None
+
+    def summary(self, hours: float | None = None) -> dict:
+        """Class and severity aggregates over a window.
+
+        ``hours`` restricts it. Condition is a statement about the belt *now*,
+        so callers ask for a recent window: an all-time count would only ever
+        ratchet downwards and would still be reporting last month's repaired
+        tear as if it were live.
+
+        The dashboard no longer reads this -- both the Monitor gauge and the
+        Analytics verdict come from ``/api/analytics/reliability``, which counts
+        distinct defects rather than rows (docs/adr/0009). Kept because it is a
+        public endpoint and a reasonable thing to ask for.
+        """
+        where, params = "", []
+        if hours is not None:
+            where = "WHERE opened_at >= %s"
+            params = [time.time() - hours * 3600]
+
+        with self._pool.connection() as conn:
+            by_class = conn.execute(
+                f"SELECT cls, label, COUNT(*) n FROM incidents {where}"
+                " GROUP BY cls, label", params).fetchall()
+            by_severity = conn.execute(
+                f"SELECT severity, COUNT(*) n FROM incidents {where}"
+                " GROUP BY severity", params).fetchall()
+            total = conn.execute(
+                f"SELECT COUNT(*) n FROM incidents {where}", params).fetchone()
+            all_time = conn.execute(
+                "SELECT COUNT(*) n FROM incidents").fetchone()
+
+        return {
+            "total": int(total["n"]),
+            "all_time": int(all_time["n"]),
+            "window_hours": hours,
+            "by_class": {r["cls"]: {"label": r["label"], "count": int(r["n"])}
+                         for r in by_class},
+            "by_severity": {r["severity"]: int(r["n"]) for r in by_severity},
+        }
+
+    # -- analytics (read-only) ----------------------------------------------
+    #
+    # Everything below only ever SELECTs. The analytics surface reports on the
+    # record; it must never be able to change it.
+
+    @staticmethod
+    def _window(hours: float | None, session_id: int | None,
+                column: str = "opened_at",
+                belt_id: str | None = None) -> tuple[str, list]:
+        """Shared WHERE clause for a look-back window or a single session.
+
+        ``belt_id`` narrows either of them to one belt.
+        """
+        clauses, params = [], []
+        if belt_id:
+            clauses.append("belt_id = %s")
+            params.append(belt_id)
+        if session_id is not None:
+            clauses.append("session_id = %s")
+            params.append(session_id)
+        elif hours is not None:
+            clauses.append(f"{column} >= %s")
+            params.append(time.time() - hours * 3600)
+        where = f"WHERE {' AND '.join(clauses)}" if clauses else ""
+        return where, params
+
+    def list_sessions(self, limit: int = 50, offset: int = 0) -> list[dict]:
+        """Runs, newest first, each with its incident tally.
+
+        A LEFT JOIN rather than an inner one: a session that found nothing is
+        still a session that happened, and dropping it would quietly overstate
+        the defect rate across the ledger.
+        """
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                "SELECT s.*, COALESCE(i.n, 0) AS incident_count,"
+                "       COALESCE(i.critical, 0) AS critical_count"
+                "  FROM sessions s"
+                "  LEFT JOIN (SELECT session_id, COUNT(*) AS n,"
+                "                    COUNT(*) FILTER (WHERE severity = 'critical')"
+                "                      AS critical"
+                "               FROM incidents GROUP BY session_id) i"
+                "    ON i.session_id = s.id"
+                " ORDER BY s.started_at DESC LIMIT %s OFFSET %s",
+                (limit, offset),
+            ).fetchall()
+        return [dict(r) for r in rows]
+
+    def get_session(self, session_id: int) -> dict | None:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM sessions WHERE id = %s", (session_id,)).fetchone()
+        return dict(row) if row else None
+
+    def analytics_rows(self, hours: float | None = None,
+                       session_id: int | None = None,
+                       limit: int = 20000,
+                       belt_id: str | None = None) -> list[dict]:
+        """Incident rows with their boxes parsed, for scoring and geometry.
+
+        Deduplication and geometry both need the raw ``box``, which lives as
+        JSON in a TEXT column (see docs/adr/0006 for why it was left that way),
+        so this reduces in Python rather than in SQL. Volumes are small -- the
+        pipeline opens a handful of incidents a minute -- but the limit is here
+        so a pathological history cannot pull the API box over.
+        """
+        where, params = self._window(hours, session_id, belt_id=belt_id)
+        params.append(limit)
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                f"SELECT id, session_id, cls, label, severity, confidence,"
+                f" opened_at, closed_at, duration, box FROM incidents {where}"
+                f" ORDER BY opened_at DESC LIMIT %s", params,
+            ).fetchall()
+        return [self._row_to_incident(r) for r in rows]
+
+    def frame_totals(self, hours: float | None = None,
+                     session_id: int | None = None,
+                     belt_id: str | None = None) -> dict:
+        """Frame accounting across the sessions in the window.
+
+        This is what inspection coverage is computed from: frames that arrived
+        against frames the detector actually got to look at.
+        """
+        # Not _window(): that names the incidents table's `session_id` column,
+        # while a session identifies itself as `id`.
+        if session_id is not None:
+            where, params = "WHERE id = %s", [session_id]
+        elif hours is not None:
+            where, params = "WHERE started_at >= %s", [time.time() - hours * 3600]
+        else:
+            where, params = "", []
+        if belt_id:
+            where = f"{where} AND belt_id = %s" if where else "WHERE belt_id = %s"
+            params = [*params, belt_id]
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                f"SELECT COALESCE(SUM(frames_read), 0) AS frames_read,"
+                f" COALESCE(SUM(frames_processed), 0) AS frames_processed,"
+                f" COALESCE(SUM(frames_skipped), 0) AS frames_skipped,"
+                f" COUNT(*) AS sessions,"
+                f" MIN(started_at) AS first_started,"
+                f" MAX(COALESCE(ended_at, started_at)) AS last_ended"
+                f" FROM sessions {where}", params,
+            ).fetchone()
+        return dict(row) if row else {}
+
+    def incident_buckets(self, bucket_seconds: int, hours: float | None = None,
+                         session_id: int | None = None) -> list[dict]:
+        """Incident counts per time bucket per severity.
+
+        Aggregated in SQL rather than by shipping every row to the browser and
+        counting there: a long history is thousands of rows, and the chart only
+        ever draws the totals.
+        """
+        where, params = self._window(hours, session_id)
+        bucket = max(1, int(bucket_seconds))
+        params = [bucket, bucket, *params]
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                f"SELECT FLOOR(opened_at / %s) * %s AS bucket, severity, cls,"
+                f" COUNT(*) AS n FROM incidents {where}"
+                f" GROUP BY bucket, severity, cls ORDER BY bucket", params,
+            ).fetchall()
+        return [{"bucket": float(r["bucket"]), "severity": r["severity"],
+                 "cls": r["cls"], "n": int(r["n"])} for r in rows]
+
+    # -- belts ---------------------------------------------------------------
+
+    def list_belts(self) -> list[dict]:
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM belts ORDER BY id").fetchall()
+        return [dict(r) for r in rows]
+
+    def get_belt(self, belt_id: str) -> dict | None:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM belts WHERE id = %s", (belt_id,)).fetchone()
+        return dict(row) if row else None
+
+    def create_belt(self, belt_id: str, name: str, location: str,
+                    source_uri: str, tags: int) -> dict:
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "INSERT INTO belts (id, name, location, source_uri, tags,"
+                " created_at) VALUES (%s,%s,%s,%s,%s,%s) RETURNING *",
+                (belt_id, name, location, source_uri, tags, time.time()),
+            ).fetchone()
+        return dict(row)
+
+    def update_belt(self, belt_id: str, fields: dict[str, Any]) -> dict | None:
+        allowed = {k: v for k, v in fields.items()
+                   if k in ("name", "location", "source_uri", "tags")}
+        if not allowed:
+            return self.get_belt(belt_id)
+        sets = ", ".join(f"{k} = %s" for k in allowed)
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                f"UPDATE belts SET {sets} WHERE id = %s RETURNING *",
+                [*allowed.values(), belt_id],
+            ).fetchone()
+        return dict(row) if row else None
+
+    def delete_belt(self, belt_id: str) -> bool:
+        """Remove the belt record. Its incident history is kept on purpose."""
+        with self._pool.connection() as conn:
+            row = conn.execute(
+                "DELETE FROM belts WHERE id = %s RETURNING id", (belt_id,)
+            ).fetchone()
+        return row is not None
+
+    def belt_class_counts(self, belt_id: str, since: float) -> dict[str, int]:
+        with self._pool.connection() as conn:
+            rows = conn.execute(
+                "SELECT cls, COUNT(*) AS n FROM incidents"
+                " WHERE belt_id = %s AND opened_at >= %s GROUP BY cls",
+                (belt_id, since),
+            ).fetchall()
+        return {r["cls"]: int(r["n"]) for r in rows}
+
+    @staticmethod
+    def _row_to_incident(row: dict) -> dict:
+        d = dict(row)
+        try:
+            d["box"] = json.loads(d["box"]) if d.get("box") else []
+        except (TypeError, ValueError):
+            d["box"] = []
+        return d
+
+
+_db: Database | None = None
+_db_lock = threading.Lock()
+
+
+def get_db() -> Database:
+    global _db
+    if _db is None:
+        with _db_lock:
+            if _db is None:
+                from ..config import settings
+                _db = Database(settings.database_url)
+    return _db

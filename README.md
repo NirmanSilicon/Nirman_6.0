@@ -1,0 +1,732 @@
+# C.A.R.R.Y
+
+**Conveyor Anomaly Recognition & Reliability Yield** — by Team Unplayed.
+
+**Real-time AI vision monitoring for conveyor belt damage and joint rupture in
+iron ore mining.**
+
+A camera watches the belt. A YOLO detector finds tears, holes and joint
+ruptures. A control-room dashboard shows the annotated feed, a live alert rail,
+a Reliability Yield index, and a searchable incident history with photographic
+evidence. An Analytics tab reads the whole history back — including the ESP32
+rig's own sensor trace — and reports a single auditable condition index.
+
+Built for the Smart India Hackathon problem statement *"Belt Joint Rupture and
+Conveyor Belt Damages in Iron Ore Mining Industry"*. This repository is **Phase
+1: the AI vision module**, architected so the IoT sensor layer, predictive
+analytics and digital twin attach without rework.
+
+---
+
+## Contents
+
+| | |
+| --- | --- |
+| [Results](#results) | Measured performance, on footage never trained on |
+| [Quick start](#quick-start) | Running it in two commands |
+| [Architecture](#architecture) | How the pipeline fits together |
+| [The real-time guarantee](#the-real-time-guarantee) | Why a video file is an honest stand-in for a camera |
+| [From detections to incidents](#from-detections-to-incidents) | Turning thousands of boxes into a handful of events |
+| [Models](#models) | `belt_v1` and `belt_v2`, and when to use each |
+| [Analytics](#analytics) | Reliability Yield, and both sensor channels on one axis |
+| [The 3D Model tab](#the-3d-model-tab) | The sensor rig, rendered and fed by live hardware |
+| [Training on your own belt](#training-on-your-own-belt) | The labelling and training toolchain |
+| [Configuration](#configuration) · [API](#api) · [Deployment](#deployment) | Reference |
+
+---
+
+## Results
+
+Two models ship with this repository. The number that matters is not validation
+mAP — it is performance on footage the model has never seen.
+
+### `belt_v2` — specialised to the prototype rig
+
+Measured against a held-out video and a set of photographs, neither used in
+training:
+
+| Test | `belt_v1` | **`belt_v2`** |
+| --- | --- | --- |
+| Long tear (6 stills) | 0 / 6 | **6 / 6** |
+| Large hole (4 stills) | 0 / 4 | **4 / 4** |
+| Small tear (8 stills) | 1 / 8 | **8 / 8** |
+| Hole (7 stills) | 4 / 7 | **6 / 7** |
+| Joint rupture (4 stills) | 2 / 4 *(mislabelled `tear`)* | **3 / 4 — correct class** |
+| **Total** | **7 / 29** | **27 / 29** |
+| Held-out video, 281 frames | 33% of frames, *every box mislabelled* `hole` | **52% of frames**, `hole` and `tear` distinguished |
+
+And the check that matters most for a live demo — 614 frames of running belt,
+where the splice passes the camera on every revolution:
+
+```
+detections: {'hole': 193, 'tear': 155}
+joint_damage fired on 0 frames (0.0%)
+```
+
+**Zero false rupture alarms.** The model detects the rupture where the rupture
+actually is, and never fires on an intact seam.
+
+### Reproduce it
+
+```bash
+python training/evaluate.py --weights backend/models/belt_v2.pt \
+  --video "assets/all picture /Movie on 31-08-26 at 6.43 PM.mov"
+
+python training/evaluate.py --weights backend/models/belt_v2.pt --images assets
+```
+
+### Honest caveats
+
+- **A detection rate is not accuracy.** It counts frames containing any box.
+  Many frames legitimately contain no defect, because defects rotate in and out
+  of view. Read 52% as "far more of the belt is now seen correctly", not as a
+  miss rate.
+- **`joint_damage` is trained on 6 instances of one physical rupture.** It
+  reliably detects *that* rupture on *that* belt under *that* lighting, which is
+  what a demonstration needs. It is not general joint-rupture detection, and
+  should not be described as such.
+- **`belt_v2` is deliberately specialised** and is expected to do poorly on
+  industrial belt imagery. `belt_v1` remains in the repository for that case;
+  see [Models](#models).
+
+---
+
+## Quick start
+
+**macOS / Linux**
+
+```bash
+pip install -r backend/requirements.txt
+./scripts/start.sh
+```
+
+**Windows** — one command, [`run.cmd`](run.cmd). It installs whatever is missing
+on the first call, starts both services, and opens the dashboard. Double-clicking
+it in Explorer does the same thing.
+
+```bat
+run
+```
+
+**You need the two `.env` files first.** They hold the Supabase credentials, so
+they are not in the repository and never will be — the backend refuses to start
+without `DATABASE_URL`. Both `.env.example` files list every name; ask
+**Ashutosh** or **Nandish** for the filled-in versions :p, or point them at a
+Supabase project of your own with [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) §1.
+
+Open <http://localhost:5173>, go to **Sources**, and press **Stream**. Or skip a
+step:
+
+```bash
+./scripts/start.sh --source device://0                          # a camera
+./scripts/start.sh --source file://media/uploads/sample.mp4     # a test video
+```
+
+```bat
+run device://0
+run file://media/uploads/sample.mp4
+```
+
+Tests: `python -m pytest tests/ -v` in `backend/` (`pip install -r
+backend/requirements-dev.txt` first — pytest is not a runtime dependency).
+
+### Scripts
+
+On Windows, `run.cmd` is the whole interface — `run`, `run stop`, `run status`,
+`run setup`, `run gpu`, `run train` — and it is a batch file rather than a
+PowerShell one so that a fresh machine, which refuses `.ps1` files until someone
+changes the execution policy, needs no ceremony at all. Underneath it are the
+same scripts as everywhere else.
+
+Nearly every script exists twice, once per platform, and the pair produces the
+same screen. The bash versions refuse to run under Git Bash on Windows rather
+than half-working, and name the command that does work there.
+
+| macOS / Linux | Windows | Does |
+| --- | --- | --- |
+| — | `run` | Everything below, in the right order: install if needed, start, open the dashboard. |
+| — | `.\scripts\setup.ps1` | First run: `.venv`, dependencies, `.env` files. Installs CPU PyTorch; `-Cuda` (`run gpu`) fetches the GPU build instead. Re-runnable. |
+| `./scripts/start.sh` | `.\scripts\start.ps1` | Start both services. Checks dependencies, waits for health, reports URLs. `--backend` / `-BackendOnly` for API only, `--source <uri>` / `-Source <uri>` to stream immediately. |
+| `./scripts/stop.sh` | `.\scripts\stop.ps1` | Stop both. Finds processes by port, so it works even if they were started by hand. |
+| `./scripts/status.sh` | `.\scripts\status.ps1` | One screen: services, stream stats, incident counts, model state, training progress. |
+| `./scripts/train.sh` | `.\scripts\train.ps1` | Train detached. `--fast` / `-Fast` for yolo11n/60 epochs. |
+| `./scripts/train-watch.sh` | — | Live training dashboard — progress, ETA, mAP trend, best epoch. On Windows: `Get-Content .run\train.log -Wait -Tail 40`. |
+
+All honour `NO_COLOR` and drop styling when piped.
+
+**Stopping is not symmetrical, and cannot be.** `stop.sh` sends SIGTERM and
+escalates only if it is ignored, so the backend runs its shutdown hook and
+releases the camera itself. Windows consoles have no SIGTERM. `stop.ps1`
+therefore stops the stream through the API first — which is the part of that
+hook that matters — and only then ends the process, `taskkill /T` before
+`taskkill /F`.
+
+It runs with no trained model at all: `DETECTOR=mock` produces synthetic defects
+so the pipeline and dashboard are demonstrable before training finishes. The
+mock is **scaffolding, not a demo** — it labels itself "SYNTHETIC, not a trained
+model" everywhere it appears, and its defects ride the belt's *measured*
+direction of travel rather than a hardcoded axis, so it never visibly disagrees
+with the footage. `DETECTOR=yolo` removes it entirely.
+
+---
+
+## Architecture
+
+```
+                 ┌───────────── FrameSource ─────────────┐
+  file:// ──▶    │  FileSource   (paced by wall clock)   │
+  device:// ──▶  │  DeviceSource (paced by the driver)   │
+  rtsp:// ──▶    │  RtspSource / HttpMjpegSource         │
+                 └───────────────────┬───────────────────┘
+                                     │  capture thread
+                                     ▼
+                          ┌──────────────────┐
+                          │  LatestFrame     │  one slot, no queue
+                          │  (frame N only)  │  ← older frames are dropped
+                          └────────┬─────────┘
+                                   │  inference thread
+                                   ▼
+        CLAHE (off) ──▶ YOLO + ByteTrack ──▶ IncidentEngine
+                                   │              │
+                    annotated frame│              │ open / update / close
+                                   ▼              ▼
+                          MJPEG stream       EventBus ──▶ WebSocket ──▶ React
+                                                  │
+                                                  ▼
+                                       Supabase: rows + snapshot JPEGs
+```
+
+`EventBus` is topic-based publish/subscribe. The vision pipeline is merely its
+first publisher — the deferred sensor layer, health scorer and SCADA bridge
+attach to the same bus without touching anything above.
+
+### Layout
+
+```
+run.cmd      Windows entry point — run · run stop · run status · run gpu · run train
+backend/     FastAPI service — sources, pipeline, incident store, REST + WebSocket
+frontend/    React + Vite + Tailwind dashboard
+training/    Frame extraction, labelling tool, dataset splitting, training, evaluation
+docs/        Camera integration, datasets, deployment, troubleshooting, model report
+docs/adr/    Architecture decision records, indexed in docs/adr/README.md
+DESIGN.md    The dashboard's design system — why the tokens in frontend/src/index.css are what they are
+CONTEXT.md   The project's vocabulary — the words the code, docs and datasets all use
+```
+
+### Documentation
+
+| File | Covers |
+| --- | --- |
+| [`docs/CAMERA_INTEGRATION.md`](docs/CAMERA_INTEGRATION.md) | Source URIs, adding a camera type, USB vs IP cameras, mounting |
+| [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) | Black or frozen feeds, missing detections, slow inference, CORS, a 3D Model tab stuck `OFFLINE` |
+| [`docs/DATASETS.md`](docs/DATASETS.md) | Public data contents, class mapping, attribution |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Vercel + Render, and the CORS loop |
+| [`docs/model_report.md`](docs/model_report.md) | Measured metrics for the shipped weights |
+| [`docs/adr/0009`](docs/adr/0009-reliability-yield-counts-defects-not-sightings.md) | Why the health score counts distinct defects rather than incident rows |
+| [`DESIGN.md`](DESIGN.md) | Colour, type and spacing tokens, and the severity palette's known drift |
+| [`CONTEXT.md`](CONTEXT.md) | The project's vocabulary — what a defect, an incident and a joint rupture each mean |
+| [`docs/adr/`](docs/adr/README.md) | Indexed ADRs — why the load-bearing decisions were made the way they were, and what each one costs |
+
+---
+
+## The real-time guarantee
+
+The point of this system is monitoring a live feed. Testing against a video file
+is only honest if the file is treated *exactly* like a camera — so it is:
+
+| | |
+| --- | --- |
+| **Uploading decodes nothing** | The file is written to disk and the request returns. No frame is read. |
+| **Playback tracks the wall clock** | A 25 fps video advances at 25 fps of real time. A 60-second clip takes 60 seconds. |
+| **No frame queue exists** | Capture writes into a one-deep slot. The detector reads whatever is current. |
+| **Slow inference drops frames** | Frames arriving while the model is busy are discarded, never buffered. |
+| **You can watch it happen** | The *Frames skipped* counter is exactly those dropped frames. A batch process would read zero forever. |
+
+Swapping in a real camera is then a one-line change (`SOURCE_URI=device://0`),
+because the file source and the camera source satisfy the same contract.
+
+This is pinned by tests, which exist because the guarantee is easy to break with
+an innocuous-looking change — swapping the frame slot for a queue would do it —
+and impossible to notice by eye.
+
+---
+
+## From detections to incidents
+
+A detector emits hundreds of boxes for a single tear. Operators need *events*,
+so [`app/pipeline/events.py`](backend/app/pipeline/events.py) does three things.
+
+**1. Landmarks are not events.** A belt is a loop, so its splice passes the
+camera every revolution. Raising an incident on sight produced hundreds of
+identical `Belt Joint / INFO` rows in a single session, burying the tears and
+holes an operator actually needs. `belt_joint` is therefore never alarmed on.
+
+What *is* an event is the splice **failing** — separating at the belt edge into
+an open wedge. That is `joint_damage`, surfaced as **Belt Joint Rupture** at
+CRITICAL, and it is a *directly trained class* rather than something inferred
+from geometry. An earlier version derived it from a tear overlapping a healthy
+joint band; a measured detection replaced the heuristic and the geometry was
+deleted.
+
+**2. Geometry-driven severity.** A long, narrow, longitudinal defect is the
+rip-through case and escalates hardest. An isolated scratch stays LOW.
+
+**3. Temporal confirmation.** A track must survive `CONFIRM_FRAMES` consecutive
+frames before raising an incident, which suppresses the small-object false
+positives Guo et al. identify as the standard failure mode of one-stage
+detectors on this task.
+
+**4. A separate bar for the log.** A detection below
+`INCIDENT_CONFIDENCE_THRESHOLD` (0.50) is drawn on the live stream and sent to
+the client, but is never advanced into a track — so it cannot open an incident
+however long it persists. The detector's own threshold stays lower (0.35) on
+purpose: marginal wear should be *visible* to someone watching the feed without
+also becoming a maintenance record. Both are tunable live from Settings, and
+the reasoning is recorded in
+[`docs/adr/0008`](docs/adr/0008-two-confidence-thresholds.md).
+
+Each confirmed incident writes a snapshot JPEG and a database row — evidence for
+a maintenance report, and the substrate for the predictive phase.
+
+---
+
+## Models
+
+| | `belt_v1` | `belt_v2` |
+| --- | --- | --- |
+| Trained on | 1,573 public industrial images | 158 images of this project's rig |
+| Classes | `tear` `hole` `belt_joint` | `tear` `hole` `joint_damage` |
+| Validation mAP@.5 | 95.1% | 85.6% |
+| On the prototype rig | 7 / 29 stills | **27 / 29 stills** |
+| Use for | Industrial belt imagery | The prototype rig, and the demonstration |
+
+Switch with `MODEL_PATH` in `backend/.env`. Both remain in the repository
+deliberately — a model trained on public industrial imagery does not transfer to
+a different belt, and the reverse is equally true.
+
+The gap is a domain shift, not a tuning problem. Lowering confidence from 0.35
+to 0.05 moved `belt_v1` from 7/29 only to 12/29, and 1280px input reached the
+same. The features were not being extracted at all: this rig is black rubber
+where defects read as *bright background showing through*, while the public data
+is dusty grey belting where defects are dark-on-dark texture. Close to inverted
+problems.
+
+`belt_v2` is `yolo11s` warm-started from `belt_v1.pt` rather than from COCO
+weights — the belt-damage features are already present, and adapting them
+converges far faster on a few hundred images than relearning would.
+
+---
+
+## Analytics
+
+The diagnostics surface. Everything else in the dashboard reports on *now*;
+this reads the whole history back and says what it means.
+
+It is the only page that reads **both** Supabase projects. The backend supplies
+the vision channel from the incident database; the browser fetches the ESP32
+node's history directly, because the rig writes to a separate project only the
+frontend holds credentials for. They are joined in
+[`lib/analytics.ts`](frontend/src/lib/analytics.ts) — legitimate because both
+instruments watch the same physical belt.
+
+**Reliability Yield** is the headline, and it is four published figures rather
+than one opaque number:
+
+| | |
+| --- | --- |
+| **Condition** | 0–100 from *distinct physical defects*, weighted by severity, confidence, size and persistence |
+| **Coverage** | `frames_processed / frames_read` — how much of the belt was actually inspected |
+| **Corroboration** | Share of rupture-class defects the optical sensor independently flagged |
+| **Trend** | Change in condition across the window |
+
+Condition counts **defects, not sightings**. A belt is a loop, so one tear
+returns past the camera every revolution and opens a fresh incident row each
+time; the old score penalised the belt once per revolution, which made it partly
+a measure of belt speed. See [`docs/adr/0009`](docs/adr/0009-reliability-yield-counts-defects-not-sightings.md).
+Both counts are always shown side by side — the gap between them *is* the
+correction, and hiding it would make the score unauditable.
+
+What the rest of the page shows, and what it is derived from:
+
+| Panel | Reads |
+| --- | --- |
+| **Defect register** | The work list: every distinct defect ranked worst first, with its lateral position across the belt, size, revolutions survived, confidence, **its own contribution to the score**, and the evidence image. The answer to "which one do I send someone to?" |
+| **Vision and sensor, one belt** | Confirmed defects, belt vibration and optical-sensor warnings on one shared time axis |
+| **Detector confidence** | How sure the model was across every sighting, with the operator-tunable incident bar drawn on it |
+| **Belt-monitor node** | Vibration RMS, duty cycle, node uptime, LDR baseline drift (dust on the receiver), estimated revolution period |
+| **Inspection integrity** | Frame accounting: read, analysed, skipped |
+| **Run ledger** | The 25 most recent runs. The `sessions` table was written on every run and queried by nothing until this page |
+
+Every panel that draws a distribution declares a minimum sample size and, below
+it, lists the values with `n =` stated instead. A rig run produces a dozen or so
+defects, and a twenty-bin histogram holding three bars shows the sample rather
+than the distribution — which is worse than showing the numbers outright.
+
+The detector's own threshold (0.35) is deliberately **not** drawn on the
+confidence chart: detections below the incident bar are rendered on the live
+stream but never recorded, so there is structurally no data down there, and a
+line would imply the detector found nothing rather than that the pipeline
+declined to write it down.
+
+**Reading** is a plain-English summary generated by fixed rules over those
+figures — no language model is involved, and a sentence only appears when the
+data supports it. A thin window produces a short summary rather than a
+confident-sounding empty one.
+
+Three caveats the page states about itself, because a senior engineer will ask:
+the two projects run on **different clocks**, so correlation is accurate to
+about ±5s rather than to the second; the revolution period is **estimated** from
+vibration periodicity, not measured; and deduplication is a **heuristic**, which
+is why the raw count travels beside it.
+
+With the node unplugged, corroboration reads "No data" rather than 0% — those
+mean different things, and the second would tell an engineer the hardware
+disagrees when in fact it was absent.
+
+---
+
+## The 3D Model tab
+
+A three.js model of the prototype rig — the belt loop, the four-leg laser
+gantry, the LDR receiver array between the belt runs, the drive unit — rendered
+in the browser at real-world scale. It exists to show *where* the sensors sit
+and *how* rip detection works mechanically, which a camera feed cannot show.
+
+It is **driven by live hardware**, not by an animation loop. An ESP32
+belt-monitor node posts accelerometer and LDR readings to a Supabase table
+roughly once a second; the browser subscribes over Supabase Realtime and the
+model reads off that feed:
+
+| On screen | Comes from |
+| --- | --- |
+| Belt runs, or sits still | Smoothed \|vibration\| crossing `MOTION_THRESHOLD` — an idle rig renders an idle belt |
+| Frame jitter amplitude | The same vibration reading, scaled and capped |
+| A rupture opening in the belt | Edge-triggered on a live `NORMAL → WARNING` transition |
+| Beacon pulse, red interlock banner | An active `WARNING`, or the node going silent |
+
+Nothing is invented: with the node unplugged the panel reads `OFFLINE` and the
+belt stops, rather than animating on regardless. The laser gantry sits parked,
+and the camera mast is decorative — the physical rig carries an accelerometer
+and an LDR array, not a camera.
+
+**This is a different sensor path from the rest of the dashboard.** The Live
+monitor tab runs frame-by-frame defect detection on camera footage; the 3D
+Model reports vibration and light from the ESP32. A rupture shown here reflects
+that node's own threshold logic, not a confirmed, camera-detected incident —
+the two are not interchangeable. See
+[`docs/adr/0007`](docs/adr/0007-3d-model-runs-on-synthetic-telemetry.md) for
+why this page was originally synthetic and what changed.
+
+Requires `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `frontend/.env`
+(see [Configuration](#configuration)). Without them the tab renders the model
+but stays `OFFLINE`.
+
+---
+
+## Training on your own belt
+
+The toolchain assumes you have footage of your own belt and no labelling budget.
+Nothing here requires an account or an upload.
+
+```bash
+python training/extract_frames.py     # footage  -> frames worth labelling
+python training/label_tool.py         # label them in a local browser page
+python training/split_dataset.py      # split by time, not at random
+```
+
+Then run [`kaggle_rig.ipynb`](kaggle_rig.ipynb) on a free Kaggle GPU.
+
+### 1. Extract frames
+
+`extract_frames.py` is not an ffmpeg dump. At 30 fps consecutive frames are the
+same picture, so it samples sparsely, drops frames too motion-blurred to label
+honestly, de-duplicates the survivors, and excludes by name any clip that would
+corrupt the run — a duplicate re-encode, a smeared take, and the held-out
+field-test video.
+
+### 2. Label
+
+`label_tool.py` serves a single local page: drag a box, `1`/`2`/`3` for the
+class, arrow keys to move on. Everything writes straight to disk as YOLO label
+files.
+
+It distinguishes three states, and the distinction matters:
+
+- **labelled** — has one or more boxes.
+- **negative** — reviewed, genuinely no defect. **Kept**, with an empty label
+  file. These are background examples, and they are the cheapest way to stop a
+  model firing on clean belt. 54 of this project's 158 images are negatives.
+- **excluded** — not wanted at all, e.g. an angle the deployed camera will never
+  see. Not copied to the output.
+
+### 3. Label less, by propagating
+
+For a larger set, label a seed and let a model do the rest:
+
+```bash
+python training/pick_seed.py                       # ~25 maximally-varied frames
+python training/label_tool.py --dir training/data/seed_frames
+python training/propagate_labels.py training/data/labelled
+```
+
+`pick_seed.py` chooses by farthest-point sampling over image appearance, so the
+seed spreads across lighting, view and belt position rather than clustering on
+whatever was filmed longest. `propagate_labels.py` trains on the seed and
+pre-labels the rest, converting the human's job from *drawing* boxes into
+*correcting* them.
+
+### 4. Split by time, not at random
+
+`split_dataset.py` holds out a contiguous tail of the running-belt clip plus a
+sample of stills. A random split would put frames 425 and 430 of the same clip
+on opposite sides — the same picture — validating the model on data it
+effectively trained on and returning a meaningless score.
+
+### Class vocabulary
+
+`tear` · `hole` · `scratch` · `crack` · `belt_joint` · `joint_damage`
+
+Public datasets name these inconsistently ("Large Tear", "rip", "splice"), so
+[`training/classes.py`](training/classes.py) maps every dialect onto these six.
+Unmapped labels are reported rather than silently dropped.
+
+The rig model trains on three of them. A healthy joint is not a defect and is
+not labelled. `scratch` and `crack` are excluded because no examples exist — a
+model advertising a class it was never shown cannot predict it, and a dead class
+in the UI looks like a capability the system does not have.
+
+### Hardware notes
+
+**Batch size is the whole story on 8 GB.** At `--batch 16` a run needs 4.3 GB
+and starts paging: ~18 min/epoch. At `--batch 8` it needs 2.4 GB and stays
+resident: ~4 min/epoch. Five times faster for one flag, so `scripts/train.sh`
+defaults to 8 and warns if you raise it on a small machine.
+
+**Train on a hosted GPU.** [`kaggle_rig.ipynb`](kaggle_rig.ipynb) (rig data) and
+[`kaggle_runner.ipynb`](kaggle_runner.ipynb) (public data) both run on Kaggle's
+free T4 ×2. Use **Save Version → Save & Run All (Commit)** — a committed run
+executes on a separate machine and survives closing the laptop, where an
+interactive session dies on an idle disconnect. Both verify their prerequisites
+in a preflight cell that fails in seconds rather than after two hours, and both
+push the trained weights back to this repository so a run is never stranded in
+an output panel.
+
+**Windows notes.** Dataloader workers default to **2 rather than 8**
+(`training/train.py`): Windows spawns rather than forks, so every worker
+re-imports torch, and at 8 that costs more than the loading it parallelises —
+which looks exactly like a hang before the first epoch.
+
+And **GPU support is opt-in**: `run gpu`. The plain PyPI torch
+wheel for Windows is CPU-only, so installing `requirements.txt` gives you
+`2.14.0` with `torch.cuda.is_available() == False`; the CUDA build has to come
+from PyTorch's own index, and is a ~3 GB download against ~200 MB. Setup prints
+which one you ended up with rather than which one you asked for.
+
+**macOS 26 note.** Ultralytics validates datasets via
+`matplotlib.font_manager.findSystemFonts()`, which on macOS 26 crashes with
+`KeyError: '_items'` (the `system_profiler` JSON schema changed) and is slow
+even when it works. `training/_env.py` pre-seeds the font cache to sidestep both.
+
+---
+
+## Configuration
+
+All in `backend/.env` (see `.env.example`):
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `DATABASE_URL` | *(required)* | Supabase Postgres, **transaction pooler** (port 6543) |
+| `SUPABASE_URL` | *(required)* | Project URL, for the snapshot bucket |
+| `SUPABASE_SERVICE_KEY` | *(required)* | `service_role` key — backend only, never the frontend |
+| `SUPABASE_BUCKET` | `snapshots` | Private Storage bucket holding incident evidence |
+| `SOURCE_URI` | *(empty)* | Auto-start this source on boot |
+| `DETECTOR` | `mock` | `mock` or `yolo` |
+| `MODEL_PATH` | `models/belt_v1.pt` | `belt_v2.pt` for the rig-specialised model |
+| `DEVICE` | `auto` | `auto` picks CUDA, then MPS, then CPU |
+| `CONF_THRESHOLD` | `0.35` | Below the paper's 0.50 — catches early wear |
+| `IOU_THRESHOLD` | `0.45` | NMS overlap threshold |
+| `IMG_SIZE` | `640` | Detector input size; capture resolution is independent |
+| `ENABLE_CLAHE` | `false` | Contrast enhancement — **off by default, see below** |
+| `CONFIRM_FRAMES` | `5` | Frames before a track becomes an incident |
+| `INCIDENT_CONFIDENCE_THRESHOLD` | `0.50` | Incident promotion bar — see below |
+| `MAX_STREAM_FPS` | `30` | MJPEG output cap; does not affect inference |
+| `LOOP_FILE_SOURCES` | `true` | Restart a video file when it ends |
+| `CORS_ORIGINS` | `localhost:5173` | Comma-separated allow-list |
+| `CORS_ORIGIN_REGEX` | *(empty)* | For Vercel's per-deployment preview domains |
+
+Confidence, IoU, CLAHE, confirmation frames, the incident threshold and the
+stream cap are all tunable live from the dashboard's Settings page.
+
+### The frontend's own `.env`
+
+`frontend/.env` (see `frontend/.env.example`) is separate, and Vite only reads
+variables prefixed `VITE_`:
+
+| Key | Notes |
+| --- | --- |
+| `VITE_API_BASE` | Empty locally — Vite proxies `/api` and `/ws` to `:8000`. Set it when the frontend and API are on different origins |
+| `VITE_SUPABASE_URL` | Rig-telemetry Supabase project, for the [3D Model tab](#the-3d-model-tab) and the [Analytics tab](#analytics) |
+| `VITE_SUPABASE_ANON_KEY` | The **anon / publishable** key. Never `SUPABASE_SERVICE_KEY` — that one bypasses row-level security and would be readable by anyone with devtools |
+
+The rig telemetry lives in a *different* Supabase project from the incident
+history, so `VITE_SUPABASE_URL` is not `SUPABASE_URL`. Neither `.env` is
+committed; both `.env.example` files list the names.
+
+### Two confidence bars, deliberately
+
+`CONF_THRESHOLD` (0.35) is what the detector reports. `INCIDENT_CONFIDENCE_THRESHOLD`
+(0.50) is what gets promoted into an incident. Between them sits a band where a
+box is drawn on the live stream but never opens an incident, never writes a
+snapshot and never reaches the alert rail.
+
+That band is the point. The detector is deliberately run below the paper's 0.50
+so early wear stays *visible* to an operator watching the feed, while the
+incident log — the thing that becomes a maintenance record — keeps a stricter
+bar. Raising the detector threshold instead would hide the marginal detections
+entirely rather than merely declining to alarm on them.
+
+**Why CLAHE is off.** It is applied to the frame given to the detector, but
+nothing in `training/` applies it — so enabling it trains the model on raw
+pixels and serves it enhanced ones. Measured with `belt_v1.pt` on this project's
+footage:
+
+| | `ENABLE_CLAHE=false` | `ENABLE_CLAHE=true` |
+| --- | --- | --- |
+| Detections over 150 frames | **58** | 7 |
+| Stills with any detection | **13 / 56** | 11 / 56 |
+| Inference per frame @1080p | **95.6 ms** | 140.9 ms |
+
+An 88% drop in detections, and 48% slower. The reasoning behind CLAHE is sound —
+Guo et al. identify dust and low contrast as the dominant cause of missed
+detections — so the knob stays, and becomes the right default the moment
+`training/` applies the same enhancement.
+
+---
+
+## API
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /api/sources/videos` | Test videos on the server |
+| `POST /api/sources/upload` | Store a test video (no decoding) |
+| `DELETE /api/sources/videos/{name}` | Remove a stored video |
+| `GET /api/sources/thumbnail/{name}` | First frame of a stored video |
+| `GET /api/sources/devices` | Enumerate attached cameras |
+| `POST /api/stream/start` · `POST /api/stream/stop` | Control the pipeline |
+| `GET /api/stream/status` | Source, FPS, frames skipped, open incidents |
+| `GET /api/stream/mjpeg` | Live annotated video (`?annotate=0` for clean) |
+| `GET /api/stream/snapshot` | Single current frame as JPEG |
+| `WS /ws/events` | Detections, incidents, pipeline stats |
+| `GET /api/incidents` | Filterable incident history |
+| `GET /api/incidents/summary` | Class and severity aggregates over a window |
+| `GET /api/incidents/{id}/snapshot` | Photographic evidence for one incident |
+| `GET /api/incidents/export.csv` | Maintenance report export |
+| `GET /api/analytics/sessions` | The run ledger, with per-run incident tallies |
+| `GET /api/analytics/reliability` | Reliability Yield: condition, coverage, trend, distinct defects |
+| `GET /api/analytics/timeseries` | Incident counts bucketed over time by severity and class |
+| `GET /api/analytics/geometry` | Defect position across belt width, size and aspect distributions |
+| `GET /api/settings` · `PATCH /api/settings` | Read and change runtime knobs |
+| `GET /api/health` | Service and stream status |
+
+Interactive documentation at <http://localhost:8000/docs>.
+
+---
+
+## Deployment
+
+Frontend on Vercel, API on Render — both free tiers, both configured in the
+repository ([`vercel.json`](vercel.json), [`render.yaml`](render.yaml)). Full
+steps and the CORS loop are in [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
+One number to set expectations. Render's free instance is 512 MB and **0.1
+vCPU**, with no GPU:
+
+| Where | Per frame | Throughput |
+| --- | --- | --- |
+| M2 laptop (Apple GPU) | ~35 ms | **~25 fps** |
+| One full CPU core | 83 ms | ~12 fps |
+| Render free tier | ~830 ms | **~1.2 fps** |
+
+The deployment is the right thing to put in a submission form. It is not where
+to run a demonstration — that belongs on a laptop, which is also the honest
+topology, since a cloud container cannot see a camera.
+
+---
+
+## Roadmap
+
+Phase 1 is complete. The seams for what follows are already in place:
+
+| Next | Hooks into | Effort |
+| --- | --- | --- |
+| **Belt-position digital twin** — pin defects to a belt coordinate via frame count × belt speed, so the same tear is visibly the same tear each revolution | `FrameSource` already exposes a monotonic `frame_id` | ~1 day |
+| **Defect growth → RUL** — measure a tear across revolutions, fit a growth curve, predict days to critical | The `incidents` table is the training corpus | ~2 days |
+| **Maintenance work orders** — critical incident → PDF with snapshot, position, recommended action | Incident schema is already report-shaped | ~½ day |
+| **IoT sensor layer onto the bus** — the ESP32 node already feeds the [3D Model tab](#the-3d-model-tab) directly from Supabase; republishing it onto `EventBus` would let vibration corroborate a visual detection | `bus.py` is topic-based pub/sub, and the node is already logging | ~1 day |
+| **Belt misalignment detection** — classical edge detection on belt edges; no training data needed | New pipeline stage beside the detector | ~1 day |
+| **Unsupervised anomaly fallback** — PatchCore on belt texture, for damage types with no class | Runs alongside the detector | ~2 days |
+| **SCADA / OPC-UA bridge** — expose incidents as OPC-UA nodes, emergency stop on CRITICAL | Another bus subscriber | ~2–3 days |
+
+---
+
+## References
+
+Guo, X.; Liu, X.; Zhou, H.; Stanislawski, R.; Królczyk, G.; Li, Z.
+*Belt Tear Detection for Coal Mining Conveyors.* **Micromachines** 2022, 13, 449.
+<https://doi.org/10.3390/mi13030449>
+
+Their benchmark measured YOLOv5m at 82.5% mAP@.5 and 128 FPS against Faster
+R-CNN's 86.4% at 7.4 FPS on a 1,092-image belt dataset — which is why this uses
+a one-stage detector. `evaluate.py` prints your numbers beside theirs.
+
+## Licence note
+
+Ultralytics YOLO is AGPL-3.0. Suitable for academic and competition use; it
+requires review before any commercial deployment. The `mock` detector path has
+no such dependency.
+
+## Belts and QR labels
+
+Several belts can be monitored at once, each with its own camera, pipeline and
+printed QR labels.
+
+1. **Belts** tab → set the *QR address* to a URL a phone can open (the deployed
+   dashboard, or `http://<this-PC's-LAN-IP>:5173` — the dev server now listens
+   on the LAN).
+2. Add a belt (name, location, camera/video, number of labels) and press **Start**.
+   Starting one belt never stops another.
+3. **Print labels** → stick them along the belt. Each label is static
+   (`/#/b/BELT-02?tag=2`); scanning it opens that belt's live page: live camera,
+   holes / tears / joint ruptures (on the belt and in view now), condition score
+   (Reliability Yield), coverage and recent defects, refreshing every 3 s.
+
+API: `GET/POST /api/belts`, `PATCH/DELETE /api/belts/{id}`,
+`POST /api/belts/{id}/start|stop`, `GET /api/belts/{id}/live`,
+`GET /api/stream/mjpeg?belt={id}`. The database picks up the new `belts` table
+and `belt_id` columns automatically on startup.
+
+### Browser cameras (for a hosted server / VPS)
+
+A hosted backend cannot open a USB or phone camera, so the browser sends it:
+open **Belts → Camera sender** (`/#/send`) on the device with the camera, pick a
+camera and a belt, press **Start sending**. Frames go over
+`/ws/push/<belt>` (source `push://<belt>`), detection runs on the server, and the
+belt's QR page updates live. Add more cards to send several cameras to several
+belts from one machine. Needs HTTPS (or `http://localhost`) — browsers block
+cameras on plain-http pages. Closing the page stops that belt.
+
+### Deploying on a VPS (Dokploy / Coolify / plain Docker)
+
+The repo root has a `Dockerfile` that builds the dashboard and serves it from
+the API on one origin (port 8000). In Dokploy: **Build Type → Dockerfile**
+(path `Dockerfile`, context `.`), add a domain on port **8000** with HTTPS, and
+set the environment variables from `backend/.env.example` (at least
+`DATABASE_URL`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`). Plain Docker:
+
+    docker build -t carry .
+    docker run -d -p 8000:8000 --env-file backend/.env carry
+
+For the 3D Model tab and sensor corroboration, also set **Build-time
+Arguments** `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (the rig's
+Supabase project, anon key — the values in `frontend/.env`). They are compiled
+into the dashboard, so change them → redeploy.
