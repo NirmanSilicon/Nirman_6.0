@@ -1,0 +1,146 @@
+{
+  "thermal_sensor": {
+    "source_channel": "I_TH_TEMP",
+    "parameter": "temperature_c",
+    "nominal_mean": 21.45,
+    "nominal_std": 0.62,
+    "normal_operating_range": [
+      -10.0,
+      35.0
+    ],
+    "warning_threshold": 40.0,
+    "critical_threshold": 50.0,
+    "sampling_interval_seconds": 5.0,
+    "anomaly_segment_duration_seconds_median": 95.0,
+    "anomaly_segment_duration_seconds_range": [
+      30.0,
+      240.0
+    ]
+  },
+  "heater_controller": {
+    "source_channel": "HEATER_PWM",
+    "parameter": "duty_cycle",
+    "nominal_mean": 0.325,
+    "nominal_std": 0.028,
+    "normal_operating_range": [
+      0.0,
+      0.75
+    ],
+    "warning_threshold": 0.85,
+    "critical_threshold": 0.98,
+    "sampling_interval_seconds": 5.0,
+    "anomaly_segment_duration_seconds_median": 120.0,
+    "anomaly_segment_duration_seconds_range": [
+      40.0,
+      300.0
+    ]
+  },
+  "battery": {
+    "source_channel": "BATT_TEMP_DEGC",
+    "parameter": "temperature_c",
+    "nominal_mean": 22.8,
+    "nominal_std": 0.74,
+    "normal_operating_range": [
+      0.0,
+      35.0
+    ],
+    "warning_threshold": 40.0,
+    "critical_threshold": 45.0,
+    "sampling_interval_seconds": 1.0,
+    "anomaly_segment_duration_seconds_median": 110.0,
+    "anomaly_segment_duration_seconds_range": [
+      45.0,
+      350.0
+    ]
+  },
+  "battery_protection": {
+    "source_channel": "EPS_SWITCH_STAT",
+    "parameter": "trip_state",
+    "nominal_mean": 0.0,
+    "nominal_std": 0.0,
+    "normal_operating_range": [
+      0.0,
+      0.0
+    ],
+    "warning_threshold": 0.5,
+    "critical_threshold": 1.0,
+    "sampling_interval_seconds": 5.0,
+    "anomaly_segment_duration_seconds_median": 180.0,
+    "anomaly_segment_duration_seconds_range": [
+      60.0,
+      600.0
+    ]
+  },
+  "power_bus": {
+    "source_channel": "BUS_VOLTAGE_12V",
+    "parameter": "voltage_v",
+    "nominal_mean": 12.04,
+    "nominal_std": 0.11,
+    "normal_operating_range": [
+      11.2,
+      12.6
+    ],
+    "warning_threshold": 10.8,
+    "critical_threshold": 9.5,
+    "sampling_interval_seconds": 1.0,
+    "anomaly_segment_duration_seconds_median": 85.0,
+    "anomaly_segment_duration_seconds_range": [
+      20.0,
+      200.0
+    ]
+  },
+  "comms": {
+    "source_channel": "COMM_RSSI_DBM",
+    "parameter": "signal_strength_dbm",
+    "nominal_mean": -81.2,
+    "nominal_std": 1.75,
+    "normal_operating_range": [
+      -105.0,
+      -60.0
+    ],
+    "warning_threshold": -110.0,
+    "critical_threshold": -120.0,
+    "sampling_interval_seconds": 2.0,
+    "anomaly_segment_duration_seconds_median": 140.0,
+    "anomaly_segment_duration_seconds_range": [
+      30.0,
+      400.0
+    ]
+  },
+  "obc": {
+    "source_channel": "OBC_CPU_LOAD_PCT",
+    "parameter": "cpu_load",
+    "nominal_mean": 0.243,
+    "nominal_std": 0.031,
+    "normal_operating_range": [
+      0.05,
+      0.7
+    ],
+    "warning_threshold": 0.8,
+    "critical_threshold": 0.95,
+    "sampling_interval_seconds": 1.0,
+    "anomaly_segment_duration_seconds_median": 75.0,
+    "anomaly_segment_duration_seconds_range": [
+      15.0,
+      180.0
+    ]
+  },
+  "payload": {
+    "source_channel": "PAYLOAD_CURRENT_MA",
+    "parameter": "operational_state",
+    "nominal_mean": 1.0,
+    "nominal_std": 0.0,
+    "normal_operating_range": [
+      1.0,
+      1.0
+    ],
+    "warning_threshold": 0.5,
+    "critical_threshold": 0.0,
+    "sampling_interval_seconds": 10.0,
+    "anomaly_segment_duration_seconds_median": 90.0,
+    "anomaly_segment_duration_seconds_range": [
+      20.0,
+      250.0
+    ]
+  }
+}

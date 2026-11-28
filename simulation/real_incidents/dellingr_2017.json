@@ -1,0 +1,59 @@
+{
+  "scenario_id": "dellingr_2017",
+  "display_name": "Dellingr 6U (2017) — Real Incident Replay",
+  "source_citation": "NASA GSFC / IEEE Aerospace: Lessons Learned from Dellingr: NASA GSFC's First 6U CubeSat (2018)",
+  "source_url": "https://ntrs.nasa.gov/citations/20180005374",
+  "narrative_summary": "Following deployment from the International Space Station, NASA's Dellingr 6U CubeSat suffered a UHF radio transmitter software freeze and lockup. Spacecraft recovery was achieved through an autonomous flight software power-cycle watchdog that executed periodic hard system resets.",
+  "events": [
+    {
+      "order": 1,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -999.0,
+      "description": "UHF transmitter command receiver lockup after initial ISS deployment",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": null,
+      "notes": "Documented in NASA GSFC Lessons Learned report; exact initial lockup Δt is normalized for simulation."
+    },
+    {
+      "order": 2,
+      "component": "flight_software",
+      "parameter": "fdir_state",
+      "value": 1.0,
+      "description": "Flight software 24-hour autonomous watchdog countdown trip",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 30,
+      "notes": "NASA documented hardwired recovery reset designed to clear communication lockups."
+    },
+    {
+      "order": 3,
+      "component": "power_bus",
+      "parameter": "voltage_v",
+      "value": 0.05,
+      "description": "EPS main power bus commanded system-wide power cycle",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 35,
+      "notes": "Documented EPS hardware reset sequencing."
+    },
+    {
+      "order": 4,
+      "component": "obc",
+      "parameter": "cpu_load",
+      "value": 0.0,
+      "description": "OBC reboot and flight software clean restart",
+      "timing_confidence": "estimated",
+      "relative_offset_seconds": 45,
+      "notes": "Estimated telemetry during OBC bootloader re-initialization."
+    },
+    {
+      "order": 5,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -68.4,
+      "description": "UHF transmitter recovery and nominal ground station beacon restored",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 70,
+      "notes": "NASA GSFC ground station confirmed successful beacon acquisition post-reset."
+    }
+  ]
+}

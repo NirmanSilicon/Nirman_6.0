@@ -1,0 +1,59 @@
+{
+  "scenario_id": "capstone_2022",
+  "display_name": "CAPSTONE (2022) — Real Incident Replay",
+  "source_citation": "NASA CAPSTONE mission status reporting, 2022",
+  "source_url": "https://blogs.nasa.gov/artemis/2022/07/06/capstone-mission-status-update/",
+  "narrative_summary": "On July 4, 2022, NASA's CAPSTONE lunar CubeSat lost communications after a malformed diagnostic telecommand disabled the spacecraft transceiver. Autonomous recovery logic in flight software failed to execute an immediate radio reboot due to an unhandled software bug, resulting in an extended multi-day loss of contact before ground controllers recovered the spacecraft.",
+  "events": [
+    {
+      "order": 1,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -48.2,
+      "description": "Malformed diagnostic telecommand sent to spacecraft transponder",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": null,
+      "notes": "Exact second-level timing not publicly available; causal order is documented by NASA, precise Δt is estimated for demo purposes."
+    },
+    {
+      "order": 2,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -999.0,
+      "description": "Spacecraft radio transponder disabled by malformed command; carrier mute",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 12,
+      "notes": "NASA status report confirms radio went offline immediately after commanding."
+    },
+    {
+      "order": 3,
+      "component": "flight_software",
+      "parameter": "fdir_state",
+      "value": 0.0,
+      "description": "Autonomous FDIR watchdog failed to trigger radio power-cycle due to flight software bug",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 45,
+      "notes": "NASA confirmed the autonomous fault detection system was intended to reboot the radio but failed due to an onboard software defect."
+    },
+    {
+      "order": 4,
+      "component": "obc",
+      "parameter": "cpu_load",
+      "value": 0.88,
+      "description": "Onboard computer telemetry queue backpressure during prolonged contact loss",
+      "timing_confidence": "estimated",
+      "relative_offset_seconds": 90,
+      "notes": "Estimated CPU/RTOS telemetry buffering behavior during contact loss."
+    },
+    {
+      "order": 5,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -999.0,
+      "description": "Deep Space Network (DSN) confirmed total loss of signal (LOS)",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 120,
+      "notes": "NASA Deep Space Network tracking stations logged prolonged signal loss."
+    }
+  ]
+}

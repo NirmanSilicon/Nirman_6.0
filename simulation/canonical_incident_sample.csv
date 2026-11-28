@@ -1,0 +1,1341 @@
+timestamp,mission_time_seconds,component,parameter,value,units,raw_status,ap_id,sequence_count,is_anomaly
+2026-08-20T12:00:00,0.0,Battery,temperature_c,23.996,degC,NOMINAL,120,1,False
+2026-08-20T12:00:00,0.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,1,False
+2026-08-20T12:00:00,0.0,Comms Uplink Handler,command_rate_hz,0.2738,cmds/sec,NOMINAL,179,1,False
+2026-08-20T12:00:00,0.0,Communications,rssi_dbm,-82.2344,dBm,NOMINAL,130,1,False
+2026-08-20T12:00:00,0.0,Heater / Thermal Controller,duty_cycle_pct,33.6589,%,NOMINAL,112,1,False
+2026-08-20T12:00:00,0.0,OBC (onboard computer),cpu_load_pct,26.1318,%,NOMINAL,140,1,False
+2026-08-20T12:00:00,0.0,Payload,current_draw_ma,171.6452,mA,NOMINAL,150,1,False
+2026-08-20T12:00:00,0.0,Power Distribution Bus,bus_voltage_v,11.813,V,NOMINAL,125,1,False
+2026-08-20T12:00:00,0.0,Thermal Sensor,temperature_c,21.4947,degC,NOMINAL,110,1,False
+2026-08-20T12:00:01,1.0,Battery,temperature_c,23.0726,degC,NOMINAL,120,2,False
+2026-08-20T12:00:01,1.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,2,False
+2026-08-20T12:00:01,1.0,Comms Uplink Handler,command_rate_hz,0.2407,cmds/sec,NOMINAL,179,2,False
+2026-08-20T12:00:01,1.0,OBC (onboard computer),cpu_load_pct,22.5301,%,NOMINAL,140,2,False
+2026-08-20T12:00:01,1.0,Power Distribution Bus,bus_voltage_v,12.1331,V,NOMINAL,125,2,False
+2026-08-20T12:00:02,2.0,Battery,temperature_c,22.9723,degC,NOMINAL,120,3,False
+2026-08-20T12:00:02,2.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,3,False
+2026-08-20T12:00:02,2.0,Comms Uplink Handler,command_rate_hz,0.1924,cmds/sec,NOMINAL,179,3,False
+2026-08-20T12:00:02,2.0,Communications,rssi_dbm,-80.7269,dBm,NOMINAL,130,2,False
+2026-08-20T12:00:02,2.0,Heater / Thermal Controller,duty_cycle_pct,35.4917,%,NOMINAL,112,2,False
+2026-08-20T12:00:02,2.0,OBC (onboard computer),cpu_load_pct,21.6236,%,NOMINAL,140,3,False
+2026-08-20T12:00:02,2.0,Payload,current_draw_ma,181.3968,mA,NOMINAL,150,2,False
+2026-08-20T12:00:02,2.0,Power Distribution Bus,bus_voltage_v,12.0658,V,NOMINAL,125,3,False
+2026-08-20T12:00:03,3.0,Battery,temperature_c,23.0837,degC,NOMINAL,120,4,False
+2026-08-20T12:00:03,3.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,4,False
+2026-08-20T12:00:03,3.0,Comms Uplink Handler,command_rate_hz,0.1937,cmds/sec,NOMINAL,179,4,False
+2026-08-20T12:00:03,3.0,OBC (onboard computer),cpu_load_pct,21.0185,%,NOMINAL,140,4,False
+2026-08-20T12:00:03,3.0,Power Distribution Bus,bus_voltage_v,12.15,V,NOMINAL,125,4,False
+2026-08-20T12:00:04,4.0,Battery,temperature_c,22.2497,degC,NOMINAL,120,5,False
+2026-08-20T12:00:04,4.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,5,False
+2026-08-20T12:00:04,4.0,Comms Uplink Handler,command_rate_hz,0.2664,cmds/sec,NOMINAL,179,5,False
+2026-08-20T12:00:04,4.0,Communications,rssi_dbm,-80.846,dBm,NOMINAL,130,3,False
+2026-08-20T12:00:04,4.0,Heater / Thermal Controller,duty_cycle_pct,36.6481,%,NOMINAL,112,3,False
+2026-08-20T12:00:04,4.0,OBC (onboard computer),cpu_load_pct,26.9176,%,NOMINAL,140,5,False
+2026-08-20T12:00:04,4.0,Payload,current_draw_ma,182.4777,mA,NOMINAL,150,3,False
+2026-08-20T12:00:04,4.0,Power Distribution Bus,bus_voltage_v,11.9496,V,NOMINAL,125,5,False
+2026-08-20T12:00:05,5.0,Battery,temperature_c,23.4229,degC,NOMINAL,120,6,False
+2026-08-20T12:00:05,5.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,6,False
+2026-08-20T12:00:05,5.0,Comms Uplink Handler,command_rate_hz,0.1897,cmds/sec,NOMINAL,179,6,False
+2026-08-20T12:00:05,5.0,OBC (onboard computer),cpu_load_pct,31.5157,%,NOMINAL,140,6,False
+2026-08-20T12:00:05,5.0,Power Distribution Bus,bus_voltage_v,12.101,V,NOMINAL,125,6,False
+2026-08-20T12:00:05,5.0,Thermal Sensor,temperature_c,21.9812,degC,NOMINAL,110,2,False
+2026-08-20T12:00:06,6.0,Battery,temperature_c,23.9871,degC,NOMINAL,120,7,False
+2026-08-20T12:00:06,6.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,7,False
+2026-08-20T12:00:06,6.0,Comms Uplink Handler,command_rate_hz,0.1374,cmds/sec,NOMINAL,179,7,False
+2026-08-20T12:00:06,6.0,Communications,rssi_dbm,-81.0112,dBm,NOMINAL,130,4,False
+2026-08-20T12:00:06,6.0,Heater / Thermal Controller,duty_cycle_pct,26.8901,%,NOMINAL,112,4,False
+2026-08-20T12:00:06,6.0,OBC (onboard computer),cpu_load_pct,28.3596,%,NOMINAL,140,7,False
+2026-08-20T12:00:06,6.0,Payload,current_draw_ma,171.5046,mA,NOMINAL,150,4,False
+2026-08-20T12:00:06,6.0,Power Distribution Bus,bus_voltage_v,11.9897,V,NOMINAL,125,7,False
+2026-08-20T12:00:07,7.0,Battery,temperature_c,21.6151,degC,NOMINAL,120,8,False
+2026-08-20T12:00:07,7.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,8,False
+2026-08-20T12:00:07,7.0,Comms Uplink Handler,command_rate_hz,0.2262,cmds/sec,NOMINAL,179,8,False
+2026-08-20T12:00:07,7.0,OBC (onboard computer),cpu_load_pct,25.6629,%,NOMINAL,140,8,False
+2026-08-20T12:00:07,7.0,Power Distribution Bus,bus_voltage_v,11.9526,V,NOMINAL,125,8,False
+2026-08-20T12:00:08,8.0,Battery,temperature_c,21.7546,degC,NOMINAL,120,9,False
+2026-08-20T12:00:08,8.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,9,False
+2026-08-20T12:00:08,8.0,Comms Uplink Handler,command_rate_hz,0.2351,cmds/sec,NOMINAL,179,9,False
+2026-08-20T12:00:08,8.0,Communications,rssi_dbm,-81.1049,dBm,NOMINAL,130,5,False
+2026-08-20T12:00:08,8.0,Heater / Thermal Controller,duty_cycle_pct,33.2736,%,NOMINAL,112,5,False
+2026-08-20T12:00:08,8.0,OBC (onboard computer),cpu_load_pct,22.8375,%,NOMINAL,140,9,False
+2026-08-20T12:00:08,8.0,Payload,current_draw_ma,185.5238,mA,NOMINAL,150,5,False
+2026-08-20T12:00:08,8.0,Power Distribution Bus,bus_voltage_v,11.7859,V,NOMINAL,125,9,False
+2026-08-20T12:00:09,9.0,Battery,temperature_c,22.9023,degC,NOMINAL,120,10,False
+2026-08-20T12:00:09,9.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,10,False
+2026-08-20T12:00:09,9.0,Comms Uplink Handler,command_rate_hz,0.2265,cmds/sec,NOMINAL,179,10,False
+2026-08-20T12:00:09,9.0,OBC (onboard computer),cpu_load_pct,25.0106,%,NOMINAL,140,10,False
+2026-08-20T12:00:09,9.0,Power Distribution Bus,bus_voltage_v,12.1236,V,NOMINAL,125,10,False
+2026-08-20T12:00:10,10.0,Battery,temperature_c,22.9456,degC,NOMINAL,120,11,False
+2026-08-20T12:00:10,10.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,11,False
+2026-08-20T12:00:10,10.0,Comms Uplink Handler,command_rate_hz,0.1941,cmds/sec,NOMINAL,179,11,False
+2026-08-20T12:00:10,10.0,Communications,rssi_dbm,-81.889,dBm,NOMINAL,130,6,False
+2026-08-20T12:00:10,10.0,Heater / Thermal Controller,duty_cycle_pct,31.9971,%,NOMINAL,112,6,False
+2026-08-20T12:00:10,10.0,OBC (onboard computer),cpu_load_pct,25.9156,%,NOMINAL,140,11,False
+2026-08-20T12:00:10,10.0,Payload,current_draw_ma,180.5923,mA,NOMINAL,150,6,False
+2026-08-20T12:00:10,10.0,Power Distribution Bus,bus_voltage_v,12.1303,V,NOMINAL,125,11,False
+2026-08-20T12:00:10,10.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,3,True
+2026-08-20T12:00:11,11.0,Battery,temperature_c,23.4138,degC,NOMINAL,120,12,False
+2026-08-20T12:00:11,11.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,12,False
+2026-08-20T12:00:11,11.0,Comms Uplink Handler,command_rate_hz,0.1259,cmds/sec,NOMINAL,179,12,False
+2026-08-20T12:00:11,11.0,OBC (onboard computer),cpu_load_pct,20.2809,%,NOMINAL,140,12,False
+2026-08-20T12:00:11,11.0,Power Distribution Bus,bus_voltage_v,11.8208,V,NOMINAL,125,12,False
+2026-08-20T12:00:12,12.0,Battery,temperature_c,22.2981,degC,NOMINAL,120,13,False
+2026-08-20T12:00:12,12.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,13,False
+2026-08-20T12:00:12,12.0,Comms Uplink Handler,command_rate_hz,0.2664,cmds/sec,NOMINAL,179,13,False
+2026-08-20T12:00:12,12.0,Communications,rssi_dbm,-81.6985,dBm,NOMINAL,130,7,False
+2026-08-20T12:00:12,12.0,Heater / Thermal Controller,duty_cycle_pct,25.9659,%,NOMINAL,112,7,False
+2026-08-20T12:00:12,12.0,OBC (onboard computer),cpu_load_pct,24.9131,%,NOMINAL,140,13,False
+2026-08-20T12:00:12,12.0,Payload,current_draw_ma,189.8067,mA,NOMINAL,150,7,False
+2026-08-20T12:00:12,12.0,Power Distribution Bus,bus_voltage_v,12.1224,V,NOMINAL,125,13,False
+2026-08-20T12:00:13,13.0,Battery,temperature_c,22.7488,degC,NOMINAL,120,14,False
+2026-08-20T12:00:13,13.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,14,False
+2026-08-20T12:00:13,13.0,Comms Uplink Handler,command_rate_hz,0.1581,cmds/sec,NOMINAL,179,14,False
+2026-08-20T12:00:13,13.0,OBC (onboard computer),cpu_load_pct,24.5856,%,NOMINAL,140,14,False
+2026-08-20T12:00:13,13.0,Power Distribution Bus,bus_voltage_v,12.1889,V,NOMINAL,125,14,False
+2026-08-20T12:00:14,14.0,Battery,temperature_c,21.7044,degC,NOMINAL,120,15,False
+2026-08-20T12:00:14,14.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,15,False
+2026-08-20T12:00:14,14.0,Comms Uplink Handler,command_rate_hz,0.1309,cmds/sec,NOMINAL,179,15,False
+2026-08-20T12:00:14,14.0,Communications,rssi_dbm,-81.8265,dBm,NOMINAL,130,8,False
+2026-08-20T12:00:14,14.0,Heater / Thermal Controller,duty_cycle_pct,30.8357,%,NOMINAL,112,8,False
+2026-08-20T12:00:14,14.0,OBC (onboard computer),cpu_load_pct,26.7911,%,NOMINAL,140,15,False
+2026-08-20T12:00:14,14.0,Payload,current_draw_ma,194.1012,mA,NOMINAL,150,8,False
+2026-08-20T12:00:14,14.0,Power Distribution Bus,bus_voltage_v,11.9423,V,NOMINAL,125,15,False
+2026-08-20T12:00:15,15.0,Battery,temperature_c,22.03,degC,NOMINAL,120,16,False
+2026-08-20T12:00:15,15.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,16,False
+2026-08-20T12:00:15,15.0,Comms Uplink Handler,command_rate_hz,0.1085,cmds/sec,NOMINAL,179,16,False
+2026-08-20T12:00:15,15.0,OBC (onboard computer),cpu_load_pct,23.8936,%,NOMINAL,140,16,False
+2026-08-20T12:00:15,15.0,Power Distribution Bus,bus_voltage_v,12.0922,V,NOMINAL,125,16,False
+2026-08-20T12:00:15,15.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,4,True
+2026-08-20T12:00:16,16.0,Battery,temperature_c,22.3523,degC,NOMINAL,120,17,False
+2026-08-20T12:00:16,16.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,17,False
+2026-08-20T12:00:16,16.0,Comms Uplink Handler,command_rate_hz,0.1905,cmds/sec,NOMINAL,179,17,False
+2026-08-20T12:00:16,16.0,Communications,rssi_dbm,-83.0721,dBm,NOMINAL,130,9,False
+2026-08-20T12:00:16,16.0,Heater / Thermal Controller,duty_cycle_pct,35.0992,%,NOMINAL,112,9,False
+2026-08-20T12:00:16,16.0,OBC (onboard computer),cpu_load_pct,22.2717,%,NOMINAL,140,17,False
+2026-08-20T12:00:16,16.0,Payload,current_draw_ma,185.3097,mA,NOMINAL,150,9,False
+2026-08-20T12:00:16,16.0,Power Distribution Bus,bus_voltage_v,11.9813,V,NOMINAL,125,17,False
+2026-08-20T12:00:17,17.0,Battery,temperature_c,23.0432,degC,NOMINAL,120,18,False
+2026-08-20T12:00:17,17.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,18,False
+2026-08-20T12:00:17,17.0,Comms Uplink Handler,command_rate_hz,0.1829,cmds/sec,NOMINAL,179,18,False
+2026-08-20T12:00:17,17.0,OBC (onboard computer),cpu_load_pct,28.3941,%,NOMINAL,140,18,False
+2026-08-20T12:00:17,17.0,Power Distribution Bus,bus_voltage_v,12.0798,V,NOMINAL,125,18,False
+2026-08-20T12:00:18,18.0,Battery,temperature_c,23.5897,degC,NOMINAL,120,19,False
+2026-08-20T12:00:18,18.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,19,False
+2026-08-20T12:00:18,18.0,Comms Uplink Handler,command_rate_hz,0.2174,cmds/sec,NOMINAL,179,19,False
+2026-08-20T12:00:18,18.0,Communications,rssi_dbm,-79.2495,dBm,NOMINAL,130,10,False
+2026-08-20T12:00:18,18.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,10,True
+2026-08-20T12:00:18,18.0,OBC (onboard computer),cpu_load_pct,25.4885,%,NOMINAL,140,19,False
+2026-08-20T12:00:18,18.0,Payload,current_draw_ma,181.5083,mA,NOMINAL,150,10,False
+2026-08-20T12:00:18,18.0,Power Distribution Bus,bus_voltage_v,12.0035,V,NOMINAL,125,19,False
+2026-08-20T12:00:19,19.0,Battery,temperature_c,24.2437,degC,NOMINAL,120,20,False
+2026-08-20T12:00:19,19.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,20,False
+2026-08-20T12:00:19,19.0,Comms Uplink Handler,command_rate_hz,0.208,cmds/sec,NOMINAL,179,20,False
+2026-08-20T12:00:19,19.0,OBC (onboard computer),cpu_load_pct,24.5151,%,NOMINAL,140,20,False
+2026-08-20T12:00:19,19.0,Power Distribution Bus,bus_voltage_v,12.2685,V,NOMINAL,125,20,False
+2026-08-20T12:00:20,20.0,Battery,temperature_c,23.0465,degC,NOMINAL,120,21,False
+2026-08-20T12:00:20,20.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,21,False
+2026-08-20T12:00:20,20.0,Comms Uplink Handler,command_rate_hz,0.0964,cmds/sec,NOMINAL,179,21,False
+2026-08-20T12:00:20,20.0,Communications,rssi_dbm,-80.6507,dBm,NOMINAL,130,11,False
+2026-08-20T12:00:20,20.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,11,True
+2026-08-20T12:00:20,20.0,OBC (onboard computer),cpu_load_pct,21.7166,%,NOMINAL,140,21,False
+2026-08-20T12:00:20,20.0,Payload,current_draw_ma,171.5909,mA,NOMINAL,150,11,False
+2026-08-20T12:00:20,20.0,Power Distribution Bus,bus_voltage_v,12.0372,V,NOMINAL,125,21,False
+2026-08-20T12:00:20,20.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,5,True
+2026-08-20T12:00:21,21.0,Battery,temperature_c,21.9731,degC,NOMINAL,120,22,False
+2026-08-20T12:00:21,21.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,22,False
+2026-08-20T12:00:21,21.0,Comms Uplink Handler,command_rate_hz,0.2969,cmds/sec,NOMINAL,179,22,False
+2026-08-20T12:00:21,21.0,OBC (onboard computer),cpu_load_pct,23.3911,%,NOMINAL,140,22,False
+2026-08-20T12:00:21,21.0,Power Distribution Bus,bus_voltage_v,11.9895,V,NOMINAL,125,22,False
+2026-08-20T12:00:22,22.0,Battery,temperature_c,22.0881,degC,NOMINAL,120,23,False
+2026-08-20T12:00:22,22.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,23,False
+2026-08-20T12:00:22,22.0,Comms Uplink Handler,command_rate_hz,0.231,cmds/sec,NOMINAL,179,23,False
+2026-08-20T12:00:22,22.0,Communications,rssi_dbm,-81.9124,dBm,NOMINAL,130,12,False
+2026-08-20T12:00:22,22.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,12,True
+2026-08-20T12:00:22,22.0,OBC (onboard computer),cpu_load_pct,23.4185,%,NOMINAL,140,23,False
+2026-08-20T12:00:22,22.0,Payload,current_draw_ma,183.6602,mA,NOMINAL,150,12,False
+2026-08-20T12:00:22,22.0,Power Distribution Bus,bus_voltage_v,12.0782,V,NOMINAL,125,23,False
+2026-08-20T12:00:23,23.0,Battery,temperature_c,22.5489,degC,NOMINAL,120,24,False
+2026-08-20T12:00:23,23.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,24,False
+2026-08-20T12:00:23,23.0,Comms Uplink Handler,command_rate_hz,0.2003,cmds/sec,NOMINAL,179,24,False
+2026-08-20T12:00:23,23.0,OBC (onboard computer),cpu_load_pct,20.76,%,NOMINAL,140,24,False
+2026-08-20T12:00:23,23.0,Power Distribution Bus,bus_voltage_v,12.157,V,NOMINAL,125,24,False
+2026-08-20T12:00:24,24.0,Battery,temperature_c,22.9651,degC,NOMINAL,120,25,False
+2026-08-20T12:00:24,24.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,25,False
+2026-08-20T12:00:24,24.0,Comms Uplink Handler,command_rate_hz,0.1915,cmds/sec,NOMINAL,179,25,False
+2026-08-20T12:00:24,24.0,Communications,rssi_dbm,-81.0398,dBm,NOMINAL,130,13,False
+2026-08-20T12:00:24,24.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,13,True
+2026-08-20T12:00:24,24.0,OBC (onboard computer),cpu_load_pct,26.1004,%,NOMINAL,140,25,False
+2026-08-20T12:00:24,24.0,Payload,current_draw_ma,182.0139,mA,NOMINAL,150,13,False
+2026-08-20T12:00:24,24.0,Power Distribution Bus,bus_voltage_v,12.1977,V,NOMINAL,125,25,False
+2026-08-20T12:00:25,25.0,Battery,temperature_c,23.1184,degC,NOMINAL,120,26,False
+2026-08-20T12:00:25,25.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,26,False
+2026-08-20T12:00:25,25.0,Comms Uplink Handler,command_rate_hz,0.2543,cmds/sec,NOMINAL,179,26,False
+2026-08-20T12:00:25,25.0,OBC (onboard computer),cpu_load_pct,26.3633,%,NOMINAL,140,26,False
+2026-08-20T12:00:25,25.0,Power Distribution Bus,bus_voltage_v,11.9463,V,NOMINAL,125,26,False
+2026-08-20T12:00:25,25.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,6,True
+2026-08-20T12:00:26,26.0,Battery,temperature_c,22.5882,degC,NOMINAL,120,27,False
+2026-08-20T12:00:26,26.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,27,False
+2026-08-20T12:00:26,26.0,Comms Uplink Handler,command_rate_hz,0.1832,cmds/sec,NOMINAL,179,27,False
+2026-08-20T12:00:26,26.0,Communications,rssi_dbm,-81.7402,dBm,NOMINAL,130,14,False
+2026-08-20T12:00:26,26.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,14,True
+2026-08-20T12:00:26,26.0,OBC (onboard computer),cpu_load_pct,27.2002,%,NOMINAL,140,27,False
+2026-08-20T12:00:26,26.0,Payload,current_draw_ma,169.9464,mA,NOMINAL,150,14,False
+2026-08-20T12:00:26,26.0,Power Distribution Bus,bus_voltage_v,12.0899,V,NOMINAL,125,27,False
+2026-08-20T12:00:27,27.0,Battery,temperature_c,21.3268,degC,NOMINAL,120,28,False
+2026-08-20T12:00:27,27.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,28,False
+2026-08-20T12:00:27,27.0,Comms Uplink Handler,command_rate_hz,0.2448,cmds/sec,NOMINAL,179,28,False
+2026-08-20T12:00:27,27.0,OBC (onboard computer),cpu_load_pct,28.528,%,NOMINAL,140,28,False
+2026-08-20T12:00:27,27.0,Power Distribution Bus,bus_voltage_v,11.8755,V,NOMINAL,125,28,False
+2026-08-20T12:00:28,28.0,Battery,temperature_c,21.6881,degC,NOMINAL,120,29,False
+2026-08-20T12:00:28,28.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,29,False
+2026-08-20T12:00:28,28.0,Comms Uplink Handler,command_rate_hz,0.172,cmds/sec,NOMINAL,179,29,False
+2026-08-20T12:00:28,28.0,Communications,rssi_dbm,-82.1511,dBm,NOMINAL,130,15,False
+2026-08-20T12:00:28,28.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,15,True
+2026-08-20T12:00:28,28.0,OBC (onboard computer),cpu_load_pct,31.8033,%,NOMINAL,140,29,False
+2026-08-20T12:00:28,28.0,Payload,current_draw_ma,185.3572,mA,NOMINAL,150,15,False
+2026-08-20T12:00:28,28.0,Power Distribution Bus,bus_voltage_v,11.7139,V,NOMINAL,125,29,False
+2026-08-20T12:00:29,29.0,Battery,temperature_c,23.1442,degC,NOMINAL,120,30,False
+2026-08-20T12:00:29,29.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,30,False
+2026-08-20T12:00:29,29.0,Comms Uplink Handler,command_rate_hz,0.205,cmds/sec,NOMINAL,179,30,False
+2026-08-20T12:00:29,29.0,OBC (onboard computer),cpu_load_pct,23.3783,%,NOMINAL,140,30,False
+2026-08-20T12:00:29,29.0,Power Distribution Bus,bus_voltage_v,11.8683,V,NOMINAL,125,30,False
+2026-08-20T12:00:30,30.0,Battery,temperature_c,23.055,degC,NOMINAL,120,31,False
+2026-08-20T12:00:30,30.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,31,False
+2026-08-20T12:00:30,30.0,Comms Uplink Handler,command_rate_hz,0.1515,cmds/sec,NOMINAL,179,31,False
+2026-08-20T12:00:30,30.0,Communications,rssi_dbm,-82.4047,dBm,NOMINAL,130,16,False
+2026-08-20T12:00:30,30.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,16,True
+2026-08-20T12:00:30,30.0,OBC (onboard computer),cpu_load_pct,27.0832,%,NOMINAL,140,31,False
+2026-08-20T12:00:30,30.0,Payload,current_draw_ma,193.4768,mA,NOMINAL,150,16,False
+2026-08-20T12:00:30,30.0,Power Distribution Bus,bus_voltage_v,12.1135,V,NOMINAL,125,31,False
+2026-08-20T12:00:30,30.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,7,True
+2026-08-20T12:00:31,31.0,Battery,temperature_c,22.1431,degC,NOMINAL,120,32,False
+2026-08-20T12:00:31,31.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,32,False
+2026-08-20T12:00:31,31.0,Comms Uplink Handler,command_rate_hz,0.2702,cmds/sec,NOMINAL,179,32,False
+2026-08-20T12:00:31,31.0,OBC (onboard computer),cpu_load_pct,23.7068,%,NOMINAL,140,32,False
+2026-08-20T12:00:31,31.0,Power Distribution Bus,bus_voltage_v,12.1869,V,NOMINAL,125,32,False
+2026-08-20T12:00:32,32.0,Battery,temperature_c,23.8767,degC,NOMINAL,120,33,False
+2026-08-20T12:00:32,32.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,33,False
+2026-08-20T12:00:32,32.0,Comms Uplink Handler,command_rate_hz,0.1529,cmds/sec,NOMINAL,179,33,False
+2026-08-20T12:00:32,32.0,Communications,rssi_dbm,-80.7481,dBm,NOMINAL,130,17,False
+2026-08-20T12:00:32,32.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,17,True
+2026-08-20T12:00:32,32.0,OBC (onboard computer),cpu_load_pct,29.1506,%,NOMINAL,140,33,False
+2026-08-20T12:00:32,32.0,Payload,current_draw_ma,179.94,mA,NOMINAL,150,17,False
+2026-08-20T12:00:32,32.0,Power Distribution Bus,bus_voltage_v,12.0545,V,NOMINAL,125,33,False
+2026-08-20T12:00:33,33.0,Battery,temperature_c,22.4681,degC,NOMINAL,120,34,False
+2026-08-20T12:00:33,33.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,34,False
+2026-08-20T12:00:33,33.0,Comms Uplink Handler,command_rate_hz,0.2319,cmds/sec,NOMINAL,179,34,False
+2026-08-20T12:00:33,33.0,OBC (onboard computer),cpu_load_pct,19.4461,%,NOMINAL,140,34,False
+2026-08-20T12:00:33,33.0,Power Distribution Bus,bus_voltage_v,12.0898,V,NOMINAL,125,34,False
+2026-08-20T12:00:34,34.0,Battery,temperature_c,23.6494,degC,NOMINAL,120,35,False
+2026-08-20T12:00:34,34.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,35,False
+2026-08-20T12:00:34,34.0,Comms Uplink Handler,command_rate_hz,0.2124,cmds/sec,NOMINAL,179,35,False
+2026-08-20T12:00:34,34.0,Communications,rssi_dbm,-82.5765,dBm,NOMINAL,130,18,False
+2026-08-20T12:00:34,34.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,18,True
+2026-08-20T12:00:34,34.0,OBC (onboard computer),cpu_load_pct,19.0719,%,NOMINAL,140,35,False
+2026-08-20T12:00:34,34.0,Payload,current_draw_ma,176.7816,mA,NOMINAL,150,18,False
+2026-08-20T12:00:34,34.0,Power Distribution Bus,bus_voltage_v,11.7766,V,NOMINAL,125,35,False
+2026-08-20T12:00:35,35.0,Battery,temperature_c,22.6125,degC,NOMINAL,120,36,False
+2026-08-20T12:00:35,35.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,36,False
+2026-08-20T12:00:35,35.0,Comms Uplink Handler,command_rate_hz,0.1496,cmds/sec,NOMINAL,179,36,False
+2026-08-20T12:00:35,35.0,OBC (onboard computer),cpu_load_pct,24.9305,%,NOMINAL,140,36,False
+2026-08-20T12:00:35,35.0,Power Distribution Bus,bus_voltage_v,12.0225,V,NOMINAL,125,36,False
+2026-08-20T12:00:35,35.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,8,True
+2026-08-20T12:00:36,36.0,Battery,temperature_c,23.2904,degC,NOMINAL,120,37,False
+2026-08-20T12:00:36,36.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,37,False
+2026-08-20T12:00:36,36.0,Comms Uplink Handler,command_rate_hz,0.1956,cmds/sec,NOMINAL,179,37,False
+2026-08-20T12:00:36,36.0,Communications,rssi_dbm,-80.2261,dBm,NOMINAL,130,19,False
+2026-08-20T12:00:36,36.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,19,True
+2026-08-20T12:00:36,36.0,OBC (onboard computer),cpu_load_pct,25.2189,%,NOMINAL,140,37,False
+2026-08-20T12:00:36,36.0,Payload,current_draw_ma,196.2385,mA,NOMINAL,150,19,False
+2026-08-20T12:00:36,36.0,Power Distribution Bus,bus_voltage_v,12.0824,V,NOMINAL,125,37,False
+2026-08-20T12:00:37,37.0,Battery,temperature_c,22.5728,degC,NOMINAL,120,38,False
+2026-08-20T12:00:37,37.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,38,False
+2026-08-20T12:00:37,37.0,Comms Uplink Handler,command_rate_hz,0.1378,cmds/sec,NOMINAL,179,38,False
+2026-08-20T12:00:37,37.0,OBC (onboard computer),cpu_load_pct,21.1,%,NOMINAL,140,38,False
+2026-08-20T12:00:37,37.0,Power Distribution Bus,bus_voltage_v,11.9571,V,NOMINAL,125,38,False
+2026-08-20T12:00:38,38.0,Battery,temperature_c,22.7477,degC,NOMINAL,120,39,False
+2026-08-20T12:00:38,38.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,39,False
+2026-08-20T12:00:38,38.0,Comms Uplink Handler,command_rate_hz,0.237,cmds/sec,NOMINAL,179,39,False
+2026-08-20T12:00:38,38.0,Communications,rssi_dbm,-81.1105,dBm,NOMINAL,130,20,False
+2026-08-20T12:00:38,38.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,20,True
+2026-08-20T12:00:38,38.0,OBC (onboard computer),cpu_load_pct,21.9268,%,NOMINAL,140,39,False
+2026-08-20T12:00:38,38.0,Payload,current_draw_ma,188.5213,mA,NOMINAL,150,20,False
+2026-08-20T12:00:38,38.0,Power Distribution Bus,bus_voltage_v,12.0768,V,NOMINAL,125,39,False
+2026-08-20T12:00:39,39.0,Battery,temperature_c,22.6819,degC,NOMINAL,120,40,False
+2026-08-20T12:00:39,39.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,40,False
+2026-08-20T12:00:39,39.0,Comms Uplink Handler,command_rate_hz,0.2094,cmds/sec,NOMINAL,179,40,False
+2026-08-20T12:00:39,39.0,OBC (onboard computer),cpu_load_pct,26.0001,%,NOMINAL,140,40,False
+2026-08-20T12:00:39,39.0,Power Distribution Bus,bus_voltage_v,11.9682,V,NOMINAL,125,40,False
+2026-08-20T12:00:40,40.0,Battery,temperature_c,22.9939,degC,NOMINAL,120,41,False
+2026-08-20T12:00:40,40.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,41,False
+2026-08-20T12:00:40,40.0,Comms Uplink Handler,command_rate_hz,0.05,cmds/sec,COMMAND_FLOODING_ANOMALY,6,41,True
+2026-08-20T12:00:40,40.0,Communications,rssi_dbm,-80.8678,dBm,NOMINAL,130,21,False
+2026-08-20T12:00:40,40.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,21,True
+2026-08-20T12:00:40,40.0,OBC (onboard computer),cpu_load_pct,19.7901,%,NOMINAL,140,41,False
+2026-08-20T12:00:40,40.0,Payload,current_draw_ma,191.4861,mA,NOMINAL,150,21,False
+2026-08-20T12:00:40,40.0,Power Distribution Bus,bus_voltage_v,11.941,V,NOMINAL,125,41,False
+2026-08-20T12:00:40,40.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,9,True
+2026-08-20T12:00:41,41.0,Battery,temperature_c,22.6131,degC,NOMINAL,120,42,False
+2026-08-20T12:00:41,41.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,42,False
+2026-08-20T12:00:41,41.0,Comms Uplink Handler,command_rate_hz,0.1,cmds/sec,COMMAND_FLOODING_ANOMALY,128,42,True
+2026-08-20T12:00:41,41.0,OBC (onboard computer),cpu_load_pct,16.8292,%,NOMINAL,140,42,False
+2026-08-20T12:00:41,41.0,Power Distribution Bus,bus_voltage_v,12.08,V,NOMINAL,125,42,False
+2026-08-20T12:00:42,42.0,Battery,temperature_c,22.0066,degC,NOMINAL,120,43,False
+2026-08-20T12:00:42,42.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,43,False
+2026-08-20T12:00:42,42.0,Comms Uplink Handler,command_rate_hz,0.15,cmds/sec,COMMAND_FLOODING_ANOMALY,179,43,True
+2026-08-20T12:00:42,42.0,Communications,rssi_dbm,-77.7047,dBm,NOMINAL,130,22,False
+2026-08-20T12:00:42,42.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,22,True
+2026-08-20T12:00:42,42.0,OBC (onboard computer),cpu_load_pct,20.6525,%,NOMINAL,140,43,False
+2026-08-20T12:00:42,42.0,Payload,current_draw_ma,176.7052,mA,NOMINAL,150,22,False
+2026-08-20T12:00:42,42.0,Power Distribution Bus,bus_voltage_v,12.1186,V,NOMINAL,125,43,False
+2026-08-20T12:00:43,43.0,Battery,temperature_c,23.9922,degC,NOMINAL,120,44,False
+2026-08-20T12:00:43,43.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,44,False
+2026-08-20T12:00:43,43.0,Comms Uplink Handler,command_rate_hz,0.05,cmds/sec,COMMAND_FLOODING_ANOMALY,140,44,True
+2026-08-20T12:00:43,43.0,OBC (onboard computer),cpu_load_pct,25.072,%,NOMINAL,140,44,False
+2026-08-20T12:00:43,43.0,Power Distribution Bus,bus_voltage_v,11.9055,V,NOMINAL,125,44,False
+2026-08-20T12:00:44,44.0,Battery,temperature_c,21.852,degC,NOMINAL,120,45,False
+2026-08-20T12:00:44,44.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,45,False
+2026-08-20T12:00:44,44.0,Comms Uplink Handler,command_rate_hz,0.1,cmds/sec,COMMAND_FLOODING_ANOMALY,3,45,True
+2026-08-20T12:00:44,44.0,Communications,rssi_dbm,-82.111,dBm,NOMINAL,130,23,False
+2026-08-20T12:00:44,44.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,23,True
+2026-08-20T12:00:44,44.0,OBC (onboard computer),cpu_load_pct,26.8191,%,NOMINAL,140,45,False
+2026-08-20T12:00:44,44.0,Payload,current_draw_ma,184.0433,mA,NOMINAL,150,23,False
+2026-08-20T12:00:44,44.0,Power Distribution Bus,bus_voltage_v,11.9934,V,NOMINAL,125,45,False
+2026-08-20T12:00:45,45.0,Battery,temperature_c,22.3726,degC,NOMINAL,120,46,False
+2026-08-20T12:00:45,45.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,46,False
+2026-08-20T12:00:45,45.0,Comms Uplink Handler,command_rate_hz,0.15,cmds/sec,COMMAND_FLOODING_ANOMALY,3,46,True
+2026-08-20T12:00:45,45.0,OBC (onboard computer),cpu_load_pct,22.3545,%,NOMINAL,140,46,False
+2026-08-20T12:00:45,45.0,Power Distribution Bus,bus_voltage_v,12.1802,V,NOMINAL,125,46,False
+2026-08-20T12:00:45,45.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,10,True
+2026-08-20T12:00:46,46.0,Battery,temperature_c,23.3646,degC,NOMINAL,120,47,False
+2026-08-20T12:00:46,46.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,47,False
+2026-08-20T12:00:46,46.0,Comms Uplink Handler,command_rate_hz,0.2,cmds/sec,COMMAND_FLOODING_ANOMALY,128,47,True
+2026-08-20T12:00:46,46.0,Communications,rssi_dbm,-84.1498,dBm,NOMINAL,130,24,False
+2026-08-20T12:00:46,46.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,24,True
+2026-08-20T12:00:46,46.0,OBC (onboard computer),cpu_load_pct,25.9679,%,NOMINAL,140,47,False
+2026-08-20T12:00:46,46.0,Payload,current_draw_ma,175.3667,mA,NOMINAL,150,24,False
+2026-08-20T12:00:46,46.0,Power Distribution Bus,bus_voltage_v,12.0893,V,NOMINAL,125,47,False
+2026-08-20T12:00:47,47.0,Battery,temperature_c,21.7464,degC,NOMINAL,120,48,False
+2026-08-20T12:00:47,47.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,48,False
+2026-08-20T12:00:47,47.0,Comms Uplink Handler,command_rate_hz,0.25,cmds/sec,COMMAND_FLOODING_ANOMALY,140,48,True
+2026-08-20T12:00:47,47.0,OBC (onboard computer),cpu_load_pct,21.7995,%,NOMINAL,140,48,False
+2026-08-20T12:00:47,47.0,Power Distribution Bus,bus_voltage_v,12.0891,V,NOMINAL,125,48,False
+2026-08-20T12:00:48,48.0,Battery,temperature_c,22.9788,degC,NOMINAL,120,49,False
+2026-08-20T12:00:48,48.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,49,False
+2026-08-20T12:00:48,48.0,Comms Uplink Handler,command_rate_hz,0.3,cmds/sec,COMMAND_FLOODING_ANOMALY,140,49,True
+2026-08-20T12:00:48,48.0,Communications,rssi_dbm,-78.6604,dBm,NOMINAL,130,25,False
+2026-08-20T12:00:48,48.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,25,True
+2026-08-20T12:00:48,48.0,OBC (onboard computer),cpu_load_pct,22.934,%,NOMINAL,140,49,False
+2026-08-20T12:00:48,48.0,Payload,current_draw_ma,182.6183,mA,NOMINAL,150,25,False
+2026-08-20T12:00:48,48.0,Power Distribution Bus,bus_voltage_v,11.9725,V,NOMINAL,125,49,False
+2026-08-20T12:00:49,49.0,Battery,temperature_c,22.3414,degC,NOMINAL,120,50,False
+2026-08-20T12:00:49,49.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,50,False
+2026-08-20T12:00:49,49.0,Comms Uplink Handler,command_rate_hz,0.35,cmds/sec,COMMAND_FLOODING_ANOMALY,128,50,True
+2026-08-20T12:00:49,49.0,OBC (onboard computer),cpu_load_pct,22.6463,%,NOMINAL,140,50,False
+2026-08-20T12:00:49,49.0,Power Distribution Bus,bus_voltage_v,12.0918,V,NOMINAL,125,50,False
+2026-08-20T12:00:50,50.0,Battery,temperature_c,21.0145,degC,NOMINAL,120,51,False
+2026-08-20T12:00:50,50.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,51,False
+2026-08-20T12:00:50,50.0,Comms Uplink Handler,command_rate_hz,0.4,cmds/sec,COMMAND_FLOODING_ANOMALY,3,51,True
+2026-08-20T12:00:50,50.0,Communications,rssi_dbm,-76.7387,dBm,NOMINAL,130,26,False
+2026-08-20T12:00:50,50.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,26,True
+2026-08-20T12:00:50,50.0,OBC (onboard computer),cpu_load_pct,23.0437,%,NOMINAL,140,51,False
+2026-08-20T12:00:50,50.0,Payload,current_draw_ma,169.2295,mA,NOMINAL,150,26,False
+2026-08-20T12:00:50,50.0,Power Distribution Bus,bus_voltage_v,12.2172,V,NOMINAL,125,51,False
+2026-08-20T12:00:50,50.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,11,True
+2026-08-20T12:00:51,51.0,Battery,temperature_c,22.5882,degC,NOMINAL,120,52,False
+2026-08-20T12:00:51,51.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,52,False
+2026-08-20T12:00:51,51.0,Comms Uplink Handler,command_rate_hz,0.05,cmds/sec,COMMAND_FLOODING_ANOMALY,6,52,True
+2026-08-20T12:00:51,51.0,OBC (onboard computer),cpu_load_pct,20.8485,%,NOMINAL,140,52,False
+2026-08-20T12:00:51,51.0,Power Distribution Bus,bus_voltage_v,12.0191,V,NOMINAL,125,52,False
+2026-08-20T12:00:52,52.0,Battery,temperature_c,21.6941,degC,NOMINAL,120,53,False
+2026-08-20T12:00:52,52.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,53,False
+2026-08-20T12:00:52,52.0,Comms Uplink Handler,command_rate_hz,0.1,cmds/sec,COMMAND_FLOODING_ANOMALY,179,53,True
+2026-08-20T12:00:52,52.0,Communications,rssi_dbm,-77.6078,dBm,NOMINAL,130,27,False
+2026-08-20T12:00:52,52.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,27,True
+2026-08-20T12:00:52,52.0,OBC (onboard computer),cpu_load_pct,24.8331,%,NOMINAL,140,53,False
+2026-08-20T12:00:52,52.0,Payload,current_draw_ma,180.1062,mA,NOMINAL,150,27,False
+2026-08-20T12:00:52,52.0,Power Distribution Bus,bus_voltage_v,12.1169,V,NOMINAL,125,53,False
+2026-08-20T12:00:53,53.0,Battery,temperature_c,23.2553,degC,NOMINAL,120,54,False
+2026-08-20T12:00:53,53.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,54,False
+2026-08-20T12:00:53,53.0,Comms Uplink Handler,command_rate_hz,0.15,cmds/sec,COMMAND_FLOODING_ANOMALY,3,54,True
+2026-08-20T12:00:53,53.0,OBC (onboard computer),cpu_load_pct,24.8096,%,NOMINAL,140,54,False
+2026-08-20T12:00:53,53.0,Power Distribution Bus,bus_voltage_v,11.8496,V,NOMINAL,125,54,False
+2026-08-20T12:00:54,54.0,Battery,temperature_c,22.6711,degC,NOMINAL,120,55,False
+2026-08-20T12:00:54,54.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,55,False
+2026-08-20T12:00:54,54.0,Comms Uplink Handler,command_rate_hz,0.2,cmds/sec,COMMAND_FLOODING_ANOMALY,179,55,True
+2026-08-20T12:00:54,54.0,Communications,rssi_dbm,-83.1315,dBm,NOMINAL,130,28,False
+2026-08-20T12:00:54,54.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,28,True
+2026-08-20T12:00:54,54.0,OBC (onboard computer),cpu_load_pct,26.1205,%,NOMINAL,140,55,False
+2026-08-20T12:00:54,54.0,Payload,current_draw_ma,184.5719,mA,NOMINAL,150,28,False
+2026-08-20T12:00:54,54.0,Power Distribution Bus,bus_voltage_v,12.2235,V,NOMINAL,125,55,False
+2026-08-20T12:00:55,55.0,Battery,temperature_c,23.6973,degC,NOMINAL,120,56,False
+2026-08-20T12:00:55,55.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,56,False
+2026-08-20T12:00:55,55.0,Comms Uplink Handler,command_rate_hz,0.25,cmds/sec,COMMAND_FLOODING_ANOMALY,128,56,True
+2026-08-20T12:00:55,55.0,OBC (onboard computer),cpu_load_pct,19.0549,%,NOMINAL,140,56,False
+2026-08-20T12:00:55,55.0,Power Distribution Bus,bus_voltage_v,12.0044,V,NOMINAL,125,56,False
+2026-08-20T12:00:55,55.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,12,True
+2026-08-20T12:00:56,56.0,Battery,temperature_c,22.5467,degC,NOMINAL,120,57,False
+2026-08-20T12:00:56,56.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,57,False
+2026-08-20T12:00:56,56.0,Comms Uplink Handler,command_rate_hz,0.3,cmds/sec,COMMAND_FLOODING_ANOMALY,140,57,True
+2026-08-20T12:00:56,56.0,Communications,rssi_dbm,-84.1849,dBm,NOMINAL,130,29,False
+2026-08-20T12:00:56,56.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,29,True
+2026-08-20T12:00:56,56.0,OBC (onboard computer),cpu_load_pct,19.2915,%,NOMINAL,140,57,False
+2026-08-20T12:00:56,56.0,Payload,current_draw_ma,185.6781,mA,NOMINAL,150,29,False
+2026-08-20T12:00:56,56.0,Power Distribution Bus,bus_voltage_v,12.031,V,NOMINAL,125,57,False
+2026-08-20T12:00:57,57.0,Battery,temperature_c,20.9021,degC,NOMINAL,120,58,False
+2026-08-20T12:00:57,57.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,58,False
+2026-08-20T12:00:57,57.0,Comms Uplink Handler,command_rate_hz,0.35,cmds/sec,COMMAND_FLOODING_ANOMALY,3,58,True
+2026-08-20T12:00:57,57.0,OBC (onboard computer),cpu_load_pct,25.1443,%,NOMINAL,140,58,False
+2026-08-20T12:00:57,57.0,Power Distribution Bus,bus_voltage_v,12.1263,V,NOMINAL,125,58,False
+2026-08-20T12:00:58,58.0,Battery,temperature_c,23.4185,degC,NOMINAL,120,59,False
+2026-08-20T12:00:58,58.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,59,False
+2026-08-20T12:00:58,58.0,Comms Uplink Handler,command_rate_hz,0.4,cmds/sec,COMMAND_FLOODING_ANOMALY,179,59,True
+2026-08-20T12:00:58,58.0,Communications,rssi_dbm,-77.0304,dBm,NOMINAL,130,30,False
+2026-08-20T12:00:58,58.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,30,True
+2026-08-20T12:00:58,58.0,OBC (onboard computer),cpu_load_pct,25.6026,%,NOMINAL,140,59,False
+2026-08-20T12:00:58,58.0,Payload,current_draw_ma,185.0364,mA,NOMINAL,150,30,False
+2026-08-20T12:00:58,58.0,Power Distribution Bus,bus_voltage_v,12.0784,V,NOMINAL,125,59,False
+2026-08-20T12:00:59,59.0,Battery,temperature_c,23.4044,degC,NOMINAL,120,60,False
+2026-08-20T12:00:59,59.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,60,False
+2026-08-20T12:00:59,59.0,Comms Uplink Handler,command_rate_hz,0.45,cmds/sec,COMMAND_FLOODING_ANOMALY,6,60,True
+2026-08-20T12:00:59,59.0,OBC (onboard computer),cpu_load_pct,28.1803,%,NOMINAL,140,60,False
+2026-08-20T12:00:59,59.0,Power Distribution Bus,bus_voltage_v,12.1088,V,NOMINAL,125,60,False
+2026-08-20T12:01:00,60.0,Battery,temperature_c,23.3852,degC,NOMINAL,120,61,False
+2026-08-20T12:01:00,60.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,61,False
+2026-08-20T12:01:00,60.0,Comms Uplink Handler,command_rate_hz,0.5,cmds/sec,COMMAND_FLOODING_ANOMALY,3,61,True
+2026-08-20T12:01:00,60.0,Communications,rssi_dbm,-82.003,dBm,NOMINAL,130,31,False
+2026-08-20T12:01:00,60.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,31,True
+2026-08-20T12:01:00,60.0,OBC (onboard computer),cpu_load_pct,22.9832,%,NOMINAL,140,61,False
+2026-08-20T12:01:00,60.0,Payload,current_draw_ma,184.5357,mA,NOMINAL,150,31,False
+2026-08-20T12:01:00,60.0,Power Distribution Bus,bus_voltage_v,12.2048,V,NOMINAL,125,61,False
+2026-08-20T12:01:00,60.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,13,True
+2026-08-20T12:01:01,61.0,Battery,temperature_c,23.5045,degC,NOMINAL,120,62,False
+2026-08-20T12:01:01,61.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,62,False
+2026-08-20T12:01:01,61.0,Comms Uplink Handler,command_rate_hz,0.55,cmds/sec,COMMAND_FLOODING_ANOMALY,164,62,True
+2026-08-20T12:01:01,61.0,OBC (onboard computer),cpu_load_pct,21.7372,%,NOMINAL,140,62,False
+2026-08-20T12:01:01,61.0,Power Distribution Bus,bus_voltage_v,11.7923,V,NOMINAL,125,62,False
+2026-08-20T12:01:02,62.0,Battery,temperature_c,22.0869,degC,NOMINAL,120,63,False
+2026-08-20T12:01:02,62.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,63,False
+2026-08-20T12:01:02,62.0,Comms Uplink Handler,command_rate_hz,0.6,cmds/sec,COMMAND_FLOODING_ANOMALY,1,63,True
+2026-08-20T12:01:02,62.0,Communications,rssi_dbm,-81.5519,dBm,NOMINAL,130,32,False
+2026-08-20T12:01:02,62.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,32,True
+2026-08-20T12:01:02,62.0,OBC (onboard computer),cpu_load_pct,27.7502,%,NOMINAL,140,63,False
+2026-08-20T12:01:02,62.0,Payload,current_draw_ma,180.7336,mA,NOMINAL,150,32,False
+2026-08-20T12:01:02,62.0,Power Distribution Bus,bus_voltage_v,11.9393,V,NOMINAL,125,63,False
+2026-08-20T12:01:03,63.0,Battery,temperature_c,22.7579,degC,NOMINAL,120,64,False
+2026-08-20T12:01:03,63.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,64,False
+2026-08-20T12:01:03,63.0,Comms Uplink Handler,command_rate_hz,0.65,cmds/sec,COMMAND_FLOODING_ANOMALY,3,64,True
+2026-08-20T12:01:03,63.0,OBC (onboard computer),cpu_load_pct,21.2745,%,NOMINAL,140,64,False
+2026-08-20T12:01:03,63.0,Power Distribution Bus,bus_voltage_v,12.1554,V,NOMINAL,125,64,False
+2026-08-20T12:01:04,64.0,Battery,temperature_c,22.6361,degC,NOMINAL,120,65,False
+2026-08-20T12:01:04,64.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,65,False
+2026-08-20T12:01:04,64.0,Comms Uplink Handler,command_rate_hz,0.7,cmds/sec,COMMAND_FLOODING_ANOMALY,128,65,True
+2026-08-20T12:01:04,64.0,Communications,rssi_dbm,-81.2239,dBm,NOMINAL,130,33,False
+2026-08-20T12:01:04,64.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,33,True
+2026-08-20T12:01:04,64.0,OBC (onboard computer),cpu_load_pct,26.4752,%,NOMINAL,140,65,False
+2026-08-20T12:01:04,64.0,Payload,current_draw_ma,175.3615,mA,NOMINAL,150,33,False
+2026-08-20T12:01:04,64.0,Power Distribution Bus,bus_voltage_v,12.1112,V,NOMINAL,125,65,False
+2026-08-20T12:01:05,65.0,Battery,temperature_c,21.9002,degC,NOMINAL,120,66,False
+2026-08-20T12:01:05,65.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,66,False
+2026-08-20T12:01:05,65.0,Comms Uplink Handler,command_rate_hz,0.75,cmds/sec,COMMAND_FLOODING_ANOMALY,179,66,True
+2026-08-20T12:01:05,65.0,OBC (onboard computer),cpu_load_pct,26.4258,%,NOMINAL,140,66,False
+2026-08-20T12:01:05,65.0,Power Distribution Bus,bus_voltage_v,11.868,V,NOMINAL,125,66,False
+2026-08-20T12:01:05,65.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,14,True
+2026-08-20T12:01:06,66.0,Battery,temperature_c,22.7288,degC,NOMINAL,120,67,False
+2026-08-20T12:01:06,66.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,67,False
+2026-08-20T12:01:06,66.0,Comms Uplink Handler,command_rate_hz,0.8,cmds/sec,COMMAND_FLOODING_ANOMALY,164,67,True
+2026-08-20T12:01:06,66.0,Communications,rssi_dbm,-85.1913,dBm,NOMINAL,130,34,False
+2026-08-20T12:01:06,66.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,34,True
+2026-08-20T12:01:06,66.0,OBC (onboard computer),cpu_load_pct,19.6604,%,NOMINAL,140,67,False
+2026-08-20T12:01:06,66.0,Payload,current_draw_ma,176.1244,mA,NOMINAL,150,34,False
+2026-08-20T12:01:06,66.0,Power Distribution Bus,bus_voltage_v,12.1641,V,NOMINAL,125,67,False
+2026-08-20T12:01:07,67.0,Battery,temperature_c,23.0091,degC,NOMINAL,120,68,False
+2026-08-20T12:01:07,67.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,68,False
+2026-08-20T12:01:07,67.0,Comms Uplink Handler,command_rate_hz,0.85,cmds/sec,COMMAND_FLOODING_ANOMALY,3,68,True
+2026-08-20T12:01:07,67.0,OBC (onboard computer),cpu_load_pct,20.7655,%,NOMINAL,140,68,False
+2026-08-20T12:01:07,67.0,Power Distribution Bus,bus_voltage_v,12.1244,V,NOMINAL,125,68,False
+2026-08-20T12:01:08,68.0,Battery,temperature_c,22.8431,degC,NOMINAL,120,69,False
+2026-08-20T12:01:08,68.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,69,False
+2026-08-20T12:01:08,68.0,Comms Uplink Handler,command_rate_hz,0.9,cmds/sec,COMMAND_FLOODING_ANOMALY,1,69,True
+2026-08-20T12:01:08,68.0,Communications,rssi_dbm,-81.5284,dBm,NOMINAL,130,35,False
+2026-08-20T12:01:08,68.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,35,True
+2026-08-20T12:01:08,68.0,OBC (onboard computer),cpu_load_pct,25.1622,%,NOMINAL,140,69,False
+2026-08-20T12:01:08,68.0,Payload,current_draw_ma,183.4752,mA,NOMINAL,150,35,False
+2026-08-20T12:01:08,68.0,Power Distribution Bus,bus_voltage_v,12.1004,V,NOMINAL,125,69,False
+2026-08-20T12:01:09,69.0,Battery,temperature_c,23.3972,degC,NOMINAL,120,70,False
+2026-08-20T12:01:09,69.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,70,False
+2026-08-20T12:01:09,69.0,Comms Uplink Handler,command_rate_hz,0.95,cmds/sec,COMMAND_FLOODING_ANOMALY,140,70,True
+2026-08-20T12:01:09,69.0,OBC (onboard computer),cpu_load_pct,17.3335,%,NOMINAL,140,70,False
+2026-08-20T12:01:09,69.0,Power Distribution Bus,bus_voltage_v,11.8618,V,NOMINAL,125,70,False
+2026-08-20T12:01:10,70.0,Battery,temperature_c,21.4237,degC,NOMINAL,120,71,False
+2026-08-20T12:01:10,70.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,71,False
+2026-08-20T12:01:10,70.0,Comms Uplink Handler,command_rate_hz,0.1814,cmds/sec,NOMINAL,179,71,False
+2026-08-20T12:01:10,70.0,Communications,rssi_dbm,-79.571,dBm,NOMINAL,130,36,False
+2026-08-20T12:01:10,70.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,36,True
+2026-08-20T12:01:10,70.0,OBC (onboard computer),cpu_load_pct,29.8725,%,NOMINAL,140,71,False
+2026-08-20T12:01:10,70.0,Payload,current_draw_ma,185.9108,mA,NOMINAL,150,36,False
+2026-08-20T12:01:10,70.0,Power Distribution Bus,bus_voltage_v,12.0509,V,NOMINAL,125,71,False
+2026-08-20T12:01:10,70.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,15,True
+2026-08-20T12:01:11,71.0,Battery,temperature_c,22.1391,degC,NOMINAL,120,72,False
+2026-08-20T12:01:11,71.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,72,False
+2026-08-20T12:01:11,71.0,Comms Uplink Handler,command_rate_hz,0.1492,cmds/sec,NOMINAL,179,72,False
+2026-08-20T12:01:11,71.0,OBC (onboard computer),cpu_load_pct,23.3723,%,NOMINAL,140,72,False
+2026-08-20T12:01:11,71.0,Power Distribution Bus,bus_voltage_v,12.0413,V,NOMINAL,125,72,False
+2026-08-20T12:01:12,72.0,Battery,temperature_c,24.121,degC,NOMINAL,120,73,False
+2026-08-20T12:01:12,72.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,73,False
+2026-08-20T12:01:12,72.0,Comms Uplink Handler,command_rate_hz,0.2221,cmds/sec,NOMINAL,179,73,False
+2026-08-20T12:01:12,72.0,Communications,rssi_dbm,-82.8115,dBm,NOMINAL,130,37,False
+2026-08-20T12:01:12,72.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,37,True
+2026-08-20T12:01:12,72.0,OBC (onboard computer),cpu_load_pct,26.9506,%,NOMINAL,140,73,False
+2026-08-20T12:01:12,72.0,Payload,current_draw_ma,186.7495,mA,NOMINAL,150,37,False
+2026-08-20T12:01:12,72.0,Power Distribution Bus,bus_voltage_v,12.165,V,NOMINAL,125,73,False
+2026-08-20T12:01:13,73.0,Battery,temperature_c,23.7248,degC,NOMINAL,120,74,False
+2026-08-20T12:01:13,73.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,74,False
+2026-08-20T12:01:13,73.0,Comms Uplink Handler,command_rate_hz,0.2318,cmds/sec,NOMINAL,179,74,False
+2026-08-20T12:01:13,73.0,OBC (onboard computer),cpu_load_pct,26.594,%,NOMINAL,140,74,False
+2026-08-20T12:01:13,73.0,Power Distribution Bus,bus_voltage_v,12.1099,V,NOMINAL,125,74,False
+2026-08-20T12:01:14,74.0,Battery,temperature_c,21.4801,degC,NOMINAL,120,75,False
+2026-08-20T12:01:14,74.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,75,False
+2026-08-20T12:01:14,74.0,Comms Uplink Handler,command_rate_hz,0.2864,cmds/sec,NOMINAL,179,75,False
+2026-08-20T12:01:14,74.0,Communications,rssi_dbm,-82.1733,dBm,NOMINAL,130,38,False
+2026-08-20T12:01:14,74.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,38,True
+2026-08-20T12:01:14,74.0,OBC (onboard computer),cpu_load_pct,20.3325,%,NOMINAL,140,75,False
+2026-08-20T12:01:14,74.0,Payload,current_draw_ma,193.8364,mA,NOMINAL,150,38,False
+2026-08-20T12:01:14,74.0,Power Distribution Bus,bus_voltage_v,12.0492,V,NOMINAL,125,75,False
+2026-08-20T12:01:15,75.0,Battery,temperature_c,22.9889,degC,NOMINAL,120,76,False
+2026-08-20T12:01:15,75.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,76,False
+2026-08-20T12:01:15,75.0,Comms Uplink Handler,command_rate_hz,0.2101,cmds/sec,NOMINAL,179,76,False
+2026-08-20T12:01:15,75.0,OBC (onboard computer),cpu_load_pct,24.3374,%,NOMINAL,140,76,False
+2026-08-20T12:01:15,75.0,Power Distribution Bus,bus_voltage_v,12.1886,V,NOMINAL,125,76,False
+2026-08-20T12:01:15,75.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,16,True
+2026-08-20T12:01:16,76.0,Battery,temperature_c,23.0938,degC,NOMINAL,120,77,False
+2026-08-20T12:01:16,76.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,77,False
+2026-08-20T12:01:16,76.0,Comms Uplink Handler,command_rate_hz,0.2899,cmds/sec,NOMINAL,179,77,False
+2026-08-20T12:01:16,76.0,Communications,rssi_dbm,-83.4796,dBm,NOMINAL,130,39,False
+2026-08-20T12:01:16,76.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,39,True
+2026-08-20T12:01:16,76.0,OBC (onboard computer),cpu_load_pct,24.1413,%,NOMINAL,140,77,False
+2026-08-20T12:01:16,76.0,Payload,current_draw_ma,181.8578,mA,NOMINAL,150,39,False
+2026-08-20T12:01:16,76.0,Power Distribution Bus,bus_voltage_v,12.0466,V,NOMINAL,125,77,False
+2026-08-20T12:01:17,77.0,Battery,temperature_c,23.4617,degC,NOMINAL,120,78,False
+2026-08-20T12:01:17,77.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,78,False
+2026-08-20T12:01:17,77.0,Comms Uplink Handler,command_rate_hz,0.2022,cmds/sec,NOMINAL,179,78,False
+2026-08-20T12:01:17,77.0,OBC (onboard computer),cpu_load_pct,25.0712,%,NOMINAL,140,78,False
+2026-08-20T12:01:17,77.0,Power Distribution Bus,bus_voltage_v,12.0413,V,NOMINAL,125,78,False
+2026-08-20T12:01:18,78.0,Battery,temperature_c,21.999,degC,NOMINAL,120,79,False
+2026-08-20T12:01:18,78.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,79,False
+2026-08-20T12:01:18,78.0,Comms Uplink Handler,command_rate_hz,0.2196,cmds/sec,NOMINAL,179,79,False
+2026-08-20T12:01:18,78.0,Communications,rssi_dbm,-82.5057,dBm,NOMINAL,130,40,False
+2026-08-20T12:01:18,78.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,40,True
+2026-08-20T12:01:18,78.0,OBC (onboard computer),cpu_load_pct,20.424,%,NOMINAL,140,79,False
+2026-08-20T12:01:18,78.0,Payload,current_draw_ma,185.8763,mA,NOMINAL,150,40,False
+2026-08-20T12:01:18,78.0,Power Distribution Bus,bus_voltage_v,12.0234,V,NOMINAL,125,79,False
+2026-08-20T12:01:19,79.0,Battery,temperature_c,21.4778,degC,NOMINAL,120,80,False
+2026-08-20T12:01:19,79.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,80,False
+2026-08-20T12:01:19,79.0,Comms Uplink Handler,command_rate_hz,0.253,cmds/sec,NOMINAL,179,80,False
+2026-08-20T12:01:19,79.0,OBC (onboard computer),cpu_load_pct,27.3867,%,NOMINAL,140,80,False
+2026-08-20T12:01:19,79.0,Power Distribution Bus,bus_voltage_v,12.0265,V,NOMINAL,125,80,False
+2026-08-20T12:01:20,80.0,Battery,temperature_c,22.1747,degC,NOMINAL,120,81,False
+2026-08-20T12:01:20,80.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,81,False
+2026-08-20T12:01:20,80.0,Comms Uplink Handler,command_rate_hz,0.255,cmds/sec,NOMINAL,179,81,False
+2026-08-20T12:01:20,80.0,Communications,rssi_dbm,-80.5969,dBm,NOMINAL,130,41,False
+2026-08-20T12:01:20,80.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,41,True
+2026-08-20T12:01:20,80.0,OBC (onboard computer),cpu_load_pct,25.4758,%,NOMINAL,140,81,False
+2026-08-20T12:01:20,80.0,Payload,current_draw_ma,191.1539,mA,NOMINAL,150,41,False
+2026-08-20T12:01:20,80.0,Power Distribution Bus,bus_voltage_v,11.9208,V,NOMINAL,125,81,False
+2026-08-20T12:01:20,80.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,17,True
+2026-08-20T12:01:21,81.0,Battery,temperature_c,22.7022,degC,NOMINAL,120,82,False
+2026-08-20T12:01:21,81.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,82,False
+2026-08-20T12:01:21,81.0,Comms Uplink Handler,command_rate_hz,0.2109,cmds/sec,NOMINAL,179,82,False
+2026-08-20T12:01:21,81.0,OBC (onboard computer),cpu_load_pct,23.3108,%,NOMINAL,140,82,False
+2026-08-20T12:01:21,81.0,Power Distribution Bus,bus_voltage_v,11.9031,V,NOMINAL,125,82,False
+2026-08-20T12:01:22,82.0,Battery,temperature_c,22.3724,degC,NOMINAL,120,83,False
+2026-08-20T12:01:22,82.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,83,False
+2026-08-20T12:01:22,82.0,Comms Uplink Handler,command_rate_hz,0.1799,cmds/sec,NOMINAL,179,83,False
+2026-08-20T12:01:22,82.0,Communications,rssi_dbm,-82.0819,dBm,NOMINAL,130,42,False
+2026-08-20T12:01:22,82.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,42,True
+2026-08-20T12:01:22,82.0,OBC (onboard computer),cpu_load_pct,22.353,%,NOMINAL,140,83,False
+2026-08-20T12:01:22,82.0,Payload,current_draw_ma,184.5179,mA,NOMINAL,150,42,False
+2026-08-20T12:01:22,82.0,Power Distribution Bus,bus_voltage_v,12.0678,V,NOMINAL,125,83,False
+2026-08-20T12:01:23,83.0,Battery,temperature_c,22.9806,degC,NOMINAL,120,84,False
+2026-08-20T12:01:23,83.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,84,False
+2026-08-20T12:01:23,83.0,Comms Uplink Handler,command_rate_hz,0.1759,cmds/sec,NOMINAL,179,84,False
+2026-08-20T12:01:23,83.0,OBC (onboard computer),cpu_load_pct,20.7678,%,NOMINAL,140,84,False
+2026-08-20T12:01:23,83.0,Power Distribution Bus,bus_voltage_v,12.0701,V,NOMINAL,125,84,False
+2026-08-20T12:01:24,84.0,Battery,temperature_c,21.9401,degC,NOMINAL,120,85,False
+2026-08-20T12:01:24,84.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,85,False
+2026-08-20T12:01:24,84.0,Comms Uplink Handler,command_rate_hz,0.1941,cmds/sec,NOMINAL,179,85,False
+2026-08-20T12:01:24,84.0,Communications,rssi_dbm,-84.4582,dBm,NOMINAL,130,43,False
+2026-08-20T12:01:24,84.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,43,True
+2026-08-20T12:01:24,84.0,OBC (onboard computer),cpu_load_pct,24.3902,%,NOMINAL,140,85,False
+2026-08-20T12:01:24,84.0,Payload,current_draw_ma,182.6102,mA,NOMINAL,150,43,False
+2026-08-20T12:01:24,84.0,Power Distribution Bus,bus_voltage_v,11.8072,V,NOMINAL,125,85,False
+2026-08-20T12:01:25,85.0,Battery,temperature_c,20.8221,degC,NOMINAL,120,86,False
+2026-08-20T12:01:25,85.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,86,False
+2026-08-20T12:01:25,85.0,Comms Uplink Handler,command_rate_hz,0.1436,cmds/sec,NOMINAL,179,86,False
+2026-08-20T12:01:25,85.0,OBC (onboard computer),cpu_load_pct,29.1405,%,NOMINAL,140,86,False
+2026-08-20T12:01:25,85.0,Power Distribution Bus,bus_voltage_v,12.0836,V,NOMINAL,125,86,False
+2026-08-20T12:01:25,85.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,18,True
+2026-08-20T12:01:26,86.0,Battery,temperature_c,22.2429,degC,NOMINAL,120,87,False
+2026-08-20T12:01:26,86.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,87,False
+2026-08-20T12:01:26,86.0,Comms Uplink Handler,command_rate_hz,0.1832,cmds/sec,NOMINAL,179,87,False
+2026-08-20T12:01:26,86.0,Communications,rssi_dbm,-81.771,dBm,NOMINAL,130,44,False
+2026-08-20T12:01:26,86.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,44,True
+2026-08-20T12:01:26,86.0,OBC (onboard computer),cpu_load_pct,28.7252,%,NOMINAL,140,87,False
+2026-08-20T12:01:26,86.0,Payload,current_draw_ma,194.8942,mA,NOMINAL,150,44,False
+2026-08-20T12:01:26,86.0,Power Distribution Bus,bus_voltage_v,11.9416,V,NOMINAL,125,87,False
+2026-08-20T12:01:27,87.0,Battery,temperature_c,24.2097,degC,NOMINAL,120,88,False
+2026-08-20T12:01:27,87.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,88,False
+2026-08-20T12:01:27,87.0,Comms Uplink Handler,command_rate_hz,0.1953,cmds/sec,NOMINAL,179,88,False
+2026-08-20T12:01:27,87.0,OBC (onboard computer),cpu_load_pct,29.7364,%,NOMINAL,140,88,False
+2026-08-20T12:01:27,87.0,Power Distribution Bus,bus_voltage_v,12.0439,V,NOMINAL,125,88,False
+2026-08-20T12:01:28,88.0,Battery,temperature_c,23.0705,degC,NOMINAL,120,89,False
+2026-08-20T12:01:28,88.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,89,False
+2026-08-20T12:01:28,88.0,Comms Uplink Handler,command_rate_hz,0.1819,cmds/sec,NOMINAL,179,89,False
+2026-08-20T12:01:28,88.0,Communications,rssi_dbm,-79.7103,dBm,NOMINAL,130,45,False
+2026-08-20T12:01:28,88.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,45,True
+2026-08-20T12:01:28,88.0,OBC (onboard computer),cpu_load_pct,22.1075,%,NOMINAL,140,89,False
+2026-08-20T12:01:28,88.0,Payload,current_draw_ma,188.9892,mA,NOMINAL,150,45,False
+2026-08-20T12:01:28,88.0,Power Distribution Bus,bus_voltage_v,12.3897,V,NOMINAL,125,89,False
+2026-08-20T12:01:29,89.0,Battery,temperature_c,22.4376,degC,NOMINAL,120,90,False
+2026-08-20T12:01:29,89.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,90,False
+2026-08-20T12:01:29,89.0,Comms Uplink Handler,command_rate_hz,0.2139,cmds/sec,NOMINAL,179,90,False
+2026-08-20T12:01:29,89.0,OBC (onboard computer),cpu_load_pct,24.3964,%,NOMINAL,140,90,False
+2026-08-20T12:01:29,89.0,Power Distribution Bus,bus_voltage_v,12.1399,V,NOMINAL,125,90,False
+2026-08-20T12:01:30,90.0,Battery,temperature_c,23.1145,degC,NOMINAL,120,91,False
+2026-08-20T12:01:30,90.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,91,False
+2026-08-20T12:01:30,90.0,Comms Uplink Handler,command_rate_hz,0.1971,cmds/sec,NOMINAL,179,91,False
+2026-08-20T12:01:30,90.0,Communications,rssi_dbm,-80.0335,dBm,NOMINAL,130,46,False
+2026-08-20T12:01:30,90.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,46,True
+2026-08-20T12:01:30,90.0,OBC (onboard computer),cpu_load_pct,21.2557,%,NOMINAL,140,91,False
+2026-08-20T12:01:30,90.0,Payload,current_draw_ma,172.5924,mA,NOMINAL,150,46,False
+2026-08-20T12:01:30,90.0,Power Distribution Bus,bus_voltage_v,11.8269,V,NOMINAL,125,91,False
+2026-08-20T12:01:30,90.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,19,True
+2026-08-20T12:01:31,91.0,Battery,temperature_c,22.8621,degC,NOMINAL,120,92,False
+2026-08-20T12:01:31,91.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,92,False
+2026-08-20T12:01:31,91.0,Comms Uplink Handler,command_rate_hz,0.1329,cmds/sec,NOMINAL,179,92,False
+2026-08-20T12:01:31,91.0,OBC (onboard computer),cpu_load_pct,26.8762,%,NOMINAL,140,92,False
+2026-08-20T12:01:31,91.0,Power Distribution Bus,bus_voltage_v,11.9637,V,NOMINAL,125,92,False
+2026-08-20T12:01:32,92.0,Battery,temperature_c,22.3672,degC,NOMINAL,120,93,False
+2026-08-20T12:01:32,92.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,93,False
+2026-08-20T12:01:32,92.0,Comms Uplink Handler,command_rate_hz,0.2032,cmds/sec,NOMINAL,179,93,False
+2026-08-20T12:01:32,92.0,Communications,rssi_dbm,-80.712,dBm,NOMINAL,130,47,False
+2026-08-20T12:01:32,92.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,47,True
+2026-08-20T12:01:32,92.0,OBC (onboard computer),cpu_load_pct,21.1755,%,NOMINAL,140,93,False
+2026-08-20T12:01:32,92.0,Payload,current_draw_ma,187.3251,mA,NOMINAL,150,47,False
+2026-08-20T12:01:32,92.0,Power Distribution Bus,bus_voltage_v,12.0349,V,NOMINAL,125,93,False
+2026-08-20T12:01:33,93.0,Battery,temperature_c,21.4,degC,NOMINAL,120,94,False
+2026-08-20T12:01:33,93.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,94,False
+2026-08-20T12:01:33,93.0,Comms Uplink Handler,command_rate_hz,0.189,cmds/sec,NOMINAL,179,94,False
+2026-08-20T12:01:33,93.0,OBC (onboard computer),cpu_load_pct,24.2618,%,NOMINAL,140,94,False
+2026-08-20T12:01:33,93.0,Power Distribution Bus,bus_voltage_v,11.8246,V,NOMINAL,125,94,False
+2026-08-20T12:01:34,94.0,Battery,temperature_c,22.7793,degC,NOMINAL,120,95,False
+2026-08-20T12:01:34,94.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,95,False
+2026-08-20T12:01:34,94.0,Comms Uplink Handler,command_rate_hz,0.1453,cmds/sec,NOMINAL,179,95,False
+2026-08-20T12:01:34,94.0,Communications,rssi_dbm,-79.5416,dBm,NOMINAL,130,48,False
+2026-08-20T12:01:34,94.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,48,True
+2026-08-20T12:01:34,94.0,OBC (onboard computer),cpu_load_pct,20.8556,%,NOMINAL,140,95,False
+2026-08-20T12:01:34,94.0,Payload,current_draw_ma,174.4306,mA,NOMINAL,150,48,False
+2026-08-20T12:01:34,94.0,Power Distribution Bus,bus_voltage_v,12.0648,V,NOMINAL,125,95,False
+2026-08-20T12:01:35,95.0,Battery,temperature_c,23.7213,degC,NOMINAL,120,96,False
+2026-08-20T12:01:35,95.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,96,False
+2026-08-20T12:01:35,95.0,Comms Uplink Handler,command_rate_hz,0.1148,cmds/sec,NOMINAL,179,96,False
+2026-08-20T12:01:35,95.0,OBC (onboard computer),cpu_load_pct,16.5447,%,NOMINAL,140,96,False
+2026-08-20T12:01:35,95.0,Power Distribution Bus,bus_voltage_v,11.9926,V,NOMINAL,125,96,False
+2026-08-20T12:01:35,95.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,20,True
+2026-08-20T12:01:36,96.0,Battery,temperature_c,22.3873,degC,NOMINAL,120,97,False
+2026-08-20T12:01:36,96.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,97,False
+2026-08-20T12:01:36,96.0,Comms Uplink Handler,command_rate_hz,0.1662,cmds/sec,NOMINAL,179,97,False
+2026-08-20T12:01:36,96.0,Communications,rssi_dbm,-81.1325,dBm,NOMINAL,130,49,False
+2026-08-20T12:01:36,96.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,49,True
+2026-08-20T12:01:36,96.0,OBC (onboard computer),cpu_load_pct,23.3336,%,NOMINAL,140,97,False
+2026-08-20T12:01:36,96.0,Payload,current_draw_ma,189.5355,mA,NOMINAL,150,49,False
+2026-08-20T12:01:36,96.0,Power Distribution Bus,bus_voltage_v,11.9951,V,NOMINAL,125,97,False
+2026-08-20T12:01:37,97.0,Battery,temperature_c,22.1619,degC,NOMINAL,120,98,False
+2026-08-20T12:01:37,97.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,98,False
+2026-08-20T12:01:37,97.0,Comms Uplink Handler,command_rate_hz,0.2195,cmds/sec,NOMINAL,179,98,False
+2026-08-20T12:01:37,97.0,OBC (onboard computer),cpu_load_pct,19.5395,%,NOMINAL,140,98,False
+2026-08-20T12:01:37,97.0,Power Distribution Bus,bus_voltage_v,12.0927,V,NOMINAL,125,98,False
+2026-08-20T12:01:38,98.0,Battery,temperature_c,22.6909,degC,NOMINAL,120,99,False
+2026-08-20T12:01:38,98.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,99,False
+2026-08-20T12:01:38,98.0,Comms Uplink Handler,command_rate_hz,0.1361,cmds/sec,NOMINAL,179,99,False
+2026-08-20T12:01:38,98.0,Communications,rssi_dbm,-82.2889,dBm,NOMINAL,130,50,False
+2026-08-20T12:01:38,98.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,50,True
+2026-08-20T12:01:38,98.0,OBC (onboard computer),cpu_load_pct,30.6869,%,NOMINAL,140,99,False
+2026-08-20T12:01:38,98.0,Payload,current_draw_ma,180.8671,mA,NOMINAL,150,50,False
+2026-08-20T12:01:38,98.0,Power Distribution Bus,bus_voltage_v,12.2147,V,NOMINAL,125,99,False
+2026-08-20T12:01:39,99.0,Battery,temperature_c,22.8517,degC,NOMINAL,120,100,False
+2026-08-20T12:01:39,99.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,100,False
+2026-08-20T12:01:39,99.0,Comms Uplink Handler,command_rate_hz,0.2199,cmds/sec,NOMINAL,179,100,False
+2026-08-20T12:01:39,99.0,OBC (onboard computer),cpu_load_pct,21.9696,%,NOMINAL,140,100,False
+2026-08-20T12:01:39,99.0,Power Distribution Bus,bus_voltage_v,11.9216,V,NOMINAL,125,100,False
+2026-08-20T12:01:40,100.0,Battery,temperature_c,23.5307,degC,NOMINAL,120,101,False
+2026-08-20T12:01:40,100.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,101,False
+2026-08-20T12:01:40,100.0,Comms Uplink Handler,command_rate_hz,0.106,cmds/sec,NOMINAL,179,101,False
+2026-08-20T12:01:40,100.0,Communications,rssi_dbm,-78.6865,dBm,NOMINAL,130,51,False
+2026-08-20T12:01:40,100.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,51,True
+2026-08-20T12:01:40,100.0,OBC (onboard computer),cpu_load_pct,25.9412,%,NOMINAL,140,101,False
+2026-08-20T12:01:40,100.0,Payload,current_draw_ma,191.6713,mA,NOMINAL,150,51,False
+2026-08-20T12:01:40,100.0,Power Distribution Bus,bus_voltage_v,12.1673,V,NOMINAL,125,101,False
+2026-08-20T12:01:40,100.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,21,True
+2026-08-20T12:01:41,101.0,Battery,temperature_c,22.5647,degC,NOMINAL,120,102,False
+2026-08-20T12:01:41,101.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,102,False
+2026-08-20T12:01:41,101.0,Comms Uplink Handler,command_rate_hz,0.1714,cmds/sec,NOMINAL,179,102,False
+2026-08-20T12:01:41,101.0,OBC (onboard computer),cpu_load_pct,24.6696,%,NOMINAL,140,102,False
+2026-08-20T12:01:41,101.0,Power Distribution Bus,bus_voltage_v,11.9446,V,NOMINAL,125,102,False
+2026-08-20T12:01:42,102.0,Battery,temperature_c,24.1928,degC,NOMINAL,120,103,False
+2026-08-20T12:01:42,102.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,103,False
+2026-08-20T12:01:42,102.0,Comms Uplink Handler,command_rate_hz,0.2003,cmds/sec,NOMINAL,179,103,False
+2026-08-20T12:01:42,102.0,Communications,rssi_dbm,-80.4759,dBm,NOMINAL,130,52,False
+2026-08-20T12:01:42,102.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,52,True
+2026-08-20T12:01:42,102.0,OBC (onboard computer),cpu_load_pct,23.58,%,NOMINAL,140,103,False
+2026-08-20T12:01:42,102.0,Payload,current_draw_ma,182.9149,mA,NOMINAL,150,52,False
+2026-08-20T12:01:42,102.0,Power Distribution Bus,bus_voltage_v,12.0213,V,NOMINAL,125,103,False
+2026-08-20T12:01:43,103.0,Battery,temperature_c,23.1318,degC,NOMINAL,120,104,False
+2026-08-20T12:01:43,103.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,104,False
+2026-08-20T12:01:43,103.0,Comms Uplink Handler,command_rate_hz,0.2155,cmds/sec,NOMINAL,179,104,False
+2026-08-20T12:01:43,103.0,OBC (onboard computer),cpu_load_pct,29.4069,%,NOMINAL,140,104,False
+2026-08-20T12:01:43,103.0,Power Distribution Bus,bus_voltage_v,12.1682,V,NOMINAL,125,104,False
+2026-08-20T12:01:44,104.0,Battery,temperature_c,21.9484,degC,NOMINAL,120,105,False
+2026-08-20T12:01:44,104.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,105,False
+2026-08-20T12:01:44,104.0,Comms Uplink Handler,command_rate_hz,0.2443,cmds/sec,NOMINAL,179,105,False
+2026-08-20T12:01:44,104.0,Communications,rssi_dbm,-79.5545,dBm,NOMINAL,130,53,False
+2026-08-20T12:01:44,104.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,53,True
+2026-08-20T12:01:44,104.0,OBC (onboard computer),cpu_load_pct,26.9845,%,NOMINAL,140,105,False
+2026-08-20T12:01:44,104.0,Payload,current_draw_ma,183.8389,mA,NOMINAL,150,53,False
+2026-08-20T12:01:44,104.0,Power Distribution Bus,bus_voltage_v,12.0303,V,NOMINAL,125,105,False
+2026-08-20T12:01:45,105.0,Battery,temperature_c,22.53,degC,WARNING_OVERTEMP,120,106,True
+2026-08-20T12:01:45,105.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,106,False
+2026-08-20T12:01:45,105.0,Comms Uplink Handler,command_rate_hz,0.2168,cmds/sec,NOMINAL,179,106,False
+2026-08-20T12:01:45,105.0,OBC (onboard computer),cpu_load_pct,23.1973,%,NOMINAL,140,106,False
+2026-08-20T12:01:45,105.0,Power Distribution Bus,bus_voltage_v,12.0718,V,NOMINAL,125,106,False
+2026-08-20T12:01:45,105.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,22,True
+2026-08-20T12:01:46,106.0,Battery,temperature_c,23.81,degC,WARNING_OVERTEMP,120,107,True
+2026-08-20T12:01:46,106.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,107,False
+2026-08-20T12:01:46,106.0,Comms Uplink Handler,command_rate_hz,0.1419,cmds/sec,NOMINAL,179,107,False
+2026-08-20T12:01:46,106.0,Communications,rssi_dbm,-84.2161,dBm,NOMINAL,130,54,False
+2026-08-20T12:01:46,106.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,54,True
+2026-08-20T12:01:46,106.0,OBC (onboard computer),cpu_load_pct,25.7005,%,NOMINAL,140,107,False
+2026-08-20T12:01:46,106.0,Payload,current_draw_ma,185.6472,mA,NOMINAL,150,54,False
+2026-08-20T12:01:46,106.0,Power Distribution Bus,bus_voltage_v,11.6387,V,NOMINAL,125,107,False
+2026-08-20T12:01:47,107.0,Battery,temperature_c,24.13,degC,WARNING_OVERTEMP,120,108,True
+2026-08-20T12:01:47,107.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,108,False
+2026-08-20T12:01:47,107.0,Comms Uplink Handler,command_rate_hz,0.3121,cmds/sec,NOMINAL,179,108,False
+2026-08-20T12:01:47,107.0,OBC (onboard computer),cpu_load_pct,22.7995,%,NOMINAL,140,108,False
+2026-08-20T12:01:47,107.0,Power Distribution Bus,bus_voltage_v,12.1908,V,NOMINAL,125,108,False
+2026-08-20T12:01:48,108.0,Battery,temperature_c,24.1,degC,WARNING_OVERTEMP,120,109,True
+2026-08-20T12:01:48,108.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,109,False
+2026-08-20T12:01:48,108.0,Comms Uplink Handler,command_rate_hz,0.1982,cmds/sec,NOMINAL,179,109,False
+2026-08-20T12:01:48,108.0,Communications,rssi_dbm,-80.9707,dBm,NOMINAL,130,55,False
+2026-08-20T12:01:48,108.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,55,True
+2026-08-20T12:01:48,108.0,OBC (onboard computer),cpu_load_pct,21.1927,%,NOMINAL,140,109,False
+2026-08-20T12:01:48,108.0,Payload,current_draw_ma,181.6539,mA,NOMINAL,150,55,False
+2026-08-20T12:01:48,108.0,Power Distribution Bus,bus_voltage_v,12.2179,V,NOMINAL,125,109,False
+2026-08-20T12:01:49,109.0,Battery,temperature_c,25.08,degC,WARNING_OVERTEMP,120,110,True
+2026-08-20T12:01:49,109.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,110,False
+2026-08-20T12:01:49,109.0,Comms Uplink Handler,command_rate_hz,0.2462,cmds/sec,NOMINAL,179,110,False
+2026-08-20T12:01:49,109.0,OBC (onboard computer),cpu_load_pct,21.9992,%,NOMINAL,140,110,False
+2026-08-20T12:01:49,109.0,Power Distribution Bus,bus_voltage_v,12.0119,V,NOMINAL,125,110,False
+2026-08-20T12:01:50,110.0,Battery,temperature_c,25.57,degC,WARNING_OVERTEMP,120,111,True
+2026-08-20T12:01:50,110.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,111,False
+2026-08-20T12:01:50,110.0,Comms Uplink Handler,command_rate_hz,0.2552,cmds/sec,NOMINAL,179,111,False
+2026-08-20T12:01:50,110.0,Communications,rssi_dbm,-80.1206,dBm,NOMINAL,130,56,False
+2026-08-20T12:01:50,110.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,56,True
+2026-08-20T12:01:50,110.0,OBC (onboard computer),cpu_load_pct,21.2009,%,NOMINAL,140,111,False
+2026-08-20T12:01:50,110.0,Payload,current_draw_ma,175.3172,mA,NOMINAL,150,56,False
+2026-08-20T12:01:50,110.0,Power Distribution Bus,bus_voltage_v,12.0645,V,NOMINAL,125,111,False
+2026-08-20T12:01:50,110.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,23,True
+2026-08-20T12:01:51,111.0,Battery,temperature_c,25.88,degC,WARNING_OVERTEMP,120,112,True
+2026-08-20T12:01:51,111.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,112,False
+2026-08-20T12:01:51,111.0,Comms Uplink Handler,command_rate_hz,0.2232,cmds/sec,NOMINAL,179,112,False
+2026-08-20T12:01:51,111.0,OBC (onboard computer),cpu_load_pct,25.6758,%,NOMINAL,140,112,False
+2026-08-20T12:01:51,111.0,Power Distribution Bus,bus_voltage_v,11.8841,V,NOMINAL,125,112,False
+2026-08-20T12:01:52,112.0,Battery,temperature_c,26.5,degC,WARNING_OVERTEMP,120,113,True
+2026-08-20T12:01:52,112.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,113,False
+2026-08-20T12:01:52,112.0,Comms Uplink Handler,command_rate_hz,0.2166,cmds/sec,NOMINAL,179,113,False
+2026-08-20T12:01:52,112.0,Communications,rssi_dbm,-80.5448,dBm,NOMINAL,130,57,False
+2026-08-20T12:01:52,112.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,57,True
+2026-08-20T12:01:52,112.0,OBC (onboard computer),cpu_load_pct,26.2591,%,NOMINAL,140,113,False
+2026-08-20T12:01:52,112.0,Payload,current_draw_ma,172.851,mA,NOMINAL,150,57,False
+2026-08-20T12:01:52,112.0,Power Distribution Bus,bus_voltage_v,12.1209,V,NOMINAL,125,113,False
+2026-08-20T12:01:53,113.0,Battery,temperature_c,27.01,degC,WARNING_OVERTEMP,120,114,True
+2026-08-20T12:01:53,113.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,114,False
+2026-08-20T12:01:53,113.0,Comms Uplink Handler,command_rate_hz,0.274,cmds/sec,NOMINAL,179,114,False
+2026-08-20T12:01:53,113.0,OBC (onboard computer),cpu_load_pct,26.9987,%,NOMINAL,140,114,False
+2026-08-20T12:01:53,113.0,Power Distribution Bus,bus_voltage_v,11.9869,V,NOMINAL,125,114,False
+2026-08-20T12:01:54,114.0,Battery,temperature_c,27.56,degC,WARNING_OVERTEMP,120,115,True
+2026-08-20T12:01:54,114.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,115,False
+2026-08-20T12:01:54,114.0,Comms Uplink Handler,command_rate_hz,0.2065,cmds/sec,NOMINAL,179,115,False
+2026-08-20T12:01:54,114.0,Communications,rssi_dbm,-80.5827,dBm,NOMINAL,130,58,False
+2026-08-20T12:01:54,114.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,58,True
+2026-08-20T12:01:54,114.0,OBC (onboard computer),cpu_load_pct,26.6772,%,NOMINAL,140,115,False
+2026-08-20T12:01:54,114.0,Payload,current_draw_ma,183.224,mA,NOMINAL,150,58,False
+2026-08-20T12:01:54,114.0,Power Distribution Bus,bus_voltage_v,12.0279,V,NOMINAL,125,115,False
+2026-08-20T12:01:55,115.0,Battery,temperature_c,27.33,degC,WARNING_OVERTEMP,120,116,True
+2026-08-20T12:01:55,115.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,116,False
+2026-08-20T12:01:55,115.0,Comms Uplink Handler,command_rate_hz,0.2317,cmds/sec,NOMINAL,179,116,False
+2026-08-20T12:01:55,115.0,OBC (onboard computer),cpu_load_pct,23.0151,%,NOMINAL,140,116,False
+2026-08-20T12:01:55,115.0,Power Distribution Bus,bus_voltage_v,11.9598,V,NOMINAL,125,116,False
+2026-08-20T12:01:55,115.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,24,True
+2026-08-20T12:01:56,116.0,Battery,temperature_c,27.86,degC,WARNING_OVERTEMP,120,117,True
+2026-08-20T12:01:56,116.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,117,False
+2026-08-20T12:01:56,116.0,Comms Uplink Handler,command_rate_hz,0.1383,cmds/sec,NOMINAL,179,117,False
+2026-08-20T12:01:56,116.0,Communications,rssi_dbm,-81.856,dBm,NOMINAL,130,59,False
+2026-08-20T12:01:56,116.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,59,True
+2026-08-20T12:01:56,116.0,OBC (onboard computer),cpu_load_pct,26.6444,%,NOMINAL,140,117,False
+2026-08-20T12:01:56,116.0,Payload,current_draw_ma,184.9761,mA,NOMINAL,150,59,False
+2026-08-20T12:01:56,116.0,Power Distribution Bus,bus_voltage_v,12.1137,V,NOMINAL,125,117,False
+2026-08-20T12:01:57,117.0,Battery,temperature_c,28.74,degC,WARNING_OVERTEMP,120,118,True
+2026-08-20T12:01:57,117.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,118,False
+2026-08-20T12:01:57,117.0,Comms Uplink Handler,command_rate_hz,0.1477,cmds/sec,NOMINAL,179,118,False
+2026-08-20T12:01:57,117.0,OBC (onboard computer),cpu_load_pct,19.1692,%,NOMINAL,140,118,False
+2026-08-20T12:01:57,117.0,Power Distribution Bus,bus_voltage_v,11.9849,V,NOMINAL,125,118,False
+2026-08-20T12:01:58,118.0,Battery,temperature_c,29.2,degC,WARNING_OVERTEMP,120,119,True
+2026-08-20T12:01:58,118.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,119,False
+2026-08-20T12:01:58,118.0,Comms Uplink Handler,command_rate_hz,0.2158,cmds/sec,NOMINAL,179,119,False
+2026-08-20T12:01:58,118.0,Communications,rssi_dbm,-81.7895,dBm,NOMINAL,130,60,False
+2026-08-20T12:01:58,118.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,60,True
+2026-08-20T12:01:58,118.0,OBC (onboard computer),cpu_load_pct,26.2211,%,NOMINAL,140,119,False
+2026-08-20T12:01:58,118.0,Payload,current_draw_ma,184.7112,mA,NOMINAL,150,60,False
+2026-08-20T12:01:58,118.0,Power Distribution Bus,bus_voltage_v,12.0099,V,NOMINAL,125,119,False
+2026-08-20T12:01:59,119.0,Battery,temperature_c,29.65,degC,WARNING_OVERTEMP,120,120,True
+2026-08-20T12:01:59,119.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,120,False
+2026-08-20T12:01:59,119.0,Comms Uplink Handler,command_rate_hz,0.1818,cmds/sec,NOMINAL,179,120,False
+2026-08-20T12:01:59,119.0,OBC (onboard computer),cpu_load_pct,17.7653,%,NOMINAL,140,120,False
+2026-08-20T12:01:59,119.0,Power Distribution Bus,bus_voltage_v,12.1078,V,NOMINAL,125,120,False
+2026-08-20T12:02:00,120.0,Battery,temperature_c,30.0,degC,WARNING_OVERTEMP,120,121,True
+2026-08-20T12:02:00,120.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,121,False
+2026-08-20T12:02:00,120.0,Comms Uplink Handler,command_rate_hz,0.2243,cmds/sec,NOMINAL,179,121,False
+2026-08-20T12:02:00,120.0,Communications,rssi_dbm,-79.1216,dBm,NOMINAL,130,61,False
+2026-08-20T12:02:00,120.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,61,True
+2026-08-20T12:02:00,120.0,OBC (onboard computer),cpu_load_pct,24.9286,%,NOMINAL,140,121,False
+2026-08-20T12:02:00,120.0,Payload,current_draw_ma,178.9975,mA,NOMINAL,150,61,False
+2026-08-20T12:02:00,120.0,Power Distribution Bus,bus_voltage_v,12.155,V,NOMINAL,125,121,False
+2026-08-20T12:02:00,120.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,25,True
+2026-08-20T12:02:01,121.0,Battery,temperature_c,30.81,degC,WARNING_OVERTEMP,120,122,True
+2026-08-20T12:02:01,121.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,122,False
+2026-08-20T12:02:01,121.0,Comms Uplink Handler,command_rate_hz,0.1721,cmds/sec,NOMINAL,179,122,False
+2026-08-20T12:02:01,121.0,OBC (onboard computer),cpu_load_pct,27.357,%,NOMINAL,140,122,False
+2026-08-20T12:02:01,121.0,Power Distribution Bus,bus_voltage_v,12.0398,V,NOMINAL,125,122,False
+2026-08-20T12:02:02,122.0,Battery,temperature_c,31.09,degC,WARNING_OVERTEMP,120,123,True
+2026-08-20T12:02:02,122.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,123,False
+2026-08-20T12:02:02,122.0,Comms Uplink Handler,command_rate_hz,0.1619,cmds/sec,NOMINAL,179,123,False
+2026-08-20T12:02:02,122.0,Communications,rssi_dbm,-79.4957,dBm,NOMINAL,130,62,False
+2026-08-20T12:02:02,122.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,62,True
+2026-08-20T12:02:02,122.0,OBC (onboard computer),cpu_load_pct,26.4656,%,NOMINAL,140,123,False
+2026-08-20T12:02:02,122.0,Payload,current_draw_ma,183.0931,mA,NOMINAL,150,62,False
+2026-08-20T12:02:02,122.0,Power Distribution Bus,bus_voltage_v,11.935,V,NOMINAL,125,123,False
+2026-08-20T12:02:03,123.0,Battery,temperature_c,31.67,degC,WARNING_OVERTEMP,120,124,True
+2026-08-20T12:02:03,123.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,124,False
+2026-08-20T12:02:03,123.0,Comms Uplink Handler,command_rate_hz,0.1522,cmds/sec,NOMINAL,179,124,False
+2026-08-20T12:02:03,123.0,OBC (onboard computer),cpu_load_pct,25.982,%,NOMINAL,140,124,False
+2026-08-20T12:02:03,123.0,Power Distribution Bus,bus_voltage_v,11.9809,V,NOMINAL,125,124,False
+2026-08-20T12:02:04,124.0,Battery,temperature_c,32.19,degC,WARNING_OVERTEMP,120,125,True
+2026-08-20T12:02:04,124.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,125,False
+2026-08-20T12:02:04,124.0,Comms Uplink Handler,command_rate_hz,0.2736,cmds/sec,NOMINAL,179,125,False
+2026-08-20T12:02:04,124.0,Communications,rssi_dbm,-81.0081,dBm,NOMINAL,130,63,False
+2026-08-20T12:02:04,124.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,63,True
+2026-08-20T12:02:04,124.0,OBC (onboard computer),cpu_load_pct,31.8799,%,NOMINAL,140,125,False
+2026-08-20T12:02:04,124.0,Payload,current_draw_ma,173.0343,mA,NOMINAL,150,63,False
+2026-08-20T12:02:04,124.0,Power Distribution Bus,bus_voltage_v,12.0176,V,NOMINAL,125,125,False
+2026-08-20T12:02:05,125.0,Battery,temperature_c,32.57,degC,WARNING_OVERTEMP,120,126,True
+2026-08-20T12:02:05,125.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,126,False
+2026-08-20T12:02:05,125.0,Comms Uplink Handler,command_rate_hz,0.1923,cmds/sec,NOMINAL,179,126,False
+2026-08-20T12:02:05,125.0,OBC (onboard computer),cpu_load_pct,25.6787,%,NOMINAL,140,126,False
+2026-08-20T12:02:05,125.0,Power Distribution Bus,bus_voltage_v,12.053,V,NOMINAL,125,126,False
+2026-08-20T12:02:05,125.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,26,True
+2026-08-20T12:02:06,126.0,Battery,temperature_c,33.35,degC,WARNING_OVERTEMP,120,127,True
+2026-08-20T12:02:06,126.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,127,False
+2026-08-20T12:02:06,126.0,Comms Uplink Handler,command_rate_hz,0.2228,cmds/sec,NOMINAL,179,127,False
+2026-08-20T12:02:06,126.0,Communications,rssi_dbm,-82.3276,dBm,NOMINAL,130,64,False
+2026-08-20T12:02:06,126.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,64,True
+2026-08-20T12:02:06,126.0,OBC (onboard computer),cpu_load_pct,24.1132,%,NOMINAL,140,127,False
+2026-08-20T12:02:06,126.0,Payload,current_draw_ma,175.1107,mA,NOMINAL,150,64,False
+2026-08-20T12:02:06,126.0,Power Distribution Bus,bus_voltage_v,12.1645,V,NOMINAL,125,127,False
+2026-08-20T12:02:07,127.0,Battery,temperature_c,33.44,degC,WARNING_OVERTEMP,120,128,True
+2026-08-20T12:02:07,127.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,128,False
+2026-08-20T12:02:07,127.0,Comms Uplink Handler,command_rate_hz,0.1443,cmds/sec,NOMINAL,179,128,False
+2026-08-20T12:02:07,127.0,OBC (onboard computer),cpu_load_pct,23.6897,%,NOMINAL,140,128,False
+2026-08-20T12:02:07,127.0,Power Distribution Bus,bus_voltage_v,12.0315,V,NOMINAL,125,128,False
+2026-08-20T12:02:08,128.0,Battery,temperature_c,34.01,degC,WARNING_OVERTEMP,120,129,True
+2026-08-20T12:02:08,128.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,129,False
+2026-08-20T12:02:08,128.0,Comms Uplink Handler,command_rate_hz,0.1707,cmds/sec,NOMINAL,179,129,False
+2026-08-20T12:02:08,128.0,Communications,rssi_dbm,-80.8031,dBm,NOMINAL,130,65,False
+2026-08-20T12:02:08,128.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,65,True
+2026-08-20T12:02:08,128.0,OBC (onboard computer),cpu_load_pct,28.3889,%,NOMINAL,140,129,False
+2026-08-20T12:02:08,128.0,Payload,current_draw_ma,201.5026,mA,NOMINAL,150,65,False
+2026-08-20T12:02:08,128.0,Power Distribution Bus,bus_voltage_v,11.9396,V,NOMINAL,125,129,False
+2026-08-20T12:02:09,129.0,Battery,temperature_c,34.74,degC,WARNING_OVERTEMP,120,130,True
+2026-08-20T12:02:09,129.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,130,False
+2026-08-20T12:02:09,129.0,Comms Uplink Handler,command_rate_hz,0.2216,cmds/sec,NOMINAL,179,130,False
+2026-08-20T12:02:09,129.0,OBC (onboard computer),cpu_load_pct,23.8311,%,NOMINAL,140,130,False
+2026-08-20T12:02:09,129.0,Power Distribution Bus,bus_voltage_v,12.0668,V,NOMINAL,125,130,False
+2026-08-20T12:02:10,130.0,Battery,temperature_c,34.89,degC,WARNING_OVERTEMP,120,131,True
+2026-08-20T12:02:10,130.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,131,False
+2026-08-20T12:02:10,130.0,Comms Uplink Handler,command_rate_hz,0.1702,cmds/sec,NOMINAL,179,131,False
+2026-08-20T12:02:10,130.0,Communications,rssi_dbm,-83.9013,dBm,NOMINAL,130,66,False
+2026-08-20T12:02:10,130.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,66,True
+2026-08-20T12:02:10,130.0,OBC (onboard computer),cpu_load_pct,26.3251,%,NOMINAL,140,131,False
+2026-08-20T12:02:10,130.0,Payload,current_draw_ma,180.5184,mA,NOMINAL,150,66,False
+2026-08-20T12:02:10,130.0,Power Distribution Bus,bus_voltage_v,11.8862,V,NOMINAL,125,131,False
+2026-08-20T12:02:10,130.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,27,True
+2026-08-20T12:02:11,131.0,Battery,temperature_c,35.35,degC,WARNING_OVERTEMP,120,132,True
+2026-08-20T12:02:11,131.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,132,False
+2026-08-20T12:02:11,131.0,Comms Uplink Handler,command_rate_hz,0.1672,cmds/sec,NOMINAL,179,132,False
+2026-08-20T12:02:11,131.0,OBC (onboard computer),cpu_load_pct,24.8591,%,NOMINAL,140,132,False
+2026-08-20T12:02:11,131.0,Power Distribution Bus,bus_voltage_v,12.1274,V,NOMINAL,125,132,False
+2026-08-20T12:02:12,132.0,Battery,temperature_c,36.0,degC,WARNING_OVERTEMP,120,133,True
+2026-08-20T12:02:12,132.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,133,False
+2026-08-20T12:02:12,132.0,Comms Uplink Handler,command_rate_hz,0.2307,cmds/sec,NOMINAL,179,133,False
+2026-08-20T12:02:12,132.0,Communications,rssi_dbm,-79.4961,dBm,NOMINAL,130,67,False
+2026-08-20T12:02:12,132.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,67,True
+2026-08-20T12:02:12,132.0,OBC (onboard computer),cpu_load_pct,28.1501,%,NOMINAL,140,133,False
+2026-08-20T12:02:12,132.0,Payload,current_draw_ma,190.0847,mA,NOMINAL,150,67,False
+2026-08-20T12:02:12,132.0,Power Distribution Bus,bus_voltage_v,12.0944,V,NOMINAL,125,133,False
+2026-08-20T12:02:13,133.0,Battery,temperature_c,36.29,degC,WARNING_OVERTEMP,120,134,True
+2026-08-20T12:02:13,133.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,134,False
+2026-08-20T12:02:13,133.0,Comms Uplink Handler,command_rate_hz,0.235,cmds/sec,NOMINAL,179,134,False
+2026-08-20T12:02:13,133.0,OBC (onboard computer),cpu_load_pct,20.8983,%,NOMINAL,140,134,False
+2026-08-20T12:02:13,133.0,Power Distribution Bus,bus_voltage_v,12.0972,V,NOMINAL,125,134,False
+2026-08-20T12:02:14,134.0,Battery,temperature_c,36.98,degC,WARNING_OVERTEMP,120,135,True
+2026-08-20T12:02:14,134.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,135,False
+2026-08-20T12:02:14,134.0,Comms Uplink Handler,command_rate_hz,0.1424,cmds/sec,NOMINAL,179,135,False
+2026-08-20T12:02:14,134.0,Communications,rssi_dbm,-79.7296,dBm,NOMINAL,130,68,False
+2026-08-20T12:02:14,134.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,68,True
+2026-08-20T12:02:14,134.0,OBC (onboard computer),cpu_load_pct,28.9109,%,NOMINAL,140,135,False
+2026-08-20T12:02:14,134.0,Payload,current_draw_ma,180.5526,mA,NOMINAL,150,68,False
+2026-08-20T12:02:14,134.0,Power Distribution Bus,bus_voltage_v,12.1834,V,NOMINAL,125,135,False
+2026-08-20T12:02:15,135.0,Battery,temperature_c,37.33,degC,WARNING_OVERTEMP,120,136,True
+2026-08-20T12:02:15,135.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,136,False
+2026-08-20T12:02:15,135.0,Comms Uplink Handler,command_rate_hz,0.1819,cmds/sec,NOMINAL,179,136,False
+2026-08-20T12:02:15,135.0,OBC (onboard computer),cpu_load_pct,27.8144,%,NOMINAL,140,136,False
+2026-08-20T12:02:15,135.0,Power Distribution Bus,bus_voltage_v,12.0487,V,NOMINAL,125,136,False
+2026-08-20T12:02:15,135.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,28,True
+2026-08-20T12:02:16,136.0,Battery,temperature_c,37.76,degC,WARNING_OVERTEMP,120,137,True
+2026-08-20T12:02:16,136.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,137,False
+2026-08-20T12:02:16,136.0,Comms Uplink Handler,command_rate_hz,0.1908,cmds/sec,NOMINAL,179,137,False
+2026-08-20T12:02:16,136.0,Communications,rssi_dbm,-81.1946,dBm,NOMINAL,130,69,False
+2026-08-20T12:02:16,136.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,69,True
+2026-08-20T12:02:16,136.0,OBC (onboard computer),cpu_load_pct,21.9756,%,NOMINAL,140,137,False
+2026-08-20T12:02:16,136.0,Payload,current_draw_ma,180.7964,mA,NOMINAL,150,69,False
+2026-08-20T12:02:16,136.0,Power Distribution Bus,bus_voltage_v,12.0895,V,NOMINAL,125,137,False
+2026-08-20T12:02:17,137.0,Battery,temperature_c,38.27,degC,WARNING_OVERTEMP,120,138,True
+2026-08-20T12:02:17,137.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,138,False
+2026-08-20T12:02:17,137.0,Comms Uplink Handler,command_rate_hz,0.1878,cmds/sec,NOMINAL,179,138,False
+2026-08-20T12:02:17,137.0,OBC (onboard computer),cpu_load_pct,23.9948,%,NOMINAL,140,138,False
+2026-08-20T12:02:17,137.0,Power Distribution Bus,bus_voltage_v,12.2348,V,NOMINAL,125,138,False
+2026-08-20T12:02:18,138.0,Battery,temperature_c,38.9,degC,WARNING_OVERTEMP,120,139,True
+2026-08-20T12:02:18,138.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,139,False
+2026-08-20T12:02:18,138.0,Comms Uplink Handler,command_rate_hz,0.2644,cmds/sec,NOMINAL,179,139,False
+2026-08-20T12:02:18,138.0,Communications,rssi_dbm,-82.4002,dBm,NOMINAL,130,70,False
+2026-08-20T12:02:18,138.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,70,True
+2026-08-20T12:02:18,138.0,OBC (onboard computer),cpu_load_pct,28.5833,%,NOMINAL,140,139,False
+2026-08-20T12:02:18,138.0,Payload,current_draw_ma,181.2784,mA,NOMINAL,150,70,False
+2026-08-20T12:02:18,138.0,Power Distribution Bus,bus_voltage_v,12.0111,V,NOMINAL,125,139,False
+2026-08-20T12:02:19,139.0,Battery,temperature_c,38.99,degC,WARNING_OVERTEMP,120,140,True
+2026-08-20T12:02:19,139.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,140,False
+2026-08-20T12:02:19,139.0,Comms Uplink Handler,command_rate_hz,0.2002,cmds/sec,NOMINAL,179,140,False
+2026-08-20T12:02:19,139.0,OBC (onboard computer),cpu_load_pct,24.0247,%,NOMINAL,140,140,False
+2026-08-20T12:02:19,139.0,Power Distribution Bus,bus_voltage_v,12.0441,V,NOMINAL,125,140,False
+2026-08-20T12:02:20,140.0,Battery,temperature_c,39.63,degC,WARNING_OVERTEMP,120,141,True
+2026-08-20T12:02:20,140.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,141,False
+2026-08-20T12:02:20,140.0,Comms Uplink Handler,command_rate_hz,0.1808,cmds/sec,NOMINAL,179,141,False
+2026-08-20T12:02:20,140.0,Communications,rssi_dbm,-81.1746,dBm,NOMINAL,130,71,False
+2026-08-20T12:02:20,140.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,71,True
+2026-08-20T12:02:20,140.0,OBC (onboard computer),cpu_load_pct,26.4393,%,NOMINAL,140,141,False
+2026-08-20T12:02:20,140.0,Payload,current_draw_ma,185.617,mA,NOMINAL,150,71,False
+2026-08-20T12:02:20,140.0,Power Distribution Bus,bus_voltage_v,11.9803,V,NOMINAL,125,141,False
+2026-08-20T12:02:20,140.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,29,True
+2026-08-20T12:02:21,141.0,Battery,temperature_c,40.36,degC,WARNING_OVERTEMP,120,142,True
+2026-08-20T12:02:21,141.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,142,False
+2026-08-20T12:02:21,141.0,Comms Uplink Handler,command_rate_hz,0.2481,cmds/sec,NOMINAL,179,142,False
+2026-08-20T12:02:21,141.0,OBC (onboard computer),cpu_load_pct,24.8706,%,NOMINAL,140,142,False
+2026-08-20T12:02:21,141.0,Power Distribution Bus,bus_voltage_v,12.1533,V,NOMINAL,125,142,False
+2026-08-20T12:02:22,142.0,Battery,temperature_c,40.59,degC,WARNING_OVERTEMP,120,143,True
+2026-08-20T12:02:22,142.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,143,False
+2026-08-20T12:02:22,142.0,Comms Uplink Handler,command_rate_hz,0.0775,cmds/sec,NOMINAL,179,143,False
+2026-08-20T12:02:22,142.0,Communications,rssi_dbm,-81.0064,dBm,NOMINAL,130,72,False
+2026-08-20T12:02:22,142.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,72,True
+2026-08-20T12:02:22,142.0,OBC (onboard computer),cpu_load_pct,24.3042,%,NOMINAL,140,143,False
+2026-08-20T12:02:22,142.0,Payload,current_draw_ma,192.4161,mA,NOMINAL,150,72,False
+2026-08-20T12:02:22,142.0,Power Distribution Bus,bus_voltage_v,12.1168,V,NOMINAL,125,143,False
+2026-08-20T12:02:23,143.0,Battery,temperature_c,40.79,degC,WARNING_OVERTEMP,120,144,True
+2026-08-20T12:02:23,143.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,144,False
+2026-08-20T12:02:23,143.0,Comms Uplink Handler,command_rate_hz,0.1873,cmds/sec,NOMINAL,179,144,False
+2026-08-20T12:02:23,143.0,OBC (onboard computer),cpu_load_pct,23.1739,%,NOMINAL,140,144,False
+2026-08-20T12:02:23,143.0,Power Distribution Bus,bus_voltage_v,11.9094,V,NOMINAL,125,144,False
+2026-08-20T12:02:24,144.0,Battery,temperature_c,41.9,degC,WARNING_OVERTEMP,120,145,True
+2026-08-20T12:02:24,144.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,145,False
+2026-08-20T12:02:24,144.0,Comms Uplink Handler,command_rate_hz,0.1818,cmds/sec,NOMINAL,179,145,False
+2026-08-20T12:02:24,144.0,Communications,rssi_dbm,-76.8995,dBm,NOMINAL,130,73,False
+2026-08-20T12:02:24,144.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,73,True
+2026-08-20T12:02:24,144.0,OBC (onboard computer),cpu_load_pct,29.8854,%,NOMINAL,140,145,False
+2026-08-20T12:02:24,144.0,Payload,current_draw_ma,179.6001,mA,NOMINAL,150,73,False
+2026-08-20T12:02:24,144.0,Power Distribution Bus,bus_voltage_v,11.9453,V,NOMINAL,125,145,False
+2026-08-20T12:02:25,145.0,Battery,temperature_c,42.47,degC,WARNING_OVERTEMP,120,146,True
+2026-08-20T12:02:25,145.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,146,False
+2026-08-20T12:02:25,145.0,Comms Uplink Handler,command_rate_hz,0.1958,cmds/sec,NOMINAL,179,146,False
+2026-08-20T12:02:25,145.0,OBC (onboard computer),cpu_load_pct,21.2067,%,NOMINAL,140,146,False
+2026-08-20T12:02:25,145.0,Power Distribution Bus,bus_voltage_v,12.0271,V,NOMINAL,125,146,False
+2026-08-20T12:02:25,145.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,30,True
+2026-08-20T12:02:26,146.0,Battery,temperature_c,42.52,degC,WARNING_OVERTEMP,120,147,True
+2026-08-20T12:02:26,146.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,147,False
+2026-08-20T12:02:26,146.0,Comms Uplink Handler,command_rate_hz,0.2427,cmds/sec,NOMINAL,179,147,False
+2026-08-20T12:02:26,146.0,Communications,rssi_dbm,-80.5591,dBm,NOMINAL,130,74,False
+2026-08-20T12:02:26,146.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,74,True
+2026-08-20T12:02:26,146.0,OBC (onboard computer),cpu_load_pct,25.5942,%,NOMINAL,140,147,False
+2026-08-20T12:02:26,146.0,Payload,current_draw_ma,173.4207,mA,NOMINAL,150,74,False
+2026-08-20T12:02:26,146.0,Power Distribution Bus,bus_voltage_v,12.0563,V,NOMINAL,125,147,False
+2026-08-20T12:02:27,147.0,Battery,temperature_c,43.07,degC,WARNING_OVERTEMP,120,148,True
+2026-08-20T12:02:27,147.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,148,False
+2026-08-20T12:02:27,147.0,Comms Uplink Handler,command_rate_hz,0.1312,cmds/sec,NOMINAL,179,148,False
+2026-08-20T12:02:27,147.0,OBC (onboard computer),cpu_load_pct,24.267,%,NOMINAL,140,148,False
+2026-08-20T12:02:27,147.0,Power Distribution Bus,bus_voltage_v,12.1096,V,NOMINAL,125,148,False
+2026-08-20T12:02:28,148.0,Battery,temperature_c,43.26,degC,WARNING_OVERTEMP,120,149,True
+2026-08-20T12:02:28,148.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,149,False
+2026-08-20T12:02:28,148.0,Comms Uplink Handler,command_rate_hz,0.1872,cmds/sec,NOMINAL,179,149,False
+2026-08-20T12:02:28,148.0,Communications,rssi_dbm,-81.4467,dBm,NOMINAL,130,75,False
+2026-08-20T12:02:28,148.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,75,True
+2026-08-20T12:02:28,148.0,OBC (onboard computer),cpu_load_pct,29.0485,%,NOMINAL,140,149,False
+2026-08-20T12:02:28,148.0,Payload,current_draw_ma,189.2511,mA,NOMINAL,150,75,False
+2026-08-20T12:02:28,148.0,Power Distribution Bus,bus_voltage_v,12.1074,V,NOMINAL,125,149,False
+2026-08-20T12:02:29,149.0,Battery,temperature_c,43.96,degC,WARNING_OVERTEMP,120,150,True
+2026-08-20T12:02:29,149.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,150,False
+2026-08-20T12:02:29,149.0,Comms Uplink Handler,command_rate_hz,0.1386,cmds/sec,NOMINAL,179,150,False
+2026-08-20T12:02:29,149.0,OBC (onboard computer),cpu_load_pct,30.3775,%,NOMINAL,140,150,False
+2026-08-20T12:02:29,149.0,Power Distribution Bus,bus_voltage_v,12.2527,V,NOMINAL,125,150,False
+2026-08-20T12:02:30,150.0,Battery,temperature_c,45.5,degC,CRITICAL_OVERTEMP,120,151,True
+2026-08-20T12:02:30,150.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,151,False
+2026-08-20T12:02:30,150.0,Comms Uplink Handler,command_rate_hz,0.1675,cmds/sec,NOMINAL,179,151,False
+2026-08-20T12:02:30,150.0,Communications,rssi_dbm,-82.0508,dBm,NOMINAL,130,76,False
+2026-08-20T12:02:30,150.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,76,True
+2026-08-20T12:02:30,150.0,OBC (onboard computer),cpu_load_pct,25.6027,%,NOMINAL,140,151,False
+2026-08-20T12:02:30,150.0,Payload,current_draw_ma,181.7037,mA,NOMINAL,150,76,False
+2026-08-20T12:02:30,150.0,Power Distribution Bus,bus_voltage_v,11.8945,V,NOMINAL,125,151,False
+2026-08-20T12:02:30,150.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,31,True
+2026-08-20T12:02:31,151.0,Battery,temperature_c,45.7,degC,CRITICAL_OVERTEMP,120,152,True
+2026-08-20T12:02:31,151.0,Battery Protection Circuit,switch_state,1.0,binary_state,NOMINAL,122,152,False
+2026-08-20T12:02:31,151.0,Comms Uplink Handler,command_rate_hz,0.3141,cmds/sec,NOMINAL,179,152,False
+2026-08-20T12:02:31,151.0,OBC (onboard computer),cpu_load_pct,21.5735,%,NOMINAL,140,152,False
+2026-08-20T12:02:31,151.0,Power Distribution Bus,bus_voltage_v,11.9616,V,NOMINAL,125,152,False
+2026-08-20T12:02:32,152.0,Battery,temperature_c,45.9,degC,CRITICAL_OVERTEMP,120,153,True
+2026-08-20T12:02:32,152.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,153,True
+2026-08-20T12:02:32,152.0,Comms Uplink Handler,command_rate_hz,0.1311,cmds/sec,NOMINAL,179,153,False
+2026-08-20T12:02:32,152.0,Communications,rssi_dbm,-81.5254,dBm,NOMINAL,130,77,False
+2026-08-20T12:02:32,152.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,77,True
+2026-08-20T12:02:32,152.0,OBC (onboard computer),cpu_load_pct,22.088,%,NOMINAL,140,153,False
+2026-08-20T12:02:32,152.0,Payload,current_draw_ma,164.3684,mA,NOMINAL,150,77,False
+2026-08-20T12:02:32,152.0,Power Distribution Bus,bus_voltage_v,11.9862,V,NOMINAL,125,153,False
+2026-08-20T12:02:33,153.0,Battery,temperature_c,46.1,degC,CRITICAL_OVERTEMP,120,154,True
+2026-08-20T12:02:33,153.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,154,True
+2026-08-20T12:02:33,153.0,Comms Uplink Handler,command_rate_hz,0.2662,cmds/sec,NOMINAL,179,154,False
+2026-08-20T12:02:33,153.0,OBC (onboard computer),cpu_load_pct,20.5944,%,NOMINAL,140,154,False
+2026-08-20T12:02:33,153.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,154,True
+2026-08-20T12:02:34,154.0,Battery,temperature_c,46.3,degC,CRITICAL_OVERTEMP,120,155,True
+2026-08-20T12:02:34,154.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,155,True
+2026-08-20T12:02:34,154.0,Comms Uplink Handler,command_rate_hz,0.2364,cmds/sec,NOMINAL,179,155,False
+2026-08-20T12:02:34,154.0,Communications,rssi_dbm,-79.8305,dBm,NOMINAL,130,78,False
+2026-08-20T12:02:34,154.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,78,True
+2026-08-20T12:02:34,154.0,OBC (onboard computer),cpu_load_pct,21.5072,%,NOMINAL,140,155,False
+2026-08-20T12:02:34,154.0,Payload,current_draw_ma,185.9629,mA,NOMINAL,150,78,False
+2026-08-20T12:02:34,154.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,155,True
+2026-08-20T12:02:35,155.0,Battery,temperature_c,46.5,degC,CRITICAL_OVERTEMP,120,156,True
+2026-08-20T12:02:35,155.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,156,True
+2026-08-20T12:02:35,155.0,Comms Uplink Handler,command_rate_hz,0.1439,cmds/sec,NOMINAL,179,156,False
+2026-08-20T12:02:35,155.0,OBC (onboard computer),cpu_load_pct,22.5964,%,NOMINAL,140,156,False
+2026-08-20T12:02:35,155.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,156,True
+2026-08-20T12:02:35,155.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,32,True
+2026-08-20T12:02:36,156.0,Battery,temperature_c,46.7,degC,CRITICAL_OVERTEMP,120,157,True
+2026-08-20T12:02:36,156.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,157,True
+2026-08-20T12:02:36,156.0,Comms Uplink Handler,command_rate_hz,0.2309,cmds/sec,NOMINAL,179,157,False
+2026-08-20T12:02:36,156.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,79,True
+2026-08-20T12:02:36,156.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,79,True
+2026-08-20T12:02:36,156.0,OBC (onboard computer),cpu_load_pct,24.3824,%,NOMINAL,140,157,False
+2026-08-20T12:02:36,156.0,Payload,current_draw_ma,186.2797,mA,NOMINAL,150,79,False
+2026-08-20T12:02:36,156.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,157,True
+2026-08-20T12:02:37,157.0,Battery,temperature_c,46.9,degC,CRITICAL_OVERTEMP,120,158,True
+2026-08-20T12:02:37,157.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,158,True
+2026-08-20T12:02:37,157.0,Comms Uplink Handler,command_rate_hz,0.2842,cmds/sec,NOMINAL,179,158,False
+2026-08-20T12:02:37,157.0,OBC (onboard computer),cpu_load_pct,21.196,%,NOMINAL,140,158,False
+2026-08-20T12:02:37,157.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,158,True
+2026-08-20T12:02:38,158.0,Battery,temperature_c,47.1,degC,CRITICAL_OVERTEMP,120,159,True
+2026-08-20T12:02:38,158.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,159,True
+2026-08-20T12:02:38,158.0,Comms Uplink Handler,command_rate_hz,0.122,cmds/sec,NOMINAL,179,159,False
+2026-08-20T12:02:38,158.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,80,True
+2026-08-20T12:02:38,158.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,80,True
+2026-08-20T12:02:38,158.0,OBC (onboard computer),cpu_load_pct,18.6961,%,NOMINAL,140,159,False
+2026-08-20T12:02:38,158.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,80,True
+2026-08-20T12:02:38,158.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,159,True
+2026-08-20T12:02:39,159.0,Battery,temperature_c,47.3,degC,CRITICAL_OVERTEMP,120,160,True
+2026-08-20T12:02:39,159.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,160,True
+2026-08-20T12:02:39,159.0,Comms Uplink Handler,command_rate_hz,0.2151,cmds/sec,NOMINAL,179,160,False
+2026-08-20T12:02:39,159.0,OBC (onboard computer),cpu_load_pct,21.8296,%,NOMINAL,140,160,False
+2026-08-20T12:02:39,159.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,160,True
+2026-08-20T12:02:40,160.0,Battery,temperature_c,47.5,degC,CRITICAL_OVERTEMP,120,161,True
+2026-08-20T12:02:40,160.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,161,True
+2026-08-20T12:02:40,160.0,Comms Uplink Handler,command_rate_hz,0.2049,cmds/sec,NOMINAL,179,161,False
+2026-08-20T12:02:40,160.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,81,True
+2026-08-20T12:02:40,160.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,81,True
+2026-08-20T12:02:40,160.0,OBC (onboard computer),cpu_load_pct,22.8051,%,NOMINAL,140,161,False
+2026-08-20T12:02:40,160.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,81,True
+2026-08-20T12:02:40,160.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,161,True
+2026-08-20T12:02:40,160.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,33,True
+2026-08-20T12:02:41,161.0,Battery,temperature_c,47.7,degC,CRITICAL_OVERTEMP,120,162,True
+2026-08-20T12:02:41,161.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,162,True
+2026-08-20T12:02:41,161.0,Comms Uplink Handler,command_rate_hz,0.1942,cmds/sec,NOMINAL,179,162,False
+2026-08-20T12:02:41,161.0,OBC (onboard computer),cpu_load_pct,24.1464,%,NOMINAL,140,162,False
+2026-08-20T12:02:41,161.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,162,True
+2026-08-20T12:02:42,162.0,Battery,temperature_c,47.9,degC,CRITICAL_OVERTEMP,120,163,True
+2026-08-20T12:02:42,162.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,163,True
+2026-08-20T12:02:42,162.0,Comms Uplink Handler,command_rate_hz,0.1813,cmds/sec,NOMINAL,179,163,False
+2026-08-20T12:02:42,162.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,82,True
+2026-08-20T12:02:42,162.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,82,True
+2026-08-20T12:02:42,162.0,OBC (onboard computer),cpu_load_pct,29.0646,%,NOMINAL,140,163,False
+2026-08-20T12:02:42,162.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,82,True
+2026-08-20T12:02:42,162.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,163,True
+2026-08-20T12:02:43,163.0,Battery,temperature_c,48.1,degC,CRITICAL_OVERTEMP,120,164,True
+2026-08-20T12:02:43,163.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,164,True
+2026-08-20T12:02:43,163.0,Comms Uplink Handler,command_rate_hz,0.17,cmds/sec,NOMINAL,179,164,False
+2026-08-20T12:02:43,163.0,OBC (onboard computer),cpu_load_pct,24.3724,%,NOMINAL,140,164,False
+2026-08-20T12:02:43,163.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,164,True
+2026-08-20T12:02:44,164.0,Battery,temperature_c,48.3,degC,CRITICAL_OVERTEMP,120,165,True
+2026-08-20T12:02:44,164.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,165,True
+2026-08-20T12:02:44,164.0,Comms Uplink Handler,command_rate_hz,0.2398,cmds/sec,NOMINAL,179,165,False
+2026-08-20T12:02:44,164.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,83,True
+2026-08-20T12:02:44,164.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,83,True
+2026-08-20T12:02:44,164.0,OBC (onboard computer),cpu_load_pct,17.5711,%,NOMINAL,140,165,False
+2026-08-20T12:02:44,164.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,83,True
+2026-08-20T12:02:44,164.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,165,True
+2026-08-20T12:02:45,165.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,166,True
+2026-08-20T12:02:45,165.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,166,True
+2026-08-20T12:02:45,165.0,Comms Uplink Handler,command_rate_hz,0.3002,cmds/sec,NOMINAL,179,166,False
+2026-08-20T12:02:45,165.0,OBC (onboard computer),cpu_load_pct,24.228,%,NOMINAL,140,166,False
+2026-08-20T12:02:45,165.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,166,True
+2026-08-20T12:02:45,165.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,34,True
+2026-08-20T12:02:46,166.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,167,True
+2026-08-20T12:02:46,166.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,167,True
+2026-08-20T12:02:46,166.0,Comms Uplink Handler,command_rate_hz,0.2423,cmds/sec,NOMINAL,179,167,False
+2026-08-20T12:02:46,166.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,84,True
+2026-08-20T12:02:46,166.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,84,True
+2026-08-20T12:02:46,166.0,OBC (onboard computer),cpu_load_pct,17.6995,%,NOMINAL,140,167,False
+2026-08-20T12:02:46,166.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,84,True
+2026-08-20T12:02:46,166.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,167,True
+2026-08-20T12:02:47,167.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,168,True
+2026-08-20T12:02:47,167.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,168,True
+2026-08-20T12:02:47,167.0,Comms Uplink Handler,command_rate_hz,0.1517,cmds/sec,NOMINAL,179,168,False
+2026-08-20T12:02:47,167.0,OBC (onboard computer),cpu_load_pct,20.7119,%,NOMINAL,140,168,False
+2026-08-20T12:02:47,167.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,168,True
+2026-08-20T12:02:48,168.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,169,True
+2026-08-20T12:02:48,168.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,169,True
+2026-08-20T12:02:48,168.0,Comms Uplink Handler,command_rate_hz,0.1502,cmds/sec,NOMINAL,179,169,False
+2026-08-20T12:02:48,168.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,85,True
+2026-08-20T12:02:48,168.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,85,True
+2026-08-20T12:02:48,168.0,OBC (onboard computer),cpu_load_pct,23.5216,%,NOMINAL,140,169,False
+2026-08-20T12:02:48,168.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,85,True
+2026-08-20T12:02:48,168.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,169,True
+2026-08-20T12:02:49,169.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,170,True
+2026-08-20T12:02:49,169.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,170,True
+2026-08-20T12:02:49,169.0,Comms Uplink Handler,command_rate_hz,0.141,cmds/sec,NOMINAL,179,170,False
+2026-08-20T12:02:49,169.0,OBC (onboard computer),cpu_load_pct,23.2227,%,NOMINAL,140,170,False
+2026-08-20T12:02:49,169.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,170,True
+2026-08-20T12:02:50,170.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,171,True
+2026-08-20T12:02:50,170.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,171,True
+2026-08-20T12:02:50,170.0,Comms Uplink Handler,command_rate_hz,0.1257,cmds/sec,NOMINAL,179,171,False
+2026-08-20T12:02:50,170.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,86,True
+2026-08-20T12:02:50,170.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,86,True
+2026-08-20T12:02:50,170.0,OBC (onboard computer),cpu_load_pct,23.6709,%,NOMINAL,140,171,False
+2026-08-20T12:02:50,170.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,86,True
+2026-08-20T12:02:50,170.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,171,True
+2026-08-20T12:02:50,170.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,35,True
+2026-08-20T12:02:51,171.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,172,True
+2026-08-20T12:02:51,171.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,172,True
+2026-08-20T12:02:51,171.0,Comms Uplink Handler,command_rate_hz,0.1989,cmds/sec,NOMINAL,179,172,False
+2026-08-20T12:02:51,171.0,OBC (onboard computer),cpu_load_pct,22.5617,%,NOMINAL,140,172,False
+2026-08-20T12:02:51,171.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,172,True
+2026-08-20T12:02:52,172.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,173,True
+2026-08-20T12:02:52,172.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,173,True
+2026-08-20T12:02:52,172.0,Comms Uplink Handler,command_rate_hz,0.2371,cmds/sec,NOMINAL,179,173,False
+2026-08-20T12:02:52,172.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,87,True
+2026-08-20T12:02:52,172.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,87,True
+2026-08-20T12:02:52,172.0,OBC (onboard computer),cpu_load_pct,19.3744,%,NOMINAL,140,173,False
+2026-08-20T12:02:52,172.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,87,True
+2026-08-20T12:02:52,172.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,173,True
+2026-08-20T12:02:53,173.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,174,True
+2026-08-20T12:02:53,173.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,174,True
+2026-08-20T12:02:53,173.0,Comms Uplink Handler,command_rate_hz,0.2135,cmds/sec,NOMINAL,179,174,False
+2026-08-20T12:02:53,173.0,OBC (onboard computer),cpu_load_pct,27.0173,%,NOMINAL,140,174,False
+2026-08-20T12:02:53,173.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,174,True
+2026-08-20T12:02:54,174.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,175,True
+2026-08-20T12:02:54,174.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,175,True
+2026-08-20T12:02:54,174.0,Comms Uplink Handler,command_rate_hz,0.1601,cmds/sec,NOMINAL,179,175,False
+2026-08-20T12:02:54,174.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,88,True
+2026-08-20T12:02:54,174.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,88,True
+2026-08-20T12:02:54,174.0,OBC (onboard computer),cpu_load_pct,32.7033,%,NOMINAL,140,175,False
+2026-08-20T12:02:54,174.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,88,True
+2026-08-20T12:02:54,174.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,175,True
+2026-08-20T12:02:55,175.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,176,True
+2026-08-20T12:02:55,175.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,176,True
+2026-08-20T12:02:55,175.0,Comms Uplink Handler,command_rate_hz,0.3155,cmds/sec,NOMINAL,179,176,False
+2026-08-20T12:02:55,175.0,OBC (onboard computer),cpu_load_pct,21.0996,%,NOMINAL,140,176,False
+2026-08-20T12:02:55,175.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,176,True
+2026-08-20T12:02:55,175.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,36,True
+2026-08-20T12:02:56,176.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,177,True
+2026-08-20T12:02:56,176.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,177,True
+2026-08-20T12:02:56,176.0,Comms Uplink Handler,command_rate_hz,0.1354,cmds/sec,NOMINAL,179,177,False
+2026-08-20T12:02:56,176.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,89,True
+2026-08-20T12:02:56,176.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,89,True
+2026-08-20T12:02:56,176.0,OBC (onboard computer),cpu_load_pct,23.5161,%,NOMINAL,140,177,False
+2026-08-20T12:02:56,176.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,89,True
+2026-08-20T12:02:56,176.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,177,True
+2026-08-20T12:02:57,177.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,178,True
+2026-08-20T12:02:57,177.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,178,True
+2026-08-20T12:02:57,177.0,Comms Uplink Handler,command_rate_hz,0.1812,cmds/sec,NOMINAL,179,178,False
+2026-08-20T12:02:57,177.0,OBC (onboard computer),cpu_load_pct,25.7452,%,NOMINAL,140,178,False
+2026-08-20T12:02:57,177.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,178,True
+2026-08-20T12:02:58,178.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,179,True
+2026-08-20T12:02:58,178.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,179,True
+2026-08-20T12:02:58,178.0,Comms Uplink Handler,command_rate_hz,0.2431,cmds/sec,NOMINAL,179,179,False
+2026-08-20T12:02:58,178.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,90,True
+2026-08-20T12:02:58,178.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,90,True
+2026-08-20T12:02:58,178.0,OBC (onboard computer),cpu_load_pct,27.1406,%,NOMINAL,140,179,False
+2026-08-20T12:02:58,178.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,90,True
+2026-08-20T12:02:58,178.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,179,True
+2026-08-20T12:02:59,179.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,180,True
+2026-08-20T12:02:59,179.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,180,True
+2026-08-20T12:02:59,179.0,Comms Uplink Handler,command_rate_hz,0.2664,cmds/sec,NOMINAL,179,180,False
+2026-08-20T12:02:59,179.0,OBC (onboard computer),cpu_load_pct,20.8063,%,NOMINAL,140,180,False
+2026-08-20T12:02:59,179.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,180,True
+2026-08-20T12:03:00,180.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,181,True
+2026-08-20T12:03:00,180.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,181,True
+2026-08-20T12:03:00,180.0,Comms Uplink Handler,command_rate_hz,0.2182,cmds/sec,NOMINAL,179,181,False
+2026-08-20T12:03:00,180.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,91,True
+2026-08-20T12:03:00,180.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,91,True
+2026-08-20T12:03:00,180.0,OBC (onboard computer),cpu_load_pct,19.3237,%,NOMINAL,140,181,False
+2026-08-20T12:03:00,180.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,91,True
+2026-08-20T12:03:00,180.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,181,True
+2026-08-20T12:03:00,180.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,37,True
+2026-08-20T12:03:01,181.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,182,True
+2026-08-20T12:03:01,181.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,182,True
+2026-08-20T12:03:01,181.0,Comms Uplink Handler,command_rate_hz,0.2737,cmds/sec,NOMINAL,179,182,False
+2026-08-20T12:03:01,181.0,OBC (onboard computer),cpu_load_pct,25.2028,%,NOMINAL,140,182,False
+2026-08-20T12:03:01,181.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,182,True
+2026-08-20T12:03:02,182.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,183,True
+2026-08-20T12:03:02,182.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,183,True
+2026-08-20T12:03:02,182.0,Comms Uplink Handler,command_rate_hz,0.2624,cmds/sec,NOMINAL,179,183,False
+2026-08-20T12:03:02,182.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,92,True
+2026-08-20T12:03:02,182.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,92,True
+2026-08-20T12:03:02,182.0,OBC (onboard computer),cpu_load_pct,18.8685,%,NOMINAL,140,183,False
+2026-08-20T12:03:02,182.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,92,True
+2026-08-20T12:03:02,182.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,183,True
+2026-08-20T12:03:03,183.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,184,True
+2026-08-20T12:03:03,183.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,184,True
+2026-08-20T12:03:03,183.0,Comms Uplink Handler,command_rate_hz,0.1664,cmds/sec,NOMINAL,179,184,False
+2026-08-20T12:03:03,183.0,OBC (onboard computer),cpu_load_pct,21.4609,%,NOMINAL,140,184,False
+2026-08-20T12:03:03,183.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,184,True
+2026-08-20T12:03:04,184.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,185,True
+2026-08-20T12:03:04,184.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,185,True
+2026-08-20T12:03:04,184.0,Comms Uplink Handler,command_rate_hz,0.1909,cmds/sec,NOMINAL,179,185,False
+2026-08-20T12:03:04,184.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,93,True
+2026-08-20T12:03:04,184.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,93,True
+2026-08-20T12:03:04,184.0,OBC (onboard computer),cpu_load_pct,30.0732,%,NOMINAL,140,185,False
+2026-08-20T12:03:04,184.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,93,True
+2026-08-20T12:03:04,184.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,185,True
+2026-08-20T12:03:05,185.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,186,True
+2026-08-20T12:03:05,185.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,186,True
+2026-08-20T12:03:05,185.0,Comms Uplink Handler,command_rate_hz,0.1898,cmds/sec,NOMINAL,179,186,False
+2026-08-20T12:03:05,185.0,OBC (onboard computer),cpu_load_pct,23.2956,%,NOMINAL,140,186,False
+2026-08-20T12:03:05,185.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,186,True
+2026-08-20T12:03:05,185.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,38,True
+2026-08-20T12:03:06,186.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,187,True
+2026-08-20T12:03:06,186.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,187,True
+2026-08-20T12:03:06,186.0,Comms Uplink Handler,command_rate_hz,0.2257,cmds/sec,NOMINAL,179,187,False
+2026-08-20T12:03:06,186.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,94,True
+2026-08-20T12:03:06,186.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,94,True
+2026-08-20T12:03:06,186.0,OBC (onboard computer),cpu_load_pct,26.3204,%,NOMINAL,140,187,False
+2026-08-20T12:03:06,186.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,94,True
+2026-08-20T12:03:06,186.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,187,True
+2026-08-20T12:03:07,187.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,188,True
+2026-08-20T12:03:07,187.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,188,True
+2026-08-20T12:03:07,187.0,Comms Uplink Handler,command_rate_hz,0.263,cmds/sec,NOMINAL,179,188,False
+2026-08-20T12:03:07,187.0,OBC (onboard computer),cpu_load_pct,19.4394,%,NOMINAL,140,188,False
+2026-08-20T12:03:07,187.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,188,True
+2026-08-20T12:03:08,188.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,189,True
+2026-08-20T12:03:08,188.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,189,True
+2026-08-20T12:03:08,188.0,Comms Uplink Handler,command_rate_hz,0.1891,cmds/sec,NOMINAL,179,189,False
+2026-08-20T12:03:08,188.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,95,True
+2026-08-20T12:03:08,188.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,95,True
+2026-08-20T12:03:08,188.0,OBC (onboard computer),cpu_load_pct,27.3105,%,NOMINAL,140,189,False
+2026-08-20T12:03:08,188.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,95,True
+2026-08-20T12:03:08,188.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,189,True
+2026-08-20T12:03:09,189.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,190,True
+2026-08-20T12:03:09,189.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,190,True
+2026-08-20T12:03:09,189.0,Comms Uplink Handler,command_rate_hz,0.2091,cmds/sec,NOMINAL,179,190,False
+2026-08-20T12:03:09,189.0,OBC (onboard computer),cpu_load_pct,28.6437,%,NOMINAL,140,190,False
+2026-08-20T12:03:09,189.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,190,True
+2026-08-20T12:03:10,190.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,191,True
+2026-08-20T12:03:10,190.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,191,True
+2026-08-20T12:03:10,190.0,Comms Uplink Handler,command_rate_hz,0.1566,cmds/sec,NOMINAL,179,191,False
+2026-08-20T12:03:10,190.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,96,True
+2026-08-20T12:03:10,190.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,96,True
+2026-08-20T12:03:10,190.0,OBC (onboard computer),cpu_load_pct,23.4601,%,NOMINAL,140,191,False
+2026-08-20T12:03:10,190.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,96,True
+2026-08-20T12:03:10,190.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,191,True
+2026-08-20T12:03:10,190.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,39,True
+2026-08-20T12:03:11,191.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,192,True
+2026-08-20T12:03:11,191.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,192,True
+2026-08-20T12:03:11,191.0,Comms Uplink Handler,command_rate_hz,0.178,cmds/sec,NOMINAL,179,192,False
+2026-08-20T12:03:11,191.0,OBC (onboard computer),cpu_load_pct,24.0413,%,NOMINAL,140,192,False
+2026-08-20T12:03:11,191.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,192,True
+2026-08-20T12:03:12,192.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,193,True
+2026-08-20T12:03:12,192.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,193,True
+2026-08-20T12:03:12,192.0,Comms Uplink Handler,command_rate_hz,0.2719,cmds/sec,NOMINAL,179,193,False
+2026-08-20T12:03:12,192.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,97,True
+2026-08-20T12:03:12,192.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,97,True
+2026-08-20T12:03:12,192.0,OBC (onboard computer),cpu_load_pct,25.4178,%,NOMINAL,140,193,False
+2026-08-20T12:03:12,192.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,97,True
+2026-08-20T12:03:12,192.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,193,True
+2026-08-20T12:03:13,193.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,194,True
+2026-08-20T12:03:13,193.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,194,True
+2026-08-20T12:03:13,193.0,Comms Uplink Handler,command_rate_hz,0.2758,cmds/sec,NOMINAL,179,194,False
+2026-08-20T12:03:13,193.0,OBC (onboard computer),cpu_load_pct,31.5099,%,NOMINAL,140,194,False
+2026-08-20T12:03:13,193.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,194,True
+2026-08-20T12:03:14,194.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,195,True
+2026-08-20T12:03:14,194.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,195,True
+2026-08-20T12:03:14,194.0,Comms Uplink Handler,command_rate_hz,0.2734,cmds/sec,NOMINAL,179,195,False
+2026-08-20T12:03:14,194.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,98,True
+2026-08-20T12:03:14,194.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,98,True
+2026-08-20T12:03:14,194.0,OBC (onboard computer),cpu_load_pct,23.9738,%,NOMINAL,140,195,False
+2026-08-20T12:03:14,194.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,98,True
+2026-08-20T12:03:14,194.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,195,True
+2026-08-20T12:03:15,195.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,196,True
+2026-08-20T12:03:15,195.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,196,True
+2026-08-20T12:03:15,195.0,Comms Uplink Handler,command_rate_hz,0.2179,cmds/sec,NOMINAL,179,196,False
+2026-08-20T12:03:15,195.0,OBC (onboard computer),cpu_load_pct,29.8345,%,NOMINAL,140,196,False
+2026-08-20T12:03:15,195.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,196,True
+2026-08-20T12:03:15,195.0,Thermal Sensor,temperature_c,999.9,degC,SENSOR_FREEZE_INVALID,110,40,True
+2026-08-20T12:03:16,196.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,197,True
+2026-08-20T12:03:16,196.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,197,True
+2026-08-20T12:03:16,196.0,Comms Uplink Handler,command_rate_hz,0.1357,cmds/sec,NOMINAL,179,197,False
+2026-08-20T12:03:16,196.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,99,True
+2026-08-20T12:03:16,196.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,99,True
+2026-08-20T12:03:16,196.0,OBC (onboard computer),cpu_load_pct,27.3645,%,NOMINAL,140,197,False
+2026-08-20T12:03:16,196.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,99,True
+2026-08-20T12:03:16,196.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,197,True
+2026-08-20T12:03:17,197.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,198,True
+2026-08-20T12:03:17,197.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,198,True
+2026-08-20T12:03:17,197.0,Comms Uplink Handler,command_rate_hz,0.2055,cmds/sec,NOMINAL,179,198,False
+2026-08-20T12:03:17,197.0,OBC (onboard computer),cpu_load_pct,18.8204,%,NOMINAL,140,198,False
+2026-08-20T12:03:17,197.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,198,True
+2026-08-20T12:03:18,198.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,199,True
+2026-08-20T12:03:18,198.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,199,True
+2026-08-20T12:03:18,198.0,Comms Uplink Handler,command_rate_hz,0.1271,cmds/sec,NOMINAL,179,199,False
+2026-08-20T12:03:18,198.0,Communications,rssi_dbm,-128.5,dBm,CARRIER_LINK_LOST,130,100,True
+2026-08-20T12:03:18,198.0,Heater / Thermal Controller,duty_cycle_pct,100.0,%,ERRATIC_PWM_RUNAWAY,112,100,True
+2026-08-20T12:03:18,198.0,OBC (onboard computer),cpu_load_pct,23.7953,%,NOMINAL,140,199,False
+2026-08-20T12:03:18,198.0,Payload,current_draw_ma,0.0,mA,PAYLOAD_POWER_OFFLINE,150,100,True
+2026-08-20T12:03:18,198.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,199,True
+2026-08-20T12:03:19,199.0,Battery,temperature_c,48.5,degC,CRITICAL_OVERTEMP,120,200,True
+2026-08-20T12:03:19,199.0,Battery Protection Circuit,switch_state,0.0,binary_state,BATTERY_PROTECTION_TRIGGERED,122,200,True
+2026-08-20T12:03:19,199.0,Comms Uplink Handler,command_rate_hz,0.2282,cmds/sec,NOMINAL,179,200,False
+2026-08-20T12:03:19,199.0,OBC (onboard computer),cpu_load_pct,25.6949,%,NOMINAL,140,200,False
+2026-08-20T12:03:19,199.0,Power Distribution Bus,bus_voltage_v,0.08,V,BUS_VOLTAGE_COLLAPSE,125,200,True
