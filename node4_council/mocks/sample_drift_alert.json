@@ -1,0 +1,16 @@
+{
+  "event_type": "DRIFT_ALERT",
+  "alert_id": "ALT-20261121-001",
+  "chamber_id": "Etch_Chamber_04",
+  "suspected_subsystem": "Throttle_Valve_B",
+  "anomaly_signature": "BACKING_PRESSURE_POSITIVE_DRIFT",
+  "drift_velocity_per_min": 2.45,
+  "time_to_threshold_sec": 222,
+  "confidence": 0.91,
+  "window_summary": {
+    "window_seconds": 60,
+    "sustained_drift_seconds": 6.4,
+    "latest_backing_pressure_mtorr": 42.8,
+    "critical_threshold_mtorr": 52.0
+  }
+}
