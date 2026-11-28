@@ -13,7 +13,7 @@ def client():
     s = get_settings()
     return boto3.client("s3", endpoint_url=s.s3_endpoint, aws_access_key_id=s.s3_access_key,
                         aws_secret_access_key=s.s3_secret_key, region_name=s.s3_region,
-                        config=Config(signature_version="s3v4", retries={"max_attempts": 3}))
+                        config=Config(signature_version="s3v4", s3={"addressing_style": "path"}, retries={"max_attempts": 3}))
 
 
 def ensure_bucket() -> None:
