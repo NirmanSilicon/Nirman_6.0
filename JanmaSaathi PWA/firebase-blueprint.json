@@ -1,0 +1,500 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and identification.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["mother", "worker", "supervisor", "hospital_staff", "hospital", "facility"] },
+        "displayName": { "type": "string" },
+        "staffId": { "type": "string" },
+        "motherId": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "district": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "role"]
+    },
+    "Mother": {
+      "title": "Mother",
+      "description": "Maternal demographic, pregnancy, and assigned health worker record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "mcpCardNumber": { "type": "string" },
+        "name": { "type": "string" },
+        "age": { "type": "number" },
+        "husbandName": { "type": "string" },
+        "phone": { "type": "string" },
+        "village": { "type": "string" },
+        "hamlet": { "type": "string" },
+        "district": { "type": "string" },
+        "lmpDate": { "type": "string" },
+        "edd": { "type": "string" },
+        "gestationalAgeWeeks": { "type": "number" },
+        "gestationalAgeDays": { "type": "number" },
+        "gravida": { "type": "number" },
+        "para": { "type": "number" },
+        "riskCategory": { "type": "string", "enum": ["low", "moderate", "high"] },
+        "assignedWorkerId": { "type": "string" },
+        "assignedWorkerName": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "assignedHospitalId": { "type": "string" },
+        "authUid": { "type": "string" },
+        "lastVisitDate": { "type": "string" },
+        "lastVisitSummary": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "mcpCardNumber", "name", "village", "assignedWorkerId"]
+    },
+    "HealthWorker": {
+      "title": "HealthWorker",
+      "description": "Frontline community health worker profile and assigned areas.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string" },
+        "assignedSubCentre": { "type": "string" },
+        "assignedVillages": { "type": "array" },
+        "assignedHamlets": { "type": "array" },
+        "activeMothersCount": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "role", "assignedSubCentre"]
+    },
+    "Supervisor": {
+      "title": "Supervisor",
+      "description": "Medical officer or block health supervisor profile.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "designation": { "type": "string" },
+        "district": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "designation", "district"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "description": "Supervisor allocation record mapping Health Workers to hamlets and mothers.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "subCentre": { "type": "string" },
+        "village": { "type": "string" },
+        "assignedHamlets": { "type": "array" },
+        "allocatedMothers": { "type": "array" },
+        "effectiveDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "superseded"] },
+        "assignedBy": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "workerId", "subCentre", "village", "status"]
+    },
+    "MaternalAssessment": {
+      "title": "MaternalAssessment",
+      "description": "Standardized clinical antenatal checkup observations, vitals and danger signs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "motherId": { "type": "string" },
+        "motherName": { "type": "string" },
+        "mcpCardNumber": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "assessmentDate": { "type": "string" },
+        "gestationalAgeWeeks": { "type": "number" },
+        "vitals": { "type": "object" },
+        "dangerSigns": { "type": "object" },
+        "clinicalNotes": { "type": "string" },
+        "supervisorReviewStatus": { "type": "string", "enum": ["pending", "signed_off", "clarification_requested"] },
+        "supervisorNotes": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "motherId", "workerId", "assessmentDate", "vitals", "dangerSigns"]
+    },
+    "HealthUpdate": {
+      "title": "HealthUpdate",
+      "description": "Direct health update submitted by mother and reviewed by assigned Health Worker.",
+      "type": "object",
+      "properties": {
+        "healthUpdateId": { "type": "string" },
+        "motherId": { "type": "string" },
+        "motherName": { "type": "string" },
+        "assignedHealthWorkerId": { "type": "string" },
+        "assignedWorkerName": { "type": "string" },
+        "symptoms": { "type": "array" },
+        "observations": { "type": "string" },
+        "notes": { "type": "string" },
+        "submittedAt": { "type": "string" },
+        "submittedBy": { "type": "string" },
+        "reviewStatus": { "type": "string", "enum": ["pending", "reviewed"] },
+        "reviewedBy": { "type": "string" },
+        "reviewedAt": { "type": "string" },
+        "reviewNotes": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["healthUpdateId", "motherId", "assignedHealthWorkerId", "observations", "reviewStatus"]
+    },
+    "Referral": {
+      "title": "Referral",
+      "description": "Hospital referral escalation, ambulance dispatch status, and clinical triage.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "motherId": { "type": "string" },
+        "motherName": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "referralReason": { "type": "string" },
+        "severity": { "type": "string", "enum": ["Routine", "Priority", "Emergency"] },
+        "targetFacility": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "initiatedDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending Triage", "Ambulance Dispatched", "Facility Admitted", "Resolved", "initiated", "acknowledged", "in_transit", "arrived", "completed", "clarification_requested"] },
+        "transportArranged": { "type": "boolean" },
+        "accompaniedByWorker": { "type": "boolean" },
+        "supervisorRemarks": { "type": "string" },
+        "hospitalRemarks": { "type": "string" },
+        "hospitalNotes": { "type": "string" },
+        "acknowledgedBy": { "type": "string" },
+        "acknowledgedAt": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "motherId", "workerId", "referralReason", "severity", "targetFacility", "status"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Supervisory audit and maternal care health summary report.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string" },
+        "period": { "type": "string" },
+        "district": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "workerId": { "type": "string" },
+        "generatedBy": { "type": "string" },
+        "status": { "type": "string" },
+        "metrics": { "type": "object" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "title", "type", "district", "status"]
+    },
+    "DirectMessage": {
+      "title": "DirectMessage",
+      "description": "Official text or direct audio voice communication record between mother and assigned Health Worker.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["text", "audio"] },
+        "conversationId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderRole": { "type": "string", "enum": ["mother", "worker", "supervisor"] },
+        "senderAuthUid": { "type": "string" },
+        "receiverAuthUid": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "recipientId": { "type": "string" },
+        "workerId": { "type": "string" },
+        "motherId": { "type": "string" },
+        "text": { "type": "string" },
+        "audioStoragePath": { "type": "string" },
+        "audioDownloadUrl": { "type": "string" },
+        "audioMimeType": { "type": "string" },
+        "audioDuration": { "type": "number" },
+        "audioFileSize": { "type": "number" },
+        "timestamp": { "type": "string" },
+        "sentAtMs": { "type": "number" },
+        "uploadStatus": { "type": "string", "enum": ["pending_upload", "uploaded", "failed"] },
+        "delivered": { "type": "boolean" },
+        "read": { "type": "boolean" },
+        "sourceLanguage": { "type": "string", "enum": ["en", "hi", "or"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "senderId", "senderRole", "workerId", "motherId", "text"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Antenatal checkup visit schedule.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "motherId": { "type": "string" },
+        "motherName": { "type": "string" },
+        "workerId": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "type": { "type": "string" },
+        "location": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "status": { "type": "string", "enum": ["scheduled", "confirmed", "rescheduled", "completed", "cancelled"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "motherId", "workerId", "date", "time", "location", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable audit trail of sensitive healthcare operations.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "action": { "type": "string" },
+        "actorId": { "type": "string" },
+        "actorUid": { "type": "string" },
+        "actorRole": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "targetResource": { "type": "string" },
+        "targetId": { "type": "string" },
+        "details": { "type": "object" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "action", "actorId", "actorRole", "targetResource", "targetId", "timestamp"]
+    },
+    "CompanionMemory": {
+      "title": "CompanionMemory",
+      "description": "Consented AI companion guidance summary saved by the mother to her personal health timeline (never a clinical record, never contains raw audio).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "motherId": { "type": "string" },
+        "authUid": { "type": "string" },
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "topic": { "type": "string", "enum": ["nutrition", "baby_growth", "symptoms", "appointments", "postpartum", "general"] },
+        "language": { "type": "string", "enum": ["en", "hi", "or"] },
+        "gestationalWeek": { "type": "number" },
+        "consentedByMother": { "type": "boolean" },
+        "consentedAt": { "type": "string" },
+        "savedAt": { "type": "string" },
+        "sourceType": { "type": "string" },
+        "isClinicalRecord": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "motherId", "title", "summary", "topic", "language", "consentedByMother", "isClinicalRecord"]
+    },
+    "Hospital": {
+      "title": "Hospital",
+      "description": "Authorized referral hospital or health centre receiving maternal emergency alerts.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "facilityType": { "type": "string", "enum": ["PHC", "CHC", "District Hospital"] },
+        "block": { "type": "string" },
+        "district": { "type": "string" },
+        "contactPhone": { "type": "string" },
+        "acceptsEmergency": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "name", "facilityType", "block", "district", "acceptsEmergency"]
+    },
+    "EmergencyAlert": {
+      "title": "EmergencyAlert",
+      "description": "Shared real-time maternal emergency alert synced across Mother, Health Worker, Supervisor, and Hospital Dashboard.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "motherId": { "type": "string" },
+        "motherName": { "type": "string" },
+        "motherPhone": { "type": "string" },
+        "motherAge": { "type": "number" },
+        "gestationalAgeWeeks": { "type": "number" },
+        "village": { "type": "string" },
+        "hamlet": { "type": "string" },
+        "assignedWorkerId": { "type": "string" },
+        "assignedWorkerName": { "type": "string" },
+        "supervisorId": { "type": "string" },
+        "raisedByRole": { "type": "string", "enum": ["mother", "worker", "supervisor"] },
+        "raisedById": { "type": "string" },
+        "raisedByName": { "type": "string" },
+        "raisedByAuthUid": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "targetHospitalName": { "type": "string" },
+        "targetFacilityType": { "type": "string", "enum": ["PHC", "CHC", "District Hospital"] },
+        "concernCategory": { "type": "string" },
+        "concernLabel": { "type": "string" },
+        "urgency": { "type": "string", "enum": ["moderate", "urgent", "critical"] },
+        "symptoms": { "type": "array" },
+        "description": { "type": "string" },
+        "additionalHealthInfo": { "type": "string" },
+        "attachedAssessmentId": { "type": "string" },
+        "attachedAssessmentSummary": { "type": "string" },
+        "vitals": { "type": "object" },
+        "dangerSigns": { "type": "array" },
+        "transportRequested": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["new", "pending_acknowledgement", "acknowledged", "in_progress", "action_taken", "referred", "escalated", "resolved", "closed"] },
+        "createdAtMs": { "type": "number" },
+        "createdAtIso": { "type": "string" },
+        "createdAtLabel": { "type": "string" },
+        "updatedAtMs": { "type": "number" },
+        "provenanceVerifiedByServer": { "type": "boolean" },
+        "serverCreatedAtMs": { "type": "number" },
+        "serverCreatedAtIso": { "type": "string" },
+        "serverProvenanceId": { "type": "string" },
+        "acknowledgedAtMs": { "type": "number" },
+        "acknowledgedBy": { "type": "string" },
+        "hospitalResponse": { "type": "string" },
+        "hospitalUpdates": { "type": "array" },
+        "escalated": { "type": "boolean" },
+        "escalatedAtMs": { "type": "number" },
+        "escalatedBy": { "type": "string" },
+        "escalationReason": { "type": "string" },
+        "escalationTargetHospitalId": { "type": "string" },
+        "escalationTargetHospitalName": { "type": "string" },
+        "actionTakenSummary": { "type": "string" },
+        "referredFacilityName": { "type": "string" },
+        "resolvedAtMs": { "type": "number" },
+        "resolvedBy": { "type": "string" },
+        "resolutionNotes": { "type": "string" },
+        "closedAtMs": { "type": "number" },
+        "closedBy": { "type": "string" },
+        "isSynthetic": { "type": "boolean" }
+      },
+      "required": ["id", "motherId", "motherName", "assignedWorkerId", "raisedByRole", "raisedById", "raisedByName", "targetHospitalId", "targetHospitalName", "targetFacilityType", "concernCategory", "concernLabel", "urgency", "status", "createdAtMs", "createdAtIso", "updatedAtMs", "hospitalUpdates", "escalated", "isSynthetic"]
+    },
+    "FcmToken": {
+      "title": "FcmToken",
+      "description": "Authorized browser/PWA device push token scoped to user role and facility/maternal identity.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "token": { "type": "string" },
+        "uid": { "type": "string" },
+        "role": { "type": "string", "enum": ["mother", "worker", "supervisor", "hospital_staff", "hospital", "facility"] },
+        "motherId": { "type": "string" },
+        "staffId": { "type": "string" },
+        "hospitalId": { "type": "string" },
+        "platform": { "type": "string", "enum": ["web"] },
+        "browser": { "type": "string" },
+        "enabled": { "type": "boolean" },
+        "authMode": { "type": "string", "enum": ["firebase", "session"] },
+        "createdAtMs": { "type": "number" },
+        "updatedAtMs": { "type": "number" },
+        "lastActiveAtMs": { "type": "number" }
+      },
+      "required": ["id", "token", "uid", "role", "platform", "enabled", "updatedAtMs"]
+    },
+    "AlertNotificationDelivery": {
+      "title": "AlertNotificationDelivery",
+      "description": "Idempotent backend notification dispatch audit log (no PII stored).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "alertId": { "type": "string" },
+        "eventType": { "type": "string", "enum": ["alert_created", "status_updated", "escalated", "resolved"] },
+        "status": { "type": "string" },
+        "targetHospitalId": { "type": "string" },
+        "targetRecipientsCount": { "type": "number" },
+        "deliveredCount": { "type": "number" },
+        "failedCount": { "type": "number" },
+        "dispatchedAtMs": { "type": "number" }
+      },
+      "required": ["id", "alertId", "eventType", "status", "dispatchedAtMs"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User accounts with system role and identifiers."
+    },
+    "/mothers/{motherId}": {
+      "schema": { "$ref": "#/entities/Mother" },
+      "description": "Maternal demographic and clinical registry."
+    },
+    "/healthWorkers/{workerId}": {
+      "schema": { "$ref": "#/entities/HealthWorker" },
+      "description": "Community Health Worker cadre registry."
+    },
+    "/supervisors/{supervisorId}": {
+      "schema": { "$ref": "#/entities/Supervisor" },
+      "description": "Medical officer and supervisory personnel."
+    },
+    "/assignments/{assignmentId}": {
+      "schema": { "$ref": "#/entities/Assignment" },
+      "description": "Health Worker village and mother allocation records."
+    },
+    "/assessments/{assessmentId}": {
+      "schema": { "$ref": "#/entities/MaternalAssessment" },
+      "description": "Standardized maternal antenatal checkup assessments."
+    },
+    "/healthUpdates/{updateId}": {
+      "schema": { "$ref": "#/entities/HealthUpdate" },
+      "description": "Maternal symptom updates and Health Worker review notes."
+    },
+    "/referrals/{referralId}": {
+      "schema": { "$ref": "#/entities/Referral" },
+      "description": "Emergency and priority facility referral records."
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Administrative audit and clinical summary reports."
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/DirectMessage" },
+      "description": "Direct official communications between mother and Health Worker."
+    },
+    "/appointments/{appointmentId}": {
+      "schema": { "$ref": "#/entities/Appointment" },
+      "description": "Antenatal checkup appointments."
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Immutable audit trail of allocation and administrative actions."
+    },
+    "/companionMemories/{memoryId}": {
+      "schema": { "$ref": "#/entities/CompanionMemory" },
+      "description": "Consented mother AI companion guidance summaries linked to mother timeline."
+    },
+    "/hospitals/{hospitalId}": {
+      "schema": { "$ref": "#/entities/Hospital" },
+      "description": "Authorized referral hospitals and health centres."
+    },
+    "/emergencyAlerts/{alertId}": {
+      "schema": { "$ref": "#/entities/EmergencyAlert" },
+      "description": "Shared real-time emergency alerts synced across Mother, Health Worker, Supervisor, and Hospital Dashboard."
+    },
+    "/users/{userId}/fcmTokens/{tokenId}": {
+      "schema": { "$ref": "#/entities/FcmToken" },
+      "description": "Canonical user-owned FCM Web Push device registration tokens for JanmaSaathi PWA and Hospital Dashboard."
+    },
+    "/fcmTokens/{tokenId}": {
+      "schema": { "$ref": "#/entities/FcmToken" },
+      "description": "Legacy top-level role-scoped FCM Web Push device registration tokens for backward compatibility."
+    },
+    "/alertNotificationDeliveries/{deliveryId}": {
+      "schema": { "$ref": "#/entities/AlertNotificationDelivery" },
+      "description": "Idempotent server-side alert push delivery audit records."
+    }
+  }
+}

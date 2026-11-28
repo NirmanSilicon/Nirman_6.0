@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cherry: #890149;
+  --color-cherry-hover: #6E013A;
+  --color-cherry-soft: #F7EDF2;
+  --color-alabaster: #F3F3E7;
+  --color-alabaster-subtle: #EAE9DC;
+  --color-dusty-rose: #D9A2B5;
+  --color-warm-ink: #30232A;
+  --color-warm-muted: #665860;
+  --color-warm-border: #DDD8CB;
+
+  --font-serif: "DM Serif Display", "Noto Sans Odia", "Noto Sans Devanagari", Georgia, serif;
+  --font-sans: "DM Sans", "Noto Sans Odia", "Noto Sans Devanagari", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #F3F3E7;
+    color: #30232A;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-serif);
+    text-wrap: balance;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Subtle custom scrollbars aligned with warm alabaster & ink palette */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F3E7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CEC8BA;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A99FA4;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+}
