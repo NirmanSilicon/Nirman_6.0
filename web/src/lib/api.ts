@@ -40,8 +40,8 @@ export function postScan(img: Blob, o: ScanOpts) {
 export const getScan = (id: string) => call<ScanResult>(`/v1/scan/${id}`);
 export const deleteScan = (id: string) => call<void>(`/v1/scan/${id}`, { method: "DELETE" });
 export const listScans = () => call<{ items: any[]; total: number }>("/v1/scans?user=me");
-export const getRecyclers = (lat: number, lng: number, radius = 100) =>
-  call<{ items: Recycler[]; expanded: boolean }>(`/v1/recyclers?lat=${lat}&lng=${lng}&radius=${radius}`);
+export const getRecyclers = (lat: number, lng: number, radius = 100, state = "", limit = 10) =>
+  call<{ items: Recycler[]; expanded: boolean }>(`/v1/recyclers?lat=${lat}&lng=${lng}&radius=${radius}&limit=${limit}${state ? `&state=${encodeURIComponent(state)}` : ""}`);
 export const getPrices = () => call<any>("/v1/prices");
 export const otpRequest = (phone: string) => call<{ sent: boolean; dev_code?: string }>("/v1/auth/otp/request", {
   method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ phone }) });

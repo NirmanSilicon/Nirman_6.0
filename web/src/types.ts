@@ -27,4 +27,5 @@ export interface ScanResult {
 export interface Recycler {
   id: number; name: string; cpcb_reg_no: string; address: string; city: string; state: string;
   lat: number; lng: number; phone: string | null; accepts: string[]; verified: boolean; distance_km: number;
+  capacity_mta: number | null; geocode_level: string | null; list_date: string | null; source_url: string | null; validity_note: string | null;
 }
