@@ -1,0 +1,237 @@
+{
+  "model_type": "Multi-Model Ensemble Learning (Voting & Stacked Consensus: Logistic Regression + Random Forest + Gradient Boosting + Extra Trees)",
+  "w_temporal": 0.0475,
+  "w_dependency": 0.632,
+  "w_intermediate": 0.3205,
+  "ensemble_components": {
+    "logistic_regression": {
+      "weights": [
+        0.1411,
+        0.5548,
+        0.3041
+      ],
+      "raw_coefficients": [
+        2.2727,
+        8.9385,
+        4.8989
+      ],
+      "intercept": -9.8127,
+      "validation": {
+        "accuracy": 0.9922,
+        "f1": 0.9932,
+        "precision": 0.9894,
+        "recall": 0.9971,
+        "roc_auc": 0.9964,
+        "brier_score": 0.0062
+      }
+    },
+    "elastic_net": {
+      "weights": [
+        0.0,
+        0.6174,
+        0.3826
+      ],
+      "raw_coefficients": [
+        0.0,
+        7.5485,
+        4.6774
+      ],
+      "intercept": -6.6342,
+      "best_params": {
+        "l1_ratio": 0.9,
+        "C": 0.1
+      },
+      "validation": {
+        "accuracy": 0.9855550969872059,
+        "f1": 0.9876543209876543,
+        "precision": 0.975609756097561,
+        "recall": 1.0,
+        "roc_auc": 0.9965
+      },
+      "justification": "Selected l1_ratio=0.9 and C=0.1 via grid search maximizing held-out incident F1 (0.9877) and ROC-AUC (0.9965) over held-out scenarios."
+    },
+    "random_forest": {
+      "feature_importances": [
+        0.0334,
+        0.5298,
+        0.4368
+      ],
+      "validation": {
+        "accuracy": 0.9967,
+        "f1": 0.9972,
+        "precision": 0.9943,
+        "recall": 1.0,
+        "roc_auc": 0.9983,
+        "brier_score": 0.003
+      }
+    },
+    "gradient_boosting": {
+      "feature_importances": [
+        0.0028,
+        0.9961,
+        0.0012
+      ],
+      "validation": {
+        "accuracy": 0.9967,
+        "f1": 0.9972,
+        "precision": 0.9943,
+        "recall": 1.0,
+        "roc_auc": 0.9986,
+        "brier_score": 0.0032
+      }
+    },
+    "extra_trees": {
+      "feature_importances": [
+        0.0127,
+        0.4471,
+        0.5401
+      ],
+      "validation": {
+        "accuracy": 0.9963,
+        "f1": 0.9968,
+        "precision": 0.9964,
+        "recall": 0.9971,
+        "roc_auc": 0.9972,
+        "brier_score": 0.0049
+      }
+    }
+  },
+  "temporal_weight_diagnostics": {
+    "vif": {
+      "table": [
+        {
+          "feature": "temporal_score",
+          "vif": 1.0097,
+          "status": "CLEAN (<5.0)"
+        },
+        {
+          "feature": "dependency_score",
+          "vif": 7.0799,
+          "status": "CONCERNING (VIF>5)"
+        },
+        {
+          "feature": "intermediate_score",
+          "vif": 7.1014,
+          "status": "CONCERNING (VIF>5)"
+        }
+      ],
+      "branch_applied": "collinear",
+      "diagnosis": "High VIF between causal features diagnosed (>5.0). Plain L2 logistic regression can satisfy the loss by leaning on whichever correlated feature has better-conditioned gradients, suppressing the other's coefficient. Do NOT hand-correct w_T upward \u2014 that reintroduces the arbitrary-heuristic problem this pipeline exists to avoid.",
+      "correlation_matrix": {
+        "temporal_score": {
+          "temporal_score": 1.0,
+          "dependency_score": 0.0761,
+          "intermediate_score": 0.0938
+        },
+        "dependency_score": {
+          "temporal_score": 0.0761,
+          "dependency_score": 1.0,
+          "intermediate_score": 0.9266
+        },
+        "intermediate_score": {
+          "temporal_score": 0.0938,
+          "dependency_score": 0.9266,
+          "intermediate_score": 1.0
+        }
+      }
+    },
+    "elastic_net": {
+      "weights": {
+        "w_temporal": 0.0,
+        "w_dependency": 0.6174,
+        "w_intermediate": 0.3826
+      },
+      "best_params": {
+        "l1_ratio": 0.9,
+        "C": 0.1
+      },
+      "plain_l2_weights": {
+        "w_temporal": 0.1411,
+        "w_dependency": 0.5548,
+        "w_intermediate": 0.3041
+      },
+      "plain_l2_metrics": {
+        "accuracy": 0.976062732150227,
+        "f1": 0.979706088173548,
+        "precision": 0.9602194787379973,
+        "recall": 1.0,
+        "roc_auc": 0.9964
+      },
+      "elastic_net_metrics": {
+        "accuracy": 0.9855550969872059,
+        "f1": 0.9876543209876543,
+        "precision": 0.975609756097561,
+        "recall": 1.0,
+        "roc_auc": 0.9965
+      },
+      "justification": "Selected l1_ratio=0.9 and C=0.1 via grid search maximizing held-out incident F1 (0.9877) and ROC-AUC (0.9965) over held-out scenarios."
+    },
+    "shap_explainability": {
+      "worked_example_high": {
+        "candidate": "power_bus -> obc",
+        "scenario_id": 6,
+        "true_label": 1,
+        "predicted_probability": 0.9963,
+        "base_value_log_odds": 0.7771,
+        "feature_values": {
+          "temporal_score": 0.5,
+          "dependency_score": 1.0,
+          "intermediate_score": 1.0
+        },
+        "shap_contributions": {
+          "temporal_score": -0.0,
+          "dependency_score": 3.0607,
+          "intermediate_score": 1.754
+        },
+        "plain_explanation": "Flagged as valid causal edge with 99.6% confidence. Strong dependency path (+3.0607) and corroborating intermediates (+1.7540) overwhelmed the negative baseline log-odds."
+      },
+      "worked_example_low": {
+        "candidate": "obc -> comms",
+        "scenario_id": 6,
+        "true_label": 0,
+        "predicted_probability": 0.0218,
+        "base_value_log_odds": 0.7771,
+        "feature_values": {
+          "temporal_score": 0.6583,
+          "dependency_score": 0.375,
+          "intermediate_score": 0.0
+        },
+        "shap_contributions": {
+          "temporal_score": -0.0,
+          "dependency_score": -1.6571,
+          "intermediate_score": -2.9234
+        },
+        "plain_explanation": "Rejected as non-causal link with only 2.2% confidence. Zero dependency path strength (-1.6571) heavily penalized the link despite temporal proximity."
+      }
+    }
+  },
+  "meta_ensemble_validation": {
+    "accuracy": 0.9971,
+    "f1": 0.9975,
+    "precision": 0.995,
+    "recall": 1.0,
+    "roc_auc": 0.9969,
+    "brier_score": 0.0034
+  },
+  "validation_metrics": {
+    "n_train_scenarios": 194,
+    "n_test_scenarios": 49,
+    "n_train_candidate_pairs": 8366,
+    "n_test_candidate_pairs": 2423,
+    "ensemble_weights_accuracy": 0.9781,
+    "ensemble_weights_f1": 0.9814,
+    "ensemble_weights_precision": 0.9635,
+    "ensemble_weights_recall": 1.0,
+    "ensemble_weights_roc_auc": 0.9964,
+    "soft_voting_classifier_accuracy": 0.9971,
+    "soft_voting_classifier_f1": 0.9975,
+    "soft_voting_classifier_roc_auc": 0.9969,
+    "hand_picked_weights_accuracy": 0.7681,
+    "hand_picked_weights_f1": 0.8328,
+    "hand_picked_weights_precision": 0.7136,
+    "hand_picked_weights_recall": 1.0,
+    "hand_picked_weights_roc_auc": 0.9957,
+    "accuracy_improvement_pct": 21.01,
+    "f1_improvement_pct": 14.86
+  }
+}

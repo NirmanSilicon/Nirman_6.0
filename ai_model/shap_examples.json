@@ -1,0 +1,134 @@
+[
+  {
+    "example_title": "Example 1: True Positive (Confirmed Telemetry Anomaly)",
+    "test_sample_index": 0,
+    "true_label": 1,
+    "predicted_label": 1,
+    "confidence_score": 0.987,
+    "raw_telemetry_features": {
+      "feat_mean": 222.7594,
+      "feat_std": 1125.2395,
+      "feat_min": 0.0,
+      "feat_max": 6280.0,
+      "feat_range": 6280.0,
+      "feat_rate_of_change": 0.0,
+      "feat_skewness": 5.193
+    },
+    "standardized_features": {
+      "feat_mean": 0.7648,
+      "feat_std": 0.736,
+      "feat_min": 0.4733,
+      "feat_max": 0.7369,
+      "feat_range": 0.7369,
+      "feat_rate_of_change": -0.5865,
+      "feat_skewness": 0.6923
+    },
+    "shap_contributions": {
+      "feat_mean": 0.63489,
+      "feat_rate_of_change": 0.60398,
+      "feat_std": 0.11081,
+      "feat_range": 0.0729,
+      "feat_skewness": 0.06903,
+      "feat_max": 0.02561,
+      "feat_min": -0.00795
+    },
+    "top_features_ranked": [
+      "feat_mean",
+      "feat_rate_of_change",
+      "feat_std",
+      "feat_range",
+      "feat_skewness",
+      "feat_max",
+      "feat_min"
+    ],
+    "plain_language_explanation": "Flagged as Anomaly with confidence 0.9870 (True label: Anomaly). Primary driver: 'feat_mean' (SHAP contribution = +0.6349), followed by 'feat_rate_of_change' (+0.6040) and 'feat_std' (+0.1108). Positive SHAP values push toward candidate anomaly event generation; negative values support nominal baseline."
+  },
+  {
+    "example_title": "Example 2: True Negative (Nominal Spacecraft Telemetry)",
+    "test_sample_index": 1,
+    "true_label": 0,
+    "predicted_label": 0,
+    "confidence_score": 0.0373,
+    "raw_telemetry_features": {
+      "feat_mean": 0.2305,
+      "feat_std": 0.692,
+      "feat_min": -1.3716,
+      "feat_max": 1.3172,
+      "feat_range": 2.6888,
+      "feat_rate_of_change": 0.6797,
+      "feat_skewness": -0.2501
+    },
+    "standardized_features": {
+      "feat_mean": -1.358,
+      "feat_std": -1.3712,
+      "feat_min": 0.3693,
+      "feat_max": -1.3665,
+      "feat_range": -1.372,
+      "feat_rate_of_change": -0.543,
+      "feat_skewness": -1.4089
+    },
+    "shap_contributions": {
+      "feat_mean": -0.72779,
+      "feat_std": -0.596,
+      "feat_rate_of_change": -0.47459,
+      "feat_skewness": -0.08061,
+      "feat_min": -0.04698,
+      "feat_max": 0.03869,
+      "feat_range": 0.00365
+    },
+    "top_features_ranked": [
+      "feat_mean",
+      "feat_std",
+      "feat_rate_of_change",
+      "feat_skewness",
+      "feat_min",
+      "feat_max",
+      "feat_range"
+    ],
+    "plain_language_explanation": "Cleared as Nominal with confidence 0.0373 (True label: Nominal). Primary driver: 'feat_mean' (SHAP contribution = -0.7278), followed by 'feat_std' (-0.5960) and 'feat_rate_of_change' (-0.4746). Positive SHAP values push toward candidate anomaly event generation; negative values support nominal baseline."
+  },
+  {
+    "example_title": "Example 3: False Negative (Subtle Anomaly Missed by AI Filter)",
+    "test_sample_index": 22,
+    "true_label": 1,
+    "predicted_label": 0,
+    "confidence_score": 0.1961,
+    "raw_telemetry_features": {
+      "feat_mean": -0.0236,
+      "feat_std": 4.4634,
+      "feat_min": -13.1783,
+      "feat_max": 13.7166,
+      "feat_range": 26.895,
+      "feat_rate_of_change": 3.4402,
+      "feat_skewness": 0.1744
+    },
+    "standardized_features": {
+      "feat_mean": -1.3605,
+      "feat_std": -1.3642,
+      "feat_min": -0.5258,
+      "feat_max": -1.3624,
+      "feat_range": -1.3639,
+      "feat_rate_of_change": -0.3662,
+      "feat_skewness": -1.2451
+    },
+    "shap_contributions": {
+      "feat_mean": -0.90636,
+      "feat_range": -0.15134,
+      "feat_skewness": 0.08913,
+      "feat_rate_of_change": -0.07638,
+      "feat_std": 0.05224,
+      "feat_min": 0.02652,
+      "feat_max": -5e-05
+    },
+    "top_features_ranked": [
+      "feat_mean",
+      "feat_range",
+      "feat_skewness",
+      "feat_rate_of_change",
+      "feat_std",
+      "feat_min",
+      "feat_max"
+    ],
+    "plain_language_explanation": "Cleared as Nominal with confidence 0.1961 (True label: Anomaly). Primary driver: 'feat_mean' (SHAP contribution = -0.9064), followed by 'feat_range' (-0.1513) and 'feat_skewness' (+0.0891). Positive SHAP values push toward candidate anomaly event generation; negative values support nominal baseline."
+  }
+]

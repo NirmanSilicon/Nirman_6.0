@@ -1,0 +1,109 @@
+{
+  "full_observability": {
+    "legacy_scorer": {
+      "accuracy": 0.987,
+      "precision": 0.9852,
+      "recall": 1.0,
+      "f1": 0.9926,
+      "roc_auc": 0.9974,
+      "pr_auc": 0.9995,
+      "brier_score": 0.0178,
+      "true_positives": 3400,
+      "false_positives": 51,
+      "true_negatives": 462,
+      "false_negatives": 0,
+      "false_positive_rate": 0.0994,
+      "false_discovery_rate": 0.0148
+    },
+    "learned_scorer": {
+      "accuracy": 0.9985,
+      "precision": 0.9982,
+      "recall": 1.0,
+      "f1": 0.9991,
+      "roc_auc": 0.9988,
+      "pr_auc": 0.9998,
+      "brier_score": 0.0014,
+      "true_positives": 3400,
+      "false_positives": 6,
+      "true_negatives": 507,
+      "false_negatives": 0,
+      "false_positive_rate": 0.0117,
+      "false_discovery_rate": 0.0018
+    }
+  },
+  "missing_telemetry_50pct": {
+    "legacy_scorer": {
+      "accuracy": 0.986,
+      "precision": 0.9852,
+      "recall": 1.0,
+      "f1": 0.9926,
+      "roc_auc": 0.9944,
+      "pr_auc": 0.9996,
+      "brier_score": 0.0504,
+      "true_positives": 3400,
+      "false_positives": 51,
+      "true_negatives": 180,
+      "false_negatives": 0,
+      "false_positive_rate": 0.2208,
+      "false_discovery_rate": 0.0148
+    },
+    "learned_scorer": {
+      "accuracy": 0.9983,
+      "precision": 0.9982,
+      "recall": 1.0,
+      "f1": 0.9991,
+      "roc_auc": 0.9995,
+      "pr_auc": 1.0,
+      "brier_score": 0.002,
+      "true_positives": 3400,
+      "false_positives": 6,
+      "true_negatives": 225,
+      "false_negatives": 0,
+      "false_positive_rate": 0.026,
+      "false_discovery_rate": 0.0018
+    }
+  },
+  "missing_telemetry_100pct": {
+    "legacy_scorer": {
+      "accuracy": 0.9893,
+      "precision": 0.9887,
+      "recall": 1.0,
+      "f1": 0.9943,
+      "roc_auc": 0.9797,
+      "pr_auc": 0.9981,
+      "brier_score": 0.0778,
+      "true_positives": 3400,
+      "false_positives": 39,
+      "true_negatives": 192,
+      "false_negatives": 0,
+      "false_positive_rate": 0.1688,
+      "false_discovery_rate": 0.0113
+    },
+    "learned_scorer": {
+      "accuracy": 0.9882,
+      "precision": 0.9982,
+      "recall": 0.9891,
+      "f1": 0.9936,
+      "roc_auc": 0.989,
+      "pr_auc": 0.9989,
+      "brier_score": 0.014,
+      "true_positives": 3363,
+      "false_positives": 6,
+      "true_negatives": 225,
+      "false_negatives": 37,
+      "false_positive_rate": 0.026,
+      "false_discovery_rate": 0.0018
+    }
+  },
+  "root_cause_ranking": {
+    "total_scenarios_evaluated": 39,
+    "legacy_scorer": {
+      "top1_accuracy": 0.0,
+      "top3_accuracy": 0.0
+    },
+    "learned_scorer": {
+      "top1_accuracy": 0.0,
+      "top3_accuracy": 0.0
+    }
+  }
+}

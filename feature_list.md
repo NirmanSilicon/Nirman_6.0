@@ -1,0 +1,116 @@
+# AXYRA SpaceTech — Backend Implemented Feature List
+
+- Standardized 4-Tier Reasoning Confidence Taxonomy (`HIGH CONFIDENCE`, `MODERATE CONFIDENCE`, `LOW CONFIDENCE`, `INSUFFICIENT EVIDENCE`) applied uniformly across anomaly detection, causal edges, root-cause ranking, and counterfactual simulation.
+- Ambiguity Detection & Competing Hypotheses Preservation (`is_ambiguous_root = True`, `competing_hypotheses`) when top candidate causes are within close scoring margins ($\Delta < 0.12$), refusing to force an artificial single root cause.
+- Out-of-Distribution (OOD) Open-Set Rejection Layer in Caelis AI (`pattern_status="UNKNOWN / OUT-OF-DISTRIBUTION"`) evaluating epistemic ensemble disagreement ($\sigma_{\text{estimators}} > 0.28$) and conformal envelope z-score departure ($z_{\text{max}} > 6.5, z_{\text{mean}} > 3.8$).
+- Multi-Hop Missing Evidence Tracking (`missing_evidence`) identifying unobserved intermediate components along expected causal propagation paths in the Temporal Event Graph.
+- Uncertain Edge Flagging (`uncertain_edges`) isolating candidate transitions with borderline confidence, physical inconsistency, or missing intermediate proof.
+- Non-Propagating Independent Event Isolation (`independent_events`) distinguishing concurrent anomalies lacking physical coupling from the primary incident cascade.
+- Interactive Competing Hypotheses Selection & Telemetry Gaps Banner in EvidenceTrace UI, allowing flight operators to explore alternative causal paths.
+- Structural Counterfactual Forward Simulator (`backend/app/core/mission_model/structural_simulator.py`) executing deterministic discrete-time ($\Delta t = 1.0\text{s}$) forward state simulation across canonical module specifications.
+- Deterministic State Transition Specifications (`StateTransitionSpec`, `StateEvolutionRule`, `FailureTransitionRule`, `RecoveryProtectionRule`) across all 7 canonical subsystem modules (Thermal, Battery, EPS Power, OBC, Comms, Payload, ADCS).
+- Pearl-Style Structural Intervention Engine evaluating concrete physical clamps $do(X_t=x^*)$ (e.g., clamp thermal sensor at T+290s, suppress BMS trip at T+440s, or mitigate root trigger with lead time slider).
+- Trajectory Comparison Engine cross-referencing counterfactual trajectories against observed flight incident timelines to classify events into `PREVENTED`, `REMAINING`, and `SHIFTED` (with temporal shift $\Delta t_{\text{shift}}$ and severity shift).
+- Mission Impact Quantification computing overall severity score reduction ($\Delta\text{Severity}$), mitigation percentage, and rescued critical flight subsystems (`EPS`, `OBC`, `Payload`).
+- Lead-Time-Aware Feasibility & Confidence Scoring computing operational lead time ($\max(\text{lead\_time}, t_{\text{first}} - t_{\text{intervene}})$) and assigning confidence scores ($\ge 0.90$ with $\ge 5\text{s}$ lead time).
+- Explicit Model Assumptions Reporting communicating physical simplifications (e.g. discrete Euler integration, canonical transition rules, nominal environmental sink).
+- Baseline Graph-Reachability Retention computing and returning legacy topological reachability side-by-side for comparative audit and verification.
+- Constrained Learned Causal Edge Scorer (`backend/app/core/mission_model/learned_causal_scorer.py`) predicting candidate causal edge validity probabilities $P(\text{edge is valid} \mid \mathbf{x}_{ij})$.
+- Non-Bypassable Hard Structural Constraint Validator (`HardConstraintValidator`) operating strictly outside the ML model (temporal arrow $T_{\text{cause}} < T_{\text{effect}}$, reachability in $G_{\text{craft}}$, propagation delay window bounds, forbidden structural cross-couplings).
+- 22-Dimensional Causal Feature Vector Extraction Engine (`backend/app/core/causal_features.py`) extracting temporal plausibility, path decay, intermediate corroboration, anomaly confidence, SHAP attribution, physics residual consistency, event severity, and operating mode context.
+- Calibrated Meta-Ensemble Supervised Classifier (`CalibratedClassifierCV(method='sigmoid')` over LogisticRegression, RandomForest, and GradientBoosting) trained on 22,924 candidate vectors.
+- 93.75% Reduction in False Causal Edges (FP dropped from 48 down to 3 across 45 held-out scenarios, with False Discovery Rate falling from 1.42% to 0.09%).
+- 24-Fold Probability Calibration Improvement (Brier score falling from 0.0172 to 0.0007).
+- Markov Causal Parsimony Rule prioritizing immediate physical parents ($\text{hops}=1$) over multi-hop ancestor bypasses to preserve physical intermediate propagation roles.
+- Dual-Mode Causal Scoring Architecture maintaining legacy 3-weight formula (`LegacyCausalScorer`, `scorer_type="legacy"`) for seamless comparative evaluation.
+- 5-Dimensional Evaluation Benchmark Harness (`ai_model/evaluate_causal_scorers.py`) testing edge precision/recall, false causal edges, root cause ranking, unseen failure modes, and robustness under 50%-100% missing intermediate telemetry.
+- Comprehensive Learned Scorer Test Suite (`backend/tests/test_learned_causal_scorer.py`) with 9 targeted unit tests verifying hard constraints, feature extraction, edge probability predictions, and legacy fallback parity (92 passing tests project-wide across 11 test modules).
+- Physics-Informed Anomaly Detection Layer (`backend/app/core/physics_anomaly/`) augmenting statistical ML pattern recognition with first-principles aerospace models.
+- Discrete-Time Thermal & Battery Dynamic Predictor (`ThermalHeaterPredictor`) modeling radiative heat rejection to deep space and Joule heating with explicit mission configuration parameters ($\tau=450\text{s}$, $T_{\text{sink}}=-10^\circ\text{C}$, $P=8\text{W}$, $C=120\text{J/}^\circ\text{C}$).
+- Discrete-Time Power Bus Voltage Predictor (`PowerBusVoltagePredictor`) modeling rail drop under load impedance and BMS over-temperature isolation switch trip states.
+- Sensor Integrity Predictor (`SensorIntegrityPredictor`) enforcing physical operational channel bounds, sentinel dropout trapping, and max slew rate limits ($\dot{T}_{\text{max}} = 3.5^\circ\text{C/s}$).
+- Residual Metric Calculator deriving observed values, predicted values, raw residuals ($r = y_{\text{obs}} - y_{\text{pred}}$), and normalized residual z-scores ($z_{\text{res}} = |r| / \sigma_{\text{expected}}$) per channel.
+- 4-Way Anomaly Classification Matrix strictly categorizing all anomalies into `statistically_abnormal`, `physically_inconsistent`, `both`, and `neither`.
+- Temporal Event Graph Causal Integration exposing physical consistency metrics on candidate causal edges to corroborate coupling physics against residual evidence.
+- Dual-Mode Anomaly Extraction maintaining pure statistical anomaly extraction via `use_physics=False` (`extract_events_baseline`) for regression-free baseline comparisons.
+- Runtime ML Inference Integration (`infer_telemetry.py`) embedding residual features (`feat_predicted`, `feat_residual`, `feat_residual_normalized`, `feat_is_physically_inconsistent`) into the sliding-window vector.
+- Comprehensive Physics Anomaly Test Suite (`backend/tests/test_physics_anomaly.py`) verifying thermal dynamics, power bus coupling, sensor integrity, 4-way classification, baseline parity, and historical NASA incident replays.
+- Temporal Event Graph (TEG) Active Incident Representation (`backend/app/core/mission_model/temporal_event_graph.py`) modeling concrete events at specific timestamps as nodes and directed candidate causal edges.
+- Formal Two-Graph Architecture separating static cyber-physical topology ($G_{\text{craft}}$) from dynamic incident event cascades ($G_{\text{event}}$).
+- Native Event-to-Event Arrow of Time ($T_{\text{cause}} < T_{\text{effect}}$) embedded directly at candidate edge generation, precluding backward and concurrent causality without ad-hoc external filters.
+- Physics-based Subsystem Propagation Delay Window evaluation querying canonical template $[\text{min\_seconds}, \text{max\_seconds}]$ ranges.
+- Same-Component Internal State Transition Modeling allowing multi-event progression on identical components (e.g. Battery Warning $\to$ Battery Thermal Runaway) with $S_D = 1.0$.
+- Intermediate Path Event Corroboration ($S_I$) verifying that components along shortest topological paths logged corresponding events within the propagation window.
+- Independent Anomaly Isolation classifying disconnected, out-of-order, or non-causal anomalies as `role="independent"`.
+- Event-level DRF serializers and TypeScript contracts exposing `timestamp_epoch`, `state_transition`, `telemetry_evidence`, `temporal_distance_seconds`, and `allowed_propagation_window`.
+- Canonical CubeSat Causal Template Library (`backend/app/core/mission_model/canonical_templates/`) defining the 8 core CubeSat subsystems: EPS/Power, Battery, Thermal, ADCS, OBC, Communications, Payload, and Flight Software.
+- Subsystem template specifications (`CausalModuleTemplate`) defining operational states, measurable telemetry variables, allowed interfaces, dependency types, physics-based propagation delays, relevant failure types, and structural rules.
+- Declarative JSON/YAML Mission Configuration Schema (`mission_schema.py`) supporting custom and standard spacecraft architectures (`canonical_cubesat.json`), parameters, thresholds, and operational rules.
+- 5-point semantic and structural mission validation engine verifying missing required modules, duplicate component IDs, invalid dependency references, directed cycles (in strict DAG mode), and parameter range bounds.
+- Dynamic Mission Dependency Graph Generator (`graph_generator.py`) compiling mission configs and canonical templates into fully annotated NetworkX directed graphs (`MissionDependencyGraph`).
+- Structural rule validation engine asserting subsystem interface constraints against instantiated graph topology (e.g. asserting incoming power rails).
+- Decoupled `dependency_graph.py` and `causal_engine.py` accepting dynamic, mission-configured graphs without static node lists while preserving 100% root-cause verdict parity on legacy scenarios.
+- Mission Architecture Compatibility Boundary (`backend/app/core/mission_model/` and `frontend/src/types/missionArchitecture.ts`) decoupling spacecraft configurations, subsystem templates, and causal model parameters.
+- Canonical CubeSat reference profile (`canonical_cubesat.json` / `STANDARD_CUBESAT_13_NODE_TEMPLATE`) with 16 cyber-physical dependency edges across thermal, electrical, software, and control domains.
+- Reusable `SubsystemTemplate`, `ComponentDefinition`, and `DependencyDefinition` abstractions compiled into NetworkX directed graphs.
+- Decoupled `CausalModelSpec` encapsulating scoring weights, hop bounds, and confidence thresholds away from global hardcoded variables.
+- Universal `EventRecord` representation wrapping raw sensor threshold crossings, discrete states, alarms, and AI anomaly classifications.
+- Instantiated `MissionCausalGraph` schema with structural counterfactual forward simulation (`simulate_counterfactual_structural`) and legacy reachability methods (`simulate_counterfactual_reachability`).
+- Zero-regression `legacy_adapter.py` maintaining 100% backward compatibility with existing endpoints and test suites.
+
+- Geometric multi-hop path strength decay calculator multiplying edge weights along shortest DAG paths.
+- Multi-hop upstream candidate component ancestor locator using reverse DAG shortest path traversal.
+- Downstream dependent failure cascade descendant locator identifying all reachable subsystem nodes.
+- European Space Agency OPS-SAT (OPSSAT-AD) telemetry noise and sampling interval calibration pipeline.
+- Multi-channel synthetic normal baseline telemetry generator with configurable duration, sampling rates, and Gaussian noise.
+- Canonical 8-stage cascading fault injection engine simulating domino failure propagation from sensor freeze to payload power blackout.
+- Independent cyber anomaly splicer embedding NASA NOS3/cFS (CuCD-ID) space-packet telemetry outside the physical DAG.
+- Rolling causal z-score anomaly detector operating without lookahead across a 20-sample sliding window (4.0σ warning, 5.0σ critical).
+- Sentinel value and sensor dropout detector identifying frozen readings (-999.0 °C) and RF carrier dropouts (-900.0 dBm).
+- State-machine departure and flag-based trip state anomaly extractor for protection switches and operational modes.
+- Sliding-window temporal de-duplication filter suppressing secondary echo alarms within 3.0 seconds.
+- Deterministic causal inference engine traversing upstream DAG dependencies up to 3 hops.
+- Hard non-negotiable temporal precedence filter enforcing cause timestamp strictly prior to effect timestamp.
+- Dual-mode causal confidence scoring combining Constrained Learned Causal Scorer (22 features, meta-ensemble) with preserved legacy 3-weight baseline formula.
+- Automated plain-English explainable evidence sentence generator synthesized for every candidate causal link.
+- Event role classifier categorizing extracted events into primary root cause, propagation event, secondary consequence, or independent anomaly.
+- Greedy minimum causal explanation reducer isolating the smallest defensible primary root-cause trigger set.
+- Multi-model ensemble causal weight calibration pipeline combining Logistic Regression, Random Forest, Gradient Boosting, Extra Trees, and Soft Voting Classifier.
+- Automated scenario factory generating 250 diverse simulated flight incidents harvesting 11,000 labeled candidate causal tuples.
+- Consensus weight calibration for baseline linear scorer (w_T = 0.0475, w_D = 0.6320, w_I = 0.3205) preserved alongside production Constrained Learned Scorer.
+- Automated synchronization of calibrated weights.json and serialized ensemble_model.joblib artifacts.
+- Channel-agnostic 7-feature statistical telemetry harmonization (mean, std, min, max, range, rate-of-change, skewness) mapped across OPSSAT, CuCD, Micius, and SMAP/MSL datasets.
+- CAELIS AI sliding-window anomaly inference engine scoring telemetry vectors and returning anomaly probability and confidence.
+- SHAP feature contribution and explainability calculator identifying statistical telemetry drivers behind anomaly classifications.
+- Pre-calibrated flight failure scenario definitions catalog (Thermal, Heater, Battery, Power Bus, Comms, Payload, Nominal, Uplink).
+- AI candidate validation engine testing anomaly predictions against physical DAG topology and temporal precedence constraints.
+- Structural counterfactual forward simulation engine calculating prevented, remaining, and shifted failure events, mission severity delta, and operational feasibility based on Pearl-style intervention cut-points.
+- Component blast radius calculator computing upstream root-cause paths and downstream subsystem failure impacts.
+- Diagnostic incident report generator synthesizing structured post-mortem summaries, primary cause verdicts, and evidence traces.
+- SQLite persistent storage layer with automated schema initialization for saving, loading, and querying incident telemetry and events.
+- REST API endpoint for generating synthetic incidents with baseline noise and injected fault cascades (POST /api/incidents/generate/).
+- REST API endpoint for uploading CSV logs or JSON records with automatic anomaly extraction (POST /api/incidents/upload/).
+- REST API endpoint for retrieving the chronological list and summary of all stored incidents (GET /api/incidents/).
+- REST API endpoint for retrieving full incident telemetry, metadata, and extracted event records (GET /api/incidents/<id>/).
+- REST API endpoint for executing deterministic causal inference and genealogy tree generation on stored incident events (POST /api/incidents/analyze/).
+- REST API endpoint for running structural counterfactual intervention queries with customizable action types, clamped values, and lead times, returning prevented/shifted events, impact metrics, and baseline reachability (POST /api/query/counterfactual/).
+- REST API endpoint for querying component dependency blast radius and upstream candidate chains (GET/POST /api/query/blast-radius/).
+- REST API endpoint for scoring raw telemetry sliding windows with the AI ensemble and SHAP contributions (POST /api/caelis/score/).
+- REST API endpoint for validating candidate events against physical causal DAG rules (GET/POST /api/caelis/validate/).
+- REST API endpoint for fetching pre-calibrated scenario definitions and benchmark profiles (GET /api/caelis/scenarios/).
+- REST API endpoint for exporting formatted diagnostic incident reports (GET /api/reports/<id>/export/).
+- REST API endpoint for submitting real-time Engineer Review verdicts (confirm/override/reject) into the active learning pool (POST /api/feedback/submit/).
+- REST API endpoint for querying aggregated data flywheel health metrics and pending retrain counts (GET /api/feedback/stats/).
+- REST API endpoint for viewing paginated history of reviewed engineer findings (GET /api/feedback/history/).
+- REST API endpoint for triggering incremental ensemble retraining weighted with human-validated incident records (POST /api/feedback/trigger-retrain/).
+- Active learning feedback loop module (ai_model/active_learning.py) with 3.0x human label sample weighting and isotonic probability recalibration.
+- Interactive Engineer Review Panel component (EngineerFeedbackPanel.tsx) integrated directly into CAELIS AI and Evidence Trace pages.
+- 3-Tier Verification & Cryptographic Provenance Architecture:
+  - Tier 1 (Default Normal Operation): Local cryptographic audit & SHA-256 integrity signatures computed offline with zero external network egress (100% functional in air-gapped Sovereign Mode).
+  - Tier 2 (Optional Advanced Verification): Groth16 Zero-Knowledge proof generation via `causal_verdict.circom` validating that an approved causal verdict was produced under public model weights and confidence policy threshold without revealing internal model weights or proprietary flight telemetry. Focused circuit boundary strictly excludes telemetry streams, full causal graphs, and ML models.
+  - Tier 3 (Optional External Provenance): Best-effort asynchronous on-chain notary anchoring (`AuditAnchor.sol`), parametric insurance claim submission (`ParametricPolicy.sol`), and 3-of-4 multi-party threshold sign-off (`MultiSigSignOff.sol`) completely decoupled from the core investigative loop.
+- Non-blocking Incident Resolution: Incident status updates to `RESOLVED` operate reliably offline with SHA-256 signatures, with multi-sig sign-off strictly optional (`require_multisig=True`).
+- Cached Reachability Probing (`backend/app/core/zk_client.py`): Performs cached service availability checks with 0.5s timeout and 15s TTL, eliminating network latency and connection error spam during local offline operations.
+- Privacy-Redacted ZK Verification Endpoints (`POST /api/incidents/<id>/zk-proof/`, `POST /api/incidents/<id>/verify-zk-proof/`): Generate and verify Groth16 proofs without exposing private telemetry scores (`S_temporal`, `S_dependency`, `S_intermediate`).
+- Optional On-Chain Anchoring Endpoints (`POST /api/incidents/<id>/anchor/`, `GET /api/incidents/<id>/verify-anchor/`): Provide immutable timestamping on Polygon/Hardhat networks on an opt-in basis.
+

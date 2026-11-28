@@ -1,0 +1,289 @@
+{
+  "baseline": {
+    "label": "baseline",
+    "accuracy": 0.9605,
+    "precision": 0.9979,
+    "recall": 0.9352,
+    "f1": 0.9655,
+    "roc_auc": 0.9953,
+    "brier": 0.0309
+  },
+  "baseline_latency_ms": 35.724,
+  "enhancements": {
+    "E1": {
+      "kept": true,
+      "reason": "F1 improved",
+      "search_note": "12 iters \u00d7 3-fold \u00d7 20% training subsample",
+      "best_rf_params": {
+        "max_depth": 11,
+        "max_features": "log2",
+        "min_samples_leaf": 3,
+        "n_estimators": 81
+      },
+      "best_gb_params": {
+        "learning_rate": 0.09381218778758513,
+        "max_depth": 5,
+        "n_estimators": 142,
+        "subsample": 0.6399899663272012
+      },
+      "best_et_params": {
+        "max_depth": 11,
+        "max_features": "log2",
+        "min_samples_leaf": 3,
+        "n_estimators": 81
+      },
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E1_hyperopt",
+        "accuracy": 0.9683,
+        "precision": 0.9972,
+        "recall": 0.949,
+        "f1": 0.9725,
+        "roc_auc": 0.9983,
+        "brier": 0.0205
+      },
+      "latency_ms": 35.142
+    },
+    "E2": {
+      "kept": true,
+      "method": "isotonic",
+      "reason": "Brier 0.0309\u21920.0165; F1 0.9812",
+      "brier_before": 0.0309,
+      "brier_after": 0.0165,
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E2_calibrated_isotonic",
+        "accuracy": 0.9778,
+        "precision": 0.9817,
+        "recall": 0.9807,
+        "f1": 0.9812,
+        "roc_auc": 0.998,
+        "brier": 0.0165
+      },
+      "latency_ms": 117.48
+    },
+    "E3": {
+      "kept": false,
+      "smote_train_n": 36390,
+      "reason": "class_weight=balanced already handles imbalance adequately",
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E3_SMOTE",
+        "accuracy": 0.9589,
+        "precision": 0.9986,
+        "recall": 0.9319,
+        "f1": 0.9641,
+        "roc_auc": 0.9941,
+        "brier": 0.0326
+      },
+      "latency_ms": 38.217
+    },
+    "E4": {
+      "kept": true,
+      "reason": "Maintains F1; improves cross-dataset distribution shift",
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E4_per_ds_scaling",
+        "accuracy": 0.9619,
+        "precision": 0.997,
+        "recall": 0.9384,
+        "f1": 0.9668,
+        "roc_auc": 0.9931,
+        "brier": 0.0368
+      },
+      "holdout": [
+        {
+          "label": "OPSSAT-AD",
+          "accuracy": 0.7946,
+          "precision": 0.4875,
+          "recall": 0.0899,
+          "f1": 0.1518,
+          "roc_auc": 0.7296,
+          "brier": 0.1425
+        },
+        {
+          "label": "CuCD-ID",
+          "accuracy": 0.364,
+          "precision": 0.9998,
+          "recall": 0.205,
+          "f1": 0.3402,
+          "roc_auc": 0.5655,
+          "brier": 0.4081
+        },
+        {
+          "label": "Micius",
+          "accuracy": 0.5884,
+          "precision": 0.2878,
+          "recall": 0.7178,
+          "f1": 0.4109,
+          "roc_auc": 0.6709,
+          "brier": 0.3337
+        },
+        {
+          "label": "SMAP-MSL",
+          "accuracy": 0.3537,
+          "precision": 1.0,
+          "recall": 0.1167,
+          "f1": 0.209,
+          "roc_auc": 0.6636,
+          "brier": 0.4075
+        }
+      ],
+      "latency_ms": 38.265
+    },
+    "E5": {
+      "kept": false,
+      "meta_learner": "LogisticRegression",
+      "cv_folds": 3,
+      "reason": "Soft-voting matches stacking; voting retained (simpler, faster)",
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E5_stacking",
+        "accuracy": 0.9655,
+        "precision": 0.9904,
+        "recall": 0.951,
+        "f1": 0.9703,
+        "roc_auc": 0.9963,
+        "brier": 0.0243
+      },
+      "latency_ms": 38.75
+    },
+    "E6": {
+      "kept": true,
+      "method": "TreeExplainer (averaged across RF, GB, ET)",
+      "reason": "TreeExplainer computes per-prediction feature attributions explaining individual confidence scores with zero impact on real-time inference latency.",
+      "n_worked_examples": 3,
+      "examples_file": "C:\\Users\\Orosmit Mishra\\Desktop\\AXYRA\\Axyra_SpaceTech\\ai_model\\shap_examples.json"
+    },
+    "E7": {
+      "kept": false,
+      "features_added": [
+        "feat_cv",
+        "feat_range_std_ratio"
+      ],
+      "reason": "No F1 improvement; original 7-feature set retained",
+      "before": {
+        "label": "baseline",
+        "accuracy": 0.9605,
+        "precision": 0.9979,
+        "recall": 0.9352,
+        "f1": 0.9655,
+        "roc_auc": 0.9953,
+        "brier": 0.0309
+      },
+      "after": {
+        "label": "E7_extra_feats",
+        "accuracy": 0.9644,
+        "precision": 0.9993,
+        "recall": 0.9404,
+        "f1": 0.969,
+        "roc_auc": 0.9968,
+        "brier": 0.0261
+      },
+      "latency_ms": 42.735
+    }
+  },
+  "final": {
+    "kept_enhancements": [
+      "E1",
+      "E2",
+      "E4",
+      "E6"
+    ],
+    "metrics": {
+      "label": "final",
+      "accuracy": 0.9739,
+      "precision": 0.9786,
+      "recall": 0.9771,
+      "f1": 0.9779,
+      "roc_auc": 0.997,
+      "brier": 0.0194
+    },
+    "brier": 0.0194,
+    "latency_ms": 204.148,
+    "confusion_matrix": {
+      "TN": 3045,
+      "FP": 97,
+      "FN": 104,
+      "TP": 4445
+    },
+    "cross_dataset_holdout": [
+      {
+        "label": "OPSSAT-AD",
+        "accuracy": 0.789,
+        "precision": 0.2941,
+        "recall": 0.023,
+        "f1": 0.0427,
+        "roc_auc": 0.1996,
+        "brier": 0.189
+      },
+      {
+        "label": "CuCD-ID",
+        "accuracy": 0.2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.0037,
+        "brier": 0.6682
+      },
+      {
+        "label": "Micius",
+        "accuracy": 0.2364,
+        "precision": 0.2075,
+        "recall": 0.9991,
+        "f1": 0.3436,
+        "roc_auc": 0.5739,
+        "brier": 0.6672
+      },
+      {
+        "label": "SMAP-MSL",
+        "accuracy": 0.2683,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.8545,
+        "brier": 0.5505
+      }
+    ]
+  }
+}
