@@ -1,4 +1,9 @@
 import type { CorridorSnapshot, ForecastResponse, RescueEvaluationResponse } from '../types/corridor';
+import {
+  MOCK_FORECAST_SER_12821,
+  MOCK_FORECAST_SER_22895,
+  MOCK_FORECAST_SER_12822,
+} from './mockDataSer';
 
 export const MOCK_SNAPSHOT: CorridorSnapshot = {
   corridor_id: 'ECoR_BHC_PURI',
