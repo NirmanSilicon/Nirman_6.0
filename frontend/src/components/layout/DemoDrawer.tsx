@@ -178,13 +178,13 @@ export const DemoDrawer: React.FC = () => {
         await injectFreightShadow('DN_MCA_PKU', 20.0, 0.88);
         setSelectedTrain('12821');
         triggerRefresh();
-        setStatusMessage('Kolkata scenario active: 12821 (+24m) at Mecheda + DN_MCA_PKU freight drag with Kona Expressway rescue.');
+        setStatusMessage('Kolkata scenario active: 12821 Steel Express (+24m) at Mecheda + DN_MCA_PKU freight drag with Kona Expressway rescue.');
       } else {
         await startDemoScenario('DHAULI_CASCADE', speed);
         await injectFreightShadow('DN_CTC_BRAG', 20.0, 0.88);
         setSelectedTrain('12821');
         triggerRefresh();
-        setStatusMessage('Scenario 1 active: 12821 (+28m) + DN_CTC_BRAG Phantom Freight shadow (STR 1.85).');
+        setStatusMessage('Scenario 1 active: 12821 Dhauli Express (+28m) + DN_CTC_BRAG Phantom Freight shadow (STR 1.85).');
       }
     } catch {
       setStatusMessage('Cascade delay applied.');
@@ -202,7 +202,7 @@ export const DemoDrawer: React.FC = () => {
         await injectFreightShadow('DN_SRC_ULB', 20.0, 0.88);
         setSelectedTrain('12821');
         triggerRefresh();
-        setStatusMessage('Santragachi Junction disruption active: 12821 holding at SRC (7 km) + Kona Expressway cab rescue to Howrah.');
+        setStatusMessage('Santragachi Junction disruption active: 12821 Steel Express holding at SRC (7 km) + Kona Expressway cab rescue to Howrah.');
       } else {
         await startDemoScenario('KHURDA_CASCADE', speed);
         await injectFreightShadow('DN_KUR_PURI', 20.0, 0.88);
@@ -223,8 +223,9 @@ export const DemoDrawer: React.FC = () => {
       const res = await triggerLiveOvertake();
       setSelectedTrain('12821');
       triggerRefresh();
+      const holdTarget = isKolkata ? '12821 Steel Express' : '12821 Dhauli Express';
       setStatusMessage(
-        `Live overtake active: 12821 slowing to hold at ${res.hold_station_name} (${res.hold_station_code}) for 22895 Vande Bharat (no teleport).`
+        `Live overtake active: ${holdTarget} slowing to hold at ${res.hold_station_name} (${res.hold_station_code}) for 22895 Vande Bharat (no teleport).`
       );
     } catch {
       setStatusMessage('Vande Bharat overtake scenario simulated.');
@@ -615,7 +616,7 @@ export const DemoDrawer: React.FC = () => {
                   <div className="font-bold text-[#0F172A]">Vande Bharat Priority Overtake Hold</div>
                   <div className="text-xs text-[#64748B]">
                     {isKolkata
-                      ? 'Runs corridor at 10x speed as 22895 Vande Bharat closes at 130 km/h, triggering loop hold at Mecheda (MCA) on 12821.'
+                      ? 'Runs corridor at 10x speed as 22895 Vande Bharat closes at 130 km/h, triggering loop hold at Mecheda (MCA) on 12821 Steel Express.'
                       : 'Runs corridor at 10x speed as 22895 Vande Bharat closes at 130 km/h, triggering a +16m loop hold on 12821.'}
                   </div>
                 </div>

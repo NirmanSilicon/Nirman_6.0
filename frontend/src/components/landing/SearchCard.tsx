@@ -279,18 +279,29 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
       return;
     }
 
-    // Search across all available trains in both corridors
+    // Search across all available trains in both corridors (prioritizing current corridor)
     const qLower = q.toLowerCase();
-    const exactNoMatch = allAvailableTrains.find((tr) => tr.no === q);
-    const exactNameMatch = allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower);
+    const exactNoMatch =
+      allAvailableTrains.find((tr) => tr.no === q && tr.corridorId === activeCorridorId) ||
+      allAvailableTrains.find((tr) => tr.no === q);
+    const exactNameMatch =
+      allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower && tr.corridorId === activeCorridorId) ||
+      allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower);
     const partialMatch =
       q.length >= 2
         ? allAvailableTrains.find(
-          (tr) =>
-            tr.no.includes(q) ||
-            tr.name.toLowerCase().includes(qLower) ||
-            qLower.includes(tr.name.toLowerCase()),
-        )
+            (tr) =>
+              (tr.no.includes(q) ||
+                tr.name.toLowerCase().includes(qLower) ||
+                qLower.includes(tr.name.toLowerCase())) &&
+              tr.corridorId === activeCorridorId,
+          ) ||
+          allAvailableTrains.find(
+            (tr) =>
+              tr.no.includes(q) ||
+              tr.name.toLowerCase().includes(qLower) ||
+              qLower.includes(tr.name.toLowerCase()),
+          )
         : null;
 
     const match = exactNoMatch || exactNameMatch || partialMatch;
@@ -532,7 +543,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
                   setUnmatchedNotice(null);
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && handleTrackSubmit()}
-                placeholder="Enter train no. or name (e.g. 12821, Vande Bharat)"
+                placeholder={isKolkata ? "Enter train no. or name (e.g. 12821, Steel Express)" : "Enter train no. or name (e.g. 12821, Vande Bharat)"}
                 className="w-full min-w-0 px-4 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 placeholder-slate-400 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all shadow-2xs"
               />
             </div>

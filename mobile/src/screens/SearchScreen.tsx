@@ -226,10 +226,19 @@ export const SearchScreen: React.FC = () => {
 
     const qLower = q.toLowerCase();
     const match =
+      allAvailableTrains.find((tr) => tr.no === q && tr.corridorId === activeCorridorId) ||
       allAvailableTrains.find((tr) => tr.no === q) ||
+      allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower && tr.corridorId === activeCorridorId) ||
       allAvailableTrains.find((tr) => tr.name.toLowerCase() === qLower) ||
       (q.length >= 2
         ? allAvailableTrains.find(
+            (tr) =>
+              (tr.no.includes(q) ||
+                tr.name.toLowerCase().includes(qLower) ||
+                qLower.includes(tr.name.toLowerCase())) &&
+              tr.corridorId === activeCorridorId
+          ) ||
+          allAvailableTrains.find(
             (tr) =>
               tr.no.includes(q) ||
               tr.name.toLowerCase().includes(qLower) ||
@@ -529,7 +538,7 @@ export const SearchScreen: React.FC = () => {
                     setTrainQuery(val);
                     setUnmatchedNotice(null);
                   }}
-                  placeholder="Enter train no. or name (e.g. 12821, Vande Bharat)"
+                  placeholder={isKolkata ? "Enter train no. or name (e.g. 12821, Steel Express)" : "Enter train no. or name (e.g. 12821, Vande Bharat)"}
                   placeholderTextColor="#94A3B8"
                   returnKeyType="search"
                   onSubmitEditing={handleTrackSubmit}
