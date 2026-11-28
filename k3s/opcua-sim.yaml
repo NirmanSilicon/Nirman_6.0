@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opcua-simulator
+  namespace: vidyutsync
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opcua-simulator
+  template:
+    metadata:
+      labels:
+        app: opcua-simulator
+    spec:
+      containers:
+        - name: opcua-simulator
+          image: vidyutsync/backend:latest
+          command: ["python", "-m", "src.connectors.opcua_bridge"]
+          envFrom:
+            - configMapRef:
+                name: vidyutsync-config
+          ports:
+            - containerPort: 4840
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opcua-simulator-service
+  namespace: vidyutsync
+spec:
+  selector:
+    app: opcua-simulator
+  ports:
+    - port: 4840
+      targetPort: 4840

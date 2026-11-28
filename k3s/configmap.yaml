@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vidyutsync-config
+  namespace: vidyutsync
+data:
+  ENVIRONMENT: "production"
+  PORT: "8000"
+  ORCHESTRATOR_MODE: "shadow"
+  TIMESCALE_HOST: "timescaledb-service"
+  TIMESCALE_PORT: "5432"
+  TIMESCALE_DB: "vidyutsync"
+  MQTT_BROKER_HOST: "mosquitto-service"
+  MQTT_BROKER_PORT: "1883"
+  OPCUA_SERVER_ENDPOINT: "opc.tcp://opcua-simulator-service:4840/freeopcua/server/"
+  USE_MOCK_LLM: "true"
+  BESS_MIN_SOC_FLOOR_PCT: "30.0"
+  MAX_GRID_DRAW_KW: "1200.0"
+  WORKER_MAX_NOISE_DAY_DB: "85.0"
+  WORKER_MAX_NOISE_NIGHT_DB: "70.0"
