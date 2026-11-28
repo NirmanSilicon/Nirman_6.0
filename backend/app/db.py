@@ -31,3 +31,7 @@ def init_db(retries: int = 30) -> None:
                 raise
             time.sleep(2)
     Base.metadata.create_all(engine)
+    with engine.begin() as conn:  # lightweight migration for databases created before these columns existed
+        for col, typ in [("capacity_mta", "double precision"), ("geocode_level", "varchar(12)"), ("list_date", "varchar(10)"),
+                         ("source_url", "text"), ("validity_note", "text")]:
+            conn.execute(text(f"ALTER TABLE recyclers ADD COLUMN IF NOT EXISTS {col} {typ}"))

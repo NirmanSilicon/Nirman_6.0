@@ -19,6 +19,7 @@ def recyclers(
     lat: float = Query(..., ge=-90, le=90), lng: float = Query(..., ge=-180, le=180),
     radius: float = Query(100, gt=0, le=2000, description="km"),
     accepts: str | None = Query(None, description="e.g. RAM, PCB, motherboard"),
+    state: str | None = Query(None, description="e.g. Odisha"),
     limit: int = Query(10, ge=1, le=50), db: Session = Depends(get_db),
 ):
     """Nearest authorised recyclers (PostGIS). If none inside `radius`, returns the nearest few with `expanded=true`."""
@@ -27,6 +28,8 @@ def recyclers(
     base = select(m.Recycler, dist)
     if accepts:
         base = base.where(m.Recycler.accepts.any(accepts))
+    if state:
+        base = base.where(func.lower(m.Recycler.state) == state.lower())
     rows = db.execute(base.where(func.ST_DWithin(m.Recycler.geom, here, radius * 1000)).order_by(dist).limit(limit)).all()
     expanded = False
     if not rows:
@@ -35,7 +38,9 @@ def recyclers(
     return {"radius_km": radius, "expanded": expanded, "items": [
         {"id": r.id, "name": r.name, "cpcb_reg_no": r.cpcb_reg_no, "address": r.address, "city": r.city,
          "state": r.state, "lat": r.lat, "lng": r.lng, "phone": r.phone, "accepts": r.accepts,
-         "verified": r.verified, "distance_km": round(d, 1)} for r, d in rows]}
+         "verified": r.verified, "distance_km": round(d, 1),
+         "capacity_mta": r.capacity_mta, "geocode_level": r.geocode_level, "list_date": r.list_date,
+         "source_url": r.source_url, "validity_note": r.validity_note} for r, d in rows]}
 
 
 @router.get("/prices", tags=["transparency"])

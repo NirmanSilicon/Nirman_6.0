@@ -108,8 +108,13 @@ class Recycler(Base):
     geom = mapped_column(Geography(geometry_type="POINT", srid=4326))
     phone: Mapped[str | None] = mapped_column(String(30), nullable=True)
     accepts: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
-    verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    verified: Mapped[bool] = mapped_column(Boolean, default=False)  # appears on an official authorisation list
     source: Mapped[str] = mapped_column(Text, default="")
+    capacity_mta: Mapped[float | None] = mapped_column(Float, nullable=True)
+    geocode_level: Mapped[str | None] = mapped_column(String(12), nullable=True)  # address | locality | city | district
+    list_date: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    source_url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    validity_note: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
 class OtpCode(Base):

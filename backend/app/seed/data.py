@@ -68,21 +68,3 @@ ROUTE_RATINGS = [
     ("Pyromet", "co2", 1, "static:PRD 9.2 High"),
 ]
 
-# name, cpcb_reg_no, address, city, state, lat, lng, phone, accepts
-# SAMPLE ROWS ONLY: they are NOT real CPCB registrations. Replace with the geocoded
-# CPCB authorised-recycler list:  python -m app.seed.import_recyclers recyclers.csv
-SAMPLE = "Sample seed row - not a verified CPCB listing"
-RECYCLERS = [
-    ("Sample Recycler - Seelampur, Delhi", "SAMPLE-DL-001", "Seelampur, Delhi", "Delhi", "Delhi", 28.6706, 77.2700, None, ["PCB", "RAM", "motherboard"]),
-    ("Sample Recycler - Mundka, Delhi", "SAMPLE-DL-002", "Mundka Industrial Area, Delhi", "Delhi", "Delhi", 28.6820, 77.0310, None, ["PCB", "mixed"]),
-    ("Sample Recycler - Noida", "SAMPLE-UP-001", "Sector 63, Noida", "Noida", "Uttar Pradesh", 28.6270, 77.3790, None, ["PCB", "RAM"]),
-    ("Sample Recycler - Gurugram", "SAMPLE-HR-001", "Udyog Vihar, Gurugram", "Gurugram", "Haryana", 28.5010, 77.0850, None, ["PCB", "RAM", "motherboard"]),
-    ("Sample Recycler - Mumbai", "SAMPLE-MH-001", "Andheri East, Mumbai", "Mumbai", "Maharashtra", 19.1190, 72.8700, None, ["PCB", "mixed"]),
-    ("Sample Recycler - Pune", "SAMPLE-MH-002", "Pimpri-Chinchwad, Pune", "Pune", "Maharashtra", 18.6290, 73.8000, None, ["PCB", "RAM"]),
-    ("Sample Recycler - Bengaluru", "SAMPLE-KA-001", "Peenya Industrial Area, Bengaluru", "Bengaluru", "Karnataka", 13.0290, 77.5200, None, ["PCB", "RAM", "motherboard"]),
-    ("Sample Recycler - Chennai", "SAMPLE-TN-001", "Ambattur, Chennai", "Chennai", "Tamil Nadu", 13.1140, 80.1600, None, ["PCB", "mixed"]),
-    ("Sample Recycler - Hyderabad", "SAMPLE-TS-001", "Jeedimetla, Hyderabad", "Hyderabad", "Telangana", 17.5160, 78.4500, None, ["PCB", "RAM"]),
-    ("Sample Recycler - Kolkata", "SAMPLE-WB-001", "Howrah, Kolkata", "Kolkata", "West Bengal", 22.5900, 88.3100, None, ["PCB", "mixed"]),
-    ("Sample Recycler - Bhubaneswar", "SAMPLE-OD-001", "Mancheswar Industrial Estate, Bhubaneswar", "Bhubaneswar", "Odisha", 20.3000, 85.8600, None, ["PCB", "RAM"]),
-    ("Sample Recycler - Ahmedabad", "SAMPLE-GJ-001", "Naroda GIDC, Ahmedabad", "Ahmedabad", "Gujarat", 23.0900, 72.6600, None, ["PCB", "mixed"]),
-]

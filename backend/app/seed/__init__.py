@@ -1,5 +1,7 @@
 """Idempotent seeding of reference tables.  `python -m app.seed [--force]`"""
+import csv
 import sys
+from pathlib import Path
 from datetime import datetime, timezone
 
 from geoalchemy2 import WKTElement
@@ -37,12 +39,33 @@ def seed(db: Session, force: bool = False) -> None:
         db.query(m.RouteRule).delete()
         db.add_all(m.RouteRule(route=r, criterion=c, weight=d.DEFAULT_WEIGHTS[c], rating=rt, formula_ref=f)
                    for r, c, rt, f in d.ROUTE_RATINGS)
-    if force or empty(m.Recycler):
-        db.query(m.Recycler).delete()
-        db.add_all(m.Recycler(name=n, cpcb_reg_no=reg, address=a, city=c, state=s, lat=la, lng=ln,
-                              geom=point(la, ln), phone=ph, accepts=acc, verified=False, source=d.SAMPLE)
-                   for n, reg, a, c, s, la, ln, ph, acc in d.RECYCLERS)
+    sample_only = db.scalar(select(m.Recycler.id).where(~m.Recycler.cpcb_reg_no.like("SAMPLE-%")).limit(1)) is None
+    if force or sample_only:  # replace placeholder rows with the real CPCB-list dataset
+        load_recyclers_csv(db, CSV)
     db.commit()
+
+
+CSV = Path(__file__).with_name("recyclers.csv")
+
+
+def load_recyclers_csv(db: Session, path: Path) -> int:
+    """Replace the recycler table from a CSV (see scripts/build_recyclers.py). Rows without coordinates are skipped."""
+    db.query(m.Recycler).delete()
+    n = 0
+    with open(path, newline="", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if not r.get("lat") or not r.get("lng"):
+                continue
+            lat, lng = float(r["lat"]), float(r["lng"])
+            db.add(m.Recycler(
+                name=r["name"], cpcb_reg_no=r.get("cpcb_reg_no", ""), address=r["address"], city=r.get("city", ""),
+                state=r["state"], lat=lat, lng=lng, geom=point(lat, lng), phone=r.get("phone") or None,
+                accepts=[a for a in r.get("accepts", "").split("|") if a], verified=r.get("verified") == "true",
+                source=r.get("source", ""), capacity_mta=float(r["capacity_mta"]) if r.get("capacity_mta") else None,
+                geocode_level=r.get("geocode_level") or None, list_date=r.get("list_date") or None,
+                source_url=r.get("source_url") or None, validity_note=r.get("validity_note") or None))
+            n += 1
+    return n
 
 
 if __name__ == "__main__":
