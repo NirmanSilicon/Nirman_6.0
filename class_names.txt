@@ -1,0 +1,12 @@
+Brinjal_Healthy
+Brinjal_Insect_Pest
+Brinjal_Leaf_Spot
+Brinjal_Mosaic_Virus
+Brinjal_Small_Leaf
+Brinjal_White_Mold
+Brinjal_Wilt
+Tomato_Early_Blight
+Tomato_Healthy
+Tomato_Late_Blight
+Tomato_Leaf_Mold
+Tomato_Target_Spot
