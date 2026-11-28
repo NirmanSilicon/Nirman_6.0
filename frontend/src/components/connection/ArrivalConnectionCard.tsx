@@ -92,8 +92,10 @@ export const ArrivalConnectionCard: React.FC = () => {
   // 1. Train Identity (Section 7)
   const trainIdentity = getTrainIdentity(selectedTrain, activeSnapshot);
 
+  const destCode = connectionTarget?.station_code || (isKolkata ? 'KGP' : 'BBS');
+
   // 2. Expected Arrival & Window (Section 1)
-  const prediction = getArrivalPrediction(selectedTrain, forecast);
+  const prediction = getArrivalPrediction(selectedTrain, forecast, null, destCode);
 
   // 3. Dynamic values for selected quantile
   const selectedArrivalTime =

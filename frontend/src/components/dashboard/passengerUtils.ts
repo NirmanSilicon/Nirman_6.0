@@ -501,7 +501,10 @@ export function getDelayCauses(
   }
 
   if (trainNo === '12821') {
-    const isSER = Boolean(trainObj?.lon != null && trainObj.lon > 87.0);
+    const isSER = Boolean(
+      (trainObj?.lon != null && trainObj.lon > 87.0) ||
+      snapshot?.corridor_id === 'SER_HWH_KGP'
+    );
 
     if (isSER) {
       return [
@@ -563,6 +566,11 @@ export function getDelayCauses(
   }
 
   if (trainNo === '22895') {
+    const isSER = Boolean(
+      (trainObj?.lon != null && trainObj.lon > 87.0) ||
+      snapshot?.corridor_id === 'SER_HWH_KGP'
+    );
+
     return [
       {
         id: 'cause-vande-1',
@@ -570,10 +578,27 @@ export function getDelayCauses(
         tag: 'Clear route',
         tagType: 'clear',
         explanation: 'No delays reported ahead—track is clear.',
-        locationName: 'Nergundi – Barang Sector',
-        coordinates: [85.9200, 20.5500],
+        locationName: isSER ? 'Santragachi – Uluberia Sector' : 'Nergundi – Barang Sector',
+        coordinates: isSER ? [88.196, 22.525] : [85.9200, 20.5500],
         popupTitle: 'Clear Priority Path',
         popupMessage: 'Running high-speed with clear automated signal clearance.',
+        highlightType: 'station',
+      },
+    ];
+  }
+
+  if (trainNo === '12822') {
+    return [
+      {
+        id: 'cause-steel-up',
+        title: 'Routine speed regulation',
+        tag: 'Minor (+4m)',
+        tagType: 'confirmed',
+        explanation: 'Operating on clear signal aspects towards Howrah with normal commuter regulation.',
+        locationName: 'Panskura – Mecheda Approach',
+        coordinates: [87.86, 22.42],
+        popupTitle: 'Commuter Corridor Regulation',
+        popupMessage: 'Normal speed regulation along Panskura – Mecheda section.',
         highlightType: 'station',
       },
     ];
@@ -597,6 +622,7 @@ export function getDelayCauses(
   }
 
   // Generic fallback before initial forecast loads
+  const isKolkataCorridor = snapshot?.corridor_id === 'SER_HWH_KGP' || trainNo === '12822';
   return [
     {
       id: 'cause-clean',
@@ -604,8 +630,8 @@ export function getDelayCauses(
       tag: 'Clear route',
       tagType: 'clear',
       explanation: 'No major delays reported along your route.',
-      locationName: 'Corridor Section',
-      coordinates: [85.92, 20.58],
+      locationName: isKolkataCorridor ? 'Howrah – Kharagpur Trunk' : 'Corridor Section',
+      coordinates: isKolkataCorridor ? [87.97, 22.46] : [85.92, 20.58],
       popupTitle: 'Route Clear',
       popupMessage: 'No significant delay factors reported along your active journey.',
       highlightType: null,

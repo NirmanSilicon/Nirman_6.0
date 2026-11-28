@@ -144,7 +144,9 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
   }, [currentTrain?.lon, currentTrain?.lat, isKolkata, activeTrackCoords]);
 
   // Connection evaluation for journey status synchronization
-  const prediction = getArrivalPrediction(selectedTrain, forecast);
+  const isUp = currentTrain?.direction === 'UP' || selectedTrain === '18410' || selectedTrain === '12822';
+  const defaultDest = isKolkata ? (isUp ? 'HWH' : 'KGP') : (isUp ? 'BHC' : 'BBS');
+  const prediction = getArrivalPrediction(selectedTrain, forecast, null, defaultDest);
   const predictionRef = useRef(prediction);
   predictionRef.current = prediction;
   const forecastRef = useRef(forecast);
