@@ -5,6 +5,7 @@ const { User } = require('../models/User.model');
 const { attachRoleContext, isTokenRevoked } = require('../middleware/auth.middleware');
 const { eventBus } = require('../services/eventBus');
 const { notifyZoneSupervisorsPush } = require('../services/push.service');
+const { sendPhoneAlert } = require('../services/mobileAlert.service');
 
 let ioInstance = null;
 let listenersBound = false;
@@ -28,6 +29,14 @@ const bindEventBusToSockets = () => {
 
   eventBus.on('warning:started', (payload) => {
     emitZoneEvent(payload.zoneId, 'warning:started', payload);
+    sendPhoneAlert({
+      title: `PPE Violation Detected (${payload.incidentType || 'NO HELMET'})`,
+      message: `Camera ${payload.cameraCode || 'CAM_001'} detected ${payload.incidentType}. 120-second grace warning started.`,
+      isEmergency: false,
+      tags: 'warning,construction_worker',
+      dedupeKey: `warn:${payload.cameraCode}:${payload.incidentType}`,
+      cooldownMs: 20000,
+    }).catch(() => {});
   });
 
   eventBus.on('warning:resolved', (payload) => {
@@ -42,6 +51,14 @@ const bindEventBusToSockets = () => {
       title: `PPE Violation Escalated (${payload.incidentType})`,
       body: `120-second grace period expired in zone ${payload.zoneId}. Supervisor verification required.`,
       urgency: 'high',
+    }).catch(() => {});
+    sendPhoneAlert({
+      title: `ESCALATED PPE INCIDENT: ${payload.incidentType}`,
+      message: `120s grace window expired without compliance! Supervisor action required immediately.`,
+      isEmergency: false,
+      tags: 'Loudspeaker,warning',
+      dedupeKey: `esc:${payload.incidentId}`,
+      cooldownMs: 10000,
     }).catch(() => {});
   });
 
@@ -62,6 +79,14 @@ const bindEventBusToSockets = () => {
       title: `CRITICAL EMERGENCY: ${payload.incidentType}`,
       body: `${payload.zoneLabel || 'Workplace Zone'} — Immediate evacuation & manual SOS dispatch required!`,
       urgency: 'high',
+    }).catch(() => {});
+    sendPhoneAlert({
+      title: `CRITICAL FIRE EMERGENCY: ${payload.incidentType || 'FIRE DETECTED'}`,
+      message: `URGENT! ${payload.incidentType || 'FIRE'} in ${payload.zoneLabel || 'Workplace Zone'} (${payload.deviceOrCameraCode || 'CAM_001'}). EVACUATE IMMEDIATELY & DISPATCH SOS!`,
+      isEmergency: true,
+      tags: 'rotating_light,fire,sos',
+      dedupeKey: `fire:${payload.zoneId}:${payload.incidentType}`,
+      cooldownMs: 8000,
     }).catch(() => {});
   });
 

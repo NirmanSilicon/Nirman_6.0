@@ -165,13 +165,39 @@ const ML_STREAM_BASE=`http://${STREAM_HOST}:8765`;
 const SOCKET_ORIGIN=`http://${STREAM_HOST}:5000`;
 const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`${SOCKET_ORIGIN}/api`;
 
-function playAlertTone(kind="warning"){
+let SHARED_AUDIO_CTX=null;
+let FIRE_SIREN_TIMER=null;
+
+function getAudioCtx(){
+ const Ctx=window.AudioContext||window.webkitAudioContext;
+ if(!Ctx)return null;
+ if(!SHARED_AUDIO_CTX)SHARED_AUDIO_CTX=new Ctx();
+ if(SHARED_AUDIO_CTX.state==="suspended"){try{SHARED_AUDIO_CTX.resume()}catch(_e){}}
+ return SHARED_AUDIO_CTX;
+}
+
+function speakSafetyAlert(text){
  try{
   if(localStorage.getItem("we-sound")==="off")return;
-  const Ctx=window.AudioContext||window.webkitAudioContext;
-  if(!Ctx)return;
-  const ctx=new Ctx();
-  const beep=(freq,start,dur,vol=0.12,type="sine")=>{
+  if("speechSynthesis" in window){
+   window.speechSynthesis.cancel();
+   const u=new SpeechSynthesisUtterance(text);
+   u.rate=1.02;u.pitch=1.05;u.volume=1.0;
+   window.speechSynthesis.speak(u);
+  }
+ }catch(_e){}
+}
+
+function playAlertTone(kind="warning"){
+ try{
+  if(navigator.vibrate){
+   if(kind==="emergency")navigator.vibrate([500,180,500,180,800]);
+   else if(kind==="warning")navigator.vibrate([260,120,260]);
+  }
+  if(localStorage.getItem("we-sound")==="off")return;
+  const ctx=getAudioCtx();
+  if(!ctx)return;
+  const beep=(freq,start,dur,vol=0.22,type="sine")=>{
    const o=ctx.createOscillator(),g=ctx.createGain();
    o.type=type;o.frequency.value=freq;
    g.gain.setValueAtTime(vol,ctx.currentTime+start);
@@ -179,10 +205,34 @@ function playAlertTone(kind="warning"){
    o.connect(g);g.connect(ctx.destination);
    o.start(ctx.currentTime+start);o.stop(ctx.currentTime+start+dur);
   };
-  if(kind==="emergency"){beep(880,0,0.18,0.2,"sawtooth");beep(660,0.2,0.18,0.2,"sawtooth");beep(980,0.4,0.28,0.22,"sawtooth")}
-  else if(kind==="warning"){beep(740,0,0.14,0.14,"triangle");beep(880,0.16,0.18,0.14,"triangle")}
-  else{beep(620,0,0.12,0.09,"sine")}
+  if(kind==="emergency"){
+   beep(920,0,0.22,0.32,"sawtooth");beep(1320,0.23,0.22,0.32,"sawtooth");
+   beep(920,0.46,0.22,0.32,"sawtooth");beep(1320,0.69,0.28,0.35,"sawtooth");
+  }else if(kind==="warning"){
+   beep(760,0,0.16,0.22,"triangle");beep(940,0.18,0.22,0.22,"triangle");
+  }else{
+   beep(620,0,0.12,0.12,"sine");
+  }
  }catch(_e){}
+}
+
+function startContinuousFireSiren(voiceText){
+ stopContinuousFireSiren();
+ playAlertTone("emergency");
+ if(voiceText)speakSafetyAlert(voiceText);
+ let cycles=0;
+ FIRE_SIREN_TIMER=setInterval(()=>{
+  cycles++;
+  if(cycles>12){stopContinuousFireSiren();return}
+  playAlertTone("emergency");
+  if(cycles===4&&voiceText)speakSafetyAlert(voiceText);
+ },1200);
+}
+
+function stopContinuousFireSiren(){
+ if(FIRE_SIREN_TIMER){clearInterval(FIRE_SIREN_TIMER);FIRE_SIREN_TIMER=null}
+ try{if("speechSynthesis" in window)window.speechSynthesis.cancel()}catch(_e){}
+ try{if(navigator.vibrate)navigator.vibrate(0)}catch(_e){}
 }
 
 function showDesktopNotification(title,body){
@@ -1049,14 +1099,42 @@ function SupervisorsPage({zones,curUser}){
   {editSup&&<div className="modal" onClick={()=>setEditSup(null)}><form className="card" onSubmit={resetPass} onClick={e=>e.stopPropagation()}><div className="row"><h3>Reset Password for {editSup.name}</h3><button type="button" className="btn" onClick={()=>setEditSup(null)}><Ic n="x"/></button></div><p style={{margin:0,color:"var(--mut)"}}>Supervisor ID: <code>{editSup.email}</code></p><label>New Password (min 6 chars)<input className="in" type="text" placeholder="Enter new password" value={newPass} onChange={e=>setNewPass(e.target.value)} minLength={6} required autoFocus/></label><button className="btn red">Update Supervisor Password in MongoDB</button></form></div>}
  </div>}
 
-function NotificationsPage({notifs=[],readIds={},markRead,markAllRead,socketLive,pushSub,setPushSub,reloadNotifs}){
+function NotificationsPage({notifs=[],readIds={},markRead,markAllRead,socketLive,pushSub,setPushSub,mobileCfg,setMobileCfg,reloadNotifs}){
  const [f,setF]=useState("ALL");const [soundOn,setSoundOn]=useState(()=>localStorage.getItem("we-sound")!=="off");
+ const [topicInput,setTopicInput]=useState(mobileCfg?.ntfyTopic||"wardens-eye-blankheads-2026");
+ const [armedPhone,setArmedPhone]=useState(false);
  const [statusMsg,setStatusMsg]=useState("");const [busy,setBusy]=useState(false);const [nowTick,setNowTick]=useState(Date.now());
+ useEffect(()=>{if(mobileCfg?.ntfyTopic)setTopicInput(mobileCfg.ntfyTopic)},[mobileCfg?.ntfyTopic]);
  useEffect(()=>{const id=setInterval(()=>setNowTick(Date.now()),1000);return()=>clearInterval(id)},[]);
  const toggleSound=()=>{
   const next=!soundOn;setSoundOn(next);
   try{localStorage.setItem("we-sound",next?"on":"off")}catch(_e){}
-  if(next)playAlertTone("info");
+  if(next)playAlertTone("info");else stopContinuousFireSiren();
+ };
+ const armPhoneReceiver=async()=>{
+  try{localStorage.setItem("we-sound","on");setSoundOn(true)}catch(_e){}
+  getAudioCtx();
+  playAlertTone("warning");
+  speakSafetyAlert("Warden's Eye mobile safety siren armed and active.");
+  await subscribeBrowserWebPush();
+  setArmedPhone(true);
+  setStatusMsg("✓ Phone Audio Siren, Voice Announcer & Vibration ARMED! Keep this page open or subscribe via the ntfy app below for lock-screen alerts.");
+ };
+ const saveTopic=async e=>{
+  e.preventDefault();setBusy(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/notifications/mobile-config`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({ntfyTopic:topicInput.trim(),enabled:true})
+   });
+   const j=await r.json();
+   if(r.ok&&j.data){
+    if(setMobileCfg)setMobileCfg(j.data);
+    setStatusMsg(`✓ Mobile Push Topic updated to '${j.data.ntfyTopic}'!`);
+   }
+  }catch(_e){}finally{setBusy(false)}
  };
  const enablePush=async()=>{
   setBusy(true);
@@ -1065,20 +1143,27 @@ function NotificationsPage({notifs=[],readIds={},markRead,markAllRead,socketLive
   if(res.ok)setPushSub(true);
   setBusy(false);
  };
- const triggerTest=async()=>{
+ const triggerTest=async(mode="VIOLATION")=>{
   setBusy(true);setStatusMsg("");
+  getAudioCtx();
   try{
    const tok=localStorage.getItem("we-token");
-   const r=await fetch(`${API_BASE}/notifications/test`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+   const r=await fetch(`${API_BASE}/notifications/test`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({mode})
+   });
    const j=await r.json();
    if(r.ok){
-    setStatusMsg("✓ Live test notification sent over Socket.IO + Browser Push!");
+    const mp=j.data?.mobilePush;
+    setStatusMsg(`✓ ${mode==="FIRE"?"🔥 LOUD FIRE SIREN":"⚠️ PPE VIOLATION"} sent to Phone Topic '${mp?.topic||topicInput}' (ntfy HTTP ${mp?.statusCode||200}) + Live Socket.IO!`);
     if(reloadNotifs)reloadNotifs();
-   }else{setStatusMsg(j.message||"Could not trigger test alert")}
-  }catch(_e){setStatusMsg("Error sending test notification")}finally{setBusy(false)}
+   }else{setStatusMsg(j.message||"Could not trigger alert")}
+  }catch(_e){setStatusMsg("Error sending mobile notification")}finally{setBusy(false)}
  };
  const ackIncident=async n=>{
   if(!n.incidentId)return;
+  stopContinuousFireSiren();
   try{
    const tok=localStorage.getItem("we-token");
    await fetch(`${API_BASE}/supervisor/incidents/${n.incidentId}/acknowledge`,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:"{}"});
@@ -1096,23 +1181,55 @@ function NotificationsPage({notifs=[],readIds={},markRead,markAllRead,socketLive
   return true;
  });
  const unreadCount=notifs.filter(n=>!readIds[n.notificationId]).length;
+ const activeTopic=mobileCfg?.ntfyTopic||topicInput||"wardens-eye-blankheads-2026";
+ const ntfyWebUrl=`https://ntfy.sh/${activeTopic}`;
+ const lanUrl=mobileCfg?.lanDashboardUrl||`http://10.68.3.231:5000/#notifications`;
  return <div className="grid" style={{gap:16}}>
   <div className="card" style={{display:"flex",flexWrap:"wrap",gap:14,alignItems:"center",justifyContent:"space-between",borderLeft:"4px solid var(--red)"}}>
    <div>
     <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center"}}>
      <span className={"pill "+(socketLive?"live":"")} style={{margin:0}}><span className={"dot "+(socketLive?"":"r")}/>{socketLive?"Socket.IO Real-Time Connected":"Live Polling Active"}</span>
-     <span className={"bd "+(pushSub?"g":"a")}>{pushSub?"Web Push Subscribed (VAPID)":"Browser Push Not Enabled"}</span>
+     <span className="bd g">Phone Push Channel: {activeTopic}</span>
      <span className="bd">{unreadCount} Unread</span>
     </div>
     <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
-     Real-time safety alerts for <b>Critical Fire/Smoke Emergencies (0s bypass)</b>, <b>120-Second PPE Grace Countdowns</b>, <b>Escalated Supervisor Incidents</b>, and <b>Unregistered RFID Cards</b>.
+     Automatic mobile notifications + loud emergency sound whenever a <b>PPE Violation</b> or <b>Fire/Smoke Emergency</b> is detected on <code>CAM_001</code>, <code>CAM_002</code>, or <code>ESP32_001</code>.
     </p>
     {statusMsg&&<div className="bd g" style={{marginTop:8,padding:"6px 10px"}}>{statusMsg}</div>}
    </div>
    <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+    <button className={"btn "+(armedPhone?"grn":"")} onClick={armPhoneReceiver}>{armedPhone?"📱 Phone Siren ARMED":"📱 Arm Phone Loud Siren"}</button>
     <button className={"btn "+(soundOn?"grn":"")} onClick={toggleSound}>{soundOn?"🔊 Sound ON":"🔇 Sound Muted"}</button>
-    <button className="btn" disabled={busy} onClick={enablePush}>🔔 Enable Desktop Push</button>
-    <button className="btn red" disabled={busy} onClick={triggerTest}>⚡ Send Live Test Alert</button>
+    <button className="btn" disabled={busy} onClick={()=>triggerTest("VIOLATION")}>⚠️ Test Violation to Phone</button>
+    <button className="btn red" disabled={busy} onClick={()=>triggerTest("FIRE")}>🔥 Test FIRE Siren to Phone</button>
+   </div>
+  </div>
+
+  <div className="grid g2">
+   <div className="card" style={{borderLeft:"4px solid var(--grn)"}}>
+    <div className="row"><h3>📱 Method 1: Instant Phone Push App (Works Even When Phone Is Locked!)</h3><span className="bd g">4G / 5G / Wi-Fi</span></div>
+    <p style={{margin:"6px 0 10px",fontSize:14}}>
+     1. Install the free <b>ntfy</b> app on your phone (Play Store / App Store — zero account needed) or open <a href={ntfyWebUrl} target="_blank" rel="noreferrer" style={{color:"var(--red)",fontWeight:700}}>{ntfyWebUrl}</a> on your phone.<br/>
+     2. Tap <b>"+"</b> in the app and subscribe to topic: <code><b>{activeTopic}</b></code><br/>
+     3. Done! <b>PPE Violations</b> push a high-priority banner, and <b>Fire Detections</b> trigger <b>Max-Priority Urgent Alarm Sound &amp; Vibration</b> on your phone!
+    </p>
+    <form onSubmit={saveTopic} style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
+     <input className="in" style={{flex:1,minWidth:200}} value={topicInput} onChange={e=>setTopicInput(e.target.value)} placeholder="Custom phone topic name"/>
+     <button className="btn grn" disabled={busy}>Save Topic</button>
+     <a className="btn" href={ntfyWebUrl} target="_blank" rel="noreferrer">Open Topic Feed ↗</a>
+    </form>
+   </div>
+
+   <div className="card" style={{borderLeft:"4px solid var(--amb)",display:"flex",gap:14,alignItems:"center",justifyContent:"space-between",flexWrap:"wrap"}}>
+    <div style={{flex:"1 1 240px"}}>
+     <h3>🔊 Method 2: Direct Wi-Fi Phone Live Siren &amp; Voice</h3>
+     <p style={{margin:"6px 0 10px",fontSize:14}}>
+      On the same Wi-Fi, open <code><b>{lanUrl}</b></code> in Chrome/Safari on your phone (or scan QR) and tap <b>"📱 Arm Phone Loud Siren"</b>.<br/>
+      When Fire is detected, your phone blasts a <b>continuous dual-tone fire siren + spoken evacuation voice + vibration</b>!
+     </p>
+     <button type="button" className="btn" onClick={enablePush}>🔔 Also Enable Browser Push</button>
+    </div>
+    <img src={`https://api.qrserver.com/v1/create-qr-code/?size=116x116&data=${encodeURIComponent(ntfyWebUrl)}`} alt="Scan for Phone Push" width="116" height="116" style={{borderRadius:8,border:"1px solid var(--line)",background:"#fff",padding:4}}/>
    </div>
   </div>
   <div className="bar" style={{justifyContent:"space-between"}}>
@@ -1237,7 +1354,7 @@ function CloudConsole(){
 
 function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
  const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState([]);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);
- const [notifs,setNotifs]=useState([]);const [pushSub,setPushSub]=useState(false);const [socketLive,setSocketLive]=useState(false);const [bellOpen,setBellOpen]=useState(false);const [toasts,setToasts]=useState([]);
+ const [notifs,setNotifs]=useState([]);const [pushSub,setPushSub]=useState(false);const [mobileCfg,setMobileCfg]=useState(null);const [socketLive,setSocketLive]=useState(false);const [bellOpen,setBellOpen]=useState(false);const [toasts,setToasts]=useState([]);const [fireModal,setFireModal]=useState(null);
  const [readIds,setReadIds]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-read-notifs")||"{}")}catch(_e){return {}}});
  const markRead=id=>{
   setReadIds(prev=>{const next={...prev,[id]:1};try{localStorage.setItem("we-read-notifs",JSON.stringify(next))}catch(_e){}return next});
@@ -1249,10 +1366,15 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
  const pushToast=(title,message,kind="warning",notifObj=null)=>{
   const id="t-"+Date.now()+"-"+Math.random().toString(36).slice(2,6);
   setToasts(prev=>[{id,title,message,kind},...prev].slice(0,4));
-  playAlertTone(kind);
+  if(kind==="emergency"){
+   startContinuousFireSiren(`Emergency Alert! ${title}. ${message}`);
+  }else{
+   playAlertTone(kind);
+   if(kind==="warning")speakSafetyAlert(`Safety Warning. ${title}`);
+  }
   showDesktopNotification(title,message);
   if(notifObj)setNotifs(prev=>[notifObj,...prev.filter(x=>x.notificationId!==notifObj.notificationId)]);
-  setTimeout(()=>setToasts(prev=>prev.filter(t=>t.id!==id)),7000);
+  setTimeout(()=>setToasts(prev=>prev.filter(t=>t.id!==id)),8000);
  };
  const loadNotifications=async()=>{
   try{
@@ -1263,6 +1385,7 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
     const j=await r.json();
     if(Array.isArray(j.data?.notifications))setNotifs(j.data.notifications);
     if(j.data?.pushSubscribed!==undefined)setPushSub(Boolean(j.data.pushSubscribed));
+    if(j.data?.mobileConfig)setMobileCfg(j.data.mobileConfig);
    }
   }catch(_e){}
  };
@@ -1324,26 +1447,32 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
   sock.on("connect",()=>setSocketLive(true));
   sock.on("disconnect",()=>setSocketLive(false));
   sock.on("emergency:critical",p=>{
-   pushToast(`🚨 CRITICAL EMERGENCY: ${p.incidentType||"HAZARD"}`,`${p.zoneLabel||"Workplace Zone"} — Immediate evacuation & SOS required!`,"emergency");
+   const zoneLbl=p.zoneLabel||"Assembly Zone A";
+   setFireModal({title:`🚨🔥 FIRE / CRITICAL EMERGENCY: ${p.incidentType||"FLAME_DETECTED"}`,zone:zoneLbl,source:p.deviceOrCameraCode||"CAM_001",time:new Date().toLocaleTimeString("en-GB")});
+   pushToast(`🚨 CRITICAL EMERGENCY: ${p.incidentType||"FIRE DETECTED"}`,`${zoneLbl} (${p.deviceOrCameraCode||"CAM_001"}) — EVACUATE IMMEDIATELY & DISPATCH SOS!`,"emergency");
    loadNotifications();
   });
   sock.on("warning:started",p=>{
-   pushToast(`⚠️ 120s Grace Warning (${p.cameraCode||"CAM"})`,`${p.incidentType} detected. Worker has 120s to comply before escalation.`,"warning");
+   pushToast(`⚠️ PPE Violation (${p.cameraCode||"CAM_001"})`,`${p.incidentType} detected. 120s grace warning sent to speaker & phone.`,"warning");
    loadNotifications();
   });
   sock.on("warning:resolved",p=>{
-   pushToast(`✓ Compliance Restored (${p.cameraCode||"CAM"})`,`Worker self-resolved PPE warning within 120s grace period.`,"info");
+   pushToast(`✓ Compliance Restored (${p.cameraCode||"CAM_001"})`,`Worker self-resolved PPE warning within 120s grace period.`,"info");
    loadNotifications();
   });
   sock.on("incident:new",p=>{
-   pushToast(`🚨 Incident Escalated: ${p.incidentType}`,`120s grace expired — Supervisor verification required.`,"emergency");
+   pushToast(`🚨 Escalated Violation: ${p.incidentType}`,`120s grace expired — Supervisor verification required.`,"warning");
    loadNotifications();
   });
   sock.on("rfid:scan",p=>{
    pushToast(`🪪 RFID Check-In (${p.deviceCode||"ESP32"})`,`${p.workerName||p.rfidUid} scanned at ${new Date().toLocaleTimeString("en-GB")}.`,"info");
   });
   sock.on("notification:test",p=>{
-   pushToast(p.title||"🔔 Live Safety Alert",p.message||"Test notification received.","warning",p);
+   if(!p.isEmergency){
+    pushToast(p.title||"🔔 Live Safety Alert",p.message||"Test notification received.","warning",p);
+   }else{
+    setNotifs(prev=>[p,...prev.filter(x=>x.notificationId!==p.notificationId)]);
+   }
   });
   return()=>{try{sock.disconnect()}catch(_e){}};
  },[]);
@@ -1398,7 +1527,19 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
     <p style={{fontSize:13,marginTop:4}}>{t.message}</p>
    </div>)}
   </div>}
-  <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="notifications"&&<NotificationsPage notifs={notifs} readIds={readIds} markRead={markRead} markAllRead={markAllRead} socketLive={socketLive} pushSub={pushSub} setPushSub={setPushSub} reloadNotifs={loadNotifications}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
+  {fireModal&&<div className="modal" style={{background:"rgba(180,18,18,0.82)",zIndex:80}} onClick={()=>{stopContinuousFireSiren();setFireModal(null)}}>
+   <div className="card" style={{maxWidth:540,border:"3px solid #fff",background:"#b91c1c",color:"#fff",textAlign:"center",padding:28}} onClick={e=>e.stopPropagation()}>
+    <div style={{fontSize:44,lineHeight:1}}>🚨🔥🚨</div>
+    <h2 style={{fontSize:26,color:"#fff"}}>{fireModal.title}</h2>
+    <p style={{color:"#ffe4e6",fontSize:16,margin:"8px 0"}}><b>Zone:</b> {fireModal.zone} · <b>Source:</b> {fireModal.source} · <b>Time:</b> {fireModal.time}</p>
+    <p style={{color:"#fff",fontSize:14}}>Evacuate personnel immediately, pull nearest manual fire alarm, and forward Manual SOS summary to Fire Emergency Services!</p>
+    <div style={{display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap",marginTop:10}}>
+     <button className="btn" style={{background:"#fff",color:"#b91c1c",fontWeight:700}} onClick={()=>{stopContinuousFireSiren();setFireModal(null)}}>🔇 Silence Fire Siren</button>
+     <button className="btn grn" onClick={()=>{stopContinuousFireSiren();setFireModal(null);go("reports")}}>Open Emergency SOS →</button>
+    </div>
+   </div>
+  </div>}
+  <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="notifications"&&<NotificationsPage notifs={notifs} readIds={readIds} markRead={markRead} markAllRead={markAllRead} socketLive={socketLive} pushSub={pushSub} setPushSub={setPushSub} mobileCfg={mobileCfg} setMobileCfg={setMobileCfg} reloadNotifs={loadNotifications}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance &amp; Session</h3><p style={{margin:"8px 0 14px"}}>Signed in as <b>{curUser?.name}</b> (<code>{curUser?.email}</code> · {roleLabel}).</p><div className="tabs" style={{marginBottom:14}}><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div><div><button className="btn red" onClick={onLogout}><Ic n="out"/>Sign Out of Session</button></div></div>}</div></div></div>}
 
 function App(){

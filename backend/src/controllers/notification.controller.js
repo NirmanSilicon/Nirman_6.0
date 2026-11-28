@@ -3,6 +3,11 @@ const webpush = require('web-push');
 const { Incident } = require('../models/Incident.model');
 const { PushSubscription } = require('../models/PushSubscription.model');
 const { getVapidKeys, saveUserPushSubscription } = require('../services/push.service');
+const {
+  getMobileAlertConfig,
+  updateMobileAlertConfig,
+  sendPhoneAlert,
+} = require('../services/mobileAlert.service');
 const { eventBus } = require('../services/eventBus');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -132,6 +137,7 @@ const getNotifications = async (req, res, next) => {
       notifications,
       pushSubscribed: subCount > 0,
       pushSubscriptionCount: subCount,
+      mobileConfig: getMobileAlertConfig(),
       total: notifications.length,
     });
   } catch (error) {
@@ -139,28 +145,65 @@ const getNotifications = async (req, res, next) => {
   }
 };
 
+const getMobileConfig = (_req, res) => {
+  return sendSuccess(res, 200, 'Mobile alert configuration retrieved', getMobileAlertConfig());
+};
+
+const saveMobileConfig = (req, res) => {
+  const updated = updateMobileAlertConfig(req.body || {});
+  return sendSuccess(res, 200, 'Mobile alert configuration updated', updated);
+};
+
 /**
  * POST /api/notifications/test
- * Emits a live test alert via Socket.IO and Web Push for the authenticated Higher Authority or Supervisor.
+ * Emits a live test alert (mode: "VIOLATION" or "FIRE") via Socket.IO, Web Push, AND Mobile Phone Push (`ntfy.sh`).
  */
 const sendTestNotification = async (req, res, next) => {
   try {
     const { userId, name, role, assignedZoneIds } = req.user;
+    const mode = String(req.body?.mode || 'VIOLATION').toUpperCase();
+    const isFire = mode === 'FIRE';
     const roleLabel = role === 'ADMINISTRATOR' ? 'Higher Authority' : 'Supervisor';
+
     const payload = {
       notificationId: `test-${Date.now()}`,
-      category: 'TEST_ALERT',
-      title: `🔔 Live Safety Alert Verified (${roleLabel})`,
-      message: `Real-time Socket.IO + Browser Push notification triggered by ${name} at ${new Date().toLocaleTimeString('en-GB')}.`,
-      severity: 'HIGH',
+      category: isFire ? 'EMERGENCY' : 'TEST_ALERT',
+      isEmergency: isFire,
+      incidentType: isFire ? 'FLAME_DETECTED' : 'MISSING_HELMET',
+      title: isFire
+        ? `🚨🔥 CRITICAL FIRE EMERGENCY — EVACUATE IMMEDIATELY!`
+        : `⚠️ PPE Safety Violation Alert (${roleLabel})`,
+      message: isFire
+        ? `FIRE DETECTED in Assembly Zone A (CAM_001)! Loud mobile fire siren & evacuation protocol triggered by ${name} at ${new Date().toLocaleTimeString('en-GB')}.`
+        : `Worker without safety helmet detected on CAM_001. Mobile alert triggered by ${name} at ${new Date().toLocaleTimeString('en-GB')}.`,
+      severity: isFire ? 'CRITICAL' : 'HIGH',
       status: 'OPEN',
-      zoneName: 'All Active Zones',
-      source: 'WEB_CONSOLE',
+      zoneName: 'Assembly Zone A',
+      source: 'CAM_001',
       targetZoneId: assignedZoneIds && assignedZoneIds.length > 0 ? assignedZoneIds[0] : null,
       createdAt: new Date().toISOString(),
     };
 
+    if (isFire) {
+      eventBus.emit('emergency:critical', {
+        incidentId: payload.notificationId,
+        zoneId: payload.targetZoneId,
+        zoneLabel: 'Assembly Zone A (ZONE_A)',
+        incidentType: 'FLAME_DETECTED',
+        deviceOrCameraCode: 'CAM_001',
+      });
+    }
     eventBus.emit('notification:test', payload);
+
+    const mobilePush = await sendPhoneAlert({
+      title: isFire
+        ? 'FIRE EMERGENCY - EVACUATE ZONE A IMMEDIATELY!'
+        : 'PPE Safety Violation Detected (No Helmet - Zone A)',
+      message: payload.message,
+      isEmergency: isFire,
+      tags: isFire ? 'rotating_light,fire,sos' : 'warning,construction_worker',
+      force: true,
+    });
 
     const subs = await PushSubscription.find({ userId }).lean();
     let pushSent = 0;
@@ -180,9 +223,10 @@ const sendTestNotification = async (req, res, next) => {
       }
     }
 
-    return sendSuccess(res, 200, 'Live test notification dispatched', {
+    return sendSuccess(res, 200, 'Live mobile & browser alert dispatched', {
       alert: payload,
       pushSent,
+      mobilePush,
     });
   } catch (error) {
     return next(error);
@@ -194,5 +238,7 @@ module.exports = {
   getVapidPublicKey,
   subscribePush,
   getNotifications,
+  getMobileConfig,
+  saveMobileConfig,
   sendTestNotification,
 };
