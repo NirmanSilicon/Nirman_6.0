@@ -1,2 +1,16 @@
 branchcreation.sh
 .env
+# KiCad local and backup files
+*.kicad_prl
+*-backups/
+_autosave-*
+fp-info-cache
+*.lck
+
+# hardware/scripts build outputs
+hardware/scripts/*.net
+hardware/scripts/*.dsn
+hardware/scripts/*.ses
+hardware/scripts/*.rpt
+hardware/scripts/intended_nets.json
+__pycache__/
