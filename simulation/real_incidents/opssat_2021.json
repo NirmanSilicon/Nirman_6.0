@@ -1,0 +1,59 @@
+{
+  "scenario_id": "opssat_2021",
+  "display_name": "ESA OPS-SAT (2021) — SEU Memory Corruption & Payload Safe-Mode",
+  "source_citation": "ESA ESOC / Kelvins: In-Flight Operations of OPS-SAT — Anomaly & SEU Recovery (2021)",
+  "source_url": "https://kelvins.esa.int/ops-sat/",
+  "narrative_summary": "In May 2021, ESA's OPS-SAT 3U CubeSat flying laboratory experienced a Single Event Upset (SEU) in the processing platform's optical payload DMA memory controller. The unhandled buffer stall triggered an OBC driver timeout loop and autonomous payload power isolation into safe-mode.",
+  "events": [
+    {
+      "order": 1,
+      "component": "payload",
+      "parameter": "operational_state",
+      "value": 1.0,
+      "description": "High-energy particle radiation induces SEU bit-flip in optical camera DMA controller",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": null,
+      "notes": "Documented in ESA ESOC anomaly logs during South Atlantic Anomaly (SAA) transit."
+    },
+    {
+      "order": 2,
+      "component": "payload",
+      "parameter": "operational_state",
+      "value": 0.0,
+      "description": "High-rate optical camera frame acquisition stalls and enters unhandled fault state",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 15,
+      "notes": "Camera subsystem ceased transmitting image frames across SPI/AXI interface."
+    },
+    {
+      "order": 3,
+      "component": "obc",
+      "parameter": "cpu_load",
+      "value": 0.95,
+      "description": "OBC Linux kernel payload driver thread timeout and retry storm",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 25,
+      "notes": "OBC processing platform logged high CPU utilization handling camera interface timeouts."
+    },
+    {
+      "order": 4,
+      "component": "power_bus",
+      "parameter": "voltage_v",
+      "value": 8.35,
+      "description": "Autonomous FDIR commands payload power rail shutdown to protect instrument",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 40,
+      "notes": "EPS power distribution switch isolated payload power channel."
+    },
+    {
+      "order": 5,
+      "component": "comms",
+      "parameter": "signal_strength_dbm",
+      "value": -72.1,
+      "description": "S-Band ground station downlink transmits spacecraft health beacon confirming payload safe-mode",
+      "timing_confidence": "documented",
+      "relative_offset_seconds": 60,
+      "notes": "ESA ESOC ground station received nominal health beacon confirming spacecraft safe-mode isolation."
+    }
+  ]
+}

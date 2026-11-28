@@ -1,0 +1,308 @@
+{
+  "mission_id": "canonical_cubesat_demo",
+  "spacecraft_name": "Axyra Standard CubeSat",
+  "orbit_type": "LEO_550KM_SSO",
+  "version": "1.0.0",
+  "metadata": {
+    "subsystem_count": 8,
+    "component_count": 13,
+    "description": "Standard canonical 13-node CubeSat mission architecture generated from subsystem templates."
+  },
+  "modules": [
+    {
+      "module_id": "thermal_sensor",
+      "module_type": "Thermal",
+      "name": "Thermal Sensor Unit",
+      "description": "Temperature probe monitoring heater rail and battery pack interface.",
+      "parameters": {
+        "component_type": "sensor",
+        "temperature_c": 22.0
+      },
+      "telemetry_channels": ["thermal_sensor_temp"]
+    },
+    {
+      "module_id": "heater_controller",
+      "module_type": "Thermal",
+      "name": "Heater / Thermal Controller",
+      "description": "Thermostatic relay and resistive heating circuit controller.",
+      "parameters": {
+        "component_type": "controller",
+        "duty_cycle_pct": 35.0
+      },
+      "telemetry_channels": ["heater_controller_state"]
+    },
+    {
+      "module_id": "battery",
+      "module_type": "Battery",
+      "name": "Li-Ion Battery Pack",
+      "description": "2S2P Lithium-Ion primary energy storage bank.",
+      "parameters": {
+        "component_type": "power",
+        "cell_voltage_v": 4.15,
+        "temperature_c": 24.0,
+        "state_of_charge_pct": 92.0
+      },
+      "telemetry_channels": ["battery_voltage", "battery_temp", "battery_soc"]
+    },
+    {
+      "module_id": "battery_protection",
+      "module_type": "Battery",
+      "name": "Battery Protection Circuit",
+      "description": "Hardware over-voltage, under-voltage, and over-current latching disconnect.",
+      "parameters": {
+        "component_type": "controller",
+        "current_draw_a": 0.8
+      },
+      "telemetry_channels": ["battery_protection_cutoff"]
+    },
+    {
+      "module_id": "power_bus",
+      "module_type": "EPS",
+      "name": "Power Distribution Bus",
+      "description": "Regulated 3.3V, 5.0V, and 12.0V primary power distribution rail.",
+      "parameters": {
+        "component_type": "power",
+        "bus_voltage_v": 5.02,
+        "bus_current_a": 1.45
+      },
+      "telemetry_channels": ["power_bus_voltage", "power_bus_current"]
+    },
+    {
+      "module_id": "solar_array",
+      "module_type": "EPS",
+      "name": "Solar Array Strings",
+      "description": "Photovoltaic panel strings and MPPT regulator input.",
+      "parameters": {
+        "component_type": "power",
+        "array_current_a": 1.8
+      },
+      "telemetry_channels": ["solar_array_current"]
+    },
+    {
+      "module_id": "obc",
+      "module_type": "OBC",
+      "name": "On-Board Computer",
+      "description": "Primary ARM/Cortex flight processor and supervisory node.",
+      "parameters": {
+        "component_type": "compute",
+        "cpu_utilization_pct": 45.0,
+        "core_temperature_c": 38.0
+      },
+      "telemetry_channels": ["obc_cpu_load", "obc_temp"]
+    },
+    {
+      "module_id": "flight_software",
+      "module_type": "FlightSoftware",
+      "name": "Flight Software Core",
+      "description": "RTOS supervisory task scheduler, FDIR engine, and command router.",
+      "parameters": {
+        "component_type": "compute",
+        "cpu_execution_time_pct": 42.0
+      },
+      "telemetry_channels": ["fsw_task_jitter", "fsw_heartbeat"]
+    },
+    {
+      "module_id": "comms",
+      "module_type": "Communications",
+      "name": "RF Transceiver / PA",
+      "description": "S-Band/UHF communications transponder and RF power amplifier.",
+      "parameters": {
+        "component_type": "comms",
+        "signal_strength_dbm": -70.0,
+        "tx_power_w": 2.0
+      },
+      "telemetry_channels": ["comms_rssi", "comms_tx_power"]
+    },
+    {
+      "module_id": "adcs",
+      "module_type": "ADCS",
+      "name": "Attitude Determination & Control Subsystem",
+      "description": "Kalman attitude filter and actuator torque command allocation.",
+      "parameters": {
+        "component_type": "control",
+        "pointing_error_deg": 0.35
+      },
+      "telemetry_channels": ["adcs_pointing_error"]
+    },
+    {
+      "module_id": "reaction_wheel",
+      "module_type": "ADCS",
+      "name": "Reaction Wheel Assembly",
+      "description": "3-axis momentum exchange wheels for precision 3-axis stabilization.",
+      "parameters": {
+        "component_type": "actuator",
+        "wheel_speed_rpm": 2400.0
+      },
+      "telemetry_channels": ["rw_speed_rpm"]
+    },
+    {
+      "module_id": "star_tracker",
+      "module_type": "ADCS",
+      "name": "Star Tracker Sensor",
+      "description": "Optical celestial attitude reference sensor providing quaternion attitude solutions.",
+      "parameters": {
+        "component_type": "sensor",
+        "star_count": 18
+      },
+      "telemetry_channels": ["star_tracker_stars"]
+    },
+    {
+      "module_id": "payload",
+      "module_type": "Payload",
+      "name": "Science / Imaging Payload",
+      "description": "Multispectral optical sensor and science experiment buffer.",
+      "parameters": {
+        "component_type": "payload",
+        "sensor_power_w": 3.5
+      },
+      "telemetry_channels": ["payload_power", "payload_temp"]
+    }
+  ],
+  "dependencies": [
+    {
+      "source_module_id": "thermal_sensor",
+      "target_module_id": "heater_controller",
+      "dependency_type": "thermal",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.5,
+      "description": "Thermal sensor input driving heater control logic.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "heater_controller",
+      "target_module_id": "battery",
+      "dependency_type": "thermal",
+      "weight": 0.75,
+      "propagation_delay_seconds": 1.0,
+      "description": "Heater actively regulates battery pack temperature.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "battery",
+      "target_module_id": "battery_protection",
+      "dependency_type": "control",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.05,
+      "description": "Battery voltage and current directly monitored by protection hardware.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "battery_protection",
+      "target_module_id": "power_bus",
+      "dependency_type": "power",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.02,
+      "description": "Protection switch gates discharge into main power distribution bus.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "power_bus",
+      "target_module_id": "comms",
+      "dependency_type": "power",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.05,
+      "description": "Power bus energizes communications RF transceiver.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "power_bus",
+      "target_module_id": "obc",
+      "dependency_type": "power",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.05,
+      "description": "Power bus energizes main flight computer.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "obc",
+      "target_module_id": "payload",
+      "dependency_type": "power",
+      "weight": 0.75,
+      "propagation_delay_seconds": 0.1,
+      "description": "OBC switchable rail powers payload subsystem.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "solar_array",
+      "target_module_id": "power_bus",
+      "dependency_type": "power",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.01,
+      "description": "Photovoltaic generation directly charges power bus during sunlit passes.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "obc",
+      "target_module_id": "adcs",
+      "dependency_type": "control",
+      "weight": 0.75,
+      "propagation_delay_seconds": 0.1,
+      "description": "OBC telecommands and mode supervisor dispatch attitude guidance to ADCS.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "adcs",
+      "target_module_id": "reaction_wheel",
+      "dependency_type": "control",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.05,
+      "description": "ADCS torque loop drives reaction wheel motor PWM.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "star_tracker",
+      "target_module_id": "adcs",
+      "dependency_type": "kinematic",
+      "weight": 0.75,
+      "propagation_delay_seconds": 0.2,
+      "description": "Star tracker delivers celestial attitude quaternion measurements to ADCS filter.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "payload",
+      "target_module_id": "comms",
+      "dependency_type": "data",
+      "weight": 0.5,
+      "propagation_delay_seconds": 0.5,
+      "description": "Payload instrument queues downlink data to communications subsystem.",
+      "metadata": { "dependency_strength": "moderate" }
+    },
+    {
+      "source_module_id": "comms",
+      "target_module_id": "flight_software",
+      "dependency_type": "software",
+      "weight": 0.75,
+      "propagation_delay_seconds": 0.1,
+      "description": "RF transponder passes uplinked telecommands to flight software command parser.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "flight_software",
+      "target_module_id": "comms",
+      "dependency_type": "control",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.1,
+      "description": "Flight software orchestrates transponder mode, beacon timing, and PA enable.",
+      "metadata": { "dependency_strength": "critical" }
+    },
+    {
+      "source_module_id": "flight_software",
+      "target_module_id": "obc",
+      "dependency_type": "software",
+      "weight": 0.75,
+      "propagation_delay_seconds": 0.05,
+      "description": "Flight software monitors watchdog and kernel metrics on OBC.",
+      "metadata": { "dependency_strength": "strong" }
+    },
+    {
+      "source_module_id": "obc",
+      "target_module_id": "flight_software",
+      "dependency_type": "software",
+      "weight": 1.0,
+      "propagation_delay_seconds": 0.05,
+      "description": "OBC hardware interrupt controller and scheduler clocks flight software processes.",
+      "metadata": { "dependency_strength": "critical" }
+    }
+  ],
+  "rules": []
+}
