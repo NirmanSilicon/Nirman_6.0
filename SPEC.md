@@ -72,6 +72,7 @@ Every message on the stream has this shape. The server adds `seq` and `t_server`
 | `sms_fallback_started` | reason, to_number | |
 | `sms_sent` | to, body, chars | |
 | `sms_received` | gateway, latency_s | |
+| `system_reset` | cleared | broadcast on POST /reset, not stored |
 
 ## Scenario list
 

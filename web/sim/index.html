@@ -11,12 +11,31 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <h1>Ashvin scenario simulator</h1>
-      <span class="sub">Bhubaneswar &middot; simulated incident stream</span>
+      <div class="logo-group">
+        <svg class="logo-mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <polygon points="12,3 22,20 2,20" fill="#2563eb" />
+          <polygon points="12,9 16.5,17.5 7.5,17.5" fill="#ffffff" />
+        </svg>
+        <span class="logo-word">Ashvin</span>
+      </div>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <nav class="top-tabs" aria-label="Simulator views">
+        <span class="top-tab">Scenario Simulator</span>
+        <span class="top-tab active">Bhubaneswar</span>
+        <span class="top-sub">Simulated Incident Stream</span>
+      </nav>
     </div>
     <div class="top-meta">
-      <button id="full-incident-btn" type="button" class="primary-btn">Run full incident</button>
-      <a href="/" target="_blank" rel="noopener">Open stream view /</a>
+      <button id="full-incident-btn" type="button" class="primary-btn">
+        <svg viewBox="0 0 14 14" width="12" height="12" fill="currentColor" aria-hidden="true">
+          <polygon points="3,2 12,7 3,12" />
+        </svg>
+        <span>Run full incident</span>
+      </button>
+      <a href="/" target="_blank" rel="noopener" class="stream-link">
+        <span>Open stream view</span>
+        <span aria-hidden="true">&#8599;</span>
+      </a>
     </div>
   </header>
 
@@ -27,9 +46,13 @@
 
     <aside id="panel" class="panel" tabindex="-1" aria-label="Scenario controls" hidden>
       <div class="panel-head">
-        <div>
+        <div class="panel-title-wrap">
           <div id="scenario-kicker" class="kicker">Scenario</div>
           <h2 id="scenario-title">Select a marker</h2>
+        </div>
+        <div class="panel-head-actions">
+          <button id="reset-log-btn" type="button" class="reset-btn">Reset log</button>
+          <button id="close-panel" type="button" class="close-btn" aria-label="Close panel">&times;</button>
         </div>
       </div>
 
@@ -69,8 +92,6 @@
         <div class="label">Sent events</div>
         <ol id="sim-log" class="sim-log"></ol>
       </div>
-
-      <button id="close-panel" type="button" class="close-btn" aria-label="Close panel">&times;</button>
     </aside>
   </main>
 

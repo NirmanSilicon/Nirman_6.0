@@ -46,7 +46,7 @@ export function mountScene(container, options = {}) {
   hud.className = "scene-hud";
   hud.innerHTML =
     `<div class="hud-chip"><span class="hud-k">SPEED</span><span class="hud-v" id="hud-speed">0 km/h</span></div>` +
-    `<div class="hud-chip"><span class="hud-k">PEAK G</span><span class="hud-v" id="hud-g">0.0 g</span></div>` +
+    `<div class="hud-chip"><span class="hud-k">BRAKE</span><span class="hud-v" id="hud-g">0.0 g</span></div>` +
     `<div class="hud-state" id="hud-state">CRUISING</div>`;
   container.appendChild(hud);
 

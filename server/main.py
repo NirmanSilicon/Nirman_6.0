@@ -162,6 +162,29 @@ def get_events(limit: int = 50) -> dict[str, Any]:
     return {"count": len(events), "events": events}
 
 
+@app.post("/reset")
+async def reset_events() -> dict[str, Any]:
+    with db() as conn:
+        cleared = conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]
+        conn.execute("DELETE FROM events")
+        with contextlib.suppress(sqlite3.OperationalError):
+            conn.execute("DELETE FROM sqlite_sequence WHERE name = 'events'")
+    stamp = now_ist()
+    await hub.broadcast(
+        {
+            "seq": None,
+            "event_id": f"e-{uuid.uuid4().hex[:8]}",
+            "type": "system_reset",
+            "t_client": stamp,
+            "t_server": stamp,
+            "source": "server",
+            "device_id": "server",
+            "data": {"cleared": cleared},
+        }
+    )
+    return {"ok": True, "cleared": cleared}
+
+
 @app.get("/health")
 def health() -> dict[str, Any]:
     return {"ok": True, "clients": len(hub.clients), "t": now_ist()}

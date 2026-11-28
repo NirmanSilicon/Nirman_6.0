@@ -13,6 +13,17 @@ const CITIZEN_CONFIRM_DELAY_S = 1.5;
 const CITIZEN_REJECT_DELAY_S = 1.5;
 const IDENTITY_DELAY_S = 0.0;
 const FIRST_AID_DELAY_S = 0.0;
+const SMS_FALLBACK_DELAY_S = 1.0;
+const SMS_SENT_DELAY_S = 1.2;
+const SMS_OFFLINE_GAP_S = 6.0;
+const SMS_RECEIVED_DELAY_S = 1.5;
+const SMS_POST_DELAY_S = 1.0;
+
+const SMS_TO_NUMBER = "+911122334455";
+const SMS_BODY =
+  "ASHVIN ALERT. Unit ASH-07. Crash detected. " +
+  "Lat 20.2725, Lon 85.8380. Speed 72 to 0 km/h. 20:41 IST.";
+const SMS_CHARS = SMS_BODY.length;
 
 const CRASH_IMPACT = [
   "impact_detected",
@@ -120,7 +131,7 @@ const SCENARIOS = [
     id: 2,
     key: "confirmation",
     title: "Confirmation",
-    coords: [20.251, 85.818],
+    coords: [20.2961, 85.8245],
     modes: [
       {
         key: "answered_high",
@@ -147,7 +158,7 @@ const SCENARIOS = [
     id: 3,
     key: "dispatch",
     title: "Dispatch",
-    coords: [20.239, 85.826],
+    coords: [20.3550, 85.8180],
     modes: [
       {
         key: "high_risk",
@@ -206,7 +217,7 @@ const SCENARIOS = [
     id: 4,
     key: "citizen",
     title: "Citizen report",
-    coords: [20.2501, 85.8102],
+    coords: [20.2390, 85.8080],
     modes: [
       {
         key: "remote",
@@ -287,7 +298,7 @@ const SCENARIOS = [
     id: 5,
     key: "identity",
     title: "Identity and first aid",
-    coords: [20.247, 85.829],
+    coords: [20.2540, 85.8440],
     modes: [
       {
         key: "identity",
@@ -319,6 +330,69 @@ const SCENARIOS = [
       },
     ],
   },
+  {
+    id: 6,
+    key: "fallback",
+    title: "SMS fallback",
+    coords: [20.3105, 85.9010],
+    pinClass: "amber",
+    modes: [
+      {
+        key: "data_ok",
+        label: "Data link OK",
+        steps: [
+          ...ANSWERED_HIGH_PREFIX,
+          ["dispatched", { service: "108", eta_s: 420 }, DISPATCH_DELAY_S],
+        ],
+      },
+      {
+        key: "sms_only",
+        label: "SMS fallback",
+        steps: [
+          CRASH_IMPACT,
+          [
+            "sms_fallback_started",
+            { reason: "no data", to_number: SMS_TO_NUMBER },
+            SMS_FALLBACK_DELAY_S,
+          ],
+          [
+            "sms_sent",
+            { to: SMS_TO_NUMBER, body: SMS_BODY, chars: SMS_CHARS },
+            SMS_SENT_DELAY_S,
+          ],
+          [
+            "sms_received",
+            { gateway: "SMS gateway", latency_s: 6 },
+            SMS_RECEIVED_DELAY_S,
+          ],
+          ["alert_confirmed", { level: "high" }, SMS_POST_DELAY_S],
+          ["dispatched", { service: "108", eta_s: 420 }, DISPATCH_DELAY_S],
+        ],
+      },
+      {
+        key: "offline",
+        label: "Offline SMS",
+        steps: [
+          CRASH_IMPACT,
+          [
+            "sms_fallback_started",
+            { reason: "no signal", to_number: SMS_TO_NUMBER },
+            SMS_FALLBACK_DELAY_S,
+          ],
+          [
+            "sms_sent",
+            { to: SMS_TO_NUMBER, body: SMS_BODY, chars: SMS_CHARS },
+            SMS_OFFLINE_GAP_S,
+          ],
+          [
+            "sms_received",
+            { gateway: "SMS gateway", latency_s: 6 },
+            SMS_RECEIVED_DELAY_S,
+          ],
+        ],
+      },
+    ],
+  },
 ];
 
 const panelEl = document.getElementById("panel");
@@ -335,6 +409,7 @@ const logEl = document.getElementById("sim-log");
 const sceneWrapEl = document.getElementById("scene-wrap");
 const sceneHostEl = document.getElementById("scene-host");
 const sceneCloseBtn = document.getElementById("scene-close");
+const resetLogBtn = document.getElementById("reset-log-btn");
 const smsBoxEl = document.getElementById("sms-box");
 const smsStatusEl = document.getElementById("sms-status");
 const smsBubbleEl = document.getElementById("sms-bubble");
@@ -352,7 +427,7 @@ function ensureScene() {
   return sceneCtrl;
 }
 
-const map = L.map("map", { zoomControl: true }).setView([20.2725, 85.8380], 12);
+const map = L.map("map", { zoomControl: true }).setView([20.2900, 85.8400], 12);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: "&copy; OpenStreetMap contributors",
@@ -385,6 +460,50 @@ function setAlertBadge(level) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const MODE_ICONS = {
+  crash:
+    '<path d="M3 15h11l1.5-4.5H5.5L3 15zm2 0v2m8-2v2"/><path d="M18 6l2 2m1 4h-3m0 4l2 2"/>',
+  pothole:
+    '<path d="M12 4L3 20h18L12 4z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/>',
+  hard_brake:
+    '<path d="M4.5 17a8.5 8.5 0 1115 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1.2"/>',
+  answered_high:
+    '<path d="M18 16H6l1.5-3V10a4.5 4.5 0 119 0v3L18 16z"/><path d="M10 19a2 2 0 004 0"/>',
+  answered_low:
+    '<circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
+  silence:
+    '<path d="M7 5h3l1.5 4-2 1.5a11 11 0 004 4l1.5-2L19 14v3a2 2 0 01-2 2C10.5 19 5 13.5 5 7a2 2 0 012-2z"/><path d="M4 4l16 16"/>',
+  high_risk:
+    '<path d="M9 4h6v5h5v6h-5v5H9v-5H4V9h5V4z"/>',
+  lower_risk:
+    '<path d="M12 21s6-5.5 6-10a6 6 0 10-12 0c0 4.5 6 10 6 10z"/><circle cx="12" cy="11" r="2.2"/>',
+  remote:
+    '<path d="M12 3l-6 8h3.5L6 16h12l-3.5-5H18L12 3z"/><path d="M12 16v5"/>',
+  populated:
+    '<path d="M4 20V6h7v14M13 20v-9h7v9"/><path d="M7 10h1m-1 4h1m8 1h1"/>',
+  false_report:
+    '<circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6m0-6l-6 6"/>',
+  identity:
+    '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8.5" cy="11.5" r="2"/><path d="M13 10h5m-5 4h4"/>',
+  first_aid:
+    '<rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M12 8v8m-4-4h8"/>',
+  data_ok:
+    '<path d="M4 9.5a12 12 0 0116 0m-12.5 3.5a7 7 0 019 0"/><circle cx="12" cy="17.5" r="1.2" fill="currentColor" stroke="none"/>',
+  sms_only:
+    '<path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 3V6z"/><path d="M8 9.5h8m-8 3.5h5"/>',
+  offline:
+    '<path d="M7 18h10a4 4 0 00.5-7.97A5.5 5.5 0 007 8.5 4.5 4.5 0 007 18z"/><path d="M4 4l16 16"/>',
+};
+
+function modeIconSvg(modeKey) {
+  const paths = MODE_ICONS[modeKey] || '<circle cx="12" cy="12" r="8"/>';
+  return (
+    `<svg class="mode-icon" viewBox="0 0 24 24" width="20" height="20" ` +
+    `fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" ` +
+    `stroke-linejoin="round" aria-hidden="true">${paths}</svg>`
+  );
 }
 
 function selectMode(mode) {
@@ -428,7 +547,11 @@ function openScenario(scenario, focusPanel = true) {
     btn.type = "button";
     btn.className = "mode-btn";
     btn.dataset.modeKey = mode.key;
-    btn.textContent = `${mode.label} (${mode.key})`;
+    btn.innerHTML =
+      `<span class="mode-radio" aria-hidden="true"></span>` +
+      modeIconSvg(mode.key) +
+      `<strong class="mode-label">${mode.label}</strong>` +
+      `<span class="mode-key">(${mode.key})</span>`;
     btn.addEventListener("click", () => selectMode(mode));
     modeListEl.appendChild(btn);
     if (idx === 0) selectMode(mode);
@@ -468,6 +591,10 @@ async function runScenarioMode(scenario, mode, sceneMode = null) {
   }
 
   logEl.innerHTML = "";
+  smsBoxEl.hidden = true;
+  smsStatusEl.hidden = true;
+  smsBubbleEl.hidden = true;
+  smsDeliveredEl.hidden = true;
   setAlertBadge("idle");
   metaEl.textContent = `${scenario.key}/${mode.key}  ${eventId}`;
 
@@ -560,9 +687,10 @@ function wireMarkerElement(marker, scenario) {
 }
 
 SCENARIOS.forEach((scenario) => {
+  const extraClass = scenario.pinClass ? ` ${scenario.pinClass}` : "";
   const icon = L.divIcon({
     className: "scenario-pin-wrap",
-    html: `<div class="scenario-pin" data-scenario="${scenario.key}">${scenario.id}</div>`,
+    html: `<div class="scenario-pin${extraClass}" data-scenario="${scenario.key}">${scenario.id}</div>`,
     iconSize: [30, 30],
     iconAnchor: [15, 15],
   });
@@ -595,6 +723,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 function openSmsView() {
+  if (!panelEl.hidden && activeScenario && activeScenario.key === "fallback") {
+    smsBoxEl.hidden = false;
+    return;
+  }
   clearMarkerHighlights();
   kickerEl.hidden = false;
   kickerEl.textContent = "Scenario 6 · fallback";
@@ -607,7 +739,33 @@ function openSmsView() {
   smsBoxEl.hidden = false;
 }
 
+function resetSimLocalState() {
+  activeRunToken += 1;
+  logEl.innerHTML = "";
+  metaEl.textContent = "";
+  setAlertBadge("idle");
+  smsBoxEl.hidden = true;
+  smsStatusEl.hidden = true;
+  smsBubbleEl.hidden = true;
+  smsDeliveredEl.hidden = true;
+  if (sceneCtrl) sceneCtrl.reset();
+}
+
+resetLogBtn.addEventListener("click", async () => {
+  resetSimLocalState();
+  try {
+    await fetch("/reset", { method: "POST" });
+  } catch (err) {
+    metaEl.hidden = false;
+    metaEl.textContent = `Reset failed: ${err.message}`;
+  }
+});
+
 function handleSmsWsEvent(event) {
+  if (event.type === "system_reset") {
+    resetSimLocalState();
+    return;
+  }
   const data = event.data || {};
   if (event.type === "sms_fallback_started") {
     openSmsView();

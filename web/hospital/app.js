@@ -152,6 +152,27 @@ function showCitizenReport(event) {
 }
 
 function handleEvent(event, { isLive }) {
+  if (event.type === "system_reset") {
+    stopCountdown(true);
+    activeIncidentId = null;
+    notices = [];
+    renderNotices();
+    incidentIdEl.textContent = "waiting";
+    cardEl.className = "card incident-card";
+    headlineEl.className = "headline";
+    headlineEl.textContent = "Waiting for incident";
+    peakGEl.textContent = "\u2014";
+    speedRangeEl.textContent = "\u2014";
+    coordsEl.textContent = "\u2014";
+    if (incidentPin) {
+      map.removeLayer(incidentPin);
+      incidentPin = null;
+    }
+    pinStatusEl.textContent = "no pin";
+    citizenCardEl.hidden = true;
+    return;
+  }
+
   const data = event.data || {};
 
   if (event.type === "impact_detected") {

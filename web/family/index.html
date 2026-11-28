@@ -16,78 +16,354 @@
 </head>
 <body>
   <div class="phone-shell">
-    <header class="app-header">
-      <div class="brand">
-        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
-          <path d="M12 2L4 5.5v6.2c0 5 3.4 9.6 8 10.8 4.6-1.2 8-5.8 8-10.8V5.5L12 2z" fill="#059669" />
-          <path d="M12 7l-3.6 9h2l.8-2.1h1.6l.8 2.1h2L12 7zm-.3 5.2l.3-1 .3 1h-.6z" fill="#fff" />
-        </svg>
-        <div>
-          <div class="wordmark">Ashvin</div>
-          <div class="sub">Emergency response</div>
-        </div>
-      </div>
-
-      <div class="header-actions">
-        <span id="alerts-on-pill" class="alerts-on" hidden>Alerts on</span>
-        <button type="button" class="gear-btn" aria-label="Settings">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-          </svg>
-        </button>
-      </div>
-    </header>
-
     <div id="alert-banner" class="alert-banner" hidden>
       <div id="banner-text" class="banner-text">Ambulance dispatched to your vehicle</div>
       <button id="silence-btn" type="button" class="silence-btn">Silence</button>
     </div>
 
-    <main class="content">
-      <button id="enable-alerts-btn" type="button" class="enable-btn">Enable alerts</button>
-
-      <section id="status-card" class="status-card">
-        <span id="status-dot" class="status-dot"></span>
-        <div>
-          <div id="status-title" class="status-title">Vehicle Connected</div>
-          <div id="status-sub" class="status-sub">All systems normal</div>
+    <!-- VIEW 1: MAP (existing screen, preserved) -->
+    <div id="view-map" class="view view-map active" data-view="map">
+      <header class="app-header">
+        <div class="brand">
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+            <path d="M12 2L4 5.5v6.2c0 5 3.4 9.6 8 10.8 4.6-1.2 8-5.8 8-10.8V5.5L12 2z" fill="#059669" />
+            <path d="M12 7l-3.6 9h2l.8-2.1h1.6l.8 2.1h2L12 7zm-.3 5.2l.3-1 .3 1h-.6z" fill="#fff" />
+          </svg>
+          <div>
+            <div class="wordmark">Ashvin</div>
+            <div class="sub">Emergency response</div>
+          </div>
         </div>
-      </section>
 
-      <section class="map-wrap">
-        <div id="family-map" class="family-map"></div>
-        <button id="locate-btn" type="button" class="locate-btn" aria-label="Center map on vehicle">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-            <circle cx="12" cy="12" r="7" />
+        <div class="header-actions">
+          <span id="alerts-on-pill" class="alerts-on" hidden>Alerts on</span>
+          <button id="settings-gear-btn" type="button" class="gear-btn" aria-label="Settings">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <button id="enable-alerts-btn" type="button" class="enable-btn">Enable alerts</button>
+
+        <section id="status-card" class="status-card">
+          <span id="status-dot" class="status-dot"></span>
+          <div>
+            <div id="status-title" class="status-title">Vehicle Connected</div>
+            <div id="status-sub" class="status-sub">All systems normal</div>
+          </div>
+        </section>
+
+        <section class="map-wrap">
+          <div id="family-map" class="family-map"></div>
+          <button id="locate-btn" type="button" class="locate-btn" aria-label="Center map on vehicle">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+              <circle cx="12" cy="12" r="7" />
+            </svg>
+          </button>
+        </section>
+
+        <section class="sheet">
+          <h2>Nearby emergency support</h2>
+          <ul class="support-list">
+            <li class="demo-stub" role="button" tabindex="0"><span>Hospital</span><span class="dist">2.4 km <span class="chev">&rsaquo;</span></span></li>
+            <li class="demo-stub" role="button" tabindex="0"><span>Police Station</span><span class="dist">1.8 km <span class="chev">&rsaquo;</span></span></li>
+            <li class="demo-stub" role="button" tabindex="0"><span>Pharmacy</span><span class="dist">0.9 km <span class="chev">&rsaquo;</span></span></li>
+          </ul>
+        </section>
+
+        <div class="call-row">
+          <a href="tel:112" class="call-btn">Call 112</a>
+          <a href="tel:108" class="call-btn">Call 108</a>
+        </div>
+
+        <button id="report-btn" type="button" class="report-btn">Report Incident</button>
+      </main>
+    </div>
+
+    <!-- VIEW 2: REPORT -->
+    <div id="view-report" class="view view-screen" data-view="report" hidden>
+      <header class="top-bar">
+        <button type="button" class="round-btn back-btn" aria-label="Back">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h1>Report Incident</h1>
+        <button type="button" class="head-btn gear-trigger" aria-label="Settings">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
           </svg>
         </button>
-      </section>
+      </header>
 
-      <section class="sheet">
-        <h2>Nearby emergency support</h2>
-        <ul class="support-list">
-          <li><span>Hospital</span><span class="dist">2.4 km <span class="chev">&rsaquo;</span></span></li>
-          <li><span>Police Station</span><span class="dist">1.8 km <span class="chev">&rsaquo;</span></span></li>
-          <li><span>Pharmacy</span><span class="dist">0.9 km <span class="chev">&rsaquo;</span></span></li>
+      <main class="screen-content">
+        <h3 class="sec">Quick Citizen Report</h3>
+        <ul class="list card">
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 21h20z" fill="none" stroke="currentColor"/><path d="M12 10v5M12 17.8h.01" stroke-width="2.4"/></svg></span>
+            <span class="r-label">Road Accident</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01" stroke-width="2.4"/></svg></span>
+            <span class="r-label">Road Hazard / Pothole</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C7.9 2 5 5 5 8.8 5 14 12 22 12 22s7-8 7-13.2C19 5 16.1 2 12 2z"/><circle cx="12" cy="9" r="2.5"/></svg></span>
+            <span class="r-label">Location</span>
+            <span class="r-val soft">Bhubaneswar</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
         </ul>
-      </section>
 
-      <div class="call-row">
-        <a href="tel:112" class="call-btn">Call 112</a>
-        <a href="tel:108" class="call-btn">Call 108</a>
-      </div>
+        <h3 class="sec">Incident Notes</h3>
+        <div class="report-card">
+          <textarea id="report-notes" class="report-textarea" rows="3" placeholder="Add brief details for emergency responders..."></textarea>
+          <button id="report-submit-btn" type="button" class="report-submit-btn demo-stub">Submit Report</button>
+        </div>
 
-      <button id="report-btn" type="button" class="report-btn">Report Incident</button>
-    </main>
+        <h3 class="sec">Direct Dispatch</h3>
+        <div class="call-row">
+          <a href="tel:112" class="call-btn">Call 112</a>
+          <a href="tel:108" class="call-btn">Call 108</a>
+        </div>
+      </main>
+    </div>
 
+    <!-- VIEW 3: ACTIVITY -->
+    <div id="view-activity" class="view view-screen" data-view="activity" hidden>
+      <header class="top-bar">
+        <button type="button" class="round-btn back-btn" aria-label="Back">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h1>Activity</h1>
+        <button type="button" class="head-btn demo-stub" aria-label="Calendar">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" stroke-width="2.4"/></svg>
+        </button>
+      </header>
+
+      <main class="screen-content">
+        <div class="seg" role="tablist">
+          <button type="button" class="seg-btn active" data-filter="all">All</button>
+          <button type="button" class="seg-btn" data-filter="incidents">Incidents</button>
+          <button type="button" class="seg-btn" data-filter="alerts">Alerts</button>
+          <button type="button" class="seg-btn" data-filter="trips">Trips</button>
+        </div>
+
+        <ul id="activity-timeline" class="timeline">
+          <li class="t-item demo-stub" data-kind="trips" role="button" tabindex="0">
+            <span class="t-icon green"><span class="car-wrap"><svg class="ic-car" viewBox="0 0 64 36"><path fill="currentColor" d="M8 18l5-11c1-2 3-3 5-3h28c2 0 4 1 5 3l5 11c3 1 4 3 4 6v6h-6v-3H10v3H4v-6c0-3 1-5 4-6zM17 9l-3.5 9h37L47 9z"/><circle cx="15" cy="25" r="3" fill="var(--card)"/><circle cx="49" cy="25" r="3" fill="var(--card)"/></svg><span class="ok"><svg class="ok-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span></span>
+            <div class="t-text"><strong>Vehicle Connected</strong><span class="when">Today • 09:15 AM</span><span class="desc">Your vehicle is now connected.</span></div>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="t-item demo-stub" data-kind="incidents" role="button" tabindex="0">
+            <span class="t-icon red"><svg class="t-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 21h20z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/><path d="M12 10v5M12 17.8h.01" stroke="#fff" stroke-width="2.4"/></svg></span>
+            <div class="t-text"><strong>Incident Detected</strong><span class="when">Yesterday • 08:42 PM</span><span class="desc">Sudden impact detected.</span></div>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="t-item demo-stub" data-kind="incidents" role="button" tabindex="0">
+            <span class="t-icon green"><svg class="t-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span>
+            <div class="t-text"><strong>112 Handover</strong><span class="when">Yesterday • 08:43 PM</span><span class="desc">Emergency call initiated.</span></div>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="t-item demo-stub" data-kind="alerts" role="button" tabindex="0">
+            <span class="t-icon blue"><svg class="t-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2C7.9 2 5 5 5 8.8 5 14 12 22 12 22s7-8 7-13.2C19 5 16.1 2 12 2zm0 9.5a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/></svg></span>
+            <div class="t-text"><strong>Location Shared</strong><span class="when">Yesterday • 08:44 PM</span><span class="desc">Your location has been shared<br>with emergency services.</span></div>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="t-item demo-stub" data-kind="alerts" role="button" tabindex="0">
+            <span class="t-icon plain"><svg class="t-svg big" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" stroke="none"/><path d="M7 12.5l3.5 3.5L17 9" stroke="#fff" stroke-width="2.6"/></svg></span>
+            <div class="t-text"><strong>Alert Resolved</strong><span class="when">Yesterday • 09:10 PM</span><span class="desc">Incident marked as resolved.</span></div>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+        </ul>
+
+        <div class="total">
+          <span class="bars"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1" fill="currentColor" stroke="none"/><rect x="10" y="7" width="4" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="17" y="3" width="4" height="18" rx="1" fill="currentColor" stroke="none"/></svg></span>
+          <span class="tot-text"><strong>Total Incidents</strong><small>Last 30 days</small></span>
+          <span id="total-incidents" class="tot-num">3</span>
+        </div>
+      </main>
+    </div>
+
+    <!-- VIEW 4: PROFILE -->
+    <div id="view-profile" class="view view-screen" data-view="profile" hidden>
+      <header class="top-bar">
+        <button type="button" class="round-btn back-btn" aria-label="Back">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h1>Profile</h1>
+        <button id="profile-edit-btn" type="button" class="head-btn demo-stub" aria-label="Edit profile">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.5L16.5 4a2 2 0 0 1 2.8 0l.7.7a2 2 0 0 1 0 2.8L8.5 19z"/><path d="M14.5 6l3.5 3.5"/></svg>
+        </button>
+      </header>
+
+      <main class="screen-content">
+        <section class="who">
+          <div class="avatar">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <defs><clipPath id="profile-avatar-clip"><circle cx="60" cy="60" r="60"/></clipPath></defs>
+              <circle cx="60" cy="60" r="60" fill="#dde8dd"/>
+              <g clip-path="url(#profile-avatar-clip)" fill="#14503a"><circle cx="58" cy="50" r="19"/><path d="M22 112c0-22 15-34 36-34s36 12 36 34z"/></g>
+            </svg>
+            <button type="button" class="cam demo-stub" aria-label="Change photo">
+              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.2"/></svg>
+            </button>
+          </div>
+          <div class="who-text">
+            <h2>Akshaya K.P.</h2>
+            <p>Safety First <b>•</b> Member</p>
+          </div>
+        </section>
+
+        <button type="button" class="vehicle-row demo-stub">
+          <span class="car-wrap"><svg class="ic-car" viewBox="0 0 64 36"><path fill="currentColor" d="M8 18l5-11c1-2 3-3 5-3h28c2 0 4 1 5 3l5 11c3 1 4 3 4 6v6h-6v-3H10v3H4v-6c0-3 1-5 4-6zM17 9l-3.5 9h37L47 9z"/><circle cx="15" cy="25" r="3" fill="var(--card)"/><circle cx="49" cy="25" r="3" fill="var(--card)"/></svg><span class="ok"><svg class="ok-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></span>
+          <span class="v-text"><strong>Vehicle Connected</strong><small>Honda City <b>•</b> KA 01 MB 1234</small></span>
+          <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <h3 class="sec">Personal Information</h3>
+        <ul class="list">
+          <li class="demo-stub" role="button" tabindex="0"><span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="currentColor"/><path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7z" fill="currentColor"/></svg></span><span class="r-label">Name</span><span class="r-val">Akshaya K.P.</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></li>
+          <li class="demo-stub" role="button" tabindex="0"><span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="currentColor" stroke="none"/><path d="M3.5 7l8.5 6 8.5-6" stroke="#fff"/></svg></span><span class="r-label">Email</span><span class="r-val">akshaya.kp@gmail.com</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></li>
+          <li class="demo-stub" role="button" tabindex="0"><span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span class="r-label">Phone</span><span class="r-val">+91 98765 43210</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></li>
+          <li class="demo-stub" role="button" tabindex="0"><span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2C7.9 2 5 5 5 8.8 5 14 12 22 12 22s7-8 7-13.2C19 5 16.1 2 12 2zm0 9.5a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/></svg></span><span class="r-label">Location</span><span class="r-val">Bhubaneswar, Odisha</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></li>
+        </ul>
+
+        <div class="sec-row">
+          <h3 class="sec">Emergency Contacts</h3>
+          <button type="button" class="add-btn demo-stub" aria-label="Add contact"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <ul class="list contacts">
+          <li>
+            <a href="tel:+919876543211" class="contact-link">
+              <span class="c-av"></span><span class="r-label">Father</span><span class="r-val">+91 98765 43211</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="tel:+919876543212" class="contact-link">
+              <span class="c-av"></span><span class="r-label">Mother</span><span class="r-val">+91 98765 43212</span><svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tagline">
+          <svg class="big-shield" viewBox="0 0 24 24" aria-hidden="true"><path fill="#14503a" d="M12 2l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V5z"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><em>Together for a safer tomorrow.</em><small>ASHVIN</small></span>
+        </div>
+      </main>
+    </div>
+
+    <!-- OVERLAY: SETTINGS -->
+    <div id="settings-overlay" class="settings-overlay" hidden>
+      <header class="top-bar">
+        <button id="settings-back-btn" type="button" class="round-btn" aria-label="Back">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <h1>Settings</h1>
+        <button type="button" class="head-btn demo-stub" aria-label="Notifications">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17v-6a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21h4"/></svg>
+        </button>
+      </header>
+
+      <main class="screen-content">
+        <h3 class="sec">App Preferences</h3>
+        <ul class="list card">
+          <li>
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17v-6a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21h4"/></svg></span>
+            <span class="r-label">Notifications</span>
+            <label class="switch"><input id="toggle-notifications" type="checkbox" checked><span class="knob"></span></label>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 3a9 9 0 1 0 0 18c1.4 0 2-1 1.5-2-.5-1.1.2-2.2 1.5-2.2H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.3" fill="#fff" stroke="none"/><circle cx="10" cy="7.5" r="1.3" fill="#fff" stroke="none"/><circle cx="14.5" cy="7.5" r="1.3" fill="#fff" stroke="none"/></svg></span>
+            <span class="r-label">Appearance</span><span class="r-val soft">Light</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+            <span class="r-label">Map Settings</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+            <span class="r-label">Language</span><span class="r-val soft">English</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+        </ul>
+
+        <h3 class="sec">Vehicle Settings</h3>
+        <ul class="list card">
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 64 36"><path fill="currentColor" d="M8 18l5-11c1-2 3-3 5-3h28c2 0 4 1 5 3l5 11c3 1 4 3 4 6v6h-6v-3H10v3H4v-6c0-3 1-5 4-6zM17 9l-3.5 9h37L47 9z"/></svg></span>
+            <span class="r-label">Vehicle Details</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="crash-row">
+            <div class="switch-main-row">
+              <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V5z"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.2"/></svg></span>
+              <span class="r-label">Crash Detection</span>
+              <label class="switch"><input id="toggle-crash-detection" type="checkbox" checked><span class="knob"></span></label>
+            </div>
+            <div id="crash-paused-note" class="crash-paused-note" hidden>Unit detection paused in this demo</div>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="12" width="4" height="9" rx="1" fill="currentColor" stroke="none"/><rect x="10" y="7" width="4" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="17" y="3" width="4" height="18" rx="1" fill="currentColor" stroke="none"/></svg></span>
+            <span class="r-label">Telemetry Settings</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+        </ul>
+
+        <h3 class="sec">About</h3>
+        <ul class="list card">
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01" stroke-width="2.2"/></svg></span>
+            <span class="r-label">About Ashvin</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg></span>
+            <span class="r-label">Terms &amp; Conditions</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+          <li class="demo-stub" role="button" tabindex="0">
+            <span class="r-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V5z"/><path d="M8 12l3 3 5-6" stroke="#fff" stroke-width="2.2"/></svg></span>
+            <span class="r-label">Privacy Policy</span>
+            <svg class="r-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </li>
+        </ul>
+
+        <button type="button" class="logout demo-stub">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5v16h5"/><path d="M9 12h11M16 8l4 4-4 4"/></svg>Log Out
+        </button>
+      </main>
+    </div>
+
+    <div id="demo-toast" class="demo-toast" role="status" aria-live="polite" hidden>Not part of this demo</div>
+
+    <!-- Fixed 4-item bottom tab bar -->
     <nav class="tabbar" aria-label="App tabs">
-      <button type="button" class="tab active">Map</button>
-      <button type="button" class="tab">Report</button>
-      <button type="button" class="tab">Activity</button>
-      <button type="button" class="tab">Profile</button>
+      <button type="button" class="tab active" data-tab="map">
+        <svg class="tab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C8 2.5 5.2 5.4 5.2 9c0 4.8 6.8 12 6.8 12s6.8-7.2 6.8-12c0-3.6-2.8-6.5-6.8-6.5z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        <span>Map</span>
+      </button>
+      <button type="button" class="tab" data-tab="report">
+        <svg class="tab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4.5L16.5 4a2 2 0 0 1 2.8 0l.7.7a2 2 0 0 1 0 2.8L8.5 19z"/><path d="M14.5 6l3.5 3.5"/></svg>
+        <span>Report</span>
+      </button>
+      <button type="button" class="tab" data-tab="activity">
+        <svg class="tab-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></svg>
+        <span>Activity</span>
+      </button>
+      <button type="button" class="tab" data-tab="profile">
+        <svg class="tab-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.5-7 8-7s8 2.5 8 7z"/></svg>
+        <span>Profile</span>
+      </button>
     </nav>
   </div>
 

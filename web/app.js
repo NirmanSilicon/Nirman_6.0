@@ -16,6 +16,16 @@ function setConn(state) {
 }
 
 function render(event) {
+  if (event.type === "system_reset") {
+    stopCountdown();
+    feed.innerHTML = "";
+    lastEl.textContent = "none";
+    alertEl.textContent = "idle";
+    alertEl.className = "badge";
+    countEl.textContent = "5.0";
+    return;
+  }
+
   lastEl.textContent = `${event.type}  #${event.seq}  ${event.event_id}`;
 
   const li = document.createElement("li");
