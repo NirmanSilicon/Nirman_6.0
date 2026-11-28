@@ -1,0 +1,40 @@
+# --- Python virtual environment ---
+.venv/
+
+# --- Python build and cache files ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Secrets and private configuration (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+config/*.local.yaml
+
+# --- Generated data: scan results and logs may contain sensitive information ---
+output/*
+!output/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# --- Local databases (scan history, cached CVE data) ---
+*.db
+*.sqlite3
+
+# --- Editor leftovers ---
+*.swp
+*~
+*.save
+
+config/*.local.toml
+
+# --- Downloaded NVD data (local cache, never commit) ---
+/cache/

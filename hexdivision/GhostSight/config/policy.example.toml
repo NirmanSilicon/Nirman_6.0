@@ -1,0 +1,19 @@
+# GhostSight policy file.
+#
+# Copy this file to config/policy.local.toml to change a setting. That local
+# file is ignored by git. If it is missing, the values below are used.
+#
+# A mistake in this file stops GhostSight from scanning. It never loosens a
+# limit. Names GhostSight does not know are treated as mistakes too.
+
+[policy]
+# The largest range, in addresses, that one scan may cover. Allowed: 1 to 65536.
+# 1024 is the size of a /22 range.
+max_target_addresses = 1024
+
+[lab]
+# Systems that may be used for validation. `validate` needs the target in this
+# list and in the scope file. Empty means no system is allowed.
+allowed = [
+    # "192.168.56.10",
+]

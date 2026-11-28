@@ -1,0 +1,13 @@
+# GhostSight scope file.
+#
+# Copy this file to config/scope.local.toml and list ONLY the systems you own
+# or have explicit written permission to test. That local file is ignored by git.
+#
+# Targets must be IP addresses or CIDR ranges. Hostnames are not supported yet.
+# If the local file is missing or the list is empty, GhostSight allows nothing.
+
+[scope]
+allowed = [
+    # "127.0.0.1",          # this machine
+    # "192.168.56.0/24",    # an isolated lab network
+]
