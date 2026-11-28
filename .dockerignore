@@ -1,0 +1,8 @@
+.venv
+.git
+__pycache__
+*.pyc
+frontend/node_modules
+mobile/
+.pytest_cache
+.ruff_cache
