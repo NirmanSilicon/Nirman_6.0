@@ -3,53 +3,6 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 
-class StationSchema(BaseModel):
-    station_code: str
-    station_name: str
-    chainage_km: float
-    lat: float
-    lon: float
-    has_750m_goods_loop: bool = False
-    passenger_loops_dn: int = 1
-    passenger_loops_up: int = 1
-    is_major_junction: bool = False
-    road_exit_penalty_m: int = 12
-
-
-class TrackBlockSchema(BaseModel):
-    block_id: str
-    direction: Literal["DN", "UP"]
-    from_station: str
-    to_station: str
-    start_km: float
-    end_km: float
-    length_km: float
-    mps_kmph: int = 110
-    free_flow_mins: float
-    freight_injection_weight: float = 0.15
-    terminal_slack_mins: float = 0.0
-
-
-class TrainHaltSchema(BaseModel):
-    station_code: str
-    stop_sequence: int
-    day_offset: int = 0
-    sched_arr_min_day: int
-    sched_dep_min_day: int
-    is_commercial_halt: bool = True
-    scheduled_dwell_m: int = 2
-
-
-class TrainMasterSchema(BaseModel):
-    train_no: str
-    train_name: str
-    train_class: str
-    priority_rank: int
-    direction: Literal["DN", "UP"]
-    max_speed_kmph: int = 110
-    halts: list[TrainHaltSchema] = Field(default_factory=list)
-
-
 class TrainKinematicState(BaseModel):
     train_no: str
     train_name: str

@@ -1,6 +1,5 @@
 import json
 import logging
-from collections.abc import AsyncGenerator
 from pathlib import Path
 from typing import Any
 
@@ -30,19 +29,6 @@ AsyncSessionLocal = async_sessionmaker(
     expire_on_commit=False,
     autoflush=False,
 )
-
-
-async def get_db_session() -> AsyncGenerator[AsyncSession]:
-    """FastAPI dependency for obtaining an asynchronous database session."""
-    async with AsyncSessionLocal() as session:
-        try:
-            yield session
-        except Exception as exc:
-            await session.rollback()
-            logger.error("DB Session rollback on exception: %s", exc)
-            raise
-        finally:
-            await session.close()
 
 
 AVAILABLE_CORRIDORS: dict[str, dict[str, Any]] = {

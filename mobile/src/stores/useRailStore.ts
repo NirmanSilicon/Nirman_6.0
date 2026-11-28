@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { getDefaultBackendOrigin } from '../config/apiConfig';
+import type { Lang } from '../constants/translations';
 import { switchCorridorApi } from '../services/api';
 import {
   getMockSnapshot,
@@ -13,7 +14,9 @@ import type {
   RescueEvaluationResponse,
 } from '../types/corridor';
 
-export type MobileTab = 'search' | 'timeline' | 'map' | 'rescue';
+export type MobileView = 'landing' | 'dashboard';
+export type MobileTab = 'overview' | 'timeline' | 'map' | 'rescue';
+export type MapViewPreset = 'my_train' | 'delays_ahead' | 'full_journey';
 
 function interpolateLatLon(
   chainageKm: number,
@@ -44,12 +47,17 @@ function interpolateLatLon(
 
 interface RailMobileStore {
   backendOrigin: string;
+  currentView: MobileView;
+  language: Lang;
   activeCorridorId: CorridorId;
   activeTab: MobileTab;
+  activeMapView: MapViewPreset;
   selectedTrain: string;
   passengerStatus: 'PRE_BOARDING' | 'ON_BOARD';
   destinationCode: string;
   transferBufferMins: number;
+  drawerOpen: boolean;
+  cabModalOpen: boolean;
 
   activeSnapshot: CorridorSnapshot;
   forecast: ForecastResponse | null;
@@ -59,12 +67,18 @@ interface RailMobileStore {
   wsStatusText: string;
 
   setBackendOrigin: (url: string) => void;
+  setCurrentView: (view: MobileView) => void;
+  setLanguage: (lang: Lang) => void;
   switchCorridor: (corridorId: CorridorId) => Promise<void>;
   setActiveTab: (tab: MobileTab) => void;
+  setActiveMapView: (view: MapViewPreset) => void;
+  setSelectedTrain: (trainNo: string) => void;
   selectTrainAndOpen: (trainNo: string) => void;
   setPassengerStatus: (status: 'PRE_BOARDING' | 'ON_BOARD') => void;
   setDestinationCode: (code: string) => void;
   setTransferBufferMins: (mins: number) => void;
+  setDrawerOpen: (open: boolean) => void;
+  setCabModalOpen: (open: boolean) => void;
   updateSnapshot: (snapshot: CorridorSnapshot) => void;
   advanceOfflineSim: (elapsedSecs?: number) => void;
   injectLocalDelay: (trainNo: string, addedMins: number) => void;
@@ -76,12 +90,17 @@ interface RailMobileStore {
 
 export const useRailStore = create<RailMobileStore>((set, get) => ({
   backendOrigin: getDefaultBackendOrigin(),
+  currentView: 'landing',
+  language: 'EN',
   activeCorridorId: 'ECoR_BHC_PURI',
-  activeTab: 'search',
+  activeTab: 'overview',
+  activeMapView: 'full_journey',
   selectedTrain: '12821',
   passengerStatus: 'ON_BOARD',
   destinationCode: 'BBS',
   transferBufferMins: 15,
+  drawerOpen: false,
+  cabModalOpen: false,
 
   activeSnapshot: MOCK_SNAPSHOT,
   forecast: null,
@@ -91,12 +110,14 @@ export const useRailStore = create<RailMobileStore>((set, get) => ({
   wsStatusText: 'Demo Mode',
 
   setBackendOrigin: (url) => set({ backendOrigin: url.replace(/\/+$/, '') }),
+  setCurrentView: (view) => set({ currentView: view }),
+  setLanguage: (language) => set({ language }),
   switchCorridor: async (corridorId) => {
     const isKolkata = corridorId === 'SER_HWH_KGP';
     set({
       activeCorridorId: corridorId,
       selectedTrain: '12821',
-      destinationCode: isKolkata ? 'HWH' : 'BBS',
+      destinationCode: isKolkata ? 'KGP' : 'BBS',
       activeSnapshot: getMockSnapshot(corridorId),
     });
     if (get().wsConnected) {
@@ -108,11 +129,15 @@ export const useRailStore = create<RailMobileStore>((set, get) => ({
     }
   },
   setActiveTab: (tab) => set({ activeTab: tab }),
+  setActiveMapView: (activeMapView) => set({ activeMapView }),
+  setSelectedTrain: (selectedTrain) => set({ selectedTrain }),
   selectTrainAndOpen: (trainNo) =>
-    set({ selectedTrain: trainNo, activeTab: 'timeline' }),
+    set({ selectedTrain: trainNo, currentView: 'dashboard', activeTab: 'overview' }),
   setPassengerStatus: (status) => set({ passengerStatus: status }),
   setDestinationCode: (code) => set({ destinationCode: code }),
   setTransferBufferMins: (mins) => set({ transferBufferMins: mins }),
+  setDrawerOpen: (drawerOpen) => set({ drawerOpen }),
+  setCabModalOpen: (cabModalOpen) => set({ cabModalOpen }),
   updateSnapshot: (snapshot) => set({ activeSnapshot: snapshot }),
   advanceOfflineSim: (elapsedSecs = 15) =>
     set((state) => {
