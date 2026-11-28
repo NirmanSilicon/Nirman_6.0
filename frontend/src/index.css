@@ -1,56 +1,208 @@
+
 @import "tailwindcss";
+
+/* =========================================
+   ALARMSENSE DESIGN TOKENS
+========================================= */
 
 :root {
   --bg-canvas: #F4F8FB;
   --surface-card: #FFFFFF;
+
   --text-navy: #0F172A;
   --text-muted: #475569;
+
   --accent-teal: #00A8B5;
   --accent-teal-dark: #008B96;
+
   --border-subtle: #E2E8F0;
+
+  color-scheme: light;
 }
+
+/* =========================================
+   GLOBAL BASE STYLES
+========================================= */
 
 @layer base {
   html {
-    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family:
+      "Plus Jakarta Sans",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+
     color: var(--text-navy);
     background-color: var(--bg-canvas);
+
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--bg-canvas);
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 3px;
   }
 
   code,
   pre,
   .font-mono {
-    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family:
+      "JetBrains Mono",
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      monospace;
+  }
+
+  ::selection {
+    color: #FFFFFF;
+    background-color: var(--accent-teal-dark);
   }
 }
+
+/* =========================================
+   NUMERIC DATA ALIGNMENT
+========================================= */
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Custom subtle sidebar bottom-left wave matching industrial light aesthetic */
+/* =========================================
+   CUSTOM SIDEBAR BACKGROUND
+========================================= */
+
 .sidebar-teal-wave {
-  background: radial-gradient(
+  background:
+    radial-gradient(
       125% 55% at 0% 100%,
       rgba(0, 168, 181, 0.14) 0%,
       rgba(0, 168, 181, 0.05) 45%,
       rgba(255, 255, 255, 0) 80%
     ),
-    #ffffff;
+    #FFFFFF;
 }
 
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* =========================================
+   PRINT STYLES
+========================================= */
+
 @media print {
-  body {
-    background: #ffffff !important;
+  @page {
+    size: A4;
+    margin: 12mm;
   }
+
+  html,
+  body {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+    min-width: 0;
+  }
+
   aside,
   header,
+  nav,
   .no-print {
     display: none !important;
   }
+
   main {
     padding: 0 !important;
     margin: 0 !important;
     max-width: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  section,
+  article {
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    break-inside: avoid;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -1,10 +1,12 @@
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import { simulateFault } from "../api/client";
 
-/**
- * Custom hook orchestrating TEP fault simulation, live smooth replay,
- * custom analysis results, and immutable session activity history.
- */
+const PLAYBACK_INTERVAL = 900;
+const PLAYBACK_STEP = 2;
+const PLAYBACK_SMOOTH_STEPS = 3;
+const MAX_ACTIVITY_ITEMS = 20;
+
 export function useSimulation({ activePlantId, onNotification }) {
   const [faultId, setFaultId] = useState(6);
   const [episodeIndex, setEpisodeIndex] = useState(0);
@@ -13,7 +15,7 @@ export function useSimulation({ activePlantId, onNotification }) {
   const [windowSize, setWindowSize] = useState(20);
 
   const [result, setResult] = useState(null);
-  const [lastSource, setLastSource] = useState(null); // "simulation" | "analyze"
+  const [lastSource, setLastSource] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,6 +23,10 @@ export function useSimulation({ activePlantId, onNotification }) {
 
   const playingRef = useRef(false);
   const timerRef = useRef(null);
+  const requestIdRef = useRef(0);
+  const inFlightRef = useRef(false);
+  const mountedRef = useRef(true);
+
   const paramsRef = useRef({
     faultId,
     episodeIndex,
@@ -29,6 +35,7 @@ export function useSimulation({ activePlantId, onNotification }) {
     windowSize,
   });
 
+  // Keep simulation parameters synchronised.
   useEffect(() => {
     paramsRef.current = {
       faultId,
@@ -39,41 +46,61 @@ export function useSimulation({ activePlantId, onNotification }) {
     };
   }, [faultId, episodeIndex, preFaultSteps, stepIndex, windowSize]);
 
-  const appendActivity = useCallback((entry) => {
-    setActivityLog((prev) => [
-      {
-        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-        timestamp: new Date().toISOString(),
-        ...entry,
-      },
-      ...prev,
-    ].slice(0, 20));
-  }, []);
-
-  const stopPlayback = useCallback(() => {
-    playingRef.current = false;
-    setIsPlaying(false);
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
-  // Stop replay automatically when switching away from TEP
+  // Track component lifecycle.
   useEffect(() => {
-    if (activePlantId && activePlantId !== "tep" && playingRef.current) {
-      stopPlayback();
-    }
-  }, [activePlantId, stopPlayback]);
+    mountedRef.current = true;
 
-  useEffect(() => {
     return () => {
+      mountedRef.current = false;
+      playingRef.current = false;
+      requestIdRef.current += 1;
+
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
   }, []);
 
+  // Immutable activity history.
+  const appendActivity = useCallback((entry) => {
+    if (!mountedRef.current) return;
+
+    setActivityLog((previous) => [
+      {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        timestamp: new Date().toISOString(),
+        ...entry,
+      },
+      ...previous,
+    ].slice(0, MAX_ACTIVITY_ITEMS));
+  }, []);
+
+  // Stop live playback and invalidate pending requests.
+  const stopPlayback = useCallback(() => {
+    playingRef.current = false;
+
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
+    requestIdRef.current += 1;
+    inFlightRef.current = false;
+
+    if (mountedRef.current) {
+      setIsPlaying(false);
+      setLoading(false);
+    }
+  }, []);
+
+  // Stop playback when switching to a custom plant.
+  useEffect(() => {
+    if (activePlantId && activePlantId !== "tep") {
+      stopPlayback();
+    }
+  }, [activePlantId, stopPlayback]);
+
+  // Central simulation API handler.
   const runSimulationAt = useCallback(
     async ({
       nextFaultId,
@@ -84,8 +111,16 @@ export function useSimulation({ activePlantId, onNotification }) {
       smoothSteps = 1,
       logActivity = true,
     }) => {
+      if (!mountedRef.current || inFlightRef.current) {
+        return null;
+      }
+
+      const requestId = ++requestIdRef.current;
+
+      inFlightRef.current = true;
       setLoading(true);
       setError(null);
+
       try {
         const data = await simulateFault(nextFaultId, {
           episode_index: nextEpisodeIndex,
@@ -94,151 +129,287 @@ export function useSimulation({ activePlantId, onNotification }) {
           window_size: nextWindowSize,
           smooth_steps: smoothSteps,
         });
+
+        // Ignore stale or invalidated responses.
+        if (
+          !mountedRef.current ||
+          requestId !== requestIdRef.current
+        ) {
+          return null;
+        }
+
+        if (!data || typeof data !== "object") {
+          throw new Error("Invalid simulation response.");
+        }
+
         setResult(data);
         setLastSource("simulation");
-        setStepIndex(data.step_index);
+
+        if (Number.isFinite(data.step_index)) {
+          setStepIndex(data.step_index);
+        }
 
         if (logActivity) {
+          const rootCause = data.root_cause || {};
+          const confidence = Number(rootCause.confidence);
+          const reduction = Number(data.reduction_pct);
+
           appendActivity({
             type: "simulation",
-            title: `Simulated Fault ${data.simulated_fault_id} → ${data.root_cause.name}`,
-            detail: `Ep #${data.episode_id}, step ${data.step_index} • ${(data.root_cause.confidence * 100).toFixed(1)}% conf • ${data.reduction_pct.toFixed(1)}% flood reduction`,
-            severity: data.root_cause.severity_level,
+            title: `Simulated Fault ${data.simulated_fault_id ?? nextFaultId} → ${rootCause.name || "Unknown Root Cause"}`,
+            detail: [
+              `Episode #${data.episode_id ?? nextEpisodeIndex}`,
+              `step ${data.step_index ?? nextStepIndex}`,
+              Number.isFinite(confidence)
+                ? `${(confidence * 100).toFixed(1)}% confidence`
+                : null,
+              Number.isFinite(reduction)
+                ? `${reduction.toFixed(1)}% flood reduction`
+                : null,
+            ].filter(Boolean).join(" • "),
+            severity: rootCause.severity_level || "Unknown",
           });
         }
+
         return data;
       } catch (err) {
-        const msg = err?.message || "Simulation failed.";
-        setError(msg);
-        onNotification?.({ type: "error", message: msg });
-        stopPlayback();
+        if (
+          !mountedRef.current ||
+          requestId !== requestIdRef.current
+        ) {
+          return null;
+        }
+
+        const message =
+          err?.message || "Simulation failed. Please try again.";
+
+        setError(message);
+        onNotification?.({
+          type: "error",
+          message,
+        });
+
+        if (playingRef.current) {
+          playingRef.current = false;
+          setIsPlaying(false);
+        }
+
         return null;
       } finally {
-        setLoading(false);
+        if (
+          mountedRef.current &&
+          requestId === requestIdRef.current
+        ) {
+          inFlightRef.current = false;
+          setLoading(false);
+        }
       }
     },
-    [appendActivity, onNotification, stopPlayback],
+    [appendActivity, onNotification],
   );
 
+  // Run current simulation.
   const runNow = useCallback(async () => {
     stopPlayback();
-    const p = paramsRef.current;
+
+    const params = paramsRef.current;
+
     return runSimulationAt({
-      nextFaultId: p.faultId,
-      nextEpisodeIndex: p.episodeIndex,
-      nextPreFaultSteps: p.preFaultSteps,
-      nextStepIndex: p.stepIndex,
-      nextWindowSize: p.windowSize,
-      smoothSteps: p.stepIndex > 0 ? 3 : 1,
+      nextFaultId: params.faultId,
+      nextEpisodeIndex: params.episodeIndex,
+      nextPreFaultSteps: params.preFaultSteps,
+      nextStepIndex: params.stepIndex,
+      nextWindowSize: params.windowSize,
+      smoothSteps: params.stepIndex > 0 ? 3 : 1,
       logActivity: true,
     });
   }, [runSimulationAt, stopPlayback]);
 
+  // Move simulation forward.
   const stepForward = useCallback(async () => {
-    const p = paramsRef.current;
+    if (playingRef.current || inFlightRef.current) {
+      return null;
+    }
+
+    const params = paramsRef.current;
+
     const maxStep = result
-      ? Math.max(0, result.episode_total_steps - result.window_size)
-      : p.stepIndex + 5;
-    const nextStep = Math.min(p.stepIndex + 2, maxStep);
+      ? Math.max(
+          0,
+          result.episode_total_steps - result.window_size
+        )
+      : params.stepIndex + PLAYBACK_STEP;
+
+    const nextStep = Math.min(
+      params.stepIndex + PLAYBACK_STEP,
+      maxStep
+    );
+
     return runSimulationAt({
-      nextFaultId: p.faultId,
-      nextEpisodeIndex: p.episodeIndex,
-      nextPreFaultSteps: p.preFaultSteps,
+      nextFaultId: params.faultId,
+      nextEpisodeIndex: params.episodeIndex,
+      nextPreFaultSteps: params.preFaultSteps,
       nextStepIndex: nextStep,
-      nextWindowSize: p.windowSize,
-      smoothSteps: 3,
+      nextWindowSize: params.windowSize,
+      smoothSteps: PLAYBACK_SMOOTH_STEPS,
       logActivity: false,
     });
   }, [result, runSimulationAt]);
 
+  // Reset simulation.
   const resetSimulation = useCallback(async () => {
     stopPlayback();
+
     setStepIndex(0);
-    const p = paramsRef.current;
+
+    const params = paramsRef.current;
+
     return runSimulationAt({
-      nextFaultId: p.faultId,
-      nextEpisodeIndex: p.episodeIndex,
-      nextPreFaultSteps: p.preFaultSteps,
+      nextFaultId: params.faultId,
+      nextEpisodeIndex: params.episodeIndex,
+      nextPreFaultSteps: params.preFaultSteps,
       nextStepIndex: 0,
-      nextWindowSize: p.windowSize,
+      nextWindowSize: params.windowSize,
       smoothSteps: 1,
       logActivity: true,
     });
   }, [runSimulationAt, stopPlayback]);
 
+  // Schedule next playback frame.
   const scheduleNextTick = useCallback(
     (latestData) => {
-      if (!playingRef.current) return;
-      const p = paramsRef.current;
-      const maxStart = latestData
-        ? Math.max(0, latestData.episode_total_steps - latestData.window_size)
-        : 200;
-      const nextStep = (latestData ? latestData.step_index : p.stepIndex) + 2;
+      if (!playingRef.current || !latestData) return;
 
-      if (latestData && latestData.step_index >= maxStart) {
+      const params = paramsRef.current;
+
+      const totalSteps = Number(latestData.episode_total_steps);
+      const currentStep = Number(latestData.step_index);
+      const currentWindowSize = Number(latestData.window_size);
+
+      if (
+        !Number.isFinite(totalSteps) ||
+        !Number.isFinite(currentStep) ||
+        !Number.isFinite(currentWindowSize) ||
+        currentWindowSize <= 0
+      ) {
         stopPlayback();
-        appendActivity({
-          type: "simulation",
-          title: `Completed live replay for Fault ${latestData.simulated_fault_id}`,
-          detail: `Reached end of episode #${latestData.episode_id} at step ${latestData.step_index}`,
-          severity: latestData.root_cause.severity_level,
-        });
+        setError("Invalid episode metadata. Playback stopped.");
         return;
       }
 
+      const maxStart = Math.max(
+        0,
+        totalSteps - currentWindowSize
+      );
+
+      if (currentStep >= maxStart) {
+        stopPlayback();
+
+        appendActivity({
+          type: "simulation",
+          title: `Completed live replay for Fault ${latestData.simulated_fault_id}`,
+          detail: `Reached end of episode #${latestData.episode_id} at step ${currentStep}`,
+          severity: latestData.root_cause?.severity_level || "Unknown",
+        });
+
+        return;
+      }
+
+      const nextStep = Math.min(
+        currentStep + PLAYBACK_STEP,
+        maxStart
+      );
+
       timerRef.current = setTimeout(async () => {
+        timerRef.current = null;
+
         if (!playingRef.current) return;
-        const curr = paramsRef.current;
+
+        const current = paramsRef.current;
+
         const data = await runSimulationAt({
-          nextFaultId: curr.faultId,
-          nextEpisodeIndex: curr.episodeIndex,
-          nextPreFaultSteps: curr.preFaultSteps,
-          nextStepIndex: Math.min(nextStep, maxStart),
-          nextWindowSize: curr.windowSize,
-          smoothSteps: 3,
+          nextFaultId: current.faultId,
+          nextEpisodeIndex: current.episodeIndex,
+          nextPreFaultSteps: current.preFaultSteps,
+          nextStepIndex: nextStep,
+          nextWindowSize: current.windowSize,
+          smoothSteps: PLAYBACK_SMOOTH_STEPS,
           logActivity: false,
         });
+
         if (data && playingRef.current) {
           scheduleNextTick(data);
         }
-      }, 900);
+      }, PLAYBACK_INTERVAL);
     },
     [appendActivity, runSimulationAt, stopPlayback],
   );
 
+  // Toggle live replay.
   const togglePlay = useCallback(async () => {
     if (playingRef.current) {
       stopPlayback();
       return;
     }
+
+    if (inFlightRef.current || activePlantId !== "tep") {
+      return;
+    }
+
     playingRef.current = true;
     setIsPlaying(true);
-    const p = paramsRef.current;
+
+    const params = paramsRef.current;
+
     const initial = await runSimulationAt({
-      nextFaultId: p.faultId,
-      nextEpisodeIndex: p.episodeIndex,
-      nextPreFaultSteps: p.preFaultSteps,
-      nextStepIndex: p.stepIndex,
-      nextWindowSize: p.windowSize,
-      smoothSteps: 3,
+      nextFaultId: params.faultId,
+      nextEpisodeIndex: params.episodeIndex,
+      nextPreFaultSteps: params.preFaultSteps,
+      nextStepIndex: params.stepIndex,
+      nextWindowSize: params.windowSize,
+      smoothSteps: PLAYBACK_SMOOTH_STEPS,
       logActivity: true,
     });
+
     if (initial && playingRef.current) {
       scheduleNextTick(initial);
+    } else if (!initial && playingRef.current) {
+      stopPlayback();
     }
-  }, [runSimulationAt, scheduleNextTick, stopPlayback]);
+  }, [
+    activePlantId,
+    runSimulationAt,
+    scheduleNextTick,
+    stopPlayback,
+  ]);
 
+  // Accept custom Data Upload analysis results.
   const setAnalysisResult = useCallback(
     (analysisData, sourceLabel = "Custom window") => {
       stopPlayback();
+
+      if (!analysisData || typeof analysisData !== "object") {
+        setError("Invalid analysis result.");
+        return;
+      }
+
       setError(null);
       setResult(analysisData);
       setLastSource("analyze");
+
+      const rootCause = analysisData.root_cause || {};
+      const confidence = Number(rootCause.confidence);
+
       appendActivity({
         type: "analyze",
-        title: `Analyzed ${sourceLabel} → ${analysisData.root_cause.name}`,
-        detail: `${(analysisData.root_cause.confidence * 100).toFixed(1)}% conf • ${analysisData.confirmed_alarm_count} confirmed alarms`,
-        severity: analysisData.root_cause.severity_level,
+        title: `Analyzed ${sourceLabel} → ${rootCause.name || "Unknown Root Cause"}`,
+        detail: [
+          Number.isFinite(confidence)
+            ? `${(confidence * 100).toFixed(1)}% confidence`
+            : null,
+          `${analysisData.confirmed_alarm_count ?? 0} confirmed alarms`,
+        ].filter(Boolean).join(" • "),
+        severity: rootCause.severity_level || "Unknown",
       });
     },
     [appendActivity, stopPlayback],
