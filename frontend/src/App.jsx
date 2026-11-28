@@ -129,6 +129,7 @@ export default function App() {
     activePlantId,
     onNotification: showToast,
   });
+  const { appendActivity } = sim;
 
   // --------------------------------------------------
   // 5. LOAD OPERATOR FEEDBACK
@@ -233,7 +234,7 @@ export default function App() {
           normalizePlantsData(plantsRes)
         );
 
-        sim.appendActivity({
+        appendActivity({
           type: "plant",
 
           title: `Activated plant model '${
@@ -270,8 +271,8 @@ export default function App() {
     [
       activePlantId,
       activatingPlant,
+      appendActivity,
       showToast,
-      sim.appendActivity,
     ]
   );
 
@@ -312,7 +313,7 @@ export default function App() {
           ? macroF1.toFixed(3)
           : "N/A";
 
-        sim.appendActivity({
+        appendActivity({
           type: "retrain",
 
           title:
@@ -346,9 +347,32 @@ export default function App() {
       }
     },
     [
+      appendActivity,
       showToast,
-      sim.appendActivity,
     ]
+  );
+
+  const handleAlarmLogAnalyzed = useCallback(
+    (logRes) => {
+      const rawCount = Number(logRes?.raw_event_count ?? 0);
+      const consolidatedCount = Number(logRes?.consolidated_alarm_count ?? 0);
+      const reductionText = formatMetric(logRes?.reduction_pct, 1);
+      const firstTag = logRes?.first_triggered_tag || "—";
+      const topSeverity = logRes?.priority_alarms?.[0]?.severity || "NORMAL";
+
+      appendActivity({
+        type: "alarm_log",
+        title: `Consolidated alarm log (${rawCount} → ${consolidatedCount})`,
+        detail: `${reductionText}% flood reduction • First trigger: ${firstTag}`,
+        severity: topSeverity,
+      });
+
+      showToast({
+        type: "success",
+        message: `Alarm log consolidated: ${rawCount} events → ${consolidatedCount} alarms (${reductionText}% reduction).`,
+      });
+    },
+    [appendActivity, showToast]
   );
 
   // --------------------------------------------------
@@ -486,6 +510,7 @@ export default function App() {
             <DataUploadView
               activePlant={activePlant}
               onPlantRetrained={handlePlantRetrained}
+              onAlarmLogAnalyzed={handleAlarmLogAnalyzed}
               onAnalysisComplete={(data, label) => {
                 sim.setAnalysisResult(data, label);
 

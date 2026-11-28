@@ -311,3 +311,52 @@ class ActivatePlantResponse(BaseModel):
     sensor_cols: list[str]
     classes: list[int]
     window_size: int = Field(..., ge=1)
+
+
+class AlarmLogEventSummary(BaseModel):
+    """Consolidated priority alarm group derived from uploaded raw alarm events."""
+
+    tag: str
+    label: str = ""
+    severity: str
+    event_count: int = Field(..., ge=1)
+    suppressed_count: int = Field(..., ge=0)
+    first_timestamp: str | None = None
+    last_timestamp: str | None = None
+    latest_value: float | None = None
+    threshold: float | None = None
+    unit: str = ""
+    message: str = ""
+
+
+class AlarmLogTimelinePoint(BaseModel):
+    """Raw alarm event counts grouped at a single timestamp bucket."""
+
+    timestamp: str
+    count: int = Field(..., ge=0)
+    critical_count: int = Field(default=0, ge=0)
+
+
+class AlarmLogAnalyzeResponse(BaseModel):
+    """Response model for POST /api/v1/alarms/analyze-log."""
+
+    filename: str
+    format: Literal["csv", "json"]
+    raw_event_count: int = Field(..., ge=0)
+    consolidated_alarm_count: int = Field(..., ge=0)
+    suppressed_event_count: int = Field(..., ge=0)
+    reduction_pct: float = Field(..., ge=0.0, le=100.0)
+    first_triggered_tag: str | None = None
+    first_triggered_timestamp: str | None = None
+    severity_breakdown: dict[str, int] = Field(default_factory=dict)
+    alarm_timeline: list[AlarmLogTimelinePoint] = Field(default_factory=list)
+    priority_alarms: list[AlarmLogEventSummary] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def validate_alarm_counts(self) -> "AlarmLogAnalyzeResponse":
+        """Ensure consolidated alarm count never exceeds raw event count."""
+        if self.consolidated_alarm_count > self.raw_event_count:
+            raise ValueError(
+                "consolidated_alarm_count cannot exceed raw_event_count."
+            )
+        return self
