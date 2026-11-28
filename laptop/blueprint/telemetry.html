@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saarthi Insights</title>
+<link rel="stylesheet" href="/static/blueprint.css">
+<link rel="stylesheet" href="/static/telemetry.css">
+</head>
+<body>
+<header>
+  <h1>SAARTHI <span>insights</span></h1>
+  <div id="source" class="pill recorded">RECORDED · loading…</div>
+  <a class="back" href="/">mind view</a>
+</header>
+
+<main class="tel">
+  <section class="panel wide">
+    <h2>1 · Where things stay <small>the spatial decay curve · how likely each kind of object is still where you were told</small></h2>
+    <p id="decay-insight" class="insight"></p>
+    <svg id="decay" viewBox="0 0 900 300" role="img" aria-label="Probability each kind of object is still where the user was told, against minutes since"></svg>
+    <p class="method"><b>How it is calculated.</b> Every time Saarthi tells you where an object is, a clock starts. It stops when
+      someone moves or takes that object (Saarthi's camera sees it), or is cut short (censored) when you are told again or the
+      session ends. The Kaplan–Meier estimator turns these intervals into the chance the object is still there after <i>t</i>
+      minutes; a constant-rate model, e<sup>−rate·t</sup>, summarises each kind. <b>How Saarthi uses it.</b> Ask "where is my
+      cup?" about a cup seen long ago: once the curve for cups is below 50%, Saarthi says "…, but it may have been moved since"
+      instead of stating an old place as fact.</p>
+    <table id="decay-table" class="small"><thead><tr><th>object</th><th>told positions</th><th>moved or taken</th><th>moves per minute</th><th>still there after 5 min</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="panel wide">
+    <h2>2 · What goes together <small>co-occurrence knowledge graph · which objects the camera sees in the same moment</small></h2>
+    <p id="cooc-insight" class="insight"></p>
+    <svg id="cooc" viewBox="0 0 900 360" role="img" aria-label="Graph of objects seen together"></svg>
+    <p class="method"><b>How it is calculated.</b> Once a second, the kit objects in view form a "basket"; each pair's
+      <b>lift</b> (market-basket analysis) is how often they are seen together divided by how often they would be if
+      unrelated: above 1 they belong together. Line thickness = seconds together; label = lift. <b>How Saarthi would use it.</b>
+      Over a real week this learns a user's habits (the watch lives by the laptop), so a search starts where the object
+      usually is. <b>Honest limit:</b> our recordings are one test table where everything is in view together, so the lifts are
+      small; this shows the calculation, not a user's habits.</p>
+  </section>
+</main>
+
+<footer>Computed from every recording on this laptop (feed v1), labelled RECORDED. Development data: testers moved objects on purpose.</footer>
+<script src="/static/telemetry.js"></script>
+</body>
+</html>

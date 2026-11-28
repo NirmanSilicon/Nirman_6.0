@@ -1,0 +1,151 @@
+# Development phrase set for the intent grammar (PRD 5.9). Written by the coding agent while
+# building the grammar, so it is NOT held out; the held-out set comes from the team's recordings.
+# expected<TAB>phrase. Find:<class> uses the COCO class; Find:- means an object the phone cannot name.
+Brief	What's around me
+Brief	what is around me
+Brief	What's in front of me?
+Brief	what is on the table
+Brief	describe the table
+Brief	Describe what you see
+Brief	what do you see
+Brief	What can you see right now
+Brief	tell me what is here
+Brief	look around
+Brief	What's near me
+Brief	Saarthi, what's around me?
+Brief	ok what is around me
+Brief	what is in front of me please
+Find:bottle	Where is my bottle
+Find:bottle	where's my water bottle
+Find:bottle	find the bottle
+Find:bottle	Can you find my bottle?
+Find:bottle	bottle?
+Find:cup	Where is the cup
+Find:cup	where did my mug go
+Find:cup	find my mug
+Find:cup	where is my coffee
+Find:cup	locate the cup
+Find:cup	Where's my glass?
+Find:cell phone	where is my phone
+Find:cell phone	find my mobile
+Find:cell phone	where did I put my phone
+Find:cell phone	help me find my phone
+Find:laptop	where is the laptop
+Find:laptop	Where's my computer?
+Find:mouse	find the mouse
+Find:mouse	where is the mouse
+Find:book	where is my book
+Find:book	find the book
+Find:book	do you see a book
+Find:apple	where is the apple
+Find:apple	find the apple
+Find:banana	where is the banana
+Find:orange	find the orange
+Find:dining table	where is the table
+Find:-	where are my keys
+Find:-	find my pen
+Find:-	where is my wallet
+Find:-	where did I leave my glasses
+People	how many people are here
+People	How many people are around me?
+People	who is around me
+People	is anyone here
+People	who's here
+People	is anybody around
+People	are there people around
+WhoIsOn:RIGHT	who is on my right
+WhoIsOn:RIGHT	Who's on my right?
+WhoIsOn:RIGHT	is anyone on my right
+WhoIsOn:RIGHT	is someone to my right
+WhoIsOn:LEFT	who is on my left
+WhoIsOn:LEFT	Who's to my left?
+WhoIsOn:LEFT	is there someone on my left
+WhoIsOn:LEFT	anybody on my left side
+WhatChanged	what changed on the table
+WhatChanged	What has changed?
+WhatChanged	did anything move
+WhatChanged	has anything moved
+WhatChanged	anything new
+WhatChanged	what's new
+WhatChanged	did anything change
+IsMine	is this my watch
+IsMine	Is this my watch?
+IsMine	is that mine
+IsMine	is this mine
+IsMine	did I pick my watch
+IsMine	did I take my watch
+IsMine	is it my bottle
+IsReal	is the apple real
+IsReal	Is this apple real?
+IsReal	is that a picture
+IsReal	is it a photo
+IsReal	is the apple fake
+IsReal	real or fake
+Guide:bottle	guide my hand to the bottle
+Guide:cup	guide me to the cup
+Guide:cup	help me reach the mug
+Guide:apple	take my hand to the apple
+Guide:cell phone	guide my hand to my phone
+Read	read this
+Read	read the page
+Read	what does it say
+Read	read it to me
+Read	what is written here
+Repeat	repeat that
+Repeat	say that again
+Repeat	Say it again.
+Repeat	repeat
+Repeat	what did you say
+Repeat	come again
+Stop	stop
+Stop	Stop.
+Stop	stop talking
+Stop	be quiet
+Stop	never mind
+Stop	cancel
+Help	what can I say
+Help	help
+Help	what can you do
+Unknown	hello
+Unknown	thank you
+Unknown	what time is it
+Unknown	play some music
+# Phase 2 additions (agent-written, dev set): objects on one side, within reach, reach questions about an object.
+ObjectsOn:RIGHT	what is on my right
+ObjectsOn:RIGHT	What's on my right?
+ObjectsOn:RIGHT	what's to my right
+ObjectsOn:LEFT	what is on my left
+ObjectsOn:LEFT	anything on my left
+ObjectsOn:LEFT	what things are to my left
+ObjectsOn:RIGHT	is there anything on my right side
+InReach	what can I reach
+InReach	what is within reach
+InReach	what's within my reach
+InReach	anything near my hand
+InReach	what is in reach
+Find:bottle	can I reach the bottle
+Find:cup	is the mug within reach
+Find:laptop	how far is the laptop
+WhoIsOn:RIGHT	who is on my right side
+# Reading (agent-written dev phrases, 30 Oct).
+Read	read this
+Read	read the heading
+ReadMore	read on
+ReadMore	continue reading
+ReadMore	read more
+# Phase 4.5 item 3 (D49): teaching a personal object, touch and ask (agent-written, development set).
+TeachMine	this is my watch
+TeachMine	This is my watch.
+TeachMine	remember this is my watch
+TeachMine	learn my watch
+TeachOther	this is not my watch
+TeachOther	this is the other watch
+TeachOther	this is another watch
+TeachOther	that one is not mine
+WhatIsThis	what's this
+WhatIsThis	What is this?
+WhatIsThis	what is that
+WhatIsThis	what am I touching
+WhatIsThis	what am I holding
+WhatIsThis	what am I pointing at
+WhatIsThis	what is this I'm pointing at

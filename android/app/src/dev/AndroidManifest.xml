@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dev flavour only: never merged into the demo build. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Sockets to the laptop (USB via adb reverse, or the laptop's hotspot). Android requires this
+         permission for any socket; no internet service is used. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- The system speech recogniser, for the dev comparison only (Android 11+ package visibility). -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application>
+        <activity
+            android:name="ai.saarthi.app.bench.SttBenchActivity"
+            android:exported="true"
+            android:label="Saarthi DEV speech test"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="ai.saarthi.app.bench.BenchActivity"
+            android:exported="true"
+            android:label="Saarthi DEV bench"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
