@@ -1,0 +1,38 @@
+{
+  "test_rows": 3000,
+  "corridors": [
+    "ECoR_BHC_PURI",
+    "SER_HWH_KGP"
+  ],
+  "naive_static": {
+    "mae": 14.63,
+    "rmse": 24.98
+  },
+  "physics_only": {
+    "mae": 4.78,
+    "rmse": 7.2
+  },
+  "rail_pulse_hybrid": {
+    "mae": 2.69,
+    "rmse": 4.54,
+    "picp_pct": 80.3,
+    "avg_band_mins": 7.82
+  },
+  "mae_reduction_vs_naive_pct": 81.6,
+  "by_corridor": {
+    "ECoR_BHC_PURI": {
+      "test_rows": 1500,
+      "mae_naive": 18.39,
+      "mae_physics": 5.8,
+      "mae_hybrid": 2.97,
+      "picp_pct": 79.9
+    },
+    "SER_HWH_KGP": {
+      "test_rows": 1500,
+      "mae_naive": 10.86,
+      "mae_physics": 3.76,
+      "mae_hybrid": 2.42,
+      "picp_pct": 80.7
+    }
+  }
+}
