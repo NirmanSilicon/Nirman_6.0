@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { SyncOutbox } = require('../models/SyncOutbox.model');
 const { Incident } = require('../models/Incident.model');
 const { RfidLog } = require('../models/RfidLog.model');
@@ -53,13 +54,14 @@ const applyIncomingSyncBatch = async (items = []) => {
     const { _id: rawMongoId, __v, ...payload } = rawPayload || {};
 
     if (entityType === 'INCIDENT') {
-      const existing = await Incident.findOne({
-        $or: [
-          { idempotencyKey },
-          ...(rawMongoId ? [{ _id: rawMongoId }] : []),
-          ...(entityId ? [{ _id: entityId }] : []),
-        ],
-      });
+      const orClauses = [{ idempotencyKey }];
+      if (rawMongoId && mongoose.Types.ObjectId.isValid(String(rawMongoId))) {
+        orClauses.push({ _id: rawMongoId });
+      }
+      if (entityId && mongoose.Types.ObjectId.isValid(String(entityId))) {
+        orClauses.push({ _id: entityId });
+      }
+      const existing = await Incident.findOne({ $or: orClauses });
       if (existing) {
         if (!existing.idempotencyKey) {
           existing.idempotencyKey = idempotencyKey;
@@ -209,7 +211,7 @@ const getCloudSyncStatusSummary = async () => {
       .lean(),
   ]);
 
-  const cloudSyncEnabled = process.env.CLOUD_SYNC_ENABLED === 'true';
+  const cloudSyncEnabled = process.env.CLOUD_SYNC_ENABLED === 'true' && process.env.NODE_ENV !== 'test';
   return {
     cloudSyncEnabled,
     cloudSyncState:

@@ -48,7 +48,7 @@ footer{background:#14171a;color:#c9ced4;padding:36px 0;font-size:14px}footer .wr
 .pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--mut);padding:6px}
 .row{display:flex;justify-content:space-between;align-items:center;font-size:14px;gap:10px}
 .shell{display:flex;min-height:100vh}
-.side-nav{position:fixed;left:0;top:env(safe-area-inset-top,0px);bottom:0;width:240px;background:var(--card);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;transition:width .2s,transform .2s;z-index:8}
+.side-nav{position:fixed;left:0;top:env(safe-area-inset-top,0px);bottom:0;width:240px;background:var(--card);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;transition:width .2s,transform .2s;z-index:8;overflow-y:auto;overflow-x:hidden}
 .side-nav.col{width:68px}.side-nav.col .t{display:none}
 .side-nav .brand{padding:4px 6px 16px}
 .nv{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;border:0;background:none;text-align:left;color:var(--mut);font-weight:500;width:100%}
@@ -158,22 +158,38 @@ function Home(){
 
 const EyeLogo=({w=64})=><svg viewBox="0 0 120 64" width={w} aria-hidden="true"><path d="M4 34C24 8 96 8 116 34C96 58 24 58 4 34Z" fill="none" stroke="var(--tx)" strokeWidth="5" strokeLinejoin="round"/><circle cx="60" cy="33" r="17" fill="var(--red)"/><g stroke="#fff" strokeWidth="2" opacity=".85">{[0,60,120].map(a=><line key={a} x1="60" y1="18" x2="60" y2="48" transform={`rotate(${a} 60 33)`}/>)}</g><circle cx="60" cy="33" r="6" fill="#14181c"/></svg>;
 const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,height:20}} aria-hidden="true"><path d="M2 12c3-5.5 6.5-7 10-7s7 1.5 10 7c-3 5.5-6.5 7-10 7S5 17.5 2 12z"/><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/>{off&&<path d="M4 4l16 16" strokeWidth="2.4"/>}</svg>;
-function SignIn(){
- const [show,setShow]=useState(false);const [u,setU]=useState("admin@smartppe.local");const [p,setP]=useState("AdminPassword123!");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
- const pickRole=r=>{setRole(r);if(r==="Higher Authority"){setU("admin@smartppe.local");setP("AdminPassword123!")}else{setU("supervisor.a@smartppe.local");setP("SupervisorPassword123!")}};
+const HOST_NAME=(typeof location!=="undefined"&&location.hostname)?location.hostname:"127.0.0.1";
+const ML_STREAM_BASE=`http://${HOST_NAME}:8765`;
+const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`http://${HOST_NAME}:5000/api`;
+
+function SignIn({onAuthSuccess,existingUser,onLogout}){
+ const [show,setShow]=useState(false);const [u,setU]=useState("");const [p,setP]=useState("");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
+ const fillDemo=r=>{
+  setRole(r);setErr("");
+  if(r==="Higher Authority"){setU("admin@smartppe.local");setP("AdminPassword123!")}
+  else{setU("supervisor.a@smartppe.local");setP("SupervisorPassword123!")}
+ };
  const doLogin=async e=>{
   e.preventDefault();setErr("");setLoading(true);
+  const expectedRole=role==="Higher Authority"?"ADMINISTRATOR":"SUPERVISOR";
   try{
-   const res=await fetch("http://127.0.0.1:5000/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:u,password:p})});
+   const res=await fetch(`${API_BASE}/auth/login`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email:u.trim().toLowerCase(),password:p,expectedRole})
+   });
    const json=await res.json();
    if(res.ok&&json.data&&json.data.token){
-    try{localStorage.setItem("we-token",json.data.token);localStorage.setItem("we-user",JSON.stringify(json.data.user))}catch(_e){}
+    try{
+     localStorage.setItem("we-token",json.data.token);
+     localStorage.setItem("we-user",JSON.stringify(json.data.user));
+    }catch(_e){}
+    if(onAuthSuccess)onAuthSuccess(json.data.token,json.data.user);
     go("live");return;
    }
-   setErr(json.message||"Invalid credentials");
+   setErr(json.message||"Invalid Login ID / Email or password.");
   }catch(_netErr){
-   // Offline demo fallback if backend server isn't started yet
-   go("live");
+   setErr("Cannot connect to Backend API Server on port 5000. Please ensure the backend server is running.");
   }finally{setLoading(false)}
  };
  const F=[["shieldck","Real-Time Monitoring"],["cam","AI-Powered Detection"],["users","Worker Safety First"],["chart","Smart Analytics"]];
@@ -185,18 +201,23 @@ function SignIn(){
  <div className="lg-s"><span style={{borderBottom:"3px solid var(--red)"}}>Safety Today… A Better Tomorrow…</span></div></div>
  <div className="lg-r"><form className="lg-card" onSubmit={doLogin}>
  <div style={{display:"grid",justifyItems:"center",gap:4}}><EyeLogo/><div className="brand" style={{fontSize:26}}>WARDEN’S <span style={{color:"var(--red)",marginLeft:6}}>EYE</span></div><small style={{color:"var(--mut)"}}>Secure • Monitor • Ensure</small></div>
- <h2 style={{fontSize:32}}>Welcome Back!</h2><p style={{margin:0,color:"var(--mut)"}}>Sign in as Higher Authority or Supervisor</p>
+ <h2 style={{fontSize:30}}>Welcome Back!</h2>
+ {existingUser&&<div style={{background:"var(--gl)",color:"var(--grn)",padding:"8px 12px",borderRadius:10,fontSize:13,display:"flex",justifyContent:"space-between",alignItems:"center",gap:8}}>
+  <span>Signed in: <b>{existingUser.name}</b> ({existingUser.role==="ADMINISTRATOR"?"Higher Authority":"Supervisor"})</span>
+  <div style={{display:"flex",gap:6}}><button type="button" className="btn grn" style={{padding:"4px 10px",fontSize:12}} onClick={()=>go("live")}>Dashboard</button><button type="button" className="btn" style={{padding:"4px 10px",fontSize:12}} onClick={onLogout}>Logout</button></div>
+ </div>}
+ <div className="lg-or" style={{margin:"2px 0"}}>1. Choose your access role</div>
+ <div className="lg-roles" style={{gridTemplateColumns:"1fr 1fr"}}>{[["Higher Authority","crown"],["Supervisor","shieldck"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>{setRole(r[0]);setErr("")}}><Ic n={r[1]}/>{r[0]}</button>)}</div>
  {err&&<div style={{background:"var(--rl)",color:"var(--red)",padding:"8px 12px",borderRadius:8,fontSize:14,fontWeight:600}}>{err}</div>}
- <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder="Authority / Supervisor ID or Email" value={u} onChange={e=>setU(e.target.value)} aria-label="User ID or Email" required/></div>
- <div className="lg-in pw"><span className="i"><Ic n="lock"/></span><input className="in" type={show?"text":"password"} placeholder="Password" value={p} onChange={e=>setP(e.target.value)} aria-label="Password" required/><button type="button" aria-label="Show or hide password" onClick={()=>setShow(!show)}><PwEye off={!show}/></button></div>
- <div className="row"><label style={{display:"flex",gap:8,alignItems:"center"}}><input type="checkbox"/>Remember Me</label><a href="#signin" onClick={e=>{e.preventDefault();alert("Contact Higher Authority to create or reset your Supervisor ID & Password.")}} style={{color:"var(--red)",fontWeight:600}}>Forgot Password?</a></div>
- <button className="btn red" style={{height:48,fontSize:17}} disabled={loading}>{loading?"Signing In...":`Sign In as ${role}`} <Ic n="arrow"/></button>
- <div className="lg-or">select access role</div>
- <div className="lg-roles" style={{gridTemplateColumns:"1fr 1fr"}}>{[["Higher Authority","crown"],["Supervisor","shieldck"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>pickRole(r[0])}><Ic n={r[1]}/>{r[0]}</button>)}</div>
- <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · Higher Authority can create Supervisor IDs &amp; Passwords inside the dashboard.</small></form></div></div>}
-
-const ML_STREAM_BASE="http://127.0.0.1:8765";
-const API_BASE="http://127.0.0.1:5000/api";
+ <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder={role==="Higher Authority"?"Higher Authority Email / ID":"Supervisor Login ID or Email"} value={u} onChange={e=>setU(e.target.value)} aria-label="User ID or Email" autoComplete="username" required/></div>
+ <div className="lg-in pw"><span className="i"><Ic n="lock"/></span><input className="in" type={show?"text":"password"} placeholder="Enter Password" value={p} onChange={e=>setP(e.target.value)} aria-label="Password" autoComplete="current-password" required/><button type="button" aria-label="Show or hide password" onClick={()=>setShow(!show)}><PwEye off={!show}/></button></div>
+ <button className="btn red" style={{height:48,fontSize:17}} disabled={loading}>{loading?"Verifying with MongoDB Atlas...":`Sign In as ${role}`} <Ic n="arrow"/></button>
+ <div className="lg-or">quick demo credentials</div>
+ <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>
+  <button type="button" className="btn" style={{fontSize:12,padding:"5px 10px"}} onClick={()=>fillDemo("Higher Authority")}>Fill Demo Higher Authority</button>
+  <button type="button" className="btn" style={{fontSize:12,padding:"5px 10px"}} onClick={()=>fillDemo("Supervisor")}>Fill Demo Supervisor</button>
+ </div>
+ <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · Higher Authority can create custom Supervisor IDs &amp; Passwords.</small></form></div></div>}
 const CAMS=[{id:"CAM_001",name:"Laptop Webcam AI (PPE & Fire)",zone:"Zone A",k:"gate",on:true,isLiveMl:true},{id:"CAM_002",name:"Smartphone Wi-Fi AI Camera",zone:"Zone B",k:"gate",on:true,isLiveMl:true},{id:"CAM-03",name:"Factory Floor",zone:"Zone C",k:"floor",on:true},{id:"CAM-04",name:"Storage Aisle",zone:"Zone D",k:"shelf",on:true},{id:"CAM-05",name:"Loading Dock",zone:"Zone E",k:"dock",on:false},{id:"CAM-06",name:"Control Room",zone:"Zone F",k:"ctrl",on:true}];
 const inZone=z=>W.filter(w=>w.zone===z&&w.st!=="Absent"&&w.out==="—");
 function Scene({k,t}){
@@ -306,87 +327,128 @@ function Live({zones}){
  {full&&<div className="modal" onClick={()=>setFull(null)}><div className="card" style={{maxWidth:1100}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{full.id} · {full.zone} · {full.name}</h3><button className="btn" onClick={()=>setFull(null)}><Ic n="x"/>Close</button></div><div className="big"><Feed cam={full} cmd={{n:0}} big mlStatus={mlStatus} mlConnected={mlConnected}/></div></div></div>}</div>}
 
 
-const TODAY=new Date(2026,10,28);
+const getToday=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())};
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const same=(a,b)=>a.toDateString()===b.toDateString();
 const fmt=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
-function dayRows(d){const t=same(d,TODAY);return W.map((w,i)=>{if(t)return w;const v=(i*5+d.getDate()*3+d.getMonth())%8,st=v<2?"Absent":v<4?"Late":"Present";return {...w,st,in:st==="Absent"?"—":st==="Late"?"09:"+String(10+i*3).padStart(2,"0"):"08:"+String(40+i*2),out:st==="Absent"?"—":"17:0"+(i%6)}})}
 
 function Attend({dbWorkers=[]}){
+ const today=getToday();
  const [q,setQ]=useState("");const [f,setF]=useState("All");const [r,setR]=useState("Daily");const [scan,setScan]=useState(null);
- const [sel,setSel]=useState(TODAY);const [mon,setMon]=useState(new Date(2026,10,1));const [liveLogs,setLiveLogs]=useState([]);
- useEffect(()=>{
-  let alive=true;
-  const loadRfid=async()=>{
-   try{
-    const tok=localStorage.getItem("we-token");
-    if(!tok)return;
-    const res=await fetch(`${API_BASE}/rfid/logs?limit=25`,{headers:{Authorization:`Bearer ${tok}`}});
-    if(res.ok){
-     const j=await res.json();
-     if(alive&&j.data&&Array.isArray(j.data.logs)&&j.data.logs.length){
+ const [sel,setSel]=useState(today);const [liveLogs,setLiveLogs]=useState([]);
+ const loadRfid=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const res=await fetch(`${API_BASE}/rfid/logs?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(res.ok){
+    const j=await res.json();
+    if(j.data&&Array.isArray(j.data.logs)){
+     if(j.data.logs.length){
       const latest=j.data.logs[0];
-      const wName=latest.workerId?.name||"Unregistered Card";
-      const tStr=latest.scannedAt?new Date(latest.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"Now";
-      setScan(`[MongoDB Live · ESP32 ${latest.deviceId?.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.eventType}) at ${tStr}`);
-      const mapped=j.data.logs.map((lg,idx)=>({
-       id:lg.workerId?.employeeCode||`RFID-${idx+1}`,
-       name:lg.workerId?.name||`Card ${lg.rfidUid}`,
-       rfid:lg.rfidUid,
-       in:lg.scannedAt?new Date(lg.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—",
-       out:lg.eventType==="EXIT"?new Date(lg.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}):"—",
-       st:lg.scanStatus==="MATCHED_ACTIVE_WORKER"?"Present":"Late"
-      }));
-      setLiveLogs(mapped);
+      const ts=latest.occurredAt||latest.createdAt;
+      const wName=latest.workerId?.name||(latest.scanStatus==="UNKNOWN_CARD"?"Unregistered RFID Card":"Worker");
+      const tStr=ts?new Date(ts).toLocaleTimeString("en-GB"):"Now";
+      setScan(`[MongoDB Atlas · ${latest.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.scanStatus}) at ${tStr}`);
      }
+     const mapped=j.data.logs.map((lg,idx)=>{
+      const ts=lg.occurredAt||lg.createdAt;
+      const dt=ts?new Date(ts):today;
+      return {
+       key:lg.logId||lg._id||idx,
+       id:lg.workerId?.employeeCode||(lg.scanStatus==="UNKNOWN_CARD"?"UNKNOWN":"RFID"),
+       name:lg.workerId?.name||`Unregistered Card (${lg.rfidUid})`,
+       rfid:lg.rfidUid,
+       dateIso:iso(dt),
+       dateLabel:fmt(dt),
+       in:ts?new Date(ts).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"—",
+       out:lg.zoneId?.zoneName||lg.deviceCode||"ESP32_001",
+       st:lg.scanStatus==="SUCCESS"?"Present":lg.scanStatus==="DUPLICATE_IGNORED"?"Late":"Absent",
+       rawStatus:lg.scanStatus
+      };
+     });
+     setLiveLogs(mapped);
     }
-   }catch(_e){}
-  };
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
   loadRfid();
-  const id=setInterval(loadRfid,2000);
-  return()=>{alive=false;clearInterval(id)};
+  const id=setInterval(loadRfid,2500);
+  return()=>clearInterval(id);
  },[]);
- const workerFallback=dbWorkers.length?dbWorkers.map((w,i)=>({id:w.employeeCode||w.id,name:w.name,rfid:w.rfidUid||w.rfid||"—",in:"08:50",out:"—",st:w.status==="ACTIVE"?"Present":"Absent"})):dayRows(sel);
- const all=liveLogs.length?[...liveLogs,...workerFallback]:workerFallback;
- const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
- const abs=all.filter(w=>w.st==="Absent").length,late=all.filter(w=>w.st==="Late").length,pres=all.length-abs;
+ const selIso=iso(sel);
  const ws=new Date(sel);ws.setDate(sel.getDate()-(sel.getDay()+6)%7);const we=new Date(ws);we.setDate(ws.getDate()+6);
- const dl=r==="Daily"?fmt(sel):r==="Weekly"?fmt(ws)+" – "+fmt(we):sel.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+ const inRange=dIso=>{
+  if(r==="Daily")return dIso===selIso;
+  if(r==="Weekly")return dIso>=iso(ws)&&dIso<=iso(we);
+  return dIso.slice(0,7)===selIso.slice(0,7);
+ };
+ const filteredScans=liveLogs.filter(x=>inRange(x.dateIso));
+ const scannedRfidSet=new Set(filteredScans.filter(x=>x.rawStatus==="SUCCESS").map(x=>x.rfid));
+ const absentWorkers=dbWorkers.filter(w=>w.rfidUid&&!scannedRfidSet.has(w.rfidUid)).map(w=>({
+  key:"abs-"+(w.workerId||w._id||w.employeeCode),
+  id:w.employeeCode,
+  name:w.name,
+  rfid:w.rfidUid||"—",
+  dateIso:selIso,
+  dateLabel:fmt(sel),
+  in:"—",
+  out:w.zoneId?.zoneName||"—",
+  st:"Absent",
+  rawStatus:"NOT_SCANNED"
+ }));
+ const all=[...filteredScans,...absentWorkers];
+ const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
  const sim=async()=>{
-  const pick=dbWorkers.length?dbWorkers[Math.floor(Math.random()*dbWorkers.length)]:{name:"Rajesh Sharma",rfidUid:"A1B2C3D4"};
+  const activeWithRfid=dbWorkers.filter(w=>w.rfidUid);
+  const pick=activeWithRfid.length?activeWithRfid[Math.floor(Math.random()*activeWithRfid.length)]:{name:"Rajesh Sharma",rfidUid:"A1B2C3D4"};
   const uid=pick.rfidUid||"A1B2C3D4";
   try{
-   await fetch(`${API_BASE}/rfid/scan`,{method:"POST",headers:{"Content-Type":"application/json","X-Device-Key":"esp32_dev_local_node_001_key"},body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:uid,eventType:"ENTRY"})});
+   const r=await fetch(`${API_BASE}/rfid/scan`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","X-Device-Code":"ESP32_001","X-Device-Key":"esp32_dev_local_node_001_key"},
+    body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:uid})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setScan(`[Saved to MongoDB Atlas] ${pick.name} scanned UID ${uid} (${j.data?.scanStatus||"SUCCESS"}) at ${new Date().toLocaleTimeString("en-GB")}`);
+    await loadRfid();
+   }else{
+    setScan(`RFID Scan Notice: ${j.message||"Cooldown window active"}`);
+   }
   }catch(_e){}
-  setScan(`[MongoDB Saved] ${pick.name} scanned ${uid} at `+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"}));
  };
- return <div className="grid" style={{gap:16}}><div className="card" style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10}}><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label><span className="bd g">MongoDB Connected · {dbWorkers.length||W.length} Registered Workers · {liveLogs.length} RFID Scans</span></div>
+ return <div className="grid" style={{gap:16}}><div className="card" style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10}}><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label><div style={{display:"flex",gap:8,alignItems:"center"}}><span className="bd g">MongoDB Atlas · {dbWorkers.length} Workers · {liveLogs.length} Total Scans</span><button className="btn" onClick={()=>go("rec-attendance")}>View Full Attendance History →</button></div></div>
  <div className="card row"><span className="live"><span className="dot"/> ESP32 RC522 RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate RFID Scan → MongoDB</button></div>
- <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or card" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
- <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.id+"-"+idx}><td><b>{w.id}</b></td><td>{w.name}</td><td><code>{w.rfid}</code></td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
+ <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or RFID UID" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
+ <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID UID</th><th>Date</th><th>Scan Time</th><th>Zone / Reader</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.key||idx}><td><b>{w.id}</b></td><td>{w.name}</td><td><code>{w.rfid}</code></td><td>{w.dateLabel}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No RFID attendance records for this filter/date. Click "Simulate RFID Scan → MongoDB" or scan an ESP32 card.</td></tr>}</tbody></table></div></div>}
 function Reports({zones}){
  const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);const [liveInc,setLiveInc]=useState([]);const [sosData,setSosData]=useState(null);const [actMsg,setActMsg]=useState("");
  const loadInc=async()=>{
   try{
    const tok=localStorage.getItem("we-token");
    if(!tok)return;
-   const r=await fetch(`${API_BASE}/incidents?limit=40`,{headers:{Authorization:`Bearer ${tok}`}});
+   const r=await fetch(`${API_BASE}/incidents?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
    if(r.ok){
     const j=await r.json();
     if(j.data&&Array.isArray(j.data.incidents)){
-     const mapped=j.data.incidents.map(inc=>({
-      id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-LIVE",
-      mongoId:inc._id,
-      rawId:inc.incidentId,
-      w:inc.workerId?.name||"Unidentified Worker",
-      wid:inc.workerId?.employeeCode||inc.deviceOrCameraCode||"CAM_001",
-      zone:inc.zoneId?.zoneName||"Zone A",
-      d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
-      t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Live",
-      st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
-      rawStatus:inc.status,
-      recordHash:inc.recordHash,
-     }));
+     const mapped=j.data.incidents.map(inc=>{
+      const iid=inc.incidentId||inc._id;
+      return {
+       id:iid?`INC-${String(iid).slice(-5).toUpperCase()}`:"INC-LIVE",
+       mongoId:iid,
+       rawId:iid,
+       w:inc.workerId?.name||"Unidentified Worker",
+       wid:inc.workerId?.employeeCode||inc.deviceOrCameraCode||"CAM_001",
+       zone:inc.zoneId?.zoneName||"Zone A",
+       d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
+       t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Live",
+       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
+       rawStatus:inc.status,
+       recordHash:inc.recordHash,
+      };
+     });
      setLiveInc(mapped);
     }
    }
@@ -399,17 +461,18 @@ function Reports({zones}){
  },[]);
  const doIncidentAction=async(inc,type)=>{
   if(!inc.mongoId)return;
-  setActMsg("Updating MongoDB...");
+  setActMsg("Updating MongoDB Atlas...");
   try{
    const tok=localStorage.getItem("we-token");
    let url=`${API_BASE}/supervisor/incidents/${inc.mongoId}/${type}`;
    let body={};
+   if(type==="verify")body={verificationStatus:"VERIFIED",verificationNotes:"Verified via Warden's Eye Web Console"};
    if(type==="resolve")body={resolutionNotes:"Resolved via Warden's Eye Web Console"};
    const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify(body)});
    const j=await r.json();
-   setActMsg(j.message||"Updated in MongoDB!");
+   setActMsg(j.message||"Updated in MongoDB Atlas!");
    await loadInc();
-   setSel(null);
+   if(type==="resolve")setSel(null);
   }catch(e){setActMsg("Error updating incident")}
  };
  const viewSos=async(inc)=>{
@@ -421,16 +484,16 @@ function Reports({zones}){
    if(j.data?.sosSummary)setSosData(j.data.sosSummary);
   }catch(_e){}
  };
- const allReports=liveInc.length?[...liveInc,...RP]:RP;
- const rows=allReports.filter(r=>(z==="All"||r.zone===z||r.zone.includes(z))&&(s==="All"||r.st===s)&&(r.w+r.id+r.d).toLowerCase().includes(q.toLowerCase()));
+ const rows=liveInc.filter(r=>(z==="All"||r.zone===z||r.zone.includes(z))&&(s==="All"||r.st===s)&&(r.w+r.id+r.d).toLowerCase().includes(q.toLowerCase()));
  const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
- return <div><div className="bar"><input className="in" placeholder="Search MongoDB incidents & AI reports" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select><span className="bd g">MongoDB Incidents: {liveInc.length}</span></div>
- <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID / Source</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:280,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>{setSel(r);setSosData(null);setActMsg("")}}>View / Act</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No reports match these filters.</td></tr>}</tbody></table></div>
+ return <div><div className="bar"><input className="in" placeholder="Search MongoDB Atlas incidents & AI reports" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select><span className="bd g">MongoDB Incidents: {liveInc.length}</span><button className="btn" onClick={()=>go("rec-reports")}>Incident Archive →</button></div>
+ <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID / Source</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.mongoId||r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:280,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>{setSel(r);setSosData(null);setActMsg("")}}>View / Act</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No incidents recorded in your assigned workplace zones for these filters.</td></tr>}</tbody></table></div>
  {sel&&<div className="modal" onClick={()=>setSel(null)}><div className="card" style={{maxWidth:620}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{sel.id}</h3><Badge s={sel.st}/></div><p><b>{sel.w}</b> ({sel.wid}) in {sel.zone}</p><p>{sel.d}</p><small style={{color:"var(--mut)"}}>{sel.t}{sel.rawStatus?` · MongoDB State: ${sel.rawStatus}`:""}{sel.recordHash?` · SHA-256: ${sel.recordHash.slice(0,16)}...`:""}</small>
  {actMsg&&<div className="bd g" style={{padding:8}}>{actMsg}</div>}
  {sosData&&<pre style={{background:"var(--surf)",padding:10,borderRadius:8,fontSize:12,overflowX:"auto",margin:0}}>{JSON.stringify(sosData,null,2)}</pre>}
  <div className="row" style={{flexWrap:"wrap",gap:8}}>
   {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"acknowledge")}>Acknowledge (DB)</button>}
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"verify")}>Verify (DB)</button>}
   {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn grn" onClick={()=>doIncidentAction(sel,"resolve")}>Resolve Incident (DB)</button>}
   {sel.mongoId&&<button className="btn" onClick={()=>viewSos(sel)}>🚨 Generate Manual SOS</button>}
   {sel.rawId&&<button className="btn" onClick={async()=>{try{const tok=localStorage.getItem("we-token");const r=await fetch(`${API_BASE}/blockchain/record/${sel.rawId}`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});const j=await r.json();setActMsg(j.data?.txHash?`Anchored to Cloud Ledger: ${j.data.txHash.slice(0,22)}...`:j.message)}catch(_e){}}}>⛓ Anchor SHA-256 to Cloud</button>}
@@ -438,7 +501,8 @@ function Reports({zones}){
   <button className="btn" onClick={()=>setSel(null)}>Close</button>
  </div></div></div>}</div>}
 
-function Zones({zones,setZones,dbWorkers=[],reloadDb}){
+function Zones({zones,setZones,dbWorkers=[],reloadDb,curUser}){
+ const isAdmin=!curUser||curUser.role==="ADMINISTRATOR";
  const [m,setM]=useState(null);
  const save=async e=>{
   e.preventDefault();const f=new FormData(e.target),name=f.get("name").trim(),on=f.get("on")==="1";if(!name)return;
@@ -471,23 +535,23 @@ function Zones({zones,setZones,dbWorkers=[],reloadDb}){
  const assign=async(zObj,wid)=>{
   if(!wid)return;
   const tok=localStorage.getItem("we-token");
-  const wDoc=dbWorkers.find(x=>(x._id===wid||x.employeeCode===wid||x.id===wid));
+  const wDoc=dbWorkers.find(x=>{const xid=x.workerId||x._id||x.id;return xid===wid||x.employeeCode===wid});
+  const targetWorkerId=wDoc?(wDoc.workerId||wDoc._id):null;
   try{
-   if(tok&&wDoc&&wDoc._id&&zObj.mongoId){
-    await fetch(`${API_BASE}/workers/${wDoc._id}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneId:zObj.mongoId})});
+   if(tok&&targetWorkerId&&zObj.mongoId){
+    await fetch(`${API_BASE}/workers/${targetWorkerId}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneId:zObj.mongoId})});
     if(reloadDb)await reloadDb();
    }
   }catch(_e){}
-  const w=W.find(x=>x.id===wid);if(w)w.zone=zObj.name;setZones([...zones]);
  };
- const workersList=dbWorkers.length?dbWorkers.map(w=>({id:w.employeeCode,mongoId:w._id,name:w.name,zone:w.zoneId?.zoneName||"Zone A",zoneMongoId:w.zoneId?._id||w.zoneId})):W;
- return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>MongoDB Zones: {zones.length} total, {zones.filter(z=>z.on).length} active</span><button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone to MongoDB</button></div>
+ const workersList=dbWorkers.map(w=>({id:w.employeeCode,mongoId:w.workerId||w._id,name:w.name,zone:w.zoneId?.zoneName||"Zone A",zoneMongoId:w.zoneId?.zoneId||w.zoneId?._id||w.zoneId}));
+ return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>MongoDB Atlas Zones: {zones.length} accessible, {zones.filter(z=>z.on).length} active {!isAdmin&&"(Supervisor Assigned Scope)"}</span>{isAdmin&&<button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone to MongoDB</button>}</div>
  <div className="grid g3">{zones.map(z=>{
-  const inThisZone=workersList.filter(w=>(z.mongoId&&w.zoneMongoId===z.mongoId)||w.zone===z.name||z.name.includes(w.zone));
+  const inThisZone=workersList.filter(w=>(z.mongoId&&w.zoneMongoId===z.mongoId)||w.zone===z.name);
   const notInThisZone=workersList.filter(w=>!inThisZone.some(x=>x.id===w.id));
   return <div className="card" key={z.id}><div className="row"><h3>{z.name}</h3><Badge s={z.mon}/></div><p style={{margin:"10px 0"}}><Ic n="users"/> {inThisZone.length} workers assigned {inThisZone.length>0?`(${inThisZone.map(w=>w.name).join(", ")})`:""}</p>
-  <select className="in" value="" onChange={e=>assign(z,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker (MongoDB)…</option>{notInThisZone.map(w=><option key={w.id} value={w.mongoId||w.id}>{w.name} ({w.id})</option>)}</select>
-  <div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>removeZone(z)}><Ic n="trash"/>Remove</button></div></div>})}</div>
+  {isAdmin&&<select className="in" value="" onChange={e=>assign(z,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker (MongoDB)…</option>{notInThisZone.map(w=><option key={w.id} value={w.mongoId||w.id}>{w.name} ({w.id})</option>)}</select>}
+  {isAdmin&&<div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>removeZone(z)}><Ic n="trash"/>Remove</button></div>}</div>})}</div>
  {m&&<div className="modal"><form className="card" onSubmit={save}><div className="row"><h3>{m.id?"Edit zone in MongoDB":"Add zone to MongoDB"}</h3><button type="button" className="btn" aria-label="Close" onClick={()=>setM(null)}><Ic n="x"/></button></div><label>Zone name<input className="in" name="name" defaultValue={m.name||""} required autoFocus/></label><label>Monitoring<select className="in" name="on" defaultValue={m.id&&!m.on?"0":"1"}><option value="1">Active</option><option value="0">Inactive</option></select></label><button className="btn red">{m.id?"Save changes to MongoDB":"Add zone to MongoDB"}</button></form></div>}</div>}
 
 const CT=[["Admin Desk","Online"],["Ravi Kumar","Online"],["Anita Das","Offline"],["Priya Sahoo","Online"],["Suresh Nayak","Offline"]];
@@ -503,85 +567,299 @@ function Chat(){
 const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["supervisors","users","Supervisor Access"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
 const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
 const ALL=NAV.concat(HIST);
-const SLOTS=["06:00","12:00","18:00"];
-function Player({r,onClose}){
- const [pl,setPl]=useState(true);const [p,setP]=useState(0);
- useEffect(()=>{if(!pl)return;const i=setInterval(()=>setP(x=>Math.min(100,x+.15)),120);return()=>clearInterval(i)},[pl]);
- useEffect(()=>{if(p>=100)setPl(false)},[p]);
- const c=r.cam,ws=inZone(c.zone),t=p*3,sec=Math.floor(p/100*3600),hh=String(+r.start.slice(0,2)+Math.floor(sec/3600)).padStart(2,"0"),mm=String(Math.floor(sec%3600/60)).padStart(2,"0"),ss=String(sec%60).padStart(2,"0");
- return <div className="modal" onClick={onClose}><div className="card" style={{maxWidth:900}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{c.id} · {c.zone} · {c.name}</h3><button className="btn" onClick={onClose}><Ic n="x"/>Close</button></div>
- <div className="feed" style={{borderRadius:10}}><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Recorded footage"><Scene k={c.k} t={t}/>
- {ws.map((w,i)=>{const x=20+(i*43)%110+9*Math.sin(t*.6+i*2),y=62+(i%3)*7,s=.9+(y-62)/30,col=w.st==="Late"?"#d93a37":"#2fd36f";return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={col} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={col}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id}</text></g>})}</svg><div className="scan"/>
- <div className="ov tl"><b>{c.id}</b> {c.zone}</div><div className="ov tr"><span className="dot r"/>RECORDED</div><div className="ov bl">{fmt(r.d)} {hh}:{mm}:{ss}</div></div>
- <div className="cc"><button className="btn" onClick={()=>{if(p>=100)setP(0);setPl(!pl)}}>{pl?"Pause":"Play"}</button><input type="range" min="0" max="100" step=".1" value={p} onChange={e=>setP(+e.target.value)} style={{flex:1,accentColor:"var(--red)"}} aria-label="Seek"/><small>{r.start}–{r.end}</small></div></div></div>}
+function HistoryNav({active}){
+ return <div className="card" style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:12,padding:"12px 16px"}}>
+  <div className="tabs">
+   {HIST.map(([h,ic,label])=><button key={h} className={active===h?"on":""} onClick={()=>go(h)} style={{display:"inline-flex",gap:6,alignItems:"center"}}><Ic n={ic}/>{label}</button>)}
+  </div>
+  <span className="bd g">MongoDB Atlas Historical Archive</span>
+ </div>;
+}
+
+function DetectionBoxPreview({det}){
+ const boxes=Array.isArray(det.detections)?det.detections:[];
+ const isViol=det.detectionState==="VIOLATION";
+ return <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" style={{position:"absolute",inset:0,width:"100%",height:"100%",background:"#11161b"}}>
+  <rect width="640" height="230" fill="#232c33"/><polygon points="0,230 640,230 640,360 0,360" fill="#181f24"/>
+  <line x1="0" y1="230" x2="640" y2="230" stroke="#394651" strokeWidth="2"/>
+  {boxes.map((b,idx)=>{
+   const [x1=180,y1=80,x2=320,y2=310]=Array.isArray(b.bbox)?b.bbox:[180,80,320,310];
+   const sx=Math.max(10,Math.min(600,x1)),sy=Math.max(18,Math.min(330,y1));
+   const sw=Math.max(36,Math.min(620-sx,x2-x1||90)),sh=Math.max(36,Math.min(350-sy,y2-y1||140));
+   const bad=["no_helmet","no_vest","no_boots","fire","smoke"].includes(b.classLabel);
+   const col=bad?"#e53e3e":b.classLabel==="person"?"#38a169":"#3182ce";
+   return <g key={idx}>
+    <rect x={sx} y={sy} width={sw} height={sh} fill={bad?"rgba(229,62,62,0.12)":"rgba(56,161,105,0.08)"} stroke={col} strokeWidth="3"/>
+    <rect x={sx} y={Math.max(0,sy-20)} width={Math.min(200,String(b.classLabel).length*9+54)} height="20" fill={col}/>
+    <text x={sx+5} y={Math.max(14,sy-6)} fill="#fff" fontSize="12" fontFamily="monospace" fontWeight="700">{b.classLabel} {Math.round((b.confidence||0.85)*100)}%</text>
+   </g>;
+  })}
+  {!boxes.length&&<text x="320" y="185" textAnchor="middle" fill={isViol?"#fc8181":"#68d391"} fontSize="16" fontFamily="monospace" fontWeight="700">{det.detectionState} FRAME RECORDED ({det.cameraCode})</text>}
+ </svg>;
+}
+
 function RecVideos(){
- const [d,setD]=useState(TODAY);const [cs,setCs]=useState("All cameras");const [play,setPlay]=useState(null);
- const list=CAMS.filter(c=>c.on&&(cs==="All cameras"||c.id===cs)).flatMap(c=>SLOTS.map((s,i)=>({cam:c,d,start:s,end:String(+s.slice(0,2)+1).padStart(2,"0")+":00",mb:480+c.id.charCodeAt(5)*7+i*53})));
- return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>Date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(d)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,dd]=v.split("-").map(Number);setD(new Date(y,m-1,dd))}}/></label>
- <select className="in" style={{flex:"0 0 190px"}} aria-label="Camera" value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option>{CAMS.map(c=><option key={c.id} value={c.id}>{c.id} {c.zone}</option>)}</select></div>
- <div className="grid g3">{list.map(r=><div className="cam" key={r.cam.id+r.start}><div className="feed"><svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"><Scene k={r.cam.k} t={0}/></svg><div className="scan"/><div className="ov tl"><b>{r.cam.id}</b> {r.cam.zone}</div><div className="ov tr"><span className="dot r"/>REC</div><div className="ov bl">{fmt(d)} {r.start}</div><div className="ov br">60:00</div></div>
- <div className="cc"><div className="sp"><b>{r.cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{r.cam.name} · {r.start}–{r.end} · {r.mb} MB</small></div><button className="btn red" onClick={()=>setPlay(r)}>Play</button></div></div>)}</div>
- <p style={{color:"var(--mut)",margin:0,fontSize:14}}>CAM-05 (Zone E) is offline, so it has no recordings.</p>
- {play&&<Player r={play} onClose={()=>setPlay(null)}/>}</div>}
-function RecAttend(){
- const [from,setFrom]=useState(()=>{const x=new Date(TODAY);x.setDate(x.getDate()-6);return x});const [to,setTo]=useState(TODAY);
+ const today=getToday();
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-7);return x});
+ const [to,setTo]=useState(today);
+ const [cs,setCs]=useState("All cameras");
+ const [stFilter,setStFilter]=useState("ALL");
+ const [dets,setDets]=useState([]);
+ const [loading,setLoading]=useState(true);
+ const [play,setPlay]=useState(null);
+ const loadDets=async()=>{
+  setLoading(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/detections?limit=120`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.detections))setDets(j.data.detections);
+   }
+  }catch(_e){}finally{setLoading(false)}
+ };
+ useEffect(()=>{loadDets()},[]);
  const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
- const a=from<=to?from:to,b=from<=to?to:from,rows=[];
- for(let x=new Date(b),k=0;x>=a&&k<62;x.setDate(x.getDate()-1),k++){const r=dayRows(new Date(x)),ab=r.filter(w=>w.st==="Absent").length,la=r.filter(w=>w.st==="Late").length;rows.push({d:new Date(x),n:r.length,p:r.length-ab-la,l:la,a:ab})}
- const csv=()=>{const t="Date,Total,Present,Late,Absent\n"+rows.map(r=>[iso(r.d),r.n,r.p,r.l,r.a].join(",")).join("\n"),el=document.createElement("a");el.href="data:text/csv,"+encodeURIComponent(t);el.download="attendance-history.csv";el.click()};
- return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(from)} onChange={pick(setFrom)}/></label><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(to)} onChange={pick(setTo)}/></label><button className="btn" onClick={csv}><Ic n="dl"/>Download CSV</button></div>
- <div className="card tw"><table><thead><tr><th>Date</th><th>Total workers</th><th>Present</th><th>Late</th><th>Absent</th><th>Attendance</th></tr></thead><tbody>{rows.map(r=><tr key={r.d.getTime()}><td>{r.d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}</td><td>{r.n}</td><td><Badge s="Present"/> {r.p}</td><td><Badge s="Late"/> {r.l}</td><td><Badge s="Absent"/> {r.a}</td><td>{Math.round((r.n-r.a)/r.n*100)}%</td></tr>)}</tbody></table></div></div>}
-function RecReports(){
- const [q,setQ]=useState("");const [dbInc,setDbInc]=useState([]);const [verifyMsg,setVerifyMsg]=useState("");
- useEffect(()=>{
-  let alive=true;
-  const load=async()=>{
-   try{
-    const tok=localStorage.getItem("we-token");
-    if(!tok)return;
-    const r=await fetch(`${API_BASE}/incidents?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
-    if(r.ok){
-     const j=await r.json();
-     if(alive&&j.data&&Array.isArray(j.data.incidents)){
-      const mapped=j.data.incidents.map(inc=>({
-       id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-DB",
-       mongoId:inc._id,
-       rawId:inc.incidentId,
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const filtered=dets.filter(d=>{
+  const dt=d.occurredAt||d.createdAt;
+  const dIso=dt?iso(new Date(dt)):iso(today);
+  if(dIso<fromIso||dIso>toIso)return false;
+  if(cs!=="All cameras"&&d.cameraCode!==cs)return false;
+  if(stFilter!=="ALL"&&d.detectionState!==stFilter)return false;
+  return true;
+ });
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-videos"/>
+  <div className="bar">
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <select className="in" style={{flex:"0 0 180px"}} value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option><option value="CAM_001">CAM_001 (Webcam AI)</option><option value="CAM_002">CAM_002 (Phone AI)</option></select>
+   <select className="in" style={{flex:"0 0 160px"}} value={stFilter} onChange={e=>setStFilter(e.target.value)}><option value="ALL">All AI States</option><option value="VIOLATION">VIOLATION</option><option value="SAFE">SAFE</option><option value="UNCERTAIN">UNCERTAIN</option></select>
+   <button className="btn" onClick={loadDets}>Refresh Archive</button>
+   <span className="bd g">{filtered.length} Recorded AI Frames</span>
+  </div>
+  {loading?<div className="card">Loading recorded AI camera detections from MongoDB Atlas...</div>:filtered.length?<div className="grid g3">{filtered.map(d=>{
+   const ts=d.occurredAt||d.createdAt;
+   const dtStr=ts?new Date(ts).toLocaleString("en-GB"):"Recorded";
+   const isViol=d.detectionState==="VIOLATION";
+   return <div className="cam" key={d.detectionId||d._id} style={isViol?{borderColor:"var(--red)"}:{}}>
+    <div className="feed"><DetectionBoxPreview det={d}/><div className="scan"/>
+     <div className="ov tl"><b>{d.cameraCode}</b> · {d.zoneId?.zoneName||"Workplace Zone"}</div>
+     <div className="ov tr"><span className={"dot "+(isViol?"r":"")}/>{d.detectionState}</div>
+     <div className="ov bl">{dtStr}</div>
+     <div className="ov br">{Math.round((d.overallConfidence||0.85)*100)}% conf</div>
+    </div>
+    <div className="cc">
+     <div className="sp"><b>{d.detectionState==="VIOLATION"?`Missing: ${(d.missingPPE||[]).join(", ")||"PPE Violation"}`:"Full PPE Compliance"}</b><br/><small style={{color:"var(--mut)"}}>Model: {d.modelVersion||"yolo11n"} · Boxes: {(d.detections||[]).length}</small></div>
+     <Badge s={isViol?"Pending":d.detectionState==="SAFE"?"Resolved":"In Progress"}/>
+     <button className="btn red" onClick={()=>setPlay(d)}>Inspect</button>
+    </div>
+   </div>;
+  })}</div>:<div className="card">No recorded AI camera detections match this date/camera filter in MongoDB Atlas.</div>}
+  {play&&<div className="modal" onClick={()=>setPlay(null)}><div className="card" style={{maxWidth:840}} onClick={e=>e.stopPropagation()}>
+   <div className="row"><h3>{play.cameraCode} · Recorded AI Frame ({play.detectionState})</h3><button className="btn" onClick={()=>setPlay(null)}><Ic n="x"/>Close</button></div>
+   <div className="feed" style={{borderRadius:10}}><DetectionBoxPreview det={play}/><div className="scan"/>
+    <div className="ov tl"><b>{play.cameraCode}</b> · {play.modelVersion}</div>
+    <div className="ov tr">{play.safetyStatus}</div>
+    <div className="ov bl">{play.occurredAt?new Date(play.occurredAt).toLocaleString("en-GB"):""}</div>
+   </div>
+   <div style={{fontSize:14,display:"grid",gap:4}}>
+    <div><b>Detection ID:</b> <code>{play.detectionId||play._id}</code> · <b>Track ID:</b> <code>{play.trackId||"N/A"}</code></div>
+    <div><b>Missing PPE:</b> {(play.missingPPE&&play.missingPPE.length)?play.missingPPE.join(", "):"None (Compliant)"} · <b>Confidence:</b> {Math.round((play.overallConfidence||0.85)*100)}%</div>
+    <div><b>Bounding Boxes ({(play.detections||[]).length}):</b> {(play.detections||[]).map(b=>`${b.classLabel} (${Math.round((b.confidence||0)*100)}%)`).join(", ")||"Summary telemetry record"}</div>
+   </div>
+  </div></div>}
+ </div>;
+}
+
+function RecAttend({dbWorkers=[]}){
+ const today=getToday();
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-7);return x});
+ const [to,setTo]=useState(today);
+ const [q,setQ]=useState("");
+ const [stF,setStF]=useState("ALL");
+ const [logs,setLogs]=useState([]);
+ const [loading,setLoading]=useState(true);
+ const loadHistory=async()=>{
+  setLoading(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/rfid/logs?limit=200`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.logs))setLogs(j.data.logs);
+   }
+  }catch(_e){}finally{setLoading(false)}
+ };
+ useEffect(()=>{loadHistory()},[]);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const filtered=logs.filter(lg=>{
+  const ts=lg.occurredAt||lg.createdAt;
+  const dIso=ts?iso(new Date(ts)):iso(today);
+  if(dIso<fromIso||dIso>toIso)return false;
+  if(stF!=="ALL"&&lg.scanStatus!==stF)return false;
+  const txt=`${lg.workerId?.name||""} ${lg.workerId?.employeeCode||""} ${lg.rfidUid||""} ${lg.deviceCode||""} ${lg.zoneId?.zoneName||""}`.toLowerCase();
+  return txt.includes(q.toLowerCase());
+ });
+ const byDate={};
+ filtered.forEach(lg=>{
+  const ts=lg.occurredAt||lg.createdAt;
+  const dIso=ts?iso(new Date(ts)):iso(today);
+  if(!byDate[dIso])byDate[dIso]={dateIso:dIso,totalScans:0,workers:new Set(),unknown:0,duplicates:0};
+  byDate[dIso].totalScans++;
+  if(lg.scanStatus==="SUCCESS")byDate[dIso].workers.add(lg.rfidUid);
+  else if(lg.scanStatus==="UNKNOWN_CARD")byDate[dIso].unknown++;
+  else byDate[dIso].duplicates++;
+ });
+ const summaryRows=Object.values(byDate).sort((a,b)=>b.dateIso.localeCompare(a.dateIso));
+ const totalReg=Math.max(dbWorkers.length,1);
+ const csv=()=>{
+  const header="Timestamp,WorkerCode,WorkerName,RFID_UID,DeviceCode,Zone,ScanStatus\n";
+  const body=filtered.map(lg=>[
+   lg.occurredAt||lg.createdAt||"",
+   lg.workerId?.employeeCode||"UNREGISTERED",
+   `"${(lg.workerId?.name||"Unknown Card").replace(/"/g,'""')}"`,
+   lg.rfidUid,
+   lg.deviceCode||"ESP32_001",
+   `"${(lg.zoneId?.zoneName||"Zone A").replace(/"/g,'""')}"`,
+   lg.scanStatus
+  ].join(",")).join("\n");
+  const el=document.createElement("a");
+  el.href="data:text/csv,"+encodeURIComponent(header+body);
+  el.download=`rfid-attendance-history-${fromIso}-to-${toIso}.csv`;
+  el.click();
+ };
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-attendance"/>
+  <div className="bar">
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <input className="in" placeholder="Search worker, RFID UID, device, or zone" value={q} onChange={e=>setQ(e.target.value)}/>
+   <select className="in" style={{flex:"0 0 170px"}} value={stF} onChange={e=>setStF(e.target.value)}><option value="ALL">All Scan Statuses</option><option value="SUCCESS">SUCCESS (Matched)</option><option value="UNKNOWN_CARD">UNKNOWN_CARD</option><option value="DUPLICATE_IGNORED">DUPLICATE_IGNORED</option></select>
+   <button className="btn" onClick={loadHistory}>Refresh</button>
+   <button className="btn grn" onClick={csv}><Ic n="dl"/>Export CSV ({filtered.length})</button>
+  </div>
+  {summaryRows.length>0&&<div className="card tw">
+   <h3 style={{marginBottom:10}}>Daily RFID Attendance Summary (MongoDB Atlas)</h3>
+   <table><thead><tr><th>Date</th><th>Registered Workers</th><th>Unique Workers Present</th><th>Total RFID Scans</th><th>Unknown Card Alerts</th><th>Attendance Rate</th></tr></thead>
+   <tbody>{summaryRows.map(r=><tr key={r.dateIso}><td><b>{r.dateIso}</b></td><td>{dbWorkers.length||"—"}</td><td><Badge s="Present"/> {r.workers.size}</td><td>{r.totalScans}</td><td><Badge s={r.unknown>0?"Absent":"Resolved"}/> {r.unknown}</td><td>{Math.min(100,Math.round(r.workers.size/totalReg*100))}%</td></tr>)}</tbody></table>
+  </div>}
+  <div className="card tw">
+   <h3 style={{marginBottom:10}}>Recorded ESP32 RFID Scan History ({filtered.length} records)</h3>
+   {loading?<p>Loading RFID history from MongoDB Atlas...</p>:<table><thead><tr><th>Timestamp</th><th>Worker ID</th><th>Worker Name</th><th>RFID UID</th><th>Device</th><th>Workplace Zone</th><th>Scan Status</th></tr></thead>
+   <tbody>{filtered.map((lg,i)=><tr key={lg.logId||lg._id||i}>
+    <td>{(lg.occurredAt||lg.createdAt)?new Date(lg.occurredAt||lg.createdAt).toLocaleString("en-GB"):"—"}</td>
+    <td><b>{lg.workerId?.employeeCode||"—"}</b></td>
+    <td>{lg.workerId?.name||"Unregistered Card"}</td>
+    <td><code>{lg.rfidUid}</code></td>
+    <td><code>{lg.deviceCode||"ESP32_001"}</code></td>
+    <td>{lg.zoneId?.zoneName||"Zone A"}</td>
+    <td><Badge s={lg.scanStatus==="SUCCESS"?"Present":lg.scanStatus==="DUPLICATE_IGNORED"?"Late":"Absent"}/> <small>{lg.scanStatus}</small></td>
+   </tr>)}{!filtered.length&&<tr><td colSpan="7">No RFID scan logs recorded in this date range.</td></tr>}</tbody></table>}
+  </div>
+ </div>;
+}
+
+function RecReports({curUser}){
+ const today=getToday();
+ const isAdmin=!curUser||curUser.role==="ADMINISTRATOR";
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-30);return x});
+ const [to,setTo]=useState(today);
+ const [q,setQ]=useState("");
+ const [stF,setStF]=useState("ALL");
+ const [tab,setTab]=useState("incidents");
+ const [dbInc,setDbInc]=useState([]);
+ const [audits,setAudits]=useState([]);
+ const [verifyMsg,setVerifyMsg]=useState("");
+ const load=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/incidents?limit=150`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.incidents)){
+     setDbInc(j.data.incidents.map(inc=>{
+      const iid=inc.incidentId||inc._id;
+      return {
+       id:iid?`INC-${String(iid).slice(-5).toUpperCase()}`:"INC-DB",
+       mongoId:iid,
+       rawId:iid,
        w:inc.workerId?.name||"Unidentified Worker",
        zone:inc.zoneId?.zoneName||"Zone A",
+       type:inc.incidentType,
+       sev:inc.severity,
        d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
+       createdAt:inc.createdAt,
+       dateIso:inc.createdAt?iso(new Date(inc.createdAt)):iso(today),
        t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Recorded",
+       rawStatus:inc.status,
        st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
        hash:inc.recordHash?inc.recordHash.slice(0,12)+"...":"—"
-      }));
-      setDbInc(mapped);
-     }
+      };
+     }));
     }
-   }catch(_e){}
-  };
-  load();
-  const id=setInterval(load,4000);
-  return()=>{alive=false;clearInterval(id)};
- },[]);
- const verifyHash=async(r)=>{
+   }
+   if(isAdmin){
+    const ar=await fetch(`${API_BASE}/admin/audit-logs?limit=80`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(ar.ok){
+     const aj=await ar.json();
+     if(aj.data?.logs)setAudits(aj.data.logs);
+     else if(aj.data?.auditLogs)setAudits(aj.data.auditLogs);
+    }
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{load()},[isAdmin]);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const verifyHash=async r=>{
   if(!r.mongoId)return;
   try{
    const tok=localStorage.getItem("we-token");
    const res=await fetch(`${API_BASE}/incidents/${r.mongoId}/verify-integrity`,{headers:{Authorization:`Bearer ${tok}`}});
    const j=await res.json();
    const v=j.data||{};
-   setVerifyMsg(`${r.id} SHA-256 Hash Integrity: ${v.integrityValid?"✓ VALID (Tamper-Free)":"✗ TAMPERED"} · RecordHash: ${(v.storedHash||"").slice(0,20)}...`);
+   setVerifyMsg(`${r.id} SHA-256 Hash Chain Integrity: ${v.integrityValid?"✓ VALID (Tamper-Free)":"✗ TAMPERED"} · Stored Hash: ${(v.storedHash||"").slice(0,24)}...`);
   }catch(_e){}
  };
- const baseRows=dbInc.length?[...dbInc,...RP]:RP;
- const rows=baseRows.filter(r=>(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
- const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
- return <div><div className="bar"><input className="in" placeholder="Search MongoDB Atlas recorded incident history" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Atlas Incident Archive: {dbInc.length} records</span></div>
- {verifyMsg&&<div className="card" style={{marginBottom:12,borderLeft:"4px solid var(--grn)",padding:"10px 14px"}}><b>{verifyMsg}</b></div>}
- <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>SHA-256 Hash</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><code>{r.hash||"Verified"}</code></td><td><Badge s={r.st}/></td><td>{r.mongoId&&<button className="btn" onClick={()=>verifyHash(r)}>Verify Hash</button>} <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+ const rows=dbInc.filter(r=>{
+  if(r.dateIso<fromIso||r.dateIso>toIso)return false;
+  if(stF!=="ALL"&&r.rawStatus!==stF)return false;
+  return (r.w+r.id+r.d+r.zone+r.rawStatus).toLowerCase().includes(q.toLowerCase());
+ });
+ const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.entries(r).map(([k,v])=>`${k}: ${v}`).join("\n"));a.download=r.id+".txt";a.click()};
+ const exportCsv=()=>{
+  const hdr="IncidentID,Worker,Zone,Type,Severity,WorkflowState,Timestamp,SHA256Prefix\n";
+  const bdy=rows.map(r=>[r.id,`"${r.w}"`,`"${r.zone}"`,r.type,r.sev,r.rawStatus,`"${r.t}"`,r.hash].join(",")).join("\n");
+  const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(hdr+bdy);a.download=`incident-history-${fromIso}-to-${toIso}.csv`;a.click();
+ };
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-reports"/>
+  <div className="bar">
+   {isAdmin&&<div className="tabs"><button className={tab==="incidents"?"on":""} onClick={()=>setTab("incidents")}>Incident Archive ({rows.length})</button><button className={tab==="audit"?"on":""} onClick={()=>setTab("audit")}>Security Audit Logs ({audits.length})</button></div>}
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <input className="in" placeholder="Search incidents, zones, or audit actions" value={q} onChange={e=>setQ(e.target.value)}/>
+   {tab==="incidents"&&<select className="in" style={{flex:"0 0 185px"}} value={stF} onChange={e=>setStF(e.target.value)}><option value="ALL">All Workflow States</option><option value="OPEN">OPEN</option><option value="WARNING_GRACE_PERIOD">WARNING_GRACE_PERIOD</option><option value="UNDER_REVIEW">UNDER_REVIEW</option><option value="SELF_RESOLVED_IN_GRACE">SELF_RESOLVED_IN_GRACE</option><option value="RESOLVED">RESOLVED</option></select>}
+   <button className="btn" onClick={load}>Refresh</button>
+   {tab==="incidents"&&<button className="btn grn" onClick={exportCsv}><Ic n="dl"/>Export CSV</button>}
+  </div>
+  {verifyMsg&&<div className="card" style={{borderLeft:"4px solid var(--grn)",padding:"10px 14px"}}><b>{verifyMsg}</b></div>}
+  {tab==="incidents"?(
+   <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Workflow State</th><th>SHA-256 Hash</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.mongoId||r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:250,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><small><code>{r.rawStatus}</code></small></td><td><code>{r.hash}</code></td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>verifyHash(r)}>Verify Hash</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="9">No recorded incidents match your search/date filter in MongoDB Atlas.</td></tr>}</tbody></table></div>
+  ):(
+   <div className="card tw"><table><thead><tr><th>Timestamp</th><th>Actor Role</th><th>Action</th><th>Entity Type</th><th>Entity ID</th></tr></thead><tbody>{audits.filter(a=>JSON.stringify(a).toLowerCase().includes(q.toLowerCase())).map((a,i)=><tr key={a.auditId||a._id||i}><td>{(a.occurredAt||a.createdAt)?new Date(a.occurredAt||a.createdAt).toLocaleString("en-GB"):"—"}</td><td><span className="bd">{a.actorRole}</span></td><td><b>{a.action}</b></td><td>{a.entityType}</td><td><code>{(a.entityId||"").slice(-10)}</code></td></tr>)}{!audits.length&&<tr><td colSpan="5">No audit logs found.</td></tr>}</tbody></table></div>
+  )}
+ </div>;
+}
 function SupervisorsPage({zones,curUser}){
  const isHigherAuthority=!curUser||curUser.role==="ADMINISTRATOR";
- const [sups,setSups]=useState([]);const [name,setName]=useState("");const [loginId,setLoginId]=useState("");const [pass,setPass]=useState("");const [selZone,setSelZone]=useState("");
+ const [sups,setSups]=useState([]);const [name,setName]=useState("");const [loginId,setLoginId]=useState("");const [pass,setPass]=useState("");const [selZone,setSelZone]=useState("ALL_ACTIVE");
  const [msg,setMsg]=useState("");const [err,setErr]=useState("");const [busy,setBusy]=useState(false);const [editSup,setEditSup]=useState(null);const [newPass,setNewPass]=useState("");
  const loadSups=async()=>{
   try{
@@ -599,7 +877,8 @@ function SupervisorsPage({zones,curUser}){
   e.preventDefault();setMsg("");setErr("");setBusy(true);
   try{
    const tok=localStorage.getItem("we-token");
-   const zoneIds=selZone?[selZone]:[];
+   const activeZoneIds=zones.filter(z=>z.mongoId&&z.on).map(z=>z.mongoId);
+   const zoneIds=selZone==="ALL_ACTIVE"?activeZoneIds:(selZone&&selZone!=="NONE"?[selZone]:[]);
    const r=await fetch(`${API_BASE}/admin/supervisors`,{
     method:"POST",
     headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
@@ -608,7 +887,7 @@ function SupervisorsPage({zones,curUser}){
    const j=await r.json();
    if(r.ok){
     setMsg(`✓ Supervisor Created in MongoDB Atlas! Login ID: ${loginId.trim().toLowerCase()} | Password: ${pass}`);
-    setName("");setLoginId("");setPass("");setSelZone("");
+    setName("");setLoginId("");setPass("");setSelZone("ALL_ACTIVE");
     await loadSups();
    }else{
     setErr(j.message||"Failed to create supervisor");
@@ -666,9 +945,9 @@ function SupervisorsPage({zones,curUser}){
    {err&&<div className="bd r" style={{padding:"8px 12px",marginBottom:10,fontSize:14}}>{err}</div>}
    <form onSubmit={createSup} className="grid g4" style={{alignItems:"end"}}>
     <label>Supervisor Full Name<input className="in" placeholder="e.g. Bikash Pattnaik" value={name} onChange={e=>setName(e.target.value)} required/></label>
-    <label>Supervisor Login ID / Email<input className="in" placeholder="e.g. sup.bikash@smartppe.local" value={loginId} onChange={e=>setLoginId(e.target.value)} required/></label>
+    <label>Supervisor Login ID / Email<input className="in" placeholder="e.g. sup01 or sup.bikash@smartppe.local" value={loginId} onChange={e=>setLoginId(e.target.value)} required/></label>
     <label>Set Password (min 6 chars)<input className="in" type="text" placeholder="e.g. Sup@2026!" value={pass} onChange={e=>setPass(e.target.value)} minLength={6} required/></label>
-    <label>Initial Workplace Zone<select className="in" value={selZone} onChange={e=>setSelZone(e.target.value)}><option value="">Select zone (optional)…</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name} ({z.code})</option>)}</select></label>
+    <label>Initial Workplace Zone<select className="in" value={selZone} onChange={e=>setSelZone(e.target.value)}><option value="ALL_ACTIVE">All Active Zones (Recommended)</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name} ({z.code})</option>)}<option value="NONE">No initial zone</option></select></label>
     <div style={{gridColumn:"1 / -1",display:"flex",justifyContent:"flex-end"}}><button className="btn red" disabled={busy}><Ic n="plus"/>{busy?"Creating in MongoDB Atlas...":"Create Supervisor ID & Password"}</button></div>
    </form>
   </div>
@@ -772,40 +1051,46 @@ function CloudConsole(){
   </div>
  </div>}
 
-function Shell({page,dark,setDark}){
- const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);const [curUser,setCurUser]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-user")||"null")}catch(_e){return null}});
+function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState([]);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);
  const loadMongoData=async()=>{
   try{
    const h=await fetch(`${API_BASE}/health`);
    if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected));setDbInfo(hj.data)}
    const tok=localStorage.getItem("we-token");
-   if(!tok)return;
+   if(!tok){onLogout();return}
    const [mr,zr,wr,sr]=await Promise.all([
     fetch(`${API_BASE}/auth/me`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/zones`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}})
    ]);
+   if(mr.status===401||mr.status===403){
+    onLogout();return;
+   }
    if(mr.ok){
     const mj=await mr.json();
     if(mj.data?.user){setCurUser(mj.data.user);try{localStorage.setItem("we-user",JSON.stringify(mj.data.user))}catch(_e){}}
    }
    if(zr.ok){
     const zj=await zr.json();
-    if(zj.data?.zones?.length){
-     setZones(zj.data.zones.map((z,i)=>({
-      id:z._id||i+1,
-      mongoId:z._id,
-      code:z.zoneCode,
-      name:z.zoneName,
-      on:z.status==="ACTIVE",
-      mon:z.status==="ACTIVE"?"Active":"Inactive"
-     })));
+    if(Array.isArray(zj.data?.zones)){
+     setZones(zj.data.zones.map((z,i)=>{
+      const zid=z.zoneId||z._id||z.id;
+      return {
+       id:zid||i+1,
+       mongoId:zid,
+       code:z.zoneCode,
+       name:z.zoneName,
+       on:z.status==="ACTIVE",
+       mon:z.status==="ACTIVE"?"Active":"Inactive"
+      };
+     }));
     }
    }
    if(wr.ok){
     const wj=await wr.json();
-    if(wj.data?.workers?.length)setDbWorkers(wj.data.workers);
+    if(Array.isArray(wj.data?.workers))setDbWorkers(wj.data.workers);
    }
    if(sr.ok){
     const sj=await sr.json();
@@ -818,46 +1103,76 @@ function Shell({page,dark,setDark}){
   const id=setInterval(loadMongoData,5000);
   return()=>clearInterval(id);
  },[]);
- const doLogout=async()=>{
+ const isH=HIST.some(h=>h[0]===page);
+ const [hist,setHist]=useState(()=>isH);
+ useEffect(()=>{if(isH)setHist(true)},[isH]);
+ const title=(ALL.find(n=>n[0]===page)||["","","Dashboard"])[2];
+ const visibleNav=NAV.filter(x=>x[0]!=="supervisors"||!curUser||curUser.role==="ADMINISTRATOR");
+ const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
+ const nav=h=>{go(h);setOpen(false)};
+ const clickHistory=()=>{
+  const next=!hist;
+  setHist(next);
+  if(!isH)nav("rec-reports");
+ };
+ const isAtlas=dbInfo?.databaseMode==="MONGODB_ATLAS_CLOUD"||(dbInfo?.databaseHost&&String(dbInfo.databaseHost).includes("mongodb.net"));
+ const roleLabel=curUser?.role==="ADMINISTRATOR"?"Higher Authority":curUser?.role==="SUPERVISOR"?"Supervisor":(curUser?.role||"Authenticated");
+ return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
+ {visibleNav.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={clickHistory} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(visibleNav[visibleNav.length-1])}
+ <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
+ 
+ <button className="nv" onClick={onLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Account / Role">{curUser?`${curUser.name} · ${roleLabel}`:"Signing in..."}</span><Av name={curUser?.name||"User"}/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
+ {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance &amp; Session</h3><p style={{margin:"8px 0 14px"}}>Signed in as <b>{curUser?.name}</b> (<code>{curUser?.email}</code> · {roleLabel}).</p><div className="tabs" style={{marginBottom:14}}><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div><div><button className="btn red" onClick={onLogout}><Ic n="out"/>Sign Out of Session</button></div></div>}</div></div></div>}
+
+function App(){
+ const get=()=>location.hash.slice(1)||"home";const [pg,setPg]=useState(get());
+ const [dark,setDark]=useState(()=>{try{return localStorage.getItem("we-theme")==="dark"}catch(e){return false}});
+ const [authToken,setAuthToken]=useState(()=>{try{return localStorage.getItem("we-token")||""}catch(_e){return ""}});
+ const [authUser,setAuthUser]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-user")||"null")}catch(_e){return null}});
+ useEffect(()=>{const f=()=>{setPg(get());window.scrollTo(0,0)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ useEffect(()=>{document.documentElement.dataset.theme=dark?"dark":"light";try{localStorage.setItem("we-theme",dark?"dark":"light")}catch(e){}},[dark]);
+ const handleLogout=async()=>{
   try{
    const tok=localStorage.getItem("we-token");
    if(tok)await fetch(`${API_BASE}/auth/logout`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
   }catch(_e){}
   try{localStorage.removeItem("we-token");localStorage.removeItem("we-user")}catch(_e){}
+  setAuthToken("");setAuthUser(null);
   go("signin");
  };
- const [hist,setHist]=useState(()=>HIST.some(h=>h[0]===page));const isH=HIST.some(h=>h[0]===page);
- const title=ALL.find(n=>n[0]===page)[2];
- const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
- const nav=h=>{go(h);setOpen(false)};
- const isAtlas=dbInfo?.databaseMode==="MONGODB_ATLAS_CLOUD"||(dbInfo?.databaseHost&&String(dbInfo.databaseHost).includes("mongodb.net"));
- const roleLabel=curUser?.role==="ADMINISTRATOR"?"Higher Authority":curUser?.role==="SUPERVISOR"?"Supervisor":(curUser?.role||"Higher Authority");
- return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
- {NAV.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={()=>setHist(!hist)} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(NAV[NAV.length-1])}
- <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
- 
- <button className="nv" onClick={doLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud Connected (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB Connected (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch between Higher Authority & Supervisor">{curUser?`${curUser.name} (${roleLabel})`:"Higher Authority"}</span><Av name={curUser?.name||"Higher Authority"}/></div>
- <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
- {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
-
-function App(){
- const get=()=>location.hash.slice(1)||"home";const [pg,setPg]=useState(get());
- const [dark,setDark]=useState(()=>{try{return localStorage.getItem("we-theme")==="dark"}catch(e){return false}});
- useEffect(()=>{const f=()=>{setPg(get());window.scrollTo(0,0)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
- useEffect(()=>{document.documentElement.dataset.theme=dark?"dark":"light";try{localStorage.setItem("we-theme",dark?"dark":"light")}catch(e){}},[dark]);
  useEffect(()=>{
-  const ensureToken=async()=>{
+  const verifySession=async()=>{
+   const tok=localStorage.getItem("we-token");
+   if(!tok){setAuthToken("");setAuthUser(null);return}
    try{
-    if(localStorage.getItem("we-token"))return;
-    const res=await fetch(`${API_BASE}/auth/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@smartppe.local",password:"AdminPassword123!"})});
-    if(res.ok){const j=await res.json();if(j.success&&j.data?.token){localStorage.setItem("we-token",j.data.token);localStorage.setItem("we-user",JSON.stringify(j.data.user))}}
+    const r=await fetch(`${API_BASE}/auth/me`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(r.status===401||r.status===403){
+     localStorage.removeItem("we-token");localStorage.removeItem("we-user");
+     setAuthToken("");setAuthUser(null);
+     return;
+    }
+    if(r.ok){
+     const j=await r.json();
+     if(j.data?.user){
+      setAuthToken(tok);setAuthUser(j.data.user);
+      localStorage.setItem("we-user",JSON.stringify(j.data.user));
+     }
+    }
    }catch(_e){}
   };
-  ensureToken();
+  verifySession();
  },[]);
- if(pg==="signin")return <SignIn/>;
- if(ALL.some(n=>n[0]===pg))return <Shell page={pg} dark={dark} setDark={setDark}/>;
+ const handleAuthSuccess=(tok,usr)=>{setAuthToken(tok);setAuthUser(usr)};
+ if(pg==="signin")return <SignIn onAuthSuccess={handleAuthSuccess} existingUser={authToken?authUser:null} onLogout={handleLogout}/>;
+ if(ALL.some(n=>n[0]===pg)){
+  if(!authToken){
+   return <SignIn onAuthSuccess={handleAuthSuccess} existingUser={null} onLogout={handleLogout}/>;
+  }
+  return <Shell page={pg} dark={dark} setDark={setDark} curUser={authUser} setCurUser={setAuthUser} onLogout={handleLogout}/>;
+ }
+ return <Home/>}
  return <Home/>}
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 </script></body></html>

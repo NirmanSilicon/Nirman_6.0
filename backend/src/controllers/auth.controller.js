@@ -108,20 +108,32 @@ const register = async (req, res, next) => {
  */
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, expectedRole } = req.body;
 
-    const userDoc = await User.findOne({ email }).select('+passwordHash');
+    const userDoc = await User.findOne({ email: String(email).trim().toLowerCase() }).select('+passwordHash');
     if (!userDoc) {
-      return next(new AppError('Invalid email or password.', 401, 'INVALID_CREDENTIALS'));
+      return next(new AppError('Invalid Login ID / Email or password.', 401, 'INVALID_CREDENTIALS'));
     }
 
     const isPasswordValid = await bcrypt.compare(password, userDoc.passwordHash);
     if (!isPasswordValid) {
-      return next(new AppError('Invalid email or password.', 401, 'INVALID_CREDENTIALS'));
+      return next(new AppError('Invalid Login ID / Email or password.', 401, 'INVALID_CREDENTIALS'));
     }
 
     if (userDoc.status !== 'ACTIVE') {
       return next(new AppError(`User account is ${userDoc.status}. Login denied.`, 403, 'ACCOUNT_INACTIVE'));
+    }
+
+    if (expectedRole && userDoc.role !== expectedRole) {
+      const actualLabel = userDoc.role === 'ADMINISTRATOR' ? 'Higher Authority' : userDoc.role === 'SUPERVISOR' ? 'Supervisor' : userDoc.role;
+      const expectedLabel = expectedRole === 'ADMINISTRATOR' ? 'Higher Authority' : expectedRole === 'SUPERVISOR' ? 'Supervisor' : expectedRole;
+      return next(
+        new AppError(
+          `Role mismatch: '${userDoc.email}' is a ${actualLabel} account. Please select '${actualLabel}' instead of '${expectedLabel}'.`,
+          403,
+          'ROLE_MISMATCH'
+        )
+      );
     }
 
     const token = signAccessToken(userDoc);

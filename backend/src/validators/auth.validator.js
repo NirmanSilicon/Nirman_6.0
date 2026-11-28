@@ -31,6 +31,7 @@ const loginSchema = z
     password: z
       .string({ required_error: 'Password is required' })
       .min(1, 'Password is required'),
+    expectedRole: z.enum(USER_ROLES).optional(),
   })
   .strict();
 
