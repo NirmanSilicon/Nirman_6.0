@@ -12,7 +12,8 @@ import howItWorksImg from "@/assets/how-it-works.png";
 import doctorImg from "@/assets/doctor-care.png";
 import sanjeevaniAiBot from "@/assets/sanjeevani-ai-bot.png";
 import logoImg from "@/assets/logo.png";
-import { hospitals } from "@/lib/mockData";
+import { hospitals as fallbackHospitals, type Hospital } from "@/lib/mockData";
+import { fetchHospitals } from "@/lib/api";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { HospitalMap } from "@/components/HospitalMap";
 import { HeartSignalBackground } from "@/components/HeartSignalBackground";
@@ -1294,7 +1295,13 @@ function FAQSection() {
 
 function HomePage() {
   useScrollReveal();
-  const featured = hospitals.slice(0, 4);
+  const [featured, setFeatured] = useState<Hospital[]>(fallbackHospitals.slice(0, 4));
+
+  useEffect(() => {
+    fetchHospitals().then((data) => {
+      if (data.length > 0) setFeatured(data.slice(0, 4));
+    }).catch(() => {});
+  }, []);
   const [hospitalImgErrors, setHospitalImgErrors] = useState<Record<string, boolean>>({});
   const [testimonialImgErrors, setTestimonialImgErrors] = useState<Record<string, boolean>>({});
   const [docImgError, setDocImgError] = useState(false);

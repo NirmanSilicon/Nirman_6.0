@@ -1,10 +1,13 @@
 import { type Hospital, type Doctor } from "./mockData";
 
-export const API_BASE_URL = "http://localhost:5000/api";
+export const API_BASE_URL =
+  (typeof import.meta !== "undefined" && (import.meta as any).env?.VITE_API_BASE_URL) ||
+  "http://localhost:5000/api";
 
-export function getAuthHeaders() {
+export function getAuthHeaders(): Record<string, string> {
+  if (typeof window === "undefined") return {};
   const token = localStorage.getItem("token");
-  return token ? { "Authorization": `Bearer ${token}` } : {};
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 // STANDALONE AUTHENTICATION HELPERS
@@ -96,8 +99,13 @@ export async function fetchHospitals(): Promise<Hospital[]> {
         beds: mockH?.beds || { total: 150, available: 45, icu: 25, icuAvailable: 8 },
         emergency: true,
         image: dbH.logo || mockH?.image || `https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80&auto=format`,
-        distance: mockH?.distance || parseFloat((1.5 + idx * 1.2).toFixed(1)),
+        distance: dbH.distance_km ?? mockH?.distance ?? parseFloat((1.5 + idx * 1.2).toFixed(1)),
         established: mockH?.established || 1990 + (idx * 3) % 30,
+        lat: dbH.location?.lat,
+        lng: dbH.location?.lng,
+        phone: dbH.phone || "+91 674 238 6281",
+        workingHours: dbH.workingHours || "24/7",
+        crowdLevel: dbH.crowd_level || "Low",
       };
     });
   } catch (error) {
@@ -265,5 +273,149 @@ export async function fetchProfile() {
     headers: getAuthHeaders(),
   });
   if (!res.ok) throw new Error("Fetch profile failed");
+  return await res.json();
+}
+
+// Update patient profile
+export async function updateProfile(profileData: Record<string, any>) {
+  const res = await fetch(`${API_BASE_URL}/patient/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify(profileData),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Failed to update profile");
+  }
+  return await res.json();
+}
+
+// Search & AI-rank hospitals via backend recommendation engine
+export async function searchHospitals(params: {
+  disease?: string;
+  state?: string;
+  query?: string;
+  lat?: number;
+  lng?: number;
+} = {}): Promise<Hospital[]> {
+  try {
+    const sp = new URLSearchParams();
+    if (params.disease) sp.set("disease", params.disease);
+    if (params.state) sp.set("state", params.state);
+    if (params.query) sp.set("query", params.query);
+    if (params.lat !== undefined) sp.set("lat", String(params.lat));
+    if (params.lng !== undefined) sp.set("lng", String(params.lng));
+
+    const res = await fetch(`${API_BASE_URL}/hospital/search?${sp.toString()}`);
+    if (!res.ok) throw new Error("Hospital search failed");
+
+    const dbHospitals = await res.json();
+    if (!Array.isArray(dbHospitals)) return [];
+
+    const { hospitals: mockHospitals } = await import("./mockData");
+    return dbHospitals.map((dbH: any, idx: number) => {
+      const mockH = mockHospitals.find(
+        (m) =>
+          m.name.toLowerCase().includes((dbH.name || "").toLowerCase()) ||
+          (dbH.name || "").toLowerCase().includes(m.name.toLowerCase())
+      );
+      return {
+        id: dbH.hospital_id,
+        name: dbH.name,
+        city: dbH.location?.city || "Bhubaneswar",
+        state: dbH.location?.state || "Odisha",
+        address: dbH.address,
+        rating: dbH.rating || 4.2,
+        reviews: mockH?.reviews || 240 + idx * 50,
+        specialties: dbH.specialties || ["General Medicine"],
+        beds: mockH?.beds || { total: 150, available: 45, icu: 25, icuAvailable: 8 },
+        emergency: true,
+        image: dbH.logo || mockH?.image || `https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80&auto=format`,
+        distance: dbH.distance_km ?? mockH?.distance ?? parseFloat((1.5 + idx * 1.2).toFixed(1)),
+        established: mockH?.established || 1990 + ((idx * 3) % 30),
+        lat: dbH.location?.lat,
+        lng: dbH.location?.lng,
+        phone: dbH.phone || "+91 674 238 6281",
+        workingHours: dbH.workingHours || "24/7",
+        crowdLevel: dbH.crowd_level || "Low",
+      };
+    });
+  } catch (error) {
+    console.error("searchHospitals error:", error);
+    return [];
+  }
+}
+
+// Fetch live queue metrics per department for a hospital
+export async function fetchHospitalQueue(hospitalId: string): Promise<
+  Record<
+    string,
+    {
+      total_in_queue: number;
+      current_serving: number;
+      avg_time_per_patient: number;
+      wait_time_mins: number;
+    }
+  >
+> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/hospital/${hospitalId}/queue`);
+    if (!res.ok) throw new Error("Fetch hospital queue failed");
+    return await res.json();
+  } catch (error) {
+    console.error("fetchHospitalQueue error:", error);
+    return {};
+  }
+}
+
+// Fetch OSRM driving route to a hospital
+export async function fetchHospitalRoute(
+  hospitalId: string,
+  startLat: number,
+  startLng: number
+) {
+  const res = await fetch(
+    `${API_BASE_URL}/hospital/${hospitalId}/route?start_lat=${startLat}&start_lng=${startLng}`
+  );
+  if (!res.ok) throw new Error("Route fetch failed");
+  return await res.json();
+}
+
+// Reverse geocode coordinates via backend MapService
+export async function reverseGeocode(lat: number, lng: number) {
+  const res = await fetch(`${API_BASE_URL}/reverse-geocode?lat=${lat}&lng=${lng}`);
+  if (!res.ok) throw new Error("Reverse geocode failed");
+  return await res.json();
+}
+
+// Walk-in appointment booking (no patient login required)
+export async function walkinBook(bookingData: {
+  hospital_id: string;
+  department: string;
+  phone: string;
+  slot_time?: string;
+  symptoms?: string;
+}) {
+  const res = await fetch(`${API_BASE_URL}/walkin_book`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(bookingData),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Walk-in booking failed");
+  }
+  return await res.json();
+}
+
+// Fetch single appointment detail
+export async function fetchAppointmentDetail(bookingId: string) {
+  const res = await fetch(`${API_BASE_URL}/patient/appointment/${bookingId}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!res.ok) throw new Error("Fetch appointment detail failed");
   return await res.json();
 }

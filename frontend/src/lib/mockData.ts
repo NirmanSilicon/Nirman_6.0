@@ -12,6 +12,11 @@ export type Hospital = {
   image: string;
   distance: number;
   established: number;
+  lat?: number;
+  lng?: number;
+  phone?: string;
+  workingHours?: string;
+  crowdLevel?: string;
 };
 
 export type Doctor = {

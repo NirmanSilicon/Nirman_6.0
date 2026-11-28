@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { hospitals, type Hospital, type Doctor } from "@/lib/mockData";
 import { MapPin, Star, BedDouble, Phone, Clock, Award, Stethoscope, ArrowRight, ShieldCheck, Building } from "lucide-react";
-import { fetchHospitalDetail } from "@/lib/api";
+import { fetchHospitalDetail, fetchHospitalQueue } from "@/lib/api";
 
 export const Route = createFileRoute("/hospitals/$id")({
   head: ({ params }) => {
@@ -20,9 +20,12 @@ export const Route = createFileRoute("/hospitals/$id")({
     };
   },
   loader: async ({ params }) => {
-    const data = await fetchHospitalDetail(params.id);
+    const [data, queue] = await Promise.all([
+      fetchHospitalDetail(params.id),
+      fetchHospitalQueue(params.id),
+    ]);
     if (!data.hospital) throw notFound();
-    return data;
+    return { ...data, queue };
   },
   component: HospitalDetail,
   notFoundComponent: () => <div className="mx-auto max-w-md p-10 text-center"><p>Hospital not found.</p></div>,
@@ -30,7 +33,11 @@ export const Route = createFileRoute("/hospitals/$id")({
 });
 
 function HospitalDetail() {
-  const { hospital: h, doctors: docs } = Route.useLoaderData() as { hospital: Hospital; doctors: Doctor[] };
+  const { hospital: h, doctors: docs, queue } = Route.useLoaderData() as {
+    hospital: Hospital;
+    doctors: Doctor[];
+    queue: Record<string, { total_in_queue: number; current_serving: number; avg_time_per_patient: number; wait_time_mins: number }>;
+  };
   const [imgError, setImgError] = useState(false);
   const [docErrors, setDocErrors] = useState<Record<string, boolean>>({});
   
@@ -108,14 +115,27 @@ function HospitalDetail() {
             <p className="mt-4 text-[10px] font-bold text-muted-foreground/85 flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> Last synced: 2 minutes ago · Live HIMS feed secure encryption</p>
           </div>
 
-          {/* Specialties */}
+          {/* Specialties & Live Queues */}
           <div className="rounded-3xl border border-border bg-card p-6 shadow-card">
-            <div className="flex items-center gap-2 text-navy border-b border-border/40 pb-4"><Stethoscope className="h-5 w-5 text-teal" /><h2 className="font-display text-lg font-bold">Centres of Clinical Excellence</h2></div>
+            <div className="flex items-center gap-2 text-navy border-b border-border/40 pb-4"><Stethoscope className="h-5 w-5 text-teal" /><h2 className="font-display text-lg font-bold">Centres of Clinical Excellence &amp; Live Queues</h2></div>
             <div className="mt-4 flex flex-wrap gap-2">
               {h.specialties.map((s) => (
                 <span key={s} className="rounded-xl border border-border bg-background px-3.5 py-2 text-xs font-bold text-navy hover:border-teal hover:text-teal transition-all duration-200 cursor-default">{s}</span>
               ))}
             </div>
+            {queue && Object.keys(queue).length > 0 && (
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {Object.entries(queue).map(([dept, q]) => (
+                  <div key={dept} className="rounded-2xl border border-border/50 bg-muted/30 p-3.5 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs font-bold text-navy">{dept}</p>
+                      <p className="text-[11px] text-muted-foreground">Serving #{q.current_serving} · {q.total_in_queue} in queue</p>
+                    </div>
+                    <span className="rounded-xl bg-teal/10 px-2.5 py-1 text-xs font-bold text-teal">~{q.wait_time_mins}m</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Doctors */}

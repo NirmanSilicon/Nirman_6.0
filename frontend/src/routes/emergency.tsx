@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Siren, MapPin, Phone, Activity, CheckCircle2, Ambulance, AlertTriangle, Sparkles, Navigation, UserCheck } from "lucide-react";
-import { hospitals } from "@/lib/mockData";
+import { hospitals as fallbackHospitals, type Hospital } from "@/lib/mockData";
+import { fetchHospitals, searchHospitals, reverseGeocode } from "@/lib/api";
 
 export const Route = createFileRoute("/emergency")({
   head: () => ({
@@ -17,38 +18,72 @@ function EmergencyPage() {
   const [stage, setStage] = useState<"idle" | "locating" | "alerting" | "dispatched">("idle");
   const [location, setLocation] = useState<string>("");
   const [selectedHospitalAlert, setSelectedHospitalAlert] = useState<string | null>(null);
+  const [hospitalList, setHospitalList] = useState<Hospital[]>(fallbackHospitals);
+
+  useEffect(() => {
+    fetchHospitals().then((data) => {
+      if (data.length > 0) setHospitalList(data);
+    }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (stage === "locating") {
-      const t = setTimeout(() => { 
-        setLocation("19.0760° N, 72.8777° E · Bandra West, Mumbai"); 
-        setStage("alerting"); 
-      }, 1600);
+      const locateAndRank = async () => {
+        let lat = 20.27;
+        let lng = 85.82;
+        if (typeof navigator !== "undefined" && navigator.geolocation) {
+          try {
+            const pos = await new Promise<GeolocationPosition>((resolve, reject) =>
+              navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 3000 })
+            );
+            lat = pos.coords.latitude;
+            lng = pos.coords.longitude;
+          } catch {
+            // keep default coordinates
+          }
+        }
+        let locLabel = `${lat.toFixed(4)}° N, ${lng.toFixed(4)}° E`;
+        try {
+          const geo = await reverseGeocode(lat, lng);
+          if (geo?.address) locLabel = `${locLabel} · ${geo.address}`;
+        } catch {
+          // fallback label
+        }
+        try {
+          const ranked = await searchHospitals({ lat, lng });
+          if (ranked.length > 0) setHospitalList(ranked);
+        } catch {
+          // keep existing list
+        }
+        setLocation(locLabel);
+        setStage("alerting");
+      };
+      const t = setTimeout(locateAndRank, 800);
       return () => clearTimeout(t);
     }
     if (stage === "alerting") {
       const t = setTimeout(() => {
         setStage("dispatched");
-        // Automatically save an Emergency incident to localStorage userRecords
+        const topHospital = hospitalList[0] || fallbackHospitals[0];
         const incidentId = `EM-${Math.floor(1000 + Math.random() * 9000)}`;
         const newRecord = {
           id: `r_sos_${Date.now()}`,
-          type: "discharge" as const, // using discharge as medical incident category
+          type: "discharge" as const,
           title: `Emergency SOS Alert (#${incidentId})`,
           doctor: "Ambulance Unit Dispatcher (Sandeep)",
-          hospital: hospitals[0].name,
+          hospital: topHospital.name,
           date: new Date().toISOString().split("T")[0],
-          summary: `SOS triggered at Bandra West, Mumbai. Nearest facility ${hospitals[0].name} alerted. Ambulance unit MH-12-AB-4521 dispatched under 6 minutes.`,
+          summary: `SOS triggered at ${location || "current location"}. Nearest facility ${topHospital.name} alerted.`,
         };
 
         const localRecords = JSON.parse(localStorage.getItem("userRecords") || "[]");
         localStorage.setItem("userRecords", JSON.stringify([newRecord, ...localRecords]));
-      }, 2000);
+      }, 1600);
       return () => clearTimeout(t);
     }
-  }, [stage]);
+  }, [stage, hospitalList, location]);
 
-  const nearest = hospitals.slice(0, 3);
+  const nearest = hospitalList.slice(0, 3);
 
   const handleManualAlert = (hospitalName: string) => {
     setSelectedHospitalAlert(hospitalName);

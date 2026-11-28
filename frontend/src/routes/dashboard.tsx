@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 // No mock fallback data imports
 import { Calendar, FileText, Pill, FlaskConical, ScanLine, FileCheck, Phone, Mail, MapPin, Activity, Heart, Droplet, TrendingUp, X, Check, UploadCloud } from "lucide-react";
-import { fetchProfile, fetchAppointments, fetchReports, uploadReport } from "@/lib/api";
+import { fetchProfile, fetchAppointments, fetchActiveAppointment, fetchHospitals, fetchReports, uploadReport } from "@/lib/api";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -30,6 +30,7 @@ const statusStyle = {
 
 function Dashboard() {
   const [bookings, setBookings] = useState<any[]>([]);
+  const [activeAppt, setActiveAppt] = useState<any | null>(null);
   const [records, setRecords] = useState<any[]>([]);
   const [profile, setProfile] = useState<any>({ name: "", email: "", phone: "", bloodGroup: "", age: "", city: "", avatar: "https://i.pravatar.cc/200?img=12" });
   const [showAddRecord, setShowAddRecord] = useState(false);
@@ -53,7 +54,7 @@ function Dashboard() {
   const [shareRecord, setShareRecord] = useState<any | null>(null);
   const [shareStatus, setShareStatus] = useState<string | null>(null);
 
-  const loadDashboardData = () => {
+  const loadDashboardData = async () => {
     fetchProfile().then((p) => {
       setProfile({
         name: p.name || "",
@@ -66,13 +67,16 @@ function Dashboard() {
       });
     }).catch(console.error);
 
+    const hospitalsList = await fetchHospitals().catch(() => []);
+    const hospitalMap = new Map(hospitalsList.map((h) => [h.id, h.name]));
+
     fetchAppointments().then((data) => {
       const mapped = data.map((b: any) => ({
         id: b.booking_id,
         doctorName: b.doctor_id || "Consultant Doctor",
-        hospitalName: b.hospital_id === "HOSP-001" ? "SUM Hospital" : (b.hospital_id === "HOSP-002" ? "AIIMS Bhubaneswar" : "Capital Hospital"),
+        hospitalName: hospitalMap.get(b.hospital_id) || b.hospital_id || "Sanjeevani Network Hospital",
         specialty: b.department || "General Medicine",
-        date: b.booked_at ? b.booked_at.split("T")[0] : "2026-06-27",
+        date: b.booked_at ? b.booked_at.split("T")[0] : new Date().toISOString().split("T")[0],
         time: b.slot_time || "10:00 AM",
         status: b.status || "confirmed",
         tokenNo: `${b.queue_number || "A-01"}`,
@@ -80,15 +84,30 @@ function Dashboard() {
       setBookings(mapped);
     }).catch(console.error);
 
+    fetchActiveAppointment().then((active) => {
+      if (active) {
+        setActiveAppt({
+          ...active,
+          hospitalName: hospitalMap.get(active.hospital_id) || active.hospital_id,
+        });
+      } else {
+        setActiveAppt(null);
+      }
+    }).catch(console.error);
+
     fetchReports().then((data) => {
       const mapped = data.map((r: any) => ({
         id: r._id,
-        type: r.report_type || "prescription",
-        title: r.title || "Clinical Report",
-        doctor: r.doctor_name || "Specialist Consultant",
-        hospital: r.hospital_name || "Sanjeevani Clinic",
-        date: r.analyzed_at ? r.analyzed_at.split("T")[0] : "2026-06-27",
-        summary: r.summary || r.analysis || "Report analysis details.",
+        type: r.report_type || "lab-report",
+        title: r.title || r.filename || "Clinical Report",
+        doctor: r.doctor_name || "AI Clinical Analyzer",
+        hospital: r.hospital_name || "Sanjeevani Health Vault",
+        date: r.uploaded_at
+          ? String(r.uploaded_at).split("T")[0]
+          : r.analyzed_at
+            ? String(r.analyzed_at).split("T")[0]
+            : new Date().toISOString().split("T")[0],
+        summary: r.ai_summary || r.summary || r.analysis || r.extracted_text || "Report uploaded and indexed.",
         file: {
           name: r.filename || "report.pdf",
           size: "1.2 MB",
@@ -100,9 +119,20 @@ function Dashboard() {
     }).catch(console.error);
   };
 
-  // Load from backend
+  // Load from backend and poll active queue every 15s
   useEffect(() => {
     loadDashboardData();
+    const timer = setInterval(() => {
+      fetchActiveAppointment().then((active) => {
+        if (active) {
+          setActiveAppt((prev: any) => ({
+            ...active,
+            hospitalName: prev?.hospitalName || active.hospital_id,
+          }));
+        }
+      }).catch(() => {});
+    }, 15000);
+    return () => clearInterval(timer);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -372,6 +402,42 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Live OPD Queue Tracker */}
+      {activeAppt && (
+        <div className="mt-6 rounded-3xl border border-teal/30 bg-gradient-to-r from-teal/10 via-card to-emerald-500/10 p-5 shadow-card">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-teal text-white font-display font-extrabold text-sm">
+                #{activeAppt.queue_number ?? 1}
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-teal">Live OPD Queue Status</span>
+                </div>
+                <p className="text-sm font-bold text-navy">
+                  {activeAppt.hospitalName || activeAppt.hospital_id} · {activeAppt.department}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 text-xs">
+              <div className="rounded-xl bg-background/80 px-3 py-2 border border-border/50">
+                <span className="text-muted-foreground block text-[10px] font-semibold">Now Serving</span>
+                <span className="font-bold text-navy">Token #{activeAppt.current_serving ?? 0}</span>
+              </div>
+              <div className="rounded-xl bg-background/80 px-3 py-2 border border-border/50">
+                <span className="text-muted-foreground block text-[10px] font-semibold">People Ahead</span>
+                <span className="font-bold text-navy">{activeAppt.people_ahead ?? 0}</span>
+              </div>
+              <div className="rounded-xl bg-background/80 px-3 py-2 border border-border/50">
+                <span className="text-muted-foreground block text-[10px] font-semibold">Est. Wait</span>
+                <span className="font-bold text-teal">{activeAppt.wait_time_predicted ?? 0} mins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         {/* Appointments List */}

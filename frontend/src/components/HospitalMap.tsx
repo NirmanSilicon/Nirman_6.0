@@ -205,8 +205,28 @@ export function HospitalMap() {
         iconAnchor: [11, 11],
       });
 
-      const addHospitals = (centerLat: number, centerLng: number) => {
-        const generated = generateMockHospitals(centerLat, centerLng);
+      const addHospitals = async (centerLat: number, centerLng: number) => {
+        let generated = generateMockHospitals(centerLat, centerLng);
+        try {
+          const { fetchHospitals } = await import("@/lib/api");
+          const apiHospitals = await fetchHospitals();
+          const withCoords = apiHospitals.filter((h) => typeof h.lat === "number" && typeof h.lng === "number");
+          if (withCoords.length > 0) {
+            generated = withCoords.map((h) => ({
+              name: h.name,
+              lat: h.lat as number,
+              lng: h.lng as number,
+              beds: h.beds.available,
+              icuBeds: h.beds.icuAvailable,
+              rating: h.rating,
+              specialties: h.specialties,
+              phone: h.phone || "+91 674 238 6281",
+              address: h.address,
+            }));
+          }
+        } catch {
+          // fallback to generated mock hospitals
+        }
         if (isMounted) {
           setHospitalsList(generated);
         }
