@@ -1,0 +1,295 @@
+{
+  "calibrator_fitted_on": "calib",
+  "calibrator_intercept": -4.331343,
+  "calibrator_weights": [
+    6.845098,
+    0.343109,
+    0.424196,
+    -1.413841,
+    1.329022,
+    -1.628687,
+    0.517133,
+    -1.304203,
+    1.128467
+  ],
+  "leakage_check": {
+    "dev_calib_layouts": [
+      "L1_STANDARD_PORTRAIT",
+      "L2_COMPACT_GRID"
+    ],
+    "leakage_detected": false,
+    "test_only_layouts": [
+      "L3_BILINGUAL_HEADER",
+      "L4_TWO_COLUMN_SEAL",
+      "L5_BOXED_DECLARATION"
+    ]
+  },
+  "metrics": {
+    "conditional_confidence_intervals_95": {
+      "false_fail_among_decisive_clean": {
+        "ci": [
+          0.0,
+          0.4899
+        ],
+        "k": 0,
+        "method": "wilson_score_95",
+        "n": 4
+      },
+      "false_pass_among_decisive_defective": {
+        "ci": [
+          0.0,
+          0.6576
+        ],
+        "k": 0,
+        "method": "wilson_score_95",
+        "n": 2
+      }
+    },
+    "confidence_intervals_95": {
+      "ece_10bin": {
+        "ci": [
+          0.1896,
+          0.2475
+        ],
+        "method": "bootstrap_500_seeded_95",
+        "n": 48
+      },
+      "false_fail_rate": {
+        "ci": [
+          0.0,
+          0.138
+        ],
+        "k": 0,
+        "method": "wilson_score_95",
+        "n": 24
+      },
+      "false_pass_rate": {
+        "ci": [
+          0.0,
+          0.138
+        ],
+        "k": 0,
+        "method": "wilson_score_95",
+        "n": 24
+      }
+    },
+    "counts_and_denominators": {
+      "abstention_count": 42,
+      "clean_decisive_count": 4,
+      "decisive_fail_count": 2,
+      "decisive_pass_count": 4,
+      "defective_decisive_count": 2,
+      "false_fail_count": 0,
+      "false_pass_count": 0,
+      "n_clean": 24,
+      "n_defective": 24,
+      "n_test_packets": 48
+    },
+    "data_label": "synthetic",
+    "evidence_state_breakdown": {
+      "PROVISIONAL": {
+        "abstention_count": 12,
+        "abstention_rate": 1.0,
+        "mean_calibrated_prob": 0.795,
+        "n": 12
+      },
+      "UNCERTAIN": {
+        "abstention_count": 30,
+        "abstention_rate": 1.0,
+        "mean_calibrated_prob": 0.2868,
+        "n": 30
+      },
+      "VERIFIED": {
+        "abstention_count": 0,
+        "abstention_rate": 0.0,
+        "mean_calibrated_prob": 0.974,
+        "n": 6
+      }
+    },
+    "headline_metrics": {
+      "abstention_rate": 0.875,
+      "clean_packet_decision_coverage": 0.1667,
+      "coverage": 0.125,
+      "defective_packet_decision_coverage": 0.0833,
+      "ece_10bin": 0.2177,
+      "false_fail_rate": 0.0,
+      "false_pass_rate": 0.0,
+      "per_field_extraction_accuracy": {
+        "applicant_name": 0.5,
+        "dob": 0.5,
+        "overall": 0.5,
+        "passbook_name": 0.5
+      }
+    },
+    "n_test_packets": 48,
+    "negative_control_population": "subset_of_primary_test_split",
+    "negative_controls": {
+      "common_name_collision": {
+        "abstention_rate": 1.0,
+        "false_pass_rate": 0.0,
+        "n": 2
+      },
+      "near_identical_numbers": {
+        "abstention_rate": 1.0,
+        "false_pass_rate": 0.0,
+        "n": 2
+      },
+      "same_name_different_person": {
+        "abstention_rate": 1.0,
+        "false_pass_rate": 0.0,
+        "n": 2
+      },
+      "wrong_doc_in_slot": {
+        "abstention_rate": 1.0,
+        "false_pass_rate": 0.0,
+        "n": 2
+      }
+    },
+    "perturbation_matrix": {
+      "bilingual_indic": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 1.0,
+        "n": 6
+      },
+      "blur": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 0.0,
+        "n": 6
+      },
+      "jpeg_low_quality": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 0.0,
+        "n": 6
+      },
+      "low_contrast": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 0.0,
+        "n": 6
+      },
+      "low_dpi": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 0.0,
+        "n": 6
+      },
+      "overlapping_stamp": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 1.0,
+        "n": 6
+      },
+      "rotation": {
+        "abstention_rate": 1.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 1.0,
+        "n": 6
+      },
+      "unperturbed": {
+        "abstention_rate": 0.0,
+        "false_fail_rate": 0.0,
+        "false_pass_rate": 0.0,
+        "field_accuracy": 1.0,
+        "n": 6
+      }
+    },
+    "reliability_table_10bin": [
+      {
+        "avg_confidence": 0.0,
+        "bin_idx": 0,
+        "count": 0,
+        "empirical_accuracy": 0.0,
+        "lower": 0.0,
+        "upper": 0.1
+      },
+      {
+        "avg_confidence": 0.142,
+        "bin_idx": 1,
+        "count": 6,
+        "empirical_accuracy": 0.0,
+        "lower": 0.1,
+        "upper": 0.2
+      },
+      {
+        "avg_confidence": 0.2427,
+        "bin_idx": 2,
+        "count": 18,
+        "empirical_accuracy": 0.0,
+        "lower": 0.2,
+        "upper": 0.3
+      },
+      {
+        "avg_confidence": 0.0,
+        "bin_idx": 3,
+        "count": 0,
+        "empirical_accuracy": 0.0,
+        "lower": 0.3,
+        "upper": 0.4
+      },
+      {
+        "avg_confidence": 0.0,
+        "bin_idx": 4,
+        "count": 0,
+        "empirical_accuracy": 0.0,
+        "lower": 0.4,
+        "upper": 0.5
+      },
+      {
+        "avg_confidence": 0.564,
+        "bin_idx": 5,
+        "count": 6,
+        "empirical_accuracy": 1.0,
+        "lower": 0.5,
+        "upper": 0.6
+      },
+      {
+        "avg_confidence": 0.0,
+        "bin_idx": 6,
+        "count": 0,
+        "empirical_accuracy": 0.0,
+        "lower": 0.6,
+        "upper": 0.7
+      },
+      {
+        "avg_confidence": 0.795,
+        "bin_idx": 7,
+        "count": 12,
+        "empirical_accuracy": 1.0,
+        "lower": 0.7,
+        "upper": 0.8
+      },
+      {
+        "avg_confidence": 0.0,
+        "bin_idx": 8,
+        "count": 0,
+        "empirical_accuracy": 0.0,
+        "lower": 0.8,
+        "upper": 0.9
+      },
+      {
+        "avg_confidence": 0.974,
+        "bin_idx": 9,
+        "count": 6,
+        "empirical_accuracy": 1.0,
+        "lower": 0.9,
+        "upper": 1.0
+      }
+    ],
+    "split": "test"
+  },
+  "regression_gate": {
+    "actual_false_pass_rate": 0.0,
+    "gate_passed": true,
+    "limit": 0.02
+  }
+}

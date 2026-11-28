@@ -1,0 +1,426 @@
+{
+  "reconstructed": {
+    "all_hist_packets_matched": true,
+    "all_pdfs_verified": true,
+    "confusion_matrix_3way": {
+      "clean": {
+        "FAIL": 0,
+        "PASS": 4,
+        "REVIEW": 20
+      },
+      "defective": {
+        "FAIL": 2,
+        "PASS": 0,
+        "REVIEW": 22
+      }
+    },
+    "counts": {
+      "abstain_clean": 20,
+      "abstain_defective": 22,
+      "abstain_total_review": 42,
+      "decided_clean": 4,
+      "decided_defective": 2,
+      "decided_total": 6,
+      "fn_false_pass_defective_pass": 0,
+      "fp_false_fail_clean_fail": 0,
+      "n_clean": 24,
+      "n_defective": 24,
+      "n_total": 48,
+      "tn_clean_pass": 4,
+      "tp_defective_fail": 2
+    },
+    "discrepancies": [
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_001",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_004",
+        "perturbation": "low_dpi",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "same_name_different_person",
+        "packet_id": "SYN_TEST_005",
+        "perturbation": "low_contrast",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_006",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_007",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_009",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_010",
+        "perturbation": "blur",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "near_identical_numbers",
+        "packet_id": "SYN_TEST_011",
+        "perturbation": "jpeg_low_quality",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_013",
+        "perturbation": "low_contrast",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_014",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_015",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "common_name_collision",
+        "packet_id": "SYN_TEST_017",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_019",
+        "perturbation": "jpeg_low_quality",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_022",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "wrong_doc_in_slot",
+        "packet_id": "SYN_TEST_023",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_025",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_028",
+        "perturbation": "low_dpi",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "same_name_different_person",
+        "packet_id": "SYN_TEST_029",
+        "perturbation": "low_contrast",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_030",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_031",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_033",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_034",
+        "perturbation": "blur",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "near_identical_numbers",
+        "packet_id": "SYN_TEST_035",
+        "perturbation": "jpeg_low_quality",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_037",
+        "perturbation": "low_contrast",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_038",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NO_ISSUES_FOUND",
+        "is_defective": false,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_039",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "common_name_collision",
+        "packet_id": "SYN_TEST_041",
+        "perturbation": "rotation",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_043",
+        "perturbation": "jpeg_low_quality",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "none",
+        "packet_id": "SYN_TEST_046",
+        "perturbation": "overlapping_stamp",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      },
+      {
+        "expected_readiness": "NOT_READY",
+        "is_defective": true,
+        "negative_control": "wrong_doc_in_slot",
+        "packet_id": "SYN_TEST_047",
+        "perturbation": "bilingual_indic",
+        "predicted_readiness": "NEEDS_CHECKS",
+        "type": "expected_vs_predicted_readiness_diff"
+      }
+    ],
+    "hist_test_dataset_sha256_match": false,
+    "rates": {
+      "abstention_rate": 0.875,
+      "decision_coverage": 0.125,
+      "ece_10bin": 0.2177,
+      "f1_all_defective": 0.1538,
+      "false_fail_rate_all_clean": 0.0,
+      "false_fail_rate_decided_clean": 0.0,
+      "false_pass_rate_all_defective": 0.0,
+      "false_pass_rate_decided_defective": 0.0,
+      "per_field_accuracy": 0.5,
+      "precision_decided": 1.0,
+      "recall_all_defective": 0.0833,
+      "recall_decided_defective": 1.0
+    },
+    "unique_packet_ids": 48,
+    "wilson_95_cis": {
+      "false_fail_all_clean": {
+        "ci": [
+          0.0,
+          0.138
+        ],
+        "k": 0,
+        "n": 24
+      },
+      "false_fail_decided_clean": {
+        "ci": [
+          0.0,
+          0.4899
+        ],
+        "k": 0,
+        "n": 4
+      },
+      "false_pass_all_defective": {
+        "ci": [
+          0.0,
+          0.138
+        ],
+        "k": 0,
+        "n": 24
+      },
+      "false_pass_decided_defective": {
+        "ci": [
+          0.0,
+          0.6576
+        ],
+        "k": 0,
+        "n": 2
+      }
+    }
+  },
+  "reproducibility": {
+    "all_96_test_pdfs_byte_identical": true,
+    "manifests_match": false,
+    "reports_byte_identical": true,
+    "run1_elapsed_sec": 9.0006,
+    "run1_manifests": {
+      "calib": {
+        "dataset_sha256": "2cb10f607eeed30d172d50a41c33b799814c1892f252a9cf4947ffcdebfa0c8e",
+        "layouts_used": [
+          "L1_STANDARD_PORTRAIT",
+          "L2_COMPACT_GRID"
+        ],
+        "manifest_file_sha256": "70f665f2612819d7aa94a33c9e480596d42d09b8f57a5132fccd2587605c82bc",
+        "n_samples": 32
+      },
+      "dev": {
+        "dataset_sha256": "5e02333f352ee1facba6795310dd675a5dd8f5162fbeff0ea6f8be928516abfd",
+        "layouts_used": [
+          "L1_STANDARD_PORTRAIT",
+          "L2_COMPACT_GRID"
+        ],
+        "manifest_file_sha256": "c75a9ad8770aa6594c94fb6f970493966a124c5832c3594bf1584782f1ac29b8",
+        "n_samples": 24
+      },
+      "test": {
+        "dataset_sha256": "dc9d59ad28ceba89dc914a280ce1495c09e14f0085985aaa3ac0b522d29bf0d7",
+        "layouts_used": [
+          "L3_BILINGUAL_HEADER",
+          "L4_TWO_COLUMN_SEAL",
+          "L5_BOXED_DECLARATION"
+        ],
+        "manifest_file_sha256": "5892279e93c2a155f75d282c8a2bf6f28a200d9c0e92e27d1d1f1880ed7400c4",
+        "n_samples": 48
+      }
+    },
+    "run1_report_sha256": "f0b9ae521760013acf69bb6362609bec1fe6cd76348b3d02008d595c2b5f29d2",
+    "run2_elapsed_sec": 9.0031,
+    "run2_manifests": {
+      "calib": {
+        "dataset_sha256": "d6e83bad1228ada3e742cce17b18d8a6f7557e1b532bd0b59151b8df3a91305f",
+        "layouts_used": [
+          "L1_STANDARD_PORTRAIT",
+          "L2_COMPACT_GRID"
+        ],
+        "manifest_file_sha256": "3d0734c7993f0bf3c243807fd8ed15a94a7bf0985b9a1a640cdad0b27fd41b38",
+        "n_samples": 32
+      },
+      "dev": {
+        "dataset_sha256": "bf0b23413727809f73f0a097417ff6b6e3e71f68cccfef862a9be81f7c8cc70d",
+        "layouts_used": [
+          "L1_STANDARD_PORTRAIT",
+          "L2_COMPACT_GRID"
+        ],
+        "manifest_file_sha256": "85df85f1cf0b06dcbe1fff1795e07ff0d3592b58f5587c0ef7776d321293c311",
+        "n_samples": 24
+      },
+      "test": {
+        "dataset_sha256": "90308941fab06714e86a445b8e58707118e92e818d41b086b8beed0d92114145",
+        "layouts_used": [
+          "L3_BILINGUAL_HEADER",
+          "L4_TWO_COLUMN_SEAL",
+          "L5_BOXED_DECLARATION"
+        ],
+        "manifest_file_sha256": "f8c378cf4d8bf7ef4662288589bf24a6e399cc12cc0829095644207b0f3c2522",
+        "n_samples": 48
+      }
+    },
+    "run2_report_sha256": "f0b9ae521760013acf69bb6362609bec1fe6cd76348b3d02008d595c2b5f29d2",
+    "test_pdf_count_run1": 96,
+    "test_pdf_count_run2": 96
+  }
+}

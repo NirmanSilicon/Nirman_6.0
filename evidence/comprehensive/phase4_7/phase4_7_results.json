@@ -1,0 +1,433 @@
+{
+  "phase4_identity": [
+    {
+      "id": "ID_AADHAAR_FRONT_BACK",
+      "label": "Aadhaar Front+Back",
+      "expected_doc_type": "AADHAAR",
+      "classified_type": "AADHAAR",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": {
+          "norm": "KAVITA SWAIN",
+          "state": "VERIFIED_TEXT"
+        },
+        "dob": {
+          "norm": "1992-08-22",
+          "state": "VERIFIED_TEXT"
+        },
+        "gender": {
+          "norm": "FEMALE",
+          "state": "VERIFIED_TEXT"
+        },
+        "aadhaar_no": {
+          "norm": "XXXXXXXX4321",
+          "state": "VERIFIED_TEXT"
+        }
+      },
+      "address_extracted": false,
+      "sha256": "11678c8369478908ce6265c63a326413cad595c88b661243e0bec2081fbcbc1f"
+    },
+    {
+      "id": "ID_AADHAAR_MISSING_DOB",
+      "label": "Aadhaar Missing DOB",
+      "expected_doc_type": "AADHAAR",
+      "classified_type": "AADHAAR",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": {
+          "norm": "KAVITA SWAIN",
+          "state": "VERIFIED_TEXT"
+        },
+        "gender": {
+          "norm": "FEMALE",
+          "state": "VERIFIED_TEXT"
+        },
+        "aadhaar_no": {
+          "norm": "XXXXXXXX4321",
+          "state": "VERIFIED_TEXT"
+        }
+      },
+      "address_extracted": false,
+      "sha256": "0f50dfff7f745a0b82a981adf2d37837a58f0690087bc72474ffee29c2741347"
+    },
+    {
+      "id": "ID_PASSPORT_SYN",
+      "label": "Passport (Synthetic)",
+      "expected_doc_type": null,
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {},
+      "address_extracted": false,
+      "sha256": "95ccfc83aee904a2315c95ff11a876098654b0db5ae24e43301a5c315502d45d"
+    },
+    {
+      "id": "ID_PAN_SYN",
+      "label": "PAN Card (Synthetic)",
+      "expected_doc_type": null,
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {},
+      "address_extracted": false,
+      "sha256": "8afc4172e72722e0b1a80bb7f4aeb1b23d2c231ae0474cb8e252fff73aced691"
+    },
+    {
+      "id": "ID_VOTER_SYN",
+      "label": "Voter ID (Synthetic)",
+      "expected_doc_type": null,
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {},
+      "address_extracted": false,
+      "sha256": "e18169f3ef87bc1e81f2c6307e81eb9ff5959cbf54de1e519617a919f72dfd61"
+    },
+    {
+      "id": "ID_DL_SYN",
+      "label": "Driving Licence (Synthetic)",
+      "expected_doc_type": null,
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {},
+      "address_extracted": false,
+      "sha256": "f166bbacddf9e08a45982a9693e7604d02ace08a979fff6b9c24ad27116c7ba0"
+    },
+    {
+      "id": "ID_RATION_SYN",
+      "label": "Ration Card (Synthetic)",
+      "expected_doc_type": null,
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {},
+      "address_extracted": false,
+      "sha256": "96f9bc3599569d9f6acace8fcfb689db4cf8ddd3de7bf0a67ce4ca7ecce901a1"
+    },
+    {
+      "id": "ID_AADHAAR_DEGRADED_IMG",
+      "label": "Aadhaar Degraded JPEG Image (No Tesseract)",
+      "expected_doc_type": "AADHAAR",
+      "doc_status": "UNREADABLE",
+      "extracted_fields_count": 0,
+      "sha256": "cfd8aab0042c423e605b45d65142c966e56978cf8d2d66ff16ea8fd9a180dfe2"
+    }
+  ],
+  "phase4_contradictory_subhadra_readiness": "NEEDS_CHECKS",
+  "phase5_edu_fin": [
+    {
+      "id": "EDU_CLASS10",
+      "label": "Class 10 Marksheet",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "uncertainty_reason": null,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "father_name": "HARIHAR SWAIN",
+        "dob": "1992-08-22",
+        "roll_no": "SYN10-2008-01",
+        "percentage": "82.4"
+      },
+      "sha256": "e6d0e2a754d1ea6f09e79a60631367e4e0d8e687cb1d644622a85bcca8acb30a"
+    },
+    {
+      "id": "EDU_CLASS12",
+      "label": "Class 12 Marksheet",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "uncertainty_reason": null,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "father_name": "HARIHAR SWAIN",
+        "dob": "1992-08-22",
+        "roll_no": "SYN12-2010-01",
+        "percentage": "79.0"
+      },
+      "sha256": "b5bf7dbdb083298f0e2cd9ef3e298d40808049b5f8147b1d5ad73c71b2efa11c"
+    },
+    {
+      "id": "EDU_UNIV_SGPA",
+      "label": "University Marksheet (SGPA, no %)",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "uncertainty_reason": null,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "roll_no": "SYNUNI-2013-01"
+      },
+      "sha256": "0c2cd55a8e80b85c31cb5303fa98e5adbc7c34831cdb2df33cc8fb19c3ead8a2"
+    },
+    {
+      "id": "FIN_BANK_STATEMENT",
+      "label": "Bank Statement (Unsupported)",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "Document identifies as a bank statement, which cannot be accepted as a bank passbook",
+      "extracted_fields": {},
+      "sha256": "16399c3e992a21002704d99ab5d9b4d86a82ef37e2d37d0329165279910eda34"
+    }
+  ],
+  "phase6_indic_script": {
+    "odia_name_norm": "",
+    "hindi_name_norm": "",
+    "mixed_eng_odia_name_norm": "ANANYA",
+    "mixed_eng_hindi_name_norm": "ANANYA",
+    "cross_script_compare_eng_vs_odia": {
+      "grade": "MatchGrade.AMBIGUOUS",
+      "match_grade": "MatchGrade.AMBIGUOUS",
+      "status": "FAIL",
+      "type": "EMPTY_FIELD",
+      "similarity": "0.0",
+      "notes": "One or both name fields are missing or blank"
+    },
+    "cross_script_compare_eng_vs_hindi": {
+      "grade": "MatchGrade.AMBIGUOUS",
+      "match_grade": "MatchGrade.AMBIGUOUS",
+      "status": "FAIL",
+      "type": "EMPTY_FIELD",
+      "similarity": "0.0",
+      "notes": "One or both name fields are missing or blank"
+    },
+    "odia_numerals": "2024-07-01",
+    "devanagari_numerals": "2024-07-01",
+    "odia_cert_no": "OD/INC/2024/0099",
+    "devanagari_cert_no": "HI/INC/2024/0099",
+    "confusable_ifsc_O_vs_0": [
+      false,
+      "SBINO000123",
+      "ABSTAIN",
+      "Identifier character-level OCR ambiguity (O vs 0 confusable at index 4 of IFSC code)"
+    ],
+    "confusable_pan_digit_in_prefix": [
+      false,
+      "AB0DE1234F",
+      "ABSTAIN",
+      "Identifier character-level OCR ambiguity in PAN: Digit glyphs (0/1/5/8/2) in alphabetic prefix"
+    ]
+  },
+  "phase7_date_normalization": [
+    {
+      "case": "DD/MM/YYYY unambiguous",
+      "raw": "15/05/1990",
+      "parsed_iso": "1990-05-15",
+      "status": "VALID",
+      "is_ambiguous": false,
+      "ambiguity_candidates": [
+        "1990-05-15"
+      ]
+    },
+    {
+      "case": "DD/MM/YYYY ambiguous (DD<=12)",
+      "raw": "10/08/2006",
+      "parsed_iso": "2006-08-10",
+      "status": "VALID",
+      "is_ambiguous": true,
+      "ambiguity_candidates": [
+        "2006-08-10",
+        "2006-10-08"
+      ]
+    },
+    {
+      "case": "MM/DD/YYYY unambiguous",
+      "raw": "05/15/1990",
+      "parsed_iso": null,
+      "status": "INVALID_FORMAT",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    },
+    {
+      "case": "MM/DD/YYYY ambiguous (MM<=12)",
+      "raw": "08/10/2006",
+      "parsed_iso": "2006-10-08",
+      "status": "VALID",
+      "is_ambiguous": true,
+      "ambiguity_candidates": [
+        "2006-10-08",
+        "2006-08-10"
+      ]
+    },
+    {
+      "case": "YYYY-MM-DD",
+      "raw": "1990-05-15",
+      "parsed_iso": "1990-05-15",
+      "status": "VALID",
+      "is_ambiguous": false,
+      "ambiguity_candidates": [
+        "1990-05-15"
+      ]
+    },
+    {
+      "case": "YYYY-MM-DD underage",
+      "raw": "2006-08-10",
+      "parsed_iso": "2006-08-10",
+      "status": "VALID",
+      "is_ambiguous": false,
+      "ambiguity_candidates": [
+        "2006-08-10",
+        "2006-10-08"
+      ]
+    },
+    {
+      "case": "Odia numerals unambiguous",
+      "raw": "\u0b67\u0b6b/\u0b66\u0b6b/\u0b67\u0b6f\u0b6f\u0b66",
+      "parsed_iso": "1990-05-15",
+      "status": "VALID",
+      "is_ambiguous": false,
+      "ambiguity_candidates": [
+        "1990-05-15"
+      ]
+    },
+    {
+      "case": "Devanagari numerals ambiguous",
+      "raw": "\u0967\u0966/\u0966\u096e/\u0968\u0966\u0966\u096c",
+      "parsed_iso": "2006-08-10",
+      "status": "VALID",
+      "is_ambiguous": true,
+      "ambiguity_candidates": [
+        "2006-08-10",
+        "2006-10-08"
+      ]
+    },
+    {
+      "case": "Boundary eligibility (01/07/2003)",
+      "raw": "01/07/2003",
+      "parsed_iso": "2003-07-01",
+      "status": "VALID",
+      "is_ambiguous": true,
+      "ambiguity_candidates": [
+        "2003-07-01",
+        "2003-01-07"
+      ]
+    },
+    {
+      "case": "Missing (empty)",
+      "raw": "",
+      "parsed_iso": null,
+      "status": "EMPTY",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    },
+    {
+      "case": "Missing (None)",
+      "raw": null,
+      "parsed_iso": null,
+      "status": "EMPTY",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    },
+    {
+      "case": "Invalid (32/13/2024)",
+      "raw": "32/13/2024",
+      "parsed_iso": null,
+      "status": "INVALID_FORMAT",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    },
+    {
+      "case": "Invalid (text)",
+      "raw": "not-a-date",
+      "parsed_iso": null,
+      "status": "INVALID_FORMAT",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    },
+    {
+      "case": "Unreadable (XX/XX/2006)",
+      "raw": "XX/XX/2006",
+      "parsed_iso": null,
+      "status": "UNREADABLE",
+      "is_ambiguous": false,
+      "ambiguity_candidates": []
+    }
+  ],
+  "phase7_iso_underage_subhadra_readiness": "NOT_READY",
+  "manifest": [
+    {
+      "id": "ID_AADHAAR_FRONT_BACK",
+      "phase": "phase4_identity",
+      "label": "Aadhaar Front+Back",
+      "condition": "clean_native_vector",
+      "sha256": "11678c8369478908ce6265c63a326413cad595c88b661243e0bec2081fbcbc1f"
+    },
+    {
+      "id": "ID_AADHAAR_MISSING_DOB",
+      "phase": "phase4_identity",
+      "label": "Aadhaar Missing DOB",
+      "condition": "clean_native_vector",
+      "sha256": "0f50dfff7f745a0b82a981adf2d37837a58f0690087bc72474ffee29c2741347"
+    },
+    {
+      "id": "ID_PASSPORT_SYN",
+      "phase": "phase4_identity",
+      "label": "Passport (Synthetic)",
+      "condition": "clean_native_vector",
+      "sha256": "95ccfc83aee904a2315c95ff11a876098654b0db5ae24e43301a5c315502d45d"
+    },
+    {
+      "id": "ID_PAN_SYN",
+      "phase": "phase4_identity",
+      "label": "PAN Card (Synthetic)",
+      "condition": "clean_native_vector",
+      "sha256": "8afc4172e72722e0b1a80bb7f4aeb1b23d2c231ae0474cb8e252fff73aced691"
+    },
+    {
+      "id": "ID_VOTER_SYN",
+      "phase": "phase4_identity",
+      "label": "Voter ID (Synthetic)",
+      "condition": "clean_native_vector",
+      "sha256": "e18169f3ef87bc1e81f2c6307e81eb9ff5959cbf54de1e519617a919f72dfd61"
+    },
+    {
+      "id": "ID_DL_SYN",
+      "phase": "phase4_identity",
+      "label": "Driving Licence (Synthetic)",
+      "condition": "clean_native_vector",
+      "sha256": "f166bbacddf9e08a45982a9693e7604d02ace08a979fff6b9c24ad27116c7ba0"
+    },
+    {
+      "id": "ID_RATION_SYN",
+      "phase": "phase4_identity",
+      "label": "Ration Card (Synthetic)",
+      "condition": "clean_native_vector",
+      "sha256": "96f9bc3599569d9f6acace8fcfb689db4cf8ddd3de7bf0a67ce4ca7ecce901a1"
+    },
+    {
+      "id": "ID_AADHAAR_DEGRADED_IMG",
+      "phase": "phase4_identity",
+      "label": "Aadhaar Degraded Image",
+      "condition": "jpeg_q30_image_only",
+      "sha256": "cfd8aab0042c423e605b45d65142c966e56978cf8d2d66ff16ea8fd9a180dfe2"
+    },
+    {
+      "id": "ID_CONTRA_PASSBOOK",
+      "phase": "phase4_identity",
+      "label": "Contradictory Passbook",
+      "condition": "name_mismatch",
+      "sha256": "96ad50a1f90aa345fc69db294d583308dded86d4dfc97ebe5d4e225a08140a03"
+    },
+    {
+      "id": "EDU_CLASS10",
+      "phase": "phase5_edu_fin",
+      "label": "Class 10 Marksheet",
+      "condition": "clean_native_vector",
+      "sha256": "e6d0e2a754d1ea6f09e79a60631367e4e0d8e687cb1d644622a85bcca8acb30a"
+    },
+    {
+      "id": "EDU_CLASS12",
+      "phase": "phase5_edu_fin",
+      "label": "Class 12 Marksheet",
+      "condition": "clean_native_vector",
+      "sha256": "b5bf7dbdb083298f0e2cd9ef3e298d40808049b5f8147b1d5ad73c71b2efa11c"
+    },
+    {
+      "id": "EDU_UNIV_SGPA",
+      "phase": "phase5_edu_fin",
+      "label": "University Marksheet (SGPA, no %)",
+      "condition": "clean_native_vector",
+      "sha256": "0c2cd55a8e80b85c31cb5303fa98e5adbc7c34831cdb2df33cc8fb19c3ead8a2"
+    },
+    {
+      "id": "FIN_BANK_STATEMENT",
+      "phase": "phase5_edu_fin",
+      "label": "Bank Statement (Unsupported)",
+      "condition": "clean_native_vector",
+      "sha256": "16399c3e992a21002704d99ab5d9b4d86a82ef37e2d37d0329165279910eda34"
+    }
+  ]
+}

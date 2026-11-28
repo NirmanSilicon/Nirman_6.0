@@ -1,0 +1,1283 @@
+{
+  "source_commit": "0e14a6ed4452c1e562da2df11df7e4f528045074",
+  "source_status": "candidate_snapshot_only",
+  "gt_sha256": "95d8d22a86bff8a86ea7f2d97f1746e31e79f0ce0e3e6bedef3d84c4098d3ce1",
+  "by_language": {
+    "hin": {
+      "n": 20,
+      "mean_raw_cer": 2.5275,
+      "mean_raw_wer": 2.0456,
+      "mean_norm_cer": 2.5275,
+      "mean_norm_wer": 2.0456,
+      "income_exact_match": {
+        "k": 12,
+        "n": 20,
+        "rate": 0.6,
+        "wilson_95": [
+          0.3866,
+          0.7812
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 20,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.1611
+        ]
+      }
+    },
+    "ori": {
+      "n": 20,
+      "mean_raw_cer": 2.8823,
+      "mean_raw_wer": 2.9286,
+      "mean_norm_cer": 2.8823,
+      "mean_norm_wer": 2.9286,
+      "income_exact_match": {
+        "k": 8,
+        "n": 20,
+        "rate": 0.4,
+        "wilson_95": [
+          0.2188,
+          0.6134
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 20,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.1611
+        ]
+      }
+    }
+  },
+  "by_language_and_split": {
+    "hin_DEV": {
+      "n": 8,
+      "mean_raw_cer": 2.5322,
+      "mean_raw_wer": 2.0497,
+      "mean_norm_cer": 2.5322,
+      "mean_norm_wer": 2.0497,
+      "income_exact_match": {
+        "k": 5,
+        "n": 8,
+        "rate": 0.625,
+        "wilson_95": [
+          0.3057,
+          0.8632
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 8,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.3244
+        ]
+      }
+    },
+    "hin_VAL": {
+      "n": 7,
+      "mean_raw_cer": 2.4956,
+      "mean_raw_wer": 2.0176,
+      "mean_norm_cer": 2.4956,
+      "mean_norm_wer": 2.0176,
+      "income_exact_match": {
+        "k": 3,
+        "n": 7,
+        "rate": 0.4286,
+        "wilson_95": [
+          0.1582,
+          0.7495
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 7,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.3543
+        ]
+      }
+    },
+    "hin_CHALLENGE": {
+      "n": 5,
+      "mean_raw_cer": 2.5647,
+      "mean_raw_wer": 2.0784,
+      "mean_norm_cer": 2.5647,
+      "mean_norm_wer": 2.0784,
+      "income_exact_match": {
+        "k": 4,
+        "n": 5,
+        "rate": 0.8,
+        "wilson_95": [
+          0.3755,
+          0.9638
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 5,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.4345
+        ]
+      }
+    },
+    "ori_DEV": {
+      "n": 7,
+      "mean_raw_cer": 2.7054,
+      "mean_raw_wer": 2.7415,
+      "mean_norm_cer": 2.7054,
+      "mean_norm_wer": 2.7415,
+      "income_exact_match": {
+        "k": 5,
+        "n": 7,
+        "rate": 0.7143,
+        "wilson_95": [
+          0.3589,
+          0.9178
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 7,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.3543
+        ]
+      }
+    },
+    "ori_VAL": {
+      "n": 8,
+      "mean_raw_cer": 2.9668,
+      "mean_raw_wer": 3.0179,
+      "mean_norm_cer": 2.9668,
+      "mean_norm_wer": 3.0179,
+      "income_exact_match": {
+        "k": 2,
+        "n": 8,
+        "rate": 0.25,
+        "wilson_95": [
+          0.0715,
+          0.5907
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 8,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.3244
+        ]
+      }
+    },
+    "ori_CHALLENGE": {
+      "n": 5,
+      "mean_raw_cer": 2.9949,
+      "mean_raw_wer": 3.0476,
+      "mean_norm_cer": 2.9949,
+      "mean_norm_wer": 3.0476,
+      "income_exact_match": {
+        "k": 1,
+        "n": 5,
+        "rate": 0.2,
+        "wilson_95": [
+          0.0362,
+          0.6245
+        ]
+      },
+      "name_exact_match": {
+        "k": 0,
+        "n": 5,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.4345
+        ]
+      }
+    }
+  },
+  "samples": [
+    {
+      "sample_id": "indic_001",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_002",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_003",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_004",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_005",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_006",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_007",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_008",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_009",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_010",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_011",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_012",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_013",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_014",
+      "split": "DEV",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_015",
+      "split": "DEV",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_016",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_017",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_018",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_019",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_020",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_021",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_022",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_023",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_024",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_025",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_026",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_027",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_028",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_029",
+      "split": "VAL",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_030",
+      "split": "VAL",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_031",
+      "split": "CHALLENGE",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_032",
+      "split": "CHALLENGE",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_033",
+      "split": "CHALLENGE",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_034",
+      "split": "CHALLENGE",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_035",
+      "split": "CHALLENGE",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_036",
+      "split": "CHALLENGE",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "882814e83d35d3d0190c77fcf58b58486d518e989467c00e437452e312b8844e",
+      "gt_unicode_text": "ଆୟ ପ୍ରମାଣ ପତ୍ର (INCOME CERTIFICATE)\nପ୍ରମାଣିତ କରାଯାଉଅଛି କି ଆବେଦନକାରୀଙ୍କ ବାର୍ଷିକ ଆୟ ଟଙ୍କା ୧,୫୦,୦୦୦ ଅଟେ।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR CUTTACK\nAPPLICANT: Subrat Nayak\nANNUAL INCOME: INR 150000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional ୭୮୩୬ ୮୦୯୭) °. _= ‰‰_\n\nOfficial Clause:\n\n",
+      "raw_cer": 2.5446,
+      "raw_wer": 2.5714,
+      "norm_cer": 2.5446,
+      "norm_wer": 2.5714,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "150000",
+        "authority": "TAHSILDAR CUTTACK",
+        "applicant_name": "Subrat Nayak"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 150000",
+          "norm": "150000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_037",
+      "split": "CHALLENGE",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "bf361ef60ecfde7500baf737fa706a7492bab266d901899979b74fda88f3c5ad",
+      "gt_unicode_text": "आय प्रमाण पत्र (INCOME CERTIFICATE)\nप्रमाणित किया जाता है कि छात्र का वार्षिक पारिवारिक आय रुपए 1,80,000 है।",
+      "raw_ocr_text": "INCOME_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: TAHSILDAR BHUBANESWAR\nAPPLICANT: Aarav Sharma\nANNUAL INCOME: INR 180000\n\nScript Transliteration Notice: Si S808 SMBH (INCOME CERTIFICATE)\nRegional Sub-Division: 27272000 SESER0R0, See\n\nOfficial Clause:\n\n7,80,000 बल्ब\n\n",
+      "raw_cer": 2.6019,
+      "raw_wer": 2.1111,
+      "norm_cer": 2.6019,
+      "norm_wer": 2.1111,
+      "gt_fields": {
+        "doc_type": "INCOME_CERT",
+        "annual_income": "180000",
+        "authority": "TAHSILDAR BHUBANESWAR",
+        "applicant_name": "Aarav Sharma"
+      },
+      "extracted_fields": {
+        "annual_income": {
+          "raw": "INR 180000",
+          "norm": "180000.0",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": true,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_038",
+      "split": "CHALLENGE",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_039",
+      "split": "CHALLENGE",
+      "lang": "hin",
+      "lang_pack": "eng+hin",
+      "png_sha256": "5d1e7032ded928fa6293e769c05074279e919037e7e6d760cf1a13209fd43c7a",
+      "gt_unicode_text": "जाति प्रमाण पत्र (CASTE CERTIFICATE)\nप्रमाणित किया जाता है कि आवेदक अन्य पिछड़ा वर्ग (OBC) समुदाय से संबंधित हैं।",
+      "raw_ocr_text": "CASTE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: SUB DIVISIONAL MAGISTRATE\nAPPLICANT: Rohan Kumar\nCASTE CATEGORY: OBC\n\nScript Transliteration Notice: S10 S008 SHER (CASTE CERTIFICATE)\nRegional Sub-Division: 2727S00 SESSERERE8 See\n\nOfficial Clause:\n\n(OBC)\n\n",
+      "raw_cer": 2.4159,
+      "raw_wer": 1.9474,
+      "norm_cer": 2.4159,
+      "norm_wer": 1.9474,
+      "gt_fields": {
+        "doc_type": "CASTE_CERT",
+        "caste_category": "OBC",
+        "authority": "SUB DIVISIONAL MAGISTRATE",
+        "applicant_name": "Rohan Kumar"
+      },
+      "extracted_fields": {},
+      "income_exact_match": false,
+      "name_exact_match": false
+    },
+    {
+      "sample_id": "indic_040",
+      "split": "CHALLENGE",
+      "lang": "ori",
+      "lang_pack": "eng+ori",
+      "png_sha256": "1e5d053608645412176abb4a999ef2c200dce0bf1b79302cd7d931d6cba7104f",
+      "gt_unicode_text": "ନିବାସ ପ୍ରମାଣ ପତ୍ର (RESIDENCE CERTIFICATE)\nଆବେଦନକାରୀ ଓଡ଼ିଶା ରାଜ୍ୟର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟନ୍ତି।",
+      "raw_ocr_text": "RESIDENCE_CERT - GOVERNMENT NOTIFICATION\nBILINGUAL ADMINISTRATIVE RECORD (ENGLISH / INDIC SCRIPT)\n\nAUTHORITY: DISTRICT COLLECTORATE KHORDHA\nAPPLICANT: Sunita Jena\nSTATE OF RESIDENCE: ODISHA\n\nScript Transliteration Notice: S208 SS8888 BHBm (RESIDENCE CERTIFICATE)\n\nRegional Sub-Division: A227  ଚ 6 SSSR, _\n\nOfficial Clause: ଛା\n\n",
+      "raw_cer": 3.1075,
+      "raw_wer": 3.1667,
+      "norm_cer": 3.1075,
+      "norm_wer": 3.1667,
+      "gt_fields": {
+        "doc_type": "RESIDENCE_CERT",
+        "state": "ODISHA",
+        "authority": "DISTRICT COLLECTORATE KHORDHA",
+        "applicant_name": "Sunita Jena"
+      },
+      "extracted_fields": {
+        "state": {
+          "raw": "RESIDENCE: ODISHA",
+          "norm": "RESIDENCE: ODISHA",
+          "state": "OCR_EXTRACTED"
+        }
+      },
+      "income_exact_match": false,
+      "name_exact_match": false
+    }
+  ]
+}

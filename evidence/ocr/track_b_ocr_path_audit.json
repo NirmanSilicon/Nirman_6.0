@@ -1,0 +1,326 @@
+{
+  "counts": {
+    "genuine_ocr": 2,
+    "native_text": 32,
+    "mixed_content": 0,
+    "malformed_corrupt": 1
+  },
+  "files": [
+    {
+      "rel_path": "corpus/adversarial/ADV_MALFORMED.pdf",
+      "sha256": "f98f8288d93b9fad87951f5365ce9789638804f8f295bcc2d32d3d5de0a6d3bb",
+      "pages": 0,
+      "text_chars": 0,
+      "images": 0,
+      "category": "malformed_corrupt",
+      "invokes_ocr": false,
+      "error": "FileDataError"
+    },
+    {
+      "rel_path": "corpus/adversarial/ADV_MISMATCH_PASSBOOK.pdf",
+      "sha256": "2d738d278696b5458f8e0bd4d6dc3e0328bccbf34d3ae48da1500f51641a62be",
+      "pages": 1,
+      "text_chars": 196,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/adversarial/ADV_SCANNED_NO_TESSERACT.pdf",
+      "sha256": "3da845871f05894f14e7b5d6078f033d65fcefc2850e36235a79e6d35aab2233",
+      "pages": 1,
+      "text_chars": 0,
+      "images": 1,
+      "category": "genuine_ocr",
+      "invokes_ocr": true
+    },
+    {
+      "rel_path": "corpus/adversarial/ADV_SUB_UNDERAGE_AADHAAR.pdf",
+      "sha256": "b8e8b4d3add177bae0596678797e84d400148b5709ef8bceff1472c0223ed83f",
+      "pages": 1,
+      "text_chars": 172,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_AADHAAR_MASKED.pdf",
+      "sha256": "805f547b9b15d7aa6bb90d215079401cc0e36c3c4e6af99f0af4435a0e3538f9",
+      "pages": 1,
+      "text_chars": 251,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_APPLICATION_FORM.pdf",
+      "sha256": "fe28131e75632d2f658a943bd3033e4e6ccb151f83b5ba46b776c85259b307fd",
+      "pages": 1,
+      "text_chars": 504,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_BANK_PASSBOOK.pdf",
+      "sha256": "d8c8246ca866a0d0f14430fa7f9ecdeafd5916840429d3fdf044b0d29502d3e3",
+      "pages": 1,
+      "text_chars": 215,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_CASTE_CERT.pdf",
+      "sha256": "32bd6f0effb214fbe82ac2436e81a8213c505bac9e6b5d8aedf6b5ee85d4e6bf",
+      "pages": 1,
+      "text_chars": 240,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_INCOME_CERT.pdf",
+      "sha256": "b4cefa554feb1d6a1f2ac6a4efe65f202064986439dc8733b760dad74269f115",
+      "pages": 1,
+      "text_chars": 282,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_MARKSHEET.pdf",
+      "sha256": "f19c36389d5dd1be2ad1575e00d34638429d4de3c1f82006171347cca60093c3",
+      "pages": 1,
+      "text_chars": 252,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/supported/SUP_RESIDENCE_CERT.pdf",
+      "sha256": "59c56d042c0a0129d5c5237e742dee3786db03d9a155a02d7d5fe858ca5263c4",
+      "pages": 1,
+      "text_chars": 231,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_BANK_STATEMENT.pdf",
+      "sha256": "ae9445a0e6a19d73bf05cc111b37a300aeafde53e5bec7d13855e8766db6e5ff",
+      "pages": 1,
+      "text_chars": 177,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_BIRTH_CERT.pdf",
+      "sha256": "a4638f464a72c5f957b9de12295a2361170865732da801dd7520462073d45d5c",
+      "pages": 1,
+      "text_chars": 163,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_DRIVING_LICENCE.pdf",
+      "sha256": "03e0dc492bc1b0ea3a60bafa241d5a30c6e21fe6dde4148457d25b938a509979",
+      "pages": 1,
+      "text_chars": 154,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_PAN.pdf",
+      "sha256": "278eb7d2e2e2773ba9f07e8e40eab778cb28c50d4dd059491215b1d64041ac7f",
+      "pages": 1,
+      "text_chars": 173,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_PASSPORT.pdf",
+      "sha256": "41cf97842ccb87ba9084f4189f013f4d2fbe6ab6a7c1885c193cb06ed38b24dd",
+      "pages": 1,
+      "text_chars": 307,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_RATION_CARD.pdf",
+      "sha256": "1a4069732fb4cfa6d3169f51461ba1d36d22814c17d8e9dcd40dace2fcd03ecc",
+      "pages": 1,
+      "text_chars": 156,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_SLC.pdf",
+      "sha256": "41072ba0934cddb3aab4074f2db02fa67889c6a53b2b43a2faf346b13f47853a",
+      "pages": 1,
+      "text_chars": 166,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_UTILITY_BILL.pdf",
+      "sha256": "ffe843b7396edc0b5d90de15c1573dc33a2a6ac787d78e8024c8375cf6f592c4",
+      "pages": 1,
+      "text_chars": 166,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_VOTER_ID.pdf",
+      "sha256": "7fda6b74e14c4d77354a8612881049270958c0429feae374d35e01367c36f977",
+      "pages": 1,
+      "text_chars": 155,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_CLASS10.pdf",
+      "sha256": "e6d0e2a754d1ea6f09e79a60631367e4e0d8e687cb1d644622a85bcca8acb30a",
+      "pages": 1,
+      "text_chars": 260,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_CLASS12.pdf",
+      "sha256": "b5bf7dbdb083298f0e2cd9ef3e298d40808049b5f8147b1d5ad73c71b2efa11c",
+      "pages": 1,
+      "text_chars": 249,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_UNIV_SGPA.pdf",
+      "sha256": "0c2cd55a8e80b85c31cb5303fa98e5adbc7c34831cdb2df33cc8fb19c3ead8a2",
+      "pages": 1,
+      "text_chars": 143,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/FIN_BANK_STATEMENT.pdf",
+      "sha256": "16399c3e992a21002704d99ab5d9b4d86a82ef37e2d37d0329165279910eda34",
+      "pages": 1,
+      "text_chars": 196,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_DEGRADED_IMG.pdf",
+      "sha256": "cfd8aab0042c423e605b45d65142c966e56978cf8d2d66ff16ea8fd9a180dfe2",
+      "pages": 1,
+      "text_chars": 0,
+      "images": 1,
+      "category": "genuine_ocr",
+      "invokes_ocr": true
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_FRONT_BACK.pdf",
+      "sha256": "11678c8369478908ce6265c63a326413cad595c88b661243e0bec2081fbcbc1f",
+      "pages": 1,
+      "text_chars": 256,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_ISO_UNDERAGE.pdf",
+      "sha256": "f6c0e76ba979675c78c7d116c28ea1808124e71960995425c54be51bbec82b32",
+      "pages": 1,
+      "text_chars": 174,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_MISSING_DOB.pdf",
+      "sha256": "0f50dfff7f745a0b82a981adf2d37837a58f0690087bc72474ffee29c2741347",
+      "pages": 1,
+      "text_chars": 158,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_CONTRA_PASSBOOK.pdf",
+      "sha256": "96ad50a1f90aa345fc69db294d583308dded86d4dfc97ebe5d4e225a08140a03",
+      "pages": 1,
+      "text_chars": 186,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_DL_SYN.pdf",
+      "sha256": "f166bbacddf9e08a45982a9693e7604d02ace08a979fff6b9c24ad27116c7ba0",
+      "pages": 1,
+      "text_chars": 156,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_MATCH_PASSBOOK.pdf",
+      "sha256": "3ec2ca239f153732b586b8fcd5baf8e13bbc93694b2ec3a339c446f7e5deb485",
+      "pages": 1,
+      "text_chars": 187,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_PAN_SYN.pdf",
+      "sha256": "8afc4172e72722e0b1a80bb7f4aeb1b23d2c231ae0474cb8e252fff73aced691",
+      "pages": 1,
+      "text_chars": 175,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_PASSPORT_SYN.pdf",
+      "sha256": "95ccfc83aee904a2315c95ff11a876098654b0db5ae24e43301a5c315502d45d",
+      "pages": 1,
+      "text_chars": 309,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_RATION_SYN.pdf",
+      "sha256": "96f9bc3599569d9f6acace8fcfb689db4cf8ddd3de7bf0a67ce4ca7ecce901a1",
+      "pages": 1,
+      "text_chars": 187,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_VOTER_SYN.pdf",
+      "sha256": "e18169f3ef87bc1e81f2c6307e81eb9ff5959cbf54de1e519617a919f72dfd61",
+      "pages": 1,
+      "text_chars": 186,
+      "images": 0,
+      "category": "native_text",
+      "invokes_ocr": false
+    }
+  ]
+}

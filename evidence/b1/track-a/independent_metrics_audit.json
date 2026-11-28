@@ -1,0 +1,207 @@
+{
+  "inputs": {
+    "manifest": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run1_data\\test\\manifest.json",
+    "packet_audit_48": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\packet_audit_48.csv",
+    "historical_audit": "C:\\Users\\akrit\\Downloads\\DocuReady-live\\eval\\reports\\t4_1_packet_audit.json",
+    "run1_report": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run1_report.json",
+    "run2_report": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_report.json"
+  },
+  "confusion_matrix_3way": {
+    "clean": {
+      "PASS": 4,
+      "FAIL": 0,
+      "REVIEW": 20
+    },
+    "defective": {
+      "PASS": 0,
+      "FAIL": 2,
+      "REVIEW": 22
+    }
+  },
+  "metrics": {
+    "false_pass_rate_all_defective": {
+      "k": 0,
+      "n": 24,
+      "value": 0.0,
+      "wilson_95": [
+        0.0,
+        0.138
+      ]
+    },
+    "false_pass_rate_decided_defective": {
+      "k": 0,
+      "n": 2,
+      "value": 0.0,
+      "wilson_95": [
+        0.0,
+        0.6576
+      ]
+    },
+    "false_fail_rate_all_clean": {
+      "k": 0,
+      "n": 24,
+      "value": 0.0,
+      "wilson_95": [
+        0.0,
+        0.138
+      ]
+    },
+    "false_fail_rate_decided_clean": {
+      "k": 0,
+      "n": 4,
+      "value": 0.0,
+      "wilson_95": [
+        0.0,
+        0.4899
+      ]
+    },
+    "decision_coverage": {
+      "k": 6,
+      "n": 48,
+      "value": 0.125
+    },
+    "abstention_rate": {
+      "k": 42,
+      "n": 48,
+      "value": 0.875
+    },
+    "precision_decided_positive": {
+      "k": 2,
+      "n": 2,
+      "value": 1.0,
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "recall_all_defective": {
+      "k": 2,
+      "n": 24,
+      "value": 0.0833,
+      "wilson_95": [
+        0.0232,
+        0.2585
+      ]
+    },
+    "recall_decided_defective": {
+      "k": 2,
+      "n": 2,
+      "value": 1.0,
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "f1_all_defective": 0.1538,
+    "f1_decided_only": 1.0,
+    "per_field_accuracy": {
+      "k": 24,
+      "n": 48,
+      "value": 0.5
+    }
+  },
+  "ece_10bin_detail": {
+    "n_samples": 48,
+    "empty_bin_treatment": "count=0, avg_confidence=0.0, empirical_accuracy=0.0, contribution=0.0",
+    "ece_10bin": 0.2177,
+    "ece_10bin_unrounded": 0.21775,
+    "bins": [
+      {
+        "bin_idx": 0,
+        "range": "[0.0, 0.1)",
+        "count": 0,
+        "avg_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.0
+      },
+      {
+        "bin_idx": 1,
+        "range": "[0.1, 0.2)",
+        "count": 6,
+        "avg_confidence": 0.142,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.01775
+      },
+      {
+        "bin_idx": 2,
+        "range": "[0.2, 0.3)",
+        "count": 18,
+        "avg_confidence": 0.2427,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.091
+      },
+      {
+        "bin_idx": 3,
+        "range": "[0.3, 0.4)",
+        "count": 0,
+        "avg_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.0
+      },
+      {
+        "bin_idx": 4,
+        "range": "[0.4, 0.5)",
+        "count": 0,
+        "avg_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.0
+      },
+      {
+        "bin_idx": 5,
+        "range": "[0.5, 0.6)",
+        "count": 6,
+        "avg_confidence": 0.564,
+        "empirical_accuracy": 1.0,
+        "weighted_abs_error": 0.0545
+      },
+      {
+        "bin_idx": 6,
+        "range": "[0.6, 0.7)",
+        "count": 0,
+        "avg_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.0
+      },
+      {
+        "bin_idx": 7,
+        "range": "[0.7, 0.8)",
+        "count": 12,
+        "avg_confidence": 0.795,
+        "empirical_accuracy": 1.0,
+        "weighted_abs_error": 0.05125
+      },
+      {
+        "bin_idx": 8,
+        "range": "[0.8, 0.9)",
+        "count": 0,
+        "avg_confidence": 0.0,
+        "empirical_accuracy": 0.0,
+        "weighted_abs_error": 0.0
+      },
+      {
+        "bin_idx": 9,
+        "range": "[0.9, 1.0]",
+        "count": 6,
+        "avg_confidence": 0.974,
+        "empirical_accuracy": 1.0,
+        "weighted_abs_error": 0.00325
+      }
+    ]
+  },
+  "expected_readiness_discrepancy_summary": {
+    "MATCH": 18,
+    "GENERATOR_OMITTED_ABSTENTION_DEFECTIVE_PERTURBED": 22,
+    "GENERATOR_OMITTED_ABSTENTION_CLEAN_PERTURBED": 8
+  },
+  "comparison_with_historical_and_reproduced": {
+    "hist_false_pass_match": true,
+    "hist_false_fail_match": true,
+    "hist_coverage_match": true,
+    "hist_abstention_match": true,
+    "hist_per_field_acc_match": true,
+    "hist_ece_match": true,
+    "run1_equals_run2_metrics": true,
+    "run1_equals_hist_metrics": true
+  },
+  "content_bundle_sha256": "7881ea3e7614cf8fc87978020718648a431cea19e4c3658afa9129896e0fb674"
+}
