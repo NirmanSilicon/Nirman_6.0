@@ -1,0 +1,18 @@
+{
+  "chamber_id": "Etch_Chamber_04",
+  "suspected_subsystem": "Throttle_Valve_B",
+  "anomaly_signature": "BACKING_PRESSURE_POSITIVE_DRIFT",
+  "historical_root_cause": "Sub-micron polymer buildup on exhaust conductance surfaces causing localized vacuum drag.",
+  "oem_safety_bounds": {
+    "max_valve_adjustment_pct": -5.0,
+    "purge_flow_range_sccm": [180.0, 250.0],
+    "max_purge_duration_sec": 120
+  },
+  "prior_resolution_summary": "Dynamic N2 purge at 220 sccm for 90s paired with a -3.5% throttle valve trim restored pressure without aborting batch.",
+  "graph_trace": [
+    "Etch_Chamber_04",
+    "Throttle_Valve_B",
+    "Incident_Log_2025_09",
+    "OEM_Manual_Sec_4.2"
+  ]
+}
