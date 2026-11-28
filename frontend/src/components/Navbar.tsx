@@ -66,7 +66,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2 relative group">
             <a 
               href="#top" 
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                onNavigate('home');
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+              }}
               className="text-2xl sm:text-3xl font-headline font-black tracking-wider text-[#1A1A1A] dark:text-[#FAF6EE] hover:text-[#DC143C] dark:hover:text-[#E63956] transition-colors relative"
             >
               CAELIS

@@ -47,6 +47,10 @@ export const LimelightNav = ({
   const limelightRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
+    setActiveIndex(defaultActiveIndex);
+  }, [defaultActiveIndex]);
+
+  useLayoutEffect(() => {
     if (items.length === 0) return;
 
     const limelight = limelightRef.current;

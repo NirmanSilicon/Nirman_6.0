@@ -100,8 +100,14 @@ function AppContent() {
   }, []);
 
   const handleNavigate = (sectionId: string) => {
-    if (sectionId === 'origin') {
+    if (sectionId === 'origin' || sectionId === 'caelis' || sectionId === 'telemetry') {
       setCurrentPage('caelis');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (sectionId === 'home') {
+      setCurrentPage('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
