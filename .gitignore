@@ -1,3 +1,4 @@
+
 # Existing NIRMAN files
 branchcreation.sh
 
@@ -28,10 +29,20 @@ data/processed/*
 *.txt
 !synaptix.txt
 !backend/requirements.txt
+
+# Ignore Parquet files by default
 *.parquet
+
+# Allow required AlarmSense TEP dataset
+!backend/data/
+!backend/data/processed/
+!backend/data/processed/tep_3years.parquet
+
+# ML artifacts
 **/artifacts/*
 !backend/artifacts/
 !backend/artifacts/*
+
 backend/artifacts/plants/
 data/feedback.jsonl
 
