@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+  --font-sans: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-cream: #E3D6BF;
+  --color-ink: #17140D;
+  --color-amaranth: #933B5B;
+  --color-thulian: #B5728A;
+  --color-brook: #AABAAE;
+  --color-chalk: #E3D6BF;
+  --color-olive: #9F9679;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: #E3D6BF;
+    color: #17140D;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Memphis tactile shadows & buttons */
+.memphis-card {
+  background-color: #FFFFFF;
+  border: 3px solid #17140D;
+  border-radius: 18px;
+  box-shadow: 7px 7px 0 #17140D;
+}
+
+.memphis-card-sm {
+  background-color: #FFFFFF;
+  border: 2.5px solid #17140D;
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 #17140D;
+}
+
+.memphis-btn {
+  border: 2.5px solid #17140D;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 #17140D;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.memphis-btn:hover:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #17140D;
+}
+
+.memphis-btn:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #17140D;
+}
+
+.memphis-btn:focus-visible {
+  outline: 3px solid #933B5B;
+  outline-offset: 2px;
+}
+
+/* Gentle CSS-only decorative keyframes */
+@keyframes memphis-drift {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(4deg);
+  }
+}
+
+@keyframes memphis-bob {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes memphis-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes memphis-sway {
+
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+.animate-memphis-drift {
+  animation: memphis-drift 6s ease-in-out infinite;
+}
+
+.animate-memphis-bob {
+  animation: memphis-bob 4.5s ease-in-out infinite;
+}
+
+.animate-memphis-spin {
+  animation: memphis-spin-slow 24s linear infinite;
+}
+
+.animate-memphis-sway {
+  animation: memphis-sway 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-memphis-drift,
+  .animate-memphis-bob,
+  .animate-memphis-spin,
+  .animate-memphis-sway {
+    animation: none !important;
+  }
+
+  .memphis-btn {
+    transition: none !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E3D6BF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #933B5B;
+  border-radius: 9999px;
+}
