@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FasalSathi — Smart Farming, Better Future</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <style>
+    :root {
+      --cream-bg: #f6f3ea;
+      --card-bg: #ffffff;
+      --forest-dark: #1c3b2a;
+      --forest-mid: #2b573e;
+      --sage-soft: #eef4ef;
+      --gold-soft: #fbf5e8;
+      --text-main: #1b221e;
+      --text-muted: #5c6761;
+      --border-soft: #e4e0d5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--cream-bg);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* =========================================================
+       1. LOGIN SCREEN
+       ========================================================= */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(82, 183, 136, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(217, 168, 78, 0.2) 0%, transparent 45%),
+        var(--cream-bg);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 450px;
+      background: #ffffff !important;
+      border: 1px solid #dfd9ca !important;
+      border-radius: 18px;
+      padding: 28px 26px;
+      box-shadow: 0 20px 45px rgba(28, 59, 42, 0.12);
+      animation: fadeUp 0.45s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+    }
+    .brand-title { font-weight: 800; font-size: 1.05rem; color: var(--forest-dark); line-height: 1.1; }
+    .brand-sub { font-size: 0.74rem; color: var(--text-muted); }
+
+    .login-card input,
+    .login-card select,
+    .ws-page input,
+    .ws-page select,
+    .location-box input,
+    .top-header select {
+      display: block !important;
+      width: 100% !important;
+      min-height: 42px !important;
+      padding: 9px 12px !important;
+      border: 1.5px solid #c8c2b4 !important;
+      border-radius: 8px !important;
+      font-size: 0.92rem !important;
+      font-weight: 500 !important;
+      color: #1b221e !important;
+      -webkit-text-fill-color: #1b221e !important;
+      background-color: #ffffff !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .login-card input::placeholder,
+    .ws-page input::placeholder,
+    .location-box input::placeholder {
+      color: #67726c !important;
+      -webkit-text-fill-color: #67726c !important;
+      opacity: 1 !important;
+    }
+
+    .login-card input:focus,
+    .login-card select:focus {
+      outline: none !important;
+      border-color: #1c3b2a !important;
+      box-shadow: 0 0 0 3px rgba(28, 59, 42, 0.14) !important;
+    }
+
+    .field-label {
+      display: block !important;
+      font-size: 0.78rem !important;
+      font-weight: 700 !important;
+      color: #1c3b2a !important;
+      margin-bottom: 5px !important;
+    }
+
+    .input-mic-wrap {
+      display: flex !important;
+      align-items: stretch !important;
+      gap: 8px !important;
+      width: 100% !important;
+    }
+
+    .input-mic-wrap > input {
+      flex: 1 1 auto !important;
+      width: auto !important;
+      min-width: 0 !important;
+    }
+
+    .mic-square-btn {
+      flex: 0 0 44px !important;
+      width: 44px !important;
+      min-height: 42px !important;
+      background: #ffffff !important;
+      color: #1b221e !important;
+      border: 1.5px solid #c8c2b4 !important;
+      border-radius: 8px !important;
+      cursor: pointer !important;
+      font-size: 0.95rem !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .two-col-login {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+      width: 100% !important;
+    }
+
+    /* =========================================================
+       2. TOP BAR & LANDING VIEW
+       ========================================================= */
+    #landing-view { display: none; }
+
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 5%;
+      background: rgba(246, 243, 234, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .top-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.88rem;
+    }
+    .top-nav-links a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .top-nav-links select {
+      width: auto !important;
+      min-height: 36px !important;
+      padding: 6px 10px !important;
+      font-size: 0.82rem !important;
+    }
+
+    .hero-banner {
+      position: relative;
+      background:
+        linear-gradient(90deg, rgba(246, 243, 234, 0.96) 0%, rgba(246, 243, 234, 0.84) 52%, rgba(246, 243, 234, 0.45) 100%),
+        url('https://images.unsplash.com/photo-1500937359354-9637736e6f06?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+      padding: 42px 5% 52px;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+    }
+
+    .eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--forest-mid);
+      text-transform: uppercase;
+    }
+
+    .hero-serif {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 3.1rem;
+      line-height: 1.07;
+      font-weight: 700;
+      margin: 10px 0 14px;
+      color: var(--text-main);
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      max-width: 470px;
+      margin-bottom: 20px;
+    }
+
+    .btn-green {
+      background: var(--forest-dark);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-green:hover { background: var(--forest-mid); }
+
+    .btn-white {
+      background: #fff;
+      color: var(--text-main);
+      border: 1px solid var(--border-soft);
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    .btn-mic {
+      background: #c1121f;
+      color: #fff;
+      border: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .location-box {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    }
+
+    .row-flex {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+    .row-flex > input, .row-flex > select {
+      flex: 1 1 140px;
+      width: auto !important;
+    }
+
+    .weather-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      margin-top: 8px;
+      border-top: 1px solid #efece2;
+      border-bottom: 1px solid #efece2;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 2px;
+      border-bottom: 1px solid #f2efe7;
+      font-size: 0.84rem;
+    }
+    .pill {
+      background: var(--sage-soft);
+      color: var(--forest-dark);
+      padding: 2px 9px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .section-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .center-head { text-align: center; margin-bottom: 24px; }
+    .serif-heading {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.75rem;
+      margin: 4px 0;
+      color: var(--text-main);
+    }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    /* =========================================================
+       3. APP WORKSPACE
+       ========================================================= */
+    #app-workspace { display: none; min-height: 100vh; }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      min-height: 100vh;
+    }
+    @media (max-width: 860px) {
+      .app-shell { grid-template-columns: 1fr; }
+    }
+
+    .sidebar {
+      background: #f9f7f1;
+      border-right: 1px solid var(--border-soft);
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .side-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 9px 11px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      margin-bottom: 3px;
+    }
+    .side-link:hover { background: #ece8dc; }
+    .side-link.active {
+      background: var(--sage-soft);
+      color: var(--forest-dark);
+      font-weight: 700;
+    }
+
+    .workspace-main {
+      padding: 24px 28px 50px;
+      background: var(--cream-bg);
+    }
+
+    .workspace-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .zone-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      background: #eef4ef;
+      padding: 14px;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+    .zone-cell {
+      aspect-ratio: 1 / 1;
+      border-radius: 6px;
+      background: #c8dfc9;
+      border: 1px solid #9ec4a0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--forest-dark);
+    }
+    .zone-cell.stress { background: #fde68a; border-color: #d97706; }
+    .zone-cell.selected { outline: 2.5px solid var(--forest-dark); }
+
+    .growth-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .growth-stage-box {
+      border: 1px solid var(--border-soft);
+      border-radius: 9px;
+      padding: 9px;
+      background: #faf8f2;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .growth-stage-box.active {
+      background: var(--sage-soft);
+      border-color: var(--forest-mid);
+      font-weight: 700;
+    }
+
+    .daily-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .daily-card {
+      padding: 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 9px;
+      background: #faf8f2;
+      font-size: 0.82rem;
+    }
+
+    .chat-box {
+      height: 220px;
+      overflow-y: auto;
+      background: #faf8f2;
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .password-wrap { display:flex; align-items:stretch; gap:8px; }
+    .password-wrap input { flex:1; min-width:0; }
+    .password-toggle { width:46px; border:1.5px solid #c8c2b4; border-radius:8px; background:#f7f8f4; cursor:pointer; font-size:1.05rem; }
+    .login-actions { display:flex; justify-content:center; gap:18px; margin-top:14px; flex-wrap:wrap; }
+    .login-link { background:none; border:0; color:#1c3b2a; font-weight:700; cursor:pointer; text-decoration:underline; font-size:.84rem; }
+    .login-footnote { text-align:center; color:var(--text-muted); font-size:.76rem; margin-top:12px; }
+    .saved-accounts-panel { margin-top:14px; padding:12px; background:#f7f8f4; border:1px solid #e2e8df; border-radius:12px; max-height:190px; overflow:auto; }
+    .saved-accounts-title { font-weight:800; color:#1c3b2a; font-size:.84rem; margin-bottom:8px; }
+    .saved-account-item { width:100%; display:flex; align-items:center; gap:10px; text-align:left; border:1px solid #e2e8df; border-radius:10px; padding:9px; background:#fff; margin-top:7px; cursor:pointer; color:#1b221e; }
+    .saved-account-item > span:nth-child(2) { flex:1; display:flex; flex-direction:column; }
+    .saved-account-item small,.saved-account-empty { color:#67726c; font-size:.74rem; }
+    .saved-avatar { width:34px; height:34px; display:grid; place-items:center; background:#edf4ec; border-radius:50%; }
+    .global-voice-assistant { position:fixed; right:18px; bottom:18px; z-index:9999; display:flex; gap:7px; padding:7px; border-radius:999px; background:#1c3b2a; box-shadow:0 8px 24px #172b1d38; }
+    .global-voice-assistant button { min-width:38px; height:38px; border:0; border-radius:50%; background:#fff; color:#1c3b2a; cursor:pointer; font-weight:800; }
+    #global-voice-toggle { min-width:42px; border-radius:20px; font-size:.72rem; }
+    @media(max-width:520px) { #login-screen { padding:14px; } .login-card { padding:22px 18px; } .global-voice-assistant { right:10px; bottom:10px; } }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================= -->
+  <!-- 1. LOGIN SCREEN                                           -->
+  <!-- ========================================================= -->
+  <section id="login-screen">
+    <div class="login-card">
+      <div class="brand-row">
+        <div class="brand-left" style="cursor:default;">
+          <span style="font-size:1.35rem;">🌿</span>
+          <div>
+            <div class="brand-title">FasalSathi</div>
+            <div class="brand-sub" data-i18n="brandSub">Smart Farming, Better Future</div>
+          </div>
+        </div>
+        <select id="login-lang-select" onchange="setLanguage(this.value)" style="width:auto !important; min-width:95px !important; padding:6px 8px !important; font-size:0.82rem !important;">
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="en">English</option>
+          <option value="or">ଓଡ଼ିଆ (Odia)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+      </div>
+
+      <h2 data-i18n="loginHeading" style="margin:6px 0 4px; font-family:Georgia, serif; color:var(--forest-dark); font-size:1.45rem;">
+        Welcome back to FasalSathi 🌱
+      </h2>
+      <p data-i18n="loginSub" style="margin:0 0 18px; font-size:0.85rem; color:var(--text-muted);">
+        Login to continue to your smart farming dashboard across India.
+      </p>
+
+      <form id="farmer-login-form" onsubmit="event.preventDefault(); loginFarmer();" style="display:flex; flex-direction:column; gap:13px;">
+        <div>
+          <label for="login-username" class="field-label" data-i18n="accountUsername">Username</label>
+          <input type="text" id="login-username" autocomplete="username" placeholder="Choose your username" required />
+        </div>
+        <div>
+          <label for="login-password" class="field-label" data-i18n="accountPassword">Password</label>
+          <div class="password-wrap">
+            <input type="password" id="login-password" autocomplete="current-password" placeholder="Enter password" required minlength="4" />
+            <button type="button" class="password-toggle" onclick="togglePasswordVisibility()" aria-label="Show password" title="Show / Hide password">👁</button>
+          </div>
+        </div>
+        <div>
+          <label for="login-name" class="field-label" data-i18n="labelFarmerName">Farmer Name</label>
+          <div class="input-mic-wrap">
+            <input type="text" id="login-name" value="" placeholder="Enter farmer name" required />
+            <button type="button" class="mic-square-btn" title="Speak Name" onclick="startVoiceInput('login-name')">🎤</button>
+          </div>
+        </div>
+
+        <div>
+          <label for="login-district" class="field-label" data-i18n="labelDistrict">District / City</label>
+          <div class="input-mic-wrap">
+            <input type="text" id="login-district" value="" placeholder="Enter district (e.g. Bhubaneswar, Puri)" required />
+            <button type="button" class="mic-square-btn" title="Speak District" onclick="startVoiceInput('login-district')">🎤</button>
+          </div>
+        </div>
+
+        <div class="two-col-login">
+          <div>
+            <label for="login-acres" class="field-label" data-i18n="labelAcres">Land (Acres)</label>
+            <input type="number" id="login-acres" value="2" min="0.5" step="0.5" placeholder="2" />
+          </div>
+          <div>
+            <label for="login-crop" class="field-label" data-i18n="labelMainCrop">Main Crop</label>
+            <input type="text" id="login-crop" value="Paddy" placeholder="e.g. Paddy, Wheat" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-green" data-i18n="loginContinueBtn" style="width:100%; padding:12px; font-size:0.95rem; margin-top:4px;">
+          Login & Continue →
+        </button>
+      </form>
+
+      <div class="login-actions">
+        <button type="button" class="login-link" onclick="registerFarmerAccount()" data-i18n="createAccountBtn">Create account</button>
+        <button type="button" class="login-link" onclick="renderSavedAccounts()" data-i18n="switchAccountBtn">Switch account</button>
+      </div>
+      <div id="saved-accounts-panel" class="saved-accounts-panel" hidden></div>
+      <p class="login-footnote" data-i18n="loginRequiredNote">Login is required to access farming tools.</p>
+    </div>
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- 2. LANDING VIEW                                           -->
+  <!-- ========================================================= -->
+  <div id="landing-view">
+    <header class="top-header">
+      <div class="brand-left" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <span style="font-size:1.35rem;">🌿</span>
+        <div>
+          <div class="brand-title">FasalSathi</div>
+          <div class="brand-sub" data-i18n="brandSub">Smart Farming, Better Future</div>
+        </div>
+      </div>
+
+      <nav class="top-nav-links">
+        <a data-i18n="howItWorks" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">How It Works</a>
+        <a data-i18n="smartTools" onclick="document.getElementById('smart-tools-preview').scrollIntoView({behavior:'smooth'})">Smart Tools</a>
+        <select id="landing-lang-select" onchange="setLanguage(this.value)">
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="en">English</option>
+          <option value="or">ଓଡ଼ିଆ (Odia)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+        <button type="button" id="auto-voice-btn-landing" class="btn-white" onclick="toggleAutoVoice()">🔊 Auto-Voice: ON</button>
+        <button type="button" class="btn-white" data-i18n="login" onclick="showLoginScreen()">Login</button>
+        <button type="button" class="btn-green" data-i18n="getStarted" onclick="openWorkspace('page-dashboard')">Get Started</button>
+      </nav>
+    </header>
+
+    <section class="hero-banner">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow" data-i18n="heroEyebrow">• AI-POWERED CROP INTELLIGENCE</div>
+          <h1 class="hero-serif" data-i18n="heroTitle">Your Farm. Your Camera. Smarter Decisions.</h1>
+          <p class="hero-desc" data-i18n="heroSubtitle">
+            FasalSathi uses computer vision, real-time agro-weather, live APMC mandi data, and multilingual voice AI to track crop growth, detect issues early, and maximize profit across India.
+          </p>
+          <div class="row-flex" style="justify-content:flex-start;">
+            <button type="button" class="btn-green" data-i18n="openDashboard" onclick="openWorkspace('page-dashboard')">Open Farm Dashboard →</button>
+            <button type="button" class="btn-white" data-i18n="scanCrop" onclick="openWorkspace('page-scan')">🌱 Scan Crop & Growth</button>
+          </div>
+          <div style="margin-top:16px; font-size:0.84rem; color:var(--text-main);">
+            👨‍🌾👨‍🌾👨‍🌾 <strong data-i18n="trustedFarmers">Trusted by farmers across India</strong>
+          </div>
+        </div>
+
+        <div class="location-box">
+          <div class="eyebrow" data-i18n="yourFarmLocation">📍 YOUR FARM LOCATION</div>
+          <h2 id="weather-location-title" style="margin:3px 0 8px; font-size:1.35rem;">Bhubaneswar, Odisha</h2>
+
+          <div class="row-flex">
+            <input type="text" id="district-input" placeholder="Enter city or village (e.g. Bhubaneswar, Puri, Pune)..." />
+            <button type="button" class="btn-green" data-i18n="search" onclick="searchDistrictWeather()">Search</button>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; font-size:0.82rem;">
+            <span data-i18n="useMyLocation" onclick="useMyLocation()" style="cursor:pointer; font-weight:600; color:var(--forest-dark);">◎ Use My Location</span>
+            <span data-i18n="suniyeBtn" onclick="speakWeatherNow()" style="cursor:pointer; font-weight:600; color:var(--forest-mid);">🔊 Suniye</span>
+          </div>
+
+          <div class="weather-strip">
+            <div>
+              <div id="weather-temp" style="font-size:1.9rem; font-weight:800;">29°C</div>
+              <div id="weather-condition" style="font-size:0.82rem; color:var(--text-muted);">Partly Cloudy</div>
+            </div>
+            <div style="text-align:right; font-size:0.8rem; color:var(--text-muted); line-height:1.55;">
+              <div>💧 <span data-i18n="humidityLabel">Humidity</span> <strong id="weather-humidity">68%</strong></div>
+              <div>🌧️ <span data-i18n="rainLabel">Rain</span> <strong id="weather-rain">10%</strong></div>
+              <div>💨 <span data-i18n="windLabel">Wind</span> <strong id="weather-wind">12 km/h</strong></div>
+            </div>
+          </div>
+
+          <div class="status-row"><span data-i18n="waterStress">Water Stress</span><span class="pill" data-i18n="lowLabel">Low</span></div>
+          <div class="status-row"><span data-i18n="cropHealthGrowth">Crop Health & Growth</span><span class="pill">86%</span></div>
+          <div class="status-row" style="border-bottom:none;"><span data-i18n="diseaseRisk">Disease Risk</span><span class="pill" data-i18n="normalLabel">Normal</span></div>
+
+          <p id="weather-advisory" data-i18n="weatherAdvisory" style="margin:8px 0 0; font-size:0.82rem; color:var(--forest-dark); font-weight:500;">
+            Favorable weather for daily growth monitoring and recovery care.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section-wrap">
+      <div class="center-head">
+        <div class="eyebrow" data-i18n="howItWorksUpper">HOW IT WORKS</div>
+        <h2 class="serif-heading" data-i18n="howItWorksHeading">From field data to smarter decisions.</h2>
+      </div>
+      <div class="grid-4">
+        <div class="card"><div class="eyebrow">01</div><h3 style="margin:6px 0;" data-i18n="step1Title">Capture</h3><p style="margin:0; font-size:0.85rem; color:var(--text-muted);" data-i18n="step1Desc">Upload leaf photo, choose district, or speak with mic in your language.</p></div>
+        <div class="card"><div class="eyebrow">02</div><h3 style="margin:6px 0;" data-i18n="step2Title">Analyze</h3><p style="margin:0; font-size:0.85rem; color:var(--text-muted);" data-i18n="step2Desc">AI checks crop issue/recovery alongside daily growth and weather.</p></div>
+        <div class="card"><div class="eyebrow">03</div><h3 style="margin:6px 0;" data-i18n="step3Title">Understand</h3><p style="margin:0; font-size:0.85rem; color:var(--text-muted);" data-i18n="step3Desc">View day-by-day progress, weekend result, and live mandi vs MSP.</p></div>
+        <div class="card"><div class="eyebrow">04</div><h3 style="margin:6px 0;" data-i18n="step4Title">Act</h3><p style="margin:0; font-size:0.85rem; color:var(--text-muted);" data-i18n="step4Desc">Follow clear recovery/growth steps with voice readout.</p></div>
+      </div>
+    </section>
+
+    <section id="smart-tools-preview" class="section-wrap" style="padding-top:0;">
+      <div class="center-head">
+        <div class="eyebrow" data-i18n="smartToolsUpper">SMART FARMING TOOLS</div>
+        <h2 class="serif-heading" data-i18n="smartToolsHeading">Explore your farm with confidence.</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="cursor:pointer;" onclick="openWorkspace('page-explore')">
+          <div class="eyebrow">01 • GUIDE</div>
+          <h3 style="margin:6px 0;" data-i18n="tool1Title">Explore Crops & ROI</h3>
+          <p style="margin:0 0 12px; font-size:0.85rem; color:var(--text-muted);" data-i18n="tool1Desc">Crop profiles, soil suitability, and profit estimates.</p>
+          <span style="font-weight:700; color:var(--forest-dark);">→</span>
+        </div>
+        <div class="card" style="background:var(--gold-soft); cursor:pointer;" onclick="openWorkspace('page-scan')">
+          <div class="eyebrow">02 • VISION + GROWTH</div>
+          <h3 style="margin:6px 0;" data-i18n="tool2Title">Crop Doctor & Growth</h3>
+          <p style="margin:0 0 12px; font-size:0.85rem; color:var(--text-muted);" data-i18n="tool2Desc">Shows issue, recovery steps, and growth timeline together.</p>
+          <span style="font-weight:700; color:var(--forest-dark);">→</span>
+        </div>
+        <div class="card" style="background:var(--sage-soft); cursor:pointer;" onclick="openWorkspace('page-dashboard')">
+          <div class="eyebrow">03 • DAILY & WEEKEND</div>
+          <h3 style="margin:6px 0;" data-i18n="tool3Title">Daily Growth & Weekend Result</h3>
+          <p style="margin:0 0 12px; font-size:0.85rem; color:var(--text-muted);" data-i18n="tool3Desc">Day-by-day weather-linked growth/issue log + weekend summary.</p>
+          <span style="font-weight:700; color:var(--forest-dark);">→</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 3. FULL APP WORKSPACE                                     -->
+  <!-- ========================================================= -->
+  <div id="app-workspace">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div>
+          <div class="brand-left" style="margin-bottom:16px;" onclick="showLandingView()">
+            <span style="font-size:1.3rem;">🌿</span>
+            <div>
+              <div class="brand-title">FasalSathi</div>
+              <div class="brand-sub" data-i18n="brandSub">Smart Farming, Better Future</div>
+            </div>
+          </div>
+
+          <button type="button" class="side-link active" data-page="page-dashboard" data-i18n="navDashboard" onclick="switchWorkspacePage('page-dashboard', this)">🏠 Dashboard & Weekly</button>
+          <button type="button" class="side-link" data-page="page-zones" data-i18n="navZones" onclick="switchWorkspacePage('page-zones', this)">🗺️ Farm Zones & Growth</button>
+          <button type="button" class="side-link" data-page="page-scan" data-i18n="navScan" onclick="switchWorkspacePage('page-scan', this)">🩺 Crop Doctor + Growth</button>
+          <button type="button" class="side-link" data-page="page-explore" data-i18n="navExplore" onclick="switchWorkspacePage('page-explore', this)">🌱 Explore Crops & ROI</button>
+          <button type="button" class="side-link" data-page="page-mandi" data-i18n="navMandi" onclick="switchWorkspacePage('page-mandi', this)">📊 Mandi vs MSP</button>
+          <button type="button" class="side-link" data-page="page-chat" data-i18n="navChat" onclick="switchWorkspacePage('page-chat', this)">🤖 Krushi Voice AI</button>
+        </div>
+
+        <div style="border-top:1px solid var(--border-soft); padding-top:12px;">
+          <select id="app-lang-select" onchange="setLanguage(this.value)" style="margin-bottom:8px; font-size:0.82rem;">
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="en">English</option>
+          <option value="or">ଓଡ଼ିଆ (Odia)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+        </select>
+          <button type="button" id="auto-voice-btn-app" class="btn-white" style="width:100%; margin-bottom:6px;" onclick="toggleAutoVoice()">🔊 Auto-Voice: ON</button>
+          <button type="button" class="btn-white" data-i18n="homePageBtn" style="width:100%; margin-bottom:6px;" onclick="showLandingView()">← Home Page</button>
+          <button type="button" class="btn-white" data-i18n="switchFarmerBtn" style="width:100%;" onclick="logoutFarmer()">👤 Switch Farmer</button>
+        </div>
+      </aside>
+
+      <main class="workspace-main">
+        <div class="workspace-topbar">
+          <div>
+            <h2 id="workspace-page-title" style="margin:0; font-family:Georgia, serif;">Your farm, at a glance.</h2>
+            <div id="workspace-farmer-meta" style="font-size:0.82rem; color:var(--text-muted);">Farmer: Soubhagya • Bhubaneswar, Odisha</div>
+          </div>
+          <div class="row-flex" style="margin:0;">
+            <button type="button" class="btn-green" data-i18n="scanCrop" onclick="switchWorkspacePage('page-scan')">🌱 Scan Crop & Growth</button>
+            <button type="button" class="btn-white" data-i18n="askVoiceAiBtn" onclick="switchWorkspacePage('page-chat')">🎤 Ask Voice AI</button>
+          </div>
+        </div>
+
+        <div id="page-dashboard" class="ws-page">
+          <div class="kpi-grid">
+            <div class="card">
+              <div class="eyebrow" data-i18n="kpiHealth">OVERALL FARM HEALTH</div>
+              <div style="font-size:1.8rem; font-weight:800; margin:4px 0;">86%</div>
+              <div style="font-size:0.8rem; color:var(--forest-mid);" data-i18n="statusRecovering">Recovering</div>
+            </div>
+            <div class="card">
+              <div class="eyebrow" data-i18n="kpiWeather">TODAY'S WEATHER</div>
+              <div id="dash-weather-temp" style="font-size:1.8rem; font-weight:800; margin:4px 0;">29°C</div>
+              <div id="dash-weather-loc" style="font-size:0.8rem; color:var(--text-muted);">Bhubaneswar, Odisha</div>
+            </div>
+            <div class="card">
+              <div class="eyebrow" data-i18n="kpiStage">CROP GROWTH STAGE</div>
+              <div id="dash-growth-stage" style="font-size:1.3rem; font-weight:800; margin:6px 0; color:var(--forest-dark);">Vegetative (Day 21–40)</div>
+              <div style="font-size:0.8rem; color:var(--text-muted);" data-i18n="statusHealthy">Healthy Growth</div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:18px;">
+            <h3 style="margin-top:0;" data-i18n="growthTimelineTitle">🌱 Crop Growth Stage Timeline</h3>
+            <div class="growth-steps" id="dash-growth-timeline"></div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <div class="eyebrow" data-i18n="dailyLogEyebrow">DAILY WEATHER-LINKED GROWTH & ISSUE LOG</div>
+                <h3 style="margin:2px 0;" data-i18n="dailyLogHeading">📅 Day-by-Day Progress, Issue Recovery & Weekend Result</h3>
+              </div>
+              <button type="button" class="btn-green" data-i18n="weekendSpeakBtn" onclick="speakWeekendSummary()">🔊 Weekend Result Sunein</button>
+            </div>
+
+            <div class="row-flex">
+              <input type="text" id="daily-issue-input" placeholder="Aaj ka issue/note likhein ya mic dabayein..." />
+              <button type="button" class="btn-mic" onclick="startVoiceInput('daily-issue-input')">🎤</button>
+              <select id="daily-status-select" style="max-width:170px;">
+                <option value="Recovering">Recovering</option>
+                <option value="Healthy Growth">Healthy Growth</option>
+                <option value="Issue Spotted">Issue Spotted</option>
+              </select>
+              <button type="button" class="btn-green" data-i18n="addNextDayBtn" onclick="logNextDayProgress()">+ Add Next Day</button>
+            </div>
+
+            <div id="daily-log-list" class="daily-grid"></div>
+
+            <div id="weekend-result-box" style="margin-top:16px; padding:14px; border-radius:10px; background:var(--sage-soft); border:1px solid #c9decb;"></div>
+          </div>
+        </div>
+
+        <div id="page-zones" class="ws-page" style="display:none;">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <div class="eyebrow" data-i18n="navZones">🗺️ Farm Zones & Growth</div>
+                <h3 style="margin:2px 0;" data-i18n="growthTimelineTitle">🌱 Crop Growth Stage Timeline</h3>
+              </div>
+              <div class="row-flex" style="margin:0;">
+                <button type="button" class="btn-white" onclick="selectZone('Zone A')">Zone A</button>
+                <button type="button" class="btn-white" onclick="selectZone('Zone B')">Zone B</button>
+                <button type="button" class="btn-white" onclick="selectZone('Zone C')">Zone C</button>
+              </div>
+            </div>
+            <div class="zone-grid" id="farm-zone-grid"></div>
+            <div id="zone-detail-box" style="padding:12px; background:#faf8f2; border-radius:10px; border:1px solid var(--border-soft); font-size:0.88rem;"></div>
+          </div>
+        </div>
+
+        <div id="page-scan" class="ws-page" style="display:none;">
+          <div class="card" style="padding:0; overflow:hidden;">
+            <iframe
+              src="/farmdoc/"
+              title="FarmDoc AI Crop Doctor"
+              style="width:100%; height:850px; border:0; display:block; background:white;"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <div id="page-explore" class="ws-page" style="display:none;">
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="margin-top:0;" data-i18n="exploreCardTitle">🌱 Explore Crops & Soil Suitability</h3>
+              <div class="row-flex">
+                <select id="explore-crop-select" onchange="renderCropProfile()">
+                  <option value="Paddy">Paddy (Dhan)</option>
+                  <option value="Wheat">Wheat (Gehun)</option>
+                  <option value="Cotton">Cotton (Kapas)</option>
+                  <option value="Tomato">Tomato (Tamatar)</option>
+                </select>
+                <button type="button" class="btn-white" data-i18n="suniyeBtn" onclick="speakCropProfile()">🔊 Suniye</button>
+              </div>
+              <div id="crop-profile-box" style="margin-top:10px; font-size:0.88rem;"></div>
+            </div>
+
+            <div class="card">
+              <h3 style="margin-top:0;" data-i18n="roiCardTitle">💰 Smart Crop & ROI Advisor</h3>
+              <div class="row-flex">
+                <select id="roi-season">
+                  <option value="Kharif">Kharif</option>
+                  <option value="Rabi">Rabi</option>
+                  <option value="Zaid">Zaid</option>
+                </select>
+                <select id="roi-soil">
+                  <option value="Alluvial">Alluvial Soil</option>
+                  <option value="Black">Black Soil</option>
+                  <option value="Red">Red Soil</option>
+                  <option value="Sandy">Sandy Soil</option>
+                </select>
+              </div>
+              <div class="row-flex">
+                <select id="roi-irrigation">
+                  <option value="Irrigated">Irrigated</option>
+                  <option value="Rainfed">Rainfed</option>
+                </select>
+                <input type="number" id="roi-acres" value="2" min="0.5" step="0.5" style="max-width:95px;" />
+                <button type="button" class="btn-green" onclick="calculateROI()">ROI</button>
+              </div>
+              <div id="roi-output" style="margin-top:10px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="page-mandi" class="ws-page" style="display:none;">
+          <div class="card">
+            <h3 style="margin-top:0;" data-i18n="mandiCardTitle">📊 Live APMC Mandi vs MSP</h3>
+            <div id="mandi-output"></div>
+          </div>
+        </div>
+
+<!-- ================= KISANAI CHATBOT PAGE ================= -->
+<div id="page-chat" class="ws-page" style="display:none; width:100%; height:100%;">
+
+    <div style="
+        width:100%;
+        height:calc(100vh - 150px);
+        min-height:650px;
+        background:#f4f7f4;
+        border-radius:16px;
+        padding:20px;
+        display:flex;
+        flex-direction:column;
+        overflow:hidden;
+    ">
+
+        <!-- Chatbot Header -->
+        <div style="margin-bottom:15px;">
+            <h2 style="margin:0 0 8px 0;">
+                🤖 Krushi Sahayak Voice AI
+            </h2>
+
+            <p style="margin:0;color:#64748b;">
+                Ask your agricultural questions to your AI farming assistant.
+            </p>
+        </div>
+
+        <!-- Chat Messages -->
+        <div
+            id="chat-messages"
+            style="
+                flex:1;
+                overflow-y:auto;
+                background:white;
+                padding:16px;
+                border-radius:12px;
+                margin-bottom:15px;
+            "
+        >
+            <div style="padding:10px;">
+                🤖 Namaste! I am KisanAI.
+
+                Ask me about crop diseases, farming practices,
+                fertilizers, crop growth and agricultural advice.
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div style="display:flex;gap:10px;align-items:center;">
+
+            <input
+                type="text"
+                id="chat-input"
+                placeholder="Type your farming question here..."
+                style="
+                    flex:1;
+                    padding:14px;
+                    border:1px solid #d1d5db;
+                    border-radius:10px;
+                    outline:none;
+                "
+                onkeydown="if(event.key==='Enter'){sendChatMessage();}"
+            >
+
+            <button
+                type="button"
+                onclick="sendChatMessage()"
+                style="
+                    padding:14px 22px;
+                    background:#276749;
+                    color:white;
+                    border:none;
+                    border-radius:10px;
+                    cursor:pointer;
+                    font-weight:600;
+                "
+            >
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- =============== END KISANAI CHATBOT PAGE =============== -->
+
+      </main>
+    </div>
+  </div>
+
+  <div id="global-voice-assistant" class="global-voice-assistant" aria-label="Voice assistant">
+    <button type="button" id="global-voice-speak" title="Read this page aloud" onclick="speakCurrentPage()">🔊</button>
+    <button type="button" id="global-voice-mic" title="Voice command" onclick="startGlobalVoiceCommand()">🎤</button>
+    <button type="button" id="global-voice-toggle" title="Voice assistant on/off" aria-pressed="true" onclick="toggleGlobalVoiceAssistant()">ON</button>
+  </div>
+ <script src="/static/js/app.js"></script>
+  <!-- <script src="/static/js/live-i18n.js"></script> -->
+  <script src="/static/js/multilingual-content.js"></script>
+</body>
+</html>

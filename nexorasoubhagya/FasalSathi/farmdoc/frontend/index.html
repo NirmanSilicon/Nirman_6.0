@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmDoc | AI Crop Doctor</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="top-header">
+        <div class="brand">
+            <div class="brand-icon">🌿</div>
+            <div>
+                <h1>FarmDoc</h1>
+                <p>SMART FARMING, HEALTHIER CROPS</p>
+            </div>
+        </div>
+
+        <div class="header-tag">
+            <span class="status-dot"></span>
+            AI POWERED CROP CARE
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <section class="page-heading">
+            <span class="eyebrow">YOUR DIGITAL CROP DOCTOR</span>
+            <h2>AI Crop Doctor <span>& Scanner</span></h2>
+            <p>Upload a picture of your crop and let AI help you identify diseases and find the right care.</p>
+        </section>
+
+        <section class="scanner-card">
+
+            <div class="section-heading">
+                <div>
+                    <h3>Crop Disease Scanner</h3>
+                    <p>Start by selecting your crop and uploading a leaf image.</p>
+                </div>
+                <div class="scanner-icon">🔬</div>
+            </div>
+
+            <div class="form-group">
+                <label for="cropType">Select crop (optional)</label>
+
+                <select id="cropType">
+                    <option value="">Let AI identify my crop</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Tomato">Tomato</option>
+                    <option value="Potato">Potato</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Maize">Maize</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="upload-area" id="uploadArea">
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/png, image/jpeg, image/jpg"
+                    hidden
+                >
+
+                <div id="uploadPlaceholder">
+                    <div class="upload-icon">📷</div>
+                    <h3>Upload your crop image</h3>
+                    <p>Click below to choose a photo from your device</p>
+
+                    <button type="button" class="browse-btn" id="browseBtn">
+                        <span>＋</span> Choose Image
+                    </button>
+
+                    <small>Supported formats: JPG, JPEG, PNG</small>
+                </div>
+
+                <div id="previewContainer" class="preview-container" hidden>
+                    <img id="imagePreview" alt="Selected crop image">
+                    <p id="fileName"></p>
+                    <button type="button" id="removeImage" class="remove-btn">
+                        Remove Image
+                    </button>
+                </div>
+
+            </div>
+
+            <button type="button" id="analyzeBtn" class="analyze-btn" disabled>
+                <span>✦</span> Analyze Crop
+            </button>
+
+            <p class="upload-note">
+                For better results, upload a clear image of the affected leaf.
+            </p>
+
+        </section>
+
+        <section class="results-section" id="resultsSection" hidden>
+
+            <div class="section-heading">
+                <div>
+                    <h3>AI Detection Results</h3>
+                    <p>Your crop analysis and personalized advisory.</p>
+                </div>
+            </div>
+
+            <div id="detectionResult" class="result-card">
+                <!-- Detection result will appear here -->
+            </div>
+
+            <div class="advisory-card">
+                <div class="advisory-heading">
+                    <div>
+                        <span class="eyebrow">FARMDOC AI ASSISTANT</span>
+                        <h3>AI Crop Advisory</h3>
+                    </div>
+
+                    <span class="advisory-icon">🌱</span>
+                </div>
+
+                <div id="advisoryText">
+                    Your personalized advisory will appear here after analysis.
+                </div>
+
+                <div class="voice-controls">
+                    <label for="languageSelect">Advisory language</label>
+
+                    <select id="languageSelect">
+                        <option value="en-IN">English</option>
+                        <option value="hi-IN">हिंदी</option>
+                        <option value="or-IN">ଓଡ଼ିଆ</option>
+                    </select>
+
+                    <div class="voice-buttons">
+                        <button type="button" id="speakBtn">
+                            🔊 Listen to Advisory
+                        </button>
+
+                        <button type="button" id="pauseBtn">
+                            ⏸ Pause
+                        </button>
+
+                        <button type="button" id="stopBtn">
+                            ■ Stop
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>FarmDoc © 2026 | Helping farmers grow healthier crops.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

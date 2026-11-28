@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KisanAI Chatbot</title>
+
+
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7f4;
+    color: #1d301f;
+}
+
+.app {
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px #00000008;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 35px;
+}
+
+.brand h1 {
+    margin: 0;
+    color: #267440;
+}
+
+.brand p {
+    margin: 5px 0 0;
+    color: gray;
+}
+
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.sidebar,
+.chat {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.sidebar {
+    padding: 20px;
+}
+
+.sidebar h3 {
+    margin-top: 20px;
+}
+
+.sidebar p {
+    font-size: 13px;
+    color: gray;
+    line-height: 1.5;
+}
+
+.sidebar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+.new-chat {
+    width: 100%;
+    padding: 12px;
+    background: #eaf5ec;
+    color: #267440;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.suggestion {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #f7faf7;
+    border: 1px solid #e1e8e1;
+    border-radius: 9px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    min-height: 75vh;
+}
+
+.chat-header {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 65vh;
+}
+
+.welcome {
+    text-align: center;
+    padding: 30px;
+    color: gray;
+}
+
+.welcome h2 {
+    color: #267440;
+}
+
+.message {
+    padding: 12px 15px;
+    margin: 12px 0;
+    max-width: 85%;
+    border-radius: 13px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.user {
+    margin-left: auto;
+    background: #267440;
+    color: white;
+}
+
+.bot {
+    margin-right: auto;
+    background: #eef4ee;
+    color: #243326;
+}
+
+.composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+textarea {
+    flex: 1;
+    min-height: 45px;
+    max-height: 120px;
+    resize: none;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.mic-btn {
+    height: 45px;
+    width: 45px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.mic-btn.listening {
+    background: #ffe5e5;
+    border-color: red;
+}
+
+.send-btn {
+    height: 45px;
+    padding: 0 20px;
+    background: #267440;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.send-btn:disabled {
+    opacity: 0.6;
+}
+
+.voice-settings {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 15px;
+    font-size: 13px;
+    color: gray;
+}
+
+.status {
+    font-size: 12px;
+    color: gray;
+}
+
+@media(max-width: 750px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 2;
+    }
+
+    .chat {
+        min-height: 65vh;
+    }
+
+    .messages {
+        max-height: 55vh;
+    }
+
+    header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="brand">
+        <div class="logo">🌱</div>
+        <div>
+            <h1>KisanAI</h1>
+            <p>Your Smart Farming Assistant</p>
+        </div>
+    </div>
+
+    <div>
+        <label for="language">Language: </label>
+
+        <select id="language">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Odia">Odia</option>
+        </select>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <button class="new-chat" id="newChat">
+            ＋ New Chat
+        </button>
+
+        <h3>🌿 Crop Context</h3>
+
+        <p>
+            Add your scanned crop information.
+            KisanAI will use it while answering.
+        </p>
+
+        <label>Scanned Plant</label>
+        <input id="plant" placeholder="e.g. Tomato">
+
+        <br><br>
+
+        <label>Confidence (0–1)</label>
+        <input id="confidence"
+               type="number"
+               min="0"
+               max="1"
+               step="0.01"
+               placeholder="e.g. 0.96">
+
+        <h3>💡 Suggested Questions</h3>
+
+        <button class="suggestion">
+            How much water does tomato need?
+        </button>
+
+        <button class="suggestion">
+            Which crop grows well in sandy soil?
+        </button>
+
+        <button class="suggestion">
+            How can I control pests in my crop?
+        </button>
+
+        <button class="suggestion">
+            Which fertilizer is suitable for rice?
+        </button>
+
+    </aside>
+
+    <main class="chat">
+
+        <div class="chat-header">
+            <strong>💬 KisanAI Chat</strong>
+            <span class="status" id="status">Ready</span>
+        </div>
+
+        <div class="messages" id="messages">
+
+            <div class="welcome" id="welcome">
+                <div style="font-size:45px">🌾</div>
+
+                <h2>Namaste! Welcome to KisanAI</h2>
+
+                <p>
+                    Ask me about crops, soil, irrigation,
+                    fertilizers, pests and farming.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="composer">
+
+            <textarea
+                id="messageInput"
+                placeholder="Ask your farming question..."
+                rows="1"></textarea>
+
+            <button
+                class="mic-btn"
+                id="micBtn"
+                title="Speak"
+                aria-label="Microphone">
+                🎤
+            </button>
+
+            <button class="send-btn" id="sendBtn">
+                Send
+            </button>
+
+        </div>
+
+        <div class="voice-settings">
+
+            <span id="micStatus">
+                Microphone ready
+            </span>
+
+            <label>
+                <input type="checkbox" id="voiceOutput" checked>
+                🔊 Speak responses
+            </label>
+
+        </div>
+
+    </main>
+
+</div>
+</div>
+
+<script>
+
+const messages = document.getElementById("messages");
+const input = document.getElementById("messageInput");
+const sendBtn = document.getElementById("sendBtn");
+const micBtn = document.getElementById("micBtn");
+
+const language = document.getElementById("language");
+const status = document.getElementById("status");
+const micStatus = document.getElementById("micStatus");
+
+const voiceOutput = document.getElementById("voiceOutput");
+
+const plantInput = document.getElementById("plant");
+const confidenceInput = document.getElementById("confidence");
+
+let recognition = null;
+let listening = false;
+
+
+// Add message to chat
+function addMessage(text, type) {
+
+    const welcome = document.getElementById("welcome");
+
+    if (welcome) {
+        welcome.remove();
+    }
+
+    const message = document.createElement("div");
+
+    message.className = "message " + type;
+    message.textContent = text;
+
+    messages.appendChild(message);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+
+// Get language code for microphone
+function getSpeechLanguage() {
+
+    if (language.value === "Hindi") {
+        return "hi-IN";
+    }
+
+    if (language.value === "Odia") {
+        return "or-IN";
+    }
+
+    return "en-IN";
+}
+
+
+// Speak chatbot response
+function speakResponse(text) {
+
+    if (!voiceOutput.checked) return;
+
+    if (!("speechSynthesis" in window)) return;
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = getSpeechLanguage();
+    speech.rate = 0.95;
+
+    window.speechSynthesis.speak(speech);
+}
+
+
+// Send message to backend
+async function sendMessage(text = null) {
+
+    const message = (text || input.value).trim();
+
+    if (!message) return;
+
+    input.value = "";
+
+    addMessage(message, "user");
+
+    status.textContent = "Thinking...";
+    sendBtn.disabled = true;
+
+    const payload = {
+        message: message,
+        language: language.value
+    };
+
+    if (plantInput.value.trim()) {
+        payload.plant = plantInput.value.trim();
+    }
+
+    if (confidenceInput.value !== "") {
+        payload.confidence = Number(confidenceInput.value);
+    }
+
+    try {
+
+        const response = await fetch("/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(payload)
+
+        });
+
+        if (!response.ok) {
+            throw new Error("HTTP error: " + response.status);
+        }
+
+        const data = await response.json();
+
+        const reply = data.reply ||
+            "Sorry, I could not generate a response.";
+
+        addMessage(reply, "bot");
+
+        speakResponse(reply);
+
+        status.textContent = "Ready";
+
+    } catch (error) {
+
+        addMessage(
+            "Unable to connect to KisanAI. Please check if the server is running.",
+            "bot"
+        );
+
+        console.error(error);
+
+        status.textContent = "Connection Error";
+
+    } finally {
+
+        sendBtn.disabled = false;
+
+    }
+}
+
+
+// Send button
+sendBtn.addEventListener("click", function() {
+    sendMessage();
+});
+
+
+// Enter key sends message
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+
+        sendMessage();
+    }
+
+});
+
+
+// Auto resize textarea
+input.addEventListener("input", function() {
+
+    input.style.height = "auto";
+
+    input.style.height = Math.min(
+        input.scrollHeight,
+        120
+    ) + "px";
+
+});
+
+
+// Suggested questions
+document.querySelectorAll(".suggestion").forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        sendMessage(button.textContent.trim());
+
+    });
+
+});
+
+
+// New chat button
+document.getElementById("newChat").addEventListener("click", function() {
+
+    messages.innerHTML = `
+        <div class="welcome" id="welcome">
+            <div style="font-size:45px">🌾</div>
+            <h2>Namaste! Welcome to KisanAI</h2>
+            <p>
+                Ask me about crops, soil, irrigation,
+                fertilizers, pests and farming.
+            </p>
+        </div>
+    `;
+
+    input.value = "";
+
+    status.textContent = "Ready";
+
+    window.speechSynthesis?.cancel();
+
+});
+
+
+// Setup microphone recognition
+function setupMicrophone() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        micStatus.textContent =
+            "Speech recognition unsupported. Try Chrome.";
+
+        micBtn.disabled = true;
+
+        return;
+    }
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = getSpeechLanguage();
+
+    recognition.continuous = false;
+
+    recognition.interimResults = false;
+
+
+    recognition.onstart = function() {
+        micStatus.textContent = "🎤 Listening...";
+        status.textContent = "Listening...";
+        status.textContent = "Listening...";
+        console.log("MIC STARTED");
+
+
+
+    };
+
+
+    recognition.onresult = function(event) {
+
+        const transcript =event.results[0][0].transcript;
+        console.log( "Detected:", transcript);
+
+
+        input.value = transcript;
+        micStatus.textContent = "Voice detected!";
+
+        sendMessage(transcript);
+
+        
+
+    };
+
+
+    recognition.onerror = function(event) {
+        console.log("Speech error:", event.error);
+        micStatus.textContent = "Error: " + event.error;
+
+    };
+
+
+    recognition.onend = function() {
+        listening = false;
+
+        console.log("Speech recognition ended");
+        micStatus.textContent = "Mic stopped";
+
+    };
+
+}
+
+
+// Microphone button
+micBtn.addEventListener("click", function() {
+    console.log("MIC BUTTON CLICKED");
+
+    if (!recognition) {
+        setupMicrophone();
+        if (!recognition) return;
+    }
+
+    recognition.lang = getSpeechLanguage();
+
+    if (listening) {
+        recognition.stop();
+        return;
+    }
+
+    try {
+        recognition.start();
+        console.log("Starting microphone...");
+
+    } catch (error) {
+        console.log("Mic start error:", error);
+        micStatus.textContent = "Please wait and try again.";
+    }
+
+
+
+});
+
+
+// Language changed
+language.addEventListener("change", function() {
+    if (recognition) {
+        recognition.lang = getSpeechLanguage();
+    }
+
+    micStatus.textContent = "Selected language: " + language.value;
+
+
+
+
+});
+
+
+// Initialize microphone
+setupMicrophone();
+
+</script>
+
+</body>
+</html>
