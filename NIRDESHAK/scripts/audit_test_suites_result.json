@@ -1,0 +1,130 @@
+[
+  {
+    "file": "test_step5_full.js",
+    "category": "INTEGRATION",
+    "hasMutations": false,
+    "usesMockIds": false,
+    "isPlaywright": false,
+    "lineCount": 290
+  },
+  {
+    "file": "test_step6_semantic_search.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 246
+  },
+  {
+    "file": "test_step7_ranking.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 300
+  },
+  {
+    "file": "test_step8_related_standards.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 330
+  },
+  {
+    "file": "test_step9_version_check.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 416
+  },
+  {
+    "file": "test_step10_certification.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 302
+  },
+  {
+    "file": "test_step11_rag.js",
+    "category": "UNIT",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": false,
+    "lineCount": 338
+  },
+  {
+    "file": "test_step12_dashboard.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 405
+  },
+  {
+    "file": "test_step13_pdf_report.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 470
+  },
+  {
+    "file": "test_step14_mvp.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 553
+  },
+  {
+    "file": "test_top3_recommendations.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": false,
+    "isPlaywright": true,
+    "lineCount": 231
+  },
+  {
+    "file": "test_helmet_demo.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 467
+  },
+  {
+    "file": "test_helmet_complete_demo.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 377
+  },
+  {
+    "file": "test_multi_standard_details.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": false,
+    "isPlaywright": true,
+    "lineCount": 278
+  },
+  {
+    "file": "test_multipage.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": true,
+    "isPlaywright": true,
+    "lineCount": 250
+  },
+  {
+    "file": "test_e2e.js",
+    "category": "E2E_BROWSER",
+    "hasMutations": false,
+    "usesMockIds": false,
+    "isPlaywright": true,
+    "lineCount": 220
+  }
+]

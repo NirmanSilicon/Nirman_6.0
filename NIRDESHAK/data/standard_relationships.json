@@ -1,0 +1,106 @@
+[
+  {
+    "source_canonical_id": "IS-8828-1996",
+    "source_is_number": "IS 8828:1996",
+    "target_canonical_id": "IS-IEC-60898-1-2015",
+    "target_is_number": "IS/IEC 60898-1:2015",
+    "relationship_type": "predecessor_to",
+    "evidence": "Original standard IS 8828:1996 was scheduled at Serial 10 of S.O. 189(E) (effective 17 August 2003 per Clause 1(2)). BIS Electrotechnical division harmonized IS 8828 with IEC 60898-1 to formulate IS/IEC 60898-1, transferring certification licensing to the successor standard."
+  },
+  {
+    "source_canonical_id": "IS-IEC-60898-1-2015",
+    "source_is_number": "IS/IEC 60898-1:2015",
+    "target_canonical_id": "IS-8828-1996",
+    "target_is_number": "IS 8828:1996",
+    "relationship_type": "successor_to",
+    "evidence": "Active canonical national standard for MCBs replacing legacy IS 8828:1996. S.O. 189(E) Serial 10 originally mandated IS 8828 from 17 August 2003; mandatory Scheme-I licensing transferred to IS/IEC 60898-1 under BIS transition guidelines without claiming the 2003 Gazette explicitly named the 2015 edition."
+  },
+  {
+    "source_canonical_id": "IS-12615-2018",
+    "source_is_number": "IS 12615:2018",
+    "target_canonical_id": "IS-12615-2026",
+    "target_is_number": "IS 12615:2026",
+    "relationship_type": "succeeded_by_revision",
+    "evidence": "Fourth Revision published by BIS ETD 15 in 2026. Legal Gazette amendment from DPIIT is pending (unresolved)."
+  },
+  {
+    "source_canonical_id": "IS-456-2000",
+    "source_is_number": "IS 456:2000",
+    "target_canonical_id": "IS-383-2016",
+    "target_is_number": "IS 383:2016",
+    "relationship_type": "references_material_standard",
+    "evidence": "Clause 5.3 of IS 456:2000 mandates that all coarse and fine aggregates shall conform to IS 383."
+  },
+  {
+    "source_canonical_id": "IS-456-2000",
+    "source_is_number": "IS 456:2000",
+    "target_canonical_id": "IS-10262-2019",
+    "target_is_number": "IS 10262:2019",
+    "relationship_type": "references_design_guideline",
+    "evidence": "Clause 9.1 of IS 456:2000 specifies IS 10262 as the approved mathematical method for concrete mix proportioning."
+  },
+  {
+    "source_canonical_id": "IS-456-2000",
+    "source_is_number": "IS 456:2000",
+    "target_canonical_id": "IS-1786-2008",
+    "target_is_number": "IS 1786:2008",
+    "relationship_type": "references_reinforcement_standard",
+    "evidence": "Clause 5.6.1 of IS 456:2000 mandates high strength deformed steel bars shall conform to IS 1786."
+  },
+  {
+    "source_canonical_id": "IS-456-2000",
+    "source_is_number": "IS 456:2000",
+    "target_canonical_id": "IS-269-2015",
+    "target_is_number": "IS 269:2015",
+    "relationship_type": "references_cement_standard",
+    "evidence": "Clause 5.1 of IS 456:2000 specifies Ordinary Portland Cement conforming to IS 269."
+  },
+  {
+    "source_canonical_id": "IS-456-2000",
+    "source_is_number": "IS 456:2000",
+    "target_canonical_id": "IS-1489-Part-1-2015",
+    "target_is_number": "IS 1489 (Part 1):2015",
+    "relationship_type": "references_cement_standard",
+    "evidence": "Clause 5.1 of IS 456:2000 specifies Portland Pozzolana Cement conforming to IS 1489 (Part 1)."
+  },
+  {
+    "source_canonical_id": "IS-1180-Part-1-2014",
+    "source_is_number": "IS 1180 (Part 1):2014",
+    "target_canonical_id": "IS-3043-2018",
+    "target_is_number": "IS 3043:2018",
+    "relationship_type": "references_safety_code",
+    "evidence": "Distribution transformer neutral and body earthing installations must conform to IS 3043."
+  },
+  {
+    "source_canonical_id": "IS-694-2010",
+    "source_is_number": "IS 694:2010",
+    "target_canonical_id": "IS-IEC-60898-1-2015",
+    "target_is_number": "IS/IEC 60898-1:2015",
+    "relationship_type": "electrical_circuit_coordination",
+    "evidence": "PVC insulated cables (IS 694) are coordinated with MCBs (IS/IEC 60898-1) for overcurrent thermal protection under S.O. 189(E) regulations."
+  },
+  {
+    "source_canonical_id": "IS-2925-1984",
+    "source_is_number": "IS 2925:1984",
+    "target_canonical_id": "IS-2745-1983",
+    "target_is_number": "IS 2745:1983",
+    "relationship_type": "related_safety_standard",
+    "evidence": "Both are personal protective headgear standards co-scheduled under the DPIIT Helmet QCO (S.O. 4649(E))."
+  },
+  {
+    "source_canonical_id": "IS-2925-1984",
+    "source_is_number": "IS 2925:1984",
+    "target_canonical_id": "IS-15298-Part-2-2016",
+    "target_is_number": "IS 15298 (Part 2):2016",
+    "relationship_type": "complementary_ppe",
+    "evidence": "Industrial safety helmets and safety footwear form core mandatory personal protective equipment for factory and construction workers."
+  },
+  {
+    "source_canonical_id": "IS-IEC-60898-1-2015",
+    "source_is_number": "IS/IEC 60898-1:2015",
+    "target_canonical_id": "IS-IEC-62271-100-2008",
+    "target_is_number": "IS/IEC 62271-100:2008",
+    "relationship_type": "hierarchical_protection_coordination",
+    "evidence": "Low-voltage downstream circuit breakers (IS/IEC 60898-1) coordinate with high-voltage upstream substation breakers (IS/IEC 62271-100) across distribution hierarchy."
+  }
+]

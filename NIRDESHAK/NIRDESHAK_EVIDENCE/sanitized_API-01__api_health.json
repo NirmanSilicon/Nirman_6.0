@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "service": "Nirdeshak API",
+  "geminiConfigured": true,
+  "databaseConfigured": true,
+  "databaseConnected": true,
+  "pgvectorAvailable": true
+}

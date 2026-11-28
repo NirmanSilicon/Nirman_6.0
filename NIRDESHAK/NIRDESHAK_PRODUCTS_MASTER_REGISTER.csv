@@ -1,0 +1,1042 @@
+product_id,family_code,canonical_name,division_council,category_name,coverage_status,total_mappings,primary_mappings,supporting_mappings,mapped_standards
+1,PF-CED-OPC-CEMENT,Ordinary Portland Cement (OPC),Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 269:2015; IS 456:2000
+2,PF-CED-PPC-CEMENT,Portland Pozzolana Cement (PPC),Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 1489 (Part 1):2015; IS 456:2000
+3,PF-CED-PSC-CEMENT,Portland Slag Cement (PSC),Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 455:2015; IS 456:2000
+4,PF-CED-WHITE-CEMENT,White Portland Cement,Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 8042:2015; IS 456:2000
+5,PF-CED-COARSE-FINE-AGGREGATE,Coarse and Fine Aggregate for Concrete,Civil Engineering,Concrete and Concrete Materials,VERIFIED_SUPPORTING_ONLY,4,0,4,IS 10262:2019; IS 383:2016; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+6,PF-CED-READY-MIX-CONCRETE,Ready-Mixed Concrete (RMC),Civil Engineering,Concrete and Concrete Materials,VERIFIED_PRIMARY,4,1,3,IS 4926:2003; IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+7,PF-CED-CONCRETE-ADMIXTURES,Chemical Admixtures for Concrete,Civil Engineering,Concrete and Concrete Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+8,PF-CED-TMT-REBAR,High Strength Deformed Steel Bars (TMT Rebars),Civil Engineering,Structural Steel and Reinforcement,VERIFIED_PRIMARY,2,1,1,IS 1786:2008; IS 1893 (Part 1):2016
+9,PF-CED-STRUCTURAL-STEEL-SECTIONS,"Structural Steel Sections (Beams, Columns, Channels, Angles)",Civil Engineering,Structural Steel and Reinforcement,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1893 (Part 1):2016
+10,PF-CED-STEEL-TUBES-STRUCTURES,Hollow Steel Sections for Structural Use (RHS/SHS/CHS),Civil Engineering,Structural Steel and Reinforcement,VERIFIED_PRIMARY,1,1,0,IS 4923:2017
+11,PF-CED-BURNT-CLAY-BRICKS,Common Burnt Clay Building Bricks,Civil Engineering,Masonry Units and Blocks,VERIFIED_PRIMARY,1,1,0,IS 1077:1992
+12,PF-CED-AAC-BLOCKS,Autoclaved Aerated Concrete (AAC) Blocks,Civil Engineering,Masonry Units and Blocks,VERIFIED_PRIMARY,4,1,3,IS 2185 (Part 3):1984; IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+13,PF-CED-CONCRETE-PAVER-BLOCKS,Precast Concrete Paver Blocks (Interlocking Pavers),Civil Engineering,Masonry Units and Blocks,VERIFIED_PRIMARY,4,1,3,IS 15658:2006; IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+14,PF-CED-CERAMIC-TILES,Ceramic Glazed and Vitrified Floor & Wall Tiles,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 15622:2017
+15,PF-CED-PLYWOOD-GENERAL,Plywood for General Purposes (Commercial & Marine Plywood),Civil Engineering,Timber and Wood Products,VERIFIED_PRIMARY,1,1,0,IS 303:1989
+16,PF-CED-FLUSH-DOORS,Wooden Flush Door Shutters (Solid Core Type),Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 2202 (Part 1):1999
+17,PF-CED-FIRE-DOORS,Fire-Resistant Door Assemblies,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 3614:2021
+18,PF-CED-ALUMINIUM-DOOR-WINDOW,"Aluminium Doors, Windows and Ventilator Frames",Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 1948:1961
+19,PF-CED-BUILDING-HARDWARE-HINGES,Building Hardware — Butt Hinges and Floor Springs,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 1341:2018
+20,PF-CED-CPVC-PIPES,Chlorinated Polyvinyl Chloride (CPVC) Pipes for Hot and Cold Water,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 15778:2007
+21,PF-CED-UPVC-PRESSURE-PIPES,Unplasticized PVC (uPVC) Pipes for Potable Water Supplies,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 4985:2021
+22,PF-CED-SWR-PVC-PIPES,"uPVC Soil, Waste and Rainwater (SWR) Drainage Pipes",Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 13592:2013
+23,PF-CED-GI-PIPES,Galvanized Mild Steel Tubes (GI Pipes),Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 1239 (Part 1):2004
+24,PF-CED-DUCTILE-IRON-PIPES,Centrifugally Cast (Spun) Ductile Iron Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 8329:2000
+25,PF-CED-HDPE-WATER-PIPES,High Density Polyethylene (HDPE) Pipes for Water Supply,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 4984:2016
+26,PF-CED-WATER-STORAGE-TANKS,Rotational Moulded Polyethylene Water Storage Tanks,Civil Engineering,Water Storage and Sanitation,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3370 (Part 1):2021
+27,PF-CED-SANITARYWARE-CERAMIC,"Vitreous China Sanitary Appliances (Water Closets, Wash Basins)",Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 2556 (Part 4):2004
+28,PF-CED-CP-BATH-FITTINGS,Chromium Plated Bath Fittings and Bib Taps,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 8931:1993
+29,PF-CED-WATERPROOFING-BITUMEN,Bituminous Waterproofing Felts and Membranes,Civil Engineering,Roofing and Waterproofing,VERIFIED_PRIMARY,1,1,0,IS 1322:1993
+30,PF-CED-SAFETY-HELMETS,Industrial Safety Helmets (Hard Hats),Civil Engineering,Personal Protective Equipment,VERIFIED_PRIMARY,1,1,0,IS 2925:1984
+31,PF-ETD-DISTRIBUTION-TRANSFORMER,Outdoor Oil-Immersed Distribution Transformers,Electrotechnical,Power and Distribution Transformers,VERIFIED_PRIMARY,3,1,2,IS 1180 (Part 1):2014; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+32,PF-ETD-POWER-TRANSFORMER,Power Transformers Above 2500 kVA,Electrotechnical,Power and Distribution Transformers,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+33,PF-ETD-DRY-TYPE-TRANSFORMER,Dry-Type Cast Resin Transformers,Electrotechnical,Power and Distribution Transformers,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+34,PF-ETD-LV-PVC-CABLES,PVC Insulated Cables for Working Voltages Up to 1100 V,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 694:2010
+35,PF-ETD-XLPE-POWER-CABLES,Cross-Linked Polyethylene (XLPE) Insulated Power Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 7098 (Part 1):1988
+36,PF-ETD-MCB-CIRCUIT-BREAKER,Miniature Circuit Breakers (MCB),Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS/IEC 60898-1:2015; IS 3043:2018
+37,PF-ETD-RCCB-RESIDUAL-CURRENT,Residual Current Circuit Breakers (RCCB/ELCB),Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS 12640 (Part 1):2016; IS 3043:2018
+38,PF-ETD-MCCB-MOULDED-CASE,Moulded Case Circuit Breakers (MCCB),Electrotechnical,Switchgear and Protection Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+39,PF-ETD-HV-CIRCUIT-BREAKER,High-Voltage Circuit Breakers (Vacuum and SF6 Breakers),Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS/IEC 62271-100:2008; IS 3043:2018
+40,PF-ETD-THREE-PHASE-INDUCTION-MOTOR,Three-Phase Energy Efficient Induction Motors (IE2/IE3/IE4),Electrotechnical,Rotating Electrical Machinery,VERIFIED_PRIMARY,3,1,2,IS 12615:2018; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+41,PF-ETD-SOLAR-PV-MODULES,Crystalline Silicon Terrestrial Photovoltaic (PV) Modules,Electrotechnical,Renewable Energy Systems,VERIFIED_PRIMARY,1,1,0,IS 14286:2010
+42,PF-ETD-GRID-TIED-INVERTERS,Utility-Interconnected Solar Photovoltaic Inverters,Electrotechnical,Renewable Energy Systems,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+43,PF-ETD-STATIONARY-LEAD-ACID-BATTERY,Stationary Lead-Acid Batteries (Tubular and VRLA),Electrotechnical,Batteries and Energy Storage,VERIFIED_PRIMARY,1,1,0,IS 1651:2013
+44,PF-ETD-CEILING-FANS,Electric Ceiling Fans and Regulators,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_PRIMARY,1,1,0,IS 374:2019
+45,PF-ETD-STORAGE-WATER-HEATERS,Stationary Storage Electric Water Heaters (Geysers),Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+46,PF-ETD-LED-LAMPS,Self-Ballasted LED Lamps for General Lighting Services,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 16102 (Part 1):2012
+47,PF-ETD-LED-STREET-LIGHTS,Luminaires for Road and Street Lighting (LED Street Lights),Electrotechnical,Lamps and Lighting Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15885 (Part 2/Sec 13):2012
+48,PF-ETD-EARTHING-EQUIPMENT,Electrical Earthing Equipment and Chemical Earth Electrodes,Electrotechnical,Earthing and Lightning Protection,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+49,PF-MED-SUBMERSIBLE-PUMP,Submersible Borewell Pumpsets for Clean Water,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 8034:2018
+50,PF-MED-CENTRIFUGAL-MONOBLOCK-PUMP,Centrifugal Agricultural Monoblock Pumpsets,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 9079:2018
+51,PF-MED-INDUSTRIAL-VALVES-GATE-GLOBE,"Industrial Steel Gate, Globe and Check Valves",Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 14846:2000
+52,PF-MED-AIR-COMPRESSORS-RECIPROCATING,Stationary and Portable Reciprocating Air Compressors,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+53,PF-MED-SCREW-COMPRESSOR,Rotary Screw Industrial Air Compressors,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+54,PF-MED-EOT-CRANES,Electric Overhead Travelling (EOT) Cranes and Gantry Cranes,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 3177:2020
+55,PF-MED-LPG-CYLINDERS,Welded Low Carbon Steel Cylinders for LPG,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 3196 (Part 1):2013
+56,PF-MED-SEAMLESS-GAS-CYLINDERS,Seamless Steel Cylinders for High-Pressure Industrial & Medical Gases,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 7285 (Part 2):2017
+57,PF-MED-UNFIRED-PRESSURE-VESSELS,Unfired Fusion Welded Pressure Vessels,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 2825:1969
+58,PF-MED-SPLIT-AIR-CONDITIONERS,Room Air Conditioners — Split and Window Type,Mechanical Engineering,Refrigeration and Air Conditioning,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+59,PF-MED-BALL-ROLLER-BEARINGS,Rolling Bearings — Deep Groove Ball Bearings and Taper Roller Bearings,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 6455:1972
+60,PF-CHD-UREA-FERTILIZER,Urea Fertilizer (Agricultural Grade),Chemical,Fertilizers and Agrochemicals,VERIFIED_PRIMARY,1,1,0,IS 540:1979
+61,PF-CHD-DAP-FERTILIZER,Di-Ammonium Phosphate (DAP) Fertilizer,Chemical,Fertilizers and Agrochemicals,VERIFIED_PRIMARY,1,1,0,IS 1374:2007
+62,PF-CHD-SYNTHETIC-DETERGENT-POWDER,Synthetic Detergent Powder for Household Use,Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 4955:2020
+63,PF-CHD-TOILET-SOAP,Toilet Soaps for Personal Hygiene,Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 2888:2021
+64,PF-CHD-CAUSTIC-SODA,Caustic Soda (Sodium Hydroxide) — Flakes and Lye,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 252:2013
+65,PF-CHD-SULPHURIC-ACID,Sulphuric Acid for Industrial Use,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 266:1993
+66,PF-CHD-SYNTHETIC-ENAMEL-PAINT,Synthetic Enamel Paint (Gloss and Semi-Gloss),Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 2932:2013
+67,PF-CHD-PVC-RESIN,Polyvinyl Chloride (PVC) Suspension Resins,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10151:2019
+68,PF-LITD-DESKTOP-COMPUTERS,Desktop Computers and All-in-One Workstations,Electronics and Information Technology,Information Technology Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13252 (Part 1):2010
+69,PF-LITD-LAPTOP-COMPUTERS,Laptop and Notebook Computers,Electronics and Information Technology,Information Technology Equipment,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13252 (Part 1):2010; IS 16046 (Part 2):2018
+70,PF-LITD-TABLET-COMPUTERS,Tablet Computers and E-Book Readers,Electronics and Information Technology,Information Technology Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16046 (Part 2):2018
+71,PF-LITD-SMARTPHONES,Smartphones and Cellular Mobile Handsets,Electronics and Information Technology,Telecommunication and Consumer Electronics,VERIFIED_PRIMARY,1,1,0,IS 16333 (Part 3):2022
+72,PF-LITD-COMPUTER-MONITORS,Visual Display Units (LED/LCD Computer Monitors),Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 616:2017
+73,PF-LITD-POWER-ADAPTERS,Power Adapters and Switched-Mode Power Supplies (SMPS) for IT Equipment,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13252 (Part 1):2010
+74,PF-LITD-CCTV-CAMERAS,CCTV Cameras and Video Surveillance Equipment,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+75,PF-FAD-MILLED-RICE,Milled Rice (Basmati and Non-Basmati),Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 8371:2016
+76,PF-FAD-WHEAT-FLOUR-ATTA,Whole Wheat Flour (Atta),Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 1155:1968
+77,PF-FAD-PACKAGED-DRINKING-WATER,Packaged Drinking Water (Other than Natural Mineral Water),Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 14543:2004
+78,PF-FAD-REFINED-SOYBEAN-OIL,Refined Soybean Oil,Food and Agriculture,Edible Oils and Fats,VERIFIED_PRIMARY,1,1,0,IS 4276:1977
+79,PF-FAD-AGRICULTURAL-TRACTORS,Agricultural Wheeled Tractors,Food and Agriculture,Agricultural Machinery and Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 12220:1987
+80,PF-MHD-SURGICAL-RUBBER-GLOVES,Sterile Disposable Surgical Rubber Gloves,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS 4148:1989
+81,PF-MHD-HYPODERMIC-SYRINGES,Sterile Single-Use Hypodermic Syringes,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS 10258:2002
+82,PF-MHD-HOSPITAL-BEDS-MANUAL,Hospital Beds — General Purpose and Fowler Beds,Medical Equipment and Hospital Planning,Hospital Furniture and Architecture,VERIFIED_PRIMARY,1,1,0,IS 13487:1992
+83,PF-MHD-PATIENT-MONITORS,Multiparameter Patient Vital Signs Monitors,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13450 (Part 1):2018; IS 616:2017
+84,PF-MTD-HOT-ROLLED-STEEL-SHEETS,Hot-Rolled Carbon Steel Sheets and Strips,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 2062:2011
+85,PF-MTD-COLD-ROLLED-STEEL-SHEETS,Cold-Reduced Low Carbon Steel Sheets and Strips,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 513 (Part 1):2016
+86,PF-MTD-COPPER-TUBES-REFRIGERATION,Seamless Copper Tubes for Air Conditioning & Refrigeration,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+87,PF-MTD-ALUMINIUM-ALLOY-EXTRUSIONS,Wrought Aluminium and Aluminium Alloy Extruded Sections,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 733:1983
+88,PF-PCD-MOTOR-GASOLINE-PETROL,Motor Gasoline (Petrol BS-VI),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 2796:2017
+89,PF-PCD-AUTOMOTIVE-DIESEL-FUEL,Automotive Diesel Fuel (High Speed Diesel BS-VI),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 1460:2017
+90,PF-PCD-LUBRICATING-ENGINE-OIL,Automotive Engine Oils (API CI-4 / SN Multigrade),"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 13656:2019
+91,PF-PCD-TOOTHPASTE,Oral Hygiene Toothpaste,"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_PRIMARY,1,1,0,IS 6356:2021
+92,PF-TXD-COTTON-SEWING-THREAD,Cotton Sewing Threads,Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 1720:1978
+93,PF-TXD-GEOTEXTILES-POLYPROPYLENE,Non-Woven Polypropylene Geotextiles for Civil Engineering,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 16391:2015
+94,PF-TXD-HIGH-VISIBILITY-CLOTHING,High-Visibility Warning Garments for Industrial Safety,Textiles,Protective and Occupational Clothing,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16391:2015
+95,PF-TED-TWO-WHEELER-HELMETS,Protective Helmets for Two-Wheeler Motor Vehicles,Transport Engineering,Automotive Safety Equipment,VERIFIED_PRIMARY,1,1,0,IS 4151:2015
+96,PF-TED-PASSENGER-CAR-TYRES,Pneumatic Tyres for Passenger Cars (Radial Tyres),Transport Engineering,Automotive Tyres and Tubes,VERIFIED_PRIMARY,1,1,0,IS 15633:2005
+97,PF-TED-SAFETY-GLASS-VEHICLES,Safety Glass for Road Vehicles (Laminated Windscreens & Toughened Glass),Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 2553 (Part 2):2019
+98,PF-WRD-DRIP-IRRIGATION-LATERALS,Polyethylene Pipes for Irrigation Laterals (Drip Lateral Pipes),Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 12786:1989
+99,PF-WRD-WATER-METERS,Water Meters (Domestic and Bulk Flow Meters),Water Resources,Water Measurement and Distribution,VERIFIED_PRIMARY,1,1,0,IS 779:1994
+100,PF-AYD-ASHWAGANDHA-EXTRACT,Ashwagandha (Withania somnifera) Root and Extracts,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 16503:2017; IS 17824:2022
+101,PF-AYD-CHYAWANPRASH,Chyawanprash Avaleha (Ayurvedic Polyherbal Formulation),AYUSH,Classical Ayurvedic Formulations,VERIFIED_PRIMARY,2,1,1,IS 17829:2022; IS 16503:2017
+102,PF-EED-PM25-AIR-SAMPLER,Fine Particulate Matter (PM2.5) Ambient Air Samplers,Environment and Ecology,Air Quality Monitoring Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5182 (Part 23):2006
+103,PF-EED-COMPOSTABLE-PLASTICS,Compostable Polymeric Materials and Plastic Bags,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS/ISO 17088:2021
+104,PF-PGD-HIGH-TENSILE-BOLTS,High Tensile Steel Hexagon Head Bolts and Screws,Production and General Engineering,Fasteners and Hardware,VERIFIED_PRIMARY,2,1,1,IS 1364 (Part 1):2018; IS 1367 (Part 1):2014
+105,PF-PGD-VERNIER-CALLIPERS,Engineering Vernier Callipers and Digital Callipers,Production and General Engineering,Engineering Metrology and Gauging,VERIFIED_PRIMARY,1,1,0,IS 3651 (Part 1):1982
+106,PF-SSD-BANKING-SERVICES,Retail Banking Branch Customer Services,Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 15700:2018; IS/ISO 9001:2015
+107,PF-SSD-HOTEL-ACCOMMODATION-SERVICES,Hotel and Hospitality Accommodation Services,Service Sector,Tourism and Hospitality Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+108,PF-MSD-ISO-9001-QMS,Quality Management Systems (IS/ISO 9001),Management and Systems,Management Systems Certification,VERIFIED_PRIMARY,1,1,0,IS/ISO 9001:2015
+109,PF-MSD-ISO-14001-EMS,Environmental Management Systems (IS/ISO 14001),Management and Systems,Management Systems Certification,VERIFIED_PRIMARY,1,1,0,IS/ISO 14001:2015
+110,PF-MSD-ISO-45001-OHSMS,Occupational Health and Safety Management Systems (IS/ISO 45001),Management and Systems,Management Systems Certification,VERIFIED_PRIMARY,1,1,0,IS/ISO 45001:2018
+111,PF-CED-HW-001,Mortice Latches and Deadlocks,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 2209:1976
+112,PF-CED-HW-002,Tower Bolts (Barrel Bolts),Civil Engineering,"Doors, Windows and Hardware",VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+113,PF-CED-HW-003,Door Handles and Pull Handles,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 208:2020
+114,PF-CED-HW-004,Door Closers (Hydraulic Concealed),Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 3564:1995
+115,PF-CED-HW-005,Friction Stays for Windows,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 18255:2023
+116,PF-CED-HW-006,Panic Exit Hardware Devices,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 17874:2022
+117,PF-CED-HW-007,Padlocks (Brass and Steel),Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 275:2021
+118,PF-CED-HW-008,Drawer Slide Telescopic Channels,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 17953:2022
+119,PF-CED-HW-009,Shower Cubicle Hardware,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_SUPPORTING_ONLY,1,0,1,IS 2553 (Part 1):1990
+120,PF-CED-HW-010,Glass Architectural Patch Fittings,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_SUPPORTING_ONLY,1,0,1,IS 2553 (Part 1):1990
+121,PF-CED-RD-001,"Paving Bitumen (VG-30, VG-40)",Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 73:2018
+122,PF-CED-RD-002,Modified Bitumen (CRMB & PMB),Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 15462:2019
+123,PF-CED-RD-003,Bitumen Emulsion for Roads,Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 8887:2018
+124,PF-CED-RD-004,Kerbstones and Concrete Edging,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+125,PF-CED-RD-005,Thermoplastic Road Marking Paints,Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 164:2015
+126,PF-CED-RD-006,Retroreflective Road Sign Sheets,Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 15736:2007
+127,PF-CED-RD-007,Metallic Crash Barriers (W-Beam),Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 15949:2020
+128,PF-CED-RD-008,Delineators and Road Studs,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+129,PF-CED-RD-009,Pavement Geogrids for Soil Reinforcement,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 456:2000
+130,PF-CED-RD-010,Concrete Kerb Gutters,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+131,PF-CED-SN-001,Urinals and Dividing Slabs,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 2556 (Part 6):1995
+132,PF-CED-SN-002,Kitchen Sinks (Stainless Steel),Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 13983:1994
+133,PF-CED-SN-003,Flushing Cisterns (Dual Flush),Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 774:2021
+134,PF-CED-SN-004,Health Faucets and Sprays,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 8931:1993
+135,PF-CED-SN-005,Ball Valves for Water Cisterns,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 1703:2000
+136,PF-CED-SN-006,Floor Traps and Grates (Nahani Trap),Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 3989:2009
+137,PF-CED-SN-007,Shower Heads and Overhead Arms,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 8931:1993
+138,PF-CED-SN-008,Sensor Faucets for Public Restrooms,Civil Engineering,Sanitary Fixtures and Fittings,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+139,PF-ETD-CB-001,Submersible Flat Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 694:2010
+140,PF-ETD-CB-002,Aerial Bunched Cables (AB Cables),Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 14255:1995
+141,PF-ETD-CB-003,Instrumentation Screened Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 1554 (Part 1):1988
+142,PF-ETD-CB-004,Fire Survival Mineral Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 16805:2019
+143,PF-ETD-CB-005,Flexible Copper Control Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 694:2010
+144,PF-ETD-CB-006,Coaxial Television RF Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 11967 (Part 1):1987
+145,PF-ETD-CB-007,Optical Fibre Telecommunication Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 14927 (Part 1):2001
+146,PF-ETD-CB-008,Rubber Insulated Trailing Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 9968 (Part 1):1988
+147,PF-ETD-CB-009,Automotive Primary Wiring Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 2465:1984
+148,PF-ETD-CB-010,Solar DC Cables (1.5 kV),Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 17293:2020
+149,PF-ETD-LT-001,LED Floodlights for Stadiums,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 10322 (Part 5/Sec 5):2013
+150,PF-ETD-LT-002,LED Highbay Industrial Lights,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 10322 (Part 5/Sec 1):2012
+151,PF-ETD-LT-003,Emergency Lighting Units,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 10322 (Part 5/Sec 8):2013
+152,PF-ETD-LT-004,LED Batten Tubes (T8 Retrofit),Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 16102 (Part 1):2012
+153,PF-ETD-LT-005,Flameproof Luminaires for Hazardous Areas,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS/IEC 60079-1:2014
+154,PF-ETD-LT-006,LED Downlights (Recessed),Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,2,1,1,IS 10322 (Part 5/Sec 1):2012; IS 15885 (Part 2/Sec 13):2012
+155,PF-ETD-LT-007,Electronic Ballasts for Fluorescent Lamps,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS 13021 (Part 2):1991
+156,PF-ETD-LT-008,Lighting Automation Sensors,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,1,1,0,IS/IEC 60669-2-1:2008
+157,PF-ETD-WA-001,Modular Domestic Switches (6A/16A),Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 3854:1997
+158,PF-ETD-WA-002,Plugs and Socket Outlets,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 1293:2019
+159,PF-ETD-WA-003,Rigid Steel Conduits for Wiring,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 9537 (Part 2):1981
+160,PF-ETD-WA-004,Rigid PVC Electrical Conduits,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 9537 (Part 3):1983
+161,PF-ETD-WA-005,Metallic Cable Trays (Perforated/Ladder),Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS/IEC 61537:2006
+162,PF-ETD-WA-006,Cable Glands for Armoured Cables,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 12943:1990
+163,PF-ETD-WA-007,Crimping Cable Terminals and Lugs,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 8309:1993
+164,PF-ETD-WA-008,Distribution Boards (Enclosures),Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS 13032:1991
+165,PF-MED-PM-001,Chemical Process Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+166,PF-MED-PM-002,Sewage and Drainage Sump Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 14605:1998
+167,PF-MED-PM-003,Boiler Feed Water Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+168,PF-MED-PM-004,Fire Fighting Booster Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 15301:2003
+169,PF-MED-PM-005,Positive Displacement Gear Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+170,PF-MED-PM-006,Solar Powered Surface Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 17018:2018
+171,PF-MED-PM-007,Hydraulic Power Pack Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+172,PF-MED-PM-008,Slurry and Dredging Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+173,PF-MED-TH-001,Packaged Oil/Gas Fired Boilers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IBR 1950 / IS 2825
+174,PF-MED-TH-002,Biomass Fired Industrial Boilers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IBR 1950 / IS 2825
+175,PF-MED-TH-003,Plate Type Heat Exchangers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 14590:1998
+176,PF-MED-TH-004,Shell and Tube Condensers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 4503:1967
+177,PF-MED-TH-005,Cooling Towers (Induced Draft),Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+178,PF-MED-TH-006,Steam Traps (Thermodynamic/Inverted Bucket),Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 12268:1987
+179,PF-MED-TH-007,Calorifiers and Thermal Receivers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 3737:1966
+180,PF-MED-TH-008,Industrial Chimneys and Stacks,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 6533 (Part 1):1989
+181,PF-CHD-CH-001,Hydrochloric Acid (Commercial),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 265:1993
+182,PF-CHD-CH-002,Nitric Acid (Industrial Grade),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 264:2005
+183,PF-CHD-CH-003,Soda Ash (Sodium Carbonate),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 251:1998
+184,PF-CHD-CH-004,Sodium Bicarbonate,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 2124:2000
+185,PF-CHD-CH-005,Bleaching Powder (Stable),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 1065:2020
+186,PF-CHD-CH-006,Calcium Hypochlorite,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 11953:1987
+187,PF-CHD-CH-007,Alum (Aluminium Sulphate),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 299:2012
+188,PF-CHD-CH-008,Liquid Chlorine in Tonners,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 646:1986
+189,PF-CHD-CH-009,Ammonia Liquid / Gas,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 662:2020
+190,PF-CHD-CH-010,Hydrogen Peroxide (50% Solution),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 2080:2021
+191,PF-CHD-CH-011,Acetone (Pure Grade),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 170:2020
+192,PF-CHD-CH-012,Methanol (Industrial Grade),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 517:2020
+193,PF-CHD-PL-001,High Density Polyethylene (HDPE Granules),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 7328:2020
+194,PF-CHD-PL-002,Low Density Polyethylene (LDPE Granules),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10146:2020
+195,PF-CHD-PL-003,Linear Low Density Polyethylene (LLDPE),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 14500:2020
+196,PF-CHD-PL-004,Polypropylene Homopolymer (PP Granules),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10951:2020
+197,PF-CHD-PL-005,Polystyrene (General Purpose & High Impact),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 2267:1995
+198,PF-CHD-PL-006,Polycarbonate Extrusion Resins,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 14434:1997
+199,PF-CHD-PL-007,Polyethylene Terephthalate (PET Chips),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 14534:1998
+200,PF-CHD-PL-008,Styrene Butadiene Rubber (SBR),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 14652:1999
+201,PF-CHD-PL-009,Nitrile Rubber (NBR Sheets),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 13454:1992
+202,PF-CHD-PL-010,Ethylene Vinyl Acetate (EVA),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 13601:1993
+203,PF-LITD-IT-001,Laser Printers (Monochrome & Colour),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+204,PF-LITD-IT-002,Inkjet and Ink Tank Printers,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+205,PF-LITD-IT-003,Multi-Function Printers (MFP),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+206,PF-LITD-IT-004,Barcode Scanners (Handheld & Fixed),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+207,PF-LITD-IT-005,Point of Sale (POS) Terminals,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+208,PF-LITD-IT-006,Biometric Fingerprint Scanners,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+209,PF-LITD-IT-007,Smart Card Readers and Encoders,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+210,PF-LITD-IT-008,Wi-Fi Access Points and Routers,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+211,PF-LITD-IT-009,Unmanaged Ethernet Switches,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+212,PF-LITD-IT-010,Video Projectors (Commercial),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+213,PF-LITD-IT-011,Smart Televisions (LED/OLED),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 616:2017
+214,PF-LITD-IT-012,External USB Hard Drives / SSDs,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+215,PF-FAD-DY-001,Pasteurized Cow/Buffalo Milk,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 13688:1999
+216,PF-FAD-DY-002,Skimmed Milk Powder (SMP),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 13334 (Part 1):2014
+217,PF-FAD-DY-003,Desi Ghee (Clarified Butter),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 16326:2015
+218,PF-FAD-DY-004,Table Butter (Pasteurized),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 13690:1992
+219,PF-FAD-DY-005,Paneer (Cottage Cheese),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 10484:1983
+220,PF-FAD-DY-006,Canned Condensed Milk,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 1166:2022
+221,PF-FAD-DY-007,Ice Cream and Frozen Desserts,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 2802:2021
+222,PF-FAD-DY-008,Dairy Whitener Powder,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 12299:1998
+223,PF-FAD-SP-001,Turmeric Powder (Haldi),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 3576:2010
+224,PF-FAD-SP-002,Chilli Powder (Lal Mirch),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2445:2017
+225,PF-FAD-SP-003,Coriander Powder (Dhania),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2444:2020
+226,PF-FAD-SP-004,Whole Black Pepper (Kali Mirch),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 1798:2020
+227,PF-FAD-SP-005,Cumin Seeds (Jeera),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2421:2019
+228,PF-FAD-SP-006,Cardamom (Elaichi - Small/Large),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 1907:2020
+229,PF-FAD-SP-007,Garam Masala Mixed Spices,Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 13400:1992
+230,PF-FAD-SP-008,Mustard Seeds (Rai),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2323:2020
+231,PF-FAD-MC-001,Rotavators (Rotary Tillers),Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 17045:2018
+232,PF-FAD-MC-002,Power Tillers (Hand Tractors),Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 9980:1999
+233,PF-FAD-MC-003,Combine Harvesters (Paddy/Wheat),Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 15806:2008
+234,PF-FAD-MC-004,Seed Cum Fertilizer Drills,Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 6813:2000
+235,PF-FAD-MC-005,Tractor Drawn Disc Harrows,Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 6638:1972
+236,PF-FAD-MC-006,Pneumatic Knapsack Sprayers,Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 3906:1995
+237,PF-FAD-MC-007,Chaff Cutters (Power Driven),Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 7897:2019
+238,PF-FAD-MC-008,Threshers (Multi-Crop),Food and Agriculture,Agricultural Machinery,VERIFIED_PRIMARY,1,1,0,IS 9020:2002
+239,PF-MHD-MD-001,Surgical Scalpels and Detachable Blades,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS 3319:1995
+240,PF-MHD-MD-002,Haemostatic Forceps and Artery Clamps,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS 3645:1992
+241,PF-MHD-MD-003,Surgical Needles for Suturing,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS 4759:1968
+242,PF-MHD-MD-004,Sterile Absorbable Surgical Sutures,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS 13410:1992
+243,PF-MHD-MD-005,Endotracheal Tubes (Cuffed),Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS/ISO 5361:2016
+244,PF-MHD-MD-006,IV Cannula and Catheters,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS/ISO 10555-1:2013
+245,PF-MHD-MD-007,Urine Collection Bags (Sterile),Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS/ISO 8669-2:1996
+246,PF-MHD-MD-008,Blood Glucose Monitoring Meters,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+247,PF-MHD-MD-009,Pulse Oximeters (Fingertip),Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS/ISO 80601-2-61:2017
+248,PF-MHD-MD-010,Manual Sphygmomanometers (BP Monitors),Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13450 (Part 1):2018; IS 616:2017
+249,PF-MHD-MD-011,Digital Electronic Thermometers,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_PRIMARY,1,1,0,IS 13915:2019
+250,PF-MHD-MD-012,Steam Sterilizers (Hospital Autoclaves),Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+251,PF-MTD-MT-001,Grey Cast Iron Castings,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 210:2009
+252,PF-MTD-MT-002,Ductile Iron Manhole Covers,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 1726:1991
+253,PF-MTD-MT-003,Aluminium Alloy Ingots,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 617:1994
+254,PF-MTD-MT-004,Zinc Ingots for Galvanizing,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 209:1992
+255,PF-MTD-MT-005,Lead Ingots for Battery Manufacture,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 1339:2019
+256,PF-MTD-MT-006,Copper Cathodes (High Purity 99.99%),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 191:2007
+257,PF-MTD-MT-007,Ferro Manganese (High Carbon),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 1171:2011
+258,PF-MTD-MT-008,Ferro Silicon,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 1110:1990
+259,PF-MTD-MT-009,Manual Metal Arc Welding Electrodes,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 814:2004
+260,PF-MTD-MT-010,Submerged Arc Welding Fluxes,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 7280:1974
+261,PF-MTD-MT-011,Fireclay Refractory Bricks,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 8:1994
+262,PF-MTD-MT-012,Alumina Refractory Castables,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 10570:1983
+263,PF-PCD-PT-001,Aviation Turbine Fuel (ATF Kerosene),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1571:2018
+264,PF-PCD-PT-002,Compressed Natural Gas (CNG),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 15403:2020
+265,PF-PCD-PT-003,Liquefied Natural Gas (LNG),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 16087:2013
+266,PF-PCD-PT-004,Industrial Kerosene (SKO),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1459:2018
+267,PF-PCD-PT-005,Furnace Oil for Boilers,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1593:2018
+268,PF-PCD-PT-006,Light Diesel Oil (LDO),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 15770:2008
+269,PF-PCD-PT-007,Hydraulic Fluids (Anti-Wear),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 10522:2019
+270,PF-PCD-PT-008,Extreme Pressure Gear Lubricants,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1118:2019
+271,PF-PCD-PT-009,Lithium Complex Automotive Greases,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 14847:2000
+272,PF-PCD-PT-010,Paving Bitumen Emulsions,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 8887:2018
+273,PF-PCD-PT-011,Carbon Black for Tyre Rubber,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1699:1995
+274,PF-PCD-PT-012,Conveyor Rubber Belting,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1891 (Part 1):1994
+275,PF-PGD-TL-001,High Speed Steel Twist Drills,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 5101:1991
+276,PF-PGD-TL-002,Milling Cutters (End Mills),Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 6353:1991
+277,PF-PGD-TL-003,Hand Hacksaw Blades (Bimetal),Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 2594:2003
+278,PF-PGD-TL-004,Adjustable Spanners and Wrenches,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 6149:1984
+279,PF-PGD-TL-005,Combination Pliers and Cutters,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 3650:1981
+280,PF-PGD-TL-006,Bench Vices for Fitters,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 2586:1986
+281,PF-PGD-TL-007,Bonded Abrasive Grinding Wheels,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 1991 (Part 1):2015
+282,PF-PGD-TL-008,Coated Abrasive Sanding Belts,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 715:2002
+283,PF-PGD-TL-009,Horizontal Metal Band Sawing Machines,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 11195:1985
+284,PF-PGD-TL-010,Bench Drilling Machines (Belt Driven),Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 2425:1985
+285,PF-PGD-TL-011,CNC Turning Lathe Centers,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 2534:1983
+286,PF-PGD-TL-012,Pneumatic Impact Wrenches,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 11957:1987
+287,PF-TXD-FB-001,100% Cotton Plain Weave Shirting,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 1095:1998
+288,PF-TXD-FB-002,Cotton Denim Fabrics for Jeans,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 15792:2007
+289,PF-TXD-FB-003,Polyester-Viscose Blended Suiting,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 11248:1995
+290,PF-TXD-FB-004,Polyester-Cotton Blended Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 15852:2009
+291,PF-TXD-FB-005,Woollen Worsted Suiting Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 675:2003
+292,PF-TXD-FB-006,Cotton Terry Towels and Towelling,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 1998:2006
+293,PF-TXD-FB-007,Hospital Bed Linen (Cotton Sheeting),Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 176:2005
+294,PF-TXD-FB-008,Flame Retardant Protective Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 15741:2007
+295,PF-TXD-FB-009,Knitted Cotton T-Shirt Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 4964:2002
+296,PF-TXD-FB-010,Tarpaulin Fabrics (Waterproof Cotton/HDPE),Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 7903:2017
+297,PF-TED-AU-001,Automotive Brake Linings and Disc Pads,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+298,PF-TED-AU-002,Hydraulic Brake Hose Assemblies,Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 14283:1995
+299,PF-TED-AU-003,Automotive Starting Lead-Acid Batteries,Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 14257:1995
+300,PF-TED-AU-004,Electric Vehicle Traction Battery Packs,Transport Engineering,Automotive Components,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16046 (Part 2):2018
+301,PF-TED-AU-005,EV Charging Couplers and Cables,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+302,PF-TED-AU-006,Commercial Vehicle Radial Tyres,Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 15636:2012
+303,PF-TED-AU-007,Automotive LED Headlamp Assemblies,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+304,PF-TED-AU-008,Rear View Mirrors for Road Vehicles,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+305,PF-TED-AU-009,Automotive Safety Seat Belts,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+306,PF-TED-AU-010,Automotive Horns (Electric),Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 1884:1993
+307,PF-WRD-HD-001,Vertical Lift Sluice Gates for Dams,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 5620:1985
+308,PF-WRD-HD-002,Radial Crest Gates for Spillways,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 4622:2003
+309,PF-WRD-HD-003,Rubber Waterstops for Concrete Joints,Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 10262:2019; IS 516 (Part 1/Sec 1):2021
+310,PF-WRD-HD-004,Precast Concrete Canal Lining Tiles,Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 10262:2019; IS 516 (Part 1/Sec 1):2021
+311,PF-WRD-HD-005,Hydro-Mechanical Trash Racks,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 11388:2012
+312,PF-WRD-HD-006,Ultrasonic Water Level Recorders,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS/ISO 4373:2008
+313,PF-WRD-HD-007,Groundwater Piezometers (Vibrating Wire),Water Resources,Canal and Dam Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+314,PF-WRD-HD-008,Rainwater Harvesting Modular Filters,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 15797:2008
+315,PF-WRD-HD-009,Electromagnetic Water Flow Meters,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS/ISO 4064-1:2014
+316,PF-AYD-HB-001,Triphala Churna (Digestive Formulation),AYUSH,Herbal Preparations,VERIFIED_PRIMARY,1,1,0,API Part-II Vol-I (Triphala Churna)
+317,PF-AYD-HB-002,Tulsi (Ocimum sanctum) Herbal Infusions,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+318,PF-AYD-HB-003,Neem Seed Oil (Therapeutic),AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+319,PF-AYD-HB-004,Amla Fruit Dried and Powder,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+320,PF-AYD-HB-005,Brahmi Syrup for Memory Enhancement,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+321,PF-AYD-HB-006,Shilajit Purified Resin,AYUSH,Herbal Preparations,VERIFIED_PRIMARY,1,1,0,API Part-I Vol-I (Shilajatu)
+322,PF-AYD-HB-007,Ayurvedic Herbal Toothpowders,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+323,PF-AYD-HB-008,Herbal Hair Oils (Bhringraj Based),AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+324,PF-AYD-HB-009,Panchakarma Shirodhara Brass Vessels,AYUSH,Herbal Preparations,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+325,PF-AYD-HB-010,Homoeopathic Dilutions and Potencies,AYUSH,Herbal Preparations,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+326,PF-EED-EV-001,Continuous Emission Monitoring Systems (CEMS),Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+327,PF-EED-EV-002,Flue Gas Desulphurization Systems,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+328,PF-EED-EV-003,Packaged Sewage Treatment Plants (STP),Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16240:2015
+329,PF-EED-EV-004,Industrial Effluent Clarifiers,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 10553 (Part 1):1983
+330,PF-EED-EV-005,Bio-Medical Waste Incinerators,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16232:2014
+331,PF-EED-EV-006,Acoustic Sound Level Meters,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 15575 (Part 1):2005
+332,PF-EED-EV-007,Multi-Parameter Water Quality Probes,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 3025 (Part 1):1987
+333,PF-EED-EV-008,Oil Spill Absorbent Booms,Environment and Ecology,Pollution Control and Monitoring,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+334,PF-EED-EV-009,E-Waste Circuit Board Shredders,Environment and Ecology,Pollution Control and Monitoring,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+335,PF-MSD-ST-001,Food Safety Management Systems (IS/ISO 22000),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 22000:2018
+336,PF-MSD-ST-002,Information Security Management Systems (IS/ISO 27001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO/IEC 27001:2022
+337,PF-MSD-ST-003,Energy Management Systems (IS/ISO 50001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 50001:2018
+338,PF-MSD-ST-004,Anti-Bribery Management Systems (IS/ISO 37001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 37001:2016
+339,PF-MSD-ST-005,Business Continuity Management Systems (IS/ISO 22301),Management and Systems,Management Systems,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+340,PF-MSD-ST-006,Medical Devices Quality Management (IS/ISO 13485),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 13485:2016
+341,PF-MSD-ST-007,Social Responsibility Guidelines (IS/ISO 26000),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 26000:2010
+342,PF-MSD-ST-008,Asset Management Systems (IS/ISO 55001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 55001:2014
+343,PF-MSD-ST-009,IT Service Management Systems (IS/ISO 20000-1),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO/IEC 20000-1:2018
+344,PF-MSD-ST-010,Medical Laboratories Quality and Competence (IS/ISO 15189),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 15189:2022
+345,PF-MSD-ST-011,Educational Organizations Management Systems (IS/ISO 21001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 21001:2018
+346,PF-MSD-ST-012,Road Traffic Safety Management Systems (IS/ISO 39001),Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 39001:2012
+347,PF-SSD-SV-001,Higher Education Quality Standards,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+348,PF-SSD-SV-002,Tourist Transport Operator Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+349,PF-SSD-SV-003,Clinical Diagnostic Laboratory Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+350,PF-SSD-SV-004,Logistics and Freight Forwarding Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+351,PF-SSD-SV-005,Information Technology Service Management (ITSM),Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+352,PF-SSD-SV-006,Customer Contact Center Quality,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+353,PF-SSD-SV-007,Real Estate Agency Service Quality,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+354,PF-SSD-SV-008,Calibration Laboratory Standards (ISO/IEC 17025),Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+355,PF-SSD-SV-009,Inspection Body Accreditation Standards,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+356,PF-SSD-SV-010,Cold Chain Logistics Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+357,PF-SSD-SV-011,Facility Management Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+358,PF-SSD-SV-012,Medical Tourism Service Provider Standards,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+359,PF-SSD-SV-013,Solid Waste Collection and Transportation Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+360,PF-SSD-SV-014,Digital Payment Platform Customer Security Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+361,PF-CED-WP-001,Polyurethane Liquid Waterproofing Membranes,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 16532:2017
+362,PF-CED-WP-002,Crystalline Concrete Waterproofing Admixtures,Civil Engineering,Waterproofing and Sealants,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+363,PF-CED-WP-003,Polysulphide Building Joint Sealants,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 12118 (Part 1):1987
+364,PF-CED-WP-004,Silicone Weatherproofing Sealants,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 16654:2017
+365,PF-CED-WP-005,Precast Concrete Drainage Pipes (Class NP2/NP3),Civil Engineering,Waterproofing and Sealants,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+366,PF-CED-WP-006,Stoneware Vitrified Glazed Sewer Pipes,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 651:2007
+367,PF-CED-WP-007,Structured Wall Corrugated HDPE Drainage Pipes,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 16098 (Part 2):2013
+368,PF-CED-WP-008,Epoxy Resin Flooring Screeds,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 16087:2013
+369,PF-CED-WP-009,Modular Raised Access False Flooring,Civil Engineering,Waterproofing and Sealants,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+370,PF-CED-WP-010,Polished Granite and Marble Flooring Slabs,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 3316:1974
+371,PF-CED-WP-011,Kota Stone Natural Flooring Slabs,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 1124:1974
+372,PF-CED-WP-012,Autoclaved Fibre Cement Building Boards,Civil Engineering,Waterproofing and Sealants,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 456:2000
+373,PF-ETD-PE-001,Air Circuit Breakers (ACB for Main LT Panels),Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+374,PF-ETD-PE-002,Surge Protective Devices (Type 1 and Type 2 SPD),Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS/IEC 61643-11:2011
+375,PF-ETD-PE-003,High Rupturing Capacity (HRC) Fuse Links,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 13703 (Part 2/Sec 1):1993
+376,PF-ETD-PE-004,Moulded Thermal Overload Relays for Motors,Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+377,PF-ETD-PE-005,Electromagnetic Power Contactors,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS/IEC 60947-4-1:2012
+378,PF-ETD-PE-006,Static Uninterruptible Power Supply (Online UPS),Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+379,PF-ETD-PE-007,Static Automatic Transfer Switches (STS),Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS/IEC 62310-1:2005
+380,PF-ETD-PE-008,Solar Charge Controllers (MPPT/PWM),Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 16221 (Part 2):2015
+381,PF-ETD-PE-009,Solar Water Pumping Systems (Surface and Submersible),Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 17018:2018
+382,PF-ETD-PE-010,Solar Street Lighting Systems (Standalone LED),Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15885 (Part 2/Sec 13):2012
+383,PF-ETD-PE-011,Solar Flat Plate Water Heating Collectors,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 15758:2007
+384,PF-ETD-PE-012,Evacuated Tube Solar Collectors,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 16542:2016
+385,PF-ETD-PE-013,High Mast Lighting Towers with Winch,Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 875 (Part 3):2015
+386,PF-ETD-PE-014,Hazardous Area Flameproof Wellglass Luminaires,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS/IEC 60079-1:2014
+387,PF-ETD-PE-015,Airfield Runway and Taxiway Lighting Luminaires,Electrotechnical,Power Electronics and Renewables,VERIFIED_PRIMARY,1,1,0,IS 10322 (Part 5/Sec 6):2013
+388,PF-MED-MH-001,Hydraulic Hand Pallet Trucks,Mechanical Engineering,Material Handling and Thermal,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+389,PF-MED-MH-002,Battery Operated Industrial Forklifts,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 4357:1974
+390,PF-MED-MH-003,Electric Wire Rope Hoists for Cranes,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 3938:1983
+391,PF-MED-MH-004,Manual Chain Pulley Blocks,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 3832:2005
+392,PF-MED-MH-005,Industrial Scissor Lift Tables,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 4357:1974
+393,PF-MED-MH-006,Hydraulic Dock Levellers,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 4357:1974
+394,PF-MED-MH-007,Thermic Fluid Heaters (Coil Type),Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IBR 1950 / IS 2825
+395,PF-MED-MH-008,Waste Heat Recovery Steam Generators,Mechanical Engineering,Material Handling and Thermal,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13730 (Part 0/Sec 1):2012
+396,PF-MED-MH-009,Industrial Water-Ring Vacuum Pumps,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 6849:1973
+397,PF-MED-MH-010,Twin Lobe Roots Positive Displacement Blowers,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+398,PF-MED-MH-011,Soundproof Acoustic Canopies for Diesel Generator Sets,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 12065:1987
+399,PF-MED-MH-012,Hydraulic Workshop Garage Presses,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 4552:1993
+400,PF-MED-MH-013,Torque Wrenches (Click Type & Digital),Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 7145:1973
+401,PF-MED-MH-014,Heavy Duty Hydraulic Bottle Jacks,Mechanical Engineering,Material Handling and Thermal,VERIFIED_PRIMARY,1,1,0,IS 4552:1993
+402,PF-CHD-AG-001,Chlorpyrifos Technical and EC Insecticide,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 8944:2005
+403,PF-CHD-AG-002,Malathion Technical and EC Insecticide,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 2567:1978
+404,PF-CHD-AG-003,Cypermethrin Technical and EC Formulation,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 12015:1987
+405,PF-CHD-AG-004,Glyphosate Technical Weedicide,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 14881:2000
+406,PF-CHD-AG-005,Mancozeb Fungicide Formulations,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 8524:1977
+407,PF-CHD-AG-006,Polyaluminium Chloride (PAC) for Water Treatment,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 15573:2018
+408,PF-CHD-AG-007,Activated Carbon (Granular and Powdered),Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 8366:1989
+409,PF-CHD-AG-008,Liquid Alum for Potable Water Clarification,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 299:2012
+410,PF-CHD-AG-009,Industrial Oxygen Gas (Compressed and Liquid),Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 309:2005
+411,PF-CHD-AG-010,Industrial Nitrogen Gas (Purity 99.999%),Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 1747:1972
+412,PF-CHD-AG-011,Pure Argon Shielding Gas for Welding,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 5760:1998
+413,PF-CHD-AG-012,Compressed Carbon Dioxide Gas for Industrial Use,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 307:1966
+414,PF-CHD-AG-013,Toluene for Industrial Solvent Use,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 538:2020
+415,PF-CHD-AG-014,Xylene (Industrial Solvent Grade),Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 359:2020
+416,PF-CHD-AG-015,Ethyl Acetate (Pure Solvent),Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 229:1993
+417,PF-CHD-AG-016,Nylon 6 Moulding and Extrusion Granules,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 14434:1997
+418,PF-CHD-AG-017,Polyacetal (POM) Engineering Resins,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 16893:2018
+419,PF-CHD-AG-018,ABS Polymer Moulding Granules,Chemical,Pesticides and Water Chemicals,VERIFIED_PRIMARY,1,1,0,IS 17077:2019
+420,PF-LITD-CM-001,Optical Line Terminals (OLT for FTTH Networks),Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+421,PF-LITD-CM-002,Optical Network Units (ONU / ONT Modems),Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+422,PF-LITD-CM-003,Cellular IoT Industrial Gateways,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+423,PF-LITD-CM-004,Industrial Managed Ethernet Switches,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+424,PF-LITD-CM-005,Programmable Logic Controllers (PLC),Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS/IEC 61131-2:2007
+425,PF-LITD-CM-006,Human Machine Interface (HMI) Touch Terminals,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+426,PF-LITD-CM-007,Electronic Cash Registers (ECR),Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+427,PF-LITD-CM-008,Digital Voice Recorders,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 616:2017
+428,PF-LITD-CM-009,Interactive Flat Panel Displays (IFPD),Electronics and Information Technology,Communication and Automation,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 616:2017
+429,PF-LITD-CM-010,Commercial Soundbars and Audio Systems,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 616:2017
+430,PF-LITD-CM-011,Smart Card Contactless Readers (NFC),Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+431,PF-LITD-CM-012,Electronic Digital Signage Displays,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+432,PF-FAD-PF-001,Instant Noodles and Pasta Products,Food and Agriculture,Processed Food and Machinery,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+433,PF-FAD-PF-002,Tomato Ketchup and Purees,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 3883:1993
+434,PF-FAD-PF-003,"Fruit Jams, Jellies and Marmalades",Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 5861:1993
+435,PF-FAD-PF-004,Compounded Cattle Feed for Dairy Cows,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 2052:2009
+436,PF-FAD-PF-005,Mineral Mixture for Livestock Feeds,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 1664:2002
+437,PF-FAD-PF-006,Poultry Feed Broiler Finisher,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 1374:2007
+438,PF-FAD-PF-007,Floating Fish Feed Extruded Pellets,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 16156:2014
+439,PF-FAD-PF-008,Paddy Transplanters (Self Propelled),Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 16676:2017
+440,PF-FAD-PF-009,Laser Land Levellers for Agriculture,Food and Agriculture,Processed Food and Machinery,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+441,PF-FAD-PF-010,Sugarcane Harvesters and Cutters,Food and Agriculture,Processed Food and Machinery,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+442,PF-FAD-PF-011,Galvanized Corrugated Grain Storage Silos,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 5503 (Part 1):1969
+443,PF-FAD-PF-012,Food Grade Tinplate Cans for Preserves,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 13955:2020
+444,PF-MHD-RC-001,Intensive Care Mechanical Ventilators,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+445,PF-MHD-RC-002,Continuous Positive Airway Pressure (CPAP) Machines,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 80601-2-70:2015
+446,PF-MHD-RC-003,Medical Oxygen Regulators and Flowmeters,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 10524-1:2018
+447,PF-MHD-RC-004,Ultrasonic Medical Nebulizers,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 27427:2013
+448,PF-MHD-RC-005,Dental Operating Units and Patient Chairs,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 7494-1:2018
+449,PF-MHD-RC-006,Dental Handpieces and Air Motors,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+450,PF-MHD-RC-007,Ultrasonic Surgical Instrument Cleaners,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS 16232:2014
+451,PF-MHD-RC-008,Hospital Laminar Air Flow (LAF) Clean Benches,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 14644-1:2015
+452,PF-MHD-RC-009,Hospital Patient Transfer Stretchers and Trolleys,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS 4037:1967
+453,PF-MHD-RC-010,Medical Suction Units (Electric Powered),Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+454,PF-MHD-RC-011,Neonatal Infant Incubators,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 80601-2-19:2020
+455,PF-MHD-RC-012,Hospital Pass Boxes and Air Showers,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 14644-1:2015
+456,PF-MTD-SS-001,Hot-Dip Galvanized Plain and Corrugated Sheets (GP/GC),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 277:2018
+457,PF-MTD-SS-002,Pre-Painted Galvanized Steel Coils (PPGI),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 14246:2013
+458,PF-MTD-SS-003,Aluminium-Zinc Alloy Coated Steel Sheets (Galvalume),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 15965:2012
+459,PF-MTD-SS-004,Stainless Steel Sheets and Plates (Grade 304/316),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 6911:2017
+460,PF-MTD-SS-005,Alloy Steel Bars for Automotive Forgings,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 5517:1993
+461,PF-MTD-SS-006,Spring Steel Flats and Rounds for Leaf Springs,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 3431:1982
+462,PF-MTD-SS-007,Case Hardening Steels (20MnCr5),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 4432:1988
+463,PF-MTD-SS-008,Cold Work Tool Steels (D2/D3),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 3749:1978
+464,PF-MTD-SS-009,High Speed Steel M2 Tool Bits,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 7291:1981
+465,PF-MTD-SS-010,Brass Rods and Hexagons for Machining,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 319:2007
+466,PF-MTD-SS-011,Tin Coated Steel Sheets (Electrolytic Tinplate),Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 1993:2018
+467,PF-MTD-SS-012,Phosphor Bronze Wires and Strips,Metallurgical Engineering,General,VERIFIED_PRIMARY,1,1,0,IS 7811:1985
+468,PF-PCD-SP-001,Transformer Insulating Mineral Oils,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 335:2018
+469,PF-PCD-SP-002,White Petroleum Jelly for Cosmetics,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 4887:2020
+470,PF-PCD-SP-003,Heavy Liquid Paraffin (White Oil),"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 7299:2020
+471,PF-PCD-SP-004,Paraffin Wax for Candle and Industrial Use,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 4654:2019
+472,PF-PCD-SP-005,Calcined Petroleum Coke (CPC),"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 17049:2018
+473,PF-PCD-SP-006,Automotive Transmission Fluid (ATF Dexron),"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 17012:2018
+474,PF-PCD-SP-007,Automotive V-Belts and Poly-V Belts,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 14261:1995
+475,PF-PCD-SP-008,High Pressure Rubber Hydraulic Hoses,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 3782:2017
+476,PF-PCD-SP-009,Rubber Water Suction and Discharge Hoses,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 3549:1983
+477,PF-PCD-SP-010,Automotive Rubber Inner Tubes,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 13098:2012
+478,PF-PCD-SP-011,Educational Plastic Construction Toys,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 9873 (Part 1):2019
+479,PF-PCD-SP-012,Synthetic Leather for Upholstery and Footwear,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 1259:1984
+480,PF-PGD-PR-001,Tungsten Carbide Indexable Cutting Inserts,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 10042:1981
+481,PF-PGD-PR-002,Tool Holders for CNC Turning and Milling,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 11171:1985
+482,PF-PGD-PR-003,Machine Reamers (Chucking & Hand),Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 5444:1978
+483,PF-PGD-PR-004,Machine Taps for Metric Internal Threads,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 6175 (Part 1):1992
+484,PF-PGD-PR-005,Circular Thread Cutting Dies,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 1859:1990
+485,PF-PGD-PR-006,Retaining Rings (Circlips - Internal & External),Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 3075 (Part 1):1986
+486,PF-PGD-PR-007,Hardened Ground Steel Dowel Pins,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 6688:1983
+487,PF-PGD-PR-008,Feeler Gauges for Clearance Measurement,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 3179:1990
+488,PF-PGD-PR-009,Metric Screw Pitch Gauges,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 4211:1993
+489,PF-PGD-PR-010,Thread Plug and Ring Gauges (Go/No-Go),Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 2334:2001
+490,PF-PGD-PR-011,Vernier Height Gauges for Quality Inspection,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 2921:1988
+491,PF-PGD-PR-012,Optical Profile Projectors and Comparators,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_PRIMARY,1,1,0,IS 10928:1984
+492,PF-TXD-TT-001,Polyester High-Tenacity Seat Belt Webbing,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 15741:2007
+493,PF-TXD-TT-002,Automotive Airbag Fabrics (Polyamide 6.6),Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 17355:2020
+494,PF-TXD-TT-003,Spunbond Polypropylene Nonwoven Fabrics,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 16648:2017
+495,PF-TXD-TT-004,Medical Surgical Drapes and Gowns (SMS Nonwoven),Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 17334:2019
+496,PF-TXD-TT-005,Cotton Duck Canvas Fabrics for Tarpaulins,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 15852:2009
+497,PF-TXD-TT-006,Industrial Filter Bags (Needle Felt),Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 16654:2017
+498,PF-TXD-TT-007,Spun Polyester Sewing Threads,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 9543:1980
+499,PF-TXD-TT-008,Jute Sacking Bags for Food Grain Packing,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 12650:2018
+500,PF-TXD-TT-009,Heavy Duty Synthetic Ropes (Polypropylene/Nylon),Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 5175:2014
+501,PF-TXD-TT-010,Waterproof Breathable Membrane Fabrics,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 17358:2020
+502,PF-TED-EL-001,Electric Vehicle Motor Drive Controllers,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+503,PF-TED-EL-002,Automotive Electric On-Board Chargers (OBC),Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+504,PF-TED-EL-003,Automotive Alternators and Starter Motors,Transport Engineering,Automotive Electrical and Railway,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+505,PF-TED-EL-004,Automotive Electric Wiper Motors and Linkages,Transport Engineering,Automotive Electrical and Railway,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+506,PF-TED-EL-005,Automotive Radiators and Heat Exchangers,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+507,PF-TED-EL-006,Automotive Fuel Injection Pumps (Common Rail),Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+508,PF-TED-EL-007,Automotive Steering Gearboxes (Power Steering),Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+509,PF-TED-EL-008,Railway Centre Buffer Couplers (CBC),Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+510,PF-TED-EL-009,Railway Air Brake Distributor Valves,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+511,PF-TED-EL-010,Railway Composite Brake Blocks,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+512,PF-TED-EL-011,Railway Rubber Metal Bonded Elastomeric Draft Pads,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+513,PF-TED-EL-012,Two-Wheeler Rear View Mirrors,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+514,PF-WRD-IR-001,Automated Weather Stations for Hydrology,Water Resources,Irrigation and Hydrology,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5235:1992
+515,PF-WRD-IR-002,Tipping Bucket Digital Rain Gauges,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 5235:1992
+516,PF-WRD-IR-003,Canal Parshall Flumes for Discharge Measurement,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 14371:1996
+517,PF-WRD-IR-004,Standard US Weather Bureau Class A Evaporation Pans,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 5973:1998
+518,PF-WRD-IR-005,Suspended Sediment Water Samplers,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 3913:2000
+519,PF-WRD-IR-006,Motorized Hydraulic Penstock Sluice Gates,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 5620:1985
+520,PF-WRD-IR-007,Flexible Membrane Geotextile Canal Liners,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 16352:2015
+521,PF-WRD-IR-008,Pressure Relief Valves for Irrigation Pipelines,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 14846:2000
+522,PF-WRD-IR-009,Air Release and Vacuum Relief Valves for Water Mains,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 14845:2000
+523,PF-AYD-MD-001,Curcumin 95% Standardized Turmeric Extract,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,IS 17378:2020
+524,PF-AYD-MD-002,Guggulu (Commiphora mukul) Purified Resin,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+525,PF-AYD-MD-003,Boswellia serrata (Shallaki) Gum Resin Extract,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,IS 17377:2020
+526,PF-AYD-MD-004,Giloy (Tinospora cordifolia) Stem Powder and Extract,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+527,PF-AYD-MD-005,Shatavari (Asparagus racemosus) Root Extract,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+528,PF-AYD-MD-006,Arjuna (Terminalia arjuna) Bark Powder,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+529,PF-AYD-MD-007,Kasis Bhasma (Ayurvedic Iron Mineral Formulation),AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,API Part-I Vol-VII (Kasisa)
+530,PF-AYD-MD-008,Shankha Bhasma (Purified Conch Shell Formulation),AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,API Part-I Vol-VII (Shankha)
+531,PF-AYD-MD-009,Ayurvedic Medicated Taila (Mahanarayan Oil),AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,API Part-II Vol-I (Mahanarayana Taila)
+532,PF-AYD-MD-010,Unani Roghan Almond Oil Formulation,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_PRIMARY,1,1,0,UPI Part-II Vol-I (Roghan-e-Badam)
+533,PF-EED-WT-001,Organic Waste Composters (Fully Automatic OWC),Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 15106:2002
+534,PF-EED-WT-002,Hazardous Waste Rotary Kiln Incinerators,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16232:2014
+535,PF-EED-WT-003,Optical Smoke Density Monitors,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 616:2017
+536,PF-EED-WT-004,Online Oil-in-Water Infrared Analyzers,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 3025 (Part 39):2021
+537,PF-EED-WT-005,Personal Noise Dosimeters for Industrial Hygiene,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 15801:2008
+538,PF-EED-WT-006,Online Chemical Oxygen Demand (COD) Analyzers,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+539,PF-EED-WT-007,Online Biological Oxygen Demand (BOD) Analyzers,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+540,PF-EED-WT-008,Oil Skimmers for Effluent Treatment (Belt/Disc Type),Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 10553 (Part 1):1983
+541,PF-EED-WT-009,Venturi Gas Scrubbers for Acid Fumes,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+542,PF-CHD-SAFETY-FOOTWEAR,Industrial Safety Footwear and Protective Boots,Chemical,General,VERIFIED_PRIMARY,1,1,0,IS 15298 (Part 2):2016
+543,FAM_AYD_ASHWAGANDHA_EXTRACT,Ashwagandha Extract and Root Powder,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+544,FAM_AYD_TRIPHALA_CHURNA,Triphala Churna and Tablet Formulations,AYUSH,Classical Ayurvedic Formulations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16046 (Part 2):2018
+545,FAM_AYD_CHYAWANPRASH,Chyawanprash Avaleha Special,AYUSH,Classical Ayurvedic Formulations,VERIFIED_PRIMARY,1,1,0,API Part-II Vol-I (Chyawanprash)
+546,FAM_AYD_BRAHMI_EXTRACT,Brahmi / Bacopa Monnieri Extract,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+547,FAM_AYD_TULSI_EXTRACT,Tulsi / Holy Basil Liquid and Dry Extracts,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+548,FAM_AYD_GILOY_GHANVATI,Giloy / Guduchi Ghan Vati and Satva,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+549,FAM_AYD_ARJUNA_BARK_EXTRACT,Arjuna Bark Extract and Powder,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+550,FAM_AYD_GUGGULU_FORMULATIONS,Guggulu Formulations (Yograj and Kanchnar),AYUSH,Classical Ayurvedic Formulations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+551,FAM_AYD_SHATAVARI_GRANULES,Shatavari Granules and Extract,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+552,FAM_AYD_NEEM_OIL_COLD_PRESSED,Cold Pressed Neem Kernel Oil and Formulations,AYUSH,Medicinal Plants and Traditional Medicine,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+553,FAM_AYD_HARITAKI_POWDER,Haritaki / Terminalia Chebula Powder,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+554,FAM_AYD_AMLA_DRY_FRUIT,Dehydrated Amla Fruit Flakes and Powder,AYUSH,Herbal Raw Materials and Extracts,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+555,FAM_AYD_VASAKA_SYRUP,Vasaka / Adhatoda Vasica Cough Syrup,AYUSH,Herbal Preparations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+556,FAM_AYD_KUMKUMADI_TAILA,Kumkumadi Tailam Facial Oil,AYUSH,Classical Ayurvedic Formulations,VERIFIED_PRIMARY,1,1,0,API Part-II Vol-II (Kumkumadi Taila)
+557,FAM_AYD_BHRINGRAJ_HAIR_OIL,Bhringraj Medicated Hair Oil (Taila),AYUSH,Classical Ayurvedic Formulations,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+558,FAM_CHD_CAUSTIC_SODA_FLAKES_AND_LYE_1,Caustic Soda Flakes and Lye,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 252:2013
+559,FAM_CHD_STABLE_BLEACHING_POWDER_2,Stable Bleaching Powder,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 1065:2020
+560,FAM_CHD_INDUSTRIAL_SULFURIC_ACID_TECHNIC_3,Industrial Sulfuric Acid Technical,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 266:1993
+561,FAM_CHD_PURE_HYDROCHLORIC_ACID_TECHNICAL_4,Pure Hydrochloric Acid Technical,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 265:1993
+562,FAM_CHD_COMMERCIAL_NITRIC_ACID_5,Commercial Nitric Acid,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 264:2005
+563,FAM_CHD_PHOSPHORIC_ACID_TECHNICAL_AND_FO_6,Phosphoric Acid Technical and Food Grade,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 798:2020
+564,FAM_CHD_SODA_ASH_LIGHT_AND_DENSE_7,Soda Ash Light and Dense,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 251:1998
+565,FAM_CHD_SODIUM_BICARBONATE_REFINED_8,Sodium Bicarbonate Refined,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 2124:2000
+566,FAM_CHD_FERRIC_ALUM___ALUMINIUM_SULPHATE_9,Ferric Alum / Aluminium Sulphate,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 299:2012
+567,FAM_CHD_SODIUM_SILICATE_GLASS_AND_LIQUID_10,Sodium Silicate Glass and Liquid,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 381:1995
+568,FAM_CHD_ZINC_OXIDE_TECHNICAL_RUBBER_GRAD_11,Zinc Oxide Technical Rubber Grade,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 3399:1993
+569,FAM_CHD_CARBON_BLACK_RUBBER_GRADE_N330___12,Carbon Black Rubber Grade N330 / N220,Chemical,Industrial Inorganic Chemicals,VERIFIED_PRIMARY,1,1,0,IS 1699:1995
+570,FAM_CHD_SYNTHETIC_DETERGENT_POWDER_13,Synthetic Detergent Powder,Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 4955:2020
+571,FAM_CHD_LIQUID_FABRIC_DETERGENT_14,Liquid Fabric Detergent,Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 16867:2018
+572,FAM_CHD_TOILET_SOAP_GRADE_1__TFM_76___15,Toilet Soap Grade 1 (TFM 76%),Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 2888:2021
+573,FAM_CHD_TOILET_SOAP_GRADE_2__TFM_70___16,Toilet Soap Grade 2 (TFM 70%),Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 2888:2021
+574,FAM_CHD_REFINED_GLYCERIN_99_5__CP_GRADE_17,Refined Glycerin 99.5% CP Grade,Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 1796:1986
+575,FAM_CHD_TECHNICAL_PHENOL_SYNTHETIC_18,Technical Phenol Synthetic,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 538:1968
+576,FAM_CHD_INDUSTRIAL_METHANOL_TECHNICAL_GR_19,Industrial Methanol Technical Grade,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 517:2020
+577,FAM_CHD_INDUSTRIAL_ACETONE_SOLVENT_GRADE_20,Industrial Acetone Solvent Grade,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 170:2020
+578,FAM_CHD_PURE_BENZENE_INDUSTRIAL_GRADE_21,Pure Benzene Industrial Grade,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 535:2020
+579,FAM_CHD_INDUSTRIAL_TOLUENE_SOLVENTS_22,Industrial Toluene Solvents,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 538:2020
+580,FAM_CHD_MIXED_XYLENES_SOLVENT_GRADE_23,Mixed Xylenes Solvent Grade,Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 359:2020
+581,FAM_CHD_FORMALDEHYDE_SOLUTION_37___FORMA_24,Formaldehyde Solution 37% (Formalin),Chemical,Industrial Chemicals,VERIFIED_PRIMARY,1,1,0,IS 3321:1973
+582,FAM_CHD_TITANIUM_DIOXIDE_RUTILE_GRADE_25,Titanium Dioxide Rutile Grade,Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 411:2020
+583,FAM_CHD_WATER_BASED_ACRYLIC_DISTEMPER_26,Water-Based Acrylic Distemper,Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 428:2013
+584,FAM_CHD_GLOSSY_SYNTHETIC_ENAMEL_PAINT_27,Glossy Synthetic Enamel Paint,Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 2932:2013
+585,FAM_CHD_TWO_COMPONENT_POLYURETHANE_WOOD__28,Two-Component Polyurethane Wood Coating,Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 158:1981
+586,FAM_CHD_HEAVY_DUTY_EPOXY_FLOOR_COATING_29,Heavy Duty Epoxy Floor Coating,Chemical,"Paints, Varnishes and Pigments",VERIFIED_PRIMARY,1,1,0,IS 14209:1994
+587,FAM_CHD_LOW_DENSITY_POLYETHYLENE__LDPE___30,Low Density Polyethylene (LDPE) Film Grade,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10146:2020
+588,FAM_CHD_HIGH_DENSITY_POLYETHYLENE__HDPE__31,High Density Polyethylene (HDPE) Blow Molding,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 7328:2020
+589,FAM_CHD_POLYPROPYLENE__PP__HOMOPOLYMER_R_32,Polypropylene (PP) Homopolymer Raffia,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10951:2020
+590,FAM_CHD_POLYVINYL_CHLORIDE__PVC__SUSPENS_33,Polyvinyl Chloride (PVC) Suspension Resin,Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 10151:2019
+591,FAM_CHD_HIGH_IMPACT_POLYSTYRENE__HIPS__34,High Impact Polystyrene (HIPS),Chemical,Polymers and Plastics,VERIFIED_PRIMARY,1,1,0,IS 2267:1995
+592,FAM_CHD_LINEAR_ALKYL_BENZENE__LAB__35,Linear Alkyl Benzene (LAB),Chemical,"Soaps, Detergents and Surfactants",VERIFIED_PRIMARY,1,1,0,IS 12795:2020
+594,FAM_CED_PORTLAND_POZZOLANA_CEMENT__PPC_F_2,Portland Pozzolana Cement (PPC Fly Ash),Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 1489 (Part 1):2015; IS 456:2000
+595,FAM_CED_RAPID_HARDENING_PORTLAND_CEMENT_3,Rapid Hardening Portland Cement,Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 8041:1990; IS 456:2000
+596,FAM_CED_LOW_HEAT_PORTLAND_CEMENT_4,Low Heat Portland Cement,Civil Engineering,Cement and Hydraulic Binders,VERIFIED_PRIMARY,2,1,1,IS 12600:1989; IS 456:2000
+598,FAM_CED_HYDROPHOBIC_PORTLAND_CEMENT_6,Hydrophobic Portland Cement,Civil Engineering,Cement and Hydraulic Binders,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 456:2000
+600,FAM_CED_CONDENSED_SILICA_FUME_ADMIXTURE_8,Condensed Silica Fume Admixture,Civil Engineering,Concrete and Concrete Materials,VERIFIED_PRIMARY,1,1,0,IS 15388:2003
+601,FAM_CED_METAKAOLIN_POZZOLANIC_ADMIXTURE_9,Metakaolin Pozzolanic Admixture,Civil Engineering,Concrete and Concrete Materials,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+602,FAM_CED_POLYCARBOXYLATE_ETHER__PCE__SUPE_10,Polycarboxylate Ether (PCE) Superplasticizer,Civil Engineering,Concrete and Concrete Materials,VERIFIED_PRIMARY,1,1,0,IS 9103:1999
+603,FAM_CED_SULFONATED_NAPHTHALENE_FORMALDEH_11,Sulfonated Naphthalene Formaldehyde (SNF) Plasticizer,Civil Engineering,Concrete and Concrete Materials,VERIFIED_PRIMARY,1,1,0,IS 9103:1999
+604,FAM_CED_AIR_ENTRAINING_CONCRETE_ADMIXTUR_12,Air Entraining Concrete Admixture,Civil Engineering,Concrete and Concrete Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+605,FAM_CED_PULVERIZED_FUEL_ASH__FLY_ASH__FO_13,Pulverized Fuel Ash (Fly Ash) for Concrete,Civil Engineering,Concrete and Concrete Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+606,FAM_CED_GROUND_GRANULATED_BLAST_FURNACE__14,Ground Granulated Blast Furnace Slag (GGBS),Civil Engineering,Concrete and Concrete Materials,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+607,FAM_CED_EXPANDED_POLYSTYRENE__EPS__THERM_15,Expanded Polystyrene (EPS) Thermal Insulation,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 4671:1984
+608,FAM_CED_EXTRUDED_POLYSTYRENE__XPS__FOAM__16,Extruded Polystyrene (XPS) Foam Boards,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 16982:2018
+609,FAM_CED_RESIN_BONDED_GLASS_WOOL_INSULATI_17,Resin Bonded Glass Wool Insulation,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 8183:1993
+610,FAM_CED_RESIN_BONDED_ROCKWOOL_INSULATION_18,Resin Bonded Rockwool Insulation,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 8183:1993
+612,FAM_CED_CONCRETE_HOLLOW_MASONRY_BLOCKS_20,Concrete Hollow Masonry Blocks,Civil Engineering,Masonry Units and Blocks,VERIFIED_PRIMARY,5,1,4,IS 2185 (Part 1):2005; IS 10262:2019; IS 1893 (Part 1):2016; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+613,FAM_CED_PULVERIZED_FUEL_ASH_LIME_BRICKS_21,Pulverized Fuel Ash Lime Bricks,Civil Engineering,Masonry Units and Blocks,VERIFIED_PRIMARY,1,1,0,IS 12894:2002
+614,FAM_CED_PERFORATED_CLAY_BRICKS_22,Perforated Clay Bricks,Civil Engineering,Masonry Units and Blocks,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+615,FAM_CED_GLAZED_CERAMIC_WALL_TILES_23,Glazed Ceramic Wall Tiles,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 15622:2017
+616,FAM_CED_FULLY_VITRIFIED_POLISHED_PORCELA_24,Fully Vitrified Polished Porcelain Floor Tiles,Civil Engineering,Floor and Wall Finishes,VERIFIED_PRIMARY,1,1,0,IS 15622:2017
+617,FAM_CED_PRECAST_CONCRETE_MANHOLE_COVERS__25,Precast Concrete Manhole Covers and Frames,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+618,FAM_CED_PRECAST_CONCRETE_KERBSTONES_26,Precast Concrete Kerbstones,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+619,FAM_CED_INTERLOCKING_CONCRETE_PAVING_BLO_27,Interlocking Concrete Paving Blocks,Civil Engineering,Road and Pavement Materials,VERIFIED_SUPPORTING_ONLY,3,0,3,IS 10262:2019; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+620,FAM_CED_PRECAST_REINFORCED_CONCRETE_PIPE_28,Precast Reinforced Concrete Pipes (NP3 / NP4),Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,6,1,5,IS 458:2021; IS 10262:2019; IS 1893 (Part 1):2016; IS 3370 (Part 1):2021; IS 456:2000; IS 516 (Part 1/Sec 1):2021
+621,FAM_CED_DOUBLE_WALL_CORRUGATED__DWC__HDP_29,Double Wall Corrugated (DWC) HDPE Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 16098 (Part 2):2013
+622,FAM_CED_CHLORINATED_POLYVINYL_CHLORIDE___30,Chlorinated Polyvinyl Chloride (CPVC) Plumbing Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 15778:2007
+623,FAM_CED_UNPLASTICIZED_PVC__UPVC__SWR_DRA_31,Unplasticized PVC (UPVC) SWR Drainage Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 13592:2013
+624,FAM_CED_POLYPROPYLENE_RANDOM_COPOLYMER___32,Polypropylene Random Copolymer (PP-R) Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 15801:2008
+625,FAM_CED_GALVANIZED_MILD_STEEL_ERW_PIPES__33,Galvanized Mild Steel ERW Pipes (Medium & Heavy),Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 1239 (Part 1):2004
+626,FAM_CED_CAST_IRON_SOIL_AND_RAINWATER_PIP_34,Cast Iron Soil and Rainwater Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 1729:2002
+627,FAM_CED_DUCTILE_IRON__DI__SPIGOT_AND_SOC_35,Ductile Iron (DI) Spigot and Socket Pressure Pipes,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 8329:2000
+628,FAM_CED_FLEXIBLE_STAINLESS_STEEL_CORRUGA_36,Flexible Stainless Steel Corrugated Plumbing Hoses,Civil Engineering,Pipes and Plumbing Fittings,VERIFIED_PRIMARY,1,1,0,IS 16823:2018
+629,FAM_CED_BRASS_CHROME_PLATED_BASIN_MIXERS_37,Brass Chrome Plated Basin Mixers,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 8931:1993
+630,FAM_CED_SINGLE_LEVER_BATH_MIXER_DIVERTER_38,Single Lever Bath Mixer Diverters,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 14812:2000
+631,FAM_CED_DUAL_FLUSH_CERAMIC_WATER_CLOSETS_39,Dual Flush Ceramic Water Closets (EWC),Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 2556 (Part 2):2004
+632,FAM_CED_VITREOUS_CHINA_WASH_BASINS_WALL__40,Vitreous China Wash Basins Wall Hung,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 2556 (Part 4):2004
+633,FAM_CED_VITREOUS_CHINA_URINALS_WITH_SENS_41,Vitreous China Urinals with Sensor Flush,Civil Engineering,Sanitary Fixtures and Fittings,VERIFIED_PRIMARY,1,1,0,IS 2556 (Part 6):1995
+634,FAM_CED_POLYMER_MODIFIED_BITUMEN__PMB_40_42,Polymer Modified Bitumen (PMB 40 / PMB 120),Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 15462:2019
+635,FAM_CED_CATIONIC_BITUMEN_EMULSION__RS_1__43,Cationic Bitumen Emulsion (RS-1 / MS / SS-2),Civil Engineering,Road and Pavement Materials,VERIFIED_PRIMARY,1,1,0,IS 8887:2018
+636,FAM_CED_ATACTIC_POLYPROPYLENE__APP__MODI_44,Atactic Polypropylene (APP) Modified Waterproofing Membranes,Civil Engineering,Roofing and Waterproofing,VERIFIED_PRIMARY,1,1,0,IS 16532:2017
+637,FAM_CED_SBS_SELF_ADHESIVE_BITUMINOUS_WAT_45,SBS Self-Adhesive Bituminous Waterproofing Membranes,Civil Engineering,Roofing and Waterproofing,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16532:2017
+638,FAM_CED_LIQUID_APPLIED_POLYURETHANE_WATE_46,Liquid Applied Polyurethane Waterproofing Coating,Civil Engineering,Waterproofing and Sealants,VERIFIED_PRIMARY,1,1,0,IS 16532:2017
+639,FAM_CED_TWO_COMPONENT_POLYMER_MODIFIED_C_47,Two-Component Polymer Modified Cementitious Slurry,Civil Engineering,Waterproofing and Sealants,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 456:2000
+640,FAM_CED_CLEAR_FIRE_RESISTANT_GLAZING_GLA_48,Clear Fire-Resistant Glazing Glass,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_PRIMARY,1,1,0,IS 2553 (Part 1):1990
+641,FAM_CED_FIRE_RATED_STEEL_PANIC_EXIT_DOOR_49,Fire Rated Steel Panic Exit Doors,Civil Engineering,"Doors, Windows and Hardware",VERIFIED_SUPPORTING_ONLY,1,0,1,IS 12349:1988
+642,FAM_CED_CRASH_RATED_SECURITY_BOLLARDS_50,Crash Rated Security Bollards,Civil Engineering,Road and Pavement Materials,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+643,FAM_LITD_LAPTOP_PERSONAL_COMPUTER_SYSTEMS_1,Laptop Personal Computer Systems,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 16046 (Part 2):2018
+644,FAM_LITD_DESKTOP_WORKSTATION_COMPUTERS_2,Desktop Workstation Computers,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+645,FAM_LITD_TABLET_COMPUTING_DEVICES_3,Tablet Computing Devices,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 16046 (Part 2):2018
+646,FAM_LITD_ELECTRONIC_POINT_OF_SALE__POS__T_4,Electronic Point of Sale (POS) Terminals,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+647,FAM_LITD_ELECTRONIC_CASH_REGISTER_MACHINE_5,Electronic Cash Register Machines,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+648,FAM_LITD_SINGLE_FUNCTION_LASER_PRINTERS_6,Single-Function Laser Printers,Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+649,FAM_LITD_MULTIFUNCTION_COLOR_LASER_PRINTE_7,Multifunction Color Laser Printers (MFP),Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+650,FAM_LITD_FLATBED_DOCUMENT_SCANNERS_8,Flatbed Document Scanners,Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+651,FAM_LITD_HANDHELD_BARCODE_AND_2D_QR_CODE__9,Handheld Barcode and 2D QR Code Scanners,Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+652,FAM_LITD_LED_BACKLIT_COMPUTER_MONITORS_10,LED Backlit Computer Monitors,Electronics and Information Technology,Computer Peripherals and Displays,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+653,FAM_LITD_LARGE_FORMAT_DIGITAL_SIGNAGE_DIS_11,Large Format Digital Signage Displays,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,2,1,1,IS 13252 (Part 1):2010; IS 616:2017
+654,FAM_LITD_INTERACTIVE_SMART_FLAT_PANELS__I_12,Interactive Smart Flat Panels (IFP),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+655,FAM_LITD_ENTERPRISE_SERVER_RACK_CHASSIS_U_13,Enterprise Server Rack Chassis Units,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+656,FAM_LITD_NETWORK_ATTACHED_STORAGE__NAS__A_14,Network Attached Storage (NAS) Appliances,Electronics and Information Technology,Information Technology Equipment,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+657,FAM_LITD_ENTERPRISE_MANAGED_ETHERNET_SWIT_15,Enterprise Managed Ethernet Switches,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+658,FAM_LITD_ENTERPRISE_WI_FI_6_WIRELESS_ACCE_16,Enterprise Wi-Fi 6 Wireless Access Points,Electronics and Information Technology,Communication and Automation,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+659,FAM_LITD_POWER_OVER_ETHERNET__POE__SOURCI_17,Power over Ethernet (PoE) Sourcing Injectors,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+660,FAM_LITD_ONLINE_UNINTERRUPTIBLE_POWER_SUP_18,Online Uninterruptible Power Supply (UPS) 1-Phase,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+661,FAM_LITD_ONLINE_INDUSTRIAL_UPS_SYSTEMS_3__19,Online Industrial UPS Systems 3-Phase,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+662,FAM_LITD_SWITCHED_MODE_POWER_SUPPLY__SMPS_20,Switched-Mode Power Supply (SMPS) Units,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+663,FAM_LITD_USB_TYPE_C_FAST_CHARGERS_AND_ADA_21,USB Type-C Fast Chargers and Adapters,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+664,FAM_LITD_GALLIUM_NITRIDE__GAN__MULTI_PORT_22,Gallium Nitride (GaN) Multi-Port Desktop Chargers,Electronics and Information Technology,Power Adapters and Chargers,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+665,FAM_LITD_LITHIUM_IRON_PHOSPHATE__LIFEPO4__23,Lithium Iron Phosphate (LiFePO4) Telecom Batteries,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 16046 (Part 2):2018
+666,FAM_LITD_LITHIUM_NICKEL_MANGANESE_COBALT__24,Lithium Nickel Manganese Cobalt (NMC) Battery Packs,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16046 (Part 2):2018
+667,FAM_LITD_SMART_TELEVISION_SETS_4K_UHD_25,Smart Television Sets 4K UHD,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 616:2017
+668,FAM_LITD_DIGITAL_SET_TOP_BOXES__DVB_T2____26,Digital Set Top Boxes (DVB-T2 / DVB-S2 / OTT),Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+669,FAM_LITD_DIGITAL_AUDIO_MIXING_CONSOLES_27,Digital Audio Mixing Consoles,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 616:2017
+670,FAM_LITD_ACTIVE_STUDIO_MONITOR_SPEAKERS_28,Active Studio Monitor Speakers,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 1367 (Part 1):2014; IS 616:2017
+671,FAM_LITD_PROFESSIONAL_AUDIO_POWER_AMPLIFI_29,Professional Audio Power Amplifiers,Electronics and Information Technology,Consumer Electronics and IT,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 616:2017
+672,FAM_LITD_NETWORK_VIDEO_RECORDERS__NVR__FO_30,Network Video Recorders (NVR) for IP CCTV,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+673,FAM_LITD_DIGITAL_IP_DOME_SURVEILLANCE_CAM_31,Digital IP Dome Surveillance Cameras,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+674,FAM_LITD_OUTDOOR_BULLET_CCTV_SURVEILLANCE_32,Outdoor Bullet CCTV Surveillance Cameras,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+675,FAM_LITD_THERMAL_IMAGING_BODY_TEMPERATURE_33,Thermal Imaging Body Temperature Screening Cameras,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+676,FAM_LITD_BIOMETRIC_OPTICAL_FINGERPRINT_RE_34,Biometric Optical Fingerprint Readers,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+677,FAM_LITD_FACIAL_RECOGNITION_TIME_ATTENDAN_35,Facial Recognition Time Attendance Terminals,Electronics and Information Technology,Security and Surveillance Systems,VERIFIED_PRIMARY,1,1,0,IS 13252 (Part 1):2010
+678,FAM_ETD_OIL_IMMERSED_DISTRIBUTION_TRANSF_1,Oil-Immersed Distribution Transformers 11kV/433V,Electrotechnical,Power and Distribution Transformers,VERIFIED_PRIMARY,3,1,2,IS 1180 (Part 1):2014; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+679,FAM_ETD_DRY_TYPE_CAST_RESIN_DISTRIBUTION_2,Dry Type Cast Resin Distribution Transformers,Electrotechnical,Power and Distribution Transformers,VERIFIED_PRIMARY,3,1,2,IS 11171:1985; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+680,FAM_ETD_POWER_TRANSFORMERS_33KV_11KV_SUB_3,Power Transformers 33kV/11kV Substation Grade,Electrotechnical,Power and Distribution Transformers,VERIFIED_PRIMARY,3,1,2,IS 2026 (Part 1):2011; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+681,FAM_ETD_EXTRA_HIGH_VOLTAGE_TRANSFORMERS__4,Extra High Voltage Transformers 220kV/66kV,Electrotechnical,Power and Distribution Transformers,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+682,FAM_ETD_LOW_VOLTAGE_XLPE_POWER_CABLES_1__5,Low Voltage XLPE Power Cables 1.1kV,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 7098 (Part 1):1988
+683,FAM_ETD_MEDIUM_VOLTAGE_XLPE_POWER_CABLES_6,Medium Voltage XLPE Power Cables 11kV/33kV,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 7098 (Part 2):2011
+684,FAM_ETD_AERIAL_BUNCHED_CABLES__ABC__1_1K_7,Aerial Bunched Cables (ABC) 1.1kV & 11kV,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 14255:1995
+685,FAM_ETD_SOLAR_DC_PHOTOVOLTAIC_CABLES_8,Solar DC Photovoltaic Cables,Electrotechnical,Renewable Energy Systems,VERIFIED_PRIMARY,1,1,0,IS 15758:2007
+686,FAM_ETD_FIRE_SURVIVAL_MINERAL_INSULATED__9,Fire Survival Mineral Insulated Copper Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 16805:2019
+687,FAM_ETD_SUBMERSIBLE_FLAT_THREE_CORE_COPP_10,Submersible Flat Three-Core Copper Pump Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 694:2010
+688,FAM_ETD_INSTRUMENTATION_SHIELDED_MULTIPA_11,Instrumentation Shielded Multipair Cables,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 1554 (Part 1):1988
+689,FAM_ETD_ALUMINIUM_CONDUCTOR_STEEL_REINFO_12,Aluminium Conductor Steel Reinforced (ACSR),Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 398 (Part 2):1996
+690,FAM_ETD_ALL_ALUMINIUM_ALLOY_CONDUCTORS___13,All Aluminium Alloy Conductors (AAAC),Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 398 (Part 4):1994
+691,FAM_ETD_HIGH_TEMPERATURE_LOW_SAG__HTLS___14,High Temperature Low Sag (HTLS) Conductors,Electrotechnical,"Cables, Wires and Conductors",VERIFIED_PRIMARY,1,1,0,IS 398 (Part 6):2018
+692,FAM_ETD_MINIATURE_CIRCUIT_BREAKERS__MCB__15,Miniature Circuit Breakers (MCB) 10kA,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS/IEC 60898-1:2015; IS 3043:2018
+693,FAM_ETD_MOULDED_CASE_CIRCUIT_BREAKERS__M_16,Moulded Case Circuit Breakers (MCCB) up to 800A,Electrotechnical,Switchgear and Protection Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+694,FAM_ETD_AIR_CIRCUIT_BREAKERS__ACB__4_POL_17,Air Circuit Breakers (ACB) 4-Pole Drawout,Electrotechnical,Switchgear and Protection Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+695,FAM_ETD_VACUUM_CIRCUIT_BREAKERS__VCB__11_18,Vacuum Circuit Breakers (VCB) 11kV/33kV Indoor,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS/IEC 62271-100:2008; IS 3043:2018
+696,FAM_ETD_RESIDUAL_CURRENT_CIRCUIT_BREAKER_19,Residual Current Circuit Breakers (RCCB) 30mA,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS 12640 (Part 1):2016; IS 3043:2018
+697,FAM_ETD_COMBINED_RESIDUAL_CURRENT_AND_OV_20,Combined Residual Current and Overcurrent Breakers (RCBO),Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,2,1,1,IS 12640 (Part 2):2016; IS 3043:2018
+698,FAM_ETD_HIGH_RUPTURING_CAPACITY__HRC__KN_21,High Rupturing Capacity (HRC) Knife Blade Fuses,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,1,1,0,IS 13703 (Part 2/Sec 1):1993
+699,FAM_ETD_INDUSTRIAL_MOTOR_CONTROL_CONTACT_22,Industrial Motor Control Contactors (AC-3),Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,1,1,0,IS/IEC 60947-4-1:2012
+700,FAM_ETD_THERMAL_BIMETALLIC_MOTOR_OVERLOA_23,Thermal Bimetallic Motor Overload Relays,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,1,1,0,IS/IEC 60947-4-1:2012
+701,FAM_ETD_MICROPROCESSOR_NUMERICAL_FEEDER__24,Microprocessor Numerical Feeder Protection Relays,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,1,1,0,IS/IEC 60255-1:2009
+702,FAM_ETD_ENERGY_EFFICIENT_3_PHASE_INDUCTI_25,Energy Efficient 3-Phase Induction Motors IE3,Electrotechnical,Rotating Electrical Machinery,VERIFIED_PRIMARY,3,1,2,IS 12615:2018; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+703,FAM_ETD_SUPER_PREMIUM_EFFICIENCY_ELECTRI_26,Super Premium Efficiency Electric Motors IE4,Electrotechnical,Rotating Electrical Machinery,VERIFIED_PRIMARY,3,1,2,IS 12615:2018; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+704,FAM_ETD_SUBMERSIBLE_WET_WELL_SEWAGE_PUMP_27,Submersible Wet-Well Sewage Pump Motors,Electrotechnical,Rotating Electrical Machinery,VERIFIED_PRIMARY,3,1,2,IS 9283:2013; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+705,FAM_ETD_FRACTIONAL_HORSEPOWER__FHP__SING_28,Fractional Horsepower (FHP) Single-Phase Motors,Electrotechnical,Rotating Electrical Machinery,VERIFIED_PRIMARY,3,1,2,IS 996:2009; IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+706,FAM_ETD_ON_GRID_SOLAR_STRING_INVERTERS_29,On-Grid Solar String Inverters,Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+707,FAM_ETD_HYBRID_SOLAR_STORAGE_INVERTERS_30,Hybrid Solar Storage Inverters,Electrotechnical,Power Electronics and Renewables,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+708,FAM_ETD_TUBULAR_FLOODED_LEAD_ACID_SOLAR__31,Tubular Flooded Lead-Acid Solar Batteries,Electrotechnical,Batteries and Energy Storage,VERIFIED_PRIMARY,1,1,0,IS 13369:1992
+709,FAM_ETD_VALVE_REGULATED_LEAD_ACID__VRLA__32,Valve Regulated Lead Acid (VRLA) Gel Batteries,Electrotechnical,Batteries and Energy Storage,VERIFIED_PRIMARY,1,1,0,IS 15549:2005
+710,FAM_ETD_INSTANT_ELECTRIC_DOMESTIC_WATER__33,Instant Electric Domestic Water Heaters,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+711,FAM_ETD_STORAGE_TYPE_DOMESTIC_ELECTRIC_W_34,Storage Type Domestic Electric Water Heaters,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+712,FAM_ETD_ELECTRIC_SANDWICH_TOASTERS_AND_G_35,Electric Sandwich Toasters and Grills,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 302 (Part 2/Sec 3):2007
+713,FAM_ETD_DOMESTIC_ELECTRIC_FOOD_MIXERS_AN_36,Domestic Electric Food Mixers and Grinders,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_PRIMARY,1,1,0,IS 4250:1980
+714,FAM_ETD_ENERGY_EFFICIENT_BLDC_DOMESTIC_C_37,Energy Efficient BLDC Domestic Ceiling Fans,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_PRIMARY,1,1,0,IS 374:2019
+715,FAM_ETD_HEAVY_DUTY_INDUSTRIAL_WALL_EXHAU_38,Heavy Duty Industrial Wall Exhaust Fans,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_PRIMARY,1,1,0,IS 2312:1967
+716,FAM_ETD_OIL_FILLED_ROOM_RADIATORS__OFR__39,Oil-Filled Room Radiators (OFR),Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_PRIMARY,1,1,0,IS 302 (Part 2/Sec 30):2007
+717,FAM_ETD_ELECTRIC_QUARTZ_TUBE_ROOM_HEATER_40,Electric Quartz Tube Room Heaters,Electrotechnical,Household and Commercial Electrical Appliances,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+718,FAM_ETD_LED_COMMERCIAL_TROFFER_DOWNLIGHT_41,LED Commercial Troffer Downlights 2x2,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,2,1,1,IS 10322 (Part 5/Sec 1):2012; IS 15885 (Part 2/Sec 13):2012
+719,FAM_ETD_LED_STREET_LIGHTING_LUMINAIRES_42,LED Street Lighting Luminaires,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_PRIMARY,2,1,1,IS 10322 (Part 5/Sec 1):2012; IS 15885 (Part 2/Sec 13):2012
+720,FAM_ETD_INTEGRATED_ALL_IN_ONE_SOLAR_LED__43,Integrated All-in-One Solar LED Street Lights,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15885 (Part 2/Sec 13):2012
+721,FAM_ETD_FLAMEPROOF_HAZARDOUS_AREA_LED_WE_44,Flameproof Hazardous Area LED Wellglass Luminaires,Electrotechnical,Lamps and Lighting Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15885 (Part 2/Sec 13):2012
+722,FAM_ETD_COPPER_CHEMICAL_PIPE_EARTHING_EL_45,Copper Chemical Pipe Earthing Electrodes,Electrotechnical,Earthing and Lightning Protection,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+723,FAM_ETD_CAST_IRON_MAINTENANCE_FREE_EARTH_46,Cast Iron Maintenance-Free Earthing Plates,Electrotechnical,Earthing and Lightning Protection,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 3043:2018
+724,FAM_ETD_EARLY_STREAMER_EMISSION__ESE__LI_47,Early Streamer Emission (ESE) Lightning Arresters,Electrotechnical,Earthing and Lightning Protection,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+725,FAM_ETD_SOLID_COPPER_CONVENTIONAL_LIGHTN_48,Solid Copper Conventional Lightning Air Terminals,Electrotechnical,Earthing and Lightning Protection,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/IEC 62305-1:2010
+726,FAM_ETD_STATION_CLASS_HIGH_VOLTAGE_SURGE_49,Station Class High Voltage Surge Arresters 33kV,Electrotechnical,Switchgear and Protection Devices,VERIFIED_PRIMARY,1,1,0,IS 15086 (Part 4):2014
+727,FAM_ETD_SANDWICH_TYPE_LOW_VOLTAGE_BUSBAR_50,Sandwich Type Low Voltage Busbar Trunking Systems,Electrotechnical,Electrical Installation Materials,VERIFIED_PRIMARY,1,1,0,IS/IEC 61439 (Part 6):2012
+728,FAM_EED_CONTINUOUS_AMBIENT_AIR_QUALITY_M_1,Continuous Ambient Air Quality Monitoring Stations (CAAQMS),Environment and Ecology,Air Quality Monitoring Equipment,VERIFIED_PRIMARY,1,1,0,IS 5182 (Part 2):2001
+729,FAM_EED_HIGH_VOLUME_AIR_SAMPLERS_FOR_PM2_2,High Volume Air Samplers for PM2.5 and PM10,Environment and Ecology,Air Quality Monitoring Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5182 (Part 23):2006
+730,FAM_EED_CONTINUOUS_EMISSION_MONITORING_S_3,Continuous Emission Monitoring Systems (CEMS) for Stacks,Environment and Ecology,Air Quality Monitoring Equipment,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+731,FAM_EED_PORTABLE_MULTI_GAS_FLUE_GAS_COMB_4,Portable Multi-Gas Flue Gas Combustion Analyzers,Environment and Ecology,Air Quality Monitoring Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+732,FAM_EED_ONLINE_EFFLUENT_QUALITY_MONITORI_5,Online Effluent Quality Monitoring Systems (EQMS),Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+733,FAM_EED_TOTAL_ORGANIC_CARBON__TOC__INDUS_6,Total Organic Carbon (TOC) Industrial Water Analyzers,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 3025 (Part 1):1987
+734,FAM_EED_MOVING_BED_BIOFILM_REACTOR__MBBR_7,Moving Bed Biofilm Reactor (MBBR) STP Media,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS 16240:2015
+735,FAM_EED_DISSOLVED_AIR_FLOTATION__DAF__CL_8,Dissolved Air Flotation (DAF) Clarifiers for Effluent,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 10553 (Part 1):1983
+736,FAM_EED_INDUSTRIAL_REVERSE_OSMOSIS__RO___9,Industrial Reverse Osmosis (RO) Desalination Membranes,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16240:2015
+737,FAM_EED_HOLLOW_FIBER_ULTRAFILTRATION__UF_10,Hollow Fiber Ultrafiltration (UF) Modules,Environment and Ecology,Waste Treatment and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16240:2015
+738,FAM_EED_VENTURI_WET_SCRUBBERS_FOR_HAZARD_11,Venturi Wet Scrubbers for Hazardous Acid Fumes,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+739,FAM_EED_WET_ELECTROSTATIC_PRECIPITATORS__12,Wet Electrostatic Precipitators (WESP),Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16075:2015
+740,FAM_EED_PULSE_JET_BAGHOUSE_DUST_COLLECTI_13,Pulse-Jet Baghouse Dust Collection Systems,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 16654:2017
+741,FAM_EED_HOSPITAL_BIO_MEDICAL_WASTE_SHRED_14,Hospital Bio-Medical Waste Shredder Autoclaves,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS 16232:2014
+742,FAM_EED_MECHANICAL_ORGANIC_WASTE_COMPOST_15,Mechanical Organic Waste Composting Biodigesters,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS 15106:2002
+743,FAM_EED_BIODEGRADABLE_STARCH_BASED_CARRY_16,Biodegradable Starch-Based Carry Bags,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS/ISO 17088:2021
+744,FAM_EED_COMPOSTABLE_POLYLACTIC_ACID__PLA_17,Compostable Polylactic Acid (PLA) Cutlery,Environment and Ecology,Waste Management and Biodegradable Products,VERIFIED_PRIMARY,1,1,0,IS/ISO 17088:2021
+745,FAM_EED_BIO_ENZYME_GREASE_TRAP_AND_DRAIN_18,Bio-Enzyme Grease Trap and Drain Cleaners,Environment and Ecology,Waste Management and Biodegradable Products,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+746,FAM_EED_PRECISION_TYPE_1_SOUND_LEVEL_MET_19,Precision Type 1 Sound Level Meters,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 15575 (Part 1):2005
+747,FAM_EED_INDUSTRIAL_ACOUSTIC_SOUND_ATTENU_20,Industrial Acoustic Sound Attenuation Enclosures,Environment and Ecology,Pollution Control and Monitoring,VERIFIED_PRIMARY,1,1,0,IS 12065:1987
+748,FAM_FAD_FORTIFIED_WHEAT_FLOUR__CHAKKI_AT_1,Fortified Wheat Flour (Chakki Atta + Iron & Folic Acid),Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 1155:1968
+749,FAM_FAD_FORTIFIED_REFINED_WHEAT_FLOUR__M_2,Fortified Refined Wheat Flour (Maida),Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 1009:1979
+750,FAM_FAD_FORTIFIED_MILLED_RAW_AND_PARBOIL_3,Fortified Milled Raw and Parboiled Rice,Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 17782:2021
+751,FAM_FAD_TRADITIONAL_INDIAN_BASMATI_RICE__4,Traditional Indian Basmati Rice Export Grade,Food and Agriculture,Food Grains and Cereals,VERIFIED_PRIMARY,1,1,0,IS 8371:2016
+752,FAM_FAD_SOLAR_DEHYDRATED_WHITE_ONION_FLA_5,Solar Dehydrated White Onion Flakes,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 4454:1969
+753,FAM_FAD_DEHYDRATED_GARLIC_GRANULES_AND_P_6,Dehydrated Garlic Granules and Powder,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 4452:1969
+754,FAM_FAD_REFINED_SOYABEAN_EDIBLE_OIL_FORT_7,Refined Soyabean Edible Oil Fortified,Food and Agriculture,Edible Oils and Fats,VERIFIED_PRIMARY,1,1,0,IS 4276:1977
+755,FAM_FAD_REFINED_SUNFLOWER_SEED_COOKING_O_8,Refined Sunflower Seed Cooking Oil,Food and Agriculture,Edible Oils and Fats,VERIFIED_PRIMARY,1,1,0,IS 4277:1975
+756,FAM_FAD_COLD_PRESSED_KACHI_GHANI_MUSTARD_9,Cold-Pressed Kachi Ghani Mustard Oil,Food and Agriculture,Edible Oils and Fats,VERIFIED_PRIMARY,1,1,0,IS 546:1975
+757,FAM_FAD_COLD_EXTRACTED_EXTRA_VIRGIN_OLIV_10,Cold-Extracted Extra Virgin Olive Oil,Food and Agriculture,Edible Oils and Fats,VERIFIED_PRIMARY,1,1,0,IS 15686:2006
+758,FAM_FAD_TRADITIONAL_PURE_DESI_GHEE__CLAR_11,Traditional Pure Desi Ghee (Clarified Butter),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 16326:2015
+759,FAM_FAD_PASTEURIZED_TABLE_BUTTER__SALTED_12,Pasteurized Table Butter (Salted),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 13690:1992
+760,FAM_FAD_PASTEURIZED_FULL_CREAM_DAIRY_MIL_13,Pasteurized Full Cream Dairy Milk,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 13688:1999
+761,FAM_FAD_SPRAY_DRIED_SKIMMED_MILK_POWDER__14,Spray-Dried Skimmed Milk Powder (SMP),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 1165:2002
+762,FAM_FAD_FRESH_VACUUM_PACKED_DAIRY_PANEER_15,Fresh Vacuum-Packed Dairy Paneer (Cottage Cheese),Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 10484:1983
+763,FAM_FAD_PROCESSED_MOZZARELLA_AND_CHEDDAR_16,Processed Mozzarella and Cheddar Cheese Blocks,Food and Agriculture,Dairy and Animal Products,VERIFIED_PRIMARY,1,1,0,IS 2785:2021
+764,FAM_FAD_CANNED_SWEET_CORN_KERNELS_IN_BRI_17,Canned Sweet Corn Kernels in Brine,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 14596:1998
+765,FAM_FAD_CANNED_ALPHONSO_MANGO_FRUIT_PULP_18,Canned Alphonso Mango Fruit Pulp,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 3882:1979
+766,FAM_FAD_HOT_BREAK_TOMATO_PASTE_AND_PUREE_19,Hot-Break Tomato Paste and Puree Concentrate,Food and Agriculture,Processed Food and Machinery,VERIFIED_PRIMARY,1,1,0,IS 3883:1993
+767,FAM_FAD_PACKAGED_NATURAL_MINERAL_WATER_I_20,Packaged Natural Mineral Water in Glass Bottles,Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 13428:2005
+768,FAM_FAD_CARBONATED_FRUIT_FLAVORED_BEVERA_21,Carbonated Fruit Flavored Beverages,Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 2346:1992
+769,FAM_FAD_ROASTED_AND_GROUND_ARABICA_COFFE_22,Roasted and Ground Arabica Coffee Powder,Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 3077:1992
+770,FAM_FAD_INSTANT_SPRAY_DRIED_PURE_COFFEE__23,Instant Spray-Dried Pure Coffee Powder,Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 2791:1992
+771,FAM_FAD_CTC_BLACK_TEA_GRAIN_FORM__ASSAM__24,CTC Black Tea Grain Form (Assam / Dooars),Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 3633:2003
+772,FAM_FAD_ORTHODOX_WHOLE_LEAF_GREEN_TEA_25,Orthodox Whole Leaf Green Tea,Food and Agriculture,Beverages and Drinking Water,VERIFIED_PRIMARY,1,1,0,IS 3929:2004
+773,FAM_FAD_GROUND_TURMERIC_ROOT_POWDER__AGM_26,Ground Turmeric Root Powder (Agmark Special),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 3576:2010
+774,FAM_FAD_RED_CHILLI_POWDER_FINE_MILLED__A_27,Red Chilli Powder Fine Milled (Agmark Grade),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2445:2017
+775,FAM_FAD_GROUND_CORIANDER_SEED_POWDER__DH_28,Ground Coriander Seed Powder (Dhania),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2444:2020
+776,FAM_FAD_WHOLE_CUMIN_SEEDS__JEERA_MACHINE_29,Whole Cumin Seeds (Jeera Machine Cleaned),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 2421:2019
+777,FAM_FAD_BLACK_PEPPER_WHOLE_MALABAR_GARBL_30,Black Pepper Whole Malabar Garbled,Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 1798:2020
+778,FAM_FAD_GREEN_CARDAMOM_WHOLE_PODS__ALLEP_31,Green Cardamom Whole Pods (Alleppey Green),Food and Agriculture,Spices and Condiments,VERIFIED_PRIMARY,1,1,0,IS 1907:2020
+779,FAM_FAD_TRACTOR_DRAWN_HEAVY_DUTY_DISC_PL_32,Tractor Drawn Heavy Duty Disc Ploughs,Food and Agriculture,Agricultural Machinery and Equipment,VERIFIED_PRIMARY,1,1,0,IS 9813:2002
+780,FAM_FAD_TRACTOR_PTO_DRIVEN_TILLAGE_ROTAV_33,Tractor PTO Driven Tillage Rotavators,Food and Agriculture,Agricultural Machinery and Equipment,VERIFIED_PRIMARY,1,1,0,IS 17045:2018
+781,FAM_FAD_COMBINE_HARVESTER_RUBBER_CRAWLER_34,Combine Harvester Rubber Crawler Tracks,Food and Agriculture,Agricultural Machinery and Equipment,VERIFIED_PRIMARY,1,1,0,IS 16298:2015
+782,FAM_FAD_KNAPSACK_BATTERY_OPERATED_AGRICU_35,Knapsack Battery Operated Agricultural Sprayers,Food and Agriculture,Agricultural Machinery and Equipment,VERIFIED_PRIMARY,1,1,0,IS 11313:2007
+783,FAM_MSD_QUALITY_MANAGEMENT_SYSTEM_ISO_90_1,Quality Management System ISO 9001 Auditing Framework,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+784,FAM_MSD_ENVIRONMENTAL_MANAGEMENT_SYSTEM__2,Environmental Management System ISO 14001 Auditing Framework,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 14001:2015
+785,FAM_MSD_OCCUPATIONAL_HEALTH_AND_SAFETY_I_3,Occupational Health and Safety ISO 45001 Framework,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 45001:2018
+786,FAM_MSD_ENERGY_MANAGEMENT_SYSTEM_ISO_500_4,Energy Management System ISO 50001 Framework,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 50001:2018
+787,FAM_MSD_INFORMATION_SECURITY_MANAGEMENT__5,Information Security Management ISO/IEC 27001 Framework,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO/IEC 27001:2022
+788,FAM_MSD_FOOD_SAFETY_MANAGEMENT_SYSTEM_IS_6,Food Safety Management System ISO 22000 Auditing,Management and Systems,Management Systems Certification,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 22000:2018
+789,FAM_MSD_MEDICAL_DEVICES_QUALITY_MANAGEME_7,Medical Devices Quality Management ISO 13485 Framework,Management and Systems,Management Systems Certification,VERIFIED_PRIMARY,1,1,0,IS/ISO 13485:2016
+791,FAM_MSD_ANTI_BRIBERY_MANAGEMENT_SYSTEMS__9,Anti-Bribery Management Systems ISO 37001 System,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 37001:2016
+792,FAM_MSD_ROAD_TRAFFIC_SAFETY_MANAGEMENT_I_10,Road Traffic Safety Management ISO 39001 System,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 39001:2012
+793,FAM_MSD_PHYSICAL_ASSET_MANAGEMENT_SYSTEM_11,Physical Asset Management System ISO 55001 Framework,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 55001:2014
+794,FAM_MSD_CORPORATE_COMPLIANCE_MANAGEMENT__12,Corporate Compliance Management Systems ISO 37301,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 37301:2021
+795,FAM_MSD_CUSTOMER_SATISFACTION_AND_GRIEVA_13,Customer Satisfaction and Grievance Handling ISO 10002,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 10002:2018
+796,FAM_MSD_ENTERPRISE_RISK_MANAGEMENT_GUIDE_14,Enterprise Risk Management Guidelines ISO 31000,Management and Systems,Management Systems,VERIFIED_PRIMARY,1,1,0,IS/ISO 31000:2018
+797,FAM_MSD_SOCIAL_ACCOUNTABILITY_SA_8000_CO_15,Social Accountability SA 8000 Compliance System,Management and Systems,Management Systems,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 26000:2010
+798,FAM_MED_MULTI_STAGE_CENTRIFUGAL_BOILER_F_1,Multi-Stage Centrifugal Boiler Feed Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5120:1977
+799,FAM_MED_HORIZONTAL_SPLIT_CASING_DOUBLE_S_2,Horizontal Split-Casing Double-Suction Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5120:1977
+800,FAM_MED_SELF_PRIMING_NON_CLOG_MUD_DEWATE_3,Self-Priming Non-Clog Mud Dewatering Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5120:1977
+801,FAM_MED_VERTICAL_TURBINE_RAW_WATER_PUMPI_4,Vertical Turbine Raw Water Pumping Units,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 5120:1977
+802,FAM_MED_HIGH_PRESSURE_HYDRAULIC_PISTON_P_5,High-Pressure Hydraulic Piston Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 5120:1977
+803,FAM_MED_DIAPHRAGM_CHEMICAL_METERING_PUMP_6,Diaphragm Chemical Metering Pumps,Mechanical Engineering,Pumps and Pumping Equipment,VERIFIED_PRIMARY,1,1,0,IS 13015:1991
+804,FAM_MED_FORGED_STEEL_GATE_VALVES_CLASS_8_7,Forged Steel Gate Valves Class 800,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 778:1984
+805,FAM_MED_CAST_STEEL_GLOBE_VALVES_CLASS_15_8,Cast Steel Globe Valves Class 150 / 300,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 778:1984
+806,FAM_MED_DUAL_PLATE_WAFER_NON_RETURN_VALV_9,Dual Plate Wafer Non-Return Valves,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 5312 (Part 2):1986
+807,FAM_MED_HIGH_PERFORMANCE_DOUBLE_OFFSET_B_10,High Performance Double Offset Butterfly Valves,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 13095:1991
+808,FAM_MED_TRUNNION_MOUNTED_PIPELINE_BALL_V_11,Trunnion Mounted Pipeline Ball Valves,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 9890:1981
+809,FAM_MED_DIRECT_ACTING_WATER_PRESSURE_RED_12,Direct Acting Water Pressure Reducing Valves,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 9739:1981
+810,FAM_MED_SAFETY_RELIEF_VALVES_FOR_BOILERS_13,Safety Relief Valves for Boilers & Pressure Vessels,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 3687:1977
+811,FAM_MED_ELECTRIC_MOTORIZED_CONTROL_VALVE_14,Electric Motorized Control Valves 4-20mA,Mechanical Engineering,Valves and Piping Specialties,VERIFIED_PRIMARY,1,1,0,IS 10189 (Part 1):1982
+812,FAM_MED_ROTARY_SCREW_AIR_COMPRESSORS_OIL_15,Rotary Screw Air Compressors Oil-Injected,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+813,FAM_MED_OIL_FREE_ROTARY_TOOTH_AIR_COMPRE_16,Oil-Free Rotary Tooth Air Compressors,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+814,FAM_MED_RECIPROCATING_HIGH_PRESSURE_AIR__17,Reciprocating High Pressure Air Compressors,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 5456:2006
+815,FAM_MED_LIQUID_RING_VACUUM_PUMP_PACKAGES_18,Liquid Ring Vacuum Pump Packages,Mechanical Engineering,Compressors and Vacuum Pumps,VERIFIED_PRIMARY,1,1,0,IS 6849:1973
+816,FAM_MED_ELECTRIC_WIRE_ROPE_HOISTS_5_TONN_19,Electric Wire Rope Hoists 5-Tonne,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 3938:1983
+817,FAM_MED_OVERHEAD_DOUBLE_GIRDER_EOT_CRANE_20,Overhead Double Girder EOT Cranes 20T,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 3177:1999
+818,FAM_MED_HEAVY_DUTY_HAND_CHAIN_PULLEY_BLO_21,Heavy Duty Hand Chain Pulley Blocks,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 3832:2005
+820,FAM_MED_ROUGH_TERRAIN_DIESEL_FORKLIFTS_3_23,Rough Terrain Diesel Forklifts 3-Tonne,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 4357:1974
+821,FAM_MED_INDUSTRIAL_GOODS_ELEVATORS_2000__24,Industrial Goods Elevators 2000 kg,Mechanical Engineering,Lifting and Material Handling Equipment,VERIFIED_PRIMARY,1,1,0,IS 14665 (Part 1):2000
+822,FAM_MED_SEAMLESS_STEEL_GAS_CYLINDERS_FOR_25,Seamless Steel Gas Cylinders for CNG,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 15490:2004
+823,FAM_MED_SEAMLESS_STEEL_CYLINDERS_FOR_MED_26,Seamless Steel Cylinders for Medical Oxygen,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 7285 (Part 2):2017
+824,FAM_MED_WELDED_LOW_CARBON_STEEL_LPG_CYLI_27,Welded Low Carbon Steel LPG Cylinders 14.2 kg,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 3196 (Part 1):2013
+825,FAM_MED_WELDED_STAINLESS_STEEL_CRYOGENIC_28,Welded Stainless Steel Cryogenic Liquid Cylinders,Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 16104:2014
+826,FAM_MED_UNFIRED_PRESSURE_VESSELS__COMPRE_29,Unfired Pressure Vessels (Compressed Air Receivers),Mechanical Engineering,Pressure Vessels and Gas Cylinders,VERIFIED_PRIMARY,1,1,0,IS 2825:1969
+827,FAM_MED_GASKETED_PLATE_HEAT_EXCHANGERS___30,Gasketed Plate Heat Exchangers (PHE),Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 14590:1998
+828,FAM_MED_SHELL_AND_TUBE_INDUSTRIAL_HEAT_E_31,Shell and Tube Industrial Heat Exchangers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_PRIMARY,1,1,0,IS 4503:1967
+829,FAM_MED_WATER_COOLED_CENTRIFUGAL_CHILLER_32,Water-Cooled Centrifugal Chiller Packages,Mechanical Engineering,Refrigeration and Air Conditioning,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+830,FAM_MED_AIR_COOLED_SCREW_WATER_CHILLERS_33,Air-Cooled Screw Water Chillers,Mechanical Engineering,Refrigeration and Air Conditioning,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+831,FAM_MED_PRECISION_CLOSE_CONTROL_AIR_COND_34,Precision Close-Control Air Conditioners (PAC),Mechanical Engineering,Refrigeration and Air Conditioning,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+832,FAM_MED_INDUSTRIAL_COLD_ROOM_EVAPORATOR__35,Industrial Cold Room Evaporator Blower Units,Mechanical Engineering,Refrigeration and Air Conditioning,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+833,FAM_MED_FRP_INDUCED_DRAFT_COOLING_TOWERS_36,FRP Induced Draft Cooling Towers,Mechanical Engineering,Thermal and Fluid Plant,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 659:1964
+834,FAM_MED_DEEP_GROOVE_BALL_BEARINGS_SEALED_37,Deep Groove Ball Bearings Sealed Series,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 6455:1972
+835,FAM_MED_CYLINDRICAL_ROLLER_BEARINGS_HIGH_38,Cylindrical Roller Bearings High Radial Capacity,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 6455:1972
+836,FAM_MED_SPHERICAL_ROLLER_BEARINGS_HEAVY__39,Spherical Roller Bearings Heavy Industrial,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 6455:1972
+837,FAM_MED_TAPERED_ROLLER_BEARINGS_METRIC_S_40,Tapered Roller Bearings Metric Series,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 7460:1996
+838,FAM_MED_FLEXIBLE_JAW_COUPLINGS_WITH_ELAS_41,Flexible Jaw Couplings with Elastomer Spider,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 11849:1986
+839,FAM_MED_CURVED_TOOTH_FLEXIBLE_GEAR_COUPL_42,Curved Tooth Flexible Gear Couplings,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 11849:1986
+840,FAM_MED_SHORT_PITCH_TRANSMISSION_ROLLER__43,Short Pitch Transmission Roller Chains,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 2403:2014
+841,FAM_MED_CLASSIC_AND_WEDGE_INDUSTRIAL_V_B_44,Classic and Wedge Industrial V-Belts,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 2494 (Part 1):1994
+842,FAM_MED_HELICAL_BEVEL_GEAR_REDUCTION_UNI_45,Helical Bevel Gear Reduction Units,Mechanical Engineering,Machine Elements and Mechanical Drives,VERIFIED_PRIMARY,1,1,0,IS 7403:1974
+843,FAM_MHD_DISPOSABLE_STERILE_SCALP_VEIN_SE_1,Disposable Sterile Scalp Vein Sets (Butterfly Needles),Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS 10654:2020
+844,FAM_MHD_STERILE_INTRAVENOUS_CANNULA_WITH_2,Sterile Intravenous Cannula with Injection Port,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS/ISO 10555-1:2013
+845,FAM_MHD_CUFFED_ENDOTRACHEAL_TUBES_FOR_AN_3,Cuffed Endotracheal Tubes for Anesthesia,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 5361:2016
+846,FAM_MHD_STERILE_2_WAY_LATEX_FOLEY_BALLOO_4,Sterile 2-Way Latex Foley Balloon Catheters,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS/ISO 20696:2018
+847,FAM_MHD_BLOOD_BAG_SYSTEMS_WITH_CPD_A1_AN_5,Blood Bag Systems with CPD-A1 Anticoagulant,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS 15150:2002
+848,FAM_MHD_DISPOSABLE_BLOOD_TUBING_SETS_FOR_6,Disposable Blood Tubing Sets for Hemodialysis,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS/ISO 8637-2:2018
+849,FAM_MHD_HOLLOW_FIBER_DIALYZERS_POLYSULFO_7,Hollow Fiber Dialyzers Polysulfone Membrane,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS/ISO 8637-1:2018
+850,FAM_MHD_SINGLE_USE_STERILE_HYPODERMIC_NE_8,Single-Use Sterile Hypodermic Needles 21G-26G,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS 10654:2020
+851,FAM_MHD_STERILE_DISPOSABLE_INSULIN_SYRIN_9,Sterile Disposable Insulin Syringes with Ultra-Fine Needle,Medical Equipment and Hospital Planning,Medical Consumables and Disposables,VERIFIED_PRIMARY,1,1,0,IS/ISO 8537:2016
+852,FAM_MHD_MOTORIZED_5_FUNCTION_ELECTRIC_HO_10,Motorized 5-Function Electric Hospital ICU Beds,Medical Equipment and Hospital Planning,Hospital Furniture and Architecture,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+853,FAM_MHD_HYDRAULIC_MOBILE_SURGICAL_OPERAT_11,Hydraulic Mobile Surgical Operating Tables with X-Ray Top,Medical Equipment and Hospital Planning,Hospital Furniture and Architecture,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+854,FAM_MHD_STAINLESS_STEEL_MAYO_SURGICAL_IN_12,Stainless Steel Mayo Surgical Instrument Trolleys,Medical Equipment and Hospital Planning,Hospital Furniture and Architecture,VERIFIED_PRIMARY,1,1,0,IS 7378:1974
+855,FAM_MHD_SHADOWLESS_LED_SURGICAL_OPERATIN_13,Shadowless LED Surgical Operating Theater Lights,Medical Equipment and Hospital Planning,Hospital Furniture and Architecture,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+856,FAM_MHD_WALL_MOUNTED_MEDICAL_OXYGEN_FLOW_14,Wall-Mounted Medical Oxygen Flowmeters with Humidifier,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_PRIMARY,1,1,0,IS/ISO 10524-1:2018
+857,FAM_MHD_HEAVY_DUTY_PORTABLE_ELECTRIC_MED_15,Heavy Duty Portable Electric Medical Suction Machines,Medical Equipment and Hospital Planning,Surgical and Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+858,FAM_MHD_MULTI_PARAMETER_BEDSIDE_PATIENT__16,Multi-Parameter Bedside Patient Monitors (12-Inch),Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13450 (Part 1):2018; IS 616:2017
+859,FAM_MHD_12_CHANNEL_ELECTROCARDIOGRAPH__E_17,12-Channel Electrocardiograph (ECG) Diagnostic Machines,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+860,FAM_MHD_AUTOMATED_EXTERNAL_DEFIBRILLATOR_18,Automated External Defibrillators (AED Biphasic),Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+861,FAM_MHD_ICU_MECHANICAL_VENTILATORS__INVA_19,ICU Mechanical Ventilators (Invasive & Non-Invasive),Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+862,FAM_MHD_HIGH_FLOW_NASAL_CANNULA__HFNC__O_20,High-Flow Nasal Cannula (HFNC) Oxygen Therapy Systems,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_PRIMARY,1,1,0,IS/ISO 80601-2-90:2021
+863,FAM_MHD_COLOR_DOPPLER_DIAGNOSTIC_ULTRASO_21,Color Doppler Diagnostic Ultrasound Scanners,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+864,FAM_MHD_HIGH_FREQUENCY_DIGITAL_RADIOGRAP_22,High Frequency Digital Radiography (DR) X-Ray Systems,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+865,FAM_MHD_HORIZONTAL_HIGH_PRESSURE_STEAM_A_23,Horizontal High Pressure Steam Autoclave Sterilizers,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+866,FAM_MHD_LOW_TEMPERATURE_HYDROGEN_PEROXID_24,Low Temperature Hydrogen Peroxide Plasma Sterilizers,Medical Equipment and Hospital Planning,Respiratory and Sterilization,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+867,FAM_MHD_MICROPROCESSOR_CONTROLLED_INFANT_25,Microprocessor Controlled Infant Radiant Warmers,Medical Equipment and Hospital Planning,Diagnostic and Therapeutic Medical Devices,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13450 (Part 1):2018
+868,FAM_MTD_HEAVY_STEEL_MELTING_SCRAP_FOR_IN_1,Heavy Steel Melting Scrap for Induction Furnaces,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 2549:1994
+869,FAM_MTD_DIRECT_REDUCED_IRON__DRI____SPON_2,Direct Reduced Iron (DRI) / Sponge Iron Pellets,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 15774:2007
+870,FAM_MTD_HOT_BRIQUETTED_IRON__HBI__FOR_ST_3,Hot Briquetted Iron (HBI) for Steelmaking,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 15774:2007
+871,FAM_MTD_FOUNDRY_GRADE_PIG_IRON_FOR_CASTI_4,Foundry Grade Pig Iron for Castings,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 224:1965
+872,FAM_MTD_MILD_STEEL_WIRE_RODS_FOR_DRAWING_5,Mild Steel Wire Rods for Drawing,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 7887:1992
+873,FAM_MTD_HIGH_CARBON_STEEL_WIRE_RODS_FOR__6,High Carbon Steel Wire Rods for Strands,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 11513:2017
+874,FAM_MTD_QUENCHED_AND_TEMPERED_HIGH_STREN_7,Quenched and Tempered High Strength Plates,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 8500:1991
+875,FAM_MTD_WEATHERING_STRUCTURAL_STEEL_PLAT_8,Weathering Structural Steel Plates (Corten),Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1893 (Part 1):2016
+876,FAM_MTD_COLD_ROLLED_NON_GRAIN_ORIENTED_S_9,Cold Rolled Non-Grain Oriented Steel (CRNO),Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 648:2022
+877,FAM_MTD_COLD_ROLLED_GRAIN_ORIENTED_STEEL_10,Cold Rolled Grain Oriented Steel (CRGO),Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 3024:2015
+878,FAM_MTD_STAINLESS_STEEL_COLD_ROLLED_SHEE_11,Stainless Steel Cold Rolled Sheets Grade 304,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 6911:2017
+879,FAM_MTD_STAINLESS_STEEL_HOT_ROLLED_PLATE_12,Stainless Steel Hot Rolled Plates Grade 316L,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 6911:2017
+880,FAM_MTD_DUPLEX_STAINLESS_STEEL_PLATES_UN_13,Duplex Stainless Steel Plates UNS S31803,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 6911:2017
+881,FAM_MTD_CONTINUOUS_CAST_COPPER_BILLETS_F_14,Continuous Cast Copper Billets for Extrusion,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 191:2007
+882,FAM_MTD_ELECTROLYTIC_TOUGH_PITCH__ETP__C_15,Electrolytic Tough Pitch (ETP) Copper Busbars,Metallurgical Engineering,Copper and Copper Alloys,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+883,FAM_MTD_DEOXIDIZED_HIGH_PHOSPHORUS__DHP__16,Deoxidized High Phosphorus (DHP) Copper Tubes,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 10773:1995
+884,FAM_MTD_CUPRO_NICKEL_CONDENSER_TUBES_90__17,Cupro-Nickel Condenser Tubes 90/10,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 1545:1994
+885,FAM_MTD_FREE_CUTTING_BRASS_HEXAGONAL_ROD_18,Free Cutting Brass Hexagonal Rods (Grade 1),Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 319:2007
+886,FAM_MTD_NAVAL_BRASS_CONDENSER_PLATES_19,Naval Brass Condenser Plates,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 6912:2005
+887,FAM_MTD_PHOSPHOR_BRONZE_SPRING_STRIPS_GR_20,Phosphor Bronze Spring Strips Grade I,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 1385:1993
+888,FAM_MTD_ALUMINIUM_EXTRUDED_ARCHITECTURAL_21,Aluminium Extruded Architectural Profiles 6063-T6,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 733:1983
+889,FAM_MTD_STRUCTURAL_ALUMINIUM_ALLOY_PLATE_22,Structural Aluminium Alloy Plates 6082-T6,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 734:1975
+890,FAM_MTD_HOUSEHOLD_ALUMINIUM_FOIL_11_MICR_23,Household Aluminium Foil 11-Micron,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 15392:2003
+891,FAM_MTD_ALUMINIUM_ALLOY_WIRE_RODS_FOR_OV_24,Aluminium Alloy Wire Rods for Overhead Lines,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 5484:1997
+892,FAM_MTD_SPECIAL_HIGH_GRADE__SHG__ZINC_IN_25,Special High Grade (SHG) Zinc Ingots 99.995%,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 209:1992
+893,FAM_MTD_PRIMARY_ELECTROLYTIC_NICKEL_CATH_26,Primary Electrolytic Nickel Cathodes 99.98%,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 2782:2008
+894,FAM_MTD_HIGH_CARBON_FERRO_CHROME_LUMPS___27,High Carbon Ferro-Chrome Lumps (Cr 60%),Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 1170:1992
+895,FAM_MTD_MEDIUM_CARBON_FERRO_MANGANESE_LU_28,Medium Carbon Ferro-Manganese Lumps,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 1171:2011
+896,FAM_MTD_METALLURGICAL_GRADE_FERRO_SILICO_29,Metallurgical Grade Ferro-Silicon 70-75%,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 1110:1990
+897,FAM_MTD_SPHEROIDAL_GRAPHITE__SG__DUCTILE_30,Spheroidal Graphite (SG) Ductile Iron Castings,Metallurgical Engineering,"Steel Plates, Sheets and Strips",VERIFIED_PRIMARY,1,1,0,IS 1865:1991
+898,FAM_MTD_WHITE_METAL_TIN_BASE_BABBIT_BEAR_31,White Metal Tin-Base Babbit Bearing Alloy,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 25:1979
+899,FAM_MTD_MAGNESIUM_ALLOY_HIGH_PRESSURE_DI_32,Magnesium Alloy High-Pressure Die Castings AZ91D,Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 6841:1973
+900,FAM_MTD_TITANIUM_ALLOY_BARS_GRADE_5__TI__33,Titanium Alloy Bars Grade 5 (Ti-6Al-4V),Metallurgical Engineering,Aluminium and Light Alloys,VERIFIED_PRIMARY,1,1,0,IS 13919:1994
+901,FAM_MTD_REFINED_CHEMICAL_LEAD_INGOTS_99__34,Refined Chemical Lead Ingots 99.97%,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 27:1992
+902,FAM_MTD_PURE_TIN_INGOTS_FOR_SOLDER_AND_T_35,Pure Tin Ingots for Solder and Tinning,Metallurgical Engineering,Copper and Copper Alloys,VERIFIED_PRIMARY,1,1,0,IS 26:1992
+903,FAM_PCD_MOTOR_GASOLINE__BS_VI_EURO_VI_PE_1,Motor Gasoline (BS-VI Euro-VI Petrol),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 2796:2017
+904,FAM_PCD_HIGH_SPEED_DIESEL__BS_VI_EURO_VI_2,High Speed Diesel (BS-VI Euro-VI Diesel),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 1460:2017
+905,FAM_PCD_AVIATION_TURBINE_FUEL__JET_A_1___3,Aviation Turbine Fuel (Jet A-1 / Kerosene Type),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 1571:2018
+906,FAM_PCD_COMMERCIAL_LIQUEFIED_PETROLEUM_G_4,Commercial Liquefied Petroleum Gas (19 kg LPG),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 4576:1999
+907,FAM_PCD_SUPERIOR_KEROSENE_OIL__DOMESTIC__5,Superior Kerosene Oil (Domestic PDS Grade),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 1459:2018
+908,FAM_PCD_LIGHT_DIESEL_OIL__LDO__FOR_INDUS_6,Light Diesel Oil (LDO) for Industrial Furnaces,"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 15770:2008
+909,FAM_PCD_INDUSTRIAL_FURNACE_OIL__FO_180_C_7,Industrial Furnace Oil (FO 180 cSt / 380 cSt),"Petroleum, Coal and Related Products",Liquid Fuels,VERIFIED_PRIMARY,1,1,0,IS 1593:2018
+910,FAM_PCD_SYNTHETIC_AUTOMOTIVE_ENGINE_OIL__8,Synthetic Automotive Engine Oil SAE 5W-30,"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 13656:2019
+911,FAM_PCD_HEAVY_DUTY_DIESEL_ENGINE_OIL_15W_9,Heavy Duty Diesel Engine Oil 15W-40 CI-4/CK-4,"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 13656:2019
+912,FAM_PCD_INDUSTRIAL_HEAVY_DUTY_GEAR_OILS__10,Industrial Heavy Duty Gear Oils (ISO VG 220 / 320),"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 1012:2002
+913,FAM_PCD_ANTI_WEAR_INDUSTRIAL_HYDRAULIC_O_11,Anti-Wear Industrial Hydraulic Oils (ISO VG 46 / 68),"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 1012:2002
+914,FAM_PCD_LITHIUM_COMPLEX_EXTREME_PRESSURE_12,Lithium Complex Extreme Pressure Grease EP-2,"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 7623:2019
+915,FAM_PCD_UNINHIBITED_MINERAL_TRANSFORMER__13,Uninhibited Mineral Transformer Insulating Oil,"Petroleum, Coal and Related Products",Lubricants and Greases,VERIFIED_PRIMARY,1,1,0,IS 335:2018
+916,FAM_PCD_FULLY_REFINED_PARAFFIN_WAX__SLAB_14,Fully Refined Paraffin Wax (Slab Form),"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 4654:2019
+917,FAM_PCD_PHARMACEUTICAL_GRADE_MICROCRYSTA_15,Pharmaceutical Grade Microcrystalline Wax,"Petroleum, Coal and Related Products",Specialty Petroleum and Wax,VERIFIED_PRIMARY,1,1,0,IS 14486:1997
+918,FAM_PCD_WHITE_PETROLEUM_JELLY__USP___BP__16,White Petroleum Jelly (USP / BP / IP Grade),"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_PRIMARY,1,1,0,IS 4887:2020
+919,FAM_PCD_MOISTURIZING_SKIN_CREAMS_AND_COL_17,Moisturizing Skin Creams and Cold Creams,"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_PRIMARY,1,1,0,IS 6608:2021
+920,FAM_PCD_AEROSOL_SHAVING_CREAMS_AND_FOAMS_18,Aerosol Shaving Creams and Foams,"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_PRIMARY,1,1,0,IS 9740:2021
+921,FAM_PCD_HIGH_PROTECTION_SUNSCREEN_LOTION_19,High Protection Sunscreen Lotions (SPF 30 / 50+),"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_PRIMARY,1,1,0,IS 16602:2016
+922,FAM_PCD_HERBAL_AND_SULFATE_FREE_HAIR_CLE_20,Herbal and Sulfate-Free Hair Cleansing Shampoos,"Petroleum, Coal and Related Products",Cosmetics and Toiletries,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 16503:2017
+923,FAM_PCD_STYRENE_BUTADIENE_RUBBER__SBR_15_21,Styrene Butadiene Rubber (SBR 1502 Non-Staining),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 13914:2020
+924,FAM_PCD_HIGH_CIS_POLYBUTADIENE_RUBBER__P_22,High-Cis Polybutadiene Rubber (PBR),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 10640:2020
+925,FAM_PCD_ACRYLONITRILE_BUTADIENE_RUBBER___23,Acrylonitrile Butadiene Rubber (Nitrile Rubber NBR),"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 7450:2020
+926,FAM_PCD_REINFORCING_FURNACE_CARBON_BLACK_24,Reinforcing Furnace Carbon Black N220 / N330,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 1699:1995
+927,FAM_PCD_WHOLE_TYRE_RECLAIMED_RUBBER_25,Whole Tyre Reclaimed Rubber,"Petroleum, Coal and Related Products",Petrochemicals and Rubber,VERIFIED_PRIMARY,1,1,0,IS 6306:2019
+928,FAM_PGD_HIGH_TENSILE_HEXAGONAL_HEAD_BOLT_1,High Tensile Hexagonal Head Bolts Grade 8.8 / 10.9,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+929,FAM_PGD_HIGH_TENSILE_HEAVY_HEX_NUTS_GRAD_2,High Tensile Heavy Hex Nuts Grade 8 / 10,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 1367 (Part 1):2014; IS 1367 (Part 6):1994
+930,FAM_PGD_HARDENED_AND_TEMPERED_PLAIN_STEE_3,Hardened and Tempered Plain Steel Washers 300HV,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+931,FAM_PGD_SOCKET_HEAD_CAP_SCREWS_GRADE_12__4,Socket Head Cap Screws Grade 12.9,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+932,FAM_PGD_STAINLESS_STEEL_FASTENERS_GRADE__5,Stainless Steel Fasteners Grade A2-70 / A4-80,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+933,FAM_PGD_ALUMINIUM_OPEN_END_BLIND_BREAK_S_6,Aluminium Open End Blind Break-Stem Rivets,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+934,FAM_PGD_DOUBLE_ENDED_STUD_BOLTS_ASTM_A19_7,Double Ended Stud Bolts ASTM A193 Grade B7,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+935,FAM_PGD_HEAVY_DUTY_FOUNDATION_ANCHOR_J_B_8,Heavy Duty Foundation Anchor J-Bolts and L-Bolts,Production and General Engineering,Fasteners and Hardware,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+936,FAM_PGD_DIGITAL_VERNIER_CALIPERS_IP67__0_9,Digital Vernier Calipers IP67 (0-300 mm),Production and General Engineering,Engineering Metrology and Gauging,VERIFIED_PRIMARY,1,1,0,IS 3651 (Part 1):1982
+937,FAM_PGD_DIGITAL_EXTERNAL_MICROMETERS__0__10,Digital External Micrometers (0-25 mm),Production and General Engineering,Engineering Metrology and Gauging,VERIFIED_PRIMARY,1,1,0,IS 2967:1983
+938,FAM_PGD_MECHANICAL_PLUNGER_DIAL_INDICATO_11,Mechanical Plunger Dial Indicators 0.01 mm,Production and General Engineering,Engineering Metrology and Gauging,VERIFIED_PRIMARY,1,1,0,IS 2092:1983
+939,FAM_PGD_ELECTRONIC_DIGITAL_HEIGHT_GAUGES_12,Electronic Digital Height Gauges with Air Cushion,Production and General Engineering,Engineering Metrology and Gauging,VERIFIED_PRIMARY,1,1,0,IS 2921:1988
+940,FAM_PGD_SOLID_CARBIDE_END_MILLS_4_FLUTE__13,Solid Carbide End Mills 4-Flute TiAlN Coated,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 6353:1991
+941,FAM_PGD_INDEXABLE_CARBIDE_TURNING_INSERT_14,Indexable Carbide Turning Inserts (CNMG / WNMG),Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 10042:1981
+942,FAM_PGD_HIGH_SPEED_STEEL__HSS__M2_GROUND_15,High Speed Steel (HSS) M2 Ground Twist Drills,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 5101:1991
+943,FAM_PGD_GROUND_THREAD_MACHINE_TAPS_ISO_M_16,Ground Thread Machine Taps ISO Metric Fine,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 6175 (Part 2):1992
+944,FAM_PGD_FLAT_BED_CNC_HORIZONTAL_TURNING__17,Flat Bed CNC Horizontal Turning Lathes,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 13192:1992
+945,FAM_PGD_VERTICAL_MACHINING_CENTERS__VMC__18,Vertical Machining Centers (VMC 3-Axis / 5-Axis),Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 13193:1992
+946,FAM_PGD_FIBER_LASER_SHEET_METAL_CUTTING__19,Fiber Laser Sheet Metal Cutting Machines 3kW-6kW,Production and General Engineering,Machine Tools and Cutting Tools,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+947,FAM_PGD_SEMI_AUTOMATIC_HORIZONTAL_METAL__20,Semi-Automatic Horizontal Metal Band Saw Machines,Production and General Engineering,Machine Tools and Cutting Tools,VERIFIED_PRIMARY,1,1,0,IS 11195:1985
+948,FAM_PGD_INDUSTRIAL_HEAVY_DUTY_OXY_ACETYL_21,Industrial Heavy Duty Oxy-Acetylene Gas Regulators,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+949,FAM_PGD_INVERTER_MIG_MAG_GAS_METAL_ARC_W_22,Inverter MIG/MAG Gas Metal Arc Welding Machines,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+950,FAM_PGD_INVERTER_TIG_HIGH_FREQUENCY_ARC__23,Inverter TIG High-Frequency Arc Welding Power Sources,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+951,FAM_PGD_MILD_STEEL_SHIELDED_METAL_ARC_WE_24,Mild Steel Shielded Metal Arc Welding Electrodes E6013,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+952,FAM_PGD_LOW_HYDROGEN_BASIC_WELDING_ELECT_25,Low Hydrogen Basic Welding Electrodes E7018,Production and General Engineering,Precision Tooling and Fasteners,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 1367 (Part 1):2014
+953,FAM_SSD_SCHEDULED_COMMERCIAL_RETAIL_BANK_1,Scheduled Commercial Retail Banking Branch Services,Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+954,FAM_SSD_DIGITAL_MOBILE_BANKING_AND_PAYME_2,Digital Mobile Banking and Payment Gateway Systems,Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+955,FAM_SSD_LIFE_INSURANCE_POLICY_UNDERWRITI_3,Life Insurance Policy Underwriting and Claims Settlement,Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+956,FAM_SSD_NON_LIFE_GENERAL_MOTOR_AND_PROPE_4,Non-Life General Motor and Property Insurance Services,Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+957,FAM_SSD_THIRD_PARTY_HEALTH_INSURANCE_ADM_5,Third-Party Health Insurance Administration Services (TPA),Service Sector,Financial and Banking Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+958,FAM_SSD_HERITAGE_TOURISM_HOTEL_AND_RESOR_6,Heritage Tourism Hotel and Resort Hospitality Services,Service Sector,Tourism and Hospitality Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+959,FAM_SSD_ECO_TOURISM_NATURE_WILDLIFE_PARK_7,Eco-Tourism Nature Wildlife Park Lodging Operations,Service Sector,Tourism and Hospitality Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+960,FAM_SSD_FOOD_SAFETY_AND_HYGIENE_STANDARD_8,Food Safety and Hygiene Standards in Commercial Kitchens,Service Sector,Tourism and Hospitality Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+961,FAM_SSD_PROFESSIONAL_CHARTERED_ACCOUNTAN_9,Professional Chartered Accountancy Statutory Audit Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+962,FAM_SSD_ARCHITECTURAL_PLANNING_AND_STRUC_10,Architectural Planning and Structural Engineering Consultancy,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+963,FAM_SSD_COMMERCIAL_MEDIATION_AND_ALTERNA_11,Commercial Mediation and Alternative Dispute Resolution,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+964,FAM_SSD_TECHNICAL_TRANSLATION_AND_MULTIL_12,Technical Translation and Multilingual Localization Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+965,FAM_SSD_NABL_ACCREDITED_CLINICAL_DIAGNOS_13,NABL Accredited Clinical Diagnostic Pathology Laboratory,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+966,FAM_SSD_EXPRESS_AIR_FREIGHT_COURIER_AND__14,Express Air Freight Courier and Parcel Delivery Services,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,1,0,1,IS/ISO 9001:2015
+967,FAM_SSD_PUBLIC_MUNICIPAL_GRIEVANCE_REDRE_15,Public Municipal Grievance Redressal and Citizen Delivery,Service Sector,Professional and Public Services,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 15700:2018; IS/ISO 9001:2015
+968,FAM_TXD_100__COMBED_COTTON_HOSIERY_KNITT_1,100% Combed Cotton Hosiery Knitting Yarn,Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 171:2021
+969,FAM_TXD_POLYESTER_COTTON__PC_65_35__BLEN_2,Polyester-Cotton (PC 65/35) Blended Yarn,Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 17261:2019
+970,FAM_TXD_HIGH_TENACITY_VISCOSE_RAYON_FILA_3,High Tenacity Viscose Rayon Filament Yarn,Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 17264:2019
+971,FAM_TXD_AIR_JET_TEXTURED_POLYESTER_FILAM_4,Air Jet Textured Polyester Filament Yarn (ATY),Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 17262:2019
+972,FAM_TXD_CORE_SPUN_SPANDEX_STRETCH_DENIM__5,Core Spun Spandex Stretch Denim Yarns,Textiles,Yarn and Threads,VERIFIED_PRIMARY,1,1,0,IS 17265:2019
+973,FAM_TXD_BLEACHED_100__COTTON_POPLIN_SHIR_6,Bleached 100% Cotton Poplin Shirting Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 1095:1998
+974,FAM_TXD_HEAVY_COTTON_TWILL_BOTTOM_WEIGHT_7,Heavy Cotton Twill Bottom-Weight Trouser Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 15852:2009
+975,FAM_TXD_HIGH_VISIBILITY_FLUORESCENT_POLY_8,High-Visibility Fluorescent Polyester Safety Fabrics,Textiles,Protective and Occupational Clothing,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15748:2022
+976,FAM_TXD_ANTI_STATIC_CLEANROOM_POLYESTER__9,Anti-Static Cleanroom Polyester Microfiber Fabrics,Textiles,Protective and Occupational Clothing,VERIFIED_PRIMARY,1,1,0,IS 16890:2018
+977,FAM_TXD_CHEMICAL_LIQUID_SPLASH_PROTECTIV_10,Chemical Liquid Splash Protective Garment Fabrics,Textiles,Protective and Occupational Clothing,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 15748:2022
+978,FAM_TXD_HIGH_TENACITY_NYLON_6_6_PARACHUT_11,"High-Tenacity Nylon 6,6 Parachute Ripstop Fabrics",Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17355:2020
+979,FAM_TXD_FLAME_RESISTANT_META_ARAMID_SEWI_12,Flame-Resistant Meta-Aramid Sewing Threads,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 15741:2007
+980,FAM_TXD_BONDED_HIGH_STRENGTH_POLYESTER_I_13,Bonded High Strength Polyester Industrial Stitching Threads,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 9543:1980
+981,FAM_TXD_SPUNBOND_POLYPROPYLENE_NON_WOVEN_14,Spunbond Polypropylene Non-Woven Medical Fabrics,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 16648:2017
+982,FAM_TXD_ELECTROSTATIC_MELTBLOWN_BFE99_PO_15,Electrostatic Meltblown BFE99 Polypropylene Filter Media,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17356:2020
+983,FAM_TXD_HIGH_STRENGTH_BIAXIAL_POLYESTER__16,High-Strength Biaxial Polyester Geogrids,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17371:2020
+984,FAM_TXD_NON_WOVEN_NEEDLE_PUNCHED_GEOTEXT_17,Non-Woven Needle Punched Geotextile Felts,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 16391:2015
+985,FAM_TXD_OPEN_MESH_JUTE_SOIL_EROSION_GEOM_18,Open Mesh Jute Soil Erosion Geomeshes (Soil Saver),Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 14986:2001
+986,FAM_TXD_HEAVY_DUTY_JUTE_TWILL_GRAIN_SACK_19,Heavy Duty Jute Twill Grain Sacks (B-Twill Bags),Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 12650:2018
+987,FAM_TXD_HIGH_TENACITY_POLYPROPYLENE_MULT_20,High-Tenacity Polypropylene Multifilament Filter Bags,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 16654:2017
+988,FAM_TXD_SOLID_WOVEN_COTTON_NYLON_INDUSTR_21,Solid Woven Cotton-Nylon Industrial Conveyor Belting,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 1891 (Part 4):2003
+989,FAM_TXD_AUTOMOTIVE_AIRBAG_CUSHION_NYLON__22,"Automotive Airbag Cushion Nylon 6,6 Fabrics",Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17355:2020
+990,FAM_TXD_FLAME_RETARDANT_AIRCRAFT_SEAT_UP_23,Flame-Retardant Aircraft Seat Upholstery Fabrics,Textiles,Technical and Industrial Textiles,VERIFIED_PRIMARY,1,1,0,IS 15741:2007
+991,FAM_TXD_MILITARY_CAMOUFLAGE_DIGITAL_PRIN_24,Military Camouflage Digital Print Uniform Fabrics,Textiles,Protective and Occupational Clothing,VERIFIED_PRIMARY,1,1,0,IS 11871:1986
+992,FAM_TXD_KNITTED_100__MERINO_WOOL_THERMAL_25,Knitted 100% Merino Wool Thermal Innerwear Fabrics,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 16738:2018
+993,FAM_TXD_BLEACHED_COTTON_TERRY_TOWELS__50_26,Bleached Cotton Terry Towels (500 GSM),Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 1998:2006
+994,FAM_TXD_HOSPITAL_BED_SHEETS_WHITE_POLY_C_27,Hospital Bed Sheets White Poly-Cotton Blended,Textiles,Fabrics and Apparel,VERIFIED_PRIMARY,1,1,0,IS 1391:1971
+995,FAM_TXD_MICROFIBER_LINT_FREE_DUSTING_AND_28,Microfiber Lint-Free Dusting and Polishing Cloths,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17357:2020
+996,FAM_TXD_ULTRA_HIGH_MOLECULAR_WEIGHT_POLY_29,Ultra-High Molecular Weight Polyethylene (UHMWPE) Yarns,Textiles,Technical Textiles,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+997,FAM_TXD_WATERPROOF_BREATHABLE_PTFE_LAMIN_30,Waterproof Breathable PTFE Laminated Outerwear Fabrics,Textiles,Technical Textiles,VERIFIED_PRIMARY,1,1,0,IS 17358:2020
+998,FAM_TED_ANTI_LOCK_BRAKING_SYSTEM__ABS__M_1,Anti-Lock Braking System (ABS) Modulator Units,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+999,FAM_TED_SUBMERGED_ELECTRIC_IN_TANK_FUEL__2,Submerged Electric In-Tank Fuel Pump Modules,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1000,FAM_TED_ALUMINIUM_BRAZED_AUTOMOTIVE_ENGI_3,Aluminium Brazed Automotive Engine Cooling Radiators,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1001,FAM_TED_AUTOMOTIVE_INTEGRATED_HVAC_BLOWE_4,Automotive Integrated HVAC Blower Cooling Units,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1002,FAM_TED_AUTOMOTIVE_12V_HIGH_TORQUE_START_5,Automotive 12V High-Torque Starter Motors,Transport Engineering,Automotive Electrical and Railway,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+1003,FAM_TED_AUTOMOTIVE_ALTERNATORS_WITH_ELEC_6,Automotive Alternators with Electronic Regulators 14V/90A,Transport Engineering,Automotive Electrical and Railway,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13730 (Part 0/Sec 1):2012
+1004,FAM_TED_AUTOMOTIVE_SEALED_BEAM_HALOGEN_H_7,Automotive Sealed Beam Halogen Headlamp Assemblies,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1005,FAM_TED_BI_LED_PROJECTION_AUTOMOTIVE_HEA_8,Bi-LED Projection Automotive Headlamp Modules,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1006,FAM_TED_AUTOMOTIVE_WATERPROOF_ELECTRONIC_9,Automotive Waterproof Electronic High-Tone Horns,Transport Engineering,Automotive Components,VERIFIED_PRIMARY,1,1,0,IS 1884:1993
+1007,FAM_TED_AUTOMOTIVE_COMBINATION_REAR_LED__10,Automotive Combination Rear LED Tail Lamp Clusters,Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1008,FAM_TED_COMMERCIAL_VEHICLE_PNEUMATIC_AIR_11,Commercial Vehicle Pneumatic Air Brake Relay Valves,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1009,FAM_TED_AIR_BRAKE_DUAL_DIAPHRAGM_SPRING__12,Air Brake Dual Diaphragm Spring Brake Chambers,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1010,FAM_TED_AUTOMOTIVE_POWER_ASSISTED_RACK_A_13,Automotive Power-Assisted Rack and Pinion Steering,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1011,FAM_TED_CONSTANT_VELOCITY__CV__AXLE_DRIV_14,Constant Velocity (CV) Axle Drive Shaft Assemblies,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1012,FAM_TED_HEAVY_COMMERCIAL_TRUCK_MULTI_LEA_15,Heavy Commercial Truck Multi-Leaf Springs,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1013,FAM_TED_AUTOMOTIVE_PARABOLIC_TAPER_LEAF__16,Automotive Parabolic Taper Leaf Springs,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1014,FAM_TED_AUTOMOTIVE_TELESCOPIC_HYDRAULIC__17,Automotive Telescopic Hydraulic Shock Absorbers,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1015,FAM_TED_TUBELESS_RADIAL_PASSENGER_CAR_TY_18,Tubeless Radial Passenger Car Tyres,Transport Engineering,Automotive Tyres and Tubes,VERIFIED_PRIMARY,1,1,0,IS 15633:2005
+1016,FAM_TED_HEAVY_COMMERCIAL_TRUCK_RADIAL_TY_19,Heavy Commercial Truck Radial Tyres (295/80 R22.5),Transport Engineering,Automotive Tyres and Tubes,VERIFIED_PRIMARY,1,1,0,IS 15636:2012
+1017,FAM_TED_SOLID_CUSHION_RUBBER_INDUSTRIAL__20,Solid Cushion Rubber Industrial Forklift Tyres,Transport Engineering,Automotive Tyres and Tubes,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1018,FAM_TED_AGRICULTURAL_TRACTOR_REAR_RADIAL_21,Agricultural Tractor Rear Radial Drive Tyres,Transport Engineering,Automotive Tyres and Tubes,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1019,FAM_TED_CAST_ALUMINIUM_TUBELESS_ALLOY_WH_22,Cast Aluminium Tubeless Alloy Wheel Rims,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1020,FAM_TED_STAMPED_STEEL_WHEEL_RIMS_15_INCH_23,Stamped Steel Wheel Rims 15-Inch,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1021,FAM_TED_AUTOMOTIVE_DAY_NIGHT_INTERIOR_RE_24,Automotive Day-Night Interior Rear-View Mirrors,Transport Engineering,Automotive Safety Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1022,FAM_TED_MOTORIZED_HEATED_EXTERIOR_REAR_V_25,Motorized Heated Exterior Rear-View Mirrors,Transport Engineering,Automotive Safety Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1023,FAM_TED_EMERGENCY_LOCKING_RETRACTOR__ELR_26,Emergency Locking Retractor (ELR) 3-Point Seat Belts,Transport Engineering,Automotive Safety Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1024,FAM_TED_AUTOMOTIVE_FRONT_AND_SIDE_PASSEN_27,Automotive Front and Side Passenger Airbag Modules,Transport Engineering,Automotive Safety Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1025,FAM_TED_ELECTRIC_TWO_WHEELER_BLDC_HUB_MO_28,Electric Two-Wheeler BLDC Hub Motors (1.5kW - 3kW),Transport Engineering,Automotive Electrical and Railway,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 13730 (Part 0/Sec 1):2012; IS 3043:2018
+1026,FAM_TED_ELECTRIC_VEHICLE_DC_DC_STEP_DOWN_29,Electric Vehicle DC-DC Step-Down Converters (72V to 12V),Transport Engineering,Automotive Electrical and Railway,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1027,FAM_TED_COMBINED_BRAKING_SYSTEM__CBS__ME_30,Combined Braking System (CBS) Mechanical Linkages,Transport Engineering,Automotive Components,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1028,FAM_WRD_DRIP_IRRIGATION_CYLINDRICAL_INLI_1,Drip Irrigation Cylindrical Inline Emitters 16mm,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 13488:2008
+1029,FAM_WRD_MICRO_SPRINKLER_ASSEMBLIES_360_D_2,Micro Sprinkler Assemblies 360-Degree Rotor,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 14648:1999
+1030,FAM_WRD_AGRICULTURAL_RAIN_GUN_GIANT_SPRI_3,Agricultural Rain Gun Giant Sprinklers 2-Inch,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 12232 (Part 1):1996
+1031,FAM_WRD_SOLAR_PV_DIRECT_SURFACE_WATER_PU_4,Solar PV Direct Surface Water Pumping Systems,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 17018:2018
+1032,FAM_WRD_AUTOMATED_DIAPHRAGM_IRRIGATION_H_5,Automated Diaphragm Irrigation Hydraulic Valves,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 14846:2000
+1033,FAM_WRD_VENTURI_FERTILIZER_CHEMICAL_INJE_6,Venturi Fertilizer Chemical Injector Assemblies,Water Resources,Irrigation Equipment and Systems,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1034,FAM_WRD_AGRICULTURAL_SCREEN_AND_DISC_FIL_7,Agricultural Screen and Disc Filtration Units,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 12785:1994
+1035,FAM_WRD_AUTOMATIC_BACKWASH_SAND_MEDIA_DE_8,Automatic Backwash Sand Media Deep Bed Filters,Water Resources,Irrigation Equipment and Systems,VERIFIED_PRIMARY,1,1,0,IS 14606:1998
+1036,FAM_WRD_FULL_BORE_ELECTROMAGNETIC_WATER__9,Full Bore Electromagnetic Water Transmission Meters,Water Resources,Water Measurement and Distribution,VERIFIED_PRIMARY,1,1,0,IS/ISO 4064-1:2014
+1037,FAM_WRD_ULTRASONIC_OPEN_CHANNEL_FLOW_MET_10,Ultrasonic Open Channel Flow Meters for Canals,Water Resources,Water Measurement and Distribution,VERIFIED_PRIMARY,1,1,0,IS/ISO 6416:2017
+1038,FAM_WRD_AUTOMATED_ELECTRO_MECHANICAL_CAN_11,Automated Electro-Mechanical Canal Radial Gate Actuators,Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 10210:1993
+1039,FAM_WRD_VERTICAL_LIFT_FABRICATED_STEEL_C_12,Vertical Lift Fabricated Steel Canal Sluice Gates,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 5620:1985
+1040,FAM_WRD_PRECAST_CONCRETE_INTERLOCKING_CA_13,Precast Concrete Interlocking Canal Lining Slabs,Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,2,0,2,IS 10262:2019; IS 516 (Part 1/Sec 1):2021
+1041,FAM_WRD_HYDRODYNAMIC_SILT_EJECTOR_AND_SE_14,Hydrodynamic Silt Ejector and Settling Basin Vanes,Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 6377:1971
+1042,FAM_WRD_DIGITAL_TELEMETRIC_GROUNDWATER_P_15,Digital Telemetric Groundwater Piezometer Data Loggers,Water Resources,Irrigation and Hydrology,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1043,FAM_WRD_AUTOMATED_TIPPING_BUCKET_RAINFAL_16,Automated Tipping Bucket Rainfall Telemetry Stations,Water Resources,Irrigation and Hydrology,VERIFIED_PRIMARY,1,1,0,IS 5235:1992
+1044,FAM_WRD_INFLATABLE_RUBBER_BARRAGE_WEIRS__17,Inflatable Rubber Barrage Weirs for River Diversion,Water Resources,Canal and Dam Equipment,NO_APPLICABLE_STANDARD_FOUND,0,0,0,NONE
+1045,FAM_WRD_AUTOMATED_DAM_TRASH_RACK_CLEANIN_18,Automated Dam Trash Rack Cleaning Machines (TRCM),Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 11388:2012
+1046,FAM_WRD_LOW_HEAD_SMALL_HYDRO_TURBINES__1_19,Low-Head Small Hydro Turbines (100 kW - 1 MW),Water Resources,Canal and Dam Equipment,VERIFIED_PRIMARY,1,1,0,IS 12800 (Part 1):1989
+1047,FAM_WRD_FIXED_CONE_DISPERSION_ENERGY_DIS_20,Fixed Cone Dispersion Energy Dissipation Valves (Howell-Bunger),Water Resources,Canal and Dam Equipment,VERIFIED_SUPPORTING_ONLY,1,0,1,IS 13095:1991

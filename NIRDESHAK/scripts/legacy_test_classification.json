@@ -1,0 +1,120 @@
+{
+  "audit_timestamp": "2026-11-27T00:39:00+05:30",
+  "verified_database": "nirdeshak_clean_20261126",
+  "classification_categories": {
+    "Category A": "Actual defect in application code or business logic",
+    "Category B": "Obsolete mock-data assertion expecting legacy/synthetic mock data",
+    "Category C": "Incorrect hardcoded ranking expectation contradicted by genuine mathematical semantic similarity",
+    "Category D": "Test environment or configuration mismatch"
+  },
+  "tests": [
+    {
+      "file": "test_step6_semantic_search.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Hardcoded assertions expecting TEST-IS-2925-MOCK and synthetic embeddings from September 2026 MVP stage."
+    },
+    {
+      "file": "test_step7_ranking.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts against mock scoring parameters and synthetic standards list (TEST-IS-*)."
+    },
+    {
+      "file": "test_step8_related_standards.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts against synthetic mock standard relationship IDs that were purged during clean database setup."
+    },
+    {
+      "file": "test_step9_version_check.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Expects mock version lifecycle records and synthetic test IDs from early prototype."
+    },
+    {
+      "file": "test_step10_certification.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts against early mock certification structures instead of verified BIS Scheme-I/QCO schema."
+    },
+    {
+      "file": "test_step11_rag.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Expects synthetic mock clauses array from demoProfile.js rather than genuine pgvector/RAG pipeline."
+    },
+    {
+      "file": "test_step12_dashboard.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts against synthetic mock statistics and deprecated mock endpoints."
+    },
+    {
+      "file": "test_step13_pdf_report.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Expects mock profile fields and deprecated synthetic clause keys."
+    },
+    {
+      "file": "test_step14_mvp.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Comprehensive September 2026 test suite checking end-to-end flows against TEST-IS-2925-MOCK."
+    },
+    {
+      "file": "test_helmet_complete_demo.js",
+      "category": "Category B",
+      "status": "PARTIALLY_OBSOLETE",
+      "reason": "Section 1 (5 multi-modal input channels) passes completely. Section 2 fails because it asserts against the legacy 10-clause array format from demoProfile.js rather than the verified database schema."
+    },
+    {
+      "file": "test_top3_recommendations.js",
+      "category": "Category C",
+      "status": "OBSOLETE_RANKING_ASSERTION",
+      "reason": "Correctly retrieves IS 2925:1984 as Rank 1. However, it hardcoded Allied Rank 2 as IS 4151 and Allied Rank 3 as IS 2745. The real 3072-dimensional vector similarity engine scores IS 2745:1983 (Civil defence helmets, score 0.5656) higher than IS 4151:2015 (Motorcycle helmets, score 0.4784) for industrial safety queries."
+    },
+    {
+      "file": "test_e2e.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Early end-to-end integration test written for prototype synthetic tables."
+    },
+    {
+      "file": "test_helmet_demo.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Early prototype demo test asserting mock helmet profiles."
+    },
+    {
+      "file": "test_multipage.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts mock multipage navigation links from initial frontend prototype."
+    },
+    {
+      "file": "test_multi_standard_details.js",
+      "category": "Category B",
+      "status": "OBSOLETE",
+      "reason": "Asserts mock multiple standard details from demoProfile.js."
+    },
+    {
+      "file": "scripts/run_clean_verification_tests.js",
+      "category": "Active Test Suite",
+      "status": "PASSED (56/56)",
+      "reason": "Comprehensive verified test suite running against nirdeshak_clean_20261126. Covers database health, all 19 verified records, vector search, RAG explanation, relationships, security leak checks, and IS 694 tripartite metadata reconciliation."
+    },
+    {
+      "file": "scripts/audit_system_flows.js",
+      "category": "Active Test Suite",
+      "status": "PASSED (33/33)",
+      "reason": "Complete system flows audit testing natural language search, technical specifications, requirement extraction, RAG grounding, fallback handling, PDF generation, and frontend static assets."
+    },
+    {
+      "file": "scripts/audit_regulatory_metadata.js",
+      "category": "Active Test Suite",
+      "status": "PASSED (42/42)",
+      "reason": "Deep regulatory compliance audit testing statutory Gazette metadata for IS 694 (Serial 20, 17 Aug 2003, PM/IS 694/5/March 2024, 450/750 V standard title vs 1100 V QCO/PM) and IS 8828 (Serial 10, 17 Aug 2003, successor distinction)."
+    }
+  ]
+}

@@ -1,0 +1,1904 @@
+[
+  {
+    "id": 226,
+    "is_number": "IS 302 (Part 2/Sec 30):2018",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 30 Room Heaters (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 230,
+    "is_number": "IS/IEC 60898-2:2016",
+    "title": "Electrical Accessories — Circuit-Breakers for Overcurrent Protection for Household and Similar Installations: Part 2 Circuit-Breakers for AC and DC Operation",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 231,
+    "is_number": "IS 3427:1997",
+    "title": "AC Metal-Enclosed Switchgear and Controlgear for Rated Voltages Above 1 kV and Up to and Including 52 kV (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 237,
+    "is_number": "IS 8521 (Part 1):1977",
+    "title": "Specification for Industrial Safety Face Shields: Part 1 With Plastics Visor",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 2,
+    "is_number": "IS 4151:2015",
+    "title": "Protective Helmets for Two Wheeler Riders — Specification (Fourth Revision)",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 242,
+    "is_number": "IS 7652:1975",
+    "title": "Specification for Clinical Thermometers",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 249,
+    "is_number": "IS 2967:1983",
+    "title": "Specification for External Micrometers (Second Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 8,
+    "is_number": "IS/IEC 62271-100:2008",
+    "title": "High-Voltage Switchgear and Controlgear — Part 100: Alternating-Current Circuit-Breakers",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 27,
+    "is_number": "IS 15622:2017",
+    "title": "Pressed Ceramic Tiles — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 28,
+    "is_number": "IS 15778:2007",
+    "title": "Chlorinated Polyvinyl Chloride (CPVC) Pipes for Potable Hot and Cold Water Distribution Supplies — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 29,
+    "is_number": "IS 4985:2021",
+    "title": "Unplasticized Polyvinyl Chloride (uPVC) Pipes for Potable Water Supplies — Specification (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 251,
+    "is_number": "IS/ISO 22000:2018",
+    "title": "Food Safety Management Systems — Requirements for Any Organization in the Food Chain",
+    "division_council": "Service Sector"
+  },
+  {
+    "id": 254,
+    "is_number": "IS 16103 (Part 1):2012",
+    "title": "Led Modules for General Lighting: Part 1 Safety Requirements",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 261,
+    "is_number": "IS 2386 (Part 1):1963",
+    "title": "Methods of Test for Aggregates for Concrete: Part 1 Particle Size and Shape",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 263,
+    "is_number": "IS 3370 (Part 1):2021",
+    "title": "Concrete Structures for Storage of Liquids — Code of Practice: Part 1 General Requirements (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 10,
+    "is_number": "IS 1786:2008",
+    "title": "High Strength Deformed Steel Bars and Wires for Concrete Reinforcement — Specification (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 266,
+    "is_number": "IS 1367 (Part 6):1994",
+    "title": "Technical Supply Conditions for Threaded Steel Fasteners: Part 6 Mechanical Properties and Test Methods for Nuts with Specified Proof Load Values (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 268,
+    "is_number": "IS 9137:2019",
+    "title": "Centrifugal, Mixed Flow and Axial Pumps — Code for Acceptance Tests — Class B (First Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 271,
+    "is_number": "IS 13450 (Part 2/Sec 25):2018",
+    "title": "Medical Electrical Equipment: Part 2 Particular Requirements for the Basic Safety and Essential Performance, Section 25 Electrocardiographs",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 273,
+    "is_number": "IS 1165:2002",
+    "title": "Milk Powder — Specification (Fourth Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 14,
+    "is_number": "IS 1239 (Part 1):2004",
+    "title": "Steel Tubes, Tubulars and Other Wrought Steel Fittings — Specification — Part 1: Steel Tubes (Sixth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 54,
+    "is_number": "IS 16391:2015",
+    "title": "High-Visibility Warning Clothes — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 276,
+    "is_number": "IS 15885 (Part 2/Sec 13):2012",
+    "title": "Lamp Controlgear — Particular Requirements: Section 13 d.c. or a.c. Supplied Electronic Controlgear for LED Modules",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 281,
+    "is_number": "IS 12211:1987",
+    "title": "Synthetic Detergent Tablets — Specification",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 283,
+    "is_number": "IS 14433:2007",
+    "title": "Infant Milk Substitutes — Specification (First Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 286,
+    "is_number": "IS 16289:2014",
+    "title": "Medical Textiles — Surgical Face Masks — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 291,
+    "is_number": "IS 15758:2007",
+    "title": "Solar Flat Plate Collectors — Specification",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 293,
+    "is_number": "IS 15443:2004",
+    "title": "Services for Disabled Persons — Barrier-Free Environment — Requirements",
+    "division_council": "Service Sector"
+  },
+  {
+    "id": 295,
+    "is_number": "IS 15338:2003",
+    "title": "Drinking Water Coolers — Energy Efficiency and Performance Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 5,
+    "is_number": "IS 1180 (Part 1):2014",
+    "title": "Outdoor/Indoor Type Oil-Immersed Distribution Transformers Up to and Including 2 500 kVA, 33 kV — Specification Part 1: Mineral Oil Immersed (Fourth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 38,
+    "is_number": "IS 12220:1987",
+    "title": "Agricultural Tractors — Test Procedure — General Requirements",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 299,
+    "is_number": "IS 15477:2019",
+    "title": "Adhesives for Use with Ceramic, Mosaic and Stone Tiles — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 305,
+    "is_number": "IS 13098:2012",
+    "title": "Automotive Vehicles — Tubes for Pneumatic Tyres — Specification (First Revision)",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 307,
+    "is_number": "IS 12419:1988",
+    "title": "Woven Sacks for Packing Cement — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 310,
+    "is_number": "IS 659:1964",
+    "title": "Safety Code for Air Conditioning (Revised)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 311,
+    "is_number": "IS 15105:2002",
+    "title": "Design and Installation of Fixed Automatic High and Medium Velocity Water Spray Systems — Code of Practice",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 3,
+    "is_number": "IS 2745:1983",
+    "title": "Specification for Non-Metal Helmet for Firemen and Civil Defence Personnel (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 4,
+    "is_number": "IS 15298 (Part 2):2016",
+    "title": "Personal Protective Equipment — Part 2: Safety Footwear (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 6,
+    "is_number": "IS 694:2010",
+    "title": "Polyvinyl Chloride Insulated Unsheathed and Sheathed Cables/Cords with Rigid and Flexible Conductor for Rated Voltages Up to and Including 450/750 V (Fourth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 7,
+    "is_number": "IS/IEC 60898-1:2015",
+    "title": "Electrical Accessories — Circuit-Breakers for Overcurrent Protection for Household and Similar Installations — Part 1: Circuit-Breakers for a.c. Operation",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 9,
+    "is_number": "IS 456:2000",
+    "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 11,
+    "is_number": "IS 269:2015",
+    "title": "Ordinary Portland Cement — Specification (Sixth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 12,
+    "is_number": "IS 1489 (Part 1):2015",
+    "title": "Portland Pozzolana Cement — Specification Part 1: Fly Ash Based (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 13,
+    "is_number": "IS 12615:2018",
+    "title": "Line Operated Three Phase a.c. Motors (IE CODE) — Efficiency Classes and Performance Specification (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 15,
+    "is_number": "IS 8034:2018",
+    "title": "Submersible Pumpsets — Specification (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 16,
+    "is_number": "IS 3177:2020",
+    "title": "Electric Overhead Travelling Crane and Gantry Crane for all Applications — Code of Practice (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 17,
+    "is_number": "IS 383:2016",
+    "title": "Coarse and Fine Aggregate for Concrete — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 18,
+    "is_number": "IS 10262:2019",
+    "title": "Concrete Mix Proportioning — Guidelines (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 19,
+    "is_number": "IS 3043:2018",
+    "title": "Code of Practice for Earthing (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 21,
+    "is_number": "IS 17829:2022",
+    "title": "Ayurvedic Polyherbal Formulation — Chyawanprash — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 22,
+    "is_number": "IS 5406:2019",
+    "title": "Urea, Fertilizer Grade — Specification (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 23,
+    "is_number": "IS 2888:2021",
+    "title": "Toilet Soap — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 24,
+    "is_number": "IS 4955:2020",
+    "title": "Household Laundry Detergent Powders — Specification (Fourth Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 25,
+    "is_number": "IS 252:2013",
+    "title": "Caustic Soda, Pure and Technical — Specification (Fifth Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 26,
+    "is_number": "IS 1077:1992",
+    "title": "Common Burnt Clay Building Bricks — Specification (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 32,
+    "is_number": "IS 7098 (Part 1):1988",
+    "title": "Crosslinked Polyethylene Insulated Thermoplastic Sheathed Cables — Part 1: For Working Voltages Up to and Including 1100 V (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 33,
+    "is_number": "IS 16102 (Part 1):2012",
+    "title": "Self-Ballasted LED Lamps for General Lighting Services — Part 1: Safety Requirements",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 34,
+    "is_number": "IS 14286:2010",
+    "title": "Crystalline Silicon Terrestrial Photovoltaic (PV) Modules — Design Qualification and Type Approval",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 35,
+    "is_number": "IS 5182 (Part 23):2006",
+    "title": "Methods for Measurement of Air Pollution — Part 23: Respirable Particulate Matter (PM2.5) — Gravimetric Method",
+    "division_council": "Environment and Ecology"
+  },
+  {
+    "id": 36,
+    "is_number": "IS/ISO 17088:2021",
+    "title": "Plastics — Organic Recycling — Specifications for Compostable Plastics",
+    "division_council": "Environment and Ecology"
+  },
+  {
+    "id": 37,
+    "is_number": "IS 14543:2004",
+    "title": "Packaged Drinking Water (Other Than Packaged Natural Mineral Water) — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 40,
+    "is_number": "IS/ISO 14001:2015",
+    "title": "Environmental Management Systems — Requirements with Guidance for Use (Third Revision)",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 41,
+    "is_number": "IS 9079:2018",
+    "title": "Electric Monoblock Pumpsets for Agricultural and Domestic Purposes — Specification (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 42,
+    "is_number": "IS 3196 (Part 1):2013",
+    "title": "Welded Low Carbon Steel Cylinders Exceeding 5 Litre Water Capacity for Low Pressure Liquefiable Gases — Part 1: Cylinders for Liquefied Petroleum Gas (LPG) — Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 43,
+    "is_number": "IS 4148:1989",
+    "title": "Surgical Rubber Gloves — Specification (Second Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 44,
+    "is_number": "IS 10258:2002",
+    "title": "Sterile Hypodermic Syringes for Single Use — Specification (First Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 45,
+    "is_number": "IS 2062:2011",
+    "title": "Hot Rolled Medium and High Tensile Structural Steel — Specification (Seventh Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 47,
+    "is_number": "IS 2796:2017",
+    "title": "Motor Gasoline — Specification (Fifth Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 48,
+    "is_number": "IS 1460:2017",
+    "title": "Automotive Diesel Fuel — Specification (Sixth Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 49,
+    "is_number": "IS 1364 (Part 1):2018",
+    "title": "Hexagon Head Bolts, Screws and Nuts of Product Grades A and B — Part 1: Hexagon Head Bolts (Size Range M1.6 to M64) (Fifth Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 50,
+    "is_number": "IS 3651 (Part 1):1982",
+    "title": "Vernier Callipers — Part 1: Vernier Callipers Reading to 0.1 and 0.05 mm (Second Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 51,
+    "is_number": "IS 15700:2018",
+    "title": "Quality Management Systems — Requirements for Service Delivery by Public Service Organizations (First Revision)",
+    "division_council": "Service Sector"
+  },
+  {
+    "id": 52,
+    "is_number": "IS/ISO/IEC 17025:2017",
+    "title": "General Requirements for the Competence of Testing and Calibration Laboratories (Third Revision)",
+    "division_council": "Service Sector"
+  },
+  {
+    "id": 53,
+    "is_number": "IS 1720:1978",
+    "title": "Cotton Sewing Threads — Specification (Second Revision)",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 315,
+    "is_number": "IS 15546:2005",
+    "title": "Automotive Vehicles — Windscreen Wiper Systems — Specification",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 20,
+    "is_number": "IS 17824:2022",
+    "title": "Ayurvedic Raw Material — Ashwagandha (Withania somnifera) Root — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 30,
+    "is_number": "IS 13252 (Part 1):2010",
+    "title": "Information Technology Equipment — Safety — Part 1: General Requirements (Second Revision)",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 31,
+    "is_number": "IS 16046 (Part 2):2018",
+    "title": "Secondary Cells and Batteries Containing Alkaline or Other Non-Acid Electrolytes — Safety Requirements — Part 2: Lithium Systems",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 56,
+    "is_number": "IS 2553 (Part 2):2019",
+    "title": "Safety Glass — Specification — Part 2: For Road Transport (Third Revision)",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 57,
+    "is_number": "IS 12786:1989",
+    "title": "Irrigation Equipment — Polyethylene Pipes for Irrigation Laterals — Specification",
+    "division_council": "Water Resources"
+  },
+  {
+    "id": 58,
+    "is_number": "IS 779:1994",
+    "title": "Water Meters (Domestic Type) — Specification (Fifth Revision)",
+    "division_council": "Water Resources"
+  },
+  {
+    "id": 39,
+    "is_number": "IS/ISO 9001:2015",
+    "title": "Quality Management Systems — Requirements (Fifth Revision)",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 46,
+    "is_number": "IS 513 (Part 1):2016",
+    "title": "Cold Reduced Low Carbon Steel Sheet and Strip — Part 1: Cold Forming and Drawing Steel (Sixth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 55,
+    "is_number": "IS 15633:2005",
+    "title": "Automotive Vehicles — Pneumatic Tyres for Passenger Cars — Diagonal and Radial Ply — Specification",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 1,
+    "is_number": "IS 2925:1984",
+    "title": "Specification for Industrial Safety Helmets (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 60,
+    "is_number": "IS 12269:2015",
+    "title": "Ordinary Portland Cement, 53 Grade — Specification (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 63,
+    "is_number": "IS 4926:2003",
+    "title": "Ready-Mixed Concrete — Code of Practice (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 64,
+    "is_number": "IS 9103:1999",
+    "title": "Concrete Admixtures — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 65,
+    "is_number": "IS 516 (Part 1/Sec 1):2021",
+    "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 66,
+    "is_number": "IS 1199 (Part 2):2018",
+    "title": "Fresh Concrete — Methods of Sampling, Testing and Analysis: Part 2 Determination of Consistency (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 67,
+    "is_number": "IS 800:2007",
+    "title": "General Construction in Steel — Code of Practice (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 62,
+    "is_number": "IS 1489 (Part 2):2015",
+    "title": "Portland Pozzolana Cement — Specification: Part 2 Calcined Clay Based (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 70,
+    "is_number": "IS 2190:2024",
+    "title": "Selection, Installation and Maintenance of First-Aid Fire Appliances — Code of Practice (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 71,
+    "is_number": "IS 3844:1989",
+    "title": "Code of Practice for Installation and Maintenance of Internal Fire Hydrants and Hose Reels on Premises (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 72,
+    "is_number": "IS 3614:2021",
+    "title": "Fire Doors and Fire Resisting Door Assemblies — Specification (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 74,
+    "is_number": "IS 9523:2000",
+    "title": "Ductile Iron Fittings for Pressure Pipes for Water, Gas and Sewage — Specification (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 75,
+    "is_number": "IS 458:2021",
+    "title": "Precast Concrete Pipes (With and Without Reinforcement) — Specification (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 76,
+    "is_number": "IS 2185 (Part 1):2005",
+    "title": "Concrete Masonry Units — Specification: Part 1 Hollow and Solid Concrete Blocks (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 77,
+    "is_number": "IS 2185 (Part 3):1984",
+    "title": "Concrete Masonry Units — Specification: Part 3 Autoclaved Cellular Aerated Concrete Blocks (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 78,
+    "is_number": "IS 12894:2002",
+    "title": "Pulverized Fuel Ash-Lime Bricks — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 80,
+    "is_number": "IS 2556 (Part 4):2004",
+    "title": "Vitreous Sanitary Appliances (Vitreous China) — Specification: Part 4 Wash Basins (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 81,
+    "is_number": "IS 774:2021",
+    "title": "Flushing Cisterns for Water Closets and Urinals (Other Than Plastic Cisterns) — Specification (Sixth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 82,
+    "is_number": "IS 8931:1993",
+    "title": "Cast Copper Alloy Fancy Bib Taps and Stop Valves for Water Services — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 84,
+    "is_number": "IS 2553 (Part 1):1990",
+    "title": "Safety Glass — Specification: Part 1 Architectural, Building and General Engineering Uses (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 86,
+    "is_number": "IS 16098 (Part 2):2013",
+    "title": "Structured-Wall Plastics Piping Systems for Non-Pressure Underground Drainage and Sewerage: Part 2 Pipes and Fittings with Smooth Internal and Profiled External Surface (Type B)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 87,
+    "is_number": "IS 1536:2001",
+    "title": "Centrifugally Cast (Spun) Iron Pressure Pipes for Water, Gas and Sewage — Specification (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 88,
+    "is_number": "IS 1538:1993",
+    "title": "Cast Iron Fittings for Pressure Pipes for Water, Gas and Sewage — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 89,
+    "is_number": "IS 1893 (Part 1):2016",
+    "title": "Criteria for Earthquake Resistant Design of Structures: Part 1 General Provisions and Buildings (Sixth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 90,
+    "is_number": "IS 13920:2016",
+    "title": "Ductile Design and Detailing of Reinforced Concrete Structures Subjected to Seismic Forces — Code of Practice (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 93,
+    "is_number": "IS 1343:2012",
+    "title": "Prestressed Concrete — Code of Practice (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 95,
+    "is_number": "IS 2026 (Part 2):2010",
+    "title": "Power Transformers: Part 2 Temperature Rise (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 96,
+    "is_number": "IS 2026 (Part 3):2009",
+    "title": "Power Transformers: Part 3 Insulation Levels, Dielectric Tests and External Clearances in Air (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 98,
+    "is_number": "IS 335:2018",
+    "title": "Unused Mineral Insulating Oils for Transformers and Similar Electrical Equipment (Fifth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 99,
+    "is_number": "IS/IEC 60947-1:2011",
+    "title": "Low-Voltage Switchgear and Controlgear: Part 1 General Rules",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 101,
+    "is_number": "IS/IEC 60947-4-1:2012",
+    "title": "Low-Voltage Switchgear and Controlgear: Part 4 Contactors and Motor-Starters, Section 1 Electromechanical Contactors and Motor-Starters",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 103,
+    "is_number": "IS 12640 (Part 2):2016",
+    "title": "Residual Current Operated Circuit-Breakers With Integral Overcurrent Protection for Household and Similar Uses (RCBOs)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 104,
+    "is_number": "IS/IEC 62271-200:2011",
+    "title": "High-Voltage Switchgear and Controlgear: Part 200 AC Metal-Enclosed Switchgear and Controlgear for Rated Voltages Above 1 kV and Up to and Including 52 kV",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 105,
+    "is_number": "IS 398 (Part 1):1996",
+    "title": "Aluminium Conductors for Overhead Transmission Purposes: Part 1 Aluminium Stranded Conductors (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 106,
+    "is_number": "IS 398 (Part 2):1996",
+    "title": "Aluminium Conductors for Overhead Transmission Purposes: Part 2 Aluminium Conductors, Galvanized Steel-Reinforced (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 108,
+    "is_number": "IS 14255:1995",
+    "title": "Aerial Bundled Cables for Working Voltages Up to and Including 1100 V — Specification",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 109,
+    "is_number": "IS 1554 (Part 2):1988",
+    "title": "PVC Insulated (Heavy Duty) Electric Cables: Part 2 For Working Voltages from 3.3 kV Up to and Including 11 kV (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 111,
+    "is_number": "IS 1293:2019",
+    "title": "Plugs and Socket-Outlets for Household and Similar Purposes of Rated Voltage Up to and Including 250 V and Rated Current Up to and Including 16 A (Fourth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 113,
+    "is_number": "IS 9537 (Part 2):1981",
+    "title": "Conduits for Electrical Installations — Specification: Part 2 Rigid Steel Conduits",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 115,
+    "is_number": "IS/IEC 62305-1:2010",
+    "title": "Protection Against Lightning: Part 1 General Principles",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 116,
+    "is_number": "IS 16221 (Part 2):2015",
+    "title": "Safety of Power Converters for Use in Photovoltaic Power Systems: Part 2 Particular Requirements for Inverters",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 118,
+    "is_number": "IS/IEC 61730-2:2016",
+    "title": "Photovoltaic (PV) Module Safety Qualification: Part 2 Requirements for Testing",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 120,
+    "is_number": "IS 10322 (Part 5/Sec 1):2012",
+    "title": "Luminaires: Part 5 Particular Requirements, Section 1 Fixed General Purpose Luminaires (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 121,
+    "is_number": "IS 10322 (Part 5/Sec 3):2012",
+    "title": "Luminaires: Part 5 Particular Requirements, Section 3 Luminaires for Road and Street Lighting (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 123,
+    "is_number": "IS 302 (Part 1):2008",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 1 General Requirements (Sixth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 124,
+    "is_number": "IS 302 (Part 2/Sec 3):2007",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 3 Electric Irons (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 125,
+    "is_number": "IS 302 (Part 2/Sec 21):2018",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 21 Storage Water Heaters (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 126,
+    "is_number": "IS 374:2019",
+    "title": "Electric Ceiling Type Fans and Regulators — Specification (Fourth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 128,
+    "is_number": "IS 4029:2010",
+    "title": "Guide for Testing Three-Phase Induction Motors (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 129,
+    "is_number": "IS/IEC 60034-1:2004",
+    "title": "Rotating Electrical Machines: Part 1 Rating and Performance",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 130,
+    "is_number": "IS 1520:1980",
+    "title": "Horizontal Centrifugal Pumps for Clear, Cold, Fresh Water — Specification (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 133,
+    "is_number": "IS 11463:1985",
+    "title": "Specification for Reciprocating Air Compressors for General Purposes",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 134,
+    "is_number": "IS 807:2006",
+    "title": "Design, Manufacture, Erection and Testing (Structural Portion) of Cranes and Hoists — Code of Practice (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 136,
+    "is_number": "IS 14665 (Part 2):2000",
+    "title": "Electric Traction Lifts: Part 2 Code of Practice for Installation, Operation and Maintenance (First Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 138,
+    "is_number": "IS 778:1984",
+    "title": "Specification for Copper Alloy Gate, Globe and Check Valves for Waterworks Purposes (Fourth Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 140,
+    "is_number": "IS 13095:1991",
+    "title": "Butterfly Valves for General Purposes — Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 141,
+    "is_number": "IS 5312 (Part 1):2004",
+    "title": "Swing Check Type Reflux (Non-Return) Valves for Water Works Purposes: Part 1 Single Door Pattern (First Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 143,
+    "is_number": "IS 7285 (Part 1):2004",
+    "title": "Refillable Seamless Steel Gas Cylinders — Specification: Part 1 Normalized Steel Cylinders (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 145,
+    "is_number": "IS 10000 (Part 8):1980",
+    "title": "Methods of Tests for Internal Combustion Engines: Part 8 Performance Tests (First Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 146,
+    "is_number": "IS 11170:1985",
+    "title": "Performance Requirements for Constant Speed Compression-Ignition (Diesel) Engines for Agricultural Water Pumpsets",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 148,
+    "is_number": "IS 1391 (Part 2):2018",
+    "title": "Room Air Conditioners — Specification: Part 2 Split Air Conditioners (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 149,
+    "is_number": "IS 1476 (Part 1):2000",
+    "title": "Refrigerating Appliances — Specification: Part 1 Household Refrigerators with or without Low-Temperature Compartment (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 150,
+    "is_number": "IS 6455:1972",
+    "title": "Specification for Single Row Radial Ball Bearings",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 153,
+    "is_number": "IS 265:1993",
+    "title": "Hydrochloric Acid — Specification (Fourth Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 154,
+    "is_number": "IS 283:1976",
+    "title": "Specification for Liquid Chlorine, Technical (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 155,
+    "is_number": "IS 251:1998",
+    "title": "Soda Ash, Technical — Specification (Fourth Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 156,
+    "is_number": "IS 2764:1980",
+    "title": "Specification for Diammonium Phosphate (First Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 157,
+    "is_number": "IS 154:1994",
+    "title": "Ready Mixed Paint, Synthetic Enamel, Exterior: (a) Undercoating, (b) Finishing — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 159,
+    "is_number": "IS 15489:2004",
+    "title": "Paint, Plastic Emulsion, Exterior — Specification",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 161,
+    "is_number": "IS 15298 (Part 4):2017",
+    "title": "Personal Protective Equipment: Part 4 Occupational Footwear (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 162,
+    "is_number": "IS 277:2018",
+    "title": "Galvanized Steel Sheets (Plain and Corrugated) — Specification (Eighth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 164,
+    "is_number": "IS 6911:2017",
+    "title": "Stainless Steel Plate, Sheet and Strip — Specification (Second Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 165,
+    "is_number": "IS 210:2009",
+    "title": "Grey Iron Castings — Specification (Fifth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 166,
+    "is_number": "IS 1865:1991",
+    "title": "Iron Castings with Spheroidal or Nodular Graphite — Specification (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 167,
+    "is_number": "IS 1726:1991",
+    "title": "Specification for Cast Iron Manhole Covers and Frames (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 203,
+    "is_number": "IS 3495 (Parts 1 to 4):2019",
+    "title": "Methods of Tests of Burnt Clay Building Bricks (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 169,
+    "is_number": "IS 191:2007",
+    "title": "Copper — Specification (Fifth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 171,
+    "is_number": "IS/IEC 62368-1:2018",
+    "title": "Audio/Video, Information and Communication Technology Equipment: Part 1 Safety Requirements",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 172,
+    "is_number": "IS 16046 (Part 1):2018",
+    "title": "Secondary Cells and Batteries Containing Alkaline or Other Non-Acid Electrolytes: Part 1 Nickel Systems",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 174,
+    "is_number": "IS 1651:2013",
+    "title": "Stationary Cells and Batteries, Lead-Acid Type (With Tubular Positive Plates) — Specification (Fourth Revision)",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 175,
+    "is_number": "IS 16333 (Part 3):2022",
+    "title": "Mobile Phone Handsets: Part 3 Indian Language Support for Mobile Phone Handsets — Specific Requirements (Second Revision)",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 176,
+    "is_number": "IS 10654:2002",
+    "title": "Sterile Hypodermic Needles for Single Use — Specification (Second Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 177,
+    "is_number": "IS 12656:2019",
+    "title": "Infusion Equipment for Medical Use: Part 4 Infusion Sets for Single Use, Gravity Feed (Second Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 179,
+    "is_number": "IS 7378:1974",
+    "title": "Specification for Hospital Beds, General Purposes",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 181,
+    "is_number": "IS 13428:2005",
+    "title": "Packaged Natural Mineral Water — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 182,
+    "is_number": "IS 12207:2019",
+    "title": "Agricultural Tractors — Recommendations on Selected Performance Characteristics (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 184,
+    "is_number": "IS 11536:2014",
+    "title": "Processed Cereal-Based Complementary Foods for Infants — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 185,
+    "is_number": "IS 15403:2000",
+    "title": "Natural Gas for Use as Compressed Natural Gas (CNG) in Automotive Vehicles — Specification",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 187,
+    "is_number": "IS 9873 (Part 2):2017",
+    "title": "Safety of Toys: Part 2 Flammability (First Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 189,
+    "is_number": "IS 15636:2012",
+    "title": "Automotive Vehicles — Pneumatic Tyres for Commercial Vehicles — Diagonal and Radial Ply (First Revision)",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 190,
+    "is_number": "IS 15627:2005",
+    "title": "Automotive Vehicles — Pneumatic Tyres for Two and Three-Wheeled Motor Vehicles — Diagonal and Radial Ply",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 191,
+    "is_number": "IS 15748:2022",
+    "title": "Textiles — Protective Clothing for Industrial Workers Exposed to Heat and Flame (Second Revision)",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 192,
+    "is_number": "IS 16390:2015",
+    "title": "Geosynthetics — Polypropylene Woven Geotextiles for Subgrade Stabilization — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 194,
+    "is_number": "IS 13488:2008",
+    "title": "Irrigation Equipment — Emitters and Emitting Pipes — Specification (Second Revision)",
+    "division_council": "Water Resources"
+  },
+  {
+    "id": 196,
+    "is_number": "IS 17826:2022",
+    "title": "Ayurvedic Raw Material — Guduchi (Tinospora cordifolia) Stem — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 197,
+    "is_number": "IS 5182 (Part 24):2019",
+    "title": "Methods for Measurement of Air Pollution: Part 24 Particulate Matter (PM2.5) in Ambient Air — Gravimetric Method",
+    "division_council": "Environment and Ecology"
+  },
+  {
+    "id": 199,
+    "is_number": "IS 1364 (Part 3):2018",
+    "title": "Hexagon Regular Nuts (Style 1) — Product Grades A and B (Fifth Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 200,
+    "is_number": "IS/ISO/IEC 27001:2022",
+    "title": "Information Security, Cybersecurity and Privacy Protection — Information Security Management Systems — Requirements (Third Revision)",
+    "division_council": "Service Sector"
+  },
+  {
+    "id": 201,
+    "is_number": "IS/ISO 45001:2018",
+    "title": "Occupational Health and Safety Management Systems — Requirements with Guidance for Use",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 202,
+    "is_number": "IS 1239 (Part 2):1992",
+    "title": "Mild Steel Tubes, Tubulars and Other Wrought Steel Fittings: Part 2 Mild Steel Tubulars and Other Wrought Steel Pipe Fittings (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 205,
+    "is_number": "IS 1948:1961",
+    "title": "Specification for Aluminium Doors, Windows and Ventilators",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 206,
+    "is_number": "IS 4021:1995",
+    "title": "Timber Door, Window and Ventilator Frames — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 207,
+    "is_number": "IS 2835:1987",
+    "title": "Flat Transparent Sheet Glass — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 208,
+    "is_number": "IS 2556 (Part 1):1994",
+    "title": "Vitreous Sanitary Appliances (Vitreous China) — Specification: Part 1 General Requirements (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 211,
+    "is_number": "IS 940:2003",
+    "title": "Portable Fire Extinguisher, Water Type (Gas Cartridge) — Specification (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 213,
+    "is_number": "IS 432 (Part 1):1982",
+    "title": "Specification for Mild Steel and Medium Tensile Steel Bars and Hard-Drawn Steel Wire for Concrete Reinforcement: Part 1 Mild Steel and Medium Tensile Steel Bars (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 214,
+    "is_number": "IS 16172:2014",
+    "title": "Reinforcement Couplers for Mechanical Splice of Bars in Concrete — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 216,
+    "is_number": "IS 12330:1988",
+    "title": "Specification for Sulphate Resisting Portland Cement",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 217,
+    "is_number": "IS 8041:1990",
+    "title": "Specification for Rapid Hardening Portland Cement (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 218,
+    "is_number": "IS 12600:1989",
+    "title": "Specification for Low Heat Portland Cement",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 219,
+    "is_number": "IS 6909:1990",
+    "title": "Specification for Supersulphated Cement",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 224,
+    "is_number": "IS 302 (Part 2/Sec 14):2018",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 14 Kitchen Machines (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 225,
+    "is_number": "IS 302 (Part 2/Sec 15):2018",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 15 Appliances for Heating Liquids (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 223,
+    "is_number": "IS 302 (Part 2/Sec 202):2008",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 202 Electric Instantaneous Water Heaters",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 248,
+    "is_number": "IS 5182 (Part 4):1999",
+    "title": "Methods for Measurement of Air Pollution: Part 4 Nitrogen Dioxide (First Revision)",
+    "division_council": "Environment and Ecology"
+  },
+  {
+    "id": 227,
+    "is_number": "IS 8130:2013",
+    "title": "Conductors for Insulated Electric Cables and Flexible Cords — Specification (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 228,
+    "is_number": "IS 5831:1984",
+    "title": "Specification for PVC Insulation and Sheath of Electric Cables (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 229,
+    "is_number": "IS 10810 (Part 0):1984",
+    "title": "Methods of Test for Cables: Part 0 General",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 260,
+    "is_number": "IS 2116:1980",
+    "title": "Specification for Sand for Masonry Mortars (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 232,
+    "is_number": "IS 13364 (Part 1):1992",
+    "title": "AC Generators Driven by Reciprocating Internal Combustion Engines: Part 1 Ratings Up to 20 kVA",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 233,
+    "is_number": "IS 1011:2002",
+    "title": "Boric Acid — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 234,
+    "is_number": "IS 264:2005",
+    "title": "Nitric Acid — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 235,
+    "is_number": "IS 5408:2019",
+    "title": "Specification for Potassium Chloride (Muriate of Potash), Fertilizer Grade (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 236,
+    "is_number": "IS 294:1979",
+    "title": "Specification for Superphosphate (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 238,
+    "is_number": "IS 15965:2012",
+    "title": "Pre-Painted Aluminium-Zinc Alloy Coated Steel Strip and Sheet — Specification",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 239,
+    "is_number": "IS 15961:2012",
+    "title": "Structural Steel for Bridges — Specification",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 240,
+    "is_number": "IS 5522:2014",
+    "title": "Stainless Steel Sheets and Strips for Utensils — Specification (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 241,
+    "is_number": "IS 733:1983",
+    "title": "Wrought Aluminium and Aluminium Alloy Bars, Rods and Sections for General Engineering Purposes (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 243,
+    "is_number": "IS 3390:1988",
+    "title": "Sphygmomanometers, Mercurial — Specification (Second Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 244,
+    "is_number": "IS 12785:1994",
+    "title": "Irrigation Equipment — Strainer-Type Filters — Specification (First Revision)",
+    "division_council": "Water Resources"
+  },
+  {
+    "id": 245,
+    "is_number": "IS 17827:2022",
+    "title": "Ayurvedic Raw Material — Amla (Phyllanthus emblica) Fruit — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 246,
+    "is_number": "IS 17828:2022",
+    "title": "Ayurvedic Raw Material — Haridra (Curcuma longa) Rhizome — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 247,
+    "is_number": "IS 5182 (Part 2):2001",
+    "title": "Methods for Measurement of Air Pollution: Part 2 Sulphur Dioxide (First Revision)",
+    "division_council": "Environment and Ecology"
+  },
+  {
+    "id": 250,
+    "is_number": "IS 2285:2003",
+    "title": "Cast Iron Surface Plates — Specification (Third Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 252,
+    "is_number": "IS/ISO 50001:2018",
+    "title": "Energy Management Systems — Requirements with Guidance for Use",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 253,
+    "is_number": "IS/ISO 31000:2018",
+    "title": "Risk Management — Guidelines",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 255,
+    "is_number": "IS 16108:2012",
+    "title": "Photobiological Safety of Lamps and Lamp Systems",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 256,
+    "is_number": "IS 14144:1994",
+    "title": "Electric Power Meters — AC Static Watt-Hour Meters, Class 0.2 S and 0.5 S — Specification",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 257,
+    "is_number": "IS 15885 (Part 1):2011",
+    "title": "Lamp Controlgear: Part 1 General and Safety Requirements",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 258,
+    "is_number": "IS 15658:2021",
+    "title": "Precast Concrete Blocks for Paving — Specification (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 259,
+    "is_number": "IS 1542:1992",
+    "title": "Sand for Plaster — Specification (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 262,
+    "is_number": "IS 2386 (Part 4):1963",
+    "title": "Methods of Test for Aggregates for Concrete: Part 4 Mechanical Properties",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 264,
+    "is_number": "IS 3370 (Part 2):2021",
+    "title": "Concrete Structures for Storage of Liquids — Code of Practice: Part 2 Reinforced Concrete Structures (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 265,
+    "is_number": "IS 1367 (Part 1):2014",
+    "title": "Fasteners — Technical Supply Conditions: Part 1 General Requirements for Bolts, Screws and Studs (Fourth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 267,
+    "is_number": "IS 14268:2022",
+    "title": "Uncoated Stress Relieved Low Relaxation Seven-Ply Strand for Prestressed Concrete — Specification (Second Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 269,
+    "is_number": "IS 5120:1977",
+    "title": "Technical Requirements for Rotodynamic Special Purpose Pumps (First Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 270,
+    "is_number": "IS 13450 (Part 2/Sec 2):2018",
+    "title": "Medical Electrical Equipment: Part 2 Particular Requirements for the Basic Safety and Essential Performance, Section 2 High Frequency Surgical Equipment",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 272,
+    "is_number": "IS 14494:1998",
+    "title": "Automotive Vehicles — Hydraulic Brake Hose Assemblies for Use with Non-Petroleum Base Hydraulic Fluids — Specification",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 274,
+    "is_number": "IS/ISO 19011:2018",
+    "title": "Guidelines for Auditing Management Systems (Second Revision)",
+    "division_council": "Management and Systems"
+  },
+  {
+    "id": 275,
+    "is_number": "IS 616:2017",
+    "title": "Audio, Video and Similar Electronic Apparatus — Safety Requirements (Fifth Revision)",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 277,
+    "is_number": "IS 302 (Part 2/Sec 15):2009",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements — Section 15 Appliances for Heating Liquids (Fourth Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 278,
+    "is_number": "IS 9283:2013",
+    "title": "Motors for Submersible Pumpsets — Specification (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 279,
+    "is_number": "IS 12701:1996",
+    "title": "Rotomoulded Polyethylene Water Storage Tanks — Specification (First Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 280,
+    "is_number": "IS 285:1992",
+    "title": "Laundry Soaps — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 282,
+    "is_number": "IS 1374:2007",
+    "title": "Di-Ammonium Phosphate — Specification (Fourth Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 284,
+    "is_number": "IS 1155:1968",
+    "title": "Wheat Atta — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 285,
+    "is_number": "IS 14887:2014",
+    "title": "High Density Polyethylene (HDPE) / Polypropylene (PP) Woven Sacks for Packaging of 50 kg Foodgrains — Specification (Second Revision)",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 287,
+    "is_number": "IS 13422:1992",
+    "title": "Sterile Hypodermic Syringes for Single Use — Specification",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 288,
+    "is_number": "IS 10654:2020",
+    "title": "Surgical Gloves — Single-Use Sterile Rubber Surgical Gloves — Specification (Third Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 289,
+    "is_number": "IS 14682:2004",
+    "title": "Clinical Electrical Thermometers with Maximum Device — Specification",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 290,
+    "is_number": "IS 1012:2002",
+    "title": "Turbine Lubricating Oils — Specification (Second Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 292,
+    "is_number": "IS 16503:2017",
+    "title": "Ayush — Good Agricultural and Collection Practices (GACP) for Medicinal Plants",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 294,
+    "is_number": "IS 15988:2013",
+    "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 296,
+    "is_number": "IS 12349:1988",
+    "title": "Fire Stop Doors and Screens — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 297,
+    "is_number": "IS 15498:2004",
+    "title": "Geotextiles — Polypropylene and Polyester Woven Geotextiles — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 298,
+    "is_number": "IS 16087:2013",
+    "title": "Biogas (Biomethane) — Specification",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 304,
+    "is_number": "IS 1005:1992",
+    "title": "Edible Soya Flour (Defatted) — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 300,
+    "is_number": "IS 15658:2006",
+    "title": "Precast Concrete Blocks for Paving — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 301,
+    "is_number": "IS 16654:2017",
+    "title": "High Performance Concrete — Code of Practice",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 302,
+    "is_number": "IS 15388:2003",
+    "title": "Household Refrigerating Appliances — Frost-free Refrigerators-freezers — Characteristics and Test Methods",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 303,
+    "is_number": "IS 15757:2007",
+    "title": "Follow-up Formula — Complementary Foods — Specification",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 306,
+    "is_number": "IS 14283:1995",
+    "title": "Automotive Vehicles — Hydraulic Brake Hose Assemblies for Use with Non-Petroleum Base Brake Fluids — Specification",
+    "division_council": "Transport Engineering"
+  },
+  {
+    "id": 308,
+    "is_number": "IS 1391:1971",
+    "title": "Cotton Bedsheets — Specification (First Revision)",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 309,
+    "is_number": "IS 12225:1987",
+    "title": "Centrifugal Jet Pumps for Clear, Cold, Fresh Water — Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 312,
+    "is_number": "IS 13450 (Part 1):2018",
+    "title": "Medical Electrical Equipment: Part 1 General Requirements for Basic Safety and Essential Performance (Third Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 313,
+    "is_number": "IS 15852:2009",
+    "title": "Textiles — Polypropylene (PP) and Polyethylene (PE) Tarpaulins — Specification",
+    "division_council": "Textiles"
+  },
+  {
+    "id": 314,
+    "is_number": "IS 15331:2003",
+    "title": "Centrifugal Pumps for Clear, Cold, Fresh Water for Agricultural Purposes — Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 59,
+    "is_number": "IS 8112:2013",
+    "title": "Ordinary Portland Cement, 43 Grade — Specification (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 61,
+    "is_number": "IS 455:2015",
+    "title": "Portland Slag Cement — Specification (Sixth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 316,
+    "is_number": "IS 15888:2010",
+    "title": "LED Modules for General Lighting — Safety Specifications",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 317,
+    "is_number": "IS 13730 (Part 0/Sec 1):2012",
+    "title": "Specifications for Particular Types of Winding Wires: Part 0 General Requirements — Section 1 Enamelled Round Copper Wire",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 68,
+    "is_number": "IS 808:2021",
+    "title": "Dimensions for Hot Rolled Steel Beam, Column, Channel and Angle Sections (Fourth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 69,
+    "is_number": "IS 15683:2018",
+    "title": "Portable Fire Extinguishers — Performance and Construction (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 73,
+    "is_number": "IS 8329:2000",
+    "title": "Centrifugally Cast (Ductile) Iron Pipes for Water, Gas and Sewage — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 79,
+    "is_number": "IS 2556 (Part 2):2004",
+    "title": "Vitreous Sanitary Appliances (Vitreous China) — Specification: Part 2 Wash Down Water Closets (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 83,
+    "is_number": "IS 2202 (Part 1):1999",
+    "title": "Wooden Flush Door Shutters (Solid Core Type) — Specification: Part 1 Plywood Face Panels (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 85,
+    "is_number": "IS 14333:1996",
+    "title": "High Density Polyethylene Pipes for Sewerage — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 91,
+    "is_number": "IS 875 (Part 3):2015",
+    "title": "Design Loads (Other Than Earthquake) for Buildings and Structures — Code of Practice: Part 3 Wind Loads (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 92,
+    "is_number": "IS 3067:1988",
+    "title": "Code of Practice for General Design Details and Preparatory Work for Damp-Proofing and Waterproofing of Buildings (First Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 94,
+    "is_number": "IS 2026 (Part 1):2011",
+    "title": "Power Transformers — Specification: Part 1 General (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 97,
+    "is_number": "IS 11171:1985",
+    "title": "Specification for Dry-Type Power Transformers",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 100,
+    "is_number": "IS/IEC 60947-3:2012",
+    "title": "Low-Voltage Switchgear and Controlgear: Part 3 Switches, Disconnectors, Switch-Disconnectors and Fuse-Combination Units",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 102,
+    "is_number": "IS 12640 (Part 1):2016",
+    "title": "Residual Current Operated Circuit-Breakers Without Integral Overcurrent Protection for Household and Similar Uses (RCCBs)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 107,
+    "is_number": "IS 398 (Part 4):1994",
+    "title": "Aluminium Conductors for Overhead Transmission Purposes: Part 4 Aluminium Alloy Stranded Conductors (Aluminium-Magnesium-Silicon Type)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 110,
+    "is_number": "IS 7098 (Part 3):1993",
+    "title": "Crosslinked Polyethylene Insulated Thermoplastic Sheathed Cables: Part 3 For Working Voltages from 66 kV Up to and Including 220 kV",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 112,
+    "is_number": "IS 3854:1997",
+    "title": "Switches for Domestic and Similar Purposes — Specification (Second Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 114,
+    "is_number": "IS 9537 (Part 3):1983",
+    "title": "Conduits for Electrical Installations — Specification: Part 3 Rigid Plain Conduits of Insulating Materials",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 117,
+    "is_number": "IS/IEC 61730-1:2016",
+    "title": "Photovoltaic (PV) Module Safety Qualification: Part 1 Requirements for Construction",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 119,
+    "is_number": "IS 16102 (Part 2):2017",
+    "title": "Self-Ballasted LED Lamps for General Lighting Services: Part 2 Performance Requirements (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 122,
+    "is_number": "IS 10322 (Part 5/Sec 5):2013",
+    "title": "Luminaires: Part 5 Particular Requirements, Section 5 Floodlights (First Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 127,
+    "is_number": "IS 996:2009",
+    "title": "Single-Phase AC Induction Motors for General Purpose — Specification (Third Revision)",
+    "division_council": "Electrotechnical"
+  },
+  {
+    "id": 131,
+    "is_number": "IS 6595 (Part 1):2002",
+    "title": "Horizontal Centrifugal Pumps for Agricultural Purposes — Specification: Part 1 For Clear, Cold Water (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 132,
+    "is_number": "IS 5456:2006",
+    "title": "Positive Displacement Compressors — Code of Practice for Testing (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 135,
+    "is_number": "IS 3938:1983",
+    "title": "Specification for Electric Wire Rope Hoists (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 137,
+    "is_number": "IS 14665 (Part 3/Sec 1):2000",
+    "title": "Electric Traction Lifts: Part 3 Safety Rules, Section 1 Passenger and Goods Lifts",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 139,
+    "is_number": "IS 14846:2000",
+    "title": "Sluice Valves for Water Works Purposes (50 to 1200 mm Size) — Specification",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 142,
+    "is_number": "IS 3196 (Part 2):2006",
+    "title": "Welded Low Carbon Steel Cylinders Exceeding 5 Litre Water Capacity for Low Pressure Liquefiable Gases: Part 2 Cylinders for Liquefiable Gases Other Than LPG (Fourth Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 144,
+    "is_number": "IS 7285 (Part 2):2004",
+    "title": "Refillable Seamless Steel Gas Cylinders — Specification: Part 2 Quenched and Tempered Steel Cylinders with Tensile Strength Less Than 1100 MPa (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 147,
+    "is_number": "IS 1391 (Part 1):2017",
+    "title": "Room Air Conditioners — Specification: Part 1 Unitary Air Conditioners (Third Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 151,
+    "is_number": "IS 2494:1994",
+    "title": "V-Belts — Endless V-Belts for Industrial Power Transmission — Specification (Second Revision)",
+    "division_council": "Mechanical Engineering"
+  },
+  {
+    "id": 152,
+    "is_number": "IS 266:1993",
+    "title": "Sulphuric Acid — Specification (Third Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 158,
+    "is_number": "IS 5411 (Part 1):1974",
+    "title": "Specification for Plastic Emulsion Paint: Part 1 For Interior Use (First Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 160,
+    "is_number": "IS 15298 (Part 3):2019",
+    "title": "Personal Protective Equipment: Part 3 Protective Footwear (Second Revision)",
+    "division_council": "Chemical"
+  },
+  {
+    "id": 163,
+    "is_number": "IS 14246:2013",
+    "title": "Continuously Pre-Painted Galvanized Steel Sheets and Coils — Specification (First Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 168,
+    "is_number": "IS 617:1994",
+    "title": "Aluminium and Aluminium Alloy Ingots and Castings for General Engineering Purposes (Third Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 170,
+    "is_number": "IS 319:2007",
+    "title": "Free Cutting Brass Bars, Rods and Sections — Specification (Fifth Revision)",
+    "division_council": "Metallurgical Engineering"
+  },
+  {
+    "id": 173,
+    "is_number": "IS 15549:2005",
+    "title": "Stationary Valve Regulated Lead-Acid Batteries — Specification",
+    "division_council": "Electronics and Information Technology"
+  },
+  {
+    "id": 178,
+    "is_number": "IS 12417:2007",
+    "title": "Non-Invasive Sphygmomanometers: Part 2 Supplementary Requirements for Automated Electrical Equipment (First Revision)",
+    "division_council": "Medical Equipment and Hospital Planning"
+  },
+  {
+    "id": 180,
+    "is_number": "IS 10500:2012",
+    "title": "Drinking Water — Specification (Second Revision)",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 183,
+    "is_number": "IS 6690:1981",
+    "title": "Specification for Blades for Rotavator and Power Tillers",
+    "division_council": "Food and Agriculture"
+  },
+  {
+    "id": 186,
+    "is_number": "IS 13656:2019",
+    "title": "Internal Combustion Engine Crankcase Oils (Diesel and Gasoline) — Specification (Second Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 188,
+    "is_number": "IS 9873 (Part 3):2020",
+    "title": "Safety of Toys: Part 3 Migration of Certain Elements (Second Revision)",
+    "division_council": "Petroleum, Coal and Related Products"
+  },
+  {
+    "id": 193,
+    "is_number": "IS 6784:1996",
+    "title": "Method for Performance Testing of Water Meters (Mechanical) (Second Revision)",
+    "division_council": "Water Resources"
+  },
+  {
+    "id": 195,
+    "is_number": "IS 17825:2022",
+    "title": "Ayurvedic Raw Material — Tulsi (Ocimum sanctum) Leaves — Specification",
+    "division_council": "AYUSH"
+  },
+  {
+    "id": 198,
+    "is_number": "IS 1364 (Part 2):2018",
+    "title": "Hexagon Head Screws — Product Grades A and B (Fifth Revision)",
+    "division_council": "Production and General Engineering"
+  },
+  {
+    "id": 204,
+    "is_number": "IS 1038:1983",
+    "title": "Specification for Steel Doors, Windows and Ventilators (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 209,
+    "is_number": "IS 2556 (Part 3):2004",
+    "title": "Vitreous Sanitary Appliances (Vitreous China) — Specification: Part 3 Squatting Pans (Fifth Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 210,
+    "is_number": "IS 2878:2004",
+    "title": "Fire Extinguisher, Carbon Dioxide Type (Portable and Mobile) — Specification (Third Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 212,
+    "is_number": "IS 16018:2012",
+    "title": "Portable Fire Extinguishers — Clean Agent Type — Specification",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 215,
+    "is_number": "IS 16098 (Part 1):2013",
+    "title": "Structured-Wall Plastics Piping Systems for Non-Pressure Underground Drainage and Sewerage: Part 1 Pipes and Fittings with Smooth Internal and External Surface (Type A)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 220,
+    "is_number": "IS 3466:1988",
+    "title": "Specification for Masonry Cement (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 221,
+    "is_number": "IS 2751:1998",
+    "title": "Recommended Practice for Welding of Mild Steel Plain and Deformed Bars for Reinforced Concrete Construction (Second Revision)",
+    "division_council": "Civil Engineering"
+  },
+  {
+    "id": 222,
+    "is_number": "IS 302 (Part 2/Sec 201):2008",
+    "title": "Safety of Household and Similar Electrical Appliances: Part 2 Particular Requirements, Section 201 Electric Immersion Water Heaters (First Revision)",
+    "division_council": "Electrotechnical"
+  }
+]

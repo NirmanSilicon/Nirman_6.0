@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recommendations Dashboard | Nirdeshak</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Government Identification Strip -->
+<div class="gov-strip">
+  <div class="gov-strip__inner">
+    <span class="gov-strip__text">भारत सरकार | Government of India</span>
+    <span class="gov-strip__text gov-strip__text--right">Bureau of Indian Standards</span>
+  </div>
+</div>
+
+<!-- Main Site Header -->
+<header class="main-header">
+  <div class="main-header__inner">
+    <a href="index.html" class="main-header__brand" style="text-decoration: none; display: flex; align-items: center; gap: 16px; color: inherit;">
+      <div class="main-header__logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="46" height="46">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="#0a3161" stroke-width="2"/>
+          <circle cx="24" cy="24" r="15" fill="none" stroke="#0a3161" stroke-width="1.2"/>
+          <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#0a3161" font-family="Arial, sans-serif">N</text>
+        </svg>
+      </div>
+      <div class="main-header__titles">
+        <h1 class="main-header__title">NIRDESHAK</h1>
+        <p class="main-header__subtitle">AI-Powered Indian Standards Recommendation Portal</p>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- Step Indicator -->
+<nav class="step-indicator" aria-label="Procurement Analysis Workflow Progress">
+  <div class="step-indicator__inner">
+    <ol class="step-indicator__list">
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">1. Input</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">2. Process</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">3. Review</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">4. Analyze</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--active" aria-current="step">
+        <span class="step-indicator__badge">5</span>
+        <span class="step-indicator__label">5. Results</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Results Dashboard & Recommendation UI (Step 12) -->
+  <section class="results-dashboard" id="resultsDashboard" style="display: block; padding-top: 24px;" aria-labelledby="dashboardHeading">
+    <div class="results-dashboard__inner">
+      <div class="dashboard-header">
+        <div class="dashboard-header__titles">
+          <span class="dashboard-header__eyebrow">Procurement Intelligence &bull; Verified Standards</span>
+          <h2 id="dashboardHeading" class="dashboard-header__title">Standards Recommendation Dashboard</h2>
+          <p class="dashboard-header__subtitle">Deterministic multi-signal retrieval, version verification, and grounded AI explanation</p>
+        </div>
+        <div class="dashboard-header__actions">
+          <button type="button" class="btn-primary" id="downloadPdfReportBtn" aria-label="Download PDF Procurement Report">
+            <span class="btn-pdf-icon" aria-hidden="true">&#128196;</span>
+            <span class="btn-pdf-text" id="downloadPdfBtnText">Download PDF Report</span>
+          </button>
+          <a href="analysis.html" class="btn-secondary" id="startNewAnalysisBtn" style="text-decoration: none; display: inline-flex; align-items: center;" aria-label="Start New Analysis">
+            Start New Analysis
+          </a>
+        </div>
+        <div id="reportStatusMessage" class="report-status-message" style="display: none;" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- Loading State Container -->
+      <div class="dashboard-loading" id="dashboardLoading" role="status" aria-live="polite" style="display: none;">
+        <div class="dashboard-loading__spinner" aria-hidden="true"></div>
+        <div class="dashboard-loading__text" id="dashboardLoadingText">Loading recommendations...</div>
+      </div>
+
+      <!-- Error State Container -->
+      <div class="dashboard-error" id="dashboardError" role="alert" style="display: none;">
+        <div class="dashboard-error__icon" aria-hidden="true">&#9888;</div>
+        <div class="dashboard-error__content">
+          <h4 class="dashboard-error__title" id="dashboardErrorTitle">Unable to complete analysis</h4>
+          <p class="dashboard-error__message" id="dashboardErrorMessage"></p>
+        </div>
+      </div>
+
+      <!-- Empty State Container -->
+      <div class="dashboard-empty" id="dashboardEmpty" role="region" aria-label="No Results" style="display: none;">
+        <div class="dashboard-empty__icon" aria-hidden="true">&#8505;</div>
+        <h4 class="dashboard-empty__title">No matching standards were retrieved for this requirement.</h4>
+        <p class="dashboard-empty__desc">The absence of retrieved results in this development database does not establish that no applicable Indian Standard exists. Please verify the technical terminology or expand the requirement description.</p>
+        <div style="margin-top: 18px;">
+          <a href="analysis.html" class="btn-primary" style="text-decoration: none; display: inline-block;">&larr; Start New Analysis</a>
+        </div>
+      </div>
+
+      <!-- Dashboard Results Content Container -->
+      <div class="dashboard-content" id="dashboardContent" style="display: block;"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p class="site-footer__line">Government of India</p>
+  <p class="site-footer__line">Bureau of Indian Standards</p>
+  <p class="site-footer__tagline">Nirdeshak &ndash; Right Standards. Smarter Procurement.</p>
+</footer>
+
+<script type="module" src="results.js"></script>
+</body>
+</html>

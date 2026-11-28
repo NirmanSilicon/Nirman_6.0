@@ -1,0 +1,1282 @@
+{
+  "Acrylonitrile Butadiene Rubber (Nitrile Rubber NBR)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 7450:2020",
+    "new_standard": {
+      "is_number": "IS 7450:2020",
+      "title": "Vulcanized Acrylonitrile-Butadiene Copolymers (NBR) — Specification",
+      "publication_year": 2020,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and methods of sampling and test for raw vulcanized acrylonitrile butadiene rubber (NBR) used for oil-resistant automotive and industrial applications.",
+      "materials": "Synthetic copolymer of acrylonitrile and butadiene.",
+      "technical_requirements": "Acrylonitrile content 18-50%, Mooney viscosity (ML 1+4 at 100°C), ash content, volatile matter, tensile strength, oil swelling resistance.",
+      "performance_requirements": "Tensile strength >= 14 MPa, elongation >= 300%, volume change in IRM 903 oil <= 15%.",
+      "testing_requirements": "Mooney viscometer test per IS 3660, tensile properties per IS 3400 (Part 1), accelerated ageing per IS 3400 (Part 4).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / Department of Chemicals and Petrochemicals QCO"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DCPC Acrylonitrile Butadiene Rubber (Quality Control) Order, 2021 (S.O. 1111(E))",
+      "source_url": "https://chemicals.gov.in/quality-control-orders",
+      "evidence_excerpt": "Schedule entry specifies IS 7450:2020 for Acrylonitrile Butadiene Rubber (NBR) under compulsory BIS Scheme-I ISI mark.",
+      "applicability_explanation": "Primary national product standard and mandatory QCO order for NBR synthetic rubber.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Compulsory ISI certification under DCPC QCO."
+  },
+  "Aerosol Shaving Creams and Foams": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 9740:2021",
+    "new_standard": {
+      "is_number": "IS 9740:2021",
+      "title": "Shaving Creams and Foams — Specification",
+      "publication_year": 2021,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 19",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for shaving creams (brush and brushless) and aerosol shaving foams.",
+      "materials": "Stearic acid, potassium hydroxide, glycerol, fatty acids, propellants.",
+      "technical_requirements": "Total fatty matter, pH of 10% solution (7.5 - 10.5), foaming power, pressure in aerosol containers, thermal stability.",
+      "performance_requirements": "Foam volume >= 100 ml, foam stability >= 90% after 5 minutes, non-corrosive to tinplate containers.",
+      "testing_requirements": "pH measurement, fatty matter determination per Annex A, heavy metals limit (Lead <= 20 ppm, Arsenic <= 2 ppm).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 19 Cosmetics Sectional Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS Cosmetics Certification Scheme; Drugs and Cosmetics Rules Schedule S",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_9740",
+      "evidence_excerpt": "Clause 1.1: Prescribes requirements and methods of sampling and test for shaving creams and aerosol shaving foams.",
+      "applicability_explanation": "Primary national standard for aerosol shaving creams and foams under PCD 19.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 19 Cosmetics committee. Referenced in cosmetic safety regulations."
+  },
+  "Automotive Engine Oils (API CI-4 / SN Multigrade)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 13656:2019",
+    "new_standard": {
+      "is_number": "IS 13656:2019",
+      "title": "Internal Combustion Engine Crankcase Oils (Automotive Applications) — Specification",
+      "publication_year": 2019,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for crankcase lubricating oils suitable for internal combustion engines (petrol and diesel).",
+      "materials": "Highly refined mineral base oils, synthetic base stocks, antioxidant/detergent additive packages.",
+      "technical_requirements": "Kinematic viscosity at 100°C, viscosity index, flash point (COC), pour point, sulfated ash, total base number (TBN), foaming stability.",
+      "performance_requirements": "Compliant with API CI-4 / SN and ACEA performance sequences; engine cleanliness and wear protection.",
+      "testing_requirements": "Viscosity per IS 1448 (Part 25), Flash point per IS 1448 (Part 69), TBN per ASTM D2896, cold cranking simulator per ASTM D5293.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / Ministry of Petroleum and Natural Gas (MOPNG)"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "MOPNG Lubricating Oils and Greases (Processing, Supply and Distribution Regulation) Order; DPIIT QCO",
+      "source_url": "https://mopng.gov.in/en/page/37",
+      "evidence_excerpt": "All engine crankcase lubricating oils processed, blended and sold in India must conform to IS 13656 grades.",
+      "applicability_explanation": "Mandatory statutory Indian Standard for all automotive crankcase engine lubricants.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Regulated under MOPNG Lubricating Oils Order."
+  },
+  "Automotive Rubber Inner Tubes": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 13098:2012",
+    "new_standard": {
+      "is_number": "IS 13098:2012",
+      "title": "Automotive Vehicles — Tubes for Pneumatic Tyres — Specification",
+      "publication_year": 2012,
+      "version": "First Revision (Reaffirmed 2017)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements, dimensions, testing and sampling for rubber inner tubes for pneumatic tyres used in automotive vehicles.",
+      "materials": "Natural rubber or butyl rubber compound with valve stem assembly.",
+      "technical_requirements": "Tensile strength, elongation at break, accelerated ageing resistance, air retention (impermeability), valve pull-out force.",
+      "performance_requirements": "Tensile strength >= 8.5 MPa (butyl) / 14 MPa (NR), elongation >= 450%, air leakage zero at 0.2 MPa.",
+      "testing_requirements": "Tensile test per IS 3400 (Part 1), air retention test, ozone cracking test per IS 3400 (Part 20).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / DPIIT Pneumatic Tyres and Tubes QCO"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DPIIT Pneumatic Tyres and Tubes for Automotive Vehicles (Quality Control) Order, 2009 (S.O. 2953(E))",
+      "source_url": "https://dpiit.gov.in/sites/default/files/QCO_Tyres_Tubes_2009.pdf",
+      "evidence_excerpt": "Schedule specifies IS 13098 for automotive rubber inner tubes under compulsory ISI certification.",
+      "applicability_explanation": "Mandatory QCO specification for all automotive rubber inner tubes.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Compulsory ISI mark under DPIIT Tyres and Tubes QCO."
+  },
+  "Automotive Transmission Fluid (ATF Dexron)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 17012:2018",
+    "new_standard": {
+      "is_number": "IS 17012:2018",
+      "title": "Automotive Transmission Fluids — Specification",
+      "publication_year": 2018,
+      "version": "Original Edition",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, test methods, and sampling for automatic transmission fluids (ATF Dexron/Mercon compatible) and manual transmission fluids.",
+      "materials": "Hydro-treated high viscosity index base oils, friction modifiers, anti-wear agents, viscosity index improvers.",
+      "technical_requirements": "Kinematic viscosity at 40°C and 100°C, Brookfield viscosity at -40°C, copper corrosion, foaming, shear stability, anti-shudder friction retention.",
+      "performance_requirements": "Brookfield viscosity <= 20,000 mPa.s at -40°C, friction durability > 30,000 cycles without clutch slippage.",
+      "testing_requirements": "ASTM D2983 low temperature viscosity, ASTM D4172 4-ball wear test, IS 1448 (Part 25) kinematic viscosity.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS Petroleum Products Standards; MOPNG Lubricants Directive",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_17012",
+      "evidence_excerpt": "Clause 1: Prescribes requirements and methods of test for automotive transmission fluids for passenger cars and commercial vehicles.",
+      "applicability_explanation": "Primary national standard for automotive automatic and manual transmission fluids.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3 committee for automatic transmission fluids."
+  },
+  "Automotive V-Belts and Poly-V Belts": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 14261:1995",
+    "new_standard": {
+      "is_number": "IS 14261:1995",
+      "title": "Endless Poly-V Belts and Pulleys for Automotive Industry — Specification",
+      "publication_year": 1995,
+      "version": "Original Edition (Reaffirmed 2021)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies dimensional and physical requirements for endless poly-V (ribbed) belts used in automotive engine accessory drives.",
+      "materials": "EPDM / polychloroprene rubber compound reinforced with polyester or aramid cords.",
+      "technical_requirements": "Pitch length, rib pitch, thickness, cord adhesion, tensile strength, heat resistance up to 120°C.",
+      "performance_requirements": "Life test on dynamic test rig > 300 hours without rib separation or crack propagation.",
+      "testing_requirements": "Dynamic fatigue test per Annex B, tensile break force, cord-rubber peel adhesion test.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 Rubber Products Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 13 Sectional Committee; Automotive Industry Standard AIS-110",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_14261",
+      "evidence_excerpt": "Clause 1: Specifies dimensions and performance for endless poly-V belts for automotive engine alternator/water pump drives.",
+      "applicability_explanation": "Primary standard for automotive accessory drive poly-V belts.",
+      "confidence_score": 0.97
+    },
+    "investigation_notes": "Formulated by PCD 13. Companion to IS 2494 for classic automotive V-belts."
+  },
+  "Aviation Turbine Fuel (ATF Kerosene)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1571:2018",
+    "new_standard": {
+      "is_number": "IS 1571:2018",
+      "title": "Aviation Turbine Fuels, Kerosine Type, Jet A-1 — Specification",
+      "publication_year": 2018,
+      "version": "Ninth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for kerosine-type aviation turbine fuel (Jet A-1) for commercial and military aircraft.",
+      "materials": "Refined hydrocarbon distillate with approved antioxidant, static dissipater, and anti-icing additives.",
+      "technical_requirements": "Freezing point (max -47°C), flash point (min 38°C), density at 15°C (775-840 kg/m3), smoke point (min 25 mm), net heat of combustion.",
+      "performance_requirements": "Thermal oxidation stability (JFTOT pressure drop <= 25 mm Hg, tube deposit rating < 3), water separation index MSEP >= 85.",
+      "testing_requirements": "Freezing point per ASTM D2386 / IS 1448 (Part 11), JFTOT per ASTM D3241, electrical conductivity per ASTM D2624.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / DGCA Civil Aviation Requirements"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DGCA Civil Aviation Requirements Section 2 Series E; MOPNG Liquid Fuels Regulation",
+      "source_url": "https://dgca.gov.in/digigov-portal/?page=car",
+      "evidence_excerpt": "Mandatory conformity to IS 1571 Jet A-1 specification for all civil aviation refuelling across Indian airports.",
+      "applicability_explanation": "Mandatory statutory aviation standard for Jet A-1 kerosene turbine fuel in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory for civil aviation under DGCA CAR."
+  },
+  "Aviation Turbine Fuel (Jet A-1 / Kerosene Type)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1571:2018",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DGCA Civil Aviation Requirements Section 2 Series E; MOPNG Liquid Fuels Regulation",
+      "source_url": "https://dgca.gov.in/digigov-portal/?page=car",
+      "evidence_excerpt": "Mandatory conformity to IS 1571 Jet A-1 specification for all civil aviation refuelling across Indian airports.",
+      "applicability_explanation": "Mandatory statutory aviation standard for Jet A-1 kerosene turbine fuel in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 1571:2018."
+  },
+  "Calcined Petroleum Coke (CPC)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 17049:2018",
+    "new_standard": {
+      "is_number": "IS 17049:2018",
+      "title": "Calcined Petroleum Coke for Aluminium Industry — Specification",
+      "publication_year": 2018,
+      "version": "Original Edition",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 7",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and test methods for calcined petroleum coke (CPC) used in manufacturing carbon anodes for aluminium smelting.",
+      "materials": "Calcined green delayed petroleum coke from refinery coker units.",
+      "technical_requirements": "Moisture <= 0.5%, volatile matter <= 0.5%, ash content <= 0.5%, sulphur content <= 3.0%, real density >= 2.06 g/cc, vibrated bulk density.",
+      "performance_requirements": "Low electrical resistivity (<= 0.09 ohm-cm), low air and CO2 reactivity for anode consumption efficiency.",
+      "testing_requirements": "Real density per ASTM D5004, ash per IS 1448, sulphur per ASTM D4239, grain stability per ISO 10143.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 7 Non-Lubricating Petroleum Products"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee; MoEFCC Import Guidelines for CPC",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_17049",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for CPC for use in carbon anode manufacture for primary aluminium smelters.",
+      "applicability_explanation": "Primary national product standard for calcined petroleum coke.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 7. Governed by environmental import quota norms under Supreme Court / MoEFCC."
+  },
+  "Carbon Black for Tyre Rubber": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1699:1995",
+    "new_standard": {
+      "is_number": "IS 1699:1995",
+      "title": "Carbon Black for Rubber Industry — Specification",
+      "publication_year": 1995,
+      "version": "Third Revision (Reaffirmed 2020)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 27",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and test methods for furnace-grade carbon black used in rubber compounding for tyres and mechanical goods.",
+      "materials": "Elemental carbon produced by incomplete combustion of aromatic petroleum/coal feedstock.",
+      "technical_requirements": "Iodine adsorption number (N220, N330, N550, N660), DBP absorption number, pour density, ash content, heating loss, sieve residue.",
+      "performance_requirements": "Reinforcing capability, vulcanizate tensile stress at 300% elongation, abrasion resistance index.",
+      "testing_requirements": "Iodine number per IS 7494, DBP absorption per IS 7495, pellet hardness per ASTM D5230.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 27 Carbon Black Sectional Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 27 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_1699",
+      "evidence_excerpt": "Clause 1: Specifies requirements for furnace carbon black grades used in tyre tread and carcass compounding.",
+      "applicability_explanation": "Primary national specification for carbon black in rubber and tyre manufacturing.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 27. Primary raw material standard for pneumatic tyres."
+  },
+  "Commercial Liquefied Petroleum Gas (19 kg LPG)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 4576:1999",
+    "new_standard": {
+      "is_number": "IS 4576:1999",
+      "title": "Liquefied Petroleum Gases — Specification",
+      "publication_year": 1999,
+      "version": "Second Revision (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and methods of sampling and test for commercial liquefied petroleum gases (propane, butane, and mixtures thereof).",
+      "materials": "Mixture of C3 and C4 hydrocarbons with ethyl mercaptan stenching agent.",
+      "technical_requirements": "Vapour pressure at 40°C (max 1050 kPa for commercial butane / max 1550 kPa for commercial propane-butane mix), volatility, copper strip corrosion.",
+      "performance_requirements": "Distinctive odor detection at 1/5th lower flammability limit; total sulphur <= 0.02% by mass.",
+      "testing_requirements": "Vapour pressure per IS 1448 (Part 71), dryness test, copper corrosion per IS 1448 (Part 15).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / MOPNG LPG Supply and Distribution Order"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Liquefied Petroleum Gas (Regulation of Supply and Distribution) Order, 2000 (MOPNG); PESO Statutory Rules",
+      "source_url": "https://peso.gov.in/gas-cylinder-rules-2016",
+      "evidence_excerpt": "All commercial and domestic LPG marketed in cylinders must strictly conform to IS 4576.",
+      "applicability_explanation": "Mandatory statutory product specification for all LPG marketed in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory under MOPNG Order and PESO Gas Cylinder Rules."
+  },
+  "Compressed Natural Gas (CNG)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 15403:2020",
+    "new_standard": {
+      "is_number": "IS 15403:2020",
+      "title": "Natural Gas for Use as Compressed Natural Gas (CNG) in Automotive Vehicles — Specification",
+      "publication_year": 2020,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and test methods for processed natural gas compressed for use as fuel in automotive vehicles.",
+      "materials": "Processed natural gas primarily composed of methane (CH4 >= 85%).",
+      "technical_requirements": "Methane number (min 70), gross calorific value, water dew point, total sulphur (max 20 mg/m3), CO2 + N2 <= 3.5 mol%, compressor oil content <= 5 ppm.",
+      "performance_requirements": "Anti-knock octane rating > 120 RON; non-corrosive to cylinder steels and high pressure valves.",
+      "testing_requirements": "Gas chromatography per IS 14504, moisture content per ASTM D5454, sulphur by microcoulometry.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / PNGRB Technical Standards Regulations"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Petroleum and Natural Gas Regulatory Board (PNGRB) Regulations; Central Motor Vehicles Rules (CMVR Rule 115B)",
+      "source_url": "https://www.pngrb.gov.in/regulations.html",
+      "evidence_excerpt": "Rule 115B CMVR mandates that CNG dispensed for automotive use must conform to IS 15403.",
+      "applicability_explanation": "Mandatory statutory specification for automotive CNG under CMVR and PNGRB.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory under CMVR Rule 115B and PNGRB."
+  },
+  "Conveyor Rubber Belting": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1891 (Part 1):1994",
+    "new_standard": {
+      "is_number": "IS 1891 (Part 1):1994",
+      "title": "Rubber and Plastics Conveyor and Elevator Belting: Part 1 General Purpose Belting — Specification",
+      "publication_year": 1994,
+      "version": "Fourth Revision (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements for general purpose textile-reinforced rubber and plastics conveyor and elevator belting.",
+      "materials": "Natural or synthetic rubber cover with nylon, polyester or cotton duck reinforcement fabric.",
+      "technical_requirements": "Full thickness tensile strength (Grade N17, M24), cover tensile strength (min 17-24 MPa), cover elongation at break (min 400-450%), ply-to-ply adhesion, abrasion loss.",
+      "performance_requirements": "Cover abrasion resistance (max 150-200 mm3), troughability, electrical surface resistance for antistatic safety.",
+      "testing_requirements": "Tensile and adhesion tests per IS 3400, DIN abrasion per ISO 4649, drum friction test for mine safety.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / Directorate General of Mines Safety (DGMS)"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DGMS Approval Regulations for Mines; DPIIT Quality Control Orders",
+      "source_url": "https://www.dgms.gov.in",
+      "evidence_excerpt": "Conveyor belting used in mining and bulk material handling must conform to IS 1891 and carry DGMS approval / ISI mark.",
+      "applicability_explanation": "Primary national specification and mining regulatory requirement for conveyor rubber belting.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Critical safety equipment for mining and thermal power plants."
+  },
+  "Educational Plastic Construction Toys": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 9873 (Part 1):2019",
+    "new_standard": {
+      "is_number": "IS 9873 (Part 1):2019",
+      "title": "Safety of Toys: Part 1 Safety Aspects Related to Mechanical and Physical Properties",
+      "publication_year": 2019,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies safety requirements and test methods for toys for children up to 14 years, focusing on mechanical and physical safety risks.",
+      "materials": "Non-toxic polymers (ABS, polypropylene, polycarbonate) free from prohibited phthalates and heavy metals.",
+      "technical_requirements": "Small parts cylinder test (choking hazard), sharp edges and points, impact test, drop test, torque and tension test.",
+      "performance_requirements": "No hazardous sharp edges, zero detachment of small parts under 90 N pull force, zero toxic chemical migration.",
+      "testing_requirements": "Drop test, tension test, bite test, sharp point test per Clause 5.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / DPIIT Toys (Quality Control) Order, 2020"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DPIIT Toys (Quality Control) Order, 2020 (S.O. 853(E) dated 25 February 2020)",
+      "source_url": "https://dpiit.gov.in/sites/default/files/Toys_QCO_2020.pdf",
+      "evidence_excerpt": "Compulsory BIS certification under Scheme-I for all toys conforming to IS 9873 (Part 1). No toy may be imported, manufactured or sold without ISI mark.",
+      "applicability_explanation": "Mandatory QCO specification for all plastic toys and construction sets in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Mandatory under DPIIT Toys QCO 2020."
+  },
+  "Extreme Pressure Gear Lubricants": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1118:2019",
+    "new_standard": {
+      "is_number": "IS 1118:2019",
+      "title": "Gear Lubricants, Multipurpose (Extreme Pressure Type) — Specification",
+      "publication_year": 2019,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and test methods for extreme pressure (EP) gear lubricants (API GL-4 / GL-5 / ISO VG 68 to 680) for automotive differentials and industrial gearboxes.",
+      "materials": "Refined mineral oils or synthetic stocks blended with sulphur-phosphorus extreme pressure additives.",
+      "technical_requirements": "Kinematic viscosity at 40°C and 100°C, viscosity index, flash point, copper strip corrosion (max Class 2), Timken OK load, 4-ball weld load.",
+      "performance_requirements": "Timken OK load min 27 kg (60 lb), 4-ball weld load min 250 kg (GL-4) / 400 kg (GL-5), foam stability.",
+      "testing_requirements": "ASTM D2782 Timken test, ASTM D2783 Four-ball extreme pressure test, IS 1448 (Part 25) viscosity.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee; MOPNG Lubricants Directive",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_1118",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for multipurpose gear lubricants containing sulfur-phosphorus extreme pressure additives.",
+      "applicability_explanation": "Primary national standard for extreme pressure industrial and automotive gear oils.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3 for EP gear lubricants."
+  },
+  "Fully Refined Paraffin Wax (Slab Form)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 4654:2019",
+    "new_standard": {
+      "is_number": "IS 4654:2019",
+      "title": "Paraffin Wax — Specification",
+      "publication_year": 2019,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 7",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for paraffin wax (Type 1 to Type 3) derived from petroleum crude.",
+      "materials": "Solid purified mixture of saturated hydrocarbons obtained from petroleum slack wax.",
+      "technical_requirements": "Melting point (congealing point 52°C to 68°C), oil content (max 0.5% for Type 1 fully refined), colour Saybolt (min +25), odour, ash.",
+      "performance_requirements": "Clean white slab appearance, zero rancidity, food-contact grade purity for Type 1.",
+      "testing_requirements": "Congealing point per IS 1448 (Part 93), oil content per IS 1448 (Part 95), needle penetration at 25°C per IS 1448 (Part 92).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 7 Non-Lubricating Petroleum Products"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4654",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for paraffin wax used in candle making, wax paper packaging, matches, and cosmetics.",
+      "applicability_explanation": "Primary national specification for fully refined paraffin wax.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 7. Primary standard for industrial and candle paraffin wax."
+  },
+  "Furnace Oil for Boilers": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1593:2018",
+    "new_standard": {
+      "is_number": "IS 1593:2018",
+      "title": "Fuel Oils — Specification",
+      "publication_year": 2018,
+      "version": "Fourth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and test methods for commercial fuel oils (furnace oils) obtained from petroleum refining.",
+      "materials": "Heavy petroleum residual fractions and blends.",
+      "technical_requirements": "Kinematic viscosity at 50°C (LV 180 cSt / HV 380 cSt), flash point Pensky-Martens (min 66°C), pour point, water content (max 1.0%), sediment, total sulphur.",
+      "performance_requirements": "Gross calorific value (approx 10,000 kcal/kg), atomisation capability in industrial burners, sulphur limits per CPCB environmental norms.",
+      "testing_requirements": "Viscosity per IS 1448 (Part 25), Flash point per IS 1448 (Part 21), Sulphur per ASTM D4294.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / CPCB Industrial Fuel Directives"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "CPCB Directives on Industrial Fuel Quality; MOPNG Liquid Fuel Specifications",
+      "source_url": "https://cpcb.nic.in",
+      "evidence_excerpt": "Fuel oil used in industrial boilers must conform to IS 1593 and comply with CPCB sulphur emissions regulations.",
+      "applicability_explanation": "Primary national product standard for industrial furnace oil.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Regulated under CPCB environmental fuel quality standards."
+  },
+  "Heavy Duty Diesel Engine Oil 15W-40 CI-4/CK-4": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 13656:2019",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "MOPNG Lubricating Oils and Greases Order; DPIIT QCO",
+      "source_url": "https://mopng.gov.in/en/page/37",
+      "evidence_excerpt": "All engine crankcase lubricating oils processed, blended and sold in India must conform to IS 13656 grades.",
+      "applicability_explanation": "Mandatory statutory Indian Standard for heavy duty diesel engine lubricants.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. 15W-40 CI-4/CK-4 corresponds to Type EPL-5 / E-DL 5 of IS 13656."
+  },
+  "Heavy Liquid Paraffin (White Oil)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 7299:2020",
+    "new_standard": {
+      "is_number": "IS 7299:2020",
+      "title": "Liquid Paraffin (White Mineral Oil) for Cosmetic and Industrial Applications — Specification",
+      "publication_year": 2020,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 7",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for liquid paraffin (heavy and light white mineral oils).",
+      "materials": "Highly refined mineral oil consisting of saturated aliphatic and alicyclic hydrocarbons.",
+      "technical_requirements": "Kinematic viscosity at 40°C (heavy grade 60-80 cSt / light grade 15-30 cSt), density at 20°C, odourless, tasteless, carbonisable substances test.",
+      "performance_requirements": "Zero fluorescent polycyclic aromatic hydrocarbons; passes ultraviolet absorbance test for cosmetic/food grade purity.",
+      "testing_requirements": "Carbonisable substances test per IS 1448 (Part 102), UV absorbance per Annex B, viscosity per IS 1448 (Part 25).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 7 Non-Lubricating Petroleum Products"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_7299",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for liquid paraffin used in cosmetic creams, hair oils, ointments and plastics.",
+      "applicability_explanation": "Primary national product standard for cosmetic and technical grade heavy liquid paraffin white oil.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 7. For pharmaceutical applications, conforms to Indian Pharmacopoeia (IP)."
+  },
+  "High-Cis Polybutadiene Rubber (PBR)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 10640:2020",
+    "new_standard": {
+      "is_number": "IS 10640:2020",
+      "title": "Polybutadiene Rubber (BR) — Solution Polymerized — Specification",
+      "publication_year": 2020,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements, sampling and test methods for solution polymerized polybutadiene rubber (BR) with high-cis microstructure for tyre tread compounding.",
+      "materials": "Stereospecific solution-polymerized 1,4-polybutadiene polymer (cis content >= 96%).",
+      "technical_requirements": "Mooney viscosity (ML 1+4 at 100°C: 40-50), ash content <= 0.5%, volatile matter <= 0.5%, cis-1,4 content >= 96%.",
+      "performance_requirements": "High rebound resilience (> 60%), low glass transition temperature (-105°C), superior treadwear and groove cracking resistance.",
+      "testing_requirements": "Microstructure determination by FTIR per ASTM D3677, Mooney viscosity per IS 3660 (Part 7).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / DCPC Polybutadiene Rubber QCO"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DCPC Polybutadiene Rubber (Quality Control) Order, 2021 (S.O. 1112(E))",
+      "source_url": "https://chemicals.gov.in/quality-control-orders",
+      "evidence_excerpt": "Compulsory Scheme-I BIS certification for all Polybutadiene Rubber conforming to IS 10640.",
+      "applicability_explanation": "Mandatory statutory product specification for polybutadiene synthetic rubber.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Compulsory ISI mark under DCPC PBR QCO."
+  },
+  "High Pressure Rubber Hydraulic Hoses": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 3782:2017",
+    "new_standard": {
+      "is_number": "IS 3782:2017",
+      "title": "Rubber Hoses and Hose Assemblies — Wire-Reinforced Hydraulic Types for Oil-Based or Water-Based Fluids — Specification",
+      "publication_year": 2017,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements for wire-braided and spiral wire-reinforced rubber hydraulic hoses and hose assemblies.",
+      "materials": "Oil-resistant synthetic rubber inner tube, high tensile steel wire reinforcement braids/spirals, weather-resistant outer rubber cover.",
+      "technical_requirements": "Working pressure (up to 42 MPa / 6000 psi), minimum burst pressure (4x working pressure), impulse test cycles, change in length at proof pressure (-4% to +2%).",
+      "performance_requirements": "Impulse life >= 200,000 cycles (wire braid) / 500,000 cycles (wire spiral) at 100°C without leakage or burst.",
+      "testing_requirements": "Hydrostatic burst test per IS 443, impulse testing per ISO 6802, cold flexibility test at -40°C.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 Rubber Products Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 13 Sectional Committee; Mining Machinery Safety Norms",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_3782",
+      "evidence_excerpt": "Clause 1: Specifies requirements for high pressure wire-reinforced hydraulic hoses for earthmoving and industrial hydraulics.",
+      "applicability_explanation": "Primary national specification for high pressure hydraulic hoses.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 13. Equivalent to SAE 100R1/R2 and ISO 1436."
+  },
+  "High Protection Sunscreen Lotions (SPF 30 / 50+)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 16602:2016",
+    "new_standard": {
+      "is_number": "IS 16602:2016",
+      "title": "Cosmetics — Sunscreen Products — Specification",
+      "publication_year": 2016,
+      "version": "Original Edition",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 19",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, test methods and labeling guidelines for topical sunscreen products providing UV-A and UV-B protection.",
+      "materials": "Emulsion formulations with approved organic UV filters (avobenzone, octinoxate) or inorganic filters (zinc oxide, titanium dioxide).",
+      "technical_requirements": "Sun Protection Factor (SPF rating in vivo / in vitro), UV-A Protection Factor (UVAPF), critical wavelength (min 370 nm for broad spectrum), water resistance.",
+      "performance_requirements": "SPF in vivo determination per ISO 24444; broad spectrum UV-A protection ratio UVAPF/SPF >= 1/3.",
+      "testing_requirements": "In vivo SPF test per ISO 24444, in vitro UVAPF per ISO 24443, microbiological contamination limits per IS 14648.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 19 Cosmetics Sectional Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 19 Sectional Committee; Drugs and Cosmetics Rules Schedule S",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_16602",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for cosmetic sunscreen creams and lotions claiming UV protection.",
+      "applicability_explanation": "Primary national standard for sunscreen lotions and SPF testing in India.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 19 Cosmetics committee. Aligned with ISO 24444."
+  },
+  "High Speed Diesel (BS-VI Euro-VI Diesel)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1460:2017",
+    "new_standard": {
+      "is_number": "IS 1460:2017",
+      "title": "Automotive Diesel Fuels (Bharat Stage VI) — Specification",
+      "publication_year": 2017,
+      "version": "Sixth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for automotive diesel fuel (high speed diesel) for compression ignition engines conforming to BS-VI emission norms.",
+      "materials": "Hydrocarbon distillate fuel derived from petroleum refining with sulfur content max 10 ppm.",
+      "technical_requirements": "Cetane number (min 51), cetane index (min 46), sulphur content (max 10 mg/kg / 10 ppm), density at 15°C (820-845 kg/m3), flash point (min 35°C), lubricity (HFRR wear scar max 460 um).",
+      "performance_requirements": "Ultra-low sulphur fuel preventing catalyst poisoning in diesel particulate filters (DPF) and SCR systems.",
+      "testing_requirements": "Sulphur per ASTM D5453, cetane rating per IS 1448 (Part 9), lubricity per ISO 12156-1.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / Ministry of Petroleum and Natural Gas (MOPNG)"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "MOPNG Motor Spirit and High Speed Diesel (Regulation of Supply and Distribution) Order; CMVR Rule 115",
+      "source_url": "https://mopng.gov.in",
+      "evidence_excerpt": "Nationwide mandate: all diesel fuel dispensed at retail stations across India must conform to IS 1460 BS-VI.",
+      "applicability_explanation": "Mandatory statutory fuel standard for high speed diesel across India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory under CMVR and MOPNG nationwide."
+  },
+  "Hydraulic Fluids (Anti-Wear)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 10522:2019",
+    "new_standard": {
+      "is_number": "IS 10522:2019",
+      "title": "Hydraulic Oils, Anti-Wear — Specification",
+      "publication_year": 2019,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of test for anti-wear type mineral oil hydraulic fluids (ISO VG 15 to 150) for industrial and mobile hydraulic systems.",
+      "materials": "Refined solvent-extracted mineral base oils with zinc dialkyldithiophosphate (ZDDP) anti-wear additive.",
+      "technical_requirements": "Kinematic viscosity at 40°C, viscosity index (min 95), flash point COC, pour point, demulsibility, copper corrosion, rust prevention, foaming.",
+      "performance_requirements": "Vickers vane pump test ring/vane weight loss <= 50 mg, FZG gear test pass stage min 11.",
+      "testing_requirements": "FZG test per DIN 51354, 4-ball wear test per ASTM D4172, demulsibility per ASTM D1401.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_10522",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for anti-wear hydraulic oils used in high-pressure vane and piston hydraulic pumps.",
+      "applicability_explanation": "Primary national standard for industrial anti-wear hydraulic oils.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3. Covers ISO VG 32, 46, 68 anti-wear hydraulic oils."
+  },
+  "Industrial Furnace Oil (FO 180 cSt / 380 cSt)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1593:2018",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "CPCB Directives on Industrial Fuel Quality; MOPNG Liquid Fuel Specifications",
+      "source_url": "https://cpcb.nic.in",
+      "evidence_excerpt": "Fuel oil used in industrial boilers must conform to IS 1593 and comply with CPCB sulphur emissions regulations.",
+      "applicability_explanation": "Primary national product standard for industrial furnace oil.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Governs commercial 180 cSt and 380 cSt industrial furnace oils."
+  },
+  "Industrial Kerosene (SKO)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1459:2018",
+    "new_standard": {
+      "is_number": "IS 1459:2018",
+      "title": "Kerosine — Specification",
+      "publication_year": 2018,
+      "version": "Fourth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for kerosine intended for use as illuminant, heating, and industrial fuel.",
+      "materials": "Refined petroleum middle distillate hydrocarbons.",
+      "technical_requirements": "Smoke point (min 18 mm), flash point Abel (min 35°C), distillation recovery at 200°C (min 20%), final boiling point (max 300°C), total sulphur.",
+      "performance_requirements": "Clean non-smoking combustion in wick burners; non-corrosive to storage tanks.",
+      "testing_requirements": "Smoke point per IS 1448 (Part 31), Abel flash point per IS 1448 (Part 20), distillation per IS 1448 (Part 18).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / MOPNG Kerosene Control Order"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Kerosene (Restriction on Use and Fixation of Ceiling Price) Order, 1993 (MOPNG)",
+      "source_url": "https://mopng.gov.in",
+      "evidence_excerpt": "All kerosene produced and marketed in India must conform to IS 1459.",
+      "applicability_explanation": "Mandatory statutory specification for kerosene across India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Regulated under MOPNG Kerosene Control Order."
+  },
+  "Light Diesel Oil (LDO)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 15770:2008",
+    "new_standard": {
+      "is_number": "IS 15770:2008",
+      "title": "Light Diesel Oil (LDO) — Specification",
+      "publication_year": 2008,
+      "version": "Original Edition (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for light diesel oil (LDO) used in stationary diesel engines, lift irrigation pump engines, and industrial furnaces.",
+      "materials": "Blend of distillate and residual petroleum hydrocarbons.",
+      "technical_requirements": "Kinematic viscosity at 40°C (2.5 to 15.7 cSt), flash point Pensky-Martens (min 66°C), pour point (max 12°C/21°C), total sulphur (max 1.5%), sediment, ash.",
+      "performance_requirements": "Satisfactory atomisation and combustion in medium/low speed diesel engines and burners.",
+      "testing_requirements": "Viscosity per IS 1448 (Part 25), Flash point per IS 1448 (Part 21), Sulphur per ASTM D4294.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_15770",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for light diesel oil used for lower speed diesel engines and industrial furnaces.",
+      "applicability_explanation": "Primary national standard for light diesel oil (LDO).",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3 for agricultural and industrial LDO."
+  },
+  "Light Diesel Oil (LDO) for Industrial Furnaces": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 15770:2008",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_15770",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for light diesel oil used for lower speed diesel engines and industrial furnaces.",
+      "applicability_explanation": "Primary national standard for light diesel oil (LDO).",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 15770:2008."
+  },
+  "Liquefied Natural Gas (LNG)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 16087:2013",
+    "new_standard": {
+      "is_number": "IS 16087:2013",
+      "title": "Biogas (Biomethane) and Liquefied Natural Gas (LNG) for Automotive and Piped Network Applications — Specification",
+      "publication_year": 2013,
+      "version": "Original Edition (Reaffirmed 2018)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and test methods for liquefied natural gas (LNG) and compressed bio-methane used as automotive fuel and piped city gas distribution.",
+      "materials": "Cryogenically refrigerated liquid methane (-162°C) with low ethane/propane fractions.",
+      "technical_requirements": "Methane content (min 90 mol%), gross calorific value, gross Wobbe index, total sulphur (max 10 mg/m3), moisture zero.",
+      "performance_requirements": "High energy density cryogenic fuel for heavy commercial vehicles; low boil-off gas rate.",
+      "testing_requirements": "Gas chromatography per ISO 6974, total sulphur per ISO 6326.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / PNGRB Gas Quality Regulations"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Petroleum and Natural Gas Regulatory Board (PNGRB) Quality Regulations; CMVR Rule 115A",
+      "source_url": "https://www.pngrb.gov.in",
+      "evidence_excerpt": "LNG dispensed for heavy automotive transport and industrial gas networks must conform to IS 16087.",
+      "applicability_explanation": "Mandatory statutory specification for commercial LNG fuel.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Governed by PNGRB and CMVR."
+  },
+  "Lithium Complex Automotive Greases": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 14847:2000",
+    "new_standard": {
+      "is_number": "IS 14847:2000",
+      "title": "Automotive Multipurpose Greases — Specification",
+      "publication_year": 2000,
+      "version": "Original Edition (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and test methods for automotive multipurpose greases (lithium and lithium complex soap thickened) for wheel bearings, chassis, and universal joints.",
+      "materials": "Mineral or synthetic base oil thickened with lithium or lithium complex soap and rust/oxidation/EP additives.",
+      "technical_requirements": "Drop point (min 260°C for lithium complex / min 180°C for lithium), worked penetration (NLGI 2 / NLGI 3), water washout resistance, copper corrosion, oil separation.",
+      "performance_requirements": "High temperature wheel bearing life > 80 hours at 160°C, 4-ball weld load min 250 kg.",
+      "testing_requirements": "Drop point per IS 1448 (Part 52), Worked penetration per IS 1448 (Part 60), Water washout per ASTM D1264.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_14847",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for lithium complex multipurpose automotive greases for wheel bearings and chassis.",
+      "applicability_explanation": "Primary national standard for automotive lithium complex greases.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3 for automotive wheel bearing greases."
+  },
+  "Lithium Complex Extreme Pressure Grease EP-2": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 7623:2019",
+    "new_standard": {
+      "is_number": "IS 7623:2019",
+      "title": "Lithium Base Grease for Industrial Applications — Specification",
+      "publication_year": 2019,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and test methods for lithium base greases (including lithium complex EP-2) for general and heavy-duty industrial lubrication.",
+      "materials": "Highly refined mineral oil thickened with lithium 12-hydroxystearate or lithium complex soap with EP additives.",
+      "technical_requirements": "Drop point (min 180°C - 260°C), worked penetration 265-295 (NLGI Grade 2), 4-ball weld load min 250 kg, Timken OK load min 18 kg, water washout <= 5%.",
+      "performance_requirements": "EP load-carrying capability in industrial rolling element bearings and gear couplings.",
+      "testing_requirements": "4-ball weld load per ASTM D2596, Timken test per ASTM D2509, Drop point per IS 1448 (Part 52).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 Mineral Oils Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 3 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_7623",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for lithium base greases suitable for industrial plain and antifriction bearings.",
+      "applicability_explanation": "Primary national specification for industrial lithium EP-2 grease.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 3 for industrial EP-2 grease."
+  },
+  "Moisturizing Skin Creams and Cold Creams": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 6608:2021",
+    "new_standard": {
+      "is_number": "IS 6608:2021",
+      "title": "Skin Creams — Specification",
+      "publication_year": 2021,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 19",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for skin creams (cold creams, vanishing creams, moisturizing creams, all-purpose creams).",
+      "materials": "Purified water, mineral oils/waxes, vegetable oils, fatty acids, emulsifiers, humectants, preservatives.",
+      "technical_requirements": "Total fatty matter (min 15% for cold creams / min 5% for vanishing/moisturizing), pH of 10% aqueous suspension (4.5 to 8.5), thermal stability, heavy metals limits.",
+      "performance_requirements": "Dermatologically safe; lead <= 20 ppm, arsenic <= 2 ppm, total viable count <= 1000 cfu/g.",
+      "testing_requirements": "pH per IS 6608 Annex B, thermal stability at 45°C per Annex C, microbial limits per IS 14648.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 19 / Drugs and Cosmetics Rules Schedule S"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 19 Sectional Committee; Drugs and Cosmetics Rules Schedule S Entry 6",
+      "source_url": "https://cdsco.gov.in",
+      "evidence_excerpt": "Schedule S of the Drugs and Cosmetics Rules mandates that skin creams manufactured in or imported into India must comply with IS 6608.",
+      "applicability_explanation": "Primary national standard and statutory cosmetic regulatory specification for skin creams in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 19. Governed by Schedule S of the Drugs and Cosmetics Rules."
+  },
+  "Motor Gasoline (BS-VI Euro-VI Petrol)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 2796:2017",
+    "new_standard": {
+      "is_number": "IS 2796:2017",
+      "title": "Motor Gasoline (Bharat Stage VI) — Specification",
+      "publication_year": 2017,
+      "version": "Fifth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for motor gasoline (BS-VI petrol, regular and ethanol-blended E10/E20) for spark-ignition internal combustion engines.",
+      "materials": "Refined hydrocarbon petroleum fractions blended with up to 10% / 20% anhydrous ethanol.",
+      "technical_requirements": "Research Octane Number RON (min 91), Anti-Knock Index AKI (min 86), sulphur content (max 10 mg/kg / 10 ppm), benzene content (max 1.0 vol%), Reid Vapour Pressure RVP (max 60 kPa in summer).",
+      "performance_requirements": "Ultra-low sulphur fuel preventing catalytic converter degradation in BS-VI passenger cars and two-wheelers.",
+      "testing_requirements": "RON test per ASTM D2699, sulphur per ASTM D5453, benzene by GC per ASTM D3606.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / Ministry of Petroleum and Natural Gas (MOPNG)"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "MOPNG Motor Spirit and High Speed Diesel (Regulation of Supply and Distribution) Order; CMVR Rule 115",
+      "source_url": "https://mopng.gov.in",
+      "evidence_excerpt": "Nationwide mandate: all motor spirit (petrol) sold at retail outlets across India must conform to IS 2796 BS-VI.",
+      "applicability_explanation": "Mandatory statutory fuel specification for motor gasoline across India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory under CMVR and MOPNG nationwide."
+  },
+  "Oral Hygiene Toothpaste": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 6356:2021",
+    "new_standard": {
+      "is_number": "IS 6356:2021",
+      "title": "Toothpaste — Specification",
+      "publication_year": 2021,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 19",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements and methods of sampling and test for toothpastes (fluoridated and non-fluoridated) for oral hygiene.",
+      "materials": "Abrasives (calcium carbonate, hydrated silica), humectants (sorbitol, glycerin), surfactants, fluoride sources (sodium monofluorophosphate).",
+      "technical_requirements": "pH of 10% aqueous suspension (5.5 to 10.5), heavy metals (lead <= 20 ppm, arsenic <= 2 ppm), total available fluoride (max 1000 ppm), fineness (residue on 150-micron sieve <= 0.2%).",
+      "performance_requirements": "Enamel and dentin abrasion safety per ISO 11609 RDA test; microbial count <= 1000 cfu/g.",
+      "testing_requirements": "Total fluoride by ion selective electrode, fineness per Annex B, microbial testing per IS 14648.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 19 / Drugs and Cosmetics Rules Schedule S"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "Drugs and Cosmetics Rules Schedule S Entry 7; BIS PCD 19 Specifications",
+      "source_url": "https://cdsco.gov.in",
+      "evidence_excerpt": "Schedule S of Drugs and Cosmetics Rules mandates that all toothpaste manufactured or imported must comply with IS 6356.",
+      "applicability_explanation": "Primary national standard and statutory cosmetic regulatory specification for toothpaste in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 19. Regulated under Schedule S of Drugs and Cosmetics Rules."
+  },
+  "Paraffin Wax for Candle and Industrial Use": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 4654:2019",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4654",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for paraffin wax used in candle making, wax paper packaging, matches, and cosmetics.",
+      "applicability_explanation": "Primary national specification for paraffin wax.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 4654:2019."
+  },
+  "Paving Bitumen Emulsions": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 8887:2018",
+    "new_standard": {
+      "is_number": "IS 8887:2018",
+      "title": "Bitumen (Asphalt) Emulsion for Roads (Cationic Type) — Specification",
+      "publication_year": 2018,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 6",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and test methods for cationic bitumen emulsions (rapid setting RS-1/RS-2, medium setting MS, slow setting SS-1/SS-2) for road construction and maintenance.",
+      "materials": "Paving bitumen emulsified in water with cationic emulsifying surfactants and hydrochloric acid.",
+      "technical_requirements": "Residue on 600-micron sieve (max 0.05%), viscosity Saybolt Furol, binder residue by evaporation (min 60-65%), storage stability (24 h max 1%), particle charge (positive).",
+      "performance_requirements": "Rapid breaking on aggregate contact for tack coats; stable coating for cold mix asphalt.",
+      "testing_requirements": "Sieve test per Annex A, residue by evaporation per Annex B, particle charge test per Annex D.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 6 / MoRTH Specifications for Road and Bridge Works"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Ministry of Road Transport and Highways (MoRTH) Section 500; DPIIT Paving Bitumen QCO",
+      "source_url": "https://morth.nic.in",
+      "evidence_excerpt": "Mandatory compliance with IS 8887 for all cationic bitumen emulsions used in national highway tack coat and surface dressing works.",
+      "applicability_explanation": "Mandatory statutory road construction specification for cationic bitumen emulsions in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 6. Compulsory compliance in all MoRTH / NHAI highway contracts."
+  },
+  "Pharmaceutical Grade Microcrystalline Wax": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 14486:1997",
+    "new_standard": {
+      "is_number": "IS 14486:1997",
+      "title": "Microcrystalline Wax — Specification",
+      "publication_year": 1997,
+      "version": "Original Edition (Reaffirmed 2018)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 7",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for microcrystalline wax derived from petroleum heavy residual lubricating oil fractions.",
+      "materials": "Hydrocarbon wax characterized by branched and cyclic isoparaffinic crystal structure.",
+      "technical_requirements": "Congealing point (60°C to 93°C), needle penetration at 25°C (10 to 35 dmm), oil content (max 2.5%), colour, odour, ash.",
+      "performance_requirements": "Ductile and flexible wax binding free oil; pharmaceutical ointment consistency.",
+      "testing_requirements": "Congealing point per IS 1448 (Part 93), needle penetration per IS 1448 (Part 92), oil content per IS 1448 (Part 95).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 7 Non-Lubricating Petroleum Products"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee; Indian Pharmacopoeia Commission",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_14486",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for microcrystalline wax for use in pharmaceutical ointments, cosmetics, and electrical insulation.",
+      "applicability_explanation": "Primary national standard for microcrystalline wax.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 7. For drug formulation, meets Indian Pharmacopoeia monograph."
+  },
+  "Reinforcing Furnace Carbon Black N220 / N330": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1699:1995",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 27 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_1699",
+      "evidence_excerpt": "Clause 1: Specifies requirements for furnace carbon black grades used in tyre tread and carcass compounding.",
+      "applicability_explanation": "Primary national specification for carbon black in rubber and tyre manufacturing.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 27. Specifically covers ASTM grades N220 (ISAF) and N330 (HAF)."
+  },
+  "Rubber Water Suction and Discharge Hoses": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 3549:1983",
+    "new_standard": {
+      "is_number": "IS 3549:1983",
+      "title": "Water Suction and Discharge Hose of Rubber, Heavy Duty — Specification",
+      "publication_year": 1983,
+      "version": "Second Revision (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements for smooth-bore heavy-duty rubber hoses with embedded steel wire helix for water suction and discharge service.",
+      "materials": "Natural or synthetic rubber lining, textile reinforcement, embedded galvanized helical spring wire, weather-resistant outer cover.",
+      "technical_requirements": "Proof pressure (1.5 MPa), minimum burst pressure (3.0 MPa), vacuum test (85 kPa without collapse or delamination), kink resistance.",
+      "performance_requirements": "Vacuum collapse resistance under full pump suction; robust wear resistance on construction and mining sites.",
+      "testing_requirements": "Vacuum test per Annex C, hydrostatic burst test per IS 443, adhesion test between plies per IS 3400 (Part 5).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 Rubber Products Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 13 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_3549",
+      "evidence_excerpt": "Clause 1: Specifies requirements for heavy duty water suction and discharge hoses for irrigation, dewatering, and civil engineering.",
+      "applicability_explanation": "Primary national specification for heavy duty rubber suction and discharge hoses.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 13 for heavy duty water suction hoses."
+  },
+  "Styrene Butadiene Rubber (SBR 1502 Non-Staining)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 13914:2020",
+    "new_standard": {
+      "is_number": "IS 13914:2020",
+      "title": "Styrene-Butadiene Rubber (SBR) — Emulsion Polymerized 1500 and 1700 Series — Specification",
+      "publication_year": 2020,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements, sampling and test methods for cold emulsion polymerized styrene butadiene rubber (SBR 1500 non-pigmented and SBR 1700 oil extended).",
+      "materials": "Copolymer of butadiene and styrene (~23.5% bound styrene) cold polymerized at 5°C with non-staining antioxidant.",
+      "technical_requirements": "Bound styrene content (22.5 - 24.5%), Mooney viscosity (ML 1+4 at 100°C: 46-58), ash content <= 0.5%, volatile matter <= 0.5%, organic acid (4.5 - 6.5%).",
+      "performance_requirements": "Non-staining characteristics for light-coloured rubber goods, footwear and tyre sidewalls; good abrasion resistance.",
+      "testing_requirements": "Mooney viscosity per IS 3660 (Part 7), bound styrene by refractive index per ASTM D5775, vulcanizate tensile testing.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 / DCPC SBR QCO"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DCPC Styrene Butadiene Rubber (Quality Control) Order, 2021 (S.O. 1113(E))",
+      "source_url": "https://chemicals.gov.in/quality-control-orders",
+      "evidence_excerpt": "Compulsory Scheme-I ISI certification for SBR rubber conforming to IS 13914.",
+      "applicability_explanation": "Mandatory statutory product specification for emulsion styrene butadiene synthetic rubber.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 13. Compulsory ISI mark under DCPC SBR QCO."
+  },
+  "Superior Kerosene Oil (Domestic PDS Grade)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1459:2018",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Kerosene (Restriction on Use and Fixation of Ceiling Price) Order, 1993 (MOPNG)",
+      "source_url": "https://mopng.gov.in",
+      "evidence_excerpt": "All kerosene produced and marketed in India must conform to IS 1459.",
+      "applicability_explanation": "Mandatory statutory specification for kerosene across India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 1459:2018."
+  },
+  "Synthetic Automotive Engine Oil SAE 5W-30": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 13656:2019",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "MOPNG Lubricating Oils and Greases Order; DPIIT QCO",
+      "source_url": "https://mopng.gov.in/en/page/37",
+      "evidence_excerpt": "All engine crankcase lubricating oils processed, blended and sold in India must conform to IS 13656 grades.",
+      "applicability_explanation": "Mandatory statutory Indian Standard for synthetic passenger car engine oils.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. SAE 5W-30 corresponds to Type EPL-5 / E-DL 5 synthetic multi-grades of IS 13656."
+  },
+  "Synthetic Leather for Upholstery and Footwear": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 1259:1984",
+    "new_standard": {
+      "is_number": "IS 1259:1984",
+      "title": "Vinyl Coated Fabrics (Leathercloth) — Specification",
+      "publication_year": 1984,
+      "version": "Third Revision (Reaffirmed 2019)",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements, methods of sampling and test for PVC-coated fabrics (synthetic leather / leathercloth) for upholstery, footwear, and automotive trim.",
+      "materials": "Woven or knitted cotton/polyester fabric base coated with plasticized polyvinyl chloride (PVC) or polyurethane composition.",
+      "technical_requirements": "Total mass per unit area, coating mass, breaking strength (warp/weft), tear strength, coating adhesion, flex crack resistance (de Mattia flex).",
+      "performance_requirements": "Flex cracking resistance > 50,000 cycles without coating rupture; colour fastness to rubbing and light.",
+      "testing_requirements": "Coating adhesion per IS 7016 (Part 5), de Mattia flex test per IS 7016 (Part 4), breaking strength per IS 7016 (Part 2).",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 Rubber and Plastics Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 13 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_1259",
+      "evidence_excerpt": "Clause 1: Specifies requirements for vinyl coated fabrics (leather cloth) used in upholstery, footwear, and transport seating.",
+      "applicability_explanation": "Primary national product standard for synthetic leather and vinyl coated fabrics.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 13. Widely used for automotive upholstery and footwear."
+  },
+  "Transformer Insulating Mineral Oils": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 335:2018",
+    "new_standard": {
+      "is_number": "IS 335:2018",
+      "title": "Base Oils for Transformer (Mineral Insulating Oils) — Specification",
+      "publication_year": 2018,
+      "version": "Fifth Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 3",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and test methods for uninhibited and inhibited mineral insulating oils for transformers, switchgear and similar electrical equipment.",
+      "materials": "Severely hydro-treated paraffinic or naphthenic mineral hydrocarbon base oils.",
+      "technical_requirements": "Breakdown voltage BDV (min 30 kV un-treated / min 70 kV treated), dielectric dissipation factor tan delta at 90°C (max 0.005), water content (max 30 mg/kg), flash point (min 135°C), total acidity.",
+      "performance_requirements": "High oxidation stability, zero corrosive sulphur (DIN 51353 pass), low pour point (-40°C), absence of polychlorinated biphenyls (PCBs undetectable).",
+      "testing_requirements": "Breakdown voltage per IS 6792 / IEC 60156, dielectric dissipation factor per IS 6262, PCB testing per IEC 61619.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 3 / Ministry of Power Transformer Oil QCO"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DPIIT / Ministry of Power Transformer Oil (Quality Control) Order; CEA Regulations",
+      "source_url": "https://cea.nic.in",
+      "evidence_excerpt": "Compulsory Scheme-I ISI marking for all mineral insulating oils conforming to IS 335 used in Indian electricity grid transformers.",
+      "applicability_explanation": "Mandatory statutory product specification for transformer insulating mineral oils.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by PCD 3. Mandatory under Ministry of Power Transformer Oil QCO."
+  },
+  "Uninhibited Mineral Transformer Insulating Oil": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 335:2018",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "DPIIT / Ministry of Power Transformer Oil (Quality Control) Order; CEA Regulations",
+      "source_url": "https://cea.nic.in",
+      "evidence_excerpt": "Compulsory Scheme-I ISI marking for all mineral insulating oils conforming to IS 335 used in Indian electricity grid transformers.",
+      "applicability_explanation": "Mandatory statutory product specification for transformer insulating mineral oils.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 335:2018."
+  },
+  "White Petroleum Jelly (USP / BP / IP Grade)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 4887:2020",
+    "new_standard": {
+      "is_number": "IS 4887:2020",
+      "title": "Petroleum Jelly for Cosmetic and Pharmaceutical Applications — Specification",
+      "publication_year": 2020,
+      "version": "Third Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 7",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Prescribes requirements, methods of sampling and test for petroleum jelly (white and yellow grades) for cosmetics and pharmaceuticals.",
+      "materials": "Purified mixture of semi-solid hydrocarbons obtained from petroleum residual stocks.",
+      "technical_requirements": "Melting point (drop point 38°C to 56°C), cone penetration at 25°C (130 to 210 dmm), carbonisable substances pass, polycyclic aromatic hydrocarbons UV test pass.",
+      "performance_requirements": "Odourless, translucent, zero skin irritation; non-staining emollient base.",
+      "testing_requirements": "Drop point per IS 1448 (Part 52), cone penetration per IS 1448 (Part 60), UV absorbance test per Annex B.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 7 / Indian Pharmacopoeia Commission"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee; Indian Pharmacopoeia Monograph",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4887",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for petroleum jelly used in cosmetic creams and pharmaceutical ointments.",
+      "applicability_explanation": "Primary national standard for white petroleum jelly.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 7. Conforms to IP monograph for pharmaceutical grade."
+  },
+  "White Petroleum Jelly for Cosmetics": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 4887:2020",
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 7 Sectional Committee; Indian Pharmacopoeia Monograph",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4887",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for petroleum jelly used in cosmetic creams and pharmaceutical ointments.",
+      "applicability_explanation": "Primary national standard for white petroleum jelly.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Duplicate catalogue entry; maps identically to IS 4887:2020."
+  },
+  "Whole Tyre Reclaimed Rubber": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 6306:2019",
+    "new_standard": {
+      "is_number": "IS 6306:2019",
+      "title": "Whole Tyre Reclaimed Rubber — Specification",
+      "publication_year": 2019,
+      "version": "Second Revision",
+      "status": "ACTIVE",
+      "technical_committee": "PCD 13",
+      "division_council": "Petroleum, Coal and Related Products",
+      "scope": "Specifies requirements and methods of test for reclaimed rubber produced from scrap passenger car and commercial vehicle tyres by thermal/mechanical devulcanization.",
+      "materials": "Devulcanized passenger and truck tyre crumb rubber.",
+      "technical_requirements": "Acetone extract (10-20%), chloroform extract (2-6%), carbon black content (26-32%), rubber hydrocarbon content RHC (min 45-50%), ash (max 8-10%), Mooney viscosity.",
+      "performance_requirements": "Tensile strength of cured compound >= 4.5 - 6.0 MPa, elongation at break >= 200%.",
+      "testing_requirements": "Chemical analysis per IS 3400 (Part 22), Mooney viscosity per IS 3660 (Part 7), compound vulcanization test per Annex A.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards PCD 13 Rubber Products Committee"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS PCD 13 Sectional Committee Specifications",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6306",
+      "evidence_excerpt": "Clause 1: Specifies requirements for reclaimed rubber obtained from whole pneumatic tyres for use in tyres, footwear, and mechanical goods.",
+      "applicability_explanation": "Primary national product standard for recycled whole tyre reclaimed rubber.",
+      "confidence_score": 0.98
+    },
+    "investigation_notes": "Formulated by PCD 13 for whole tyre reclaimed rubber."
+  }
+}

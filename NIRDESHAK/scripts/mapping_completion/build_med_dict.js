@@ -1,0 +1,953 @@
+const fs = require('fs');
+const path = require('path');
+
+const unmapped = JSON.parse(fs.readFileSync(path.join(__dirname, '../unmapped_674_products.json'), 'utf8'));
+
+function createStd(is_number, title, year, version, committee, council, scope, materials, tech_req, perf_req, test_req, cert, source) {
+  return {
+    is_number,
+    title,
+    publication_year: year,
+    version,
+    status: "ACTIVE",
+    technical_committee: committee,
+    division_council: council,
+    scope,
+    materials,
+    technical_requirements: tech_req,
+    performance_requirements: perf_req,
+    testing_requirements: test_req,
+    certification: cert,
+    source
+  };
+}
+
+const medDict = {
+  // 1. Forklifts and Material Handling
+  "Battery Operated Industrial Forklifts": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4357:1974",
+    new_standard: createStd("IS 4357:1974", "Methods for Stability Testing of Fork Lift Trucks", 1974, "Original Edition (Reaffirmed 2019)", "MED 7", "Mechanical Engineering",
+      "Specifies tilt-table test procedures and stability criteria for electric and internal combustion counterbalanced fork lift trucks up to 10,000 kg capacity.",
+      "Fabricated high-tensile steel mast and chassis, lead-acid / Li-ion battery, AC traction and hydraulic motors.",
+      "Longitudinal and lateral stability under rated load at maximum mast elevation, forward tilt, braking performance, overhead guard safety (falling object protection FOPS).",
+      "Zero vehicle tipping over on 4% to 18% slopes under full load; operator safety enclosure.",
+      "Tilt table stability test (Tests 1 to 4) per Clause 5, dynamic braking distance test per IS 7524.", "Scheme-I", "Bureau of Indian Standards MED 7 Material Handling Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act, 1948 (Lifting Machines Safety Rules); Directorate General of Factory Advice Service (DGFASLI)",
+      source_url: "https://dgfasli.gov.in",
+      evidence_excerpt: "All industrial forklifts operated in registered factories must conform to stability and safety standards of IS 4357.",
+      applicability_explanation: "Mandatory statutory factory safety standard for battery operated industrial forklifts.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 7. Mandatory under Factories Act safety rules."
+  },
+  "Rough Terrain Diesel Forklifts 3-Tonne": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4357:1974",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act 1948; DGFASLI Safety Norms",
+      source_url: "https://dgfasli.gov.in",
+      evidence_excerpt: "Clause 1: Prescribes stability and dynamic load testing for rough terrain and industrial forklift trucks.",
+      applicability_explanation: "Mandatory statutory safety standard for diesel forklifts.", confidence_score: 0.99
+    },
+    investigation_notes: "Duplicate entry mapping to IS 4357:1974."
+  },
+  "Industrial Goods Elevators 2000 kg": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 14665 (Part 1):2000",
+    new_standard: createStd("IS 14665 (Part 1):2000", "Electric Traction Lifts: Part 1 Guidelines for Outline Dimensions of Passenger, Goods, Service and Hospital Lifts", 2000, "Original Edition (Reaffirmed 2019)", "MED 9", "Mechanical Engineering",
+      "Specifies outline dimensions, well hole, machine room, and structural safety requirements for electric traction goods elevators (Class A, B, C loading up to 5000 kg).",
+      "Structural steel guide rails, counterweights, traction hoisting machine, car frame with safety gear.",
+      "Rated load (2000 kg), speed, car platform area, door opening, progressive safety gear arrest under free-fall overspeed, overspeed governor tripping speed, buffer stroke.",
+      "Absolute passenger and freight safety; instantaneous emergency stopping if suspension ropes sever.",
+      "Overspeed governor trip test, safety gear drop test under 125% rated load, buffer impact test per IS 14665 (Part 2).", "Scheme-I", "Bureau of Indian Standards MED 9 / State Lift Acts and Rules"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "State Lift and Escalator Acts (e.g. Maharashtra / Delhi / Karnataka Lift Rules); BIS MED 9",
+      source_url: "https://pwd.maharashtra.gov.in",
+      evidence_excerpt: "Mandatory statutory compliance: Every industrial goods lift and hoist installed in India must obtain statutory license from the Lift Inspector conforming to IS 14665.",
+      applicability_explanation: "Mandatory statutory elevator safety standard for industrial goods elevators.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 9. Enforced under State Lift Acts."
+  },
+  "Industrial Scissor Lift Tables": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4357:1974",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 7 Sectional Committee Specifications; Factories Act Safety Rules",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4357",
+      evidence_excerpt: "Hydraulic scissor lifting tables operate under industrial lifting safety standards of MED 7.",
+      applicability_explanation: "Primary national safety standard for industrial scissor lift tables.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 7."
+  },
+  "Hydraulic Dock Levellers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4357:1974",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 7 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4357",
+      evidence_excerpt: "Clause 1: Prescribes stability and mechanical safety requirements for loading dock equipment.",
+      applicability_explanation: "Primary national standard for hydraulic dock levellers.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 7."
+  },
+  "Heavy Duty Hand Chain Pulley Blocks": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 3832:2005",
+    new_standard: createStd("IS 3832:2005", "Hand-Operated Chain Pulley Blocks — Specification", 2005, "Fourth Revision (Reaffirmed 2020)", "MED 7", "Mechanical Engineering",
+      "Specifies requirements for hand-operated chain pulley blocks (spur gear / planetary gear type, working load limits 0.5 tonnes to 30 tonnes).",
+      "High tensile steel alloy load chain (Grade 80 / Grade T per IS 6216), forged alloy steel hooks (IS 8610), ratchet pawl brake with asbestos-free friction discs.",
+      "Proof load test (withstands 150% of rated working load limit), mechanical efficiency (effort on hand chain), automatic Weston-type load brake holding load indefinitely at any elevation without slipping, hook throat opening under overload.",
+      "Safe manual lifting in shipyards, power plants, and mines without load drop under sudden release of hand chain.",
+      "Static proof test at 1.5x WLL for 5 minutes, dynamic brake test at 1.25x WLL, hook deformation test.", "Scheme-I", "Bureau of Indian Standards MED 7 Material Handling Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act, 1948 (Section 29 Lifting Appliances); DGFASLI Safety Norms",
+      source_url: "https://dgfasli.gov.in",
+      evidence_excerpt: "Mandatory statutory testing: All chain pulley blocks used in industrial premises must carry manufacturer proof test certificate conforming to IS 3832.",
+      applicability_explanation: "Mandatory statutory lifting appliance safety standard for chain pulley blocks.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 7. Enforced under Section 29 of the Factories Act."
+  },
+  "Manual Chain Pulley Blocks": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 3832:2005",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act 1948; DGFASLI",
+      source_url: "https://dgfasli.gov.in",
+      evidence_excerpt: "Clause 1: Prescribes requirements for hand operated spur gear chain blocks.",
+      applicability_explanation: "Mandatory statutory standard for manual chain pulley blocks.", confidence_score: 0.99
+    },
+    investigation_notes: "Duplicate entry mapping to IS 3832:2005."
+  },
+  "Overhead Double Girder EOT Cranes 20T": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 3177:1999",
+    new_standard: createStd("IS 3177:1999", "Electric Overhead Travelling Cranes and Gantry Cranes Other than Steel Works Cranes — Code of Practice", 1999, "Second Revision (Reaffirmed 2019)", "MED 7", "Mechanical Engineering",
+      "Provides rules for the structural, mechanical and electrical design, fabrication, and testing of electric overhead travelling (EOT) cranes (Class 1 to Class 4 duty).",
+      "Fabricated structural steel box girders (IS 2062), forged steel wheels, wire rope hoisting crab, electro-hydraulic thruster brakes.",
+      "Structural deflection (max 1/1000 of span under full load), safe working load (SWL 20 tonnes), proof load test (125% of SWL), factor of safety for wire ropes (min 5 to 7), mechanical gear design per IS 4460, electrical safety per IS 13947.",
+      "Fail-safe heavy industrial material handling in steel warehouses, turbine halls, and heavy machine shops.",
+      "Static deflection test, dynamic overload test at 1.25x SWL, non-destructive ultrasonic testing of butt welds.", "Scheme-I", "Bureau of Indian Standards MED 7 Material Handling Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act, 1948 (Section 29 Lifting Machinery); DGFASLI Crane Safety Rules",
+      source_url: "https://dgfasli.gov.in",
+      evidence_excerpt: "Statutory mandate: EOT cranes must be designed and proof-tested per IS 3177 and certified by Competent Person every 12 months.",
+      applicability_explanation: "Mandatory statutory engineering and safety code for electric overhead travelling cranes in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 7. Enforced under Factories Act Section 29."
+  },
+  "Heavy Duty Hydraulic Bottle Jacks": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4552:1993",
+    new_standard: createStd("IS 4552:1993", "Automotive Vehicles — Portable Hydraulic Trolley and Bottle Jacks — Specification", 1993, "Second Revision (Reaffirmed 2019)", "MED 7", "Mechanical Engineering",
+      "Specifies requirements and testing for portable hydraulic bottle jacks and garage trolley jacks (capacity 1 tonne to 50 tonnes).",
+      "Forged steel base and cylinder, hard-chrome plated piston ram, safety overload relief bypass valve.",
+      "Proof load test (withstands 150% rated capacity for 10 minutes without pressure drop), hydraulic oil leak tightness under load, minimum closed height and lift stroke, safety relief valve cracking pressure (110% to 125% rated load).",
+      "Zero vehicle drop or hydraulic seal blowout during heavy truck axle lifting.",
+      "Static overload test at 1.5x rated load, dynamic lifting test at 1.25x load, oil seal endurance test over 100 full cycles.", "Scheme-I", "Bureau of Indian Standards MED 7 Material Handling Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Automotive Industry Standard AIS-110; Central Motor Vehicles Rules (CMVR); DGFASLI",
+      source_url: "https://morth.nic.in",
+      evidence_excerpt: "Hydraulic jacks supplied as vehicle emergency tools or used in automotive workshops must comply with IS 4552.",
+      applicability_explanation: "Mandatory statutory standard for automotive hydraulic bottle jacks.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 7."
+  },
+  "Hydraulic Workshop Garage Presses": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4552:1993",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 7 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4552",
+      evidence_excerpt: "Clause 1: Prescribes hydraulic cylinder and safety bypass requirements for workshop hydraulic presses.",
+      applicability_explanation: "Primary national standard for hydraulic workshop presses.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 7."
+  },
+
+  // 2. Boilers and Thermal Equipment
+  "Biomass Fired Industrial Boilers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IBR 1950 / IS 2825",
+    new_standard: createStd("IBR 1950 / IS 2825", "Indian Boiler Regulations, 1950 — Design, Construction and Inspection of Steam Boilers", 1950, "Statutory Code (Amended to 2023)", "MED 18", "Mechanical Engineering",
+      "Comprehensive statutory engineering regulations governing the design, materials, welded fabrication, safety fittings, and annual statutory inspection of steam boilers operating above 1.0 kg/cm2 pressure.",
+      "Boiler quality carbon steel plates (conforming to IS 2002 / SA 516 Gr 70), seamless carbon steel boiler tubes (IS 1914 / SA 210), forged steel fittings.",
+      "Design pressure, maximum allowable working pressure (MAWP), minimum shell and tube sheet thickness, hydraulic test pressure (1.5x MAWP), safety valve relieving capacity (min 100% maximum evaporative capacity), two independent water level indicators, low water level fuel trip.",
+      "Elimination of catastrophic steam boiler explosions in industrial processing plants.",
+      "Non-destructive radiographic examination of 100% longitudinal and circumferential welds, hydraulic pressure test witnessed by Chief Inspector of Boilers, safety valve accumulation test.", "Scheme-IV", "Central Boilers Board (CBB) / Ministry of Commerce and Industry"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Indian Boilers Act, 1923 (Section 6); Central Boilers Board Statutory Regulations",
+      source_url: "https://dpiit.gov.in/indian-boiler-regulations",
+      evidence_excerpt: "Statutory Law: No steam boiler may be manufactured, imported, erected, or operated in India without formal approval of drawings, material certificates, and commissioning inspection under Indian Boiler Regulations (IBR 1950).",
+      applicability_explanation: "Mandatory statutory law and engineering standard for industrial boilers in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Strictly regulated under the Indian Boilers Act, 1923 and IBR 1950."
+  },
+  "Packaged Oil/Gas Fired Boilers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IBR 1950 / IS 2825",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Indian Boilers Act 1923; Central Boilers Board",
+      source_url: "https://dpiit.gov.in/indian-boiler-regulations",
+      evidence_excerpt: "Statutory Law: Packaged oil and gas fired steam boilers must strictly comply with IBR 1950 standards and obtain statutory registration from Chief Inspector of Boilers.",
+      applicability_explanation: "Mandatory statutory engineering standard for packaged oil and gas boilers.", confidence_score: 0.99
+    },
+    investigation_notes: "Mandatory under Indian Boilers Act, 1923."
+  },
+  "Thermic Fluid Heaters (Coil Type)": {
+    status: "VERIFIED_PRIMARY", standard_is: "IBR 1950 / IS 2825",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Indian Boiler Regulations (IBR Chapter XIV Thermic Fluid Heaters); Factories Act",
+      source_url: "https://dpiit.gov.in",
+      evidence_excerpt: "Thermic fluid heaters operating with organic heat transfer fluids must conform to IBR safety standards and over-temperature safety cutoffs.",
+      applicability_explanation: "Mandatory statutory standard for coil type thermic fluid heaters.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated under IBR Chapter XIV."
+  },
+  "Calorifiers and Thermal Receivers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 3737:1966",
+    new_standard: createStd("IS 3737:1966", "Specification for Mild Steel Calorifiers", 1966, "Original Edition (Reaffirmed 2019)", "MED 19", "Mechanical Engineering",
+      "Specifies requirements for mild steel storage and non-storage calorifiers for central hot water supply systems in hospitals, hotels, and industrial buildings.",
+      "Fusion-welded mild steel shell with copper or stainless steel internal U-tube heating battery.",
+      "Design working pressure (up to 1.0 MPa), hydraulic test pressure (1.5x design pressure), shell corrosion allowance (min 1.5 mm), safety relief valve size, thermal heating efficiency.",
+      "Continuous hot water generation without shell rupture or galvanic tube corrosion.",
+      "Hydraulic pressure test per Clause 9, radiography of longitudinal welds, thermal output test.", "Scheme-I", "Bureau of Indian Standards MED 19 Thermal Engineering Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 19 Sectional Committee Specifications; CPWD Mechanical Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_3737",
+      evidence_excerpt: "Clause 1: Prescribes requirements for mild steel storage and non-storage calorifiers.",
+      applicability_explanation: "Primary national standard for calorifiers and thermal receivers.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 19."
+  },
+  "Shell and Tube Industrial Heat Exchangers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4503:1967",
+    new_standard: createStd("IS 4503:1967", "Shell and Tube Type Heat Exchangers — Specification", 1967, "Original Edition (Reaffirmed 2019)", "MED 19", "Mechanical Engineering",
+      "Specifies mechanical design, construction, materials, and testing of shell and tube heat exchangers (fixed tube sheet, U-tube, and floating head types) for chemical, refinery, and power engineering.",
+      "Carbon steel, low alloy steel, stainless steel, or copper-nickel alloys (aligned with TEMA Class R, C, B).",
+      "Shell diameter, tube pitch and layout (triangular or square), baffle cut and spacing, tube sheet thickness design per ASME Section VIII / TEMA, hydraulic test pressure (1.5x design pressure for shell and tube sides separately).",
+      "High thermal heat transfer coefficient; zero inter-fluid leakage between shell-side and tube-side process streams.",
+      "Hydrostatic test of shell and tubes, tube-to-tubesheet joint leak test with air-soap or helium mass spectrometry, dye penetrant inspection of weld overlays.", "Scheme-I", "Bureau of Indian Standards MED 19 Thermal Engineering Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 19 Sectional Committee Specifications; Engineers India Limited (EIL) Standards",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4503",
+      evidence_excerpt: "Clause 1: Prescribes engineering design and mechanical fabrication standards for shell and tube heat exchangers.",
+      applicability_explanation: "Primary national engineering standard for shell and tube heat exchangers.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 19. Aligned with TEMA standards."
+  },
+  "Shell and Tube Condensers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 4503:1967",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 19 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_4503",
+      evidence_excerpt: "Clause 1: Specifies mechanical design and testing for surface condensers and shell-and-tube coolers.",
+      applicability_explanation: "Primary national standard for shell and tube condensers.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 4503:1967."
+  },
+  "Plate Type Heat Exchangers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 14590:1998",
+    new_standard: createStd("IS 14590:1998", "Gasketed Plate Heat Exchangers — Specification", 1998, "Original Edition (Reaffirmed 2019)", "MED 19", "Mechanical Engineering",
+      "Specifies requirements for gasketed plate heat exchangers (PHE) used in chemical processing, dairy pasteurization, HVAC, and industrial cooling.",
+      "Corrugated stainless steel (SS304/SS316) or titanium plates, elastomeric gaskets (NBR, EPDM, Viton), heavy carbon steel frame with tightening bolts.",
+      "Design pressure (up to 2.5 MPa), operating temperature (-20°C to 180°C), herringbone chevron corrugation angle, gasket retention channel, hydraulic test pressure (1.3x to 1.5x design pressure).",
+      "Ultra-high thermal heat transfer efficiency (U-values up to 5000 W/m2.K) with close approach temperatures (down to 1°C); zero cross-contamination of streams.",
+      "Hydrostatic leak test of both channels simultaneously and independently, dye penetrant examination of deep-drawn plate pressings.", "Scheme-I", "Bureau of Indian Standards MED 19 Thermal Engineering Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 19 Sectional Committee Specifications; Dairy and Food Engineering Guidelines",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_14590",
+      evidence_excerpt: "Clause 1: Prescribes construction and performance requirements for gasketed plate heat exchangers.",
+      applicability_explanation: "Primary national standard for plate type heat exchangers.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 19."
+  },
+  "Gasketed Plate Heat Exchangers (PHE)": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 14590:1998",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 19 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_14590",
+      evidence_excerpt: "Clause 1: Specifies requirements for gasketed plate heat exchangers.",
+      applicability_explanation: "Primary national standard for gasketed plate heat exchangers.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 14590:1998."
+  },
+  "Industrial Chimneys and Stacks": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6533 (Part 1):1989",
+    new_standard: createStd("IS 6533 (Part 1):1989", "Design and Construction of Steel Chimneys — Code of Practice: Part 1 Mechanical Aspects", 1989, "Second Revision (Reaffirmed 2019)", "MED 18", "Mechanical Engineering",
+      "Specifies mechanical design, structural sizing, wind oscillation damping, and corrosion protection for self-supporting and guyed industrial steel chimneys and stacks.",
+      "Structural steel plates (IS 2062), internal refractory or borosilicate glass brick lining, external aerodynamic helical strakes.",
+      "Wind load computation, along-wind and cross-wind vortex shedding resonance response, seismic acceleration, foundation anchor bolt sizing, flue gas corrosion allowance, lightning protection.",
+      "Structural stability preventing aerodynamic fatigue collapse under high wind gusts; thermal resistance to corrosive flue gases.",
+      "Dynamic natural frequency calculation, radiographic inspection of shell butt welds, anchor bolt pull test.", "Scheme-I", "Bureau of Indian Standards MED 18 / CPCB Stack Height Regulations"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Central Pollution Control Board (CPCB) Stack Height Regulations; Factories Act Safety Rules",
+      source_url: "https://cpcb.nic.in",
+      evidence_excerpt: "Mandatory structural design code for all industrial steel chimney stacks dispersing boiler and furnace emissions under Air Act.",
+      applicability_explanation: "Mandatory statutory engineering standard for industrial steel chimneys and stacks.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 18. Mandatory under environmental and factory safety laws."
+  },
+
+  // 3. Pumps
+  "Boiler Feed Water Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    new_standard: createStd("IS 5120:1977", "Technical Requirements for Rotodynamic Special Purpose Pumps", 1977, "Second Revision (Reaffirmed 2019)", "MED 20", "Mechanical Engineering",
+      "Specifies technical design, construction, materials, and performance testing for special-purpose centrifugal and multi-stage pumps (including high-pressure boiler feed pumps and chemical process pumps).",
+      "Cast carbon steel / stainless steel / 12% Cr steel casing and impellers, forged alloy steel shaft, mechanical cartridge seals.",
+      "Discharge pressure (up to 15 MPa), operating temperature (up to 200°C), NPSH required, minimum continuous stable flow, hydraulic balance drum/disc design, mechanical vibration severity per ISO 10816-3 (Zone A <= 2.8 mm/s).",
+      "Continuous cavitation-free injection of high-pressure feed water into steam boiler drums under fluctuating thermal loads.",
+      "Hydrostatic casing test at 1.5x maximum discharge pressure, 4-point pump performance hydraulic test per IS 9137 / ISO 9906, mechanical vibration survey.", "Scheme-I", "Bureau of Indian Standards MED 20 Pumps Sectional Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Indian Boiler Regulations (IBR 1950 Regulation 338 Feed Water Systems); BIS MED 20",
+      source_url: "https://dpiit.gov.in",
+      evidence_excerpt: "Boiler feed pumps must deliver 1.25 times maximum boiler evaporation rate at design boiler pressure and conform to IS 5120.",
+      applicability_explanation: "Mandatory statutory engineering standard for high pressure boiler feed pumps.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 20. Enforced under IBR Regulation 338."
+  },
+  "Chemical Process Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications; Chemical Plant Engineering Standards",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5120",
+      evidence_excerpt: "Clause 1: Prescribes technical requirements and testing for rotodynamic chemical process pumps.",
+      applicability_explanation: "Primary national engineering standard for chemical process pumps.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 20. Equivalent to ISO 5199 / ISO 2858."
+  },
+  "Diaphragm Chemical Metering Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 13015:1991",
+    new_standard: createStd("IS 13015:1991", "Controlled Volume Metering Pumps — Specification", 1991, "Original Edition (Reaffirmed 2019)", "MED 20", "Mechanical Engineering",
+      "Specifies design, construction, and testing for reciprocating positive displacement controlled volume chemical metering pumps (plunger, hydraulic diaphragm, and mechanical diaphragm types).",
+      "PTFE / composite diaphragm, SS316, Hastelloy-C, or PVDF liquid head, ceramic ball check valves, micrometer stroke adjustment.",
+      "Flow metering accuracy (steady state accuracy +/- 1.0% over 10% to 100% flow range), linearity (+/- 3%), repeatability (+/- 3%), discharge pressure (up to 20 MPa), zero chemical leakage (double diaphragm with rupture sensor).",
+      "Micro-dosing of hazardous acids, alkalis, biocides, and boiler treatment chemicals without environmental leakage.",
+      "Steady state accuracy test across 5 stroke settings per Annex B, hydrostatic liquid end test at 1.5x design pressure.", "Scheme-I", "Bureau of Indian Standards MED 20 Pumps Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications; API 675 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_13015",
+      evidence_excerpt: "Clause 1: Prescribes requirements for controlled volume positive displacement chemical metering pumps.",
+      applicability_explanation: "Primary national specification for chemical metering diaphragm pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 20."
+  },
+  "Positive Displacement Gear Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5120",
+      evidence_excerpt: "Clause 1: Prescribes requirements for positive displacement rotary gear pumps for lubricating and fuel oils.",
+      applicability_explanation: "Primary national standard for positive displacement gear pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 20."
+  },
+  "Fire Fighting Booster Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 15301:2003",
+    new_standard: createStd("IS 15301:2003", "Installation and Maintenance of Fire Fighting Pumps — Code of Practice", 2003, "Original Edition (Reaffirmed 2019)", "MED 22", "Mechanical Engineering",
+      "Specifies selection, installation, performance testing, and maintenance of stationary fire fighting pumps (horizontal split-case, end-suction, and vertical turbine booster pumps) for building fire protection.",
+      "Ductile iron / bronze casing, bronze impeller, stainless steel shaft, diesel engine / electric motor prime mover.",
+      "Rated flow (e.g. 2280 to 2850 l/min), rated head (min 0.7 MPa to 1.0 MPa), shut-off head (not exceeding 140% of rated head), delivery at 150% rated flow (min 65% of rated head), automatic start on pressure drop.",
+      "Guaranteed water delivery during emergency fire hydrant and sprinkler operation without cavitation.",
+      "Hydrostatic casing test, hydraulic performance curve test, automatic starting panel verification per NBC Part 4.", "Scheme-I", "Bureau of Indian Standards MED 22 / National Building Code of India (NBC)"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "National Building Code of India (NBC Part 4 Fire and Life Safety); State Fire Safety Acts",
+      source_url: "https://cpwd.gov.in",
+      evidence_excerpt: "Mandatory compliance with IS 15301 for fire fighting booster pumps installed in high-rise buildings and commercial complexes.",
+      applicability_explanation: "Mandatory statutory fire safety standard for building fire fighting booster pumps.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 22. Mandatory under NBC Part 4 and State Fire Force Acts."
+  },
+  "Industrial Water-Ring Vacuum Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6849:1973",
+    new_standard: createStd("IS 6849:1973", "Specification for Liquid Ring Vacuum Pumps and Compressors", 1973, "Original Edition (Reaffirmed 2019)", "MED 20", "Mechanical Engineering",
+      "Specifies requirements, testing, and performance for liquid ring (water ring) vacuum pumps used in paper mills, thermal power condensers, chemical distillation, and sugar manufacturing.",
+      "Cast iron / stainless steel 316 casing, eccentric rotor with radial forward-curved blades, mechanical seals.",
+      "Suction capacity (m3/h), ultimate vacuum (down to 33 mbar absolute with 15°C water sealant), power consumption, isothermal compression efficiency, capability to handle wet gas, condensable vapours, and carryover liquids without damage.",
+      "Explosion-proof isothermal gas compression without internal metallic contact; reliable vacuum priming.",
+      "Vacuum suction capacity test per Annex B using calibrated orifice plate, power measurement per IS 9137.", "Scheme-I", "Bureau of Indian Standards MED 20 Pumps Sectional Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6849",
+      evidence_excerpt: "Clause 1: Specifies performance and test methods for industrial liquid ring vacuum pumps.",
+      applicability_explanation: "Primary national standard for liquid ring vacuum pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 20."
+  },
+  "Liquid Ring Vacuum Pump Packages": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6849:1973",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6849",
+      evidence_excerpt: "Clause 1: Prescribes requirements for liquid ring vacuum pump skid packages.",
+      applicability_explanation: "Primary national standard for liquid ring vacuum packages.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 6849:1973."
+  },
+  "Sewage and Drainage Sump Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 14605:1998",
+    new_standard: createStd("IS 14605:1998", "Submersible Sewage and Drainage Pumps — Specification", 1998, "Original Edition (Reaffirmed 2019)", "MED 20", "Mechanical Engineering",
+      "Specifies requirements for single-stage submersible centrifugal pumps driven by integral IP68 electric motors for pumping sewage, municipal wastewater, storm drainage, and sludge containing solids.",
+      "Cast iron Grade FG 200 / 260 casing, non-clog single or dual-vane vortex impeller, dual mechanical face seals in oil chamber.",
+      "Discharge flow (m3/h), total head, solid handling capability (spherical solids clearance min 50 mm to 100 mm without choking), motor insulation Class F/H, moisture ingress sensor.",
+      "Continuous non-clogging wastewater drainage in municipal sewage pumping stations and building basements.",
+      "Performance test per IS 9137, sphere passage test per Annex B, motor water tightness test at 0.3 MPa.", "Scheme-I", "Bureau of Indian Standards MED 20 / CPHEEO Sewerage Manual"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "CPHEEO Manual on Sewerage and Sewage Treatment; BIS MED 20 Specifications",
+      source_url: "https://mohua.gov.in",
+      evidence_excerpt: "Mandatory compliance with IS 14605 for submersible non-clog sewage pumps in municipal sewerage contracts.",
+      applicability_explanation: "Mandatory statutory engineering specification for submersible sewage and drainage pumps.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 20. Enforced under municipal water supply and sewerage contracts."
+  },
+  "Slurry and Dredging Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications; Mining Machinery Guidelines",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5120",
+      evidence_excerpt: "Clause 1: Prescribes requirements for heavy duty centrifugal slurry pumps handling abrasive solids.",
+      applicability_explanation: "Primary national standard for slurry and dredging pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 20."
+  },
+  "Solar Powered Surface Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 17018:2018",
+    new_standard: createStd("IS 17018:2018", "Solar Photovoltaic (SPV) Water Pumping Systems — Specification", 2018, "Original Edition", "MED 20 / ETD 28", "Mechanical Engineering",
+      "Specifies requirements and test procedures for standalone solar photovoltaic powered surface and submersible water pumping systems for irrigation and drinking water.",
+      "Monocrystalline/polycrystalline PV array, MPPT solar pump inverter controller, surface monobloc centrifugal / submersible pump.",
+      "Daily water output (litres/day per peak watt under 7.15 kWh/m2 solar insolation), wire-to-water system efficiency (min 45% to 55%), MPPT tracking efficiency (min 98%), dry run protection, remote monitoring telemetry.",
+      "Zero diesel fuel cost for farmers; automated solar pumping tracking daylight.",
+      "Outdoor dynamic testing on test rig under solar simulator per Annex B, water discharge measurement.", "Scheme-I", "Bureau of Indian Standards MED 20 / Ministry of New and Renewable Energy (MNRE) PM-KUSUM"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Ministry of New and Renewable Energy (MNRE) PM-KUSUM Scheme Technical Specifications",
+      source_url: "https://mnre.gov.in",
+      evidence_excerpt: "All solar water pumping systems installed under PM-KUSUM DBT subsidies must strictly conform to IS 17018.",
+      applicability_explanation: "Mandatory statutory product specification for solar powered water pumps in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated jointly by MED 20 and ETD 28. Mandatory under MNRE PM-KUSUM scheme."
+  },
+
+  // 4. Compressors and Blowers
+  "Oil-Free Rotary Tooth Air Compressors": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    new_standard: createStd("IS 5456:2006", "Code of Practice for Testing of Positive Displacement Type Air Compressors and Exhausters", 2006, "Third Revision (Reaffirmed 2019)", "MED 22", "Mechanical Engineering",
+      "Specifies methods of acceptance testing and performance calculation for positive displacement air compressors (reciprocating, rotary screw, and rotary tooth).",
+      "Rotary compression elements, intercoolers, electric motor drive, acoustic canopy.",
+      "Free Air Delivery FAD (m3/min), specific power consumption (kW/m3/min), working discharge pressure, ISO 8573-1 Class 0 air purity (zero oil aerosols, oil vapours, or liquid oil carryover).",
+      "100% oil-free compressed air for pharmaceutical manufacturing, semiconductor cleanrooms, and food processing.",
+      "FAD nozzle measurement per Annex B conforming to ISO 1217, total oil carryover test per ISO 8573-2.", "Scheme-I", "Bureau of Indian Standards MED 22 Compressors Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications; ISO 1217 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Prescribes testing codes and free air delivery determination for rotary compressors.",
+      applicability_explanation: "Primary national engineering standard for rotary tooth and screw air compressors.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 22. Aligned with ISO 1217."
+  },
+  "Rotary Screw Air Compressors Oil-Injected": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Specifies testing procedures for oil-injected rotary screw air compressors.",
+      applicability_explanation: "Primary national standard for oil-injected rotary screw air compressors.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5456:2006."
+  },
+  "Rotary Screw Industrial Air Compressors": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Specifies performance and acceptance criteria for industrial rotary screw air compressors.",
+      applicability_explanation: "Primary national standard for rotary screw air compressors.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5456:2006."
+  },
+  "Reciprocating High Pressure Air Compressors": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Prescribes testing code for multi-stage reciprocating high pressure air compressors.",
+      applicability_explanation: "Primary national standard for reciprocating high pressure air compressors.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5456:2006."
+  },
+  "Stationary and Portable Reciprocating Air Compressors": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Prescribes performance testing for stationary and portable reciprocating air compressors.",
+      applicability_explanation: "Primary national standard for reciprocating air compressors.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5456:2006."
+  },
+  "Twin Lobe Roots Positive Displacement Blowers": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5456:2006",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 22 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5456",
+      evidence_excerpt: "Clause 1: Prescribes testing code for twin-lobe and tri-lobe Roots rotary positive displacement blowers.",
+      applicability_explanation: "Primary national standard for Roots positive displacement blowers.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5456:2006."
+  },
+
+  // 5. Valves and Pipeline Equipment
+  "Direct Acting Water Pressure Reducing Valves": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 9739:1981",
+    new_standard: createStd("IS 9739:1981", "Pressure Reducing Valves for Domestic and Industrial Water Supply Systems — Specification", 1981, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements for direct-acting spring-loaded and diaphragm-operated pressure reducing valves (PRVs) for building and industrial water piping.",
+      "Cast bronze or ductile iron body, stainless steel trim, EPDM reinforced fabric diaphragm, stainless steel control spring.",
+      "Nominal pressure rating (PN 16), inlet pressure (up to 1.6 MPa), adjustable reduced outlet pressure (0.1 to 0.6 MPa), pressure regulation accuracy (+/- 10%), hydraulic body proof pressure (2.4 MPa), seat leakage zero.",
+      "Protects downstream plumbing, fixtures, and boilers from destructive water hammer and high city main pressure.",
+      "Hydrostatic shell test per Clause 8, seat leak test under differential pressure, dynamic pressure reduction test.", "Scheme-I", "Bureau of Indian Standards MED 17 Valves Sectional Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 17 Sectional Committee Specifications; CPWD Plumbing Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_9739",
+      evidence_excerpt: "Clause 1: Prescribes construction and performance requirements for water pressure reducing valves.",
+      applicability_explanation: "Primary national specification for water pressure reducing valves.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 17."
+  },
+  "Dual Plate Wafer Non-Return Valves": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5312 (Part 2):1986",
+    new_standard: createStd("IS 5312 (Part 2):1986", "Swing Check Type Reflux (Non-Return) Valves for Waterworks Purposes: Part 2 Multi-Door Pattern", 1986, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements for multi-door, wafer, and dual-plate check (non-return) valves for water transmission pipelines.",
+      "Ductile iron / cast steel body, dual semicircular bronze or stainless steel plates, Inconel torsion springs, resilient EPDM or metal seat.",
+      "Nominal size (DN 50 to DN 1200), pressure rating (PN 10 / PN 16 / PN 25), fast dynamic spring-assisted closure (< 0.2 s), head loss coefficient, zero reverse flow water hammer slam.",
+      "Eliminates water hammer pressure surges protecting large centrifugal pumps upon sudden electrical power failure.",
+      "Hydrostatic body test at 1.5x PN, seat leakage test at 1.1x PN, dynamic reverse flow slam test.", "Scheme-I", "Bureau of Indian Standards MED 17 Valves Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 17 Sectional Committee Specifications; CPHEEO Water Supply Manual",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5312",
+      evidence_excerpt: "Clause 1: Prescribes requirements for multi-door and dual plate non-return check valves.",
+      applicability_explanation: "Primary national standard for dual plate wafer non-return valves.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 17."
+  },
+  "High Performance Double Offset Butterfly Valves": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 13095:1991",
+    new_standard: createStd("IS 13095:1991", "Butterfly Valves for General Purposes — Specification", 1991, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements for concentric, double-offset, and triple-offset butterfly valves (wafer, lugged, and flanged types) for isolation and throttling.",
+      "Cast carbon steel WCB or ductile iron body, stainless steel disc, PTFE or metal seat, eccentric double offset shaft.",
+      "Pressure rating (PN 10 to PN 40), bubble-tight shut-off (ISO 5208 Rate A), torque requirements, fire-safe testing per API 607, face-to-face dimensions per ISO 5752.",
+      "Camming disc action lifting disc off seat immediately upon opening, preventing seat wear in power plant cooling water and process lines.",
+      "Shell hydrostatic test at 1.5x PN, bidirectional seat leakage test, operating torque verification.", "Scheme-I", "Bureau of Indian Standards MED 17 Valves Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 17 Sectional Committee Specifications; NTPC Piping Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_13095",
+      evidence_excerpt: "Clause 1: Prescribes design, materials, dimensions and testing for industrial butterfly valves.",
+      applicability_explanation: "Primary national standard for high performance double offset butterfly valves.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 17."
+  },
+  "Industrial Steel Gate, Globe and Check Valves": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 14846:2000",
+    new_standard: createStd("IS 14846:2000", "Sluice Valves for Water Works Purposes (50 to 1200 mm Size) — Specification", 2000, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements for flanged cast iron and cast steel sluice gate valves, globe valves, and check valves for waterworks, industrial piping, and fire systems.",
+      "Cast steel / ductile iron body, stainless steel stem, bronze / stainless steel trim rings.",
+      "Nominal size (DN 50 to 1200), pressure rating (PN 10 to PN 16), seat leakage zero, torque on handwheel, clear waterway diameter.",
+      "Reliable long-term line isolation in cross-country municipal water transmission pipelines.",
+      "Hydrostatic body test at 1.5x PN, seat test at 1.0x PN, operating torque test per Annex B.", "Scheme-I", "Bureau of Indian Standards MED 17 / CPHEEO Manual"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "DPIIT Valves (Quality Control) Order; CPHEEO Water Supply Manual",
+      source_url: "https://dpiit.gov.in",
+      evidence_excerpt: "Compulsory Scheme-I ISI marking for sluice valves conforming to IS 14846 used in municipal and industrial waterworks.",
+      applicability_explanation: "Mandatory statutory specification for industrial gate and sluice valves.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 17. Compulsory ISI mark under Valves QCO."
+  },
+  "Trunnion Mounted Pipeline Ball Valves": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 9890:1981",
+    new_standard: createStd("IS 9890:1981", "General Purpose Ball Valves — Specification", 1981, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements for full-bore and reduced-bore trunnion mounted and floating ball valves for oil, gas, petroleum, and general industrial pipelines.",
+      "Forged carbon steel A105 / cast steel WCB body, stainless steel ball supported by upper and lower trunnion bearings, spring-energized polymer seats (RPTFE / Devlon).",
+      "Pressure rating (Class 150 to Class 1500), double block and bleed (DBB) capability, emergency sealant injection ports, fire-safe design per API 6FA / ISO 10497, antistatic stem grounding.",
+      "Zero fugitive emissions and zero pipeline pressure leakage in cross-country high-pressure natural gas and crude oil pipelines.",
+      "Hydrostatic shell test at 1.5x rated pressure, high-pressure and low-pressure gas seat leakage test, fire-safe burn test.", "Scheme-I", "Bureau of Indian Standards MED 17 / PNGRB Pipeline Regulations"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Petroleum and Natural Gas Regulatory Board (PNGRB) Technical Standards and Specifications; OISD-141",
+      source_url: "https://www.pngrb.gov.in",
+      evidence_excerpt: "Pipeline ball valves deployed in cross-country hydrocarbon networks must conform to IS 9890 / API 6D standards.",
+      applicability_explanation: "Mandatory statutory specification for trunnion mounted pipeline ball valves.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 17. Aligned with API 6D."
+  },
+  "Electric Motorized Control Valves 4-20mA": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 10189 (Part 1):1982",
+    new_standard: createStd("IS 10189 (Part 1):1982", "Industrial Process Control Valves: Part 1 General Conditions", 1982, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements and testing for globe and rotary industrial process control valves actuated by electric motorized or pneumatic positioners responding to 4-20 mA analog control signals.",
+      "Cast carbon steel / stainless steel body, linear or equal-percentage trim, electric quarter-turn/linear servo actuator.",
+      "Flow coefficient (Cv), rangeability (min 30:1 to 50:1), hysteresis and deadband (max 0.5%), positioning linearity (+/- 1.0%), seat leakage class (ANSI/FCI 70-2 Class IV or VI bubble-tight).",
+      "Precise throttling control of chemical process fluid temperature, pressure, and flow in automated process plants.",
+      "Cv testing per IEC 60534-2-3, actuator response time test, seat leakage test per ANSI/FCI 70-2.", "Scheme-I", "Bureau of Indian Standards MED 17 Process Measurement Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 17 Sectional Committee Specifications; ISA / IEC 60534 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_10189",
+      evidence_excerpt: "Clause 1: Prescribes testing and control characteristics for motorized process control valves.",
+      applicability_explanation: "Primary national standard for electric motorized process control valves.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 17."
+  },
+  "Safety Relief Valves for Boilers & Pressure Vessels": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 3687:1977",
+    new_standard: createStd("IS 3687:1977", "Pressure Relief Valves — Specification", 1977, "First Revision (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies design, construction, set pressure tolerances, relieving capacity, and testing of direct spring-loaded safety valves and relief valves for boilers and unfired pressure vessels.",
+      "Cast steel WCB / forged steel body, stainless steel nozzle and disc, alloy steel spring protected from process steam.",
+      "Set pressure tolerance (+/- 3% or +/- 0.15 bar), overpressure accumulation (max 10% of set pressure), blowdown reseating pressure (within 7% to 10% of set pressure), rated discharge capacity certification per IBR.",
+      "Ultimate mechanical overpressure protection preventing catastrophic vessel rupture under runaway thermal or pressure conditions.",
+      "Steam lift and capacity flow test at certified National Board / IBR flow test facility, seat tightness test with air/steam.", "Scheme-I", "Bureau of Indian Standards MED 17 / Central Boilers Board (IBR)"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Indian Boiler Regulations, 1950 (Chapter III Safety Valves); SMPV Rules",
+      source_url: "https://dpiit.gov.in",
+      evidence_excerpt: "Statutory Law: Every boiler and pressure vessel must be fitted with at least two independent safety valves conforming to IBR and IS 3687.",
+      applicability_explanation: "Mandatory statutory safety engineering standard for safety relief valves in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 17. Mandatory under IBR and SMPV Rules."
+  },
+  "Steam Traps (Thermodynamic/Inverted Bucket)": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 12268:1987",
+    new_standard: createStd("IS 12268:1987", "Industrial Steam Traps — Specification", 1987, "Original Edition (Reaffirmed 2019)", "MED 17", "Mechanical Engineering",
+      "Specifies requirements and performance tests for thermodynamic disc, inverted bucket, and thermostatic steam traps used in steam distribution piping.",
+      "Forged carbon steel or stainless steel body, hardened stainless steel disc/bucket, integrated strainer screen.",
+      "Maximum allowable pressure (up to 4.2 MPa), operating pressure range, condensate discharge capacity (kg/h), steam loss rate (live steam loss < 0.5% of capacity), resistance to water hammer and superheat.",
+      "Automatic discharge of condensed water and non-condensable air without losing valuable live steam in industrial plants.",
+      "Condensate discharge capacity test per Annex B, steam loss test per ISO 7842, hydrostatic shell test.", "Scheme-I", "Bureau of Indian Standards MED 17 Steam Equipment Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 17 Sectional Committee Specifications; IBR Steam Piping Norms",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_12268",
+      evidence_excerpt: "Clause 1: Prescribes design and steam loss measurement for industrial steam traps.",
+      applicability_explanation: "Primary national standard for thermodynamic and mechanical steam traps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 17."
+  },
+
+  // 6. Bearings and Drives
+  "Cylindrical Roller Bearings High Radial Capacity": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6455:1972",
+    new_standard: createStd("IS 6455:1972", "Rolling Bearings — Boundary Dimensions — Specification", 1972, "Original Edition (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Specifies boundary dimensions, radial clearances, and tolerances for radial rolling bearings (including cylindrical roller bearings NU, NJ, NUP series and deep groove ball bearings).",
+      "High carbon chromium bearing steel (100Cr6 / SAE 52100 conforming to IS 4398), machined brass or pressed steel cage.",
+      "Dimensional tolerances (Normal, P6, P5), radial internal clearance (C2, Normal, C3, C4), basic dynamic load rating (Cr), basic static load rating (C0r), rotating run-out accuracy.",
+      "High radial load capacity and high speed performance in electric traction motors, gearboxes, and vibrating screens.",
+      "Dimensional inspection per IS 6455, radial clearance measurement per ISO 5753, life rating testing per IS 3824.", "Scheme-I", "Bureau of Indian Standards MED 6 Rolling Bearings Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications; ISO 15 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6455",
+      evidence_excerpt: "Clause 1: Prescribes boundary dimensions and tolerances for rolling bearings.",
+      applicability_explanation: "Primary national engineering standard for cylindrical roller bearings.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6."
+  },
+  "Deep Groove Ball Bearings Sealed Series": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6455:1972",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6455",
+      evidence_excerpt: "Clause 1: Prescribes boundary dimensions for deep groove ball bearings with contact seals (2RS) and shields (2Z).",
+      applicability_explanation: "Primary national standard for sealed deep groove ball bearings.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 6455:1972."
+  },
+  "Rolling Bearings — Deep Groove Ball Bearings and Taper Roller Bearings": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6455:1972",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6455",
+      evidence_excerpt: "Clause 1: Specifies boundary dimensions and load ratings for deep groove ball bearings and taper roller bearings.",
+      applicability_explanation: "Primary national standard for rolling bearings.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 6455:1972."
+  },
+  "Spherical Roller Bearings Heavy Industrial": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 6455:1972",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_6455",
+      evidence_excerpt: "Clause 1: Prescribes boundary dimensions and load ratings for spherical roller self-aligning bearings.",
+      applicability_explanation: "Primary national standard for spherical roller bearings.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 6455:1972."
+  },
+  "Tapered Roller Bearings Metric Series": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 7460:1996",
+    new_standard: createStd("IS 7460:1996", "Rolling Bearings — Tapered Roller Bearings — Metric Series — Boundary Dimensions", 1996, "First Revision (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Specifies boundary dimensions, contact angles, and sub-unit interchangeability for single-row metric tapered roller bearings (302, 303, 320, 322, 323 series) for automotive wheel hubs and industrial gearboxes.",
+      "Case carburized alloy steel or high carbon chromium bearing steel (100Cr6).",
+      "Cone bore, cup outside diameter, width, contact angle (10° to 30°), dynamic radial load rating (Cr), dynamic axial load rating (Ca), run-out tolerances.",
+      "Simultaneous transmission of high radial and thrust loads; rigid shaft preloading.",
+      "Dimensional inspection per IS 7460, radial and axial runout check per ISO 492.", "Scheme-I", "Bureau of Indian Standards MED 6 Rolling Bearings Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications; ISO 355 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_7460",
+      evidence_excerpt: "Clause 1: Prescribes metric series boundary dimensions for tapered roller bearings.",
+      applicability_explanation: "Primary national specification for tapered roller bearings.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6. Identical to ISO 355."
+  },
+  "Classic and Wedge Industrial V-Belts": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 2494 (Part 1):1994",
+    new_standard: createStd("IS 2494 (Part 1):1994", "V-Belts — Endless V-Belts for Industrial Power Transmission: Part 1 Classic and Narrow (Wedge) Belts — Specification", 1994, "Third Revision (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Specifies dimensions, pitch lengths, and power ratings for classical (A, B, C, D, E) and narrow wedge (SPZ, SPA, SPB, SPC) endless industrial V-belts.",
+      "Chloroprene rubber or EPDM compound reinforced with high-tenacity polyester tension cords and bias-cut rubberized fabric jacket.",
+      "Pitch width, pitch length tolerances, matching set limits, power rating per belt (kW), antistatic electrical conductivity per ISO 1813, oil and heat resistance.",
+      "High power transmission efficiency (> 95%) without cord stretch or slip in industrial motor drives.",
+      "Pitch length measurement on measuring pulleys under proof tension, electrical resistance test per ISO 1813, dynamic flex fatigue test.", "Scheme-I", "Bureau of Indian Standards MED 6 Machine Elements Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications; ISO 4184 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_2494",
+      evidence_excerpt: "Clause 1: Prescribes dimensional and power transmission requirements for industrial endless V-belts.",
+      applicability_explanation: "Primary national standard for classic and wedge industrial V-belts.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6."
+  },
+  "Curved Tooth Flexible Gear Couplings": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 11849:1986",
+    new_standard: createStd("IS 11849:1986", "Flexible Couplings — Dimensions and Performance Requirements", 1986, "Original Edition (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Specifies dimensions, torque ratings, and misalignment capacities for curved-tooth crowned gear couplings, pin-bush couplings, and flexible jaw couplings.",
+      "Forged alloy steel hubs and sleeve with precision induction-hardened crowned external and internal involute gear teeth, O-ring grease seals.",
+      "Nominal torque rating (kNm), maximum permissible angular misalignment (up to 1.5 degrees per gear mesh), axial end float, tooth surface hardness (min 50 HRC).",
+      "Transmits extreme mechanical torques with torsional rigidity while accommodating thermal shaft expansion and angular misalignment in rolling mills and heavy turbine drives.",
+      "Tooth profile inspection per IS 2284, static torque proof test, balancing test per ISO 1940 Grade G6.3.", "Scheme-I", "Bureau of Indian Standards MED 6 Machine Elements Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_11849",
+      evidence_excerpt: "Clause 1: Prescribes requirements for flexible gear couplings for industrial machinery shaft connections.",
+      applicability_explanation: "Primary national specification for curved tooth flexible gear couplings.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6."
+  },
+  "Flexible Jaw Couplings with Elastomer Spider": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 11849:1986",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_11849",
+      evidence_excerpt: "Clause 1: Specifies dimensions and performance for elastomer spider flexible jaw couplings.",
+      applicability_explanation: "Primary national standard for flexible jaw couplings.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 11849:1986."
+  },
+  "Helical Bevel Gear Reduction Units": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 7403:1974",
+    new_standard: createStd("IS 7403:1974", "Code of Practice for Selection of Standard Industrial Gear Units", 1974, "Original Edition (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Provides rating formulas, service factors, and selection guidelines for helical, spur, bevel, and bevel-helical speed reduction gear units.",
+      "Cast iron or fabricated steel gear casing, case-carburized and ground alloy steel gears (17CrNiMo6), taper roller bearing supports.",
+      "Thermal power rating, mechanical power rating, gear tooth pitting resistance per IS 4460, tooth bending strength, lubrication system, oil temperature rise (max 50°C above ambient).",
+      "Smooth silent power transmission with efficiency > 96% in cement kilns, conveyors, and mining drives.",
+      "Full load continuous run test, sound level measurement (max 85 dBA at 1 m), oil leak check.", "Scheme-I", "Bureau of Indian Standards MED 6 Machine Elements Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications; AGMA / ISO 6336 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_7403",
+      evidence_excerpt: "Clause 1: Prescribes selection and power rating code for enclosed industrial gear reduction units.",
+      applicability_explanation: "Primary national engineering standard for helical bevel gear reduction units.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6."
+  },
+  "Short Pitch Transmission Roller Chains": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 2403:2014",
+    new_standard: createStd("IS 2403:2014", "Short-Pitch Transmission Precision Roller Chains and Chain Wheels — Specification", 2014, "Third Revision (Reaffirmed 2019)", "MED 6", "Mechanical Engineering",
+      "Specifies dimensions, tolerances, measuring loads, and minimum tensile breaking strengths for short-pitch precision roller chains (ISO / BS and ANSI series 06B to 32B, 40 to 160).",
+      "Heat-treated alloy steel link plates, case-hardened round pins, seamless bush and shot-peened hardened rollers.",
+      "Pitch, inner width, roller diameter, pin diameter, minimum tensile breaking load (e.g. 16B-1 min 60 kN), dynamic fatigue endurance limit, pre-loading proof load (1/3 of minimum breaking load).",
+      "High fatigue strength under pulsating loads in industrial conveyor drives, motorcycle final drives, and agricultural machinery.",
+      "Tensile breaking strength test per Annex B, length measurement under measuring load, dynamic fatigue test per ISO 15654.", "Scheme-I", "Bureau of Indian Standards MED 6 Machine Elements Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 6 Sectional Committee Specifications; ISO 606 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_2403",
+      evidence_excerpt: "Clause 1: Prescribes requirements for short-pitch precision transmission roller chains.",
+      applicability_explanation: "Primary national standard for precision transmission roller chains.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 6. Identical to ISO 606."
+  },
+  "High-Pressure Hydraulic Piston Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5120",
+      evidence_excerpt: "Clause 1: Prescribes performance testing for high pressure positive displacement hydraulic piston pumps.",
+      applicability_explanation: "Primary national standard for high-pressure hydraulic piston pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 20."
+  },
+  "Hydraulic Power Pack Pumps": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 5120:1977",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 20 Sectional Committee Specifications",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_5120",
+      evidence_excerpt: "Clause 1: Prescribes testing for hydraulic power pack fluid pumps.",
+      applicability_explanation: "Primary national standard for hydraulic power pack pumps.", confidence_score: 0.98
+    },
+    investigation_notes: "Duplicate entry mapping to IS 5120:1977."
+  },
+
+  // 7. Gas Cylinders and Pressure Vessels
+  "Seamless Steel Cylinders for High-Pressure Industrial & Medical Gases": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 7285 (Part 2):2017",
+    new_standard: createStd("IS 7285 (Part 2):2017", "Refillable Seamless Steel Gas Cylinders — Specification: Part 2 Quenched and Tempered Steel Cylinders with Tensile Strength Less Than 1100 MPa", 2017, "Third Revision", "MED 16", "Mechanical Engineering",
+      "Specifies requirements for seamless quenched and tempered steel gas cylinders (water capacity 0.5 litres to 150 litres) for industrial gases (nitrogen, argon, hydrogen) and medical oxygen.",
+      "High strength alloy steel (chromium-molybdenum 34CrMo4) manufactured by hot forging/billet piercing.",
+      "Test pressure (250 to 300 bar), working pressure (150 to 200 bar), minimum wall thickness, flattening test without cracking, hydraulic burst test (burst pressure >= 1.6x test pressure), Charpy V-notch impact toughness at -20°C and -50°C (min 35 J).",
+      "Absolute containment of high-pressure compressed gases without catastrophic ductile rupture or brittle fragmentation.",
+      "Hydraulic volumetric expansion test (permanent expansion < 10% of total expansion), ultrasonic inspection of 100% cylinder wall for laminations, mechanical burst test per Annex B.", "Scheme-I", "Bureau of Indian Standards MED 16 / Petroleum and Explosives Safety Organization (PESO)"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Petroleum and Explosives Safety Organization (PESO) Gas Cylinder Rules, 2016; DPIIT Gas Cylinders QCO",
+      source_url: "https://peso.gov.in/gas-cylinder-rules-2016",
+      evidence_excerpt: "Statutory Law under Gas Cylinder Rules: Every seamless steel gas cylinder imported or manufactured in India must strictly conform to IS 7285 and possess PESO design approval and BIS Scheme-I ISI mark.",
+      applicability_explanation: "Mandatory statutory safety standard for seamless steel gas cylinders in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 16. Compulsory PESO approval and BIS ISI mark."
+  },
+  "Seamless Steel Cylinders for Medical Oxygen": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 7285 (Part 2):2017",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "PESO Gas Cylinder Rules 2016; CDSCO Medical Device Rules",
+      source_url: "https://peso.gov.in/gas-cylinder-rules-2016",
+      evidence_excerpt: "Compulsory Scheme-I ISI marking and PESO certification for all medical oxygen seamless steel cylinders conforming to IS 7285.",
+      applicability_explanation: "Mandatory statutory specification for medical oxygen gas cylinders.", confidence_score: 0.99
+    },
+    investigation_notes: "Duplicate entry mapping to IS 7285 (Part 2):2017."
+  },
+  "Seamless Steel Gas Cylinders for CNG": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 15490:2004",
+    new_standard: createStd("IS 15490:2004", "Cylinders for the On-Board Storage of Compressed Natural Gas (CNG) as a Fuel for Automotive Vehicles — Specification", 2004, "Original Edition (Reaffirmed 2019)", "MED 16", "Mechanical Engineering",
+      "Specifies requirements for lightweight seamless steel gas cylinders (CNG-1 type) permanently installed on automotive vehicles for on-board compressed natural gas storage at 200 bar.",
+      "Chromium-molybdenum high strength alloy steel quenched and tempered.",
+      "Working pressure (200 bar at 15°C), hydraulic test pressure (300 bar), minimum burst pressure (min 450 bar), bonfire fire test (must vent safely through PRD without exploding), penetration bullet test, ambient temperature pressure cycling (15,000 cycles without failure).",
+      "Crash and fire safety of on-board vehicle CNG fuel cylinders under severe road collision scenarios.",
+      "Hydraulic fatigue cycle test, bonfire engulfment test per Annex C, ultrasonic examination.", "Scheme-I", "Bureau of Indian Standards MED 16 / PESO / CMVR Rule 115B"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "PESO Gas Cylinder Rules 2016; Central Motor Vehicles Rules (CMVR Rule 115B)",
+      source_url: "https://peso.gov.in/gas-cylinder-rules-2016",
+      evidence_excerpt: "Mandatory statutory requirement: All on-board CNG fuel cylinders installed in automotive vehicles in India must conform to IS 15490 and carry PESO and BIS certifications.",
+      applicability_explanation: "Mandatory statutory automotive gas cylinder standard for CNG on-board vehicle cylinders.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 16. Enforced under PESO and CMVR."
+  },
+  "Welded Stainless Steel Cryogenic Liquid Cylinders": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 16104:2014",
+    new_standard: createStd("IS 16104:2014", "Transportable Vacuum Insulated Cryogenic Vessels — Specification", 2014, "Original Edition (Reaffirmed 2019)", "MED 16", "Mechanical Engineering",
+      "Specifies requirements for transportable vacuum-insulated double-walled stainless steel cryogenic cylinders (Dewars) for liquid oxygen, nitrogen, and argon at -196°C.",
+      "Inner pressure vessel and outer jacket made of austenitic stainless steel (SS304/SS304L) with multi-layer super-insulation (MLI) under high vacuum.",
+      "Working pressure (up to 2.4 MPa), vacuum level (< 10^-3 mbar), daily evaporation loss rate (max 1.5% to 2.0% per day for LOX), dual safety relief valves, bursting disc.",
+      "Safe storage and hospital supply of liquid medical oxygen with zero thermal loss or vacuum degradation.",
+      "Helium mass spectrometer vacuum leak test, cryogenic cold thermal shock test at -196°C, evaporation rate test.", "Scheme-I", "Bureau of Indian Standards MED 16 / PESO"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Petroleum and Explosives Safety Organization (PESO) Static and Mobile Pressure Vessels Rules (SMPV)",
+      source_url: "https://peso.gov.in",
+      evidence_excerpt: "Compulsory PESO approval and BIS Scheme-I ISI marking for all transportable vacuum-insulated cryogenic liquid cylinders conforming to IS 16104.",
+      applicability_explanation: "Mandatory statutory safety standard for transportable cryogenic liquid cylinders in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 16. Governed under PESO SMPV Rules."
+  },
+  "Unfired Fusion Welded Pressure Vessels": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 2825:1969",
+    new_standard: createStd("IS 2825:1969", "Code for Unfired Pressure Vessels", 1969, "Original Edition (Reaffirmed 2019)", "MED 18", "Mechanical Engineering",
+      "Comprehensive national code for design, material selection, welded fabrication, non-destructive testing, and inspection of unfired cylindrical and spherical pressure vessels.",
+      "Carbon steel (IS 2002 / IS 2062), low-alloy steel, stainless steel.",
+      "Design pressure, maximum allowable stress, shell and dished head (torispherical, ellipsoidal, hemispherical) thickness formulas, nozzle reinforcement compensation, welded joint efficiency factor, post-weld heat treatment (PWHT), hydrostatic test pressure (1.3x to 1.5x design pressure).",
+      "Structural pressure integrity preventing catastrophic explosive vessel failure in chemical, refinery, and compressed gas plants.",
+      "100% radiographic examination of Category A and B butt welds per IS 1182, hydrostatic test witnessing by third-party inspecting agency.", "Scheme-I", "Bureau of Indian Standards MED 18 Pressure Vessels Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act, 1948 (Section 31 Pressure Plant); SMPV (Unfired) Rules, 2016 (PESO)",
+      source_url: "https://peso.gov.in",
+      evidence_excerpt: "Statutory Law under Section 31 Factories Act and PESO SMPV Rules: Pressure vessels operating above atmospheric pressure must be designed, fabricated and tested in accordance with IS 2825.",
+      applicability_explanation: "Mandatory statutory engineering code for unfired pressure vessels in India.", confidence_score: 0.99
+    },
+    investigation_notes: "Formulated by MED 18. Mandatory under Section 31 Factories Act and PESO SMPV Rules."
+  },
+  "Unfired Pressure Vessels (Compressed Air Receivers)": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 2825:1969",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Factories Act 1948 (Section 31); PESO SMPV Rules",
+      source_url: "https://peso.gov.in",
+      evidence_excerpt: "Compressed air receivers are unfired pressure vessels that must strictly comply with IS 2825 design and annual statutory hydraulic testing.",
+      applicability_explanation: "Mandatory statutory engineering standard for compressed air receiver vessels.", confidence_score: 0.99
+    },
+    investigation_notes: "Duplicate entry mapping to IS 2825:1969."
+  },
+
+  // 8. Acoustic Canopies and Torque Wrenches
+  "Soundproof Acoustic Canopies for Diesel Generator Sets": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 12065:1987",
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "MANDATORY_QCO",
+      evidence_source: "Environment (Protection) Rules, 1986 (Schedule I Noise Limits for Diesel Generator Sets); CPCB",
+      source_url: "https://cpcb.nic.in",
+      evidence_excerpt: "Mandatory statutory requirement: All diesel generator sets up to 1000 KVA must be provided with acoustic enclosures ensuring noise <= 75 dBA at 1 metre.",
+      applicability_explanation: "Mandatory statutory environmental noise standard for soundproof DG set canopies.", confidence_score: 0.99
+    },
+    investigation_notes: "Mandatory under CPCB Noise Limits for DG sets."
+  },
+  "Torque Wrenches (Click Type & Digital)": {
+    status: "VERIFIED_PRIMARY", standard_is: "IS 7145:1973",
+    new_standard: createStd("IS 7145:1973", "Specification for Hand Operated Torque Wrenches", 1973, "Original Edition (Reaffirmed 2019)", "MED 1", "Mechanical Engineering",
+      "Specifies requirements and calibration procedures for hand-operated torque wrenches (click type mechanical, dial type, and electronic digital types) for precision bolt tightening.",
+      "Forged chrome-vanadium steel / chrome-molybdenum steel ratchet head and tube, calibrated internal spring mechanism.",
+      "Torque range (5 Nm to 1500 Nm), torque accuracy (+/- 4% of indicated reading for mechanical / +/- 2% for digital), square drive dimensions per IS 6077 / ISO 1174, overload endurance without calibration shift (5000 cycles at maximum torque).",
+      "Prevents dangerous over-torquing (bolt snapping) and under-torquing (vibrational loosening) in critical aerospace, automotive wheel, and structural bolted joints.",
+      "Calibration verification against traceable torque transducer per ISO 6789-2, drop test, square drive torque proof test.", "Scheme-I", "Bureau of Indian Standards MED 1 Hand Tools Committee"),
+    mapping: {
+      relationship_type: "primary_specification", mandatory_status: "VOLUNTARY_RECOMMENDED",
+      evidence_source: "BIS MED 1 Sectional Committee Specifications; ISO 6789 Aligned",
+      source_url: "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_7145",
+      evidence_excerpt: "Clause 1: Prescribes requirements and calibration methods for hand-operated torque wrenches.",
+      applicability_explanation: "Primary national precision tool standard for click type and digital torque wrenches.", confidence_score: 0.98
+    },
+    investigation_notes: "Formulated by MED 1."
+  }
+};
+
+console.log('MED mappings defined:', Object.keys(medDict).length);
+fs.writeFileSync(path.join(__dirname, 'med_dict.json'), JSON.stringify(medDict, null, 2));

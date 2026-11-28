@@ -1,0 +1,27 @@
+{
+  "manifest_version": "2.3.0",
+  "project": "NIRDESHAK",
+  "created_at": "2026-11-27T13:23:55.188Z",
+  "auditor": "Senior Software Architect, AI/ML Engineer, Database Auditor",
+  "source_verification_baseline": "Gazette of India, BIS Official e-Sale, BIS Product Manuals, DPIIT / Ministry notifications",
+  "dataset_summary": {
+    "total_records": 19,
+    "primary_candidates": 16,
+    "supporting_references": 3,
+    "classification_counts": {
+      "class_a_mandatory_qco": 12,
+      "class_b_voluntary_bis": 2,
+      "class_c_code_of_practice": 3,
+      "class_d_reference_standard": 2
+    },
+    "total_relationships": 13
+  },
+  "special_reconciliation_notes": {
+    "IS-694-2010": "Tripartite reconciliation maintained: Official Standard Title specifies 450/750 V per BIS CMD Circular dated 15 Dec 2014; Statutory QCO S.O. 189(E) Serial 20 specifies working voltages up to 1100 V (effective 17 Aug 2003); BIS Product Manual PM/IS 694/5/March 2024 specifies certification scope up to 1100 V."
+  },
+  "unresolved_issues": [
+    "IS 12615:2026 legal Gazette transition from 2018 edition is pending Ministry notification.",
+    "IS 8034:2018 Pumps QCO remains a draft notified to WTO; no final Gazette S.O. enacted.",
+    "IS 15298 (Part 2) Scheme-II facilitation window under S.O. 3417(E) has conditional eligibility."
+  ]
+}

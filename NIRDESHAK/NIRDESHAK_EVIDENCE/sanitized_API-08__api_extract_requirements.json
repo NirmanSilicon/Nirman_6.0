@@ -1,0 +1,90 @@
+{
+  "success": true,
+  "requirements": {
+    "product_name": "Industrial Safety Helmet",
+    "product_category": "Industrial Safety / Personal Protective Equipment",
+    "application": "Construction / industrial workplaces requiring personal head protection",
+    "procurement_quantity": "5,000 Units",
+    "worker_population": "Civil construction workers and industrial personnel",
+    "hazards": "Mechanical impact, falling objects, electrical hazards, thermal exposure",
+    "technical_requirements": [
+      "Shell and harness construction",
+      "Mechanical impact protection",
+      "Falling-object protection",
+      "Head retention and clearance",
+      "Sizes: 520, 530, 540, 550, 560, 570, 580, 590, 600 mm",
+      "Workmanship and smooth finish free from sharp burrs",
+      "Controlled lightweight mass"
+    ],
+    "materials": [
+      "High-density structural shell with adjustable headband and harness"
+    ],
+    "performance_requirements": [
+      "Shock absorption resistance",
+      "Penetration resistance",
+      "Flammability resistance",
+      "Electrical resistance",
+      "Water absorption resistance",
+      "Heat resistance"
+    ],
+    "dimensions": [
+      "Sizes: 520, 530, 540, 550, 560, 570, 580, 590, 600 mm or declared size range"
+    ],
+    "environmental_conditions": [
+      "Thermal exposure resistance",
+      "Water immersion exposure"
+    ],
+    "safety_requirements": [
+      "Protection against mechanical impact",
+      "Protection against penetration",
+      "Flammability resistance",
+      "Electrical resistance",
+      "Heat resistance",
+      "Water absorption"
+    ],
+    "testing_requirements": [
+      "Clause 4 — Sizes",
+      "Clause 5 — Construction",
+      "Clause 6 — Workmanship and finish",
+      "Clause 7 — Mass",
+      "Clause 8.1 — Shock absorption resistance",
+      "Clause 8.2 — Penetration resistance",
+      "Clause 8.3 — Flammability resistance",
+      "Clause 8.4 — Electrical resistance",
+      "Clause 8.5 — Water absorption",
+      "Clause 8.6 — Heat resistance"
+    ],
+    "certification_requirements": [
+      "BIS Scheme-I / Standard Mark (ISI mark)",
+      "Helmet Quality Control Order, 2023 (S.O. 4649(E))"
+    ],
+    "existing_references": [
+      "IS 2925:1984"
+    ],
+    "potential_reference_gap": {
+      "hasGap": true,
+      "notice": "The requirement specifies testing and quality parameters but does not explicitly cite supporting test-equipment (IS 7692) or sampling (IS 9695) standards.",
+      "supportingReferences": [
+        "IS 7692",
+        "IS 9695"
+      ]
+    },
+    "multilingual": {
+      "languageCode": "en",
+      "languageName": "English",
+      "isMultilingual": false,
+      "originalQuery": "Procurement of industrial safety helmets for construction workers",
+      "normalizedQuery": "Procurement of industrial safety helmets for construction workers"
+    },
+    "important_keywords": [
+      "industrial safety helmet",
+      "head protection",
+      "construction workers",
+      "impact protection",
+      "penetration resistance",
+      "shock absorption",
+      "IS 2925"
+    ]
+  },
+  "isCuratedDemo": false
+}

@@ -1,0 +1,1648 @@
+{
+  "staleProducts": [
+    {
+      "id": 18,
+      "canonical_name": "Aluminium Doors, Windows and Ventilator Frames",
+      "division_council": "Civil Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 138,
+      "canonical_name": "Sensor Faucets for Public Restrooms",
+      "division_council": "Civil Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 297,
+      "canonical_name": "Automotive Brake Linings and Disc Pads",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 299,
+      "canonical_name": "Automotive Starting Lead-Acid Batteries",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 301,
+      "canonical_name": "EV Charging Couplers and Cables",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 302,
+      "canonical_name": "Commercial Vehicle Radial Tyres",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "1",
+      "primary_count": "1",
+      "supporting_count": "0",
+      "inconsistency_type": "UNDERCLASSIFIED_PRIMARY"
+    },
+    {
+      "id": 303,
+      "canonical_name": "Automotive LED Headlamp Assemblies",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 304,
+      "canonical_name": "Rear View Mirrors for Road Vehicles",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 305,
+      "canonical_name": "Automotive Safety Seat Belts",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 306,
+      "canonical_name": "Automotive Horns (Electric)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 313,
+      "canonical_name": "Groundwater Piezometers (Vibrating Wire)",
+      "division_council": "Water Resources",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 333,
+      "canonical_name": "Oil Spill Absorbent Booms",
+      "division_council": "Environment and Ecology",
+      "stored_status": "VERIFIED_PRIMARY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 334,
+      "canonical_name": "E-Waste Circuit Board Shredders",
+      "division_council": "Environment and Ecology",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 339,
+      "canonical_name": "Business Continuity Management Systems (IS/ISO 22301)",
+      "division_council": "Management and Systems",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 369,
+      "canonical_name": "Modular Raised Access False Flooring",
+      "division_council": "Civil Engineering",
+      "stored_status": "VERIFIED_PRIMARY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 388,
+      "canonical_name": "Hydraulic Hand Pallet Trucks",
+      "division_council": "Mechanical Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 432,
+      "canonical_name": "Instant Noodles and Pasta Products",
+      "division_council": "Food and Agriculture",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 440,
+      "canonical_name": "Laser Land Levellers for Agriculture",
+      "division_council": "Food and Agriculture",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 441,
+      "canonical_name": "Sugarcane Harvesters and Cutters",
+      "division_council": "Food and Agriculture",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 502,
+      "canonical_name": "Electric Vehicle Motor Drive Controllers",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 503,
+      "canonical_name": "Automotive Electric On-Board Chargers (OBC)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 506,
+      "canonical_name": "Automotive Radiators and Heat Exchangers",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 507,
+      "canonical_name": "Automotive Fuel Injection Pumps (Common Rail)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 508,
+      "canonical_name": "Automotive Steering Gearboxes (Power Steering)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 509,
+      "canonical_name": "Railway Centre Buffer Couplers (CBC)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 510,
+      "canonical_name": "Railway Air Brake Distributor Valves",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 511,
+      "canonical_name": "Railway Composite Brake Blocks",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 512,
+      "canonical_name": "Railway Rubber Metal Bonded Elastomeric Draft Pads",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 513,
+      "canonical_name": "Two-Wheeler Rear View Mirrors",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 642,
+      "canonical_name": "Crash Rated Security Bollards",
+      "division_council": "Civil Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 727,
+      "canonical_name": "Sandwich Type Low Voltage Busbar Trunking Systems",
+      "division_council": "Electrotechnical",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 731,
+      "canonical_name": "Portable Multi-Gas Flue Gas Combustion Analyzers",
+      "division_council": "Environment and Ecology",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 745,
+      "canonical_name": "Bio-Enzyme Grease Trap and Drain Cleaners",
+      "division_council": "Environment and Ecology",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 790,
+      "canonical_name": "Business Continuity Management ISO 22301 System",
+      "division_council": "Management and Systems",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 819,
+      "canonical_name": "Hydraulic Hand Pallet Trucks 2500 kg",
+      "division_council": "Mechanical Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 882,
+      "canonical_name": "Electrolytic Tough Pitch (ETP) Copper Busbars",
+      "division_council": "Metallurgical Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 946,
+      "canonical_name": "Fiber Laser Sheet Metal Cutting Machines 3kW-6kW",
+      "division_council": "Production and General Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 996,
+      "canonical_name": "Ultra-High Molecular Weight Polyethylene (UHMWPE) Yarns",
+      "division_council": "Textiles",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 998,
+      "canonical_name": "Anti-Lock Braking System (ABS) Modulator Units",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 999,
+      "canonical_name": "Submerged Electric In-Tank Fuel Pump Modules",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1000,
+      "canonical_name": "Aluminium Brazed Automotive Engine Cooling Radiators",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1001,
+      "canonical_name": "Automotive Integrated HVAC Blower Cooling Units",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1004,
+      "canonical_name": "Automotive Sealed Beam Halogen Headlamp Assemblies",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1005,
+      "canonical_name": "Bi-LED Projection Automotive Headlamp Modules",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1006,
+      "canonical_name": "Automotive Waterproof Electronic High-Tone Horns",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1007,
+      "canonical_name": "Automotive Combination Rear LED Tail Lamp Clusters",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1008,
+      "canonical_name": "Commercial Vehicle Pneumatic Air Brake Relay Valves",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1009,
+      "canonical_name": "Air Brake Dual Diaphragm Spring Brake Chambers",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1010,
+      "canonical_name": "Automotive Power-Assisted Rack and Pinion Steering",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1011,
+      "canonical_name": "Constant Velocity (CV) Axle Drive Shaft Assemblies",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1012,
+      "canonical_name": "Heavy Commercial Truck Multi-Leaf Springs",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1013,
+      "canonical_name": "Automotive Parabolic Taper Leaf Springs",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1014,
+      "canonical_name": "Automotive Telescopic Hydraulic Shock Absorbers",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1017,
+      "canonical_name": "Solid Cushion Rubber Industrial Forklift Tyres",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1018,
+      "canonical_name": "Agricultural Tractor Rear Radial Drive Tyres",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1019,
+      "canonical_name": "Cast Aluminium Tubeless Alloy Wheel Rims",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1020,
+      "canonical_name": "Stamped Steel Wheel Rims 15-Inch",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1021,
+      "canonical_name": "Automotive Day-Night Interior Rear-View Mirrors",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1022,
+      "canonical_name": "Motorized Heated Exterior Rear-View Mirrors",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1023,
+      "canonical_name": "Emergency Locking Retractor (ELR) 3-Point Seat Belts",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1024,
+      "canonical_name": "Automotive Front and Side Passenger Airbag Modules",
+      "division_council": "Transport Engineering",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1026,
+      "canonical_name": "Electric Vehicle DC-DC Step-Down Converters (72V to 12V)",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1027,
+      "canonical_name": "Combined Braking System (CBS) Mechanical Linkages",
+      "division_council": "Transport Engineering",
+      "stored_status": "VERIFIED_SUPPORTING_ONLY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1033,
+      "canonical_name": "Venturi Fertilizer Chemical Injector Assemblies",
+      "division_council": "Water Resources",
+      "stored_status": "VERIFIED_PRIMARY",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1042,
+      "canonical_name": "Digital Telemetric Groundwater Piezometer Data Loggers",
+      "division_council": "Water Resources",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    },
+    {
+      "id": 1044,
+      "canonical_name": "Inflatable Rubber Barrage Weirs for River Diversion",
+      "division_council": "Water Resources",
+      "stored_status": "CANDIDATE_UNVERIFIED",
+      "mapping_count": "0",
+      "primary_count": "0",
+      "supporting_count": "0",
+      "inconsistency_type": "ORPHANED_COVERAGE_STATUS"
+    }
+  ],
+  "duplicates": [
+    {
+      "id": 12,
+      "canonical_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+      "division_council": "Civil Engineering",
+      "subcategory": "Aerated Concrete Blocks",
+      "description": "Lightweight, precast cellular concrete building material produced by foaming and high-pressure steam curing (autoclaving).",
+      "coverage_status": "VERIFIED_PRIMARY",
+      "mappings": [
+        {
+          "mapping_id": 63,
+          "relationship_type": "primary_specification",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 2185 (Part 3):1984",
+          "title": "Concrete Masonry Units — Specification: Part 3 Autoclaved Cellular Aerated Concrete Blocks (First Revision)"
+        },
+        {
+          "mapping_id": 161,
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 516 (Part 1/Sec 1):2021",
+          "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength"
+        },
+        {
+          "mapping_id": 220,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        },
+        {
+          "mapping_id": 246,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 10262:2019",
+          "title": "Concrete Mix Proportioning — Guidelines (Second Revision)"
+        },
+        {
+          "mapping_id": 432,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 15988:2013",
+          "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines"
+        }
+      ]
+    },
+    {
+      "id": 611,
+      "canonical_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+      "division_council": "Civil Engineering",
+      "subcategory": "Masonry Units and Blocks",
+      "description": "Precast lightweight cellular concrete masonry blocks conforming to IS 2185 Part 3.",
+      "coverage_status": "VERIFIED_PRIMARY",
+      "mappings": [
+        {
+          "mapping_id": 64,
+          "relationship_type": "primary_specification",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 2185 (Part 3):1984",
+          "title": "Concrete Masonry Units — Specification: Part 3 Autoclaved Cellular Aerated Concrete Blocks (First Revision)"
+        },
+        {
+          "mapping_id": 172,
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 516 (Part 1/Sec 1):2021",
+          "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength"
+        },
+        {
+          "mapping_id": 236,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        },
+        {
+          "mapping_id": 256,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 10262:2019",
+          "title": "Concrete Mix Proportioning — Guidelines (Second Revision)"
+        },
+        {
+          "mapping_id": 448,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 15988:2013",
+          "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "canonical_name": "Portland Slag Cement (PSC)",
+      "division_council": "Civil Engineering",
+      "subcategory": "Slag Cement",
+      "description": "Cement produced by intimately intergrinding Portland cement clinker and granulated blast furnace slag with suitable proportion of gypsum.",
+      "coverage_status": "VERIFIED_PRIMARY",
+      "mappings": [
+        {
+          "mapping_id": 52,
+          "relationship_type": "primary_specification",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 455:2015",
+          "title": "Portland Slag Cement — Specification (Sixth Revision)"
+        },
+        {
+          "mapping_id": 215,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        }
+      ]
+    },
+    {
+      "id": 593,
+      "canonical_name": "Portland Slag Cement (PSC)",
+      "division_council": "Civil Engineering",
+      "subcategory": "Cement and Hydraulic Binders",
+      "description": "Blast furnace slag blended hydraulic cement conforming to IS 455 for marine and high-sulfate environments.",
+      "coverage_status": "VERIFIED_PRIMARY",
+      "mappings": [
+        {
+          "mapping_id": 53,
+          "relationship_type": "primary_specification",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 455:2015",
+          "title": "Portland Slag Cement — Specification (Sixth Revision)"
+        },
+        {
+          "mapping_id": 228,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "canonical_name": "Ready-Mixed Concrete (RMC)",
+      "division_council": "Civil Engineering",
+      "subcategory": "Ready Mix Concrete",
+      "description": "Concrete delivered at site in a plastic state requiring no further treatment before placement, mixed in a central batching plant.",
+      "coverage_status": "VERIFIED_SUPPORTING_ONLY",
+      "mappings": [
+        {
+          "mapping_id": 244,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 10262:2019",
+          "title": "Concrete Mix Proportioning — Guidelines (Second Revision)"
+        },
+        {
+          "mapping_id": 159,
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 516 (Part 1/Sec 1):2021",
+          "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength"
+        },
+        {
+          "mapping_id": 218,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        },
+        {
+          "mapping_id": 429,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 15988:2013",
+          "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines"
+        }
+      ]
+    },
+    {
+      "id": 599,
+      "canonical_name": "Ready Mixed Concrete (RMC)",
+      "division_council": "Civil Engineering",
+      "subcategory": "Concrete and Concrete Materials",
+      "description": "Centrally batched computerized concrete conforming to IS 4926 delivered via transit mixers.",
+      "coverage_status": "VERIFIED_PRIMARY",
+      "mappings": [
+        {
+          "mapping_id": 57,
+          "relationship_type": "primary_specification",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 4926:2003",
+          "title": "Ready-Mixed Concrete — Code of Practice (Second Revision)"
+        },
+        {
+          "mapping_id": 58,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        },
+        {
+          "mapping_id": 59,
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 10262:2019",
+          "title": "Concrete Mix Proportioning — Guidelines (Second Revision)"
+        },
+        {
+          "mapping_id": 169,
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 516 (Part 1/Sec 1):2021",
+          "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength"
+        },
+        {
+          "mapping_id": 440,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 15988:2013",
+          "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "canonical_name": "White Portland Cement",
+      "division_council": "Civil Engineering",
+      "subcategory": "Special Cement",
+      "description": "Portland cement characterized by high whiteness, produced from pure limestone and kaolin with low iron and manganese oxides.",
+      "coverage_status": "VERIFIED_SUPPORTING_ONLY",
+      "mappings": [
+        {
+          "mapping_id": 216,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        }
+      ]
+    },
+    {
+      "id": 597,
+      "canonical_name": "White Portland Cement",
+      "division_council": "Civil Engineering",
+      "subcategory": "Cement and Hydraulic Binders",
+      "description": "Low-iron white cement conforming to IS 8042 with high whiteness index for decorative finishes.",
+      "coverage_status": "VERIFIED_SUPPORTING_ONLY",
+      "mappings": [
+        {
+          "mapping_id": 232,
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED",
+          "is_number": "IS 456:2000",
+          "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)"
+        }
+      ]
+    }
+  ],
+  "ceStandards": [
+    {
+      "is_number": "IS 10262:2019",
+      "title": "Concrete Mix Proportioning — Guidelines (Second Revision)",
+      "mapping_count": "21",
+      "products": [
+        {
+          "product_id": 310,
+          "product_name": "Precast Concrete Canal Lining Tiles",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 1040,
+          "product_name": "Precast Concrete Interlocking Canal Lining Slabs",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 620,
+          "product_name": "Precast Reinforced Concrete Pipes (NP3 / NP4)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 619,
+          "product_name": "Interlocking Concrete Paving Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 618,
+          "product_name": "Precast Concrete Kerbstones",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 617,
+          "product_name": "Precast Concrete Manhole Covers and Frames",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 612,
+          "product_name": "Concrete Hollow Masonry Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 611,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 605,
+          "product_name": "Pulverized Fuel Ash (Fly Ash) for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 604,
+          "product_name": "Air Entraining Concrete Admixture",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 599,
+          "product_name": "Ready Mixed Concrete (RMC)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 6,
+          "product_name": "Ready-Mixed Concrete (RMC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 7,
+          "product_name": "Chemical Admixtures for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 5,
+          "product_name": "Coarse and Fine Aggregate for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 12,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 13,
+          "product_name": "Precast Concrete Paver Blocks (Interlocking Pavers)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 124,
+          "product_name": "Kerbstones and Concrete Edging",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 130,
+          "product_name": "Concrete Kerb Gutters",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 309,
+          "product_name": "Rubber Waterstops for Concrete Joints",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 365,
+          "product_name": "Precast Concrete Drainage Pipes (Class NP2/NP3)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 362,
+          "product_name": "Crystalline Concrete Waterproofing Admixtures",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        }
+      ]
+    },
+    {
+      "is_number": "IS 15988:2013",
+      "title": "Seismic Evaluation and Strengthening of Existing Reinforced Concrete Buildings — Guidelines",
+      "mapping_count": "30",
+      "products": [
+        {
+          "product_id": 611,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 605,
+          "product_name": "Pulverized Fuel Ash (Fly Ash) for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 604,
+          "product_name": "Air Entraining Concrete Admixture",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 603,
+          "product_name": "Sulfonated Naphthalene Formaldehyde (SNF) Plasticizer",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 602,
+          "product_name": "Polycarboxylate Ether (PCE) Superplasticizer",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 601,
+          "product_name": "Metakaolin Pozzolanic Admixture",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 600,
+          "product_name": "Condensed Silica Fume Admixture",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 599,
+          "product_name": "Ready Mixed Concrete (RMC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 365,
+          "product_name": "Precast Concrete Drainage Pipes (Class NP2/NP3)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 362,
+          "product_name": "Crystalline Concrete Waterproofing Admixtures",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 6,
+          "product_name": "Ready-Mixed Concrete (RMC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 7,
+          "product_name": "Chemical Admixtures for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 9,
+          "product_name": "Structural Steel Sections (Beams, Columns, Channels, Angles)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 12,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 13,
+          "product_name": "Precast Concrete Paver Blocks (Interlocking Pavers)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 124,
+          "product_name": "Kerbstones and Concrete Edging",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 130,
+          "product_name": "Concrete Kerb Gutters",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 309,
+          "product_name": "Rubber Waterstops for Concrete Joints",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 310,
+          "product_name": "Precast Concrete Canal Lining Tiles",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 5,
+          "product_name": "Coarse and Fine Aggregate for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 1040,
+          "product_name": "Precast Concrete Interlocking Canal Lining Slabs",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 875,
+          "product_name": "Weathering Structural Steel Plates (Corten)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 620,
+          "product_name": "Precast Reinforced Concrete Pipes (NP3 / NP4)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 619,
+          "product_name": "Interlocking Concrete Paving Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 618,
+          "product_name": "Precast Concrete Kerbstones",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 617,
+          "product_name": "Precast Concrete Manhole Covers and Frames",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 614,
+          "product_name": "Perforated Clay Bricks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 613,
+          "product_name": "Pulverized Fuel Ash Lime Bricks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 612,
+          "product_name": "Concrete Hollow Masonry Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 606,
+          "product_name": "Ground Granulated Blast Furnace Slag (GGBS)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        }
+      ]
+    },
+    {
+      "is_number": "IS 1893 (Part 1):2016",
+      "title": "Criteria for Earthquake Resistant Design of Structures: Part 1 General Provisions and Buildings (Sixth Revision)",
+      "mapping_count": "12",
+      "products": [
+        {
+          "product_id": 8,
+          "product_name": "High Strength Deformed Steel Bars (TMT Rebars)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 1040,
+          "product_name": "Precast Concrete Interlocking Canal Lining Slabs",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 875,
+          "product_name": "Weathering Structural Steel Plates (Corten)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 620,
+          "product_name": "Precast Reinforced Concrete Pipes (NP3 / NP4)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 618,
+          "product_name": "Precast Concrete Kerbstones",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 617,
+          "product_name": "Precast Concrete Manhole Covers and Frames",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 612,
+          "product_name": "Concrete Hollow Masonry Blocks",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 365,
+          "product_name": "Precast Concrete Drainage Pipes (Class NP2/NP3)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 310,
+          "product_name": "Precast Concrete Canal Lining Tiles",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 129,
+          "product_name": "Pavement Geogrids for Soil Reinforcement",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 13,
+          "product_name": "Precast Concrete Paver Blocks (Interlocking Pavers)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 9,
+          "product_name": "Structural Steel Sections (Beams, Columns, Channels, Angles)",
+          "relationship_type": "safety_requirement",
+          "verification_status": "VERIFIED"
+        }
+      ]
+    },
+    {
+      "is_number": "IS 456:2000",
+      "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)",
+      "mapping_count": "31",
+      "products": [
+        {
+          "product_id": 619,
+          "product_name": "Interlocking Concrete Paving Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 1,
+          "product_name": "Ordinary Portland Cement (OPC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 2,
+          "product_name": "Portland Pozzolana Cement (PPC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 3,
+          "product_name": "Portland Slag Cement (PSC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 4,
+          "product_name": "White Portland Cement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 5,
+          "product_name": "Coarse and Fine Aggregate for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 6,
+          "product_name": "Ready-Mixed Concrete (RMC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 7,
+          "product_name": "Chemical Admixtures for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 12,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 13,
+          "product_name": "Precast Concrete Paver Blocks (Interlocking Pavers)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 124,
+          "product_name": "Kerbstones and Concrete Edging",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 129,
+          "product_name": "Pavement Geogrids for Soil Reinforcement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 130,
+          "product_name": "Concrete Kerb Gutters",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 362,
+          "product_name": "Crystalline Concrete Waterproofing Admixtures",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 365,
+          "product_name": "Precast Concrete Drainage Pipes (Class NP2/NP3)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 372,
+          "product_name": "Autoclaved Fibre Cement Building Boards",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 593,
+          "product_name": "Portland Slag Cement (PSC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 594,
+          "product_name": "Portland Pozzolana Cement (PPC Fly Ash)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 595,
+          "product_name": "Rapid Hardening Portland Cement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 596,
+          "product_name": "Low Heat Portland Cement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 597,
+          "product_name": "White Portland Cement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 598,
+          "product_name": "Hydrophobic Portland Cement",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 604,
+          "product_name": "Air Entraining Concrete Admixture",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 605,
+          "product_name": "Pulverized Fuel Ash (Fly Ash) for Concrete",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 611,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 612,
+          "product_name": "Concrete Hollow Masonry Blocks",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 617,
+          "product_name": "Precast Concrete Manhole Covers and Frames",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 618,
+          "product_name": "Precast Concrete Kerbstones",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 599,
+          "product_name": "Ready Mixed Concrete (RMC)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 620,
+          "product_name": "Precast Reinforced Concrete Pipes (NP3 / NP4)",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 639,
+          "product_name": "Two-Component Polymer Modified Cementitious Slurry",
+          "relationship_type": "code_of_practice",
+          "verification_status": "VERIFIED"
+        }
+      ]
+    },
+    {
+      "is_number": "IS 516 (Part 1/Sec 1):2021",
+      "title": "Hardened Concrete — Methods of Test: Part 1 Testing of Strength, Section 1 Compressive, Flexural and Split Tensile Strength",
+      "mapping_count": "21",
+      "products": [
+        {
+          "product_id": 1040,
+          "product_name": "Precast Concrete Interlocking Canal Lining Slabs",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 620,
+          "product_name": "Precast Reinforced Concrete Pipes (NP3 / NP4)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 619,
+          "product_name": "Interlocking Concrete Paving Blocks",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 618,
+          "product_name": "Precast Concrete Kerbstones",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 617,
+          "product_name": "Precast Concrete Manhole Covers and Frames",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 612,
+          "product_name": "Concrete Hollow Masonry Blocks",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 611,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 605,
+          "product_name": "Pulverized Fuel Ash (Fly Ash) for Concrete",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 604,
+          "product_name": "Air Entraining Concrete Admixture",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 599,
+          "product_name": "Ready Mixed Concrete (RMC)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 365,
+          "product_name": "Precast Concrete Drainage Pipes (Class NP2/NP3)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 362,
+          "product_name": "Crystalline Concrete Waterproofing Admixtures",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 310,
+          "product_name": "Precast Concrete Canal Lining Tiles",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 309,
+          "product_name": "Rubber Waterstops for Concrete Joints",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 130,
+          "product_name": "Concrete Kerb Gutters",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 124,
+          "product_name": "Kerbstones and Concrete Edging",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 13,
+          "product_name": "Precast Concrete Paver Blocks (Interlocking Pavers)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 12,
+          "product_name": "Autoclaved Aerated Concrete (AAC) Blocks",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 7,
+          "product_name": "Chemical Admixtures for Concrete",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 6,
+          "product_name": "Ready-Mixed Concrete (RMC)",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        },
+        {
+          "product_id": 5,
+          "product_name": "Coarse and Fine Aggregate for Concrete",
+          "relationship_type": "testing_method",
+          "verification_status": "VERIFIED"
+        }
+      ]
+    }
+  ]
+}

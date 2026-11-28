@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processing Requirement | Nirdeshak</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Government Identification Strip -->
+<div class="gov-strip">
+  <div class="gov-strip__inner">
+    <span class="gov-strip__text">भारत सरकार | Government of India</span>
+    <span class="gov-strip__text gov-strip__text--right">Bureau of Indian Standards</span>
+  </div>
+</div>
+
+<!-- Main Site Header -->
+<header class="main-header">
+  <div class="main-header__inner">
+    <a href="index.html" class="main-header__brand" style="text-decoration: none; display: flex; align-items: center; gap: 16px; color: inherit;">
+      <div class="main-header__logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="46" height="46">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="#0a3161" stroke-width="2"/>
+          <circle cx="24" cy="24" r="15" fill="none" stroke="#0a3161" stroke-width="1.2"/>
+          <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#0a3161" font-family="Arial, sans-serif">N</text>
+        </svg>
+      </div>
+      <div class="main-header__titles">
+        <h1 class="main-header__title">NIRDESHAK</h1>
+        <p class="main-header__subtitle">AI-Powered Indian Standards Recommendation Portal</p>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- Step Indicator -->
+<nav class="step-indicator" aria-label="Procurement Analysis Workflow Progress">
+  <div class="step-indicator__inner">
+    <ol class="step-indicator__list">
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">1. Input</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--active" aria-current="step">
+        <span class="step-indicator__badge">2</span>
+        <span class="step-indicator__label">2. Process</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">3</span>
+        <span class="step-indicator__label">3. Review</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">4</span>
+        <span class="step-indicator__label">4. Analyze</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">5</span>
+        <span class="step-indicator__label">5. Results</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<main class="page-container">
+
+  <!-- Page Header Block -->
+  <div class="page-header-block" style="text-align: center;">
+    <h2 class="page-header-block__title">Processing Procurement Requirement</h2>
+    <p class="page-header-block__subtitle">Extracting structured technical parameters and procurement criteria...</p>
+  </div>
+
+  <!-- Progress Card -->
+  <div class="progress-card" role="status" aria-live="polite">
+    <div class="progress-header">
+      <h3 class="progress-header__title" id="processingTitle">Analyzing Document &amp; Requirement</h3>
+      <p class="progress-header__desc" id="processingSubtitle">Please wait while Nirdeshak extracts structured parameters...</p>
+    </div>
+
+    <ul class="progress-timeline" id="progressTimeline">
+      <!-- Step 1: Input Received -->
+      <li class="progress-step progress-step--completed" id="pstep-1">
+        <div class="progress-step__icon" aria-hidden="true">&#10003;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title" id="pstep-1-title">Requirement Received</h4>
+          <p class="progress-step__desc" id="pstep-1-desc">Requirement input validated and loaded into active session.</p>
+        </div>
+      </li>
+
+      <!-- Step 2: Document / Text Processing -->
+      <li class="progress-step progress-step--active" id="pstep-2">
+        <div class="progress-step__icon" id="pstep-2-icon" aria-hidden="true">&bull;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title" id="pstep-2-title">Processing Document Content</h4>
+          <p class="progress-step__desc" id="pstep-2-desc">Extracting textual specifications from input...</p>
+        </div>
+      </li>
+
+      <!-- Step 3: Requirement Extraction -->
+      <li class="progress-step" id="pstep-3">
+        <div class="progress-step__icon" id="pstep-3-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title" id="pstep-3-title">Extracting Structured Requirements</h4>
+          <p class="progress-step__desc" id="pstep-3-desc">Identifying technical parameters, product categories, and safety ratings.</p>
+        </div>
+      </li>
+
+      <!-- Step 4: Finalizing -->
+      <li class="progress-step" id="pstep-4">
+        <div class="progress-step__icon" id="pstep-4-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title" id="pstep-4-title">Preparing Requirement Review</h4>
+          <p class="progress-step__desc" id="pstep-4-desc">Structuring verification data for user confirmation.</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Error State Display -->
+    <div id="processingErrorBox" class="form-error" style="display: none; margin-top: 24px;" role="alert">
+      <div style="font-weight: 700; margin-bottom: 4px;">Processing Failed</div>
+      <div id="processingErrorMessage"></div>
+      <div style="margin-top: 16px;">
+        <a href="analysis.html" class="btn-primary" style="display: inline-block; text-decoration: none; padding: 8px 18px; font-size: 13.5px;">&larr; Return to Input</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p class="site-footer__line">Government of India</p>
+  <p class="site-footer__line">Bureau of Indian Standards</p>
+  <p class="site-footer__tagline">Nirdeshak &ndash; Right Standards. Smarter Procurement.</p>
+</footer>
+
+<script type="module" src="processing.js"></script>
+</body>
+</html>

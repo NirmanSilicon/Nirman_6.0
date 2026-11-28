@@ -1,0 +1,36 @@
+Test_ID,HTTP_Method,Endpoint,Purpose,Test_Input,HTTP_Status,Response_Structure,Status,Secret_Leak_Detected
+API-01,GET,"/api/health","Health check and service status","none",200,"success=undefined, keys=[status, service, geminiConfigured, databaseConfigured, databaseConnected]",PASS,NO
+API-02,POST,"/api/process-tender","Process tender with empty upload","No multipart file",400,"success=false, keys=[success, error]",PASS,NO
+API-03,POST,"/api/process-tender","Process tender with non-PDF file (.txt)","notes.txt (text/plain)",400,"success=false, keys=[success, error]",PASS,NO
+API-04,POST,"/api/process-tender","Process tender with valid helmet tender PDF","nirdeshak_demo_tender_industrial_safety_helmets.pdf (3483 bytes)",200,"success=true, keys=[success, fileName, extractedText]",PASS,NO
+API-05,POST,"/api/process-tender","Process tender with corrupted PDF (invalid magic bytes)","corrupt.pdf (invalid magic bytes)",400,"success=false, keys=[success, error]",PASS,NO
+API-06,POST,"/api/extract-requirements","Extract requirements with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-07,POST,"/api/extract-requirements","Extract requirements with whitespace-only","{""text"":""   ""}",400,"success=false, keys=[success, error]",PASS,NO
+API-08,POST,"/api/extract-requirements","Extract requirements with valid product description","{""text"":""Procurement of industrial safety helmets for construction workers"",""type"":""product-descript",200,"success=true, keys=[success, requirements, isCuratedDemo]",PASS,NO
+API-09,POST,"/api/extract-requirements","Extract requirements with valid technical specification","{""text"":""Supply of 500 safety helmets conforming to IS 2925 with electrical resistance"",""type"":""tech",200,"success=true, keys=[success, requirements, isCuratedDemo]",PASS,NO
+API-10,GET,"/api/standards","Retrieve all Indian Standards","none",200,"success=true, keys=[success, total, limit, offset, standards]",PASS,NO
+API-11,GET,"/api/standards/3","Retrieve standard by valid ID 3 (IS 2925:1984)","none",200,"success=true, keys=[success, standard]",PASS,NO
+API-12,GET,"/api/standards/99999","Retrieve standard by nonexistent ID 99999","none",404,"success=false, keys=[success, error]",PASS,NO
+API-13,GET,"/api/standards/invalid_id","Retrieve standard by invalid non-numeric ID","none",404,"success=false, keys=[success, error]",PASS,NO
+API-14,GET,"/api/standards/3/related","Retrieve related standards for IS 2925 (ID 3)","none",200,"success=true, keys=[success, standardId, is_number, count, results]",PASS,NO
+API-15,GET,"/api/standards/3/related?relationshipType=testing","Filter related standards by type=testing","none",200,"success=true, keys=[success, standardId, is_number, count, results]",PASS,NO
+API-16,GET,"/api/standards/99999/related","Retrieve related standards for nonexistent ID","none",404,"success=false, keys=[success, error]",PASS,NO
+API-17,GET,"/api/standards/3/version","Retrieve version intelligence for IS 2925 (ID 3)","none",200,"success=true, keys=[success, standardId, is_number, title, versionStatus]",PASS,NO
+API-18,GET,"/api/standards/99999/version","Retrieve version intelligence for nonexistent ID","none",404,"success=false, keys=[success, error]",PASS,NO
+API-19,GET,"/api/standards/3/certification","Retrieve certification & QCO status for IS 2925 (ID 3)","none",200,"success=true, keys=[success, standardId, is_number, title, certification]",PASS,NO
+API-20,GET,"/api/standards/99999/certification","Retrieve certification for nonexistent ID","none",404,"success=false, keys=[success, error]",PASS,NO
+API-21,GET,"/api/embeddings/status","Retrieve embeddings coverage status","none",200,"success=true, keys=[success, total, withEmbeddings, withoutEmbeddings, model]",PASS,NO
+API-22,POST,"/api/embeddings/requirement","Generate embedding with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-23,POST,"/api/embeddings/requirement","Generate requirement embedding with valid text","{""text"":""Industrial safety helmet for workers""}",200,"success=true, keys=[success, model, dimension, text, embedding]",PASS,NO
+API-24,POST,"/api/embeddings/standard/3","Trigger standard embedding update for ID 3","{}",200,"success=true, keys=[success, standardId, is_number, title, dimension]",PASS,NO
+API-25,POST,"/api/embeddings/standard/99999","Trigger standard embedding update for nonexistent ID","{}",404,"success=false, keys=[success, error]",PASS,NO
+API-26,POST,"/api/search/semantic","Semantic search with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-27,POST,"/api/search/semantic","Semantic search with valid query","{""query"":""industrial safety helmet headgear"",""limit"":3}",200,"success=true, keys=[success, query, count, limit, results]",PASS,NO
+API-28,POST,"/api/search/ranked","Ranked search with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-29,POST,"/api/search/ranked","Ranked search with valid query","{""query"":""industrial safety helmet"",""limit"":3}",200,"success=true, keys=[success, query, count, limit, results]",PASS,NO
+API-30,POST,"/api/recommendations/explain","Explain endpoint with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-31,POST,"/api/recommendations/explain","Explain endpoint with whitespace query","{""query"":""   ""}",400,"success=false, keys=[success, error]",PASS,NO
+API-32,POST,"/api/recommendations/explain","Explain endpoint with helmet query in demo mode","{""query"":""industrial safety helmets for construction workers"",""limit"":3}",200,"success=true, keys=[success, query, originalQuery, multilingual, count]",PASS,NO
+API-33,POST,"/api/recommendations/explain","Explain endpoint with semantic RAG pipeline (non-demo)","{""query"":""protective headgear for industrial manufacturing"",""limit"":3}",200,"success=true, keys=[success, query, count, recommendations, summary]",PASS,NO
+API-34,POST,"/api/reports/pdf","PDF generation with empty payload","{}",400,"success=false, keys=[success, error]",PASS,NO
+API-35,POST,"/api/reports/pdf","PDF generation with valid complete report payload","Complete report payload with Top 3 recommendations",200,"Binary PDF (25232 bytes), %PDF header: true",PASS,NO

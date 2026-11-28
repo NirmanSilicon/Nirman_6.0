@@ -1,0 +1,310 @@
+{
+  "Ayurvedic Medicated Taila (Mahanarayan Oil)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-II Vol-I (Mahanarayana Taila)",
+    "new_standard": {
+      "is_number": "API Part-II Vol-I (Mahanarayana Taila)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Formulations: Mahanarayana Taila Monograph",
+      "publication_year": 2007,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies identity, purity and strength for classical Mahanarayana Taila medicated sesame oil formulation prepared per Bhaishajya Ratnavali for musculoskeletal disorders.",
+      "materials": "Sesamum indicum oil base, Dashamoola, Ashwagandha, Bala, Shatavari, milk and authentic herbs.",
+      "technical_requirements": "Refractive index at 40°C (1.464 to 1.470), weight per ml (0.915 to 0.930 g), saponification value (185 to 200), iodine value (100 to 115), acid value (max 3.5), heavy metals (lead <= 10 ppm, arsenic <= 3 ppm).",
+      "performance_requirements": "Therapeutic consistency, skin penetrability, zero rancidity, microbial count compliant with AYUSH safety limits.",
+      "testing_requirements": "Thin layer chromatography fingerprinting per API Part II, rancidity test per IS 548.",
+      "certification": "Scheme-IV",
+      "source": "Pharmacopoeia Commission for Indian Medicine & Homoeopathy (PCIM&H) / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ministry of AYUSH Good Manufacturing Practices (Schedule T)",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Mandatory compliance with Ayurvedic Pharmacopoeia of India monographs for all classical Ayurvedic proprietary and generic formulations.",
+      "applicability_explanation": "Mandatory statutory pharmacopoeial specification for Mahanarayan Taila in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Regulated under First Schedule of Drugs and Cosmetics Act via Ayurvedic Pharmacopoeia of India (API)."
+  },
+  "Boswellia serrata (Shallaki) Gum Resin Extract": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 17377:2020",
+    "new_standard": {
+      "is_number": "IS 17377:2020",
+      "title": "Medicinal Plant Products — Boswellia serrata Extract — Specification",
+      "publication_year": 2020,
+      "version": "Original Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies requirements and test methods for standardized dry extracts of Boswellia serrata (Shallaki / Indian Frankincense) gum resin for anti-inflammatory and anti-arthritic formulations.",
+      "materials": "Purified hydro-alcoholic extract of oleo-gum-resin of Boswellia serrata Roxb.",
+      "technical_requirements": "Total boswellic acids (min 65.0% by titrimetry / min 30.0% by HPLC), 11-keto-beta-boswellic acid AKBA content, loss on drying (max 5.0%), total ash (max 8.0%), heavy metals limits.",
+      "performance_requirements": "Standardized therapeutic potency, standardized solubility in alcohol, absence of solvent residues.",
+      "testing_requirements": "HPLC assay for AKBA per IS 17377 Annex B, heavy metals by ICP-MS per IS 16999.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards AYD 1 / PCIM&H"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS AYD 1 Traditional Medicine Committee; Ayurvedic Pharmacopoeia of India",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_17377",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for standardized extracts of Boswellia serrata gum resin.",
+      "applicability_explanation": "Primary national product standard for Shallaki extract.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by AYD 1 Traditional Medicine Sectional Committee."
+  },
+  "Chyawanprash Avaleha Special": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-II Vol-I (Chyawanprash)",
+    "new_standard": {
+      "is_number": "API Part-II Vol-I (Chyawanprash)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Formulations: Chyawanprash Monograph",
+      "publication_year": 2007,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies pharmacopoeial standards for classical Chyawanprash semi-solid confection (Avaleha) prepared with Amalaki (Emblica officinalis), ghee, sesame oil, honey, and herbal decoction.",
+      "materials": "Fresh mature Amla pulp, sugar/honey, Dashamoola, Ashtavarga, Pippali, cardamom.",
+      "technical_requirements": "Total solids (min 65.0%), total sugars (55.0% to 65.0%), reducing sugars, ascorbic acid / Vitamin C (min 0.05%), pH of 10% solution (3.5 to 4.5), heavy metals limits.",
+      "performance_requirements": "Smooth spreadable semi-solid paste, sweet-sour-spicy taste; absence of mold, fermentation, or burnt flavor.",
+      "testing_requirements": "Total solids by refractometry, Vitamin C by 2,6-dichlorophenolindophenol titration, TLC fingerprinting.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ministry of AYUSH Schedule T",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory pharmacopoeial monograph governing commercial manufacturing of Chyawanprash.",
+      "applicability_explanation": "Mandatory statutory standard for Chyawanprash Avaleha under D&C Act.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Statutory classical Ayurvedic formulation under Schedule 1 of Drugs & Cosmetics Act."
+  },
+  "Curcumin 95% Standardized Turmeric Extract": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "IS 17378:2020",
+    "new_standard": {
+      "is_number": "IS 17378:2020",
+      "title": "Medicinal Plant Products — Curcumin 95 Percent — Specification",
+      "publication_year": 2020,
+      "version": "Original Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies requirements and test methods for 95% total curcuminoids extracted from rhizomes of Curcuma longa L. for pharmaceutical and nutraceutical use.",
+      "materials": "Purified crystalline extract of Curcuma longa rhizomes.",
+      "technical_requirements": "Total curcuminoids content (min 95.0% by HPLC - curcumin, demethoxycurcumin, bisdemethoxycurcumin), melting point (182°C to 186°C), loss on drying (max 1.0%), residual solvents (ethanol <= 5000 ppm, ethyl acetate <= 5000 ppm, zero Class 1 solvents).",
+      "performance_requirements": "High antioxidant potency, crystalline yellow-orange powder, free from synthetic dyes or undeclared petroleum solvents.",
+      "testing_requirements": "Curcuminoids profile by HPLC per IS 17378 Annex B, residual solvents by Headspace GC per USP <467>.",
+      "certification": "Scheme-I",
+      "source": "Bureau of Indian Standards AYD 1 / FSSAI Nutraceutical Standards"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "VOLUNTARY_RECOMMENDED",
+      "evidence_source": "BIS AYD 1 Sectional Committee Specifications; FSSAI Health Supplements Regulations",
+      "source_url": "https://www.services.bis.gov.in/php/BIS_2.0/bis_equalisation/std_info.php?std_id=IS_17378",
+      "evidence_excerpt": "Clause 1: Prescribes requirements for standardized 95% curcuminoids extract from Curcuma longa.",
+      "applicability_explanation": "Primary national standard for 95% standardized curcumin extract.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Formulated by AYD 1."
+  },
+  "Homoeopathic Dilutions and Potencies": {
+    "status": "NO_APPLICABLE_STANDARD_FOUND",
+    "investigation_notes": "Homoeopathic medicines, mother tinctures, and potentised dilutions (decimal/centesimal potencies) are exclusively regulated under the Drugs and Cosmetics Act, 1940 and the Homoeopathic Pharmacopoeia of India (HPI) administered by PCIM&H and Ministry of AYUSH. The Bureau of Indian Standards does not formulate technical standards for homoeopathic pharmaceutical preparations; hence no applicable BIS standard exists."
+  },
+  "Kasis Bhasma (Ayurvedic Iron Mineral Formulation)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-I Vol-VII (Kasisa)",
+    "new_standard": {
+      "is_number": "API Part-I Vol-VII (Kasisa)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Minerals and Metals: Kasisa and Kasis Bhasma",
+      "publication_year": 2008,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies identification, purification (shodhana), marana, and nanostructured characterization for Kasis Bhasma (calcined ferrous sulphate) used for iron deficiency anemia.",
+      "materials": "Purified green vitriol (Kasisa - FeSO4.7H2O) incinerated with herbal juices.",
+      "technical_requirements": "Total iron content (min 50.0% Fe), ferrous/ferric iron ratio, Varitaratva test (floats on water), Rekhapurnatva test (enters skin furrows), acid insoluble ash (max 5.0%), absence of free sulfur.",
+      "performance_requirements": "Traditional nanostructured Bhasma properties ensuring rapid biological assimilation without gastrointestinal irritation.",
+      "testing_requirements": "Chemical assay for iron per API Annex, traditional organoleptic tests (Varitaratva, Apunarbhava).",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ministry of AYUSH Schedule T",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Mandatory classical pharmacopoeial monograph for Kasisa and Kasis Bhasma under Ayurvedic Pharmacopoeia of India.",
+      "applicability_explanation": "Mandatory statutory standard for Kasis Bhasma in India.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Classical Rasa Shastra mineral formulation governed under API Part I Vol VII."
+  },
+  "Kumkumadi Tailam Facial Oil": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-II Vol-II (Kumkumadi Taila)",
+    "new_standard": {
+      "is_number": "API Part-II Vol-II (Kumkumadi Taila)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Formulations: Kumkumadi Taila Monograph",
+      "publication_year": 2008,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies requirements for classical Kumkumadi Taila medicated facial oil prepared with saffron (Crocus sativus), sandalwood, and goat milk in sesame oil base per Bhaishajya Ratnavali.",
+      "materials": "Saffron stigmata, Sandalwood (Chandan), Manjistha, Yashtimadhu, goat milk, sesame oil.",
+      "technical_requirements": "Refractive index at 40°C (1.465 to 1.472), weight per ml (0.915 to 0.930 g), saponification value (185 to 205), acid value (max 3.5), TLC profile showing saffron crocin/crocetin spots.",
+      "performance_requirements": "Bright golden-red viscous oil with distinct saffron aroma; zero synthetic colouring or mineral oils.",
+      "testing_requirements": "TLC fingerprinting per API Annex, acid value per IS 548, heavy metals limits.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ayurvedic Pharmacopoeia of India",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory classical Ayurvedic monograph for Kumkumadi Taila facial oil formulation.",
+      "applicability_explanation": "Mandatory statutory standard for Kumkumadi Tailam under D&C Act.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Statutory classical Ayurvedic formulation under Schedule 1 of Drugs & Cosmetics Act."
+  },
+  "Panchakarma Shirodhara Brass Vessels": {
+    "status": "PRODUCT_CLARIFICATION_REQUIRED",
+    "investigation_notes": "Shirodhara pots/vessels are traditional artisan-crafted copper/brass Panchakarma hardware utensils fabricated with diverse hanging chains, control stopcocks, and customized oil orifices (1 to 3 mm). They are classified as hospital/clinic clinicware equipment rather than standardized pharmaceutical items; no dedicated BIS technical committee specification currently standardizes their exact dimensions, requiring procurement clarification on mechanical specs."
+  },
+  "Shankha Bhasma (Purified Conch Shell Formulation)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-I Vol-VII (Shankha)",
+    "new_standard": {
+      "is_number": "API Part-I Vol-VII (Shankha)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Minerals and Metals: Shankha and Shankha Bhasma",
+      "publication_year": 2008,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies identification, shodhana and calcinative marana for Shankha Bhasma (calcined conch shell - calcium carbonate/oxide nanostructured powder) for hyperacidity and gastrointestinal disorders.",
+      "materials": "Purified shells of marine mollusc Turbinella pyrum L. calcined with aloe vera / lemon juice.",
+      "technical_requirements": "Calcium content as CaCO3 (min 85.0%), acid insoluble ash (max 2.0%), fineness (enters skin furrows Rekhapurna), loss on ignition (max 5.0%), heavy metals limits.",
+      "performance_requirements": "Pure white micro-fine powder, antacid bio-availability, free from grit or un-calcined shell particles.",
+      "testing_requirements": "Calcium assay by EDTA titrimetry, Varitaratva test, ICP-MS heavy metals per API Annex.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ayurvedic Pharmacopoeia of India",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory pharmacopoeial standard for Shankha Bhasma under Ayurvedic Pharmacopoeia of India.",
+      "applicability_explanation": "Mandatory statutory standard for Shankha Bhasma under D&C Act.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Classical Rasa Shastra formulation governed under API Part I Vol VII."
+  },
+  "Shilajit Purified Resin": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-I Vol-I (Shilajatu)",
+    "new_standard": {
+      "is_number": "API Part-I Vol-I (Shilajatu)",
+      "title": "The Ayurvedic Pharmacopoeia of India: Shilajatu (Shodhita) Monograph",
+      "publication_year": 2001,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies identity, traditional water-purification (shodhana) and purity criteria for purified Asphaltum / Shilajit resin.",
+      "materials": "Natural purified bituminous mineral-herbal exudate from Himalayan rock strata.",
+      "technical_requirements": "Fulvic acid content (min 30.0% to 50.0%), humic acid, water soluble extractive (min 80.0%), total ash (max 15.0%), acid insoluble ash (max 2.0%), lead (max 10 ppm), arsenic (max 3 ppm), mercury (max 1 ppm).",
+      "performance_requirements": "Characteristic bitumen/cow-urine aroma, dissolves completely in warm water without leaving sandy residue, high antioxidant potency.",
+      "testing_requirements": "Fulvic acid assay by UV/titrimetry, heavy metals by ICP-MS per API, water soluble extractive per IS 1797.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ayurvedic Pharmacopoeia of India",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory pharmacopoeial monograph for purified Shilajatu in Ayurvedic medicines and health supplements.",
+      "applicability_explanation": "Mandatory statutory standard for purified Shilajit under D&C Act.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Regulated under First Schedule of Drugs and Cosmetics Act via API."
+  },
+  "Triphala Churna (Digestive Formulation)": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "API Part-II Vol-I (Triphala Churna)",
+    "new_standard": {
+      "is_number": "API Part-II Vol-I (Triphala Churna)",
+      "title": "The Ayurvedic Pharmacopoeia of India — Formulations: Triphala Churna Monograph",
+      "publication_year": 2007,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies requirements for classical Triphala Churna prepared by pulverizing equal parts of dried pericarp of Haritaki (Terminalia chebula), Bibhitaki (Terminalia bellirica), and Amalaki (Emblica officinalis).",
+      "materials": "Clean dried fruit rind of three myrobalans in 1:1:1 proportion.",
+      "technical_requirements": "Total ash (max 8.0%), acid insoluble ash (max 1.5%), alcohol soluble extractive (min 35.0%), water soluble extractive (min 40.0%), tannin content (min 20.0%), particle fineness (passes 180-micron sieve).",
+      "performance_requirements": "Astringent taste with sweet aftertaste; zero mold, insects, or synthetic additive contamination.",
+      "testing_requirements": "Tannin estimation by titrimetry per API Annex, microscopic identification of three fruit tissues.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Ayurvedic Pharmacopoeia of India",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory classical Ayurvedic formulation monograph for Triphala Churna.",
+      "applicability_explanation": "Mandatory statutory standard for Triphala Churna under D&C Act.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Statutory classical Ayurvedic formulation under Schedule 1 of Drugs & Cosmetics Act."
+  },
+  "Unani Roghan Almond Oil Formulation": {
+    "status": "VERIFIED_PRIMARY",
+    "standard_is": "UPI Part-II Vol-I (Roghan-e-Badam)",
+    "new_standard": {
+      "is_number": "UPI Part-II Vol-I (Roghan-e-Badam)",
+      "title": "The Unani Pharmacopoeia of India — Formulations: Roghan-e-Badam Shireen Monograph",
+      "publication_year": 2009,
+      "version": "First Edition",
+      "status": "ACTIVE",
+      "technical_committee": "AYD 1",
+      "division_council": "Ayush",
+      "scope": "Specifies identity, purity and strength for classical Unani Roghan-e-Badam Shireen (cold-pressed sweet almond oil formulation per Bayaz-e-Kabeer).",
+      "materials": "100% pure cold-expressed oil of sweet almond kernels (Prunus amygdalus Batsch).",
+      "technical_requirements": "Refractive index at 40°C (1.462 to 1.465), specific gravity at 25°C (0.910 to 0.920), saponification value (190 to 200), iodine value (95 to 105), acid value (max 2.0), heavy metals limits.",
+      "performance_requirements": "Clear pale yellow oil with sweet nutty aroma; zero adulteration with mineral oil, apricot kernel oil, or cottonseed oil.",
+      "testing_requirements": "Fatty acid profile by GC per UPI Annex, Baudouin test, Bieber test for peach/apricot kernel oil.",
+      "certification": "Scheme-IV",
+      "source": "PCIM&H / Ministry of AYUSH"
+    },
+    "mapping": {
+      "relationship_type": "primary_specification",
+      "mandatory_status": "MANDATORY_QCO",
+      "evidence_source": "Drugs and Cosmetics Act, 1940 (First Schedule); Unani Pharmacopoeia of India (UPI)",
+      "source_url": "https://ayush.gov.in",
+      "evidence_excerpt": "Statutory pharmacopoeial monograph for Roghan-e-Badam under Unani Pharmacopoeia of India.",
+      "applicability_explanation": "Mandatory statutory specification for Unani Roghan almond oil formulation.",
+      "confidence_score": 0.99
+    },
+    "investigation_notes": "Statutory classical Unani medicine formulation under Schedule 1 of Drugs & Cosmetics Act."
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "success": true,
+  "standardId": 3,
+  "is_number": "IS 2925:1984",
+  "count": 4,
+  "results": [
+    {
+      "relationshipId": 2,
+      "direction": "outgoing",
+      "relationshipType": "testing",
+      "relationshipSource": "BIS Product Manual for IS 2925:1984",
+      "standard": {
+        "id": 6,
+        "is_number": "IS 7692:1993",
+        "title": "Specification for Headforms for Testing of Helmets",
+        "scope": "Specifies anatomical dimensions, mass distribution, and resonant frequency of headforms for impact and retention testing.",
+        "category": "Test Equipment / Testing Standard",
+        "description": "Testing standard specifying reference headforms.",
+        "application": "Laboratory helmet drop testing, shock absorption calibration, and retention verification.",
+        "technical_requirements": [
+          "Standard headform sizes 535 mm, 575 mm, 605 mm",
+          "Resonant frequency > 3000 Hz",
+          "Low-damping metal alloy material"
+        ],
+        "materials": [
+          "Aluminium-silicon alloy",
+          "Magnesium K1A alloy"
+        ],
+        "performance_requirements": [
+          "Triaxial accelerometer mount at center of gravity"
+        ],
+        "safety_requirements": [],
+        "testing_requirements": [
+          "Dimensional tolerance verification",
+          "Mass calibration"
+        ],
+        "version": "IS 7692:1993 (Reaffirmed 2019)",
+        "publication_year": 1993,
+        "status": "active",
+        "certification": {}
+      }
+    },
+    {
+      "relationshipId": 3,
+      "direction": "outgoing",
+      "relationshipType": "sampling",
+      "relationshipSource": "BIS Sampling Guidelines",
+      "standard": {
+        "id": 7,
+        "is_number": "IS 9695:1980",
+        "title": "Methods for Sampling of Helmets",
+        "scope": "Prescribes methods of sampling and criteria for conformity of helmets under batch inspection.",
+        "category": "Sampling / Quality Control",
+        "description": "Statistical sampling and lot acceptance criteria standard for helmet procurement.",
+        "application": "Quality acceptance lot sampling for bulk procurement.",
+        "technical_requirements": [
+          "Lot size classification",
+          "Sample size selection table",
+          "Acceptable quality level criteria"
+        ],
+        "materials": [],
+        "performance_requirements": [
+          "Statistical confidence limit verification"
+        ],
+        "safety_requirements": [],
+        "testing_requirements": [
+          "Batch destructive sampling protocols"
+        ],
+        "version": "IS 9695:1980 (Reaffirmed 2018)",
+        "publication_year": 1980,
+        "status": "active",
+        "certification": {}
+      }
+    },
+    {
+      "relationshipId": 4,
+      "direction": "outgoing",
+      "relationshipType": "allied_product",
+      "relationshipSource": "BIS Protective Headgear Catalogue",
+      "standard": {
+        "id": 4,
+        "is_number": "IS 4151:2015",
+        "title": "Protective Helmets for Motorcycle Riders",
+        "scope": "Covers requirements regarding material, construction, workmanship and finish, mass, and performance requirements for protective helmets for motorcycle riders.",
+        "category": "Personal Protective Equipment / Vehicular Headgear",
+        "description": "Indian Standard specification for motorcycle and scooter riders protective helmets.",
+        "application": "Protective helmets for motorcycle, scooter, and two-wheeler vehicular riders on roads.",
+        "technical_requirements": [
+          "Shell: Rigid outer protective shell constructed of thermoplastic or thermoset composite materials designed to withstand high-velocity vehicular impact.",
+          "Protective padding: Impact energy absorption liner made of expanded polystyrene (EPS) engineered to absorb and dissipate kinetic shock.",
+          "Comfort padding: Inner lining and sweatband ensuring ergonomic fit, sweat dissipation, and head retention.",
+          "Retention system: Chinstrap assembly and fastening mechanism maintaining helmet positioning upon dynamic impact.",
+          "Visor aperture and attachment: Optical clearance and mechanical retention where a protective visor is fitted.",
+          "Mass: Mass limitations specified per helmet nominal size category to prevent rider cervical fatigue.",
+          "Workmanship and finish: Smooth surfaces free from dangerous inward projections, burrs, or sharp edges."
+        ],
+        "materials": [
+          "High-impact polycarbonate",
+          "Fibre-reinforced polyester",
+          "Expanded polystyrene (EPS) liner",
+          "Nylon retention webbing",
+          "Anti-scratch optical polycarbonate visor"
+        ],
+        "performance_requirements": [
+          "Impact absorption attenuation (transmitted acceleration below peak threshold when dropped onto flat and kerbstone anvils)",
+          "Rigidity resistance (preservation of transverse and longitudinal structural integrity under compressive loading)",
+          "Retention system dynamic displacement (resistance to dynamic displacement and chinstrap elongation)",
+          "Retention roll-off / detachment resistance (helmet retention on headform during directional dislodgement forces)",
+          "Peripheral vision angle retention (horizontal field of vision not less than 105 degrees from median plane)",
+          "Audibility performance (sound transmission preservation for traffic alertness)"
+        ],
+        "safety_requirements": [
+          "Protection against high-velocity vehicular collision and kinetic head impact on roads",
+          "Prevention of helmet detachment during rider deceleration, roll-over, or roadway sliding",
+          "Retention of unobstructed peripheral field of vision for road situational awareness",
+          "Prevention of localized skull fracture through wide energy dissipation across EPS protective liner",
+          "Chinstrap slippage limitation under sudden deceleration"
+        ],
+        "testing_requirements": [
+          "Clause 8.1 / 9 - Impact absorption test (Drop impact onto flat and kerbstone anvils measuring headform triaxial acceleration)",
+          "Clause 9.2 - Rigidity test (Compressive initial and maximum load deformation test along longitudinal and transverse axes)",
+          "Clause 9.3 - Dynamic test of retention system (Drop-weight impulse dynamic pull test measuring chinstrap elongation and displacement)",
+          "Clause 9.4 - Retention system detachment (roll-off) test (Rotational dislodgement evaluation ensuring helmet stays securely positioned on headform)",
+          "Clause 9.5 - Conditioning tests (Impact testing after thermal conditioning at ambient, heat (+50°C), cold (-20°C), and water immersion)",
+          "Clause 9.6 - Visor testing (where fitted) (Evaluation of luminous transmittance, refractive distortion, and scratch resistance)"
+        ],
+        "version": "IS 4151:2015 (Fourth Revision, Reaffirmed 2020)",
+        "publication_year": 2015,
+        "status": "active",
+        "certification": {
+          "scheme": "BIS Scheme-I / Standard Mark (ISI Licensing)",
+          "qcoOrder": "Two Wheeler Mass Transit and Protective Helmets (Quality Control) Order",
+          "requirementValue": "Mandatory BIS Standard Mark under Section 129 of Motor Vehicles Act & Protective Helmets QCO",
+          "requirementExplicit": true,
+          "hasCertificationInfo": true,
+          "regulatoryRequirement": "Under Section 129 of the Motor Vehicles Act, 1988, every person driving or riding a two-wheeler motorcycle shall wear protective headgear conforming to standards specified by BIS."
+        }
+      }
+    },
+    {
+      "relationshipId": 5,
+      "direction": "outgoing",
+      "relationshipType": "allied_product",
+      "relationshipSource": "BIS Protective Headgear Catalogue",
+      "standard": {
+        "id": 5,
+        "is_number": "IS 2745:1983",
+        "title": "Specification for Non-Metal Helmet for Firemen and Civil Defence Personnel",
+        "scope": "Covers requirements regarding material, design, construction, finish, and performance for non-metal helmets intended for fire fighting, rescue, and civil defence operations.",
+        "category": "Personal Protective Equipment / Emergency Service Headgear",
+        "description": "Indian Standard specification for civil defence and firefighting protective helmets.",
+        "application": "Head protection for fire fighting personnel, civil defence forces, and emergency rescue workers.",
+        "technical_requirements": [
+          "Shell: Heat-resistant, non-metallic composite shell providing thermal barrier and projectile deflection.",
+          "Headband and cradle assembly: Flame-retardant harness providing structural standoff clearance from shell crown.",
+          "Neck curtain / flap attachment: Protection against falling embers, sparks, and hot liquids.",
+          "Chin strap with quick-release fastener: Secure retention under operational emergency conditions.",
+          "Reflective markings: High-visibility retro-reflective finish for low-light rescue operations.",
+          "Workmanship and finish: Smooth non-conductive surfaces free from hazardous burrs or defects.",
+          "Mass: Controlled mass ensuring operational mobility during prolonged emergency response."
+        ],
+        "materials": [
+          "Moulded glass fibre reinforced plastics (FRP)",
+          "Heat-resistant polycarbonate",
+          "Flame-retardant treated webbing",
+          "Aluminized flame-resistant neck curtain fabric"
+        ],
+        "performance_requirements": [
+          "Shock absorption resistance under elevated thermal radiant conditioning",
+          "Penetration resistance under thermal and ambient exposure",
+          "Flammability resistance (self-extinguishing after direct Bunsen burner flame exposure)",
+          "Electrical insulation resistance (high-voltage protection against fallen power lines)",
+          "Radiant heat resistance (mitigation of heat transfer to wearer skull)",
+          "Water absorption resistance"
+        ],
+        "safety_requirements": [
+          "Thermal barrier protection against radiant heat and burning embers in firefighting",
+          "Mechanical impact and falling masonry hazard protection during structural rescue",
+          "Electrical shock protection from accidental contact with exposed live overhead wiring",
+          "Molten debris deflection without thermoplastic melting onto wearer head",
+          "Secure retention during energetic rescue maneuvers"
+        ],
+        "testing_requirements": [
+          "Clause 6 - Design and construction (Inspection of non-metallic shell, standoff clearance, and neck curtain mountings)",
+          "Clause 7.1 - Shock absorption test (Drop striker impact test onto headform measuring peak transmitted force after thermal radiant exposure)",
+          "Clause 7.2 - Penetration test (Drop test with conical steel striker on shell crown after oven conditioning)",
+          "Clause 7.3 - Flammability test (Direct burner flame exposure evaluating self-extinguishing duration and afterglow)",
+          "Clause 7.4 - Electrical proof test (Immersion high-voltage insulation test to evaluate leakage current resistance)",
+          "Clause 7.5 - Radiant heat test (Radiant thermal panel exposure test measuring interior temperature rise)"
+        ],
+        "version": "IS 2745:1983 (First Revision, Reaffirmed 2018)",
+        "publication_year": 1983,
+        "status": "active",
+        "certification": {
+          "scheme": "BIS Scheme-I / Standard Mark",
+          "qcoOrder": "Helmet for Police Force, Civil Defence and Personal Protection (Quality Control) Order, 2023",
+          "requirementValue": "Mandatory BIS Standard Mark under S.O. 4649(E)",
+          "requirementExplicit": true,
+          "hasCertificationInfo": true,
+          "regulatoryRequirement": "Covered under S.O. 4649(E) requiring BIS Standard Mark under Scheme-I for civil defence personnel helmets."
+        }
+      }
+    }
+  ],
+  "related_standards": [
+    {
+      "id": 6,
+      "is_number": "IS 7692:1993",
+      "title": "Specification for Headforms for Testing of Helmets",
+      "scope": "Specifies anatomical dimensions, mass distribution, and resonant frequency of headforms for impact and retention testing.",
+      "category": "Test Equipment / Testing Standard",
+      "description": "Testing standard specifying reference headforms.",
+      "application": "Laboratory helmet drop testing, shock absorption calibration, and retention verification.",
+      "technical_requirements": [
+        "Standard headform sizes 535 mm, 575 mm, 605 mm",
+        "Resonant frequency > 3000 Hz",
+        "Low-damping metal alloy material"
+      ],
+      "materials": [
+        "Aluminium-silicon alloy",
+        "Magnesium K1A alloy"
+      ],
+      "performance_requirements": [
+        "Triaxial accelerometer mount at center of gravity"
+      ],
+      "safety_requirements": [],
+      "testing_requirements": [
+        "Dimensional tolerance verification",
+        "Mass calibration"
+      ],
+      "version": "IS 7692:1993 (Reaffirmed 2019)",
+      "publication_year": 1993,
+      "status": "active",
+      "certification": {},
+      "relationship_id": 2,
+      "relationship_type": "testing",
+      "relationship_source": "BIS Product Manual for IS 2925:1984",
+      "direction": "outgoing"
+    },
+    {
+      "id": 7,
+      "is_number": "IS 9695:1980",
+      "title": "Methods for Sampling of Helmets",
+      "scope": "Prescribes methods of sampling and criteria for conformity of helmets under batch inspection.",
+      "category": "Sampling / Quality Control",
+      "description": "Statistical sampling and lot acceptance criteria standard for helmet procurement.",
+      "application": "Quality acceptance lot sampling for bulk procurement.",
+      "technical_requirements": [
+        "Lot size classification",
+        "Sample size selection table",
+        "Acceptable quality level criteria"
+      ],
+      "materials": [],
+      "performance_requirements": [
+        "Statistical confidence limit verification"
+      ],
+      "safety_requirements": [],
+      "testing_requirements": [
+        "Batch destructive sampling protocols"
+      ],
+      "version": "IS 9695:1980 (Reaffirmed 2018)",
+      "publication_year": 1980,
+      "status": "active",
+      "certification": {},
+      "relationship_id": 3,
+      "relationship_type": "sampling",
+      "relationship_source": "BIS Sampling Guidelines",
+      "direction": "outgoing"
+    },
+    {
+      "id": 4,
+      "is_number": "IS 4151:2015",
+      "title": "Protective Helmets for Motorcycle Riders",
+      "scope": "Covers requirements regarding material, construction, workmanship and finish, mass, and performance requirements for protective helmets for motorcycle riders.",
+      "category": "Personal Protective Equipment / Vehicular Headgear",
+      "description": "Indian Standard specification for motorcycle and scooter riders protective helmets.",
+      "application": "Protective helmets for motorcycle, scooter, and two-wheeler vehicular riders on roads.",
+      "technical_requirements": [
+        "Shell: Rigid outer protective shell constructed of thermoplastic or thermoset composite materials designed to withstand high-velocity vehicular impact.",
+        "Protective padding: Impact energy absorption liner made of expanded polystyrene (EPS) engineered to absorb and dissipate kinetic shock.",
+        "Comfort padding: Inner lining and sweatband ensuring ergonomic fit, sweat dissipation, and head retention.",
+        "Retention system: Chinstrap assembly and fastening mechanism maintaining helmet positioning upon dynamic impact.",
+        "Visor aperture and attachment: Optical clearance and mechanical retention where a protective visor is fitted.",
+        "Mass: Mass limitations specified per helmet nominal size category to prevent rider cervical fatigue.",
+        "Workmanship and finish: Smooth surfaces free from dangerous inward projections, burrs, or sharp edges."
+      ],
+      "materials": [
+        "High-impact polycarbonate",
+        "Fibre-reinforced polyester",
+        "Expanded polystyrene (EPS) liner",
+        "Nylon retention webbing",
+        "Anti-scratch optical polycarbonate visor"
+      ],
+      "performance_requirements": [
+        "Impact absorption attenuation (transmitted acceleration below peak threshold when dropped onto flat and kerbstone anvils)",
+        "Rigidity resistance (preservation of transverse and longitudinal structural integrity under compressive loading)",
+        "Retention system dynamic displacement (resistance to dynamic displacement and chinstrap elongation)",
+        "Retention roll-off / detachment resistance (helmet retention on headform during directional dislodgement forces)",
+        "Peripheral vision angle retention (horizontal field of vision not less than 105 degrees from median plane)",
+        "Audibility performance (sound transmission preservation for traffic alertness)"
+      ],
+      "safety_requirements": [
+        "Protection against high-velocity vehicular collision and kinetic head impact on roads",
+        "Prevention of helmet detachment during rider deceleration, roll-over, or roadway sliding",
+        "Retention of unobstructed peripheral field of vision for road situational awareness",
+        "Prevention of localized skull fracture through wide energy dissipation across EPS protective liner",
+        "Chinstrap slippage limitation under sudden deceleration"
+      ],
+      "testing_requirements": [
+        "Clause 8.1 / 9 - Impact absorption test (Drop impact onto flat and kerbstone anvils measuring headform triaxial acceleration)",
+        "Clause 9.2 - Rigidity test (Compressive initial and maximum load deformation test along longitudinal and transverse axes)",
+        "Clause 9.3 - Dynamic test of retention system (Drop-weight impulse dynamic pull test measuring chinstrap elongation and displacement)",
+        "Clause 9.4 - Retention system detachment (roll-off) test (Rotational dislodgement evaluation ensuring helmet stays securely positioned on headform)",
+        "Clause 9.5 - Conditioning tests (Impact testing after thermal conditioning at ambient, heat (+50°C), cold (-20°C), and water immersion)",
+        "Clause 9.6 - Visor testing (where fitted) (Evaluation of luminous transmittance, refractive distortion, and scratch resistance)"
+      ],
+      "version": "IS 4151:2015 (Fourth Revision, Reaffirmed 2020)",
+      "publication_year": 2015,
+      "status": "active",
+      "certification": {
+        "scheme": "BIS Scheme-I / Standard Mark (ISI Licensing)",
+        "qcoOrder": "Two Wheeler Mass Transit and Protective Helmets (Quality Control) Order",
+        "requirementValue": "Mandatory BIS Standard Mark under Section 129 of Motor Vehicles Act & Protective Helmets QCO",
+        "requirementExplicit": true,
+        "hasCertificationInfo": true,
+        "regulatoryRequirement": "Under Section 129 of the Motor Vehicles Act, 1988, every person driving or riding a two-wheeler motorcycle shall wear protective headgear conforming to standards specified by BIS."
+      },
+      "relationship_id": 4,
+      "relationship_type": "allied_product",
+      "relationship_source": "BIS Protective Headgear Catalogue",
+      "direction": "outgoing"
+    },
+    {
+      "id": 5,
+      "is_number": "IS 2745:1983",
+      "title": "Specification for Non-Metal Helmet for Firemen and Civil Defence Personnel",
+      "scope": "Covers requirements regarding material, design, construction, finish, and performance for non-metal helmets intended for fire fighting, rescue, and civil defence operations.",
+      "category": "Personal Protective Equipment / Emergency Service Headgear",
+      "description": "Indian Standard specification for civil defence and firefighting protective helmets.",
+      "application": "Head protection for fire fighting personnel, civil defence forces, and emergency rescue workers.",
+      "technical_requirements": [
+        "Shell: Heat-resistant, non-metallic composite shell providing thermal barrier and projectile deflection.",
+        "Headband and cradle assembly: Flame-retardant harness providing structural standoff clearance from shell crown.",
+        "Neck curtain / flap attachment: Protection against falling embers, sparks, and hot liquids.",
+        "Chin strap with quick-release fastener: Secure retention under operational emergency conditions.",
+        "Reflective markings: High-visibility retro-reflective finish for low-light rescue operations.",
+        "Workmanship and finish: Smooth non-conductive surfaces free from hazardous burrs or defects.",
+        "Mass: Controlled mass ensuring operational mobility during prolonged emergency response."
+      ],
+      "materials": [
+        "Moulded glass fibre reinforced plastics (FRP)",
+        "Heat-resistant polycarbonate",
+        "Flame-retardant treated webbing",
+        "Aluminized flame-resistant neck curtain fabric"
+      ],
+      "performance_requirements": [
+        "Shock absorption resistance under elevated thermal radiant conditioning",
+        "Penetration resistance under thermal and ambient exposure",
+        "Flammability resistance (self-extinguishing after direct Bunsen burner flame exposure)",
+        "Electrical insulation resistance (high-voltage protection against fallen power lines)",
+        "Radiant heat resistance (mitigation of heat transfer to wearer skull)",
+        "Water absorption resistance"
+      ],
+      "safety_requirements": [
+        "Thermal barrier protection against radiant heat and burning embers in firefighting",
+        "Mechanical impact and falling masonry hazard protection during structural rescue",
+        "Electrical shock protection from accidental contact with exposed live overhead wiring",
+        "Molten debris deflection without thermoplastic melting onto wearer head",
+        "Secure retention during energetic rescue maneuvers"
+      ],
+      "testing_requirements": [
+        "Clause 6 - Design and construction (Inspection of non-metallic shell, standoff clearance, and neck curtain mountings)",
+        "Clause 7.1 - Shock absorption test (Drop striker impact test onto headform measuring peak transmitted force after thermal radiant exposure)",
+        "Clause 7.2 - Penetration test (Drop test with conical steel striker on shell crown after oven conditioning)",
+        "Clause 7.3 - Flammability test (Direct burner flame exposure evaluating self-extinguishing duration and afterglow)",
+        "Clause 7.4 - Electrical proof test (Immersion high-voltage insulation test to evaluate leakage current resistance)",
+        "Clause 7.5 - Radiant heat test (Radiant thermal panel exposure test measuring interior temperature rise)"
+      ],
+      "version": "IS 2745:1983 (First Revision, Reaffirmed 2018)",
+      "publication_year": 1983,
+      "status": "active",
+      "certification": {
+        "scheme": "BIS Scheme-I / Standard Mark",
+        "qcoOrder": "Helmet for Police Force, Civil Defence and Personal Protection (Quality Control) Order, 2023",
+        "requirementValue": "Mandatory BIS Standard Mark under S.O. 4649(E)",
+        "requirementExplicit": true,
+        "hasCertificationInfo": true,
+        "regulatoryRequirement": "Covered under S.O. 4649(E) requiring BIS Standard Mark under Scheme-I for civil defence personnel helmets."
+      },
+      "relationship_id": 5,
+      "relationship_type": "allied_product",
+      "relationship_source": "BIS Protective Headgear Catalogue",
+      "direction": "outgoing"
+    }
+  ]
+}

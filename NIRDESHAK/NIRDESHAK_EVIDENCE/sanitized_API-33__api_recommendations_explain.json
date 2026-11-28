@@ -1,0 +1,356 @@
+{
+  "success": true,
+  "query": "protective headgear for industrial manufacturing",
+  "count": 2,
+  "recommendations": [
+    {
+      "standardId": 1,
+      "is_number": "TEST-IS-2925-MOCK",
+      "title": "[DEVELOPMENT TEST RECORD] Industrial Safety Helmets Specification (Synthetic Verification)",
+      "scope": "This standard specifies requirements for industrial safety helmets.",
+      "category": "Safety Equipment",
+      "application": "Construction, industrial manufacturing, mining head protection",
+      "version": "TEST-REV-2026",
+      "publicationYear": 2026,
+      "status": "active",
+      "technical_requirements": [
+        "Shell: Outer structural crown providing impact deflection and head clearance.",
+        "Harness: Headband, cradle, and chinstrap assembly for energy distribution.",
+        "Sizes: Standard declared head sizes 520 mm to 600 mm."
+      ],
+      "technicalRequirements": [
+        "Shell: Outer structural crown providing impact deflection and head clearance.",
+        "Harness: Headband, cradle, and chinstrap assembly for energy distribution.",
+        "Sizes: Standard declared head sizes 520 mm to 600 mm."
+      ],
+      "performance_requirements": [
+        "Shock absorption resistance mitigating kinetic energy from falling objects",
+        "Penetration resistance preventing striker skull contact"
+      ],
+      "performanceRequirements": [
+        "Shock absorption resistance mitigating kinetic energy from falling objects",
+        "Penetration resistance preventing striker skull contact"
+      ],
+      "safety_requirements": [
+        "Protection against vertical mechanical falling objects and overhead impacts"
+      ],
+      "safetyRequirements": [
+        "Protection against vertical mechanical falling objects and overhead impacts"
+      ],
+      "testing_requirements": [
+        {
+          "clause": "Clause 8.1",
+          "title": "Shock absorption test",
+          "description": "Drop impact test measuring transmitted force."
+        },
+        {
+          "clause": "Clause 8.2",
+          "title": "Penetration test",
+          "description": "Drop test with conical striker."
+        }
+      ],
+      "testingRequirements": [
+        {
+          "clause": "Clause 8.1",
+          "title": "Shock absorption test",
+          "description": "Drop impact test measuring transmitted force."
+        },
+        {
+          "clause": "Clause 8.2",
+          "title": "Penetration test",
+          "description": "Drop test with conical striker."
+        }
+      ],
+      "details": {
+        "scope": "This standard specifies requirements for industrial safety helmets.",
+        "application": "Construction, industrial manufacturing, mining head protection",
+        "technical_requirements": [
+          "Shell: Outer structural crown providing impact deflection and head clearance.",
+          "Harness: Headband, cradle, and chinstrap assembly for energy distribution.",
+          "Sizes: Standard declared head sizes 520 mm to 600 mm."
+        ],
+        "technicalRequirements": [
+          "Shell: Outer structural crown providing impact deflection and head clearance.",
+          "Harness: Headband, cradle, and chinstrap assembly for energy distribution.",
+          "Sizes: Standard declared head sizes 520 mm to 600 mm."
+        ],
+        "performance_requirements": [
+          "Shock absorption resistance mitigating kinetic energy from falling objects",
+          "Penetration resistance preventing striker skull contact"
+        ],
+        "performanceRequirements": [
+          "Shock absorption resistance mitigating kinetic energy from falling objects",
+          "Penetration resistance preventing striker skull contact"
+        ],
+        "safety_requirements": [
+          "Protection against vertical mechanical falling objects and overhead impacts"
+        ],
+        "safetyRequirements": [
+          "Protection against vertical mechanical falling objects and overhead impacts"
+        ],
+        "testing_requirements": [
+          {
+            "clause": "Clause 8.1",
+            "title": "Shock absorption test",
+            "description": "Drop impact test measuring transmitted force."
+          },
+          {
+            "clause": "Clause 8.2",
+            "title": "Penetration test",
+            "description": "Drop test with conical striker."
+          }
+        ],
+        "testingRequirements": [
+          {
+            "clause": "Clause 8.1",
+            "title": "Shock absorption test",
+            "description": "Drop impact test measuring transmitted force."
+          },
+          {
+            "clause": "Clause 8.2",
+            "title": "Penetration test",
+            "description": "Drop test with conical striker."
+          }
+        ]
+      },
+      "scores": {
+        "semantic": 0.6656,
+        "text": 0.8,
+        "scopeApplication": 0.4,
+        "structured": 0,
+        "structuredRequirement": 0,
+        "final": 0.5994,
+        "rank": 1
+      },
+      "rank": 1,
+      "final_score": 0.5994,
+      "semantic_similarity": 0.6656,
+      "text_match": 0.8,
+      "scope_match": 0.4,
+      "requirement_match": 0,
+      "versionStatus": {
+        "statusCategory": "current",
+        "statusValue": "active",
+        "hasAmendments": true,
+        "amendmentInfo": [
+          "Mock Amendment 1"
+        ],
+        "isSuperseded": false,
+        "supersededBy": null,
+        "version": "TEST-REV-2026",
+        "publicationYear": 2026
+      },
+      "certification": {
+        "hasCertificationInfo": true,
+        "scheme": "Mock Scheme",
+        "schemeDetected": true,
+        "requirementExplicit": true,
+        "requirementValue": false,
+        "dataContext": "development_test",
+        "source": "DEVELOPMENT_TEST_DATA"
+      },
+      "relatedStandards": [
+        {
+          "relationshipId": 1,
+          "standardId": 2,
+          "is_number": "TEST-IS-4151-MOCK",
+          "title": "[DEVELOPMENT TEST RECORD] Protective Helmets for Motorcycle Riders",
+          "relationshipType": "testing",
+          "direction": "outgoing",
+          "standard": {
+            "id": 2,
+            "is_number": "TEST-IS-4151-MOCK",
+            "title": "[DEVELOPMENT TEST RECORD] Protective Helmets for Motorcycle Riders"
+          }
+        }
+      ],
+      "whyRelevant": "TEST-IS-2925-MOCK is relevant to the requirement \"Industrial safety helmets for construction workers\" based on high semantic alignment and keyword matching across safety helmet specifications.",
+      "evidence": [
+        "Matches industrial safety helmet product category",
+        "Directly addresses construction workplace head protection",
+        "High semantic similarity score of 66.6%"
+      ],
+      "explanation": {
+        "whyRelevant": "TEST-IS-2925-MOCK is relevant to the requirement \"Industrial safety helmets for construction workers\" based on high semantic alignment and keyword matching across safety helmet specifications.",
+        "evidence": [
+          "Matches industrial safety helmet product category",
+          "Directly addresses construction workplace head protection",
+          "High semantic similarity score of 66.6%"
+        ]
+      },
+      "source": "DEVELOPMENT_TEST_DATA - Synthetic record for Step 4 database verification only",
+      "dataContext": "development_test"
+    },
+    {
+      "standardId": 2,
+      "is_number": "TEST-IS-4151-MOCK",
+      "title": "[DEVELOPMENT TEST RECORD] Protective Helmets for Motorcycle Riders",
+      "scope": "This standard covers requirements for protective helmets for riders.",
+      "category": "Protective Headgear",
+      "application": "Two-wheeler riders, motorized transport headgear",
+      "version": "TEST-REV-2026",
+      "publicationYear": 2026,
+      "status": "active",
+      "technical_requirements": [
+        "Shell: Rigid thermoplastic or thermoset protective shell.",
+        "Protective padding: High-density EPS energy absorption liner.",
+        "Retention system: Chinstrap and dynamic fastening mechanism."
+      ],
+      "technicalRequirements": [
+        "Shell: Rigid thermoplastic or thermoset protective shell.",
+        "Protective padding: High-density EPS energy absorption liner.",
+        "Retention system: Chinstrap and dynamic fastening mechanism."
+      ],
+      "performance_requirements": [
+        "Impact absorption attenuation on flat and kerbstone anvils",
+        "Dynamic retention system elongation resistance"
+      ],
+      "performanceRequirements": [
+        "Impact absorption attenuation on flat and kerbstone anvils",
+        "Dynamic retention system elongation resistance"
+      ],
+      "safety_requirements": [
+        "Protection against high-velocity vehicular impact on roadways"
+      ],
+      "safetyRequirements": [
+        "Protection against high-velocity vehicular impact on roadways"
+      ],
+      "testing_requirements": [
+        {
+          "clause": "Clause 8.1 / 9",
+          "title": "Impact absorption test",
+          "description": "Drop impact onto flat and kerbstone anvils."
+        },
+        {
+          "clause": "Clause 9.3",
+          "title": "Dynamic test of retention system",
+          "description": "Dynamic drop impulse pull test."
+        }
+      ],
+      "testingRequirements": [
+        {
+          "clause": "Clause 8.1 / 9",
+          "title": "Impact absorption test",
+          "description": "Drop impact onto flat and kerbstone anvils."
+        },
+        {
+          "clause": "Clause 9.3",
+          "title": "Dynamic test of retention system",
+          "description": "Dynamic drop impulse pull test."
+        }
+      ],
+      "details": {
+        "scope": "This standard covers requirements for protective helmets for riders.",
+        "application": "Two-wheeler riders, motorized transport headgear",
+        "technical_requirements": [
+          "Shell: Rigid thermoplastic or thermoset protective shell.",
+          "Protective padding: High-density EPS energy absorption liner.",
+          "Retention system: Chinstrap and dynamic fastening mechanism."
+        ],
+        "technicalRequirements": [
+          "Shell: Rigid thermoplastic or thermoset protective shell.",
+          "Protective padding: High-density EPS energy absorption liner.",
+          "Retention system: Chinstrap and dynamic fastening mechanism."
+        ],
+        "performance_requirements": [
+          "Impact absorption attenuation on flat and kerbstone anvils",
+          "Dynamic retention system elongation resistance"
+        ],
+        "performanceRequirements": [
+          "Impact absorption attenuation on flat and kerbstone anvils",
+          "Dynamic retention system elongation resistance"
+        ],
+        "safety_requirements": [
+          "Protection against high-velocity vehicular impact on roadways"
+        ],
+        "safetyRequirements": [
+          "Protection against high-velocity vehicular impact on roadways"
+        ],
+        "testing_requirements": [
+          {
+            "clause": "Clause 8.1 / 9",
+            "title": "Impact absorption test",
+            "description": "Drop impact onto flat and kerbstone anvils."
+          },
+          {
+            "clause": "Clause 9.3",
+            "title": "Dynamic test of retention system",
+            "description": "Dynamic drop impulse pull test."
+          }
+        ],
+        "testingRequirements": [
+          {
+            "clause": "Clause 8.1 / 9",
+            "title": "Impact absorption test",
+            "description": "Drop impact onto flat and kerbstone anvils."
+          },
+          {
+            "clause": "Clause 9.3",
+            "title": "Dynamic test of retention system",
+            "description": "Dynamic drop impulse pull test."
+          }
+        ]
+      },
+      "scores": {
+        "semantic": 0.5609,
+        "text": 0.2,
+        "scopeApplication": 0.2,
+        "structured": 0,
+        "structuredRequirement": 0,
+        "final": 0.4032,
+        "rank": 2
+      },
+      "rank": 2,
+      "final_score": 0.4032,
+      "semantic_similarity": 0.5609,
+      "text_match": 0.2,
+      "scope_match": 0.2,
+      "requirement_match": 0,
+      "versionStatus": {
+        "statusCategory": "current",
+        "statusValue": "active",
+        "hasAmendments": false,
+        "amendmentInfo": [],
+        "isSuperseded": false,
+        "supersededBy": null,
+        "version": "TEST-REV-2026",
+        "publicationYear": 2026
+      },
+      "certification": {
+        "hasCertificationInfo": false,
+        "scheme": null,
+        "schemeDetected": false,
+        "requirementExplicit": false,
+        "requirementValue": null,
+        "dataContext": "development_test",
+        "source": null
+      },
+      "relatedStandards": [
+        {
+          "relationshipId": 1,
+          "standardId": 1,
+          "is_number": "TEST-IS-2925-MOCK",
+          "title": "[DEVELOPMENT TEST RECORD] Industrial Safety Helmets Specification (Synthetic Verification)",
+          "relationshipType": "testing",
+          "direction": "incoming",
+          "standard": {
+            "id": 1,
+            "is_number": "TEST-IS-2925-MOCK",
+            "title": "[DEVELOPMENT TEST RECORD] Industrial Safety Helmets Specification (Synthetic Verification)"
+          }
+        }
+      ],
+      "whyRelevant": "TEST-IS-4151-MOCK covers protective headgear and is linked via testing relationships.",
+      "evidence": [
+        "Protective helmet domain alignment",
+        "Testing relationship with TEST-IS-2925-MOCK"
+      ]
+    }
+  ],
+  "summary": "Retrieved 2 standards matching the requirement for industrial safety helmets.",
+  "limitations": [
+    "Based on development test database records",
+    "Demonstration evaluation profile"
+  ],
+  "explanationGenerated": true
+}
