@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -20,11 +21,23 @@ const cameraRoutes = require('./routes/camera.routes');
 const detectionRoutes = require('./routes/detection.routes');
 const incidentRoutes = require('./routes/incident.routes');
 const supervisorRoutes = require('./routes/supervisor.routes');
+const dashboardRoutes = require('./routes/dashboard.routes');
+const notificationRoutes = require('./routes/notification.routes');
+const syncRoutes = require('./routes/sync.routes');
+const saasRoutes = require('./routes/saas.routes');
+const { Device } = require('./models/Device.model');
+const { Camera } = require('./models/Camera.model');
+const { getCloudSyncStatusSummary } = require('./services/cloudSync.service');
 
 const app = express();
 
-// 1. Security Headers
-app.use(helmet());
+// 1. Security Headers (configured to allow frontend CDN scripts & local ML stream on port 8765)
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
 // 2. CORS Configuration
 app.use(
@@ -32,7 +45,13 @@ app.use(
     origin: (origin, callback) => {
       const { clientUrl, nodeEnv } = getEnv();
       const allowedOrigins = clientUrl.split(',').map((o) => o.trim());
-      if (!origin || nodeEnv === 'test' || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      if (
+        !origin ||
+        origin === 'null' ||
+        nodeEnv !== 'production' ||
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes('*')
+      ) {
         return callback(null, true);
       }
       return callback(new Error('Not allowed by CORS'));
@@ -64,13 +83,35 @@ app.use('/api', apiLimiter);
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
-// 6. Health Check Endpoint
+// 6. Health Check & Offline/Online Connectivity Endpoints
 app.get('/api/health', (_req, res) => {
   return sendSuccess(res, 200, 'SmartPPE - Warden\'s Eye Backend API is operational', {
     status: 'UP',
     databaseConnected: getIsConnected(),
     timestamp: new Date().toISOString(),
   });
+});
+
+app.get('/api/health/connectivity', async (_req, res, next) => {
+  try {
+    const [onlineDevices, onlineCameras, syncSummary] = await Promise.all([
+      Device.countDocuments({ status: 'ONLINE' }),
+      Camera.countDocuments({ status: 'ONLINE' }),
+      getCloudSyncStatusSummary(),
+    ]);
+    return sendSuccess(res, 200, 'Connectivity and offline autonomy status retrieved', {
+      lanMode: 'ACTIVE',
+      databaseConnected: getIsConnected(),
+      onlineDevices,
+      onlineCameras,
+      cloudSyncState: syncSummary.cloudSyncState,
+      pendingSyncCount: syncSummary.pendingCount,
+      failedRetryCount: syncSummary.failedRetryCount,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err) {
+    return next(err);
+  }
 });
 
 // 7. Initial Foundation, Phase 2 Admin & Phase 3 Hardware Ingestion API Routes
@@ -86,6 +127,14 @@ app.use('/api/cameras', cameraRoutes);
 app.use('/api/detections', detectionRoutes);
 app.use('/api/incidents', incidentRoutes);
 app.use('/api/supervisor', supervisorRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/sync', syncRoutes);
+app.use('/api', saasRoutes);
+
+// Serve Frontend UI directly at http://localhost:5000/
+const frontendDir = path.resolve(__dirname, '../../frontend');
+app.use(express.static(frontendDir));
 
 // 8. 404 Not Found & Centralized Error Handling
 app.use(notFoundHandler);

@@ -38,6 +38,7 @@ from app.safety.engine import SafetyEngine, SafetyStatus, STATUS_STANDBY, STATUS
 from app.events.manager import EventManager
 from app.events.backend_client import BackendAPIClient
 from app.video.source import VideoSource
+from app.video.web_streamer import WebStreamPublisher
 from app.ui.overlay import OverlayRenderer
 from app.utils.logger import setup_logging, get_logger
 
@@ -71,6 +72,8 @@ class MainWindow:
         self.backend_client = BackendAPIClient()
         self.video_source = VideoSource()
         self.overlay_renderer = OverlayRenderer()
+        self.web_streamer = WebStreamPublisher(host="127.0.0.1", port=8765)
+        self.web_streamer.start()
 
         # ── State ──────────────────────────────────────────
         self.models_loaded = False
@@ -877,6 +880,9 @@ class MainWindow:
             self._current_status = STATUS_STANDBY
             self._display_fps = 0.0
 
+        self.web_streamer.set_standby(
+            model_ready=(self.ppe_model_ok and self.fire_model_ok)
+        )
         self.event_manager.add_system_event("Monitoring stopped")
         log.info("Detection stopped.")
 
@@ -967,6 +973,18 @@ class MainWindow:
                 self._current_status = status
                 self._display_fps = display_fps
                 self._frame_seq += 1
+
+            # Publish annotated frame & telemetry to the Web Frontend (http://127.0.0.1:8765)
+            self.web_streamer.update_frame(
+                frame=frame,
+                ppe_results=ppe_results,
+                fire_results=fire_results,
+                safety_level=status.level,
+                safety_message=status.message,
+                fps=display_fps,
+                source_name=self.video_source.source_name,
+                model_ready=(self.ppe_model_ok and self.fire_model_ok),
+            )
 
         log.info("Detection loop ended.")
 
@@ -1304,6 +1322,7 @@ class MainWindow:
             self._detection_thread.join(timeout=3.0)
 
         self.video_source.release()
+        self.web_streamer.stop()
         self.root.destroy()
 
         log.info("PPE Safety Monitoring System shut down cleanly.")

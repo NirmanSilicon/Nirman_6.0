@@ -6,6 +6,10 @@ const { Incident } = require('../models/Incident.model');
 const { Worker } = require('../models/Worker.model');
 const { Zone } = require('../models/Zone.model');
 const { recordAuditLog } = require('../services/audit.service');
+const {
+  buildManualSosSummary,
+  dispatchCriticalEmergencyAlerts,
+} = require('../services/emergency.service');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -77,33 +81,14 @@ const submitSensorEvent = async (req, res, next) => {
       } else {
         let manualSosSummary = null;
         if (isEmergency) {
-          const [zoneDoc, activeZoneWorkers] = await Promise.all([
-            Zone.findById(device.zoneId).lean(),
-            Worker.find({ lastSeenZoneId: device.zoneId, status: 'ACTIVE' })
-              .select('employeeCode name department lastRfidScanAt')
-              .lean(),
-          ]);
-
-          const zoneLabel = zoneDoc ? `${zoneDoc.zoneName} (${zoneDoc.zoneCode})` : device.zoneId.toString();
-          manualSosSummary = {
-            headline: 'URGENT INDUSTRIAL EMERGENCY — MANUAL DISPATCH REQUIRED',
+          manualSosSummary = await buildManualSosSummary({
             incidentType,
-            severity: 'CRITICAL',
-            zoneId: device.zoneId.toString(),
-            zoneLabel,
+            zoneId: device.zoneId,
             deviceOrCameraCode: device.deviceCode,
             sensorValue,
             threshold,
-            occurredAt: eventTimestamp.toISOString(),
-            activeWorkersInZone: activeZoneWorkers.map((w) => ({
-              employeeCode: w.employeeCode,
-              name: w.name,
-              department: w.department,
-            })),
-            automatedExternalDispatch: false,
-            disclaimer:
-              'Automated external fire/ambulance dispatch is NOT enabled. Forward this SOS summary or contact emergency services manually.',
-          };
+            occurredAt: eventTimestamp,
+          });
         }
 
         activeIncident = await Incident.create({
@@ -118,9 +103,14 @@ const submitSensorEvent = async (req, res, next) => {
           deviceOrCameraCode: device.deviceCode,
           description: `Supplementary ${sensorType} sensor reported ${alertStatus} level (${sensorValue} >= threshold ${threshold}) at device ${device.deviceCode}`,
           occurrenceCount: 1,
+          speakerWarningPlayedAt: isEmergency ? new Date() : null,
           escalatedToSupervisorAt: new Date(),
           manualSosSummary,
         });
+
+        if (isEmergency && manualSosSummary) {
+          dispatchCriticalEmergencyAlerts({ incident: activeIncident, manualSosSummary });
+        }
 
         incidentCreated = true;
         incidentId = activeIncident.incidentId;

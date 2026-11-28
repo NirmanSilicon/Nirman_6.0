@@ -8,6 +8,10 @@ const { IncidentEvidence } = require('../models/IncidentEvidence.model');
 const { recordAuditLog } = require('../services/audit.service');
 const { Zone } = require('../models/Zone.model');
 const { playZoneWarningAudio } = require('../services/speaker.service');
+const {
+  buildManualSosSummary,
+  dispatchCriticalEmergencyAlerts,
+} = require('../services/emergency.service');
 const { handleSafeComplianceRecovery } = require('../services/warningEscalation.service');
 const { eventBus } = require('../services/eventBus');
 const { AppError } = require('../utils/AppError');
@@ -312,6 +316,18 @@ const submitDetection = async (req, res, next) => {
         const missingListText =
           missingPPE.length > 0 ? missingPPE.join(', ') : incidentType;
 
+        let manualSosSummary = null;
+        if (isEmergency) {
+          manualSosSummary = await buildManualSosSummary({
+            incidentType,
+            zoneId: camera.zoneId,
+            deviceOrCameraCode: camera.cameraCode,
+            workerId: verifiedWorkerId,
+            confidence: overallConfidence,
+            occurredAt: detectionTimestamp,
+          });
+        }
+
         activeIncident = await Incident.create({
           incidentType,
           isEmergency,
@@ -323,12 +339,13 @@ const submitDetection = async (req, res, next) => {
           sourceType: 'CAMERA_DETECTION',
           sourceId: newDetection._id,
           deviceOrCameraCode: camera.cameraCode,
-          description: `${mockPrefix}PPE violation (${missingListText}) detected on camera ${camera.cameraCode} (confidence: ${overallConfidence})`,
+          description: `${mockPrefix}${isEmergency ? 'Critical emergency' : 'PPE violation'} (${missingListText}) detected on camera ${camera.cameraCode} (confidence: ${overallConfidence})`,
           occurrenceCount: 1,
-          speakerWarningPlayedAt: isEmergency ? null : now,
+          speakerWarningPlayedAt: now,
           graceStartedAt: isEmergency ? null : now,
           graceExpiresAt: isEmergency ? null : new Date(now.getTime() + warningGraceSeconds * 1000),
           escalatedToSupervisorAt: isEmergency ? now : null,
+          manualSosSummary,
         });
 
         incidentCreated = true;
@@ -347,13 +364,18 @@ const submitDetection = async (req, res, next) => {
         await recordAuditLog({
           actorId: null,
           actorRole: 'ML_SERVICE',
-          action: isMockDetection ? 'MOCK_PPE_VIOLATION_DETECTED' : 'PPE_VIOLATION_DETECTED',
+          action: isEmergency
+            ? 'CRITICAL_CAMERA_EMERGENCY_CREATED'
+            : isMockDetection
+              ? 'MOCK_PPE_VIOLATION_DETECTED'
+              : 'PPE_VIOLATION_DETECTED',
           entityType: 'INCIDENT',
           entityId: activeIncident.incidentId,
           details: {
             cameraCode: camera.cameraCode,
             zoneId: camera.zoneId.toString(),
             incidentType,
+            isEmergency,
             detectionState,
             isMockDetection,
             workerId: verifiedWorkerId ? verifiedWorkerId.toString() : null,
@@ -361,8 +383,10 @@ const submitDetection = async (req, res, next) => {
           },
         });
 
-        // Normal PPE violation: local speaker warning + 120-second grace period announcement
-        if (!isEmergency) {
+        // Critical emergency vs. Normal PPE violation announcement
+        if (isEmergency && manualSosSummary) {
+          dispatchCriticalEmergencyAlerts({ incident: activeIncident, manualSosSummary });
+        } else if (!isEmergency) {
           const zoneDoc = await Zone.findById(camera.zoneId).lean();
           playZoneWarningAudio({
             zoneCode: zoneDoc ? zoneDoc.zoneCode : null,

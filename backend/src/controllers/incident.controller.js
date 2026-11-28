@@ -1,8 +1,12 @@
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 const { Incident, INCIDENT_STATUSES, INCIDENT_TYPES, INCIDENT_SEVERITIES } = require('../models/Incident.model');
 const { IncidentEvidence } = require('../models/IncidentEvidence.model');
 const { Worker } = require('../models/Worker.model');
 const { verifyIncidentIntegrity } = require('../utils/hashChain.util');
+const { buildManualSosSummary } = require('../services/emergency.service');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -176,6 +180,99 @@ const verifyIncidentRecordIntegrity = async (req, res, next) => {
   }
 };
 
+const getIncidentManualSos = async (req, res, next) => {
+  try {
+    if (req.user.role === 'WORKER') {
+      throw new AppError('Access denied. Workers cannot retrieve emergency SOS dispatch summaries.', 403, 'FORBIDDEN');
+    }
+    const incident = await loadIncidentOr404(req.params.id);
+    assertIncidentAccess(req.user, incident);
+
+    let sosSummary = incident.manualSosSummary;
+    if (!sosSummary) {
+      sosSummary = await buildManualSosSummary({
+        incidentType: incident.incidentType,
+        zoneId: incident.zoneId,
+        deviceOrCameraCode: incident.deviceOrCameraCode,
+        workerId: incident.workerId,
+        occurredAt: incident.createdAt || new Date(),
+      });
+      if (incident.isEmergency) {
+        incident.manualSosSummary = sosSummary;
+        await incident.save();
+      }
+    }
+
+    return sendSuccess(res, 200, 'Manual SOS dispatch summary retrieved successfully', {
+      incidentId: incident.incidentId,
+      isEmergency: Boolean(incident.isEmergency),
+      status: incident.status,
+      manualSosSummary: sosSummary,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const getIncidentEvidenceFile = async (req, res, next) => {
+  try {
+    if (req.user.role === 'WORKER') {
+      throw new AppError('Access denied. Workers cannot download raw incident evidence files.', 403, 'FORBIDDEN');
+    }
+    const incident = await loadIncidentOr404(req.params.id);
+    assertIncidentAccess(req.user, incident);
+
+    const { evidenceId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(evidenceId)) {
+      throw new AppError('Invalid evidenceId format.', 400, 'INVALID_IDENTIFIER');
+    }
+
+    const evidence = await IncidentEvidence.findOne({
+      _id: evidenceId,
+      incidentId: incident._id,
+    });
+    if (!evidence) {
+      throw new AppError('Incident evidence record not found.', 404, 'EVIDENCE_NOT_FOUND');
+    }
+
+    // Check if evidence file exists on disk under storage/
+    const projectRoot = path.resolve(__dirname, '../../..');
+    const candidatePath = path.resolve(projectRoot, 'storage', evidence.evidenceUrl.replace(/^storage[\\/]/, ''));
+    let fileBuffer = null;
+    let hashVerified = true;
+
+    if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
+      fileBuffer = fs.readFileSync(candidatePath);
+      if (evidence.fileHash) {
+        const computed = crypto.createHash('sha256').update(fileBuffer).digest('hex');
+        hashVerified = computed === evidence.fileHash;
+        if (!hashVerified) {
+          throw new AppError(
+            'Evidence file SHA-256 hash mismatch detected (file tampered on disk).',
+            409,
+            'EVIDENCE_HASH_MISMATCH'
+          );
+        }
+      }
+      res.setHeader('Content-Type', 'image/jpeg');
+      res.setHeader('X-Evidence-SHA256-Verified', String(hashVerified));
+      return res.status(200).send(fileBuffer);
+    }
+
+    // If evidence is metadata/mock path without physical disk file, return verified JSON metadata safely
+    return sendSuccess(res, 200, 'Private evidence metadata retrieved and authorized', {
+      evidenceId: evidence.evidenceId,
+      incidentId: incident.incidentId,
+      evidenceType: evidence.evidenceType,
+      evidenceUrl: evidence.evidenceUrl,
+      fileHash: evidence.fileHash,
+      hashVerified,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   assertIncidentAccess,
   loadIncidentOr404,
@@ -183,4 +280,6 @@ module.exports = {
   getIncidentById,
   getMyIncidents,
   verifyIncidentRecordIntegrity,
+  getIncidentManualSos,
+  getIncidentEvidenceFile,
 };

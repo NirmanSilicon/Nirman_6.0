@@ -13,10 +13,14 @@ const PPE_LABELS = {
   no_boots: 'safety boots',
 };
 
-const buildWarningMessage = ({ zoneName, zoneCode, missingPPE = [], graceSeconds }) => {
+const buildWarningMessage = ({ zoneName, zoneCode, missingPPE = [], graceSeconds, isEmergency = false }) => {
+  const zoneText = zoneName || zoneCode || 'the work zone';
+  if (isEmergency) {
+    const emergencyType = missingPPE[0] || 'CRITICAL EMERGENCY';
+    return `URGENT EMERGENCY ALERT in ${zoneText}. ${emergencyType} detected. Evacuate area and dispatch emergency response immediately.`;
+  }
   const items = [...new Set(missingPPE.map((m) => PPE_LABELS[String(m).toLowerCase()] || String(m)))];
   const itemText = items.length > 0 ? items.join(' and ') : 'required PPE';
-  const zoneText = zoneName || zoneCode || 'the work zone';
   return `Safety alert in ${zoneText}. Missing ${itemText} detected. You have ${graceSeconds} seconds to wear the required PPE.`;
 };
 
@@ -64,7 +68,13 @@ const speakLocally = (message) => {
  */
 const playZoneWarningAudio = ({ zoneCode, zoneName, missingPPE = [], isEmergency = false }) => {
   const { warningGraceSeconds } = getEnv();
-  const message = buildWarningMessage({ zoneName, zoneCode, missingPPE, graceSeconds: warningGraceSeconds });
+  const message = buildWarningMessage({
+    zoneName,
+    zoneCode,
+    missingPPE,
+    graceSeconds: warningGraceSeconds,
+    isEmergency,
+  });
   const playedAt = new Date();
   const playedLocally = speakLocally(message);
   const payload = { zoneCode, zoneName, missingPPE, isEmergency, message, playedAt, playedLocally };

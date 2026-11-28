@@ -6,6 +6,7 @@ const {
   startGraceSweepTimer,
   stopGraceSweepTimer,
 } = require('./services/warningEscalation.service');
+const { initSocketServer } = require('./socket/socket.server');
 
 let server;
 
@@ -24,6 +25,7 @@ const startServer = async () => {
     server = app.listen(port, () => {
       console.log(`[Server] SmartPPE — Warden's Eye Backend listening on port ${port} (${nodeEnv})`);
     });
+    initSocketServer(server);
 
     // Graceful shutdown handler
     const shutdown = async (signal) => {

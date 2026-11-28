@@ -47,7 +47,7 @@ while True:
 
     helmet_results = helmet_model(
         frame,
-        conf=0.50,
+        conf=0.80,
         verbose=False
     )
 
