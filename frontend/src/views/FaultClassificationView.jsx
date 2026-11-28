@@ -573,3 +573,4 @@ export function FaultClassificationView({
     </div>
   );
 }
+

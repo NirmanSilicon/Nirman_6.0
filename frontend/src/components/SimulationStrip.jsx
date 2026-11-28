@@ -357,4 +357,5 @@ export function SimulationStrip({
       )}
     </section>
   );
+  
 }

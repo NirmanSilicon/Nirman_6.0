@@ -441,3 +441,4 @@ export function useSimulation({ activePlantId, onNotification }) {
     setAnalysisResult,
   };
 }
+

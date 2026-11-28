@@ -183,6 +183,7 @@ export function Sidebar({
           <aside
             role="dialog"
             aria-modal="true"
+            
             aria-label="Mobile navigation menu"
             className="relative w-72 max-w-[85vw] h-full z-10 shadow-xl"
           >
