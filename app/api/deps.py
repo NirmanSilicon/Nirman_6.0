@@ -31,13 +31,3 @@ def get_demo_provider() -> DemoSimulationProvider:
     """Dependency for demo simulation provider."""
     return demo_provider
 
-
-def get_live_provider() -> LiveFeedProvider:
-    """Dependency for live corridor poller provider."""
-    return live_provider
-
-
-def get_replay_provider() -> ReplayProvider:
-    """Dependency for local replay provider."""
-    return replay_provider
-

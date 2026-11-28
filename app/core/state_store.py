@@ -39,10 +39,6 @@ class CorridorStateStore:
             else "ECoR_BHC_PURI"
         )
 
-    async def get_active_corridor(self) -> str:
-        async with self._lock:
-            return self._active_corridor_id
-
     async def set_active_corridor(self, corridor_id: str) -> None:
         async with self._lock:
             self._active_corridor_id = corridor_id
