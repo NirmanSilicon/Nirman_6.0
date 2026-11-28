@@ -1,0 +1,15 @@
+{
+  "name": "nagardrishti-3d",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NagarDrishti 3D — Civic Infrastructure Monitoring, Citizen Participation & Future City Visualization",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "npm --prefix backend test",
+    "test:frontend": "npm --prefix frontend test",
+    "lint": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck"
+  }
+}
