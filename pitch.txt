@@ -1,0 +1,157 @@
+================================================================================
+SAARTHI — 5-MINUTE MASTER PRESENTATION PITCH (CRISP & DIRECT)
+Designed for: Primary Idea Screening & Evaluation Round
+Target Time: 4:30 to 5:00 minutes total
+Interface: tools/sim/index.html (Keyboard shortcuts: [1] to [5])
+================================================================================
+
+--------------------------------------------------------------------------------
+MODULE 01 · THE PROBLEM & THE SOLUTION (0:00 – 0:50)
+[Press '1' on keyboard · Screen on Module 01]
+--------------------------------------------------------------------------------
+
+THE TARGET USERS:
+Visually impaired and low-vision individuals performing daily tasks at a desk, 
+dining table, or workstation.
+
+THE CORE PROBLEM:
+1. The White Cane stops at the floor: Canes navigate ground obstacles (0 to 15 cm) 
+   for walking. At a table, when eating, typing, or working, the cane is useless.
+2. Existing Vision Apps are a noisy firehose: Apps like Seeing AI or YOLO bark 
+   10 objects a second into earphones ("Chair 80%, Table 90%, Laptop, Bottle..."). 
+   Hearing is a blind person's primary sense. A noisy AI deafens them.
+3. Zero memory: Standard models have no memory of what the user already knows, 
+   and they get easily tricked by flat photos on screens.
+
+HOW THE USER USES OUR PRODUCT:
+An everyday Android smartphone worn in a simple chest harness or lanyard at chest 
+level. It looks at the personal workspace hands-free.
+
+OUR SOLUTION — SAARTHI:
+A 100% offline personal-space cognitive companion. 
+Unlike noisy object taggers, SAARTHI is PROACTIVELY SILENT. It speaks ONLY when 
+physical reality changes from what the user believes.
+
+
+--------------------------------------------------------------------------------
+MODULE 02 · SYSTEM CAPABILITIES OVERVIEW (0:50 – 1:30)
+[Press '2' on keyboard · Screen on Module 02]
+--------------------------------------------------------------------------------
+
+Beyond our core vision breakthroughs, SAARTHI provides a full capability ecosystem:
+
+1. Hand Motor Guidance: Steers the reaching hand toward objects with subtle audio 
+   clicks, and freezes the hand mid-air if the target item was moved.
+2. Point-and-Ask: The user points their index finger at any item on the table and 
+   asks "What is this?"—the finger raycast identifies it instantly without aiming 
+   the camera.
+3. Personal Object Recognition: With a 3-second voice enrolment, it learns to 
+   distinguish the user's personal wristwatch from identical watches on the table 
+   using on-device embeddings.
+4. Autonomous Fall SOS: Tri-axial accelerometer detects free-fall followed by a 
+   hard impact; if the user is unresponsive, it automatically sends an emergency 
+   SMS with GPS coordinates.
+
+Now, let's look at our two signature breakthroughs that solve fundamental blindspots 
+in modern machine learning.
+
+
+--------------------------------------------------------------------------------
+MODULE 03 · BREAKTHROUGH 1: THE TWO-MAP SALLY-ANNE ENGINE (1:30 – 2:45)
+[Press '3' on keyboard · Screen on Module 03]
+--------------------------------------------------------------------------------
+
+THE MACHINE LEARNING BLINDSPOT:
+Standard vision models detect objects in isolated frames. They have zero Theory of 
+Mind. They do not know what the blind user already remembers.
+
+OUR ARCHITECTURE:
+We maintain two concurrent state stores:
+1. World Map: Where objects physically sit (computed via camera + IMU gravity fusion).
+2. Belief Map: What the user was told and currently believes.
+
+[ACTION: Point to audio badge: It says [PROACTIVELY SILENT]]
+Notice our core principle: Proactive Silence. The user is busy working.
+
+[ACTION: Click '1. Move Water Bottle']
+A coworker just moved the water bottle from your right to your left. 
+Notice: SAARTHI remains completely silent! We do not interrupt the user's thoughts.
+
+[ACTION: Click '2. User Reaches for Old Spot']
+Now, the user reaches toward where they BELIEVE the bottle still is.
+The moment the hand vector targets the empty spot, SAARTHI intercepts mid-air!
+Hand freezes. SAARTHI speaks in plain natural language:
+"Heads up, your water bottle moved; it's now on your left, left of your laptop."
+
+[ACTION: Click '3. Guide Hand to Real Bottle']
+The user redirects their hand, takes the bottle, and their mental belief resyncs.
+This is Machine Theory of Mind: speaking only when reality diverges from belief.
+
+
+--------------------------------------------------------------------------------
+MODULE 04 · BREAKTHROUGH 2: THE TORCH TEST & OPTICAL HEATMAP (2:45 – 3:45)
+[Press '4' on keyboard · Screen on Module 04]
+--------------------------------------------------------------------------------
+
+THE MACHINE LEARNING FLAW:
+If an iPad shows a high-res photo of an apple next to a real apple, standard neural 
+networks tag BOTH as "apple" with 97% confidence. A blind person reaching out will 
+knock over a costly screen or a hot cup.
+
+OUR SOLUTION — THE TORCH TEST:
+We don't trust 2D pixels alone. We pulse the smartphone's flashlight under locked 
+exposure to verify 3D physical surface curvature.
+
+[ACTION: Click 'Trigger Flash Pulse Sequence']
+These are our actual test captures: Real Apple on the left, Screen Apple on the right.
+
+[ACTION: Point to the bottom-right graph in the heatmap image]
+Look at the physical proof:
+1. Green Curve (Real Apple): 
+   A real curved 3D object creates a steep, dynamic reflection highlight that decays 
+   across its spherical geometry. Our Wald SPRT mathematical test surges into the 
+   green zone (+4.91): Confirmed Real 3D Solid.
+2. Red Curve (Screen Apple): 
+   A screen is flat glass with an internal backlight. The flashlight bounces off flat 
+   glass with zero 3D curvature. Our mathematical test plunges into the red zone 
+   (-5.11): Rejected 2D Screen Spoof.
+
+Value for the user: Complete physical safety. No reaching for illusions.
+
+
+--------------------------------------------------------------------------------
+MODULE 05 · REAL-WORLD EDGE RESILIENCE (3:45 – 4:30)
+[Press '5' on keyboard · Screen on Module 05]
+--------------------------------------------------------------------------------
+
+How does this run on a normal smartphone without overheating or false alarms?
+
+1. The Thermal Governor:
+   Continuous 30fps camera + neural networks will overheat a phone in 10 minutes.
+   We don't process every frame. We compare consecutive frame differences, process 
+   only 4 to 5 key perception frames per second, and throttle hand tracking to 2 fps 
+   when hands are away. The phone stays cool under 45°C.
+
+2. Torso Oscillation Filtering:
+   A phone worn at the chest sways as the user breathes or shifts in their chair.
+   Standard magnetic compasses fail near laptops and steel desks. Our IMU 
+   governor fuses gravity and gyroscope yaw, smoothing the "in front of you" 
+   reference with a 10-second running average so left/right directions stay 
+   dead stable.
+
+3. 100% Offline Edge:
+   Runs entirely on an everyday MediaTek Dimensity 700 phone. Zero cloud, zero API 
+   costs, zero latency, complete personal privacy.
+
+
+--------------------------------------------------------------------------------
+CONCLUSION (4:30 – 4:45)
+--------------------------------------------------------------------------------
+"Canes give visually impaired people ground mobility.
+SAARTHI gives them cognitive spatial independence and dignity for their daily personal lives.
+
+Thank you. We are ready for your questions."
+
+================================================================================
+END OF PITCH
+================================================================================
