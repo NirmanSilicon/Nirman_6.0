@@ -28,7 +28,10 @@ data/processed/*
 !synaptix.txt
 !backend/requirements.txt
 *.parquet
-artifacts/
+**/artifacts/*
+!backend/artifacts/
+!backend/artifacts/*
+backend/artifacts/plants/
 data/feedback.jsonl
 
 # IDE
