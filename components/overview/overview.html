@@ -1,0 +1,57 @@
+<section class="page-component overview-component">
+  <div class="welcome-row">
+    <div><p class="intro-date" id="todayLabel">DEMO FLEET SNAPSHOT</p><h2>Fleet Performance Overview</h2><p>A consolidated view of engine health, remaining useful life and diagnostic events.</p></div>
+    <div class="welcome-actions"><button class="btn btn-secondary" id="exportBtn">⇩ Export report</button><button class="btn btn-primary" id="runAnalysisBtn">▶ Run fleet analysis</button></div>
+  </div>
+  <div class="notice-strip" id="demoNotice"><span>ⓘ</span><span><strong>Simulation mode:</strong> Values are illustrative local demo telemetry, not live aircraft data or certified maintenance guidance.</span><button id="dismissNotice" aria-label="Dismiss notice">×</button></div>
+  <div class="kpi-grid">
+    <article class="kpi-card"><div class="kpi-top"><span>MONITORED ENGINES</span><span class="kpi-icon">✈</span></div><div class="kpi-value" id="engineCount">08</div><div class="kpi-foot">Configured demo fleet</div></article>
+    <article class="kpi-card"><div class="kpi-top"><span>HEALTHY ENGINES</span><span class="kpi-icon green-icon">✓</span></div><div class="kpi-value" id="healthyCount">05</div><div class="kpi-foot" id="healthyPercent">62.5% of fleet</div></article>
+    <article class="kpi-card"><div class="kpi-top"><span>ACTIVE ALERTS</span><span class="kpi-icon amber-icon">⚑</span></div><div class="kpi-value" id="activeAlertCount">03</div><div class="kpi-foot">Require operator review</div></article>
+    <article class="kpi-card"><div class="kpi-top"><span>AVERAGE PREDICTED RUL</span><span class="kpi-icon violet-icon">◷</span></div><div class="kpi-value"><span id="avgRul">74</span><small> cycles</small></div><div class="kpi-foot">Across demo engines</div></article>
+  </div>
+  <div class="overview-grid">
+    <article class="panel fleet-panel">
+      <div class="panel-heading"><div><h3>Fleet health distribution</h3><p>Current status across monitored engines</p></div></div>
+      <div class="fleet-summary"><div class="donut" id="fleetDonut"><div><strong id="fleetSize">08</strong><span>ENGINES</span></div></div><div class="legend"><div><i class="healthy"></i>Healthy <strong id="healthyLegend">05</strong></div><div><i class="watch"></i>Monitor <strong id="monitorLegend">02</strong></div><div><i class="critical"></i>Review <strong id="reviewLegend">01</strong></div></div></div>
+      <div class="panel-divider"></div><div class="section-kicker">RECENT ENGINE ACTIVITY</div><div class="activity-list" id="recentActivity"></div>
+    </article>
+    <div class="overview-main-column">
+      <section><div class="section-heading"><div><h3>Engine asset overview</h3><p>Select an engine to inspect its current health profile.</p></div><button class="text-button" data-goto="engine-assets">View full fleet ↗</button></div><div class="engine-cards-strip" id="engineAssetCards"></div></section>
+
+
+    </div>
+  </div>
+  <article class="panel chart-panel full-width-rul-panel">
+    <div class="panel-heading">
+      <div><h3>Predicted remaining useful life</h3><p>Estimated operating cycles remaining across the fleet</p></div>
+      <select id="rulRange" class="select-control" aria-label="Filter RUL chart">
+        <option value="all">All engines</option>
+        <option value="attention">Needs attention</option>
+      </select>
+    </div>
+    <div class="chart-legend"><span><i class="legend-line"></i>Predicted RUL</span><span><i class="legend-dash"></i>Review threshold</span></div>
+    <div class="chart-wrap"><canvas id="rulChart" aria-label="Predicted remaining useful life by engine"></canvas></div>
+    <div class="chart-foot"><span>Lower RUL indicates less predicted useful operating life.</span><span class="model-tag">DEMO OUTPUT</span></div>
+  </article>
+  <div class="bottom-grid">
+    <article class="panel">
+      <div class="panel-heading">
+        <div><h3>Priority alerts</h3><p>Events flagged by the demo intelligence layer</p></div>
+        <button class="text-button" data-goto="alert-centre">View all ↗</button>
+      </div>
+      <div id="priorityAlerts" class="priority-list"></div>
+    </article>
+    <article class="panel">
+      <div class="panel-heading">
+        <div><h3>Current health insight</h3><p>Summary of a selected diagnostic finding</p></div>
+        <span class="insight-sparkle">✧</span>
+      </div>
+      <div class="insight-box">
+        <strong id="overviewInsightTitle">Persistent multi-sensor deviation</strong>
+        <p id="overviewInsightText">AS-004 shows a sustained change across several simulated sensor channels. Review the supporting evidence.</p>
+      </div>
+      <button class="btn btn-secondary full-width" data-goto="diagnostic-insights">View diagnostic details →</button>
+    </article>
+  </div>
+</section>

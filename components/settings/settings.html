@@ -1,0 +1,132 @@
+section class="page-component settings-component">
+  <div class="page-intro">
+    <div>
+      <h2>Global Settings</h2>
+      <p>Manage the dashboard, FD001 anomaly model, N-CMAPSS DS05 integration and telemetry simulation.</p>
+    </div>
+  </div>
+
+  <article class="panel settings-panel">
+    <h3>Appearance</h3>
+    <p>Choose the dashboard theme. Your preference is saved in this browser.</p>
+    <label class="toggle-row">
+      <span><strong>Dark mode</strong><small>Use a darker interface for low-light environments.</small></span>
+      <input type="checkbox" id="themeModeToggle" aria-label="Enable dark mode">
+    </label>
+  </article>
+
+  <article class="panel settings-panel fd001-panel">
+    <div class="fd001-heading">
+      <div>
+        <div class="section-kicker">PHASE 2 · DATA INGESTION</div>
+        <h3>NASA C-MAPSS FD001 Dataset</h3>
+        <p>Load the original training, test and RUL files, validate their structure, and prepare reproducible model-ready windows.</p>
+      </div>
+      <span class="dataset-status-badge" id="fd001OverallStatus">Not checked</span>
+    </div>
+
+    <div class="fd001-connection-row">
+      <label class="fd001-url-field">
+        <span>FASTAPI BASE URL</span>
+        <input id="fd001ApiUrl" type="url" value="http://127.0.0.1:8000" placeholder="http://127.0.0.1:8000">
+      </label>
+      <div class="fd001-connection-actions">
+        <button class="btn btn-secondary" id="fd001SaveUrl">Save URL</button>
+        <button class="btn btn-primary" id="fd001TestConnection">Test connection</button>
+        <button class="btn btn-secondary" id="fd001OpenDocs">API docs ↗</button>
+      </div>
+    </div>
+    <div class="fd001-inline-status" id="fd001ConnectionMessage" role="status">Backend connection has not been tested.</div>
+
+    <div class="fd001-file-grid" id="fd001FileGrid">
+      <div class="fd001-file-card" data-file="train_FD001.txt"><span class="file-icon">TR</span><div><strong>train_FD001.txt</strong><small>Training trajectories</small></div><span class="file-state">Not checked</span></div>
+      <div class="fd001-file-card" data-file="test_FD001.txt"><span class="file-icon">TE</span><div><strong>test_FD001.txt</strong><small>Test trajectories</small></div><span class="file-state">Not checked</span></div>
+      <div class="fd001-file-card" data-file="RUL_FD001.txt"><span class="file-icon">RL</span><div><strong>RUL_FD001.txt</strong><small>Test final-cycle labels</small></div><span class="file-state">Not checked</span></div>
+    </div>
+
+    <div class="fd001-action-grid">
+      <div class="fd001-action-card">
+        <h4>1. Get the original dataset</h4>
+        <p>Download the NASA PCoE archive on this computer, or select the three extracted FD001 text files below.</p>
+        <div class="fd001-action-buttons">
+          <button class="btn btn-secondary" id="fd001DownloadGuide">Open NASA dataset ↗</button>
+          <label class="btn btn-secondary fd001-file-picker" for="fd001FileInput">Choose three files</label>
+          <input id="fd001FileInput" type="file" accept=".txt,text/plain" multiple hidden>
+        </div>
+        <div class="fd001-selected-files" id="fd001SelectedFiles">No files selected.</div>
+        <button class="btn btn-primary" id="fd001Upload" disabled>Upload selected files</button>
+      </div>
+      <div class="fd001-action-card">
+        <h4>2. Validate and inspect</h4>
+        <p>Checks the 26-column structure, numeric values, cycle continuity, engine IDs, RUL labels and file fingerprints.</p>
+        <div class="fd001-action-buttons">
+          <button class="btn btn-primary" id="fd001Validate" disabled>Validate dataset</button>
+          <button class="btn btn-secondary" id="fd001Refresh" >Refresh status</button>
+        </div>
+        <div class="fd001-step-message" id="fd001ValidationMessage">Upload or download FD001 files, then validate them.</div>
+      </div>
+    </div>
+
+    <div class="fd001-preprocess-card">
+      <div class="fd001-preprocess-heading"><div><h4>3. Preprocess for machine learning</h4><p>Training/validation split is made by engine ID. The scaler is fitted on training engines only.</p></div><span class="preprocess-tag">NO MODEL TRAINING IN PHASE 2</span></div>
+      <div class="fd001-config-grid">
+        <label><span>WINDOW SIZE</span><input type="number" id="fd001WindowSize" min="2" max="500" value="30"></label>
+        <label><span>TRAINING RUL CAP</span><input type="number" id="fd001RulCap" min="1" max="10000" value="125"></label>
+        <label><span>VALIDATION FRACTION</span><input type="number" id="fd001ValidationFraction" min="0.05" max="0.5" step="0.05" value="0.2"></label>
+        <label><span>RANDOM SEED</span><input type="number" id="fd001RandomState" min="0" value="42"></label>
+      </div>
+      <div class="fd001-action-buttons">
+        <button class="btn btn-primary" id="fd001Preprocess" disabled>Run preprocessing</button>
+        <button class="btn btn-secondary" id="fd001ViewSummary" disabled>View preprocessing summary</button>
+      </div>
+      <div class="fd001-step-message" id="fd001PreprocessMessage">Dataset must pass validation before preprocessing.</div>
+    </div>
+
+    <div class="fd001-results" id="fd001Results" hidden>
+      <div class="fd001-results-heading"><h4>Dataset report</h4><button class="text-button" id="fd001DownloadReport">Download report JSON ↓</button></div>
+      <div class="fd001-metrics" id="fd001Metrics"></div>
+      <pre class="fd001-report-json" id="fd001ReportJson" hidden></pre>
+    </div>
+    <div class="fd001-disclaimer"><strong>Dataset note:</strong> C-MAPSS is simulated turbofan degradation data, not live aircraft telemetry. Phase 2 prepares data only; XGBoost, LSTM and anomaly-model training are Phase 3.</div>
+  </article>
+
+
+  <article class="panel settings-panel ncmapss-panel">
+    <div class="fd001-heading">
+      <div>
+        <div class="section-kicker">PHASE 4 · DATASET INTEGRATION</div>
+        <h3>NASA N-CMAPSS DS05</h3>
+        <p>Use the extracted DS05 HDF5 file, inspect its sensor/metadata arrays and create memory-conscious per-flight summaries for later model development.</p>
+      </div>
+      <span class="dataset-status-badge" id="ncmapssOverallStatus">Not checked</span>
+    </div>
+    <div class="ncmapss-source-note">
+      <strong>Dataset source:</strong> NASA Prognostics Data Repository / N-CMAPSS research dataset. The NASA distribution uses a nested ZIP archive. This project can extract DS05 from the local data_set.zip; the large dataset archives and HDF5 file are not bundled in this project.
+    </div>
+    <div class="ncmapss-metrics" id="ncmapssMetrics">
+      <div class="fd001-metric"><strong>—</strong><span>DS05 HDF5</span></div>
+      <div class="fd001-metric"><strong>—</strong><span>Inspection</span></div>
+      <div class="fd001-metric"><strong>—</strong><span>Development flights</span></div>
+      <div class="fd001-metric"><strong>—</strong><span>Test flights</span></div>
+    </div>
+    <div class="ncmapss-actions">
+      <button class="btn btn-secondary" id="ncmapssRefresh">Refresh status</button>
+      <button class="btn btn-secondary" id="ncmapssCopyDownload">Copy DS05 extraction command</button>
+      <button class="btn btn-primary" id="ncmapssInspect" disabled>Inspect HDF5</button>
+      <button class="btn btn-primary" id="ncmapssPreprocess" disabled>Build flight summaries</button>
+      <button class="btn btn-secondary" id="ncmapssViewReport" disabled>View report</button>
+    </div>
+    <div class="fd001-step-message" id="ncmapssMessage" role="status">Place N-CMAPSS_DS05.h5 in phase4_ncmapss/data/raw, then inspect it before preprocessing.</div>
+    <pre class="ncmapss-report" id="ncmapssReport" hidden></pre>
+    <div class="fd001-disclaimer"><strong>Feature policy:</strong> the default input table uses four flight-condition descriptors and fourteen physical measured channels. Virtual sensors, hidden model-health parameters, metadata and RUL target columns are excluded from model inputs. The data are simulated engine trajectories under real-flight-derived profiles, not actual live aircraft telemetry.</div>
+  </article>
+
+  <article class="panel settings-panel">
+    <h3>Simulation controls</h3>
+    <p>These controls affect the browser demonstration only.</p>
+    <label class="toggle-row"><span><strong>Auto-advance telemetry</strong><small>Advance the selected demo engine's cycle every five seconds.</small></span><input type="checkbox" id="autoAdvanceToggle"></label>
+    <label class="toggle-row"><span><strong>Show simulation notice</strong><small>Show the demo-data disclaimer on the overview page.</small></span><input type="checkbox" id="noticeToggle" checked></label>
+    <div class="settings-actions"><button class="btn btn-secondary" id="resetDemoBtn">Reset demo data</button><span class="muted" id="settingsMessage">No changes pending.</span></div>
+  </article>
+</section>
+

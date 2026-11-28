@@ -1,0 +1,393 @@
+{
+  "dataset": "NASA N-CMAPSS DS05",
+  "file": "D:\\silicon\\folder 24\\AEROSENTRY_Phase3_Phase4_DS05\\phase4_ncmapss\\data\\raw\\N-CMAPSS_DS05.h5",
+  "file_size_bytes": 2599166216,
+  "sha256": "ef99ead42ac184503035895797c16e9a7e42554a08074aa760d0bba39db42e23",
+  "groups_and_datasets": [
+    {
+      "path": "A_dev",
+      "shape": [
+        4350606,
+        4
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "A_test",
+      "shape": [
+        2562046,
+        4
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "A_var",
+      "shape": [
+        4
+      ],
+      "dtype": "|S5",
+      "ndim": 1
+    },
+    {
+      "path": "T_dev",
+      "shape": [
+        4350606,
+        10
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "T_test",
+      "shape": [
+        2562046,
+        10
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "T_var",
+      "shape": [
+        10
+      ],
+      "dtype": "|S12",
+      "ndim": 1
+    },
+    {
+      "path": "W_dev",
+      "shape": [
+        4350606,
+        4
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "W_test",
+      "shape": [
+        2562046,
+        4
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "W_var",
+      "shape": [
+        4
+      ],
+      "dtype": "|S4",
+      "ndim": 1
+    },
+    {
+      "path": "X_s_dev",
+      "shape": [
+        4350606,
+        14
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "X_s_test",
+      "shape": [
+        2562046,
+        14
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "X_s_var",
+      "shape": [
+        14
+      ],
+      "dtype": "|S4",
+      "ndim": 1
+    },
+    {
+      "path": "X_v_dev",
+      "shape": [
+        4350606,
+        14
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "X_v_test",
+      "shape": [
+        2562046,
+        14
+      ],
+      "dtype": "float64",
+      "ndim": 2
+    },
+    {
+      "path": "X_v_var",
+      "shape": [
+        14
+      ],
+      "dtype": "|S5",
+      "ndim": 1
+    },
+    {
+      "path": "Y_dev",
+      "shape": [
+        4350606,
+        1
+      ],
+      "dtype": "int64",
+      "ndim": 2
+    },
+    {
+      "path": "Y_test",
+      "shape": [
+        2562046,
+        1
+      ],
+      "dtype": "int64",
+      "ndim": 2
+    }
+  ],
+  "variable_names": {
+    "W": [
+      "alt",
+      "Mach",
+      "TRA",
+      "T2"
+    ],
+    "X_s": [
+      "T24",
+      "T30",
+      "T48",
+      "T50",
+      "P15",
+      "P2",
+      "P21",
+      "P24",
+      "Ps30",
+      "P40",
+      "P50",
+      "Nf",
+      "Nc",
+      "Wf"
+    ],
+    "X_v": [
+      "T40",
+      "P30",
+      "P45",
+      "W21",
+      "W22",
+      "W25",
+      "W31",
+      "W32",
+      "W48",
+      "W50",
+      "SmFan",
+      "SmLPC",
+      "SmHPC",
+      "phi"
+    ],
+    "T": [
+      "fan_eff_mod",
+      "fan_flow_mod",
+      "LPC_eff_mod",
+      "LPC_flow_mod",
+      "HPC_eff_mod",
+      "HPC_flow_mod",
+      "HPT_eff_mod",
+      "HPT_flow_mod",
+      "LPT_eff_mod",
+      "LPT_flow_mod"
+    ],
+    "Y": [],
+    "A": [
+      "unit",
+      "cycle",
+      "Fc",
+      "hs"
+    ]
+  },
+  "splits": {
+    "dev": {
+      "shapes": {
+        "W": [
+          4350606,
+          4
+        ],
+        "X_s": [
+          4350606,
+          14
+        ],
+        "X_v": [
+          4350606,
+          14
+        ],
+        "T": [
+          4350606,
+          10
+        ],
+        "Y": [
+          4350606,
+          1
+        ],
+        "A": [
+          4350606,
+          4
+        ]
+      },
+      "row_counts": {
+        "W": 4350606,
+        "X_s": 4350606,
+        "X_v": 4350606,
+        "T": 4350606,
+        "Y": 4350606,
+        "A": 4350606
+      },
+      "required_arrays_present": true,
+      "row_aligned": true,
+      "widths_valid": true,
+      "metadata_labels_valid": true,
+      "engine_units": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "flight_count": 491,
+      "flights_per_engine": {
+        "1": 80,
+        "2": 80,
+        "3": 65,
+        "4": 99,
+        "5": 100,
+        "6": 67
+      }
+    },
+    "test": {
+      "shapes": {
+        "W": [
+          2562046,
+          4
+        ],
+        "X_s": [
+          2562046,
+          14
+        ],
+        "X_v": [
+          2562046,
+          14
+        ],
+        "T": [
+          2562046,
+          10
+        ],
+        "Y": [
+          2562046,
+          1
+        ],
+        "A": [
+          2562046,
+          4
+        ]
+      },
+      "row_counts": {
+        "W": 2562046,
+        "X_s": 2562046,
+        "X_v": 2562046,
+        "T": 2562046,
+        "Y": 2562046,
+        "A": 2562046
+      },
+      "required_arrays_present": true,
+      "row_aligned": true,
+      "widths_valid": true,
+      "metadata_labels_valid": true,
+      "engine_units": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "flight_count": 327,
+      "flights_per_engine": {
+        "7": 85,
+        "8": 91,
+        "9": 69,
+        "10": 82
+      }
+    }
+  },
+  "finite_value_checks": {
+    "dev": {
+      "W": {
+        "values_checked": 17402424,
+        "non_finite_values": 0
+      },
+      "X_s": {
+        "values_checked": 60908484,
+        "non_finite_values": 0
+      },
+      "X_v": {
+        "values_checked": 60908484,
+        "non_finite_values": 0
+      },
+      "T": {
+        "values_checked": 43506060,
+        "non_finite_values": 0
+      },
+      "Y": {
+        "values_checked": 4350606,
+        "non_finite_values": 0
+      },
+      "A": {
+        "values_checked": 17402424,
+        "non_finite_values": 0
+      }
+    },
+    "test": {
+      "W": {
+        "values_checked": 10248184,
+        "non_finite_values": 0
+      },
+      "X_s": {
+        "values_checked": 35868644,
+        "non_finite_values": 0
+      },
+      "X_v": {
+        "values_checked": 35868644,
+        "non_finite_values": 0
+      },
+      "T": {
+        "values_checked": 25620460,
+        "non_finite_values": 0
+      },
+      "Y": {
+        "values_checked": 2562046,
+        "non_finite_values": 0
+      },
+      "A": {
+        "values_checked": 10248184,
+        "non_finite_values": 0
+      }
+    }
+  },
+  "feature_policy": {
+    "default_model_inputs": "W_* operating conditions plus X_s_* physical measured sensors (18 channels for DS05)",
+    "excluded_from_default_inputs": [
+      "X_v_* virtual sensors",
+      "T_* hidden engine-model health parameters",
+      "A_* metadata",
+      "Y_* RUL target"
+    ]
+  },
+  "warnings": [],
+  "engine_split_overlap": [],
+  "validation_status": "passed"
+}

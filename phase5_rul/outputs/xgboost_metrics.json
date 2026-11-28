@@ -1,0 +1,20 @@
+{
+    "model": "XGBoost",
+    "target": "rul_mean",
+    "training_engines": [
+        1,
+        2,
+        3,
+        4,
+        5
+    ],
+    "validation_engines": [
+        6
+    ],
+    "training_flights": 424,
+    "validation_flights": 67,
+    "predictor_count": 72,
+    "MAE": 13.903206117117582,
+    "RMSE": 16.89992365218737,
+    "R2": 0.23634379826266838
+}

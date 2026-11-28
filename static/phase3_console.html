@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AEROSENTRY | Phase 3 Anomaly Console</title>
+  <link rel="stylesheet" href="/static/phase3_console.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/phase3"><span class="mark">A</span><span><b>AEROSENTRY</b><small>ENGINE INTELLIGENCE</small></span></a>
+      <span class="phase-tag">PHASE 3 · ANOMALY DETECTION</span>
+      <span class="mode"><i></i> HISTORICAL REPLAY</span>
+    </header>
+    <main>
+      <section class="intro">
+        <div><p class="eyebrow">MODEL VALIDATION CONSOLE</p><h1>Sensor anomaly analysis</h1><p>Replay a NASA C-MAPSS FD001 engine trajectory and score its latest six-cycle sensor window.</p></div>
+        <div class="warning"><b>Research simulation</b><span>Not live aircraft telemetry or certified maintenance advice.</span></div>
+      </section>
+      <section class="control panel">
+        <div class="field"><label for="engineSelect">ENGINE UNIT</label><select id="engineSelect"><option>Loading engines…</option></select></div>
+        <div class="field cycle-field"><label for="cycleRange">END CYCLE <strong id="cycleValue">26</strong></label><input id="cycleRange" type="range" min="26" max="100" value="26" /></div>
+        <button id="analyzeBtn">Run anomaly analysis <span>↗</span></button>
+      </section>
+      <div id="errorBox" class="error" hidden></div>
+      <section class="result-grid">
+        <article class="panel status-panel"><p class="eyebrow">CURRENT ASSESSMENT</p><div id="statusIcon" class="status-icon neutral">◎</div><h2 id="statusTitle">Awaiting analysis</h2><p id="statusText">Choose an engine and run the replay.</p><div class="meta"><span>Engine <b id="engineMeta">—</b></span><span>Cycle <b id="cycleMeta">—</b></span></div></article>
+        <article class="panel scores-panel"><div class="panel-head"><div><p class="eyebrow">MODEL OUTPUTS</p><h2>Detection scores</h2></div><span class="mini-label">FD001 · 17 FEATURES</span></div>
+          <div class="score-row"><div><span>Local Outlier Factor</span><small>Local density deviation</small></div><b id="lofScore">—</b></div>
+          <div class="score-row"><div><span>Sensor deviation</span><small>Maximum baseline z-score</small></div><b id="spikeScore">—</b></div>
+          <div class="score-row"><div><span>Flatline score</span><small>Six-cycle sensor range check</small></div><b id="stuckScore">—</b></div>
+          <div class="score-row muted-score"><div><span>Isolation Forest</span><small>Benchmark comparison only</small></div><b id="ifScore">—</b></div>
+        </article>
+      </section>
+      <section class="panel evidence-panel"><div class="panel-head"><div><p class="eyebrow">SUPPORTING EVIDENCE</p><h2>Triggered checks & affected sensors</h2></div><span class="mini-label" id="checkCount">0 TRIGGERS</span></div><div id="checks" class="chips empty">No analysis run yet.</div><div class="evidence-note" id="interpretation">The model reports unusual telemetry patterns; it does not confirm a physical fault.</div></section>
+      <footer>Model: phase3_fd001_v1 · Thresholds calibrated on separate clean validation engines · Synthetic benchmark only</footer>
+    </main>
+  </div>
+  <script src="/static/phase3_console.js"></script>
+</body>
+</html>

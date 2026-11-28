@@ -1,2 +1,4 @@
 branchcreation.sh
 .env
+# Large NASA datasets
+phase4_ncmapss/data/raw/N-CMAPSS_DS05.h5
