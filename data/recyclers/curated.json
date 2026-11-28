@@ -1,0 +1,55 @@
+[
+  {
+    "match": "Sani Clean",
+    "name": "Sani Clean Pvt. Ltd.",
+    "address": "Plot No. 802/947, At Tangiapada, Niala, Dist. Khurda (corporate office: 401, N4-42F, IRC Village, Bhubaneswar 751015)",
+    "city": "Bhubaneswar",
+    "phone": "0674-2556379",
+    "capacity_mta": "3000",
+    "validity_note": "CPCB list 2023-06-08 includes this unit. An older Odisha SPCB list showed authorisation valid only to 31.03.2020. Confirm current validity with OSPCB.",
+    "source_url": "https://ospcboard.odisha.gov.in/wp-content/uploads/2021/06/List-of-Authorised-E-Waste-Dismentaler-28.06.2021.pdf",
+    "geocode_query": "Tangi, Khordha, Odisha"
+  },
+  {
+    "match": "Cosmic Net",
+    "name": "Cosmic Net",
+    "address": "B-25, Saheed Nagar, Bhubaneswar",
+    "city": "Bhubaneswar",
+    "phone": "9438091660",
+    "capacity_mta": "360",
+    "validity_note": "CPCB list 2023-06-08 includes this unit. OSPCB listed authorisation valid to 31.03.2022. A collection centre at Kesura, Saheed Nagar lists 9861095616. Confirm current validity with OSPCB.",
+    "source_url": "https://ospcboard.odisha.gov.in/wp-content/uploads/2021/06/List-of-Authorised-E-Waste-Dismentaler-28.06.2021.pdf",
+    "geocode_query": "Saheed Nagar, Bhubaneswar, Odisha"
+  },
+  {
+    "match": "Ecokart",
+    "name": "Ecokart Technology Pvt. Ltd.",
+    "address": "At/PO/Mouza Kuradhamala, Daleiput, Dist. Khordha 752055 (office: Esplanade One Mall, Rasulgarh, Bhubaneswar)",
+    "city": "Bhubaneswar",
+    "phone": "7008551392",
+    "capacity_mta": "3000",
+    "validity_note": "CPCB list 2023-06-08 includes this unit (dismantler-cum-collection). OSPCB 2021 list showed validity to 31.03.2022. Confirm current validity with OSPCB.",
+    "source_url": "https://ospcboard.odisha.gov.in/wp-content/uploads/2021/06/List-of-Authorised-E-Waste-Dismentaler-28.06.2021.pdf",
+    "geocode_query": "Kuradhamala, Khordha, Odisha"
+  },
+  {
+    "match": "Varun infra",
+    "name": "Varun Infra Steel Pvt. Ltd.",
+    "geocode_query": "Vedvyas, Rourkela, Odisha"
+  },
+  {
+    "match": "P K Enterprises",
+    "name": "P K Enterprises",
+    "geocode_query": "Kalunga, Sundargarh, Odisha"
+  },
+  {
+    "match": "Mirtunjai",
+    "name": "Mirtunjai Udyog (Dismantler)",
+    "geocode_query": "Rourkela, Odisha"
+  },
+  {
+    "match": "Jagannath E-Waste",
+    "name": "Jagannath E-Waste Recyclers",
+    "geocode_query": "Purushottampur, Ganjam, Odisha"
+  }
+]
