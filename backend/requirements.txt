@@ -1,0 +1,26 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.7
+pydantic-settings>=2.3
+numpy>=1.26
+
+# Supabase: Postgres for the incident history, Storage (plain REST) for the
+# snapshot JPEGs. The binary extra avoids needing libpq and a compiler on the
+# build box.
+psycopg[binary,pool]>=3.2
+httpx>=0.27
+
+# Headless OpenCV: the desktop build links libGL/libgthread, which slim
+# container images do not ship, so the full package fails at import on a
+# server. Nothing here draws to a window.
+opencv-python-headless>=4.10
+
+# Detection stack. Optional at runtime: DETECTOR=mock runs without it.
+ultralytics>=8.3
+torch>=2.3
+torchvision>=0.18
+# ByteTrack's assignment solver. Without it Ultralytics returns boxes with no
+# track ids, detections still draw, and the incident engine silently discards
+# every one of them -- an empty alert feed with no error anywhere.
+lapx>=0.5.11

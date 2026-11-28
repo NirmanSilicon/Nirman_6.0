@@ -1,0 +1,343 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/eb-garamond";
+@import "@fontsource/ibm-plex-mono";
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Vivid+Co — prismatic light through obsidian.
+
+   A cinematic dark void. Near-black canvas, one near-white that carries almost
+   all type and chrome, and authority from scale rather than weight. Zero
+   shadows: depth comes from the surface stack and hairline rules alone.
+
+   One deliberate adaptation. The reference reserves its saturated RGB for the
+   prism artifact and keeps colour out of the UI entirely. This is a
+   safety-critical monitoring surface — an operator has to separate a critical
+   tear from a scratch in the first half-second — so severity becomes the
+   prism: the single chromatic event allowed to break the monochrome, held to
+   exactly the discipline the reference demands. Saturated, rare, never
+   decorative, never on an inactive state.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* -- Canvas ------------------------------------------------------------ */
+  /* Obsidian is the floor; graphite veil is the documented ceiling. The two
+     steps between are interpolated so dense panels never brighten past it. */
+  --color-obsidian: #101010;
+  --color-pitch: #0a0a0a;
+  --color-panel: #151617;
+  /* Capped at the lightest value that still clears 4.5:1 for fog and the
+     severity hues sitting on a hovered row. */
+  --color-raised: #1b1c1d;
+  --color-veil: #495764;
+
+  /* -- Ink --------------------------------------------------------------- */
+  --color-bone: #fffdf9;
+  --color-fog: #6f879c;
+  --color-ash: #403f3f;
+
+  /* -- Prism: severity, and nothing else --------------------------------- */
+  --color-prism-red: #ff2a2a;
+  --color-prism-cyan: #2a7fff;
+  --color-prism-lime: #2aff2a;
+
+  --color-sev-critical: #ff2a2a;
+  --color-sev-high: #ff7a3d;
+  --color-sev-medium: #f5c451;
+  --color-sev-low: #2a7fff;
+  --color-sev-info: #6f879c;
+  --color-ok: #2aff2a;
+
+  /* -- Signal: shell chrome, never an alert -------------------------------
+     Every common hue is already spoken for by severity (red/orange/amber/
+     blue) or health (green), so the nav's own accent has to live outside
+     that family to stay unambiguous at a glance. Acid lime does that and
+     appears nowhere except nav fills, active states and the settings panel
+     eyebrow -- it never touches a detection, a card, or an alert. */
+  --color-signal: #b7ff3a;
+  --color-signal-dim: #8fce22;
+  --color-signal-ink: #0d1400;
+
+  /* -- Type -------------------------------------------------------------- */
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* Brand/display voice only -- wordmark, panel titles, the settings panel's
+     item labels. Never body copy or data. */
+  --font-display: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  /* The wordmark alone. Split from --font-display because the mark is the one
+     piece of type that has to hold at 8rem in the footer and at 1rem inside
+     the header, and Fraunces' optical sizing pulls in a direction the mark
+     does not want. Nothing but C.A.R.R.Y and its expansion uses this. */
+  --font-brand: "EB Garamond Variable", "EB Garamond", ui-serif, Georgia, serif;
+
+  /* Fixed rem scale. Product UI is read at consistent DPI, and a fluid
+     heading that shrinks inside a rail looks worse, not better. */
+  --text-caption: 0.75rem;
+  --text-label: 0.8125rem;
+  --text-body: 0.9375rem;
+  --text-body-lg: 1.0625rem;
+  --text-title: 1.375rem;
+  --text-display-sm: 2.0625rem;
+  --text-display: 3.5rem;
+
+  /* -- Radius ------------------------------------------------------------ */
+  --radius-nav: 5px;
+  --radius-card: 15px;
+  --radius-btn: 0px;
+  --radius-pill: 9999px;
+
+  /* -- Motion ------------------------------------------------------------ */
+  /* The reference's signature curve: slow start, decisive stop, like an
+     optical focus pull. Held to product timings — an operator is mid-task and
+     should not wait for choreography. */
+  --ease-focus: cubic-bezier(0.52, 0.01, 0, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Light mode. Same roles, same class names -- `bg-obsidian`, `text-bone`,
+   `border-ash` and the rest keep meaning "canvas", "primary ink", "hairline"
+   in either mode, because Tailwind v4 utilities reference these custom
+   properties rather than inlining them. Overriding them here, at higher
+   specificity than the `@theme` block's `:root`, is the entire mechanism --
+   no component file changes with the mode.
+
+   Severity hues are deepened slightly for AA contrast on a light ground;
+   the reference's synthetic obsidian black becomes a slightly warm paper
+   white rather than pure #fff, so the panel/raised steps still read as a
+   surface stack instead of flattening to one white.
+--------------------------------------------------------------------------- */
+:root[data-theme="light"] {
+  --color-obsidian: #f7f6f4;
+  --color-pitch: #ffffff;
+  --color-panel: #ffffff;
+  --color-raised: #efeeeb;
+  --color-veil: #9aa7b0;
+
+  --color-bone: #17181a;
+  --color-fog: #5c6773;
+  --color-ash: #dcdad5;
+
+  --color-sev-critical: #d81f1f;
+  --color-sev-high: #d9600a;
+  --color-sev-medium: #a1780a;
+  --color-sev-low: #1f5fd9;
+  --color-sev-info: #5c6773;
+  --color-ok: #178a3e;
+
+  --color-signal: #6ca80f;
+  --color-signal-dim: #588c0a;
+  --color-signal-ink: #f7ffe9;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-ash);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--color-obsidian);
+    background-image:
+      linear-gradient(var(--color-panel) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-panel) 1px, transparent 1px);
+    background-size: 64px 64px;
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 400;
+    font-feature-settings: "ss01" on, "cv05" on;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior: none;
+  }
+
+  /* Authority from scale, never from stroke weight. */
+  h1, h2, h3, h4 {
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Numerals that must not reflow as values tick. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" on, "ss01" on;
+  }
+
+  /* -- Browser surfaces the design still owns --------------------------- */
+  ::selection {
+    background: var(--color-bone);
+    color: var(--color-obsidian);
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ash);
+    border: 2px solid var(--color-obsidian);
+    border-radius: var(--radius-pill);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-fog);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ash) transparent;
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-bone);
+    outline-offset: 2px;
+  }
+
+  input,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder {
+    color: var(--color-fog);
+  }
+
+  /* Range inputs ship with a browser look that belongs to no design system. */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1px;
+    background: var(--color-ash);
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: var(--radius-pill);
+    background: var(--color-bone);
+    transition: transform 0.18s var(--ease-focus);
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+  }
+  input[type="range"]:focus-visible::-webkit-slider-thumb {
+    outline: 1px solid var(--color-bone);
+    outline-offset: 2px;
+  }
+
+  input[type="checkbox"] {
+    accent-color: var(--color-bone);
+  }
+}
+
+@layer utilities {
+  /* Visible to assistive technology, invisible on screen. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A critical defect in frame. Slow, so it stays bearable across a shift. */
+  @keyframes prism-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  .animate-alarm {
+    animation: prism-pulse 2s var(--ease-focus) infinite;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+  .animate-rise {
+    animation: rise 0.22s var(--ease-focus);
+  }
+
+  /* ---------------------------------------------------------------------
+     The authored moment: an incident confirming.
+
+     Every other transition here is feedback. This one is the product's
+     argument. A detector emits a box the instant it sees something; this
+     system waits until the same defect has survived several consecutive
+     frames before it will call it real. That decision is the whole thesis
+     and it was previously invisible — a card simply existed.
+
+     So confirmation is staged as the reference's own image: white light
+     entering obsidian, splitting, and resolving. Three chromatic slivers
+     lead the card in, converge into the single severity hue, and vanish —
+     dispersion collapsing into a verdict. It fires a few times a minute at
+     most, on one small element, and animates clip-path and box-shadow only.
+  --------------------------------------------------------------------- */
+  @keyframes confirm-reveal {
+    from { clip-path: inset(0 0 0 100%); }
+    to   { clip-path: inset(0 0 0 0); }
+  }
+
+  @keyframes confirm-disperse {
+    0% {
+      opacity: 1;
+      box-shadow:
+        3px 0 0 var(--color-prism-red),
+        6px 0 0 var(--color-prism-lime),
+        9px 0 0 var(--color-prism-cyan);
+    }
+    55% {
+      opacity: 1;
+      box-shadow:
+        0 0 0 var(--color-prism-red),
+        0 0 0 var(--color-prism-lime),
+        0 0 0 var(--color-prism-cyan);
+    }
+    100% { opacity: 0; box-shadow: none; }
+  }
+
+  .confirming {
+    position: relative;
+    animation: confirm-reveal 420ms var(--ease-focus) both;
+  }
+  .confirming::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--sev, var(--color-bone));
+    animation: confirm-disperse 640ms var(--ease-focus) both;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-alarm,
+    .animate-rise,
+    .confirming,
+    .confirming::before {
+      animation: none;
+    }
+  }
+
+  /* Chromatic dispersion, borrowed from the prism, for the one live edge
+     that has to be unmissable without being a flashing box. */
+  .prism-edge {
+    box-shadow:
+      inset 0 0 0 1px var(--color-sev-critical),
+      inset 0 0 22px -12px var(--color-prism-red);
+  }
+}
