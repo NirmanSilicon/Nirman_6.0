@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Warden Eye – Smart Workforce Monitoring System</title>
+<style>
+:root{--bg:#fff;--surf:#f4f5f7;--card:#fff;--line:#e3e6ea;--tx:#1c2128;--mut:#667085;--red:#d93a37;--grn:#1f9d55;--rl:#fdeceb;--gl:#e6f6ec;--amb:#b7791f;--al:#fdf4e1;--sh:0 1px 2px rgba(20,30,40,.06);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root:not([data-theme="light"]){}
+:root[data-theme="dark"]{--bg:#121416;--surf:#1a1d20;--card:#202428;--line:#32373d;--tx:#eceef0;--mut:#9aa3ad;--rl:#3a1f1f;--gl:#16301f;--al:#3a301a;--sh:none;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px/1.5 "Times New Roman",Times,serif}
+h1,h2,h3,.brand{font-family:"Times New Roman",Times,serif;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:8px;font-weight:500;transition:.15s}
+.btn:hover{border-color:var(--tx)}.btn:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--grn);outline-offset:2px}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.red:hover{filter:brightness(.92)}
+.btn.grn{background:var(--grn);border-color:var(--grn);color:#fff}
+.in{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700;font-size:18px}
+.logo{width:34px;height:34px;border-radius:9px;background:var(--red);color:#fff;display:grid;place-items:center}
+.logo svg{width:20px;height:20px}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(20px,5vw,96px)}
+.nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.nav a.l{margin:0 14px;color:var(--mut);text-decoration:none;cursor:pointer;font-weight:500}.nav a.l:hover{color:var(--tx)}
+.hero{padding-top:56px;padding-bottom:56px;min-height:calc(100vh - 64px);display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,4.6vw,76px);line-height:1.1;margin-bottom:16px}
+.hero p{color:var(--mut);max-width:54ch;font-size:clamp(17px,1.3vw,21px)}
+.pill{display:inline-flex;gap:8px;align-items:center;background:var(--gl);color:var(--grn);padding:5px 12px;border-radius:99px;font-weight:600;font-size:13px;margin-bottom:16px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);display:inline-block}.dot.r{background:var(--red)}
+.live .dot{animation:pulse 1.6s infinite}@keyframes pulse{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.live .dot{animation:none}}
+.mock{background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:16px}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.ph{aspect-ratio:3/4;border-radius:10px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;color:#fff;font-weight:600;font-size:13px;position:relative;overflow:hidden}
+.ph svg{position:absolute;inset:auto 0 0 0;width:100%;opacity:.28}
+.sec{padding:56px 0}.sec.alt{background:var(--surf)}
+.sec h2{font-size:30px;margin-bottom:10px}.sec .sub{color:var(--mut);max-width:60ch;margin:0 0 28px}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--sh)}
+.fi{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;background:var(--gl);color:var(--grn)}.fi.r{background:var(--rl);color:var(--red)}
+.card h3{font-size:16px;margin-bottom:6px}.card p{margin:0;color:var(--mut);font-size:14px}
+footer{background:#14171a;color:#c9ced4;padding:36px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.auth .side{background:linear-gradient(160deg,var(--red),#8f1f1d);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+.auth .side h2{font-size:34px;max-width:14ch}.auth .main{display:grid;place-items:center;padding:24px}
+.form{width:100%;max-width:380px;display:grid;gap:14px}.form label{font-weight:500;font-size:14px;display:grid;gap:6px}
+.pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--mut);padding:6px}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:14px;gap:10px}
+.shell{display:flex;min-height:100vh}
+.side-nav{position:fixed;left:0;top:env(safe-area-inset-top,0px);bottom:0;width:240px;background:var(--card);border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:4px;transition:width .2s,transform .2s;z-index:8;overflow-y:auto;overflow-x:hidden}
+.side-nav.col{width:68px}.side-nav.col .t{display:none}
+.side-nav .brand{padding:4px 6px 16px}
+.nv{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;border:0;background:none;text-align:left;color:var(--mut);font-weight:500;width:100%}
+.nv:hover{background:var(--surf);color:var(--tx)}.nv.on{background:var(--rl);color:var(--red)}
+.main-c{flex:1;margin-left:240px;transition:margin .2s;min-width:0}.main-c.col{margin-left:68px}
+.top{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:4}
+.top h1{font-size:20px;flex:1}.page{padding:24px}
+.stat{display:flex;gap:14px;align-items:center}.stat b{font-family:Sora;font-size:26px;display:block;line-height:1.1}.stat span{color:var(--mut);font-size:13px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;color:var(--mut);font-weight:500;padding:10px 12px;background:var(--surf);white-space:nowrap}td{padding:11px 12px;border-top:1px solid var(--line);white-space:nowrap}
+.bd{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--surf)}
+.bd.g{background:var(--gl);color:var(--grn)}.bd.r{background:var(--rl);color:var(--red)}.bd.a{background:var(--al);color:var(--amb)}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;flex:none}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.bar .in{width:auto;flex:1;min-width:150px}
+.tabs{display:inline-flex;background:var(--surf);border-radius:8px;padding:3px}.tabs button{border:0;background:none;padding:6px 14px;border-radius:6px;font-weight:500;color:var(--mut)}.tabs button.on{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:16px;display:grid;gap:14px}.tl div{position:relative;font-size:14px}.tl div:before{content:"";position:absolute;left:-23px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--grn)}.tl div.o:before{background:var(--red)}.tl small{color:var(--mut);display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;z-index:20;padding:16px}.modal .card{width:100%;max-width:440px;display:grid;gap:12px}
+.chat{display:grid;grid-template-columns:280px 1fr;height:calc(100vh - 150px);min-height:420px;padding:0;overflow:hidden}
+.ct{border-right:1px solid var(--line);overflow:auto}.ci{display:flex;gap:10px;align-items:center;padding:12px;cursor:pointer;border:0;background:none;width:100%;text-align:left}.ci:hover,.ci.on{background:var(--surf)}
+.msgs{display:flex;flex-direction:column;overflow:auto;padding:16px;gap:10px;flex:1}.m{max-width:70%;padding:9px 13px;border-radius:12px;background:var(--surf);font-size:14px}.m.me{align-self:flex-end;background:var(--grn);color:#fff}.m small{display:block;opacity:.7;font-size:11px;margin-top:2px}
+.cm{display:flex;flex-direction:column;min-width:0}.cm form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.cam{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
+.feed{position:relative;aspect-ratio:16/9;background:#0d1114;overflow:hidden;border:3px solid #1b2024;border-radius:10px 10px 0 0}
+.feed svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .25s}
+.feed .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px);pointer-events:none;box-shadow:inset 0 0 40px rgba(0,0,0,.5)}
+.ov{position:absolute;color:#fff;font:600 11px/1.2 ui-monospace,Menlo,monospace;text-shadow:0 1px 2px #000;padding:6px 8px;display:flex;gap:6px;align-items:center}
+.ov.tl{top:0;left:0}.ov.tr{top:0;right:0}.ov.bl{bottom:0;left:0}.ov.br{bottom:0;right:0}
+.blink{animation:pulse 1s infinite}
+.nosig{position:absolute;inset:0;display:grid;place-items:center;color:#9aa3ad;font:600 14px ui-monospace,monospace;background:repeating-linear-gradient(90deg,#1a1d20 0 2px,#24282c 2px 4px);text-align:center}
+.cc{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px}.cc .sp{flex:1;min-width:120px}.cc .btn{padding:5px 10px;font-size:13px}
+.list{grid-template-columns:1fr}.list .cam{display:grid;grid-template-columns:minmax(260px,1.2fr) 1fr}.list .feed{aspect-ratio:auto;min-height:200px;border-radius:10px 0 0 10px}
+.big .cam{border:0;box-shadow:none}
+@media(max-width:700px){.list .cam{grid-template-columns:1fr}.list .feed{aspect-ratio:16/9;border-radius:10px 10px 0 0}}
+@media(prefers-reduced-motion:reduce){.blink{animation:none}}
+.lg{min-height:100vh;display:grid;grid-template-columns:1.15fr 1fr;background:var(--bg);overflow:hidden}
+.lg-l{position:relative;padding:48px 56px;display:flex;flex-direction:column;justify-content:center;gap:24px;background:linear-gradient(135deg,var(--bg),var(--surf));overflow:hidden}
+.lg-l:before{content:"";position:absolute;top:-30px;left:-70px;width:280px;height:60px;background:var(--red);transform:rotate(-35deg)}
+.lg-l:after{content:"";position:absolute;bottom:-20px;right:-60px;width:260px;height:44px;background:var(--grn);transform:rotate(-35deg)}
+.lg-l>*{position:relative;z-index:1}
+.lg-brand{display:flex;gap:16px;align-items:center}.lg-brand .div{width:1px;height:52px;background:var(--line)}
+.lg-h{font-size:clamp(34px,4.4vw,56px);line-height:1.1;font-style:italic}.lg-h em{color:var(--red)}
+.lg-f{display:grid;grid-template-columns:repeat(4,1fr);max-width:580px}.lg-f div{text-align:center;padding:0 8px;border-left:1px solid var(--line);font-size:14px}.lg-f div:first-child{border:0}
+.lg-ic{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin:0 auto 8px;color:var(--grn);background:var(--card)}
+.lg-s{font-style:italic;font-size:26px;transform:rotate(-5deg);transform-origin:left;margin-top:8px}
+.lg-r{display:grid;place-items:center;padding:24px}
+.lg-card{width:100%;max-width:460px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 14px 40px rgba(20,30,40,.14);display:grid;gap:14px;text-align:center}
+.lg-in{position:relative}.lg-in>.i{position:absolute;left:14px;top:50%;transform:translateY(-50%);z-index:1}.lg-in .in{padding-left:44px;height:48px;border-radius:12px}.lg-in.pw button{z-index:1;display:grid;place-items:center;width:34px;height:34px;padding:0;border-radius:8px;color:var(--mut)}.lg-in.pw button:hover{color:var(--tx);background:var(--surf)}.lg-in.pw .in{padding-right:48px}
+.lg-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lg-roles .btn{padding:9px 6px;font-size:14px;border-radius:12px}.lg-roles .btn.on{border-color:var(--red);background:var(--rl)}
+.lg-or{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px}.lg-or:before,.lg-or:after{content:"";flex:1;height:1px;background:var(--line)}
+@media(max-width:900px){.lg{grid-template-columns:1fr}.lg-r{order:-1}.lg-l{padding:32px 20px}.lg-f{grid-template-columns:1fr 1fr;gap:16px}.lg-f div:nth-child(3){border-left:0}}
+.cal{display:grid;grid-template-columns:1fr minmax(280px,340px);gap:16px;align-items:start}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.cal-h .btn{padding:5px 9px}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.cal-g span{color:var(--mut);font-size:12px;padding:4px 0}
+.cd{aspect-ratio:1;border:1px solid transparent;border-radius:8px;background:none;font-size:14px}.cd:hover:not(:disabled){background:var(--surf)}.cd.td{border-color:var(--grn)}.cd.on{background:var(--red);color:#fff}.cd:disabled{opacity:.35;cursor:default}
+.sum{display:grid;grid-template-columns:repeat(3,1fr)}.sum div{padding:4px 16px;border-left:1px solid var(--line)}.sum div:first-child{border:0;padding-left:0}.sum b{display:block;font-size:30px;line-height:1.1}.sum span{color:var(--mut);font-size:14px}
+@media(max-width:700px){.cal{grid-template-columns:1fr}.sum b{font-size:24px}.sum div{padding:4px 8px}}
+.nv.sub{padding-left:38px;font-size:14px}.side-nav.col .nv.sub{padding-left:12px}
+.hero-img{justify-self:end;align-self:end;width:100%;max-width:clamp(380px,46vw,780px);height:auto;display:block;border-radius:20px}
+.curl{padding-bottom:.14em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 Q50 1 100 6 T198 5' fill='none' stroke='%23d93a37' stroke-opacity='.4' stroke-width='3.5' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat 0 100%/100% .32em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+@media(max-width:900px){.hero{min-height:0}}
+.side-nav.hov{box-shadow:6px 0 24px rgba(0,0,0,.18)}
+.burger{display:inline-flex}
+@media(max-width:900px){.hero,.auth,.g2{grid-template-columns:1fr}.auth .side{display:none}.g3,.g4{grid-template-columns:1fr 1fr}.nav .l{display:none}}
+@media(max-width:700px){.g3,.g4{grid-template-columns:1fr}.side-nav{transform:translateX(-100%);width:240px}.side-nav.open{transform:none}.side-nav.col .t{display:inline}.main-c,.main-c.col{margin-left:0}.burger{display:inline-flex}.chat{grid-template-columns:1fr}.ct{max-height:150px;border-right:0;border-bottom:1px solid var(--line)}.page{padding:16px}}
+</style></head>
+<body><div id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useRef}=React;
+const P={dash:"M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",live:"M2 12h4l3-8 6 16 3-8h4",att:"M2 5h20v14H2zM6 10h5M6 14h3M15 10h3v4h-3z",rep:"M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8",zone:"M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 7a3 3 0 100 6 3 3 0 000-6z",chat:"M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z",set:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",moon:"M21 13A9 9 0 1111 3a7 7 0 0010 10z",sun:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",out:"M9 21H5V3h4M16 17l5-5-5-5M21 12H9",menu:"M3 6h18M3 12h18M3 18h18",eye:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 9a3 3 0 100 6 3 3 0 000-6z",eyeoff:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM3 3l18 18",x:"M18 6L6 18M6 6l12 12",plus:"M12 5v14M5 12h14",dl:"M12 3v12M7 10l5 5 5-5M4 21h16",send:"M22 2L11 13M22 2l-7 20-4-9-9-4z",search:"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5",edit:"M4 20h4L19 9l-4-4L4 16z",trash:"M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15",users:"M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2",shield:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z",chev:"M15 6l-6 6 6 6"};
+Object.assign(P,{mail:"M3 5h18v14H3zM3 6l9 7 9-7",lock:"M5 11h14v10H5zM8 11V7a4 4 0 018 0v4",cam:"M3 7h4l2-3h6l2 3h4v13H3zM12 10a4 4 0 100 8 4 4 0 000-8z",shieldck:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5zM8.5 12l2.5 2.5 4.5-5",chart:"M5 20V10M12 20V4M19 20v-7",crown:"M3 8l4 4 5-7 5 7 4-4-2 11H5z",user:"M12 11a4 4 0 100-8 4 4 0 000 8zM4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1",arrow:"M5 12h14M13 6l6 6-6 6"});
+Object.assign(P,{video:"M3 6h12v12H3zM15 10l6-3v10l-6-3",cal:"M4 5h16v16H4zM4 10h16M8 3v4M16 3v4M9 15l2 2 4-4",clock:"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2",down:"M6 9l6 6 6-6"});
+const Ic=({n})=><svg className="i" viewBox="0 0 24 24"><path d={P[n]}/></svg>;
+const Logo=()=><span className="brand"><span className="logo"><Ic n="shield"/></span><span className="t">Warden Eye</span></span>;
+const COL=["#d93a37","#1f9d55","#4a5568","#2b6cb0","#b7791f","#805ad5"];
+const Av=({name,i=0})=><span className="av" style={{background:COL[i%6]}}>{name.split(" ").map(s=>s[0]).join("")}</span>;
+const W=[["W-101","Ravi Kumar","Zone A","RF-48A1","08:52","—","Present"],["W-102","Anita Das","Zone C","RF-48B7","09:21","—","Late"],["W-103","Suresh Nayak","Zone D","RF-49C2","08:45","—","Present"],["W-104","Priya Sahoo","Zone F","RF-4A10","08:58","—","Present"],["W-105","Manoj Behera","Zone B","RF-4B33","—","—","Absent"],["W-106","Kavita Rao","Zone C","RF-4C5D","08:40","17:05","Present"],["W-107","Imran Khan","Zone D","RF-4D71","09:34","—","Late"],["W-108","Deepa Mishra","Zone E","RF-4E02","—","—","Absent"]].map(a=>({id:a[0],name:a[1],zone:a[2],rfid:a[3],in:a[4],out:a[5],st:a[6]}));
+const Z0=[{id:1,name:"Zone A",on:true,mon:"Active"},{id:2,name:"Zone B",on:true,mon:"Active"},{id:3,name:"Zone C",on:true,mon:"Active"},{id:4,name:"Zone D",on:true,mon:"Active"},{id:5,name:"Zone E",on:false,mon:"Inactive"},{id:6,name:"Zone F",on:true,mon:"Active"}];
+const RP=[["R-2041","Ravi Kumar","W-101","Zone A","Unauthorised vehicle entry noted at 09:10","2026-11-28 09:12","Pending"],["R-2040","Anita Das","W-102","Zone C","Late arrival, badge scanned twice","2026-11-28 09:25","In Progress"],["R-2039","Suresh Nayak","W-103","Zone D","Restricted shelf area accessed","2026-11-27 15:40","Resolved"],["R-2038","Priya Sahoo","W-104","Zone F","Camera 4 offline for 12 minutes","2026-11-27 11:05","Resolved"],["R-2037","Imran Khan","W-107","Zone D","Missing check-out on previous shift","2026-11-26 18:30","In Progress"]].map(a=>({id:a[0],w:a[1],wid:a[2],zone:a[3],d:a[4],t:a[5],st:a[6]}));
+const bc=s=>({Present:"g",Active:"g",Resolved:"g",Late:"a","In Progress":"a",Absent:"r",Pending:"r",Inactive:"r"}[s]||"");
+const Badge=({s})=><span className={"bd "+bc(s)}>{s}</span>;
+const go=h=>{location.hash=h};
+
+function Monitor(){
+ const T=[["CAM-01","gate",20,60],["CAM-02","floor",70,64],["CAM-03","shelf",110,62],["CAM-04","ctrl",50,66]];
+ return <svg className="hero-img" viewBox="0 0 400 310" role="img" aria-label="Computer showing live CCTV monitoring">
+ <ellipse cx="200" cy="300" rx="150" ry="7" fill="#000" opacity=".12"/>
+ <rect x="10" y="8" width="380" height="236" rx="14" fill="#1b2024"/><rect x="22" y="20" width="356" height="212" rx="6" fill="#0d1114"/>
+ <rect x="22" y="20" width="356" height="18" rx="6" fill="#161b1f"/><circle cx="34" cy="29" r="3" fill="#d93a37" className="blink"/><text x="43" y="32" fontSize="8" fill="#e8ecef" fontFamily="monospace" fontWeight="700">WARDEN EYE · LIVE MONITORING</text><text x="366" y="32" textAnchor="end" fontSize="8" fill="#2fd36f" fontFamily="monospace">4 ONLINE</text>
+ {T.map((c,i)=>{const x=26+(i%2)*176,y=42+Math.floor(i/2)*92,wx=c[2],wy=c[3];
+ return <svg key={c[0]} x={x} y={y} width="172" height="88" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice"><Scene k={c[1]} t={0}/>
+ <circle cx={wx} cy={wy-14} r="3" fill="#cfd6dc"/><rect x={wx-3.5} y={wy-11} width="7" height="14" rx="1" fill="#e08a2f"/><rect x={wx-6} y={wy-19} width="12" height="23" fill="none" stroke="#2fd36f" strokeWidth=".8"/><rect x={wx-6} y={wy-24} width="22" height="5" fill="#2fd36f"/><text x={wx-5} y={wy-20} fontSize="3.6" fontWeight="700" fill="#000" fontFamily="monospace">W-10{i+1}</text>
+ <rect width="160" height="90" fill="none" stroke="#000" strokeOpacity=".5" strokeWidth="2"/><text x="4" y="9" fontSize="6" fill="#fff" fontFamily="monospace" fontWeight="700">{c[0]}</text><circle cx="152" cy="6" r="2.2" fill="#d93a37" className="blink"/></svg>})}
+ <rect x="182" y="244" width="36" height="34" fill="#8b949b"/><rect x="182" y="244" width="36" height="6" fill="#6f7a82"/><rect x="125" y="276" width="150" height="10" rx="5" fill="#5b666e"/>
+ <circle cx="200" cy="238" r="2" fill="#1f9d55"/></svg>}
+function Home(){
+ const sc=id=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+ const F=[["live","Live monitoring","See who is in which zone, with entry and exit events as they happen."],["att","RFID attendance","Card scans become check-in and check-out records, flagged late or absent."],["zone","Zone management","Create zones, assign workers, and switch monitoring on or off."],["rep","Incident reports","Log, filter, and resolve reports by zone and status."],["chat","Team chat","Message workers and administrators from the same console."],["dash","Clear dashboards","Headcount, presence, and zone activity at a glance."]];
+ return <div>
+ <header className="nav"><div className="wrap"><Logo/><nav><a className="l" onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>Home</a><a className="l" onClick={()=>sc("about")}>About</a><a className="l" onClick={()=>sc("features")}>Features</a><button className="btn red" onClick={()=>go("signin")}>Sign In</button></nav></div></header>
+ <div className="wrap hero"><div><span className="pill live"><span className="dot"/>Monitoring live</span><h1><span className="curl">Smart Workforce Monitoring</span> &amp; Management</h1><p>Warden Eye gives security teams and site managers one place to see where every worker is, confirm who has arrived, and act on incidents quickly.</p><div style={{display:"flex",gap:10,marginTop:24,flexWrap:"wrap"}}><button className="btn red" onClick={()=>go("signin")}>Sign In</button><button className="btn" onClick={()=>sc("features")}>See features</button></div></div>
+ <Monitor/></div>
+ <section id="about" className="sec alt"><div className="wrap"><h2>About Warden Eye</h2><p className="sub">Built for sites where knowing who is where matters. Warden Eye brings four jobs into one platform.</p><div className="grid g4">{[["Monitor workers","Track each worker’s current zone and recent movement."],["Manage attendance","RFID card scans record arrivals, departures, and lateness."],["Track zones","Know which areas are staffed and which are not."],["Generate reports","Turn incidents and attendance into reports you can download."]].map(([a,b],i)=><div className="card" key={a}><div className={"fi "+(i%2?"":"r")}><Ic n={["eye","att","zone","rep"][i]}/></div><h3>{a}</h3><p>{b}</p></div>)}</div></div></section>
+ <section id="features" className="sec"><div className="wrap"><h2>Features</h2><p className="sub">Everything a control room needs, without the clutter.</p><div className="grid g3">{F.map(([i,a,b],k)=><div className="card" key={a}><div className={"fi "+(k%2?"r":"")}><Ic n={i}/></div><h3>{a}</h3><p>{b}</p></div>)}</div></div></section>
+ <footer><div className="wrap"><div><Logo/><p style={{margin:"8px 0 0"}}>Smart Workforce Monitoring System</p></div><div>© 2026 Warden Eye. Demo build with sample data.</div></div></footer></div>}
+
+const EyeLogo=({w=64})=><svg viewBox="0 0 120 64" width={w} aria-hidden="true"><path d="M4 34C24 8 96 8 116 34C96 58 24 58 4 34Z" fill="none" stroke="var(--tx)" strokeWidth="5" strokeLinejoin="round"/><circle cx="60" cy="33" r="17" fill="var(--red)"/><g stroke="#fff" strokeWidth="2" opacity=".85">{[0,60,120].map(a=><line key={a} x1="60" y1="18" x2="60" y2="48" transform={`rotate(${a} 60 33)`}/>)}</g><circle cx="60" cy="33" r="6" fill="#14181c"/></svg>;
+const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,height:20}} aria-hidden="true"><path d="M2 12c3-5.5 6.5-7 10-7s7 1.5 10 7c-3 5.5-6.5 7-10 7S5 17.5 2 12z"/><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/>{off&&<path d="M4 4l16 16" strokeWidth="2.4"/>}</svg>;
+const HOST_NAME=(typeof location!=="undefined"&&location.hostname)?location.hostname:"127.0.0.1";
+const ML_STREAM_BASE=`http://${HOST_NAME}:8765`;
+const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`http://${HOST_NAME}:5000/api`;
+
+function SignIn({onAuthSuccess,existingUser,onLogout}){
+ const [show,setShow]=useState(false);const [u,setU]=useState("");const [p,setP]=useState("");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
+ const fillDemo=r=>{
+  setRole(r);setErr("");
+  if(r==="Higher Authority"){setU("admin@smartppe.local");setP("AdminPassword123!")}
+  else{setU("supervisor.a@smartppe.local");setP("SupervisorPassword123!")}
+ };
+ const doLogin=async e=>{
+  e.preventDefault();setErr("");setLoading(true);
+  const expectedRole=role==="Higher Authority"?"ADMINISTRATOR":"SUPERVISOR";
+  try{
+   const res=await fetch(`${API_BASE}/auth/login`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email:u.trim().toLowerCase(),password:p,expectedRole})
+   });
+   const json=await res.json();
+   if(res.ok&&json.data&&json.data.token){
+    try{
+     localStorage.setItem("we-token",json.data.token);
+     localStorage.setItem("we-user",JSON.stringify(json.data.user));
+    }catch(_e){}
+    if(onAuthSuccess)onAuthSuccess(json.data.token,json.data.user);
+    go("live");return;
+   }
+   setErr(json.message||"Invalid Login ID / Email or password.");
+  }catch(_netErr){
+   setErr("Cannot connect to Backend API Server on port 5000. Please ensure the backend server is running.");
+  }finally{setLoading(false)}
+ };
+ const F=[["shieldck","Real-Time Monitoring"],["cam","AI-Powered Detection"],["users","Worker Safety First"],["chart","Smart Analytics"]];
+ return <div className="lg"><div className="lg-l">
+ <div className="lg-brand"><EyeLogo w={92}/><span className="div"/><div><div className="brand" style={{fontSize:30}}>WARDEN’S <span style={{color:"var(--red)"}}>EYE</span></div><div>AI-Powered Safety Monitoring</div></div></div>
+ <h1 className="lg-h">Smarter Monitoring.<br/><em>Safer</em> Workplace.</h1>
+ <p style={{color:"var(--mut)",maxWidth:"40ch",fontSize:18,margin:0}}>Detect risks, ensure safety and build a secure workplace with the power of AI.</p>
+ <div className="lg-f">{F.map(f=><div key={f[1]}><span className="lg-ic"><Ic n={f[0]}/></span>{f[1]}</div>)}</div>
+ <div className="lg-s"><span style={{borderBottom:"3px solid var(--red)"}}>Safety Today… A Better Tomorrow…</span></div></div>
+ <div className="lg-r"><form className="lg-card" onSubmit={doLogin}>
+ <div style={{display:"grid",justifyItems:"center",gap:4}}><EyeLogo/><div className="brand" style={{fontSize:26}}>WARDEN’S <span style={{color:"var(--red)",marginLeft:6}}>EYE</span></div><small style={{color:"var(--mut)"}}>Secure • Monitor • Ensure</small></div>
+ <h2 style={{fontSize:30}}>Welcome Back!</h2>
+ {existingUser&&<div style={{background:"var(--gl)",color:"var(--grn)",padding:"8px 12px",borderRadius:10,fontSize:13,display:"flex",justifyContent:"space-between",alignItems:"center",gap:8}}>
+  <span>Signed in: <b>{existingUser.name}</b> ({existingUser.role==="ADMINISTRATOR"?"Higher Authority":"Supervisor"})</span>
+  <div style={{display:"flex",gap:6}}><button type="button" className="btn grn" style={{padding:"4px 10px",fontSize:12}} onClick={()=>go("live")}>Dashboard</button><button type="button" className="btn" style={{padding:"4px 10px",fontSize:12}} onClick={onLogout}>Logout</button></div>
+ </div>}
+ <div className="lg-or" style={{margin:"2px 0"}}>1. Choose your access role</div>
+ <div className="lg-roles" style={{gridTemplateColumns:"1fr 1fr"}}>{[["Higher Authority","crown"],["Supervisor","shieldck"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>{setRole(r[0]);setErr("")}}><Ic n={r[1]}/>{r[0]}</button>)}</div>
+ {err&&<div style={{background:"var(--rl)",color:"var(--red)",padding:"8px 12px",borderRadius:8,fontSize:14,fontWeight:600}}>{err}</div>}
+ <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder={role==="Higher Authority"?"Higher Authority Email / ID":"Supervisor Login ID or Email"} value={u} onChange={e=>setU(e.target.value)} aria-label="User ID or Email" autoComplete="username" required/></div>
+ <div className="lg-in pw"><span className="i"><Ic n="lock"/></span><input className="in" type={show?"text":"password"} placeholder="Enter Password" value={p} onChange={e=>setP(e.target.value)} aria-label="Password" autoComplete="current-password" required/><button type="button" aria-label="Show or hide password" onClick={()=>setShow(!show)}><PwEye off={!show}/></button></div>
+ <button className="btn red" style={{height:48,fontSize:17}} disabled={loading}>{loading?"Verifying with MongoDB Atlas...":`Sign In as ${role}`} <Ic n="arrow"/></button>
+ <div className="lg-or">quick demo credentials</div>
+ <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>
+  <button type="button" className="btn" style={{fontSize:12,padding:"5px 10px"}} onClick={()=>fillDemo("Higher Authority")}>Fill Demo Higher Authority</button>
+  <button type="button" className="btn" style={{fontSize:12,padding:"5px 10px"}} onClick={()=>fillDemo("Supervisor")}>Fill Demo Supervisor</button>
+ </div>
+ <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · Higher Authority can create custom Supervisor IDs &amp; Passwords.</small></form></div></div>}
+const CAMS=[{id:"CAM_001",name:"Laptop Webcam AI (PPE & Fire)",zone:"Zone A",k:"gate",on:true,isLiveMl:true},{id:"CAM_002",name:"Smartphone Wi-Fi AI Camera",zone:"Zone B",k:"gate",on:true,isLiveMl:true},{id:"CAM-03",name:"Factory Floor",zone:"Zone C",k:"floor",on:true},{id:"CAM-04",name:"Storage Aisle",zone:"Zone D",k:"shelf",on:true},{id:"CAM-05",name:"Loading Dock",zone:"Zone E",k:"dock",on:false},{id:"CAM-06",name:"Control Room",zone:"Zone F",k:"ctrl",on:true}];
+const inZone=z=>W.filter(w=>w.zone===z&&w.st!=="Absent"&&w.out==="—");
+function Scene({k,t}){
+ const base=<g><rect width="160" height="58" fill="#38434a"/><polygon points="0,58 160,58 160,90 0,90" fill="#2a3036"/><path d="M80 58L20 90M80 58L140 90M80 58V90" stroke="#3d464d" strokeWidth=".5"/></g>;
+ let s=null;
+ if(k==="gate")s=<g><rect x="12" y="26" width="22" height="32" fill="#1f2529"/><rect x="15" y="30" width="16" height="10" fill="#6aa6a0" opacity=".5"/><line x1="36" y1="46" x2="104" y2="42" stroke="#d93a37" strokeWidth="2.4"/><line x1="36" y1="46" x2="104" y2="42" stroke="#fff" strokeWidth="2.4" strokeDasharray="4 4"/><rect x="104" y="30" width="4" height="28" fill="#596268"/><rect x="130" y="14" width="22" height="44" fill="#2f3a40"/></g>;
+ if(k==="floor")s=<g>{[[10,28,28,30],[50,36,24,22],[118,26,32,32]].map((m,i)=><g key={i}><rect x={m[0]} y={m[1]} width={m[2]} height={m[3]} fill="#2f3a40" stroke="#4b565e" strokeWidth=".5"/><rect x={m[0]+3} y={m[1]+3} width="4" height="2" fill={i==1?"#d93a37":"#1f9d55"}/></g>)}<rect x="0" y="56" width="160" height="5" fill="#222a2f"/><line x1="0" y1="58.5" x2="160" y2="58.5" stroke="#8a949b" strokeWidth="1" strokeDasharray="3 3" strokeDashoffset={-t*8}/></g>;
+ if(k==="shelf")s=<g>{[0,1,2].map(r=><g key={r}><rect x={8+r*52} y="8" width="42" height="50" fill="none" stroke="#5b666e" strokeWidth=".8"/>{[20,33,46].map(y=><g key={y}><line x1={8+r*52} x2={50+r*52} y1={y} y2={y} stroke="#5b666e" strokeWidth=".8"/><rect x={11+r*52} y={y-9} width="9" height="9" fill="#8a6f4d"/><rect x={26+r*52} y={y-7} width="11" height="7" fill="#7a6044"/></g>)}</g>)}</g>;
+ if(k==="dock")s=<g>{[0,1,2].map(i=><g key={i}><rect x={10+i*50} y="14" width="40" height="44" fill="#1d2226" stroke="#59636a" strokeWidth=".6"/>{[20,26,32,38,44,50].map(y=><line key={y} x1={10+i*50} x2={50+i*50} y1={y} y2={y} stroke="#2c343a" strokeWidth=".6"/>)}</g>)}</g>;
+ if(k==="ctrl")s=<g>{[0,1,2,3].map(c=>[0,1].map(r=><rect key={c+"-"+r} x={12+c*36} y={8+r*24} width="32" height="20" fill="#12353a" stroke="#5b666e" strokeWidth=".6" opacity={.7+.3*Math.sin(t*2+c+r*3)}/>))}<rect x="20" y="52" width="120" height="6" fill="#222a2f"/></g>;
+ return <g>{base}{s}</g>}
+function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
+ const [p,setP]=useState(false);const [z,setZ]=useState(1);const [t,setT]=useState(0);const [now,setNow]=useState(new Date());const [streamRev,setStreamRev]=useState(0);
+ useEffect(()=>{if(cmd.n)setP(cmd.val)},[cmd]);
+ useEffect(()=>{if(p||!cam.on||cam.isLiveMl)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date())},500);return()=>clearInterval(i)},[p,cam.on,cam.isLiveMl]);
+ const ws=cam.on?inZone(cam.zone):[];
+ const useRealMl=Boolean(cam.isLiveMl);
+ const camStat=useRealMl?(mlStatus?.cameras?.[cam.id]||mlStatus):null;
+ const detCount=useRealMl?(camStat?.totalPersons??0):(cam.on?ws.length:0);
+ const mlLevel=useRealMl?(camStat?.safetyLevel||"SAFE"):"SAFE";
+ return <div className="cam" style={useRealMl&&mlLevel!=="SAFE"&&mlLevel!=="STANDBY"?{borderColor:"var(--red)",boxShadow:"0 0 0 2px var(--red)"}:{}}><div className="feed">
+ {useRealMl?(
+  <img
+   key={`live-mjpeg-${cam.id}`}
+   src={p?`${ML_STREAM_BASE}/snapshot.jpg?cam=${cam.id}`:`${ML_STREAM_BASE}/stream.mjpg?cam=${cam.id}&r=${streamRev}`}
+   onError={()=>{setTimeout(()=>setStreamRev(r=>r+1),1200)}}
+   alt={`Live AI YOLO Stream ${cam.id}`}
+   style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"contain",background:"#0d1114",transform:`scale(${z})`,transition:"transform .2s"}}
+  />
+ ):cam.on?<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" style={{transform:`scale(${z})`}} role="img" aria-label={`${cam.name} camera feed`}><Scene k={cam.k} t={t}/>
+ {ws.map((w,i)=>{const x=20+(i*43)%110+9*Math.sin(t*.6+i*2),y=62+(i%3)*7,s=.9+(y-62)/30,late=w.st==="Late",c=late?"#d93a37":"#2fd36f";
+ return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={c} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={c}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id} {late?"LATE":"OK"}</text></g>})}
+ </svg>:<div className="nosig"><div>NO SIGNAL<br/><small>Camera offline. Check connection.</small></div></div>}
+ <div className="scan"/>
+ <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {useRealMl?`AI YOLO11n (${camStat?.source||cam.name})`:cam.name}</div>
+ <div className="ov tr">{useRealMl?(<><span className="dot r blink"/>AI LIVE · {camStat?.fps??0} FPS</>):cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
+ <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}{useRealMl?` · ${camStat?.safetyMessage||"Monitoring"}`:""}</div>
+ <div className="ov br">{cam.on?`${detCount} worker${detCount===1?"":"s"} detected`:"--"}</div></div>
+ <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{useRealMl?`Helmets: ${camStat?.helmetCount??0} OK / ${camStat?.noHelmetCount??0} Missing · Fire: ${camStat?.fireDetected?"ALERT":"None"}`:cam.name+(list&&ws.length?" · "+ws.map(w=>w.id).join(", "):"")}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/>
+ <Badge s={useRealMl?(mlLevel==="SAFE"?"Active":mlLevel==="DANGER"?"Pending":"Late"):(cam.on?"Active":"Inactive")}/>
+ {cam.on&&<><button className="btn" onClick={()=>setP(!p)}>{p?"Play":"Pause"}</button><button className="btn" onClick={()=>setZ(z>=2?1:z+.5)}>Zoom {z}x</button></>}
+ {!big&&<button className="btn" onClick={()=>onFull(cam)}>Full screen</button>}</div></div>}
+function Live({zones}){
+ const [zf,setZf]=useState("All zones");const [cs,setCs]=useState("All cameras");const [view,setView]=useState("grid");const [cmd,setCmd]=useState({n:0,val:false});const [full,setFull]=useState(null);const [gp,setGp]=useState(false);
+ const [mlStatus,setMlStatus]=useState(null);const [mlConnected,setMlConnected]=useState(false);const [recentDet,setRecentDet]=useState([]);const [ctrlBusy,setCtrlBusy]=useState(false);
+ const sendControl=async(action,extra={})=>{
+  setCtrlBusy(true);
+  try{
+   await fetch(`${ML_STREAM_BASE}/control`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
+  }catch(_e){}finally{setCtrlBusy(false)}
+ };
+ const startPhoneStream=()=>{
+  const url=prompt("Enter Smartphone IP Webcam / RTSP / HTTP Stream URL for CAM_002:","http://10.68.3.28:8080/video");
+  if(url&&url.trim())sendControl("start_stream",{cam:"CAM_002",url:url.trim()});
+ };
+ useEffect(()=>{
+  let alive=true,fails=0;
+  const poll=async()=>{
+   try{
+    const r=await fetch(`${ML_STREAM_BASE}/status.json`,{cache:"no-store"});
+    if(r.ok){fails=0;const j=await r.json();if(alive){setMlStatus(j);setMlConnected(true)}}else if(alive){fails++;if(fails>=3)setMlConnected(false)}
+   }catch(_e){if(alive){fails++;if(fails>=3)setMlConnected(false)}}
+   try{
+    const tok=localStorage.getItem("we-token");
+    if(tok){
+     const dr=await fetch(`${API_BASE}/detections?limit=5`,{headers:{Authorization:`Bearer ${tok}`}});
+     if(dr.ok){const dj=await dr.json();if(alive&&dj.data&&dj.data.detections)setRecentDet(dj.data.detections)}
+    }
+   }catch(_e){}
+  };
+  poll();
+  const id=setInterval(poll,1200);
+  return()=>{alive=false;clearInterval(id)};
+ },[]);
+ const shown=CAMS.filter(c=>(zf==="All zones"||c.zone===zf)&&(cs==="All cameras"||c.id===cs));
+ const toggle=()=>{setCmd({n:cmd.n+1,val:!gp});setGp(!gp)};
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{display:"flex",flexWrap:"wrap",gap:16,alignItems:"center",justifyContent:"space-between",borderLeft:`4px solid ${mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--grn)":"var(--red)"):"var(--amb)"}`}}>
+   <div>
+    <div style={{display:"flex",flexWrap:"wrap",gap:10,alignItems:"center"}}>
+     <span className={"pill "+(mlConnected&&mlStatus?.active?"live":"")} style={{margin:0,background:mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--gl)":"var(--rl)"):"var(--al)",color:mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--grn)":"var(--red)"):"var(--amb)"}}>
+      <span className={"dot "+(mlConnected&&mlStatus?.safetyLevel==="SAFE"?"":"r")}/>
+      {mlConnected?(mlStatus?.active?`YOLO11n AI Model Live (${mlStatus.fps} FPS · ${mlStatus.source})`:"YOLO11n AI Model Connected (Standby — Click Start Live AI Webcam)"):"Python AI Model Stream Offline"}
+     </span>
+     {recentDet.length>0&&<span className="bd">Backend DB: {recentDet.length} recent detections synced</span>}
+     <button className="btn grn" disabled={ctrlBusy} onClick={()=>sendControl("start_dual",{url:"http://10.68.3.28:8080/video"})}>⚡ Start Dual AI (Webcam + Phone)</button>
+     <button className="btn" disabled={ctrlBusy} onClick={()=>sendControl("start_webcam",{cam:"CAM_001"})}>🎥 CAM_001 Webcam</button>
+     <button className="btn" disabled={ctrlBusy} onClick={startPhoneStream}>📱 CAM_002 Smartphone Stream</button>
+     {mlStatus?.active&&<button className="btn red" disabled={ctrlBusy} onClick={()=>sendControl("stop")}>⏹ Stop AI Cameras</button>}
+    </div>
+    <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
+     {mlConnected&&mlStatus?`${mlStatus.safetyLevel}: ${mlStatus.safetyMessage} · Workers: ${mlStatus.totalPersons} · Helmet OK: ${mlStatus.helmetCount} · Missing Helmet: ${mlStatus.noHelmetCount} · Fire: ${mlStatus.fireDetected?"DETECTED":"None"} · Smoke: ${mlStatus.smokeDetected?"DETECTED":"None"}`:"Connecting to local YOLOv11 AI Vision Daemon on http://127.0.0.1:8765..."}
+    </p>
+   </div>
+   <div style={{display:"flex",gap:12}}>
+    <div className="stat"><b style={{color:"var(--grn)"}}>{mlStatus?.helmetCount??0}</b><span>Helmet OK</span></div>
+    <div className="stat"><b style={{color:(mlStatus?.noHelmetCount||0)>0?"var(--red)":"inherit"}}>{mlStatus?.noHelmetCount??0}</b><span>No Helmet</span></div>
+    <div className="stat"><b style={{color:mlStatus?.fireDetected?"var(--red)":"inherit"}}>{mlStatus?.fireDetected?"ALERT":"0"}</b><span>Fire/Smoke</span></div>
+   </div>
+  </div>
+  <div className="bar"><select className="in" style={{flex:"0 0 170px"}} aria-label="Camera" value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option>{CAMS.map(c=><option key={c.id} value={c.id}>{c.id} {c.name}</option>)}</select>
+ <select className="in" style={{flex:"0 0 170px"}} aria-label="Zone" value={zf} onChange={e=>setZf(e.target.value)}><option>All zones</option>{zones.map(z=><option key={z.id}>{z.name}</option>)}</select>
+ <div className="tabs">{["grid","list"].map(v=><button key={v} className={view===v?"on":""} onClick={()=>setView(v)}>{v==="grid"?"Grid":"List"}</button>)}</div>
+ <button className={"btn "+(gp?"grn":"")} onClick={toggle}>{gp?"Play all":"Pause all"}</button></div>
+ {shown.length?<div className={"grid "+(view==="grid"?"g3":"list")}>{shown.map(c=><Feed key={c.id} cam={c} cmd={cmd} list={view==="list"} onFull={setFull} mlStatus={mlStatus} mlConnected={mlConnected}/>)}</div>:<div className="card">No cameras match this zone and camera selection. Reset a filter to see feeds.</div>}
+ 
+ {full&&<div className="modal" onClick={()=>setFull(null)}><div className="card" style={{maxWidth:1100}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{full.id} · {full.zone} · {full.name}</h3><button className="btn" onClick={()=>setFull(null)}><Ic n="x"/>Close</button></div><div className="big"><Feed cam={full} cmd={{n:0}} big mlStatus={mlStatus} mlConnected={mlConnected}/></div></div></div>}</div>}
+
+
+const getToday=()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const same=(a,b)=>a.toDateString()===b.toDateString();
+const fmt=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+
+function Attend({dbWorkers=[]}){
+ const today=getToday();
+ const [q,setQ]=useState("");const [f,setF]=useState("All");const [r,setR]=useState("Daily");const [scan,setScan]=useState(null);
+ const [sel,setSel]=useState(today);const [liveLogs,setLiveLogs]=useState([]);
+ const loadRfid=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const res=await fetch(`${API_BASE}/rfid/logs?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(res.ok){
+    const j=await res.json();
+    if(j.data&&Array.isArray(j.data.logs)){
+     if(j.data.logs.length){
+      const latest=j.data.logs[0];
+      const ts=latest.occurredAt||latest.createdAt;
+      const wName=latest.workerId?.name||(latest.scanStatus==="UNKNOWN_CARD"?"Unregistered RFID Card":"Worker");
+      const tStr=ts?new Date(ts).toLocaleTimeString("en-GB"):"Now";
+      setScan(`[MongoDB Atlas · ${latest.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.scanStatus}) at ${tStr}`);
+     }
+     const mapped=j.data.logs.map((lg,idx)=>{
+      const ts=lg.occurredAt||lg.createdAt;
+      const dt=ts?new Date(ts):today;
+      return {
+       key:lg.logId||lg._id||idx,
+       id:lg.workerId?.employeeCode||(lg.scanStatus==="UNKNOWN_CARD"?"UNKNOWN":"RFID"),
+       name:lg.workerId?.name||`Unregistered Card (${lg.rfidUid})`,
+       rfid:lg.rfidUid,
+       dateIso:iso(dt),
+       dateLabel:fmt(dt),
+       in:ts?new Date(ts).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"—",
+       out:lg.zoneId?.zoneName||lg.deviceCode||"ESP32_001",
+       st:lg.scanStatus==="SUCCESS"?"Present":lg.scanStatus==="DUPLICATE_IGNORED"?"Late":"Absent",
+       rawStatus:lg.scanStatus
+      };
+     });
+     setLiveLogs(mapped);
+    }
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadRfid();
+  const id=setInterval(loadRfid,2500);
+  return()=>clearInterval(id);
+ },[]);
+ const selIso=iso(sel);
+ const ws=new Date(sel);ws.setDate(sel.getDate()-(sel.getDay()+6)%7);const we=new Date(ws);we.setDate(ws.getDate()+6);
+ const inRange=dIso=>{
+  if(r==="Daily")return dIso===selIso;
+  if(r==="Weekly")return dIso>=iso(ws)&&dIso<=iso(we);
+  return dIso.slice(0,7)===selIso.slice(0,7);
+ };
+ const filteredScans=liveLogs.filter(x=>inRange(x.dateIso));
+ const scannedRfidSet=new Set(filteredScans.filter(x=>x.rawStatus==="SUCCESS").map(x=>x.rfid));
+ const absentWorkers=dbWorkers.filter(w=>w.rfidUid&&!scannedRfidSet.has(w.rfidUid)).map(w=>({
+  key:"abs-"+(w.workerId||w._id||w.employeeCode),
+  id:w.employeeCode,
+  name:w.name,
+  rfid:w.rfidUid||"—",
+  dateIso:selIso,
+  dateLabel:fmt(sel),
+  in:"—",
+  out:w.zoneId?.zoneName||"—",
+  st:"Absent",
+  rawStatus:"NOT_SCANNED"
+ }));
+ const all=[...filteredScans,...absentWorkers];
+ const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
+ const sim=async()=>{
+  const activeWithRfid=dbWorkers.filter(w=>w.rfidUid);
+  const pick=activeWithRfid.length?activeWithRfid[Math.floor(Math.random()*activeWithRfid.length)]:{name:"Rajesh Sharma",rfidUid:"A1B2C3D4"};
+  const uid=pick.rfidUid||"A1B2C3D4";
+  try{
+   const r=await fetch(`${API_BASE}/rfid/scan`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json","X-Device-Code":"ESP32_001","X-Device-Key":"esp32_dev_local_node_001_key"},
+    body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:uid})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setScan(`[Saved to MongoDB Atlas] ${pick.name} scanned UID ${uid} (${j.data?.scanStatus||"SUCCESS"}) at ${new Date().toLocaleTimeString("en-GB")}`);
+    await loadRfid();
+   }else{
+    setScan(`RFID Scan Notice: ${j.message||"Cooldown window active"}`);
+   }
+  }catch(_e){}
+ };
+ return <div className="grid" style={{gap:16}}><div className="card" style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10}}><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label><div style={{display:"flex",gap:8,alignItems:"center"}}><span className="bd g">MongoDB Atlas · {dbWorkers.length} Workers · {liveLogs.length} Total Scans</span><button className="btn" onClick={()=>go("rec-attendance")}>View Full Attendance History →</button></div></div>
+ <div className="card row"><span className="live"><span className="dot"/> ESP32 RC522 RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate RFID Scan → MongoDB</button></div>
+ <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or RFID UID" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
+ <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID UID</th><th>Date</th><th>Scan Time</th><th>Zone / Reader</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.key||idx}><td><b>{w.id}</b></td><td>{w.name}</td><td><code>{w.rfid}</code></td><td>{w.dateLabel}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No RFID attendance records for this filter/date. Click "Simulate RFID Scan → MongoDB" or scan an ESP32 card.</td></tr>}</tbody></table></div></div>}
+function Reports({zones}){
+ const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);const [liveInc,setLiveInc]=useState([]);const [sosData,setSosData]=useState(null);const [actMsg,setActMsg]=useState("");
+ const loadInc=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/incidents?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.incidents)){
+     const mapped=j.data.incidents.map(inc=>{
+      const iid=inc.incidentId||inc._id;
+      return {
+       id:iid?`INC-${String(iid).slice(-5).toUpperCase()}`:"INC-LIVE",
+       mongoId:iid,
+       rawId:iid,
+       w:inc.workerId?.name||"Unidentified Worker",
+       wid:inc.workerId?.employeeCode||inc.deviceOrCameraCode||"CAM_001",
+       zone:inc.zoneId?.zoneName||"Zone A",
+       d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
+       t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Live",
+       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
+       rawStatus:inc.status,
+       recordHash:inc.recordHash,
+      };
+     });
+     setLiveInc(mapped);
+    }
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadInc();
+  const id=setInterval(loadInc,2500);
+  return()=>clearInterval(id);
+ },[]);
+ const doIncidentAction=async(inc,type)=>{
+  if(!inc.mongoId)return;
+  setActMsg("Updating MongoDB Atlas...");
+  try{
+   const tok=localStorage.getItem("we-token");
+   let url=`${API_BASE}/supervisor/incidents/${inc.mongoId}/${type}`;
+   let body={};
+   if(type==="verify")body={verificationStatus:"VERIFIED",verificationNotes:"Verified via Warden's Eye Web Console"};
+   if(type==="resolve")body={resolutionNotes:"Resolved via Warden's Eye Web Console"};
+   const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify(body)});
+   const j=await r.json();
+   setActMsg(j.message||"Updated in MongoDB Atlas!");
+   await loadInc();
+   if(type==="resolve")setSel(null);
+  }catch(e){setActMsg("Error updating incident")}
+ };
+ const viewSos=async(inc)=>{
+  if(!inc.mongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/incidents/${inc.mongoId}/sos`,{headers:{Authorization:`Bearer ${tok}`}});
+   const j=await r.json();
+   if(j.data?.sosSummary)setSosData(j.data.sosSummary);
+  }catch(_e){}
+ };
+ const rows=liveInc.filter(r=>(z==="All"||r.zone===z||r.zone.includes(z))&&(s==="All"||r.st===s)&&(r.w+r.id+r.d).toLowerCase().includes(q.toLowerCase()));
+ const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
+ return <div><div className="bar"><input className="in" placeholder="Search MongoDB Atlas incidents & AI reports" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select><span className="bd g">MongoDB Incidents: {liveInc.length}</span><button className="btn" onClick={()=>go("rec-reports")}>Incident Archive →</button></div>
+ <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID / Source</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.mongoId||r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:280,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>{setSel(r);setSosData(null);setActMsg("")}}>View / Act</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No incidents recorded in your assigned workplace zones for these filters.</td></tr>}</tbody></table></div>
+ {sel&&<div className="modal" onClick={()=>setSel(null)}><div className="card" style={{maxWidth:620}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{sel.id}</h3><Badge s={sel.st}/></div><p><b>{sel.w}</b> ({sel.wid}) in {sel.zone}</p><p>{sel.d}</p><small style={{color:"var(--mut)"}}>{sel.t}{sel.rawStatus?` · MongoDB State: ${sel.rawStatus}`:""}{sel.recordHash?` · SHA-256: ${sel.recordHash.slice(0,16)}...`:""}</small>
+ {actMsg&&<div className="bd g" style={{padding:8}}>{actMsg}</div>}
+ {sosData&&<pre style={{background:"var(--surf)",padding:10,borderRadius:8,fontSize:12,overflowX:"auto",margin:0}}>{JSON.stringify(sosData,null,2)}</pre>}
+ <div className="row" style={{flexWrap:"wrap",gap:8}}>
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"acknowledge")}>Acknowledge (DB)</button>}
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"verify")}>Verify (DB)</button>}
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn grn" onClick={()=>doIncidentAction(sel,"resolve")}>Resolve Incident (DB)</button>}
+  {sel.mongoId&&<button className="btn" onClick={()=>viewSos(sel)}>🚨 Generate Manual SOS</button>}
+  {sel.rawId&&<button className="btn" onClick={async()=>{try{const tok=localStorage.getItem("we-token");const r=await fetch(`${API_BASE}/blockchain/record/${sel.rawId}`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});const j=await r.json();setActMsg(j.data?.txHash?`Anchored to Cloud Ledger: ${j.data.txHash.slice(0,22)}...`:j.message)}catch(_e){}}}>⛓ Anchor SHA-256 to Cloud</button>}
+  <button className="btn red" onClick={()=>dl(sel)}><Ic n="dl"/>Download</button>
+  <button className="btn" onClick={()=>setSel(null)}>Close</button>
+ </div></div></div>}</div>}
+
+function Zones({zones,setZones,dbWorkers=[],reloadDb,curUser}){
+ const isAdmin=!curUser||curUser.role==="ADMINISTRATOR";
+ const [m,setM]=useState(null);
+ const save=async e=>{
+  e.preventDefault();const f=new FormData(e.target),name=f.get("name").trim(),on=f.get("on")==="1";if(!name)return;
+  const tok=localStorage.getItem("we-token");
+  const code=name.toUpperCase().replace(/[^A-Z0-9]+/g,"_").replace(/^_|_$/g,"")||("ZONE_"+Date.now());
+  try{
+   if(tok){
+    if(m.mongoId){
+     await fetch(`${API_BASE}/admin/zones/${m.mongoId}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneName:name,status:on?"ACTIVE":"INACTIVE"})});
+    }else{
+     await fetch(`${API_BASE}/admin/zones`,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneCode:code,zoneName:name,description:`Managed via Warden's Eye Web Console`,status:on?"ACTIVE":"INACTIVE"})});
+    }
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+  setZones(m.id?zones.map(z=>z.id===m.id?{...z,name,on,mon:on?"Active":"Inactive"}:z):[...zones,{id:Date.now(),name,on,mon:on?"Active":"Inactive"}]);
+  setM(null);
+ };
+ const removeZone=async z=>{
+  if(!confirm("Remove "+z.name+" from MongoDB?"))return;
+  const tok=localStorage.getItem("we-token");
+  try{
+   if(tok&&z.mongoId){
+    await fetch(`${API_BASE}/admin/zones/${z.mongoId}`,{method:"DELETE",headers:{Authorization:`Bearer ${tok}`}});
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+  setZones(zones.filter(x=>x.id!==z.id));
+ };
+ const assign=async(zObj,wid)=>{
+  if(!wid)return;
+  const tok=localStorage.getItem("we-token");
+  const wDoc=dbWorkers.find(x=>{const xid=x.workerId||x._id||x.id;return xid===wid||x.employeeCode===wid});
+  const targetWorkerId=wDoc?(wDoc.workerId||wDoc._id):null;
+  try{
+   if(tok&&targetWorkerId&&zObj.mongoId){
+    await fetch(`${API_BASE}/workers/${targetWorkerId}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneId:zObj.mongoId})});
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+ };
+ const workersList=dbWorkers.map(w=>({id:w.employeeCode,mongoId:w.workerId||w._id,name:w.name,zone:w.zoneId?.zoneName||"Zone A",zoneMongoId:w.zoneId?.zoneId||w.zoneId?._id||w.zoneId}));
+ return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>MongoDB Atlas Zones: {zones.length} accessible, {zones.filter(z=>z.on).length} active {!isAdmin&&"(Supervisor Assigned Scope)"}</span>{isAdmin&&<button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone to MongoDB</button>}</div>
+ <div className="grid g3">{zones.map(z=>{
+  const inThisZone=workersList.filter(w=>(z.mongoId&&w.zoneMongoId===z.mongoId)||w.zone===z.name);
+  const notInThisZone=workersList.filter(w=>!inThisZone.some(x=>x.id===w.id));
+  return <div className="card" key={z.id}><div className="row"><h3>{z.name}</h3><Badge s={z.mon}/></div><p style={{margin:"10px 0"}}><Ic n="users"/> {inThisZone.length} workers assigned {inThisZone.length>0?`(${inThisZone.map(w=>w.name).join(", ")})`:""}</p>
+  {isAdmin&&<select className="in" value="" onChange={e=>assign(z,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker (MongoDB)…</option>{notInThisZone.map(w=><option key={w.id} value={w.mongoId||w.id}>{w.name} ({w.id})</option>)}</select>}
+  {isAdmin&&<div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>removeZone(z)}><Ic n="trash"/>Remove</button></div>}</div>})}</div>
+ {m&&<div className="modal"><form className="card" onSubmit={save}><div className="row"><h3>{m.id?"Edit zone in MongoDB":"Add zone to MongoDB"}</h3><button type="button" className="btn" aria-label="Close" onClick={()=>setM(null)}><Ic n="x"/></button></div><label>Zone name<input className="in" name="name" defaultValue={m.name||""} required autoFocus/></label><label>Monitoring<select className="in" name="on" defaultValue={m.id&&!m.on?"0":"1"}><option value="1">Active</option><option value="0">Inactive</option></select></label><button className="btn red">{m.id?"Save changes to MongoDB":"Add zone to MongoDB"}</button></form></div>}</div>}
+
+const CT=[["Admin Desk","Online"],["Ravi Kumar","Online"],["Anita Das","Offline"],["Priya Sahoo","Online"],["Suresh Nayak","Offline"]];
+function Chat(){
+ const [a,setA]=useState(1);const [q,setQ]=useState("");const [t,setT]=useState("");
+ const [M,setM]=useState({1:[["them","Zone A is clear. Shift handover done.","09:02"],["me","Thanks Ravi. Please log the delivery truck.","09:04"]],3:[["them","Camera 4 is back online.","11:20"]]});
+ const send=e=>{e.preventDefault();if(!t.trim())return;const now=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});setM({...M,[a]:[...(M[a]||[]),["me",t,now]]});setT("")};
+ const box=useRef();useEffect(()=>{box.current&&(box.current.scrollTop=1e5)},[M,a]);
+ return <div className="card chat"><div className="ct"><div style={{padding:10}}><input className="in" placeholder="Search contacts" value={q} onChange={e=>setQ(e.target.value)}/></div>{CT.map((c,i)=>c[0].toLowerCase().includes(q.toLowerCase())&&<button key={c[0]} className={"ci "+(a===i?"on":"")} onClick={()=>setA(i)}><Av name={c[0]} i={i}/><span style={{flex:1}}>{c[0]}</span><span className={"dot "+(c[1]==="Online"?"":"r")} title={c[1]}/></button>)}</div>
+ <div className="cm"><div className="row" style={{padding:"12px 16px",borderBottom:"1px solid var(--line)",justifyContent:"flex-start"}}><b>{CT[a][0]}</b><span className="bd">{CT[a][1]}</span></div><div className="msgs" ref={box}>{(M[a]||[]).map((m,i)=><div key={i} className={"m "+(m[0]==="me"?"me":"")}>{m[1]}<small>{m[2]}</small></div>)}{!(M[a]||[]).length&&<p style={{color:"var(--mut)"}}>No messages yet. Say hello.</p>}</div>
+ <form onSubmit={send}><input className="in" placeholder="Type a message" value={t} onChange={e=>setT(e.target.value)}/><button className="btn grn" aria-label="Send"><Ic n="send"/></button></form></div></div>}
+
+const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["supervisors","users","Supervisor Access"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
+const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
+const ALL=NAV.concat(HIST);
+function HistoryNav({active}){
+ return <div className="card" style={{display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:12,padding:"12px 16px"}}>
+  <div className="tabs">
+   {HIST.map(([h,ic,label])=><button key={h} className={active===h?"on":""} onClick={()=>go(h)} style={{display:"inline-flex",gap:6,alignItems:"center"}}><Ic n={ic}/>{label}</button>)}
+  </div>
+  <span className="bd g">MongoDB Atlas Historical Archive</span>
+ </div>;
+}
+
+function DetectionBoxPreview({det}){
+ const boxes=Array.isArray(det.detections)?det.detections:[];
+ const isViol=det.detectionState==="VIOLATION";
+ return <svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice" style={{position:"absolute",inset:0,width:"100%",height:"100%",background:"#11161b"}}>
+  <rect width="640" height="230" fill="#232c33"/><polygon points="0,230 640,230 640,360 0,360" fill="#181f24"/>
+  <line x1="0" y1="230" x2="640" y2="230" stroke="#394651" strokeWidth="2"/>
+  {boxes.map((b,idx)=>{
+   const [x1=180,y1=80,x2=320,y2=310]=Array.isArray(b.bbox)?b.bbox:[180,80,320,310];
+   const sx=Math.max(10,Math.min(600,x1)),sy=Math.max(18,Math.min(330,y1));
+   const sw=Math.max(36,Math.min(620-sx,x2-x1||90)),sh=Math.max(36,Math.min(350-sy,y2-y1||140));
+   const bad=["no_helmet","no_vest","no_boots","fire","smoke"].includes(b.classLabel);
+   const col=bad?"#e53e3e":b.classLabel==="person"?"#38a169":"#3182ce";
+   return <g key={idx}>
+    <rect x={sx} y={sy} width={sw} height={sh} fill={bad?"rgba(229,62,62,0.12)":"rgba(56,161,105,0.08)"} stroke={col} strokeWidth="3"/>
+    <rect x={sx} y={Math.max(0,sy-20)} width={Math.min(200,String(b.classLabel).length*9+54)} height="20" fill={col}/>
+    <text x={sx+5} y={Math.max(14,sy-6)} fill="#fff" fontSize="12" fontFamily="monospace" fontWeight="700">{b.classLabel} {Math.round((b.confidence||0.85)*100)}%</text>
+   </g>;
+  })}
+  {!boxes.length&&<text x="320" y="185" textAnchor="middle" fill={isViol?"#fc8181":"#68d391"} fontSize="16" fontFamily="monospace" fontWeight="700">{det.detectionState} FRAME RECORDED ({det.cameraCode})</text>}
+ </svg>;
+}
+
+function RecVideos(){
+ const today=getToday();
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-7);return x});
+ const [to,setTo]=useState(today);
+ const [cs,setCs]=useState("All cameras");
+ const [stFilter,setStFilter]=useState("ALL");
+ const [dets,setDets]=useState([]);
+ const [loading,setLoading]=useState(true);
+ const [play,setPlay]=useState(null);
+ const loadDets=async()=>{
+  setLoading(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/detections?limit=120`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.detections))setDets(j.data.detections);
+   }
+  }catch(_e){}finally{setLoading(false)}
+ };
+ useEffect(()=>{loadDets()},[]);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const filtered=dets.filter(d=>{
+  const dt=d.occurredAt||d.createdAt;
+  const dIso=dt?iso(new Date(dt)):iso(today);
+  if(dIso<fromIso||dIso>toIso)return false;
+  if(cs!=="All cameras"&&d.cameraCode!==cs)return false;
+  if(stFilter!=="ALL"&&d.detectionState!==stFilter)return false;
+  return true;
+ });
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-videos"/>
+  <div className="bar">
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <select className="in" style={{flex:"0 0 180px"}} value={cs} onChange={e=>setCs(e.target.value)}><option>All cameras</option><option value="CAM_001">CAM_001 (Webcam AI)</option><option value="CAM_002">CAM_002 (Phone AI)</option></select>
+   <select className="in" style={{flex:"0 0 160px"}} value={stFilter} onChange={e=>setStFilter(e.target.value)}><option value="ALL">All AI States</option><option value="VIOLATION">VIOLATION</option><option value="SAFE">SAFE</option><option value="UNCERTAIN">UNCERTAIN</option></select>
+   <button className="btn" onClick={loadDets}>Refresh Archive</button>
+   <span className="bd g">{filtered.length} Recorded AI Frames</span>
+  </div>
+  {loading?<div className="card">Loading recorded AI camera detections from MongoDB Atlas...</div>:filtered.length?<div className="grid g3">{filtered.map(d=>{
+   const ts=d.occurredAt||d.createdAt;
+   const dtStr=ts?new Date(ts).toLocaleString("en-GB"):"Recorded";
+   const isViol=d.detectionState==="VIOLATION";
+   return <div className="cam" key={d.detectionId||d._id} style={isViol?{borderColor:"var(--red)"}:{}}>
+    <div className="feed"><DetectionBoxPreview det={d}/><div className="scan"/>
+     <div className="ov tl"><b>{d.cameraCode}</b> · {d.zoneId?.zoneName||"Workplace Zone"}</div>
+     <div className="ov tr"><span className={"dot "+(isViol?"r":"")}/>{d.detectionState}</div>
+     <div className="ov bl">{dtStr}</div>
+     <div className="ov br">{Math.round((d.overallConfidence||0.85)*100)}% conf</div>
+    </div>
+    <div className="cc">
+     <div className="sp"><b>{d.detectionState==="VIOLATION"?`Missing: ${(d.missingPPE||[]).join(", ")||"PPE Violation"}`:"Full PPE Compliance"}</b><br/><small style={{color:"var(--mut)"}}>Model: {d.modelVersion||"yolo11n"} · Boxes: {(d.detections||[]).length}</small></div>
+     <Badge s={isViol?"Pending":d.detectionState==="SAFE"?"Resolved":"In Progress"}/>
+     <button className="btn red" onClick={()=>setPlay(d)}>Inspect</button>
+    </div>
+   </div>;
+  })}</div>:<div className="card">No recorded AI camera detections match this date/camera filter in MongoDB Atlas.</div>}
+  {play&&<div className="modal" onClick={()=>setPlay(null)}><div className="card" style={{maxWidth:840}} onClick={e=>e.stopPropagation()}>
+   <div className="row"><h3>{play.cameraCode} · Recorded AI Frame ({play.detectionState})</h3><button className="btn" onClick={()=>setPlay(null)}><Ic n="x"/>Close</button></div>
+   <div className="feed" style={{borderRadius:10}}><DetectionBoxPreview det={play}/><div className="scan"/>
+    <div className="ov tl"><b>{play.cameraCode}</b> · {play.modelVersion}</div>
+    <div className="ov tr">{play.safetyStatus}</div>
+    <div className="ov bl">{play.occurredAt?new Date(play.occurredAt).toLocaleString("en-GB"):""}</div>
+   </div>
+   <div style={{fontSize:14,display:"grid",gap:4}}>
+    <div><b>Detection ID:</b> <code>{play.detectionId||play._id}</code> · <b>Track ID:</b> <code>{play.trackId||"N/A"}</code></div>
+    <div><b>Missing PPE:</b> {(play.missingPPE&&play.missingPPE.length)?play.missingPPE.join(", "):"None (Compliant)"} · <b>Confidence:</b> {Math.round((play.overallConfidence||0.85)*100)}%</div>
+    <div><b>Bounding Boxes ({(play.detections||[]).length}):</b> {(play.detections||[]).map(b=>`${b.classLabel} (${Math.round((b.confidence||0)*100)}%)`).join(", ")||"Summary telemetry record"}</div>
+   </div>
+  </div></div>}
+ </div>;
+}
+
+function RecAttend({dbWorkers=[]}){
+ const today=getToday();
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-7);return x});
+ const [to,setTo]=useState(today);
+ const [q,setQ]=useState("");
+ const [stF,setStF]=useState("ALL");
+ const [logs,setLogs]=useState([]);
+ const [loading,setLoading]=useState(true);
+ const loadHistory=async()=>{
+  setLoading(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/rfid/logs?limit=200`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.logs))setLogs(j.data.logs);
+   }
+  }catch(_e){}finally{setLoading(false)}
+ };
+ useEffect(()=>{loadHistory()},[]);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const filtered=logs.filter(lg=>{
+  const ts=lg.occurredAt||lg.createdAt;
+  const dIso=ts?iso(new Date(ts)):iso(today);
+  if(dIso<fromIso||dIso>toIso)return false;
+  if(stF!=="ALL"&&lg.scanStatus!==stF)return false;
+  const txt=`${lg.workerId?.name||""} ${lg.workerId?.employeeCode||""} ${lg.rfidUid||""} ${lg.deviceCode||""} ${lg.zoneId?.zoneName||""}`.toLowerCase();
+  return txt.includes(q.toLowerCase());
+ });
+ const byDate={};
+ filtered.forEach(lg=>{
+  const ts=lg.occurredAt||lg.createdAt;
+  const dIso=ts?iso(new Date(ts)):iso(today);
+  if(!byDate[dIso])byDate[dIso]={dateIso:dIso,totalScans:0,workers:new Set(),unknown:0,duplicates:0};
+  byDate[dIso].totalScans++;
+  if(lg.scanStatus==="SUCCESS")byDate[dIso].workers.add(lg.rfidUid);
+  else if(lg.scanStatus==="UNKNOWN_CARD")byDate[dIso].unknown++;
+  else byDate[dIso].duplicates++;
+ });
+ const summaryRows=Object.values(byDate).sort((a,b)=>b.dateIso.localeCompare(a.dateIso));
+ const totalReg=Math.max(dbWorkers.length,1);
+ const csv=()=>{
+  const header="Timestamp,WorkerCode,WorkerName,RFID_UID,DeviceCode,Zone,ScanStatus\n";
+  const body=filtered.map(lg=>[
+   lg.occurredAt||lg.createdAt||"",
+   lg.workerId?.employeeCode||"UNREGISTERED",
+   `"${(lg.workerId?.name||"Unknown Card").replace(/"/g,'""')}"`,
+   lg.rfidUid,
+   lg.deviceCode||"ESP32_001",
+   `"${(lg.zoneId?.zoneName||"Zone A").replace(/"/g,'""')}"`,
+   lg.scanStatus
+  ].join(",")).join("\n");
+  const el=document.createElement("a");
+  el.href="data:text/csv,"+encodeURIComponent(header+body);
+  el.download=`rfid-attendance-history-${fromIso}-to-${toIso}.csv`;
+  el.click();
+ };
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-attendance"/>
+  <div className="bar">
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <input className="in" placeholder="Search worker, RFID UID, device, or zone" value={q} onChange={e=>setQ(e.target.value)}/>
+   <select className="in" style={{flex:"0 0 170px"}} value={stF} onChange={e=>setStF(e.target.value)}><option value="ALL">All Scan Statuses</option><option value="SUCCESS">SUCCESS (Matched)</option><option value="UNKNOWN_CARD">UNKNOWN_CARD</option><option value="DUPLICATE_IGNORED">DUPLICATE_IGNORED</option></select>
+   <button className="btn" onClick={loadHistory}>Refresh</button>
+   <button className="btn grn" onClick={csv}><Ic n="dl"/>Export CSV ({filtered.length})</button>
+  </div>
+  {summaryRows.length>0&&<div className="card tw">
+   <h3 style={{marginBottom:10}}>Daily RFID Attendance Summary (MongoDB Atlas)</h3>
+   <table><thead><tr><th>Date</th><th>Registered Workers</th><th>Unique Workers Present</th><th>Total RFID Scans</th><th>Unknown Card Alerts</th><th>Attendance Rate</th></tr></thead>
+   <tbody>{summaryRows.map(r=><tr key={r.dateIso}><td><b>{r.dateIso}</b></td><td>{dbWorkers.length||"—"}</td><td><Badge s="Present"/> {r.workers.size}</td><td>{r.totalScans}</td><td><Badge s={r.unknown>0?"Absent":"Resolved"}/> {r.unknown}</td><td>{Math.min(100,Math.round(r.workers.size/totalReg*100))}%</td></tr>)}</tbody></table>
+  </div>}
+  <div className="card tw">
+   <h3 style={{marginBottom:10}}>Recorded ESP32 RFID Scan History ({filtered.length} records)</h3>
+   {loading?<p>Loading RFID history from MongoDB Atlas...</p>:<table><thead><tr><th>Timestamp</th><th>Worker ID</th><th>Worker Name</th><th>RFID UID</th><th>Device</th><th>Workplace Zone</th><th>Scan Status</th></tr></thead>
+   <tbody>{filtered.map((lg,i)=><tr key={lg.logId||lg._id||i}>
+    <td>{(lg.occurredAt||lg.createdAt)?new Date(lg.occurredAt||lg.createdAt).toLocaleString("en-GB"):"—"}</td>
+    <td><b>{lg.workerId?.employeeCode||"—"}</b></td>
+    <td>{lg.workerId?.name||"Unregistered Card"}</td>
+    <td><code>{lg.rfidUid}</code></td>
+    <td><code>{lg.deviceCode||"ESP32_001"}</code></td>
+    <td>{lg.zoneId?.zoneName||"Zone A"}</td>
+    <td><Badge s={lg.scanStatus==="SUCCESS"?"Present":lg.scanStatus==="DUPLICATE_IGNORED"?"Late":"Absent"}/> <small>{lg.scanStatus}</small></td>
+   </tr>)}{!filtered.length&&<tr><td colSpan="7">No RFID scan logs recorded in this date range.</td></tr>}</tbody></table>}
+  </div>
+ </div>;
+}
+
+function RecReports({curUser}){
+ const today=getToday();
+ const isAdmin=!curUser||curUser.role==="ADMINISTRATOR";
+ const [from,setFrom]=useState(()=>{const x=new Date(today);x.setDate(x.getDate()-30);return x});
+ const [to,setTo]=useState(today);
+ const [q,setQ]=useState("");
+ const [stF,setStF]=useState("ALL");
+ const [tab,setTab]=useState("incidents");
+ const [dbInc,setDbInc]=useState([]);
+ const [audits,setAudits]=useState([]);
+ const [verifyMsg,setVerifyMsg]=useState("");
+ const load=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/incidents?limit=150`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.incidents)){
+     setDbInc(j.data.incidents.map(inc=>{
+      const iid=inc.incidentId||inc._id;
+      return {
+       id:iid?`INC-${String(iid).slice(-5).toUpperCase()}`:"INC-DB",
+       mongoId:iid,
+       rawId:iid,
+       w:inc.workerId?.name||"Unidentified Worker",
+       zone:inc.zoneId?.zoneName||"Zone A",
+       type:inc.incidentType,
+       sev:inc.severity,
+       d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
+       createdAt:inc.createdAt,
+       dateIso:inc.createdAt?iso(new Date(inc.createdAt)):iso(today),
+       t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Recorded",
+       rawStatus:inc.status,
+       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
+       hash:inc.recordHash?inc.recordHash.slice(0,12)+"...":"—"
+      };
+     }));
+    }
+   }
+   if(isAdmin){
+    const ar=await fetch(`${API_BASE}/admin/audit-logs?limit=80`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(ar.ok){
+     const aj=await ar.json();
+     if(aj.data?.logs)setAudits(aj.data.logs);
+     else if(aj.data?.auditLogs)setAudits(aj.data.auditLogs);
+    }
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{load()},[isAdmin]);
+ const pick=set=>e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);set(new Date(y,m-1,d))};
+ const fromIso=iso(from<=to?from:to),toIso=iso(from<=to?to:from);
+ const verifyHash=async r=>{
+  if(!r.mongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const res=await fetch(`${API_BASE}/incidents/${r.mongoId}/verify-integrity`,{headers:{Authorization:`Bearer ${tok}`}});
+   const j=await res.json();
+   const v=j.data||{};
+   setVerifyMsg(`${r.id} SHA-256 Hash Chain Integrity: ${v.integrityValid?"✓ VALID (Tamper-Free)":"✗ TAMPERED"} · Stored Hash: ${(v.storedHash||"").slice(0,24)}...`);
+  }catch(_e){}
+ };
+ const rows=dbInc.filter(r=>{
+  if(r.dateIso<fromIso||r.dateIso>toIso)return false;
+  if(stF!=="ALL"&&r.rawStatus!==stF)return false;
+  return (r.w+r.id+r.d+r.zone+r.rawStatus).toLowerCase().includes(q.toLowerCase());
+ });
+ const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.entries(r).map(([k,v])=>`${k}: ${v}`).join("\n"));a.download=r.id+".txt";a.click()};
+ const exportCsv=()=>{
+  const hdr="IncidentID,Worker,Zone,Type,Severity,WorkflowState,Timestamp,SHA256Prefix\n";
+  const bdy=rows.map(r=>[r.id,`"${r.w}"`,`"${r.zone}"`,r.type,r.sev,r.rawStatus,`"${r.t}"`,r.hash].join(",")).join("\n");
+  const a=document.createElement("a");a.href="data:text/csv,"+encodeURIComponent(hdr+bdy);a.download=`incident-history-${fromIso}-to-${toIso}.csv`;a.click();
+ };
+ return <div className="grid" style={{gap:16}}>
+  <HistoryNav active="rec-reports"/>
+  <div className="bar">
+   {isAdmin&&<div className="tabs"><button className={tab==="incidents"?"on":""} onClick={()=>setTab("incidents")}>Incident Archive ({rows.length})</button><button className={tab==="audit"?"on":""} onClick={()=>setTab("audit")}>Security Audit Logs ({audits.length})</button></div>}
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(from)} onChange={pick(setFrom)}/></label>
+   <label style={{display:"inline-flex",gap:8,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(today)} value={iso(to)} onChange={pick(setTo)}/></label>
+   <input className="in" placeholder="Search incidents, zones, or audit actions" value={q} onChange={e=>setQ(e.target.value)}/>
+   {tab==="incidents"&&<select className="in" style={{flex:"0 0 185px"}} value={stF} onChange={e=>setStF(e.target.value)}><option value="ALL">All Workflow States</option><option value="OPEN">OPEN</option><option value="WARNING_GRACE_PERIOD">WARNING_GRACE_PERIOD</option><option value="UNDER_REVIEW">UNDER_REVIEW</option><option value="SELF_RESOLVED_IN_GRACE">SELF_RESOLVED_IN_GRACE</option><option value="RESOLVED">RESOLVED</option></select>}
+   <button className="btn" onClick={load}>Refresh</button>
+   {tab==="incidents"&&<button className="btn grn" onClick={exportCsv}><Ic n="dl"/>Export CSV</button>}
+  </div>
+  {verifyMsg&&<div className="card" style={{borderLeft:"4px solid var(--grn)",padding:"10px 14px"}}><b>{verifyMsg}</b></div>}
+  {tab==="incidents"?(
+   <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Workflow State</th><th>SHA-256 Hash</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.mongoId||r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:250,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><small><code>{r.rawStatus}</code></small></td><td><code>{r.hash}</code></td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>verifyHash(r)}>Verify Hash</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="9">No recorded incidents match your search/date filter in MongoDB Atlas.</td></tr>}</tbody></table></div>
+  ):(
+   <div className="card tw"><table><thead><tr><th>Timestamp</th><th>Actor Role</th><th>Action</th><th>Entity Type</th><th>Entity ID</th></tr></thead><tbody>{audits.filter(a=>JSON.stringify(a).toLowerCase().includes(q.toLowerCase())).map((a,i)=><tr key={a.auditId||a._id||i}><td>{(a.occurredAt||a.createdAt)?new Date(a.occurredAt||a.createdAt).toLocaleString("en-GB"):"—"}</td><td><span className="bd">{a.actorRole}</span></td><td><b>{a.action}</b></td><td>{a.entityType}</td><td><code>{(a.entityId||"").slice(-10)}</code></td></tr>)}{!audits.length&&<tr><td colSpan="5">No audit logs found.</td></tr>}</tbody></table></div>
+  )}
+ </div>;
+}
+function SupervisorsPage({zones,curUser}){
+ const isHigherAuthority=!curUser||curUser.role==="ADMINISTRATOR";
+ const [sups,setSups]=useState([]);const [name,setName]=useState("");const [loginId,setLoginId]=useState("");const [pass,setPass]=useState("");const [selZone,setSelZone]=useState("ALL_ACTIVE");
+ const [msg,setMsg]=useState("");const [err,setErr]=useState("");const [busy,setBusy]=useState(false);const [editSup,setEditSup]=useState(null);const [newPass,setNewPass]=useState("");
+ const loadSups=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/admin/supervisors`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data?.supervisors)setSups(j.data.supervisors);
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{loadSups()},[]);
+ const createSup=async e=>{
+  e.preventDefault();setMsg("");setErr("");setBusy(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   const activeZoneIds=zones.filter(z=>z.mongoId&&z.on).map(z=>z.mongoId);
+   const zoneIds=selZone==="ALL_ACTIVE"?activeZoneIds:(selZone&&selZone!=="NONE"?[selZone]:[]);
+   const r=await fetch(`${API_BASE}/admin/supervisors`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({name:name.trim(),email:loginId.trim().toLowerCase(),password:pass,status:"ACTIVE",zoneIds})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setMsg(`✓ Supervisor Created in MongoDB Atlas! Login ID: ${loginId.trim().toLowerCase()} | Password: ${pass}`);
+    setName("");setLoginId("");setPass("");setSelZone("ALL_ACTIVE");
+    await loadSups();
+   }else{
+    setErr(j.message||"Failed to create supervisor");
+   }
+  }catch(_e){setErr("Network error creating supervisor")}finally{setBusy(false)}
+ };
+ const resetPass=async e=>{
+  e.preventDefault();if(!editSup||!newPass)return;setMsg("");setErr("");
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/admin/supervisors/${editSup.userId||editSup._id}`,{
+    method:"PUT",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({password:newPass,status:"ACTIVE"})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setMsg(`✓ Password updated for ${editSup.email} in MongoDB Atlas!`);
+    setEditSup(null);setNewPass("");await loadSups();
+   }else{setErr(j.message||"Could not update password")}
+  }catch(_e){setErr("Error updating password")}
+ };
+ const assignZoneToSup=async(supId,zoneMongoId)=>{
+  if(!zoneMongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/admin/zones/${zoneMongoId}/assign-supervisor`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({supervisorId:supId})
+   });
+   if(r.ok){setMsg("✓ Zone assigned to Supervisor in MongoDB Atlas");await loadSups()}
+  }catch(_e){}
+ };
+ const removeSup=async sup=>{
+  if(!confirm(`Deactivate / Remove Supervisor ${sup.name} (${sup.email})?`))return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   await fetch(`${API_BASE}/admin/supervisors/${sup.userId||sup._id}`,{method:"DELETE",headers:{Authorization:`Bearer ${tok}`}});
+   await loadSups();
+  }catch(_e){}
+ };
+ if(!isHigherAuthority){
+  return <div className="card" style={{borderLeft:"4px solid var(--amb)"}}>
+   <h3>Higher Authority Access Required</h3>
+   <p style={{color:"var(--mut)",margin:"6px 0 12px"}}>You are currently signed in as a <b>Supervisor ({curUser?.email})</b>. Only <b>Higher Authority</b> can create or modify Supervisor IDs and Passwords.</p>
+   <button className="btn red" onClick={()=>go("signin")}>Switch to Higher Authority Account</button>
+  </div>;
+ }
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{borderLeft:"4px solid var(--red)"}}>
+   <div className="row"><h3>Higher Authority — Create Supervisor ID &amp; Password (MongoDB Atlas)</h3><span className="bd g">Role: Higher Authority</span></div>
+   <p style={{margin:"4px 0 12px",fontSize:14,color:"var(--mut)"}}>Create a new Supervisor Login ID (e.g. <code>sup01@smartppe.local</code> or <code>sup_zone_b</code>) and Password. The Supervisor can immediately sign in on the Sign-In page using these credentials.</p>
+   {msg&&<div className="bd g" style={{padding:"8px 12px",marginBottom:10,fontSize:14}}>{msg}</div>}
+   {err&&<div className="bd r" style={{padding:"8px 12px",marginBottom:10,fontSize:14}}>{err}</div>}
+   <form onSubmit={createSup} className="grid g4" style={{alignItems:"end"}}>
+    <label>Supervisor Full Name<input className="in" placeholder="e.g. Bikash Pattnaik" value={name} onChange={e=>setName(e.target.value)} required/></label>
+    <label>Supervisor Login ID / Email<input className="in" placeholder="e.g. sup01 or sup.bikash@smartppe.local" value={loginId} onChange={e=>setLoginId(e.target.value)} required/></label>
+    <label>Set Password (min 6 chars)<input className="in" type="text" placeholder="e.g. Sup@2026!" value={pass} onChange={e=>setPass(e.target.value)} minLength={6} required/></label>
+    <label>Initial Workplace Zone<select className="in" value={selZone} onChange={e=>setSelZone(e.target.value)}><option value="ALL_ACTIVE">All Active Zones (Recommended)</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name} ({z.code})</option>)}<option value="NONE">No initial zone</option></select></label>
+    <div style={{gridColumn:"1 / -1",display:"flex",justifyContent:"flex-end"}}><button className="btn red" disabled={busy}><Ic n="plus"/>{busy?"Creating in MongoDB Atlas...":"Create Supervisor ID & Password"}</button></div>
+   </form>
+  </div>
+  <div className="card tw">
+   <div className="row" style={{marginBottom:10}}><h3>Registered Supervisors in MongoDB Atlas ({sups.length})</h3><button className="btn" onClick={loadSups}>Refresh List</button></div>
+   <table><thead><tr><th>Supervisor Name</th><th>Supervisor Login ID / Email</th><th>Role</th><th>Assigned Zones</th><th>Assign Zone</th><th>Status</th><th>Actions</th></tr></thead>
+   <tbody>
+    {sups.map(s=><tr key={s.userId||s._id}>
+     <td><b>{s.name}</b></td>
+     <td><code>{s.email}</code></td>
+     <td><span className="bd">SUPERVISOR</span></td>
+     <td>{(s.assignedZones&&s.assignedZones.length)?s.assignedZones.map(z=>z.zoneName||z.zoneCode).join(", "):"No zone assigned"}</td>
+     <td><select className="in" style={{height:34,fontSize:13}} value="" onChange={e=>assignZoneToSup(s.userId||s._id,e.target.value)}><option value="">+ Assign zone…</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name}</option>)}</select></td>
+     <td><Badge s={s.status==="ACTIVE"?"Active":"Inactive"}/></td>
+     <td><button className="btn" onClick={()=>{setEditSup(s);setNewPass("")}}>Reset Password</button> <button className="btn" onClick={()=>removeSup(s)}><Ic n="trash"/></button></td>
+    </tr>)}
+    {!sups.length&&<tr><td colSpan="7">No supervisors found. Use the form above to create a Supervisor ID and Password.</td></tr>}
+   </tbody></table>
+  </div>
+  {editSup&&<div className="modal" onClick={()=>setEditSup(null)}><form className="card" onSubmit={resetPass} onClick={e=>e.stopPropagation()}><div className="row"><h3>Reset Password for {editSup.name}</h3><button type="button" className="btn" onClick={()=>setEditSup(null)}><Ic n="x"/></button></div><p style={{margin:0,color:"var(--mut)"}}>Supervisor ID: <code>{editSup.email}</code></p><label>New Password (min 6 chars)<input className="in" type="text" placeholder="Enter new password" value={newPass} onChange={e=>setNewPass(e.target.value)} minLength={6} required autoFocus/></label><button className="btn red">Update Supervisor Password in MongoDB</button></form></div>}
+ </div>}
+
+function CloudConsole(){
+ const [syncSt,setSyncSt]=useState(null);const [connSt,setConnSt]=useState(null);const [plans,setPlans]=useState([]);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState("");
+ const loadCloud=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   const [cr,pr,sr]=await Promise.all([
+    fetch(`${API_BASE}/health/connectivity`),
+    fetch(`${API_BASE}/subscriptions/plans`),
+    tok?fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}}):Promise.resolve(null)
+   ]);
+   if(cr.ok){const cj=await cr.json();setConnSt(cj.data)}
+   if(pr.ok){const pj=await pr.json();setPlans(pj.data?.plans||[])}
+   if(sr&&sr.ok){const sj=await sr.json();setSyncSt(sj.data)}
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadCloud();
+  const id=setInterval(loadCloud,3000);
+  return()=>clearInterval(id);
+ },[]);
+ const triggerCloudSync=async()=>{
+  setBusy(true);setMsg("Running Edge-to-Cloud Sync Cycle...");
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/sync/run`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+   const j=await r.json();
+   const cyc=j.data?.cycleResult||{};
+   setMsg(`Cloud Sync Complete — Attempted: ${cyc.attempted??0}, Synced: ${cyc.synced??0}, Failed: ${cyc.failed??0}`);
+   await loadCloud();
+  }catch(_e){setMsg("Cloud sync cycle failed")}finally{setBusy(false)}
+ };
+ const createBackup=async()=>{
+  setBusy(true);setMsg("Verifying local-to-cloud idempotency & outbox integrity...");
+  await triggerCloudSync();
+ };
+ const outbox=syncSt?.recentOutbox||[];
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{display:"flex",flexWrap:"wrap",gap:16,alignItems:"center",justifyContent:"space-between",borderLeft:"4px solid var(--grn)"}}>
+   <div>
+    <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
+     <span className="pill live" style={{margin:0}}><span className="dot"/>Edge-to-Cloud Outbox Engine Active ({connSt?.mode||"OFFLINE_FIRST_HYBRID"})</span>
+     <span className="bd g">State: {syncSt?.cloudSyncState||"ONLINE_SYNCED"}</span>
+     <button className="btn grn" disabled={busy} onClick={triggerCloudSync}>☁️ Sync Local Outbox to Cloud Now</button>
+    </div>
+    <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
+     Offline-First Local MongoDB (`127.0.0.1:27017`) automatically queues Incidents, RFID attendance scans, and Sensor hazards into `SyncOutbox` with cryptographic idempotency keys (`entityType:entityId:versionTag`) and exponential backoff retry (`min(300s, 2^retry * 5s)`).
+    </p>
+    {msg&&<div className="bd g" style={{marginTop:8,padding:"6px 10px"}}>{msg}</div>}
+   </div>
+   <div style={{display:"flex",gap:12}}>
+    <div className="stat"><b style={{color:"var(--amb)"}}>{syncSt?.pendingCount??0}</b><span>Pending Outbox</span></div>
+    <div className="stat"><b style={{color:"var(--grn)"}}>{syncSt?.syncedCount??0}</b><span>Cloud Synced</span></div>
+    <div className="stat"><b style={{color:(syncSt?.failedRetryCount||0)>0?"var(--red)":"inherit"}}>{syncSt?.failedRetryCount??0}</b><span>Failed / Retry</span></div>
+   </div>
+  </div>
+  <div className="card tw">
+   <div className="row" style={{marginBottom:10}}><h3>Cloud SyncOutbox Queue (`syncoutboxes` MongoDB Collection)</h3><button className="btn" onClick={createBackup}>Re-verify Batch Idempotency</button></div>
+   <table><thead><tr><th>Outbox ID</th><th>Entity Type</th><th>Entity ID</th><th>Idempotency Key</th><th>Retries</th><th>Sync Status</th><th>Timestamp</th></tr></thead>
+   <tbody>
+    {outbox.map(item=><tr key={item.outboxId||item.idempotencyKey}>
+     <td><code>{(item.outboxId||"").slice(-8).toUpperCase()}</code></td>
+     <td><b>{item.entityType}</b></td>
+     <td><code>{item.entityId}</code></td>
+     <td><small>{item.idempotencyKey}</small></td>
+     <td>{item.retryCount||0}</td>
+     <td><Badge s={item.syncStatus==="SYNCED"?"Resolved":item.syncStatus==="PENDING"?"In Progress":"Pending"}/> <small>{item.syncStatus}</small></td>
+     <td>{item.syncedAt?new Date(item.syncedAt).toLocaleTimeString("en-GB"):item.createdAt?new Date(item.createdAt).toLocaleTimeString("en-GB"):"—"}</td>
+    </tr>)}
+    {!outbox.length&&<tr><td colSpan="7">No outbox events queued yet. Trigger an RFID scan in Attendance or a camera violation in Live Monitoring to watch it queue &amp; sync to Cloud!</td></tr>}
+   </tbody></table>
+  </div>
+  <div className="grid g3">
+   {plans.map(p=><div className="card" key={p.tier}>
+    <div className="row"><h3>{p.name} Cloud Tier</h3><Badge s={p.tier==="PROFESSIONAL"?"Active":"Present"}/></div>
+    <p style={{fontSize:22,fontWeight:700,margin:"4px 0"}}>₹{(p.monthlyPriceInr||0).toLocaleString("en-IN")}<small style={{fontSize:13,color:"var(--mut)",fontWeight:400}}> / month</small></p>
+    <p style={{margin:"4px 0",fontSize:14,color:"var(--mut)"}}>Sites: <b>{p.limits?.maxSites}</b> · Zones: <b>{p.limits?.maxZones}</b> · Cameras: <b>{p.limits?.maxCameras}</b> · Workers: <b>{p.limits?.maxWorkers}</b></p>
+    <small style={{color:"var(--grn)",fontWeight:600}}>✓ Multi-Tenant Cloud Sync &amp; SHA-256 Audit Chain Included</small>
+   </div>)}
+  </div>
+ </div>}
+
+function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState([]);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);
+ const loadMongoData=async()=>{
+  try{
+   const h=await fetch(`${API_BASE}/health`);
+   if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected));setDbInfo(hj.data)}
+   const tok=localStorage.getItem("we-token");
+   if(!tok){onLogout();return}
+   const [mr,zr,wr,sr]=await Promise.all([
+    fetch(`${API_BASE}/auth/me`,{headers:{Authorization:`Bearer ${tok}`}}),
+    fetch(`${API_BASE}/zones`,{headers:{Authorization:`Bearer ${tok}`}}),
+    fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}}),
+    fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}})
+   ]);
+   if(mr.status===401||mr.status===403){
+    onLogout();return;
+   }
+   if(mr.ok){
+    const mj=await mr.json();
+    if(mj.data?.user){setCurUser(mj.data.user);try{localStorage.setItem("we-user",JSON.stringify(mj.data.user))}catch(_e){}}
+   }
+   if(zr.ok){
+    const zj=await zr.json();
+    if(Array.isArray(zj.data?.zones)){
+     setZones(zj.data.zones.map((z,i)=>{
+      const zid=z.zoneId||z._id||z.id;
+      return {
+       id:zid||i+1,
+       mongoId:zid,
+       code:z.zoneCode,
+       name:z.zoneName,
+       on:z.status==="ACTIVE",
+       mon:z.status==="ACTIVE"?"Active":"Inactive"
+      };
+     }));
+    }
+   }
+   if(wr.ok){
+    const wj=await wr.json();
+    if(Array.isArray(wj.data?.workers))setDbWorkers(wj.data.workers);
+   }
+   if(sr.ok){
+    const sj=await sr.json();
+    if(sj.data)setCloudSync(sj.data);
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadMongoData();
+  const id=setInterval(loadMongoData,5000);
+  return()=>clearInterval(id);
+ },[]);
+ const isH=HIST.some(h=>h[0]===page);
+ const [hist,setHist]=useState(()=>isH);
+ useEffect(()=>{if(isH)setHist(true)},[isH]);
+ const title=(ALL.find(n=>n[0]===page)||["","","Dashboard"])[2];
+ const visibleNav=NAV.filter(x=>x[0]!=="supervisors"||!curUser||curUser.role==="ADMINISTRATOR");
+ const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
+ const nav=h=>{go(h);setOpen(false)};
+ const clickHistory=()=>{
+  const next=!hist;
+  setHist(next);
+  if(!isH)nav("rec-reports");
+ };
+ const isAtlas=dbInfo?.databaseMode==="MONGODB_ATLAS_CLOUD"||(dbInfo?.databaseHost&&String(dbInfo.databaseHost).includes("mongodb.net"));
+ const roleLabel=curUser?.role==="ADMINISTRATOR"?"Higher Authority":curUser?.role==="SUPERVISOR"?"Supervisor":(curUser?.role||"Authenticated");
+ return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
+ {visibleNav.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={clickHistory} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(visibleNav[visibleNav.length-1])}
+ <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
+ 
+ <button className="nv" onClick={onLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Account / Role">{curUser?`${curUser.name} · ${roleLabel}`:"Signing in..."}</span><Av name={curUser?.name||"User"}/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
+ {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance &amp; Session</h3><p style={{margin:"8px 0 14px"}}>Signed in as <b>{curUser?.name}</b> (<code>{curUser?.email}</code> · {roleLabel}).</p><div className="tabs" style={{marginBottom:14}}><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div><div><button className="btn red" onClick={onLogout}><Ic n="out"/>Sign Out of Session</button></div></div>}</div></div></div>}
+
+function App(){
+ const get=()=>location.hash.slice(1)||"home";const [pg,setPg]=useState(get());
+ const [dark,setDark]=useState(()=>{try{return localStorage.getItem("we-theme")==="dark"}catch(e){return false}});
+ const [authToken,setAuthToken]=useState(()=>{try{return localStorage.getItem("we-token")||""}catch(_e){return ""}});
+ const [authUser,setAuthUser]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-user")||"null")}catch(_e){return null}});
+ useEffect(()=>{const f=()=>{setPg(get());window.scrollTo(0,0)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
+ useEffect(()=>{document.documentElement.dataset.theme=dark?"dark":"light";try{localStorage.setItem("we-theme",dark?"dark":"light")}catch(e){}},[dark]);
+ const handleLogout=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(tok)await fetch(`${API_BASE}/auth/logout`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+  }catch(_e){}
+  try{localStorage.removeItem("we-token");localStorage.removeItem("we-user")}catch(_e){}
+  setAuthToken("");setAuthUser(null);
+  go("signin");
+ };
+ useEffect(()=>{
+  const verifySession=async()=>{
+   const tok=localStorage.getItem("we-token");
+   if(!tok){setAuthToken("");setAuthUser(null);return}
+   try{
+    const r=await fetch(`${API_BASE}/auth/me`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(r.status===401||r.status===403){
+     localStorage.removeItem("we-token");localStorage.removeItem("we-user");
+     setAuthToken("");setAuthUser(null);
+     return;
+    }
+    if(r.ok){
+     const j=await r.json();
+     if(j.data?.user){
+      setAuthToken(tok);setAuthUser(j.data.user);
+      localStorage.setItem("we-user",JSON.stringify(j.data.user));
+     }
+    }
+   }catch(_e){}
+  };
+  verifySession();
+ },[]);
+ const handleAuthSuccess=(tok,usr)=>{setAuthToken(tok);setAuthUser(usr)};
+ if(pg==="signin")return <SignIn onAuthSuccess={handleAuthSuccess} existingUser={authToken?authUser:null} onLogout={handleLogout}/>;
+ if(ALL.some(n=>n[0]===pg)){
+  if(!authToken){
+   return <SignIn onAuthSuccess={handleAuthSuccess} existingUser={null} onLogout={handleLogout}/>;
+  }
+  return <Shell page={pg} dark={dark} setDark={setDark} curUser={authUser} setCurUser={setAuthUser} onLogout={handleLogout}/>;
+ }
+ return <Home/>}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script></body></html>
