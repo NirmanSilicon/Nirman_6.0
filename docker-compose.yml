@@ -1,0 +1,185 @@
+name: roadguard-ai
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: roadguard-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-roadguard}
+      POSTGRES_USER: ${POSTGRES_USER:-roadguard}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_APP_USER: ${POSTGRES_APP_USER:-roadguard_app}
+      POSTGRES_APP_PASSWORD: ${POSTGRES_APP_PASSWORD:?set POSTGRES_APP_PASSWORD in .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./infrastructure/postgres/init.sh:/docker-entrypoint-initdb.d/10-roadguard-init.sh:ro
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-roadguard} -d ${POSTGRES_DB:-roadguard}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: roadguard-redis
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # MinIO removed minio/minio and minio/mc from Docker Hub in September 2026 and
+  # quay.io now refuses anonymous pulls, so the maintained Chainguard build of the
+  # same server is used. It still is MinIO: same API, same on-disk format.
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: roadguard-minio
+    # The image runs as a non-root user by default; the named volume is created as
+    # root, so this service runs as root to own only its own data volume.
+    user: "0:0"
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:?set S3_ACCESS_KEY_ID in .env}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:?set S3_SECRET_ACCESS_KEY in .env}
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    healthcheck:
+      # The Chainguard image has no curl/wget/grep, so readiness is a TCP connect to
+      # the S3 port. minio-init still retries the API until the bucket call succeeds.
+      test: ["CMD", "sh", "-c", "exec 3<>/dev/tcp/127.0.0.1/9000"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+
+  minio-init:
+    image: amazon/aws-cli:latest
+    container_name: roadguard-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:?}
+      AWS_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?}
+      AWS_DEFAULT_REGION: us-east-1
+      S3_BUCKET: ${S3_BUCKET:-roadguard-private}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        aws --endpoint-url http://minio:9000 s3api create-bucket --bucket "$$S3_BUCKET" >/dev/null 2>&1 || true;
+        aws --endpoint-url http://minio:9000 s3api head-bucket --bucket "$$S3_BUCKET";
+        echo 'bucket ready (no anonymous policy: MinIO buckets default to private)'
+
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/api.Dockerfile
+    container_name: roadguard-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env}
+      # Supabase: set COMPOSE_DATABASE_*_URL in .env (scripts/supabase_setup.py --write-env
+      # does it for you). The default keeps the bundled local PostGIS working.
+      COMPOSE_DATABASE_APP_URL: ${COMPOSE_DATABASE_APP_URL:-postgresql+psycopg://${POSTGRES_APP_USER:-roadguard_app}:${POSTGRES_APP_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      COMPOSE_DATABASE_MIGRATION_URL: ${COMPOSE_DATABASE_MIGRATION_URL:-postgresql+psycopg://${POSTGRES_USER:-roadguard}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      DATABASE_APP_URL: ${COMPOSE_DATABASE_APP_URL:-postgresql+psycopg://${POSTGRES_APP_USER:-roadguard_app}:${POSTGRES_APP_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      DATABASE_MIGRATION_URL: ${COMPOSE_DATABASE_MIGRATION_URL:-postgresql+psycopg://${POSTGRES_USER:-roadguard}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      DATABASE_SSL_MODE: ${DATABASE_SSL_MODE:-prefer}
+      DATABASE_CONNECT_TIMEOUT_SECONDS: ${DATABASE_CONNECT_TIMEOUT_SECONDS:-10}
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: s3
+      S3_ENDPOINT_URL: http://minio:9000
+      S3_PUBLIC_ENDPOINT_URL: ${S3_PUBLIC_ENDPOINT_URL:-http://localhost:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:?}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?}
+      S3_BUCKET: ${S3_BUCKET:-roadguard-private}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-http://localhost:3000}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      # This stack ships a Celery worker, so the API enqueues to Redis.
+      # A bare-metal dev run can use JOB_RUNNER=polling with polling_worker.py.
+      JOB_RUNNER: celery
+      LLM_PROVIDER: ${LLM_PROVIDER:-none}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      FRAME_SAMPLE_FPS: ${FRAME_SAMPLE_FPS:-5}
+      DETECTOR_BACKEND: ${DETECTOR_BACKEND:-synthetic_scene}
+      LIVE_CCTV_ENABLED: ${LIVE_CCTV_ENABLED:-false}
+      DISABLE_AUTH: ${DISABLE_AUTH:-false}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request;urllib.request.urlopen('http://localhost:8000/api/v1/health/live')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  worker:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/worker.Dockerfile
+    container_name: roadguard-worker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env}
+      # Supabase: set COMPOSE_DATABASE_*_URL in .env (scripts/supabase_setup.py --write-env
+      # does it for you). The default keeps the bundled local PostGIS working.
+      DATABASE_APP_URL: ${COMPOSE_DATABASE_APP_URL:-postgresql+psycopg://${POSTGRES_APP_USER:-roadguard_app}:${POSTGRES_APP_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      DATABASE_MIGRATION_URL: ${COMPOSE_DATABASE_MIGRATION_URL:-postgresql+psycopg://${POSTGRES_USER:-roadguard}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-roadguard}}
+      DATABASE_SSL_MODE: ${DATABASE_SSL_MODE:-prefer}
+      DATABASE_CONNECT_TIMEOUT_SECONDS: ${DATABASE_CONNECT_TIMEOUT_SECONDS:-10}
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: s3
+      S3_ENDPOINT_URL: http://minio:9000
+      S3_PUBLIC_ENDPOINT_URL: ${S3_PUBLIC_ENDPOINT_URL:-http://localhost:9000}
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:?}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:?}
+      S3_BUCKET: ${S3_BUCKET:-roadguard-private}
+      FRAME_SAMPLE_FPS: ${FRAME_SAMPLE_FPS:-5}
+      DETECTOR_BACKEND: ${DETECTOR_BACKEND:-synthetic_scene}
+
+  web:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/web.Dockerfile
+      args:
+        API_INTERNAL_URL: http://api:8000
+        NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-ws://localhost:8000}
+        NEXT_PUBLIC_MAP_TILE_URL: ${NEXT_PUBLIC_MAP_TILE_URL:-https://tile.openstreetmap.org/{z}/{x}/{y}.png}
+        NEXT_PUBLIC_MAP_TILE_ATTRIBUTION: ${NEXT_PUBLIC_MAP_TILE_ATTRIBUTION:-&copy; OpenStreetMap contributors}
+    container_name: roadguard-web
+    depends_on:
+      api:
+        condition: service_started
+    environment:
+      API_INTERNAL_URL: http://api:8000
+      NEXT_PUBLIC_API_BASE_URL: /api
+      NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-ws://localhost:8000}
+      NEXT_PUBLIC_MAP_TILE_URL: ${NEXT_PUBLIC_MAP_TILE_URL:-https://tile.openstreetmap.org/{z}/{x}/{y}.png}
+      NEXT_PUBLIC_MAP_TILE_ATTRIBUTION: ${NEXT_PUBLIC_MAP_TILE_ATTRIBUTION:-&copy; OpenStreetMap contributors}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+
+volumes:
+  postgres-data:
+  minio-data:
