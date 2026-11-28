@@ -1,0 +1,42 @@
+name: NagarDrishti 3D CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-and-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install backend dependencies
+        run: npm --prefix backend ci
+
+      - name: Backend TypeScript check, tests, and build
+        run: |
+          npm --prefix backend run typecheck
+          npm --prefix backend test
+          npm --prefix backend run build
+
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci
+
+      - name: Frontend TypeScript check, tests, and production build
+        run: |
+          npm --prefix frontend run typecheck
+          npm --prefix frontend test
+          npm --prefix frontend run build
+
+      - name: Verify no service_role secret leaked into frontend bundle
+        run: |
+          if grep -rn "SUPABASE_SERVICE_ROLE_KEY" frontend/dist; then
+            echo "ERROR: Service role key reference found in frontend bundle!"
+            exit 1
+          fi
