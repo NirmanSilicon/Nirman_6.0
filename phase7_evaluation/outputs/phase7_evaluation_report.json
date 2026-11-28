@@ -1,0 +1,89 @@
+{
+  "phase": "7 \u00e2\u20ac\u201d Final model training and independent test evaluation",
+  "dataset": "NASA N-CMAPSS DS05 processed flight-level data",
+  "development_engines": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "independent_test_engines": [
+    7,
+    8,
+    9,
+    10
+  ],
+  "development_rows": 491,
+  "independent_test_rows": 327,
+  "feature_count": 72,
+  "model_parameters": {
+    "objective": "reg:squarederror",
+    "n_estimators": 600,
+    "max_depth": 4,
+    "learning_rate": 0.03,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85,
+    "reg_lambda": 2,
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "overall_metrics": {
+    "scope": "all_test_engines_7_to_10",
+    "rows": 327,
+    "MAE": 8.789262365128288,
+    "RMSE": 12.13049020898824,
+    "R2": 0.7496425224918595,
+    "mean_signed_error_pred_minus_actual": -0.2710554621635227
+  },
+  "engine_wise_metrics": [
+    {
+      "scope": "engine_7",
+      "rows": 85,
+      "MAE": 12.78947673965903,
+      "RMSE": 17.372776375955766,
+      "R2": 0.4986489053007196,
+      "mean_signed_error_pred_minus_actual": -5.963289920021506
+    },
+    {
+      "scope": "engine_8",
+      "rows": 91,
+      "MAE": 5.482012813562875,
+      "RMSE": 7.418162267459813,
+      "R2": 0.9202476356139645,
+      "mean_signed_error_pred_minus_actual": 1.3442806955222244
+    },
+    {
+      "scope": "engine_9",
+      "rows": 69,
+      "MAE": 10.30286475368168,
+      "RMSE": 12.726178514974269,
+      "R2": 0.5917085220294303,
+      "mean_signed_error_pred_minus_actual": 2.081552203150763
+    },
+    {
+      "scope": "engine_10",
+      "rows": 82,
+      "MAE": 7.039298005947253,
+      "RMSE": 8.751955174362216,
+      "R2": 0.8632811791627923,
+      "mean_signed_error_pred_minus_actual": 1.857169045907695
+    }
+  ],
+  "low_rul_risk": {
+    "definition": "low RUL means actual rul_mean <= 20 cycles",
+    "rows": 84,
+    "MAE": 6.547169987644468,
+    "overestimation_gt_10_count": 21,
+    "overestimation_gt_10_rate": 0.25,
+    "maximum_overestimation": 30.873619079589844
+  },
+  "test_set_policy": "Engines 7\u00e2\u20ac\u201c10 used only for final evaluation; do not tune from these results.",
+  "prediction_policy": "Raw regression predictions retained; no clipping applied.",
+  "limitations": [
+    "Results apply to this processed DS05 split and this evaluation protocol.",
+    "SHAP explanations do not establish physical causality.",
+    "This is a research prototype, not a certified aircraft maintenance system."
+  ]
+}

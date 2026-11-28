@@ -1,0 +1,18 @@
+{
+  "engine": 6,
+  "row_index": 486,
+  "cycle": 63,
+  "actual_rul": 4.0,
+  "predicted_rul": 49.83180236816406,
+  "error_predicted_minus_actual": 45.83180236816406,
+  "selection_rule": "largest positive error among actual RUL <= 20",
+  "training_engines": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "waterfall_plot": "engine_6_loeo_waterfall.png",
+  "interpretation_note": "Positive SHAP values increase predicted RUL; negative SHAP values decrease predicted RUL. Attribution is not causation."
+}

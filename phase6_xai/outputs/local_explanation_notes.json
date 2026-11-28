@@ -1,0 +1,21 @@
+{
+  "type": "in-sample exploratory explanations",
+  "warning": "Engine 3/6 plots explain predictions from a model trained on all six development engines. They are not explanations of earlier LOEO held-out predictions. Recreate the exact fold model excluding the explained engine for those.",
+  "examples": [
+    {
+      "engine": 3,
+      "row_index": 224,
+      "cycle": 65,
+      "actual_rul": 0.0,
+      "predicted_rul": -0.10779528319835663
+    },
+    {
+      "engine": 6,
+      "row_index": 490,
+      "cycle": 67,
+      "actual_rul": 0.0,
+      "predicted_rul": 1.5983593463897705
+    }
+  ],
+  "interpretation": "SHAP values describe model attribution, not causal sensor effects."
+}

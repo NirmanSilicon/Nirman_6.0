@@ -1,0 +1,57 @@
+<section class="page-component rul-component">
+  <div class="page-intro">
+    <div><h2>RUL Predictions</h2><p>Review validated DS05 development-engine predictions from the integrated XGBoost model.</p></div>
+    <div class="page-action-group">
+      <button class="btn btn-secondary" id="compareModelsBtn" type="button" disabled title="A second evaluated model is not connected">Model comparison · pending</button>
+      <button class="btn btn-secondary" id="exportPredictionsBtn" type="button">⇩ Export</button>
+      <button class="btn btn-primary" id="refreshPredictionsBtn" type="button">↻ Refresh model data</button>
+    </div>
+  </div>
+
+  <div class="prediction-banner">
+    <div class="prediction-icon">◷</div>
+    <div><strong>Remaining Useful Life (RUL)</strong><p>RUL is the model-estimated number of operating cycles remaining. It is not a guaranteed failure countdown or certified maintenance advice.</p></div>
+  </div>
+
+  <article class="panel ds05-model-panel">
+    <div class="panel-heading">
+      <div><h3>DS05 XGBoost model status</h3><p id="ds05ModelMessage" aria-live="polite">Checking backend model availability…</p></div>
+      <span class="model-tag" id="ds05ModelBadge">CHECKING</span>
+    </div>
+    <div class="ds05-status-grid">
+      <div><span>EXPECTED FEATURES</span><strong id="ds05ExpectedFeatures">—</strong></div>
+      <div><span>LOADED FEATURES</span><strong id="ds05LoadedFeatures">—</strong></div>
+      <div><span>DEVELOPMENT ENGINES</span><strong id="ds05DevEngines">—</strong></div>
+      <div><span>INDEPENDENT TEST ENGINES</span><strong id="ds05TestEngines">—</strong></div>
+    </div>
+  </article>
+
+  <article class="panel ds05-history-panel">
+    <div class="panel-heading ds05-history-heading">
+      <div><h3>Historical RUL predictions</h3><p>Development-set engine history · model predictions compared with development labels</p></div>
+      <label class="ds05-engine-picker">DEVELOPMENT ENGINE
+        <select id="ds05EngineSelect" class="select-control" disabled><option>Loading…</option></select>
+      </label>
+    </div>
+    <div class="ds05-metrics">
+      <div><span>FLIGHTS</span><strong id="ds05FlightCount">—</strong></div>
+      <div><span>LAST CYCLE</span><strong id="ds05LastCycle">—</strong></div>
+      <div><span>LATEST RAW PREDICTION</span><strong id="ds05LatestRaw">—</strong></div>
+      <div><span>DISPLAY ESTIMATE</span><strong id="ds05LatestDisplay">—</strong></div>
+    </div>
+    <div class="ds05-chart-wrap"><canvas id="ds05RulChart" aria-label="Actual and predicted remaining useful life across development flights"></canvas></div>
+    <div class="table-scroll ds05-history-table-wrap">
+      <table>
+        <thead><tr><th>CYCLE</th><th>ACTUAL RUL · DEVELOPMENT</th><th>PREDICTED RUL · RAW</th><th>DISPLAY ESTIMATE</th></tr></thead>
+        <tbody id="ds05HistoryBody"><tr><td colspan="4">Select a development engine to load its history.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="ds05-disclaimer">Development-set results are for analysis and must not be presented as independent test results. Raw model predictions are retained, including negative values; the non-negative display estimate is a presentation-only convenience.</p>
+    <div id="ds05HistoryError" class="ds05-error" role="alert" hidden></div>
+  </article>
+
+  <article class="panel prediction-panel ds05-demo-panel">
+    <div class="panel-heading"><div><h3>Illustrative fleet demo</h3><p>Local placeholder values, separate from the trained DS05 model.</p></div><span class="model-tag">DEMO DATA · NOT MODEL OUTPUT</span></div>
+    <div class="table-scroll"><table><thead><tr><th>ENGINE</th><th>ILLUSTRATIVE RUL</th><th>ANOMALY SCORE</th><th>STATUS</th></tr></thead><tbody id="predictionTableBody"></tbody></table></div>
+  </article>
+</section>

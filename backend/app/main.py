@@ -1,4 +1,5 @@
 from __future__ import annotations
+from app.routers.rul import router as rul_router
 
 import hashlib
 import json
@@ -14,6 +15,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile, WebSocket, WebSock
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 import pandas as pd
+from app.routers.rul import router as rul_router
 
 from app.services.cmapss import DatasetError, EXPECTED_FILES, preprocess_fd001, validate_fd001
 from app.services.telemetry import TelemetryController, TelemetryDataError, load_engine_rows
@@ -44,6 +46,7 @@ app = FastAPI(
         "Phase 4 N-CMAPSS DS05 inspection/preprocessing and TELESENTRY replay."
     ),
 )
+app.include_router(rul_router)
 
 _default_origins = (
     "http://localhost:5500,http://127.0.0.1:5500,"

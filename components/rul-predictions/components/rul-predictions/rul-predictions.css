@@ -1,0 +1,16 @@
+.rul-component .ds05-model-panel,.rul-component .ds05-history-panel{margin-bottom:13px;padding:16px}
+.rul-component .ds05-status-grid,.rul-component .ds05-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.rul-component .ds05-status-grid>div,.rul-component .ds05-metrics>div{padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--surface, #fff);min-width:0}
+.rul-component .ds05-status-grid span,.rul-component .ds05-metrics span{display:block;font-size:9px;letter-spacing:.6px;font-weight:800;color:#8ba2b4}
+.rul-component .ds05-status-grid strong,.rul-component .ds05-metrics strong{display:block;margin-top:6px;font:700 13px Manrope;color:var(--text, #34536d);overflow-wrap:anywhere}
+.rul-component #ds05ModelBadge.is-ready{background:#eaf7f1;color:#238b6c}
+.rul-component .ds05-history-heading{align-items:flex-end;gap:14px}
+.rul-component .ds05-engine-picker{display:grid;gap:5px;min-width:180px;color:#8199ab;font-size:9px;font-weight:800;letter-spacing:.6px}
+.rul-component .ds05-engine-picker select{width:100%}
+.rul-component .ds05-chart-wrap{height:310px;margin:16px 0 12px;position:relative}
+.rul-component .ds05-history-table-wrap{max-height:350px;overflow:auto}
+.rul-component .ds05-history-table-wrap th{position:sticky;top:0;z-index:1}
+.rul-component .ds05-disclaimer{font-size:10px;line-height:1.55;color:#8299ab;margin:12px 0 0}
+.rul-component .ds05-error{margin-top:10px;padding:10px 12px;border:1px solid #f0d3d3;background:#fff7f7;border-radius:8px;color:#a94343;font-size:11px;white-space:pre-wrap}
+.rul-component .ds05-demo-panel{margin-top:13px}
+@media(max-width:700px){.rul-component .ds05-status-grid,.rul-component .ds05-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.rul-component .ds05-history-heading{align-items:flex-start;flex-direction:column}.rul-component .ds05-engine-picker{width:100%}.rul-component .ds05-chart-wrap{height:250px}}

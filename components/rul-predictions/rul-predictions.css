@@ -1,2 +1,16 @@
-.rul-component .prediction-banner{display:flex;gap:12px;padding:14px;margin-bottom:13px;background:#edf7ff;border:1px solid #dceefb;border-radius:9px}.rul-component .prediction-icon{width:36px;height:36px;flex:0 0 36px;display:grid;place-items:center;background:#dceefe;color:#398ec5;border-radius:9px;font-size:19px}.rul-component .prediction-banner strong{font-size:12px}.rul-component .prediction-banner p{font-size:11px;color:#748da3;line-height:1.5;margin:3px 0 0}.rul-component .prediction-panel{padding:0;overflow:hidden}.rul-component .prediction-panel .panel-heading{padding:16px}.rul-component .prediction-panel .table-scroll{overflow:auto}.rul-component table{width:100%;border-collapse:collapse;white-space:nowrap}.rul-component th{text-align:left;background:#f7fafd;color:#90a5b6;padding:13px 15px;font-size:10px;letter-spacing:.7px}.rul-component td{padding:14px 15px;border-top:1px solid #edf2f6;color:#6e879b;font-size:12px}.rul-component td strong{color:#35536c;font-size:12px}.rul-component .range-text{color:#8aa1b3}.rul-component .status-pill{padding:5px 8px;border-radius:20px;font-size:9px;font-weight:800}.rul-component .healthy-pill{background:#eaf7f1;color:#238b6c}.rul-component .monitor-pill{background:#fff5e6;color:#b98230}.rul-component .review-pill{background:#fff0f1;color:#c9636b}.rul-component .prediction-note{margin-top:13px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:8px;color:#7c92a4;font-size:11px;line-height:1.5}.rul-component .prediction-note strong{color:#536f86}
-@media(max-width:600px){.rul-component .page-intro{align-items:flex-start;flex-direction:column}.rul-component .page-action-group{width:100%}.rul-component .page-action-group .btn{flex:1}}
+.rul-component .ds05-model-panel,.rul-component .ds05-history-panel{margin-bottom:13px;padding:16px}
+.rul-component .ds05-status-grid,.rul-component .ds05-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.rul-component .ds05-status-grid>div,.rul-component .ds05-metrics>div{padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--surface, #fff);min-width:0}
+.rul-component .ds05-status-grid span,.rul-component .ds05-metrics span{display:block;font-size:9px;letter-spacing:.6px;font-weight:800;color:#8ba2b4}
+.rul-component .ds05-status-grid strong,.rul-component .ds05-metrics strong{display:block;margin-top:6px;font:700 13px Manrope;color:var(--text, #34536d);overflow-wrap:anywhere}
+.rul-component #ds05ModelBadge.is-ready{background:#eaf7f1;color:#238b6c}
+.rul-component .ds05-history-heading{align-items:flex-end;gap:14px}
+.rul-component .ds05-engine-picker{display:grid;gap:5px;min-width:180px;color:#8199ab;font-size:9px;font-weight:800;letter-spacing:.6px}
+.rul-component .ds05-engine-picker select{width:100%}
+.rul-component .ds05-chart-wrap{height:310px;margin:16px 0 12px;position:relative}
+.rul-component .ds05-history-table-wrap{max-height:350px;overflow:auto}
+.rul-component .ds05-history-table-wrap th{position:sticky;top:0;z-index:1}
+.rul-component .ds05-disclaimer{font-size:10px;line-height:1.55;color:#8299ab;margin:12px 0 0}
+.rul-component .ds05-error{margin-top:10px;padding:10px 12px;border:1px solid #f0d3d3;background:#fff7f7;border-radius:8px;color:#a94343;font-size:11px;white-space:pre-wrap}
+.rul-component .ds05-demo-panel{margin-top:13px}
+@media(max-width:700px){.rul-component .ds05-status-grid,.rul-component .ds05-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.rul-component .ds05-history-heading{align-items:flex-start;flex-direction:column}.rul-component .ds05-engine-picker{width:100%}.rul-component .ds05-chart-wrap{height:250px}}

@@ -1,0 +1,30 @@
+{
+  "model": "XGBoost",
+  "purpose": "development-fit model for global SHAP exploration",
+  "training_engines": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "training_rows": 491,
+  "target": "rul_mean",
+  "feature_count": 72,
+  "parameters": {
+    "objective": "reg:squarederror",
+    "n_estimators": 600,
+    "max_depth": 4,
+    "learning_rate": 0.03,
+    "subsample": 0.85,
+    "colsample_bytree": 0.85,
+    "reg_lambda": 2.0,
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "in_sample_MAE": 1.9702470685732827,
+  "in_sample_RMSE": 2.6410789358001576,
+  "in_sample_R2": 0.989322176008995,
+  "warning": "In-sample metrics are not independent test performance."
+}
