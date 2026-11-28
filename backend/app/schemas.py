@@ -1,19 +1,37 @@
+
 """Pydantic v2 request and response schemas for the AlarmSense FastAPI backend."""
 
 from typing import Literal
+
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from app.config import DEFAULT_WINDOW_SIZE, FAULT_METADATA, SENSOR_COLS
+from app.config import DEFAULT_WINDOW_SIZE, FAULT_METADATA
 
 
 class HealthResponse(BaseModel):
     """Response model for GET /api/v1/health."""
 
-    status: str = Field(..., description="Service health status ('ok' or 'degraded')")
-    model_loaded: bool = Field(..., description="Whether ML artifacts and explainer are loaded")
-    supported_faults: int = Field(..., description="Number of supported operating states (Normal + faults)")
-    fault_ids: list[int] = Field(..., description="List of supported operating state codes")
-    active_plant_id: str = Field(default="tep", description="Currently active plant model ID")
+    status: Literal["ok", "degraded"] = Field(
+        ...,
+        description="Service health status",
+    )
+    model_loaded: bool = Field(
+        ...,
+        description="Whether ML artifacts and explainer are loaded",
+    )
+    supported_faults: int = Field(
+        ...,
+        ge=0,
+        description="Number of supported operating states",
+    )
+    fault_ids: list[int] = Field(
+        ...,
+        description="List of supported operating state codes",
+    )
+    active_plant_id: str = Field(
+        default="tep",
+        description="Currently active plant model ID",
+    )
     active_plant_name: str = Field(
         default="Tennessee Eastman Process",
         description="Human-readable name of the active plant model",
@@ -37,7 +55,7 @@ class FaultCatalogItem(BaseModel):
 class FaultCatalogResponse(BaseModel):
     """Response model for GET /api/v1/faults."""
 
-    total: int
+    total: int = Field(..., ge=0)
     faults: list[FaultCatalogItem]
 
 
@@ -49,7 +67,7 @@ class PriorityAlarmItem(BaseModel):
     unit: str = ""
     direction: Literal["HIGH", "LOW"]
     severity: Literal["HIGH", "LOW", "HIGH_HIGH", "LOW_LOW"]
-    first_step: int
+    first_step: int = Field(..., ge=0)
     peak_z: float
 
 
@@ -96,13 +114,22 @@ class CausalLink(BaseModel):
     source_label: str = ""
     target: str
     target_label: str = ""
-    best_lag_steps: int
-    lag_minutes: int
-    correlation: float
-    p_value: float | None = None
+    best_lag_steps: int = Field(..., ge=1)
+    lag_minutes: int = Field(..., ge=1)
+    correlation: float = Field(..., ge=-1.0, le=1.0)
+    p_value: float | None = Field(default=None, ge=0.0, le=1.0)
     strength: float = Field(..., ge=0.0, le=1.0)
     method: Literal["granger+corr", "lag_corr"]
     explanation: str
+
+    @model_validator(mode="after")
+    def validate_source_and_target(self) -> "CausalLink":
+        """Prevent self-referential causal links."""
+        if self.source == self.target:
+            raise ValueError(
+                "Causal link source and target must be different."
+            )
+        return self
 
 
 class AnalyzeRequest(BaseModel):
@@ -113,36 +140,52 @@ class AnalyzeRequest(BaseModel):
     window: list[dict[str, float]] = Field(
         ...,
         min_length=1,
-        description="Chronological sensor observations validated against active plant sensor columns.",
+        description=(
+            "Chronological sensor observations validated "
+            "against active plant sensor columns."
+        ),
     )
 
 
 class AnalyzeResponse(BaseModel):
     """Unified alarm consolidation, ML diagnosis, SHAP evidence, causal links, and playbook response."""
 
-    raw_alarm_count: int
-    confirmed_alarm_count: int
+    raw_alarm_count: int = Field(..., ge=0)
+    confirmed_alarm_count: int = Field(..., ge=0)
     priority_alarms: list[PriorityAlarmItem]
     first_triggered_tag: str | None
     first_triggered_label: str | None = None
-    reduction_pct: float
+    reduction_pct: float = Field(..., ge=0.0, le=100.0)
     root_cause: RootCauseSummary
     top_causes: list[TopCauseItem]
     shap_evidence: list[ShapEvidenceItem]
     causal_links: list[CausalLink] = Field(default_factory=list)
     recommended_actions: list[str]
-    latency_ms: float
+    latency_ms: float = Field(..., ge=0.0)
+
+    @model_validator(mode="after")
+    def validate_alarm_counts(self) -> "AnalyzeResponse":
+        """Ensure confirmed alarms do not exceed raw alarm count."""
+        if self.confirmed_alarm_count > self.raw_alarm_count:
+            raise ValueError(
+                "confirmed_alarm_count cannot exceed raw_alarm_count."
+            )
+        return self
 
 
 class SimulateRequest(BaseModel):
     """Optional JSON body for POST /api/v1/simulate/{fault_id}."""
 
-    step_index: int = Field(default=0, ge=0, description="Starting step offset in the test episode")
+    step_index: int = Field(
+        default=0,
+        ge=0,
+        description="Starting step offset in the test episode",
+    )
     window_size: int = Field(
         default=DEFAULT_WINDOW_SIZE,
         ge=DEFAULT_WINDOW_SIZE,
         le=500,
-        description="Sliding window length (minimum 20)",
+        description="Sliding window length",
     )
     episode_index: int = Field(
         default=0,
@@ -164,15 +207,15 @@ class SimulateRequest(BaseModel):
 
 
 class SimulateResponse(AnalyzeResponse):
-    """Full diagnosis, alarm flood consolidation, and sensor trend snippet for a simulated fault."""
+    """Full diagnosis, alarm consolidation, and sensor trend snippet for a simulated fault."""
 
     simulated_fault_id: int
     episode_id: int
-    step_index: int
-    window_size: int
-    episode_total_steps: int
-    available_episodes: int
-    fault_onset_step: int | None = None
+    step_index: int = Field(..., ge=0)
+    window_size: int = Field(..., ge=1)
+    episode_total_steps: int = Field(..., ge=0)
+    available_episodes: int = Field(..., ge=0)
+    fault_onset_step: int | None = Field(default=None, ge=0)
     in_fault_regime: bool = True
     alarm_trend: list[int] = Field(
         default_factory=list,
@@ -180,7 +223,8 @@ class SimulateResponse(AnalyzeResponse):
     )
     onset_offset_in_window: int | None = Field(
         default=None,
-        description="0-based index within the window where fault onset occurs, if visible",
+        ge=0,
+        description="Index within the window where fault onset occurs, if visible",
     )
     sensor_trends: dict[str, list[float]]
 
@@ -199,16 +243,24 @@ class FeedbackRequest(BaseModel):
 
     @model_validator(mode="after")
     def validate_fault_ids(self) -> "FeedbackRequest":
-        """Ensure fault_id and optional corrected_fault_id exist in FAULT_METADATA."""
+        """Ensure fault IDs exist in the TEP fault metadata."""
+
         if self.fault_id not in FAULT_METADATA:
             raise ValueError(
-                f"Unsupported fault_id: {self.fault_id}. Supported: {sorted(FAULT_METADATA)}"
-            )
-        if self.corrected_fault_id is not None and self.corrected_fault_id not in FAULT_METADATA:
-            raise ValueError(
-                f"Unsupported corrected_fault_id: {self.corrected_fault_id}. "
+                f"Unsupported fault_id: {self.fault_id}. "
                 f"Supported: {sorted(FAULT_METADATA)}"
             )
+
+        if (
+            self.corrected_fault_id is not None
+            and self.corrected_fault_id not in FAULT_METADATA
+        ):
+            raise ValueError(
+                f"Unsupported corrected_fault_id: "
+                f"{self.corrected_fault_id}. "
+                f"Supported: {sorted(FAULT_METADATA)}"
+            )
+
         return self
 
 
@@ -217,17 +269,17 @@ class FeedbackResponse(BaseModel):
 
     status: Literal["recorded"]
     timestamp: str
-    total_feedback_count: int
-    confirmed_count: int
-    rejected_count: int
+    total_feedback_count: int = Field(..., ge=0)
+    confirmed_count: int = Field(..., ge=0)
+    rejected_count: int = Field(..., ge=0)
 
 
 class FeedbackSummaryResponse(BaseModel):
     """Response model for GET /api/v1/feedback/summary."""
 
-    total_feedback_count: int
-    confirmed_count: int
-    rejected_count: int
+    total_feedback_count: int = Field(..., ge=0)
+    confirmed_count: int = Field(..., ge=0)
+    rejected_count: int = Field(..., ge=0)
     recent_entries: list[dict[str, object]]
 
 
@@ -237,10 +289,10 @@ class PlantInfo(BaseModel):
     plant_id: str
     plant_name: str
     is_active: bool
-    n_sensors: int
+    n_sensors: int = Field(..., ge=0)
     sensor_cols: list[str]
     classes: list[int]
-    window_size: int
+    window_size: int = Field(..., ge=1)
 
 
 class PlantListResponse(BaseModel):
@@ -257,13 +309,13 @@ class RetrainResponse(BaseModel):
     activated: bool
     plant_id: str
     plant_name: str
-    n_sensors: int
+    n_sensors: int = Field(..., ge=0)
     sensor_cols: list[str]
     classes: list[int]
-    train_windows: int
-    sample_accuracy: float
-    sample_macro_f1: float
-    train_time_sec: float
+    train_windows: int = Field(..., ge=0)
+    sample_accuracy: float = Field(..., ge=0.0, le=1.0)
+    sample_macro_f1: float = Field(..., ge=0.0, le=1.0)
+    train_time_sec: float = Field(..., ge=0.0)
     artifacts_dir: str
 
 
@@ -273,7 +325,7 @@ class ActivatePlantResponse(BaseModel):
     status: Literal["activated"]
     plant_id: str
     plant_name: str
-    n_sensors: int
+    n_sensors: int = Field(..., ge=0)
     sensor_cols: list[str]
     classes: list[int]
-    window_size: int
+    window_size: int = Field(..., ge=1)
