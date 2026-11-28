@@ -77,8 +77,8 @@ private const val TAG = "TutorScreen"
 @Composable
 fun TutorScreen(
     initialPrompt: String? = null,
-    classLevel: Int = 10,
-    subject: String = "Mathematics",
+    classLevel: Int,
+    subject: String = "General",
     chapter: String? = null,
     topic: String? = null,
     onBack: () -> Unit,

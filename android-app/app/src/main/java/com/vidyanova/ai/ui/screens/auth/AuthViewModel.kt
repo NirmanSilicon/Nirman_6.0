@@ -12,6 +12,7 @@ import com.vidyanova.ai.data.repository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 data class AuthUiState(
@@ -38,6 +39,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
 
         viewModelScope.launch {
+            val classLevel = try {
+                userPrefs.classLevelFlow.first()
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to read saved class level", e)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    errorMessage = "Could not load your saved class. Please try again."
+                )
+                return@launch
+            }
             val derivedName = email.substringBefore("@").replace(".", " ").capitalize()
             try {
                 val response = AuthRepository.login(
@@ -49,7 +60,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         AuthTokenStore.saveToken(token)
                         userPrefs.saveAuthToken(token)
                     }
-                    userPrefs.saveStudentProfile(derivedName, email.trim(), 10)
+                    userPrefs.saveStudentProfile(derivedName, email.trim(), classLevel)
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isSuccess = true,
@@ -66,7 +77,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (e: Exception) {
                 Log.w(TAG, "Server offline, proceeding in local offline mode: ${e.message}")
-                userPrefs.saveStudentProfile(derivedName, email.trim(), 10)
+                userPrefs.saveStudentProfile(derivedName, email.trim(), classLevel)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     isSuccess = true,
@@ -103,6 +114,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                         AuthTokenStore.saveToken(token)
                         userPrefs.saveAuthToken(token)
                     }
+                    userPrefs.saveClassLevel(classLevel)
                     userPrefs.saveStudentProfile(name.trim(), email.trim(), classLevel)
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
@@ -120,6 +132,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (e: Exception) {
                 Log.w(TAG, "Server offline, proceeding in local offline mode: ${e.message}")
+                userPrefs.saveClassLevel(classLevel)
                 userPrefs.saveStudentProfile(name.trim(), email.trim(), classLevel)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,

@@ -53,6 +53,7 @@ data class ClassOption(
 
 @Composable
 fun ClassSelectionScreen(
+    initialClassLevel: Int = 10,
     onContinue: (Int) -> Unit
 ) {
     val classes = remember {
@@ -70,7 +71,7 @@ fun ClassSelectionScreen(
         )
     }
 
-    var selectedClassId by remember { mutableStateOf(10) }
+    var selectedClassId by remember(initialClassLevel) { mutableStateOf(initialClassLevel) }
 
     Column(
         modifier = Modifier

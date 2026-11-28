@@ -33,7 +33,7 @@ data class ChapterTopic(
 
 @Composable
 fun TopicSelectionScreen(
-    subject: String = "Mathematics",
+    subject: String = "General",
     onBack: () -> Unit,
     onOpenTutor: (String?) -> Unit
 ) {

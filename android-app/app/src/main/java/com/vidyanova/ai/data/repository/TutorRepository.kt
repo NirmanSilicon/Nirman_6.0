@@ -40,7 +40,9 @@ class TutorRepository(
         onToken: ((String) -> Unit)? = null
     ): TutorResult {
 
-        if (question.isBlank()) {
+        val trimmedQ = question.trim()
+
+        if (trimmedQ.isBlank()) {
             return TutorResult(
                 success = false,
                 answer = "Please apna question likho.",
@@ -50,21 +52,33 @@ class TutorRepository(
         }
 
         val style = StyleDetector.detect(
-            question = question,
+            question = trimmedQ,
             preferredMode = preferredMode,
             preferredLanguage = preferredLanguage
         )
+
+        // 1. Instant friendly response for simple greetings
+        if (isGreeting(trimmedQ)) {
+            val greetingAnswer = buildGreetingResponse(classLevel, subject)
+            onToken?.invoke(greetingAnswer)
+            return TutorResult(
+                success = true,
+                answer = greetingAnswer,
+                mode = style.mode.name,
+                language = style.language
+            )
+        }
 
         val startTime = System.currentTimeMillis()
 
         return try {
             val curriculumContext = curriculumRetriever.buildContext(
-                question = question,
+                question = trimmedQ,
                 classLevel = classLevel,
                 subject = subject
             )
 
-            val guardResult = CurriculumGuard.check(question)
+            val guardResult = CurriculumGuard.check(trimmedQ)
             if (!guardResult.allowed) {
                 return TutorResult(
                     success = false,
@@ -76,7 +90,7 @@ class TutorRepository(
             }
 
             val prompt = PromptBuilder.build(
-                question = question,
+                question = trimmedQ,
                 classLevel = classLevel,
                 subject = subject,
                 chapter = chapter,
@@ -92,11 +106,13 @@ class TutorRepository(
             val response = modelEngine.generateStream(prompt, tokenCallback)
             val durationMs = System.currentTimeMillis() - startTime
 
+            val cleanedAnswer = cleanModelOutput(response.text)
+
             Log.i(TAG, "LOCAL_MODEL_SUCCESS | Source: LOCAL_QWEN_GGUF | Duration: ${durationMs}ms")
 
             TutorResult(
                 success = true,
-                answer = response.text,
+                answer = cleanedAnswer,
                 mode = style.mode.name,
                 language = style.language
             )
@@ -136,6 +152,46 @@ class TutorRepository(
         return askTutorStream(
             question, classLevel, subject, chapter, topic, preferredMode, preferredLanguage, null
         )
+    }
+
+    private fun isGreeting(text: String): Boolean {
+        val q = text.lowercase(java.util.Locale.ROOT).replace(Regex("[!.,?]"), "").trim()
+        val exactGreetings = setOf(
+            "hi", "hii", "hiii", "hiiii", "hello", "helloo", "hey", "heyy",
+            "namaste", "namaskar", "hlo", "hlw", "good morning", "good afternoon",
+            "good evening", "kaise ho", "kaise ho aap", "hi viyah", "hi viyaai"
+        )
+        return exactGreetings.contains(q) || q.startsWith("hi ") || q.startsWith("hello ")
+    }
+
+    private fun buildGreetingResponse(classLevel: Int, subject: String): String {
+        return when (classLevel) {
+            in 1..5 -> "Hello! Main hoon ViyaAI, aapka Class $classLevel study friend. 🌟 Aaj hum kya seekhenge? Aap apna koi bhi question ya topic pooch sakte hain!"
+            else -> "Namaste! Main ViyaAI hoon, aapka Class $classLevel AI tutor. 📚 Aap Class $classLevel ke kisi bhi subject ya concept ke baare mein pooch sakte hain!"
+        }
+    }
+
+    private fun cleanModelOutput(rawOutput: String): String {
+        var cleaned = rawOutput.trim()
+
+        // 1. Cut off hallucinated conversation turns / prompt leak markers
+        val stopMarkers = listOf(
+            "\nUser:", "\nViyaAI:", "\n<|im_start|>", "\n<|im_end|>",
+            "<|im_end|>", "<|im_start|>", "User:", "ViyaAI:"
+        )
+        for (marker in stopMarkers) {
+            val idx = cleaned.indexOf(marker)
+            if (idx > 0) {
+                cleaned = cleaned.substring(0, idx).trim()
+            }
+        }
+
+        // 2. Remove meta-text leaks
+        cleaned = cleaned.replace(Regex("Hinglish translation of your query:.*?(?=\\n|$)"), "")
+        cleaned = cleaned.replace(Regex("\\(English\\)\\s*\\(Hindi\\)\\s*\\(English\\)\\s*\\(Hindi\\)"), "")
+        cleaned = cleaned.replace(Regex("Mode:\\s*(STEP BY STEP|SIMPLE|DETAILED|EXAMPLE_BASED|BASIC|EXAM_READY)\\n?", RegexOption.IGNORE_CASE), "")
+
+        return cleaned.trim()
     }
 
     private fun getEducationalFallback(

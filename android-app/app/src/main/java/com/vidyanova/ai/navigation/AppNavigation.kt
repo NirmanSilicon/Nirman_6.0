@@ -1,17 +1,20 @@
 package com.vidyanova.ai.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.vidyanova.ai.data.local.datastore.UserPreferences
 import com.vidyanova.ai.data.network.AuthTokenStore
 import com.vidyanova.ai.ui.screens.auth.LoginScreen
 import com.vidyanova.ai.ui.screens.classselection.ClassSelectionScreen
@@ -33,14 +36,18 @@ import com.vidyanova.ai.ui.screens.subjects.SubjectScreen
 import com.vidyanova.ai.ui.screens.subjects.TopicSelectionScreen
 import com.vidyanova.ai.ui.screens.teacherslip.TeacherSlipScreen
 import com.vidyanova.ai.ui.screens.tutor.TutorScreen
+import kotlinx.coroutines.launch
 
 @Composable
 fun VidyaNovaNavHost(
     navController: NavHostController = rememberNavController(),
     startDestination: String = if (AuthTokenStore.getToken().isNullOrBlank()) "login" else "home"
 ) {
-    var selectedClassLevel by remember { mutableIntStateOf(10) }
-    var selectedSubject by remember { mutableStateOf("Mathematics") }
+    val context = LocalContext.current
+    val userPrefs = remember(context) { UserPreferences(context.applicationContext) }
+    val coroutineScope = rememberCoroutineScope()
+    val selectedClassLevel by userPrefs.classLevelFlow.collectAsState(initial = 10)
+    var selectedSubject by remember { mutableStateOf("General") }
     var selectedTopic by remember { mutableStateOf<String?>(null) }
     var tutorInitialPrompt by remember { mutableStateOf<String?>(null) }
 
@@ -85,10 +92,13 @@ fun VidyaNovaNavHost(
 
         composable("classSelection") {
             ClassSelectionScreen(
+                initialClassLevel = selectedClassLevel,
                 onContinue = { classLevel ->
-                    selectedClassLevel = classLevel
-                    navController.navigate("home") {
-                        popUpTo("classSelection") { inclusive = true }
+                    coroutineScope.launch {
+                        userPrefs.saveClassLevel(classLevel)
+                        navController.navigate("home") {
+                            popUpTo("classSelection") { inclusive = true }
+                        }
                     }
                 }
             )

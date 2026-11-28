@@ -53,8 +53,8 @@ class TutorViewModel(application: Application) :
 
     fun sendMessage(
         userText: String,
-        classLevel: Int = 10,
-        subject: String = "Mathematics",
+        classLevel: Int,
+        subject: String = "General",
         chapter: String? = null,
         topic: String? = null,
         preferredMode: TeachingMode? = null,

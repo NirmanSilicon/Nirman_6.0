@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -41,6 +42,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -50,11 +52,19 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.vidyanova.ai.data.local.datastore.UserPreferences
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
@@ -63,6 +73,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -97,8 +109,54 @@ data class QuickActionItem(
 fun HomeScreen(
     onNavigateTo: (String) -> Unit
 ) {
+    val context = LocalContext.current
+    val userPrefs = remember(context) { UserPreferences(context.applicationContext) }
+    val selectedClassLevel by userPrefs.classLevelFlow.collectAsState(initial = 10)
+    var showClassDialog by remember { mutableStateOf(false) }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
+
+    if (showClassDialog) {
+        AlertDialog(
+            onDismissRequest = { showClassDialog = false },
+            title = { Text("Select Your Class (1 to 10)", fontWeight = FontWeight.Bold) },
+            text = {
+                Column {
+                    (1..10).forEach { level ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    coroutineScope.launch {
+                                        userPrefs.saveClassLevel(level)
+                                        showClassDialog = false
+                                    }
+                                }
+                                .padding(vertical = 10.dp, horizontal = 8.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Class $level",
+                                fontSize = 16.sp,
+                                fontWeight = if (level == selectedClassLevel) FontWeight.Bold else FontWeight.Normal,
+                                color = if (level == selectedClassLevel) Primary else PrimaryText
+                            )
+                            if (level == selectedClassLevel) {
+                                Text("✓", color = Primary, fontWeight = FontWeight.Bold)
+                            }
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showClassDialog = false }) {
+                    Text("Close")
+                }
+            }
+        )
+    }
 
     val quickActions = listOf(
         QuickActionItem("Ask ViyaAI", Icons.Default.AutoAwesome, Primary, "tutor"),
@@ -141,6 +199,14 @@ fun HomeScreen(
                         label = { Text("Home") },
                         selected = true,
                         onClick = { coroutineScope.launch { drawerState.close() } }
+                    )
+                    NavigationDrawerItem(
+                        label = { Text("Change Class (Current: Class $selectedClassLevel)") },
+                        selected = false,
+                        onClick = {
+                            coroutineScope.launch { drawerState.close() }
+                            showClassDialog = true
+                        }
                     )
                     NavigationDrawerItem(
                         label = { Text("ViyaAI Tutor") },
@@ -220,7 +286,10 @@ fun HomeScreen(
                 // Curved Orange Header Banner
                 item {
                     HeaderBanner(
-                        onOpenMenu = { coroutineScope.launch { drawerState.open() } }
+                        classLevel = selectedClassLevel,
+                        onOpenMenu = { coroutineScope.launch { drawerState.open() } },
+                        onStartQuiz = { onNavigateTo("quiz") },
+                        onChangeClass = { showClassDialog = true }
                     )
                 }
 
@@ -430,12 +499,15 @@ fun HomeScreen(
 
 @Composable
 fun HeaderBanner(
-    onOpenMenu: () -> Unit
+    classLevel: Int = 10,
+    onOpenMenu: () -> Unit,
+    onStartQuiz: () -> Unit,
+    onChangeClass: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(320.dp)
+            .height(340.dp)
     ) {
         // Curved Wave Background Canvas
         Canvas(modifier = Modifier.fillMaxSize()) {
@@ -443,11 +515,11 @@ fun HeaderBanner(
             val height = size.height
 
             val path = Path().apply {
-                lineTo(0f, height - 70f)
+                lineTo(0f, height - 60f)
                 cubicTo(
-                    width * 0.35f, height + 10f,
-                    width * 0.65f, height - 120f,
-                    width, height - 40f
+                    width * 0.35f, height + 15f,
+                    width * 0.65f, height - 100f,
+                    width, height - 35f
                 )
                 lineTo(width, 0f)
                 close()
@@ -460,16 +532,16 @@ fun HeaderBanner(
                 )
             )
 
-            // Top-Right Orange Abstract Shape
+            // Top-Right Abstract Decorative Orbs
             drawCircle(
-                color = Color(0xFFFF9800).copy(alpha = 0.4f),
-                radius = 110f,
-                center = Offset(width - 20f, 30f)
+                color = Color(0xFFFF9800).copy(alpha = 0.35f),
+                radius = 120f,
+                center = Offset(width - 15f, 40f)
             )
             drawCircle(
-                color = Color(0xFFFFB74D).copy(alpha = 0.3f),
-                radius = 70f,
-                center = Offset(width - 60f, 80f)
+                color = Color(0xFFFFB74D).copy(alpha = 0.25f),
+                radius = 75f,
+                center = Offset(width - 70f, 95f)
             )
         }
 
@@ -477,9 +549,9 @@ fun HeaderBanner(
             modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 18.dp)
         ) {
-            // Header Top Bar with Golden V Emblem Logo
+            // Header Top Bar with Menu, VidyaAI logo, and Class Selector Badge
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -511,54 +583,131 @@ fun HeaderBanner(
                     )
                 }
 
-                Spacer(modifier = Modifier.width(48.dp))
+                // Class Selector Quick Pill
+                Surface(
+                    color = Color.White.copy(alpha = 0.90f),
+                    shape = RoundedCornerShape(50),
+                    modifier = Modifier.clickable { onChangeClass() }
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AutoAwesome,
+                            contentDescription = null,
+                            tint = Secondary,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "Class $classLevel ▾",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = PrimaryText
+                        )
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            // Banner Content
+            // Main Banner Content Row
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Left Column Text
-                Column(modifier = Modifier.weight(1.0f)) {
+                // Left Column: Headline, Subtitle, and Call to Action
+                Column(
+                    modifier = Modifier.weight(1.0f),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    // Small Badge
+                    Surface(
+                        color = PrimaryText.copy(alpha = 0.08f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = "🎯 Practice & Excel",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = PrimaryText,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
                     val annotatedText = buildAnnotatedString {
-                        append("You can ")
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = PrimaryText)) {
-                            append("start your\n")
+                        append("Start your\n")
+                        withStyle(SpanStyle(fontWeight = FontWeight.ExtraBold, color = PrimaryText)) {
+                            append("Practice Test")
                         }
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = PrimaryText)) {
-                            append("test")
-                        }
-                        append(" here")
                     }
 
                     Text(
                         text = annotatedText,
-                        fontSize = 20.sp,
+                        fontSize = 22.sp,
                         color = PrimaryText,
-                        lineHeight = 26.sp
+                        lineHeight = 28.sp
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
                     Text(
-                        text = "Create your own Test, keep practicing & stay on top for your next exam",
+                        text = "Create customized tests, practice topics & stay top of your class!",
                         fontSize = 12.sp,
                         color = SecondaryText,
                         lineHeight = 16.sp
                     )
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // Action Button
+                    Surface(
+                        modifier = Modifier
+                            .shadow(4.dp, RoundedCornerShape(50))
+                            .clickable { onStartQuiz() },
+                        color = PrimaryText,
+                        shape = RoundedCornerShape(50)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 9.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Quiz,
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "Take Quiz",
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                        }
+                    }
                 }
 
-                // Right Illustration (Girl studying on laptop at desk with books)
+                Spacer(modifier = Modifier.width(6.dp))
+
+                // Right Illustration: Large, Prominent, Scaled Beautifully
                 Box(
                     modifier = Modifier
-                        .weight(1.1f)
-                        .height(200.dp),
-                    contentAlignment = Alignment.BottomEnd
+                        .weight(1.2f)
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
                 ) {
-                    StudyIllustration()
+                    StudyIllustration(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 12.dp)
+                    )
                 }
             }
         }
@@ -566,120 +715,320 @@ fun HeaderBanner(
 }
 
 @Composable
-fun StudyIllustration() {
-    Canvas(modifier = Modifier.size(200.dp, 190.dp)) {
+fun StudyIllustration(
+    modifier: Modifier = Modifier
+) {
+    Canvas(modifier = modifier) {
         val width = size.width
         val height = size.height
 
-        val deskY = height - 38f
+        if (width <= 0f || height <= 0f) return@Canvas
 
-        // 1. Chair (White Backrest and Support)
+        // 1. Desk Base Position
+        val deskY = height * 0.78f
+        val deskHeight = height * 0.08f
+
+        // 2. Desk Lamp Light Cone (Soft Warm Glow)
+        val lampLightPath = Path().apply {
+            moveTo(width * 0.22f, height * 0.22f)
+            lineTo(width * 0.02f, deskY)
+            lineTo(width * 0.62f, deskY)
+            close()
+        }
+        drawPath(
+            path = lampLightPath,
+            brush = Brush.verticalGradient(
+                colors = listOf(Color(0xFFFFF59D).copy(alpha = 0.40f), Color.Transparent),
+                startY = height * 0.22f,
+                endY = deskY
+            )
+        )
+
+        // 3. Ambient Glow Circles
+        drawCircle(
+            brush = Brush.radialGradient(
+                colors = listOf(Color.White.copy(alpha = 0.25f), Color.Transparent),
+                center = Offset(width * 0.72f, height * 0.35f),
+                radius = width * 0.40f
+            ),
+            radius = width * 0.40f,
+            center = Offset(width * 0.72f, height * 0.35f)
+        )
+
+        // 4. Desk Legs (Solid Wooden Legs)
+        drawRoundRect(
+            color = Color(0xFF4E342E),
+            topLeft = Offset(width * 0.08f, deskY + deskHeight),
+            size = Size(width * 0.045f, height * 0.18f),
+            cornerRadius = CornerRadius(width * 0.01f, width * 0.01f)
+        )
+        drawRoundRect(
+            color = Color(0xFF4E342E),
+            topLeft = Offset(width * 0.86f, deskY + deskHeight),
+            size = Size(width * 0.045f, height * 0.18f),
+            cornerRadius = CornerRadius(width * 0.01f, width * 0.01f)
+        )
+
+        // Table Shadow
+        drawRoundRect(
+            color = Color.Black.copy(alpha = 0.12f),
+            topLeft = Offset(width * 0.02f, deskY + deskHeight),
+            size = Size(width * 0.96f, height * 0.025f),
+            cornerRadius = CornerRadius(width * 0.02f, width * 0.02f)
+        )
+
+        // Table Surface
+        drawRoundRect(
+            brush = Brush.horizontalGradient(
+                colors = listOf(Color(0xFF795548), Color(0xFF5D4037), Color(0xFF795548))
+            ),
+            topLeft = Offset(0f, deskY),
+            size = Size(width, deskHeight),
+            cornerRadius = CornerRadius(width * 0.025f, width * 0.025f)
+        )
+        // Table Bevel Highlight Line
+        drawRoundRect(
+            color = Color(0xFFA1887F).copy(alpha = 0.6f),
+            topLeft = Offset(0f, deskY),
+            size = Size(width, deskHeight * 0.20f),
+            cornerRadius = CornerRadius(width * 0.025f, width * 0.025f)
+        )
+
+        // 5. Chair (Modern White & Teal Ergonomic Chair)
+        // Chair Backrest
         drawRoundRect(
             color = Color.White,
-            topLeft = Offset(width - 70f, height - 130f),
-            size = Size(40f, 60f),
-            cornerRadius = CornerRadius(8f, 8f)
+            topLeft = Offset(width * 0.66f, height * 0.36f),
+            size = Size(width * 0.24f, height * 0.42f),
+            cornerRadius = CornerRadius(width * 0.04f, width * 0.04f)
         )
+        // Cushion Interior
+        drawRoundRect(
+            color = Color(0xFF00897B).copy(alpha = 0.25f),
+            topLeft = Offset(width * 0.68f, height * 0.39f),
+            size = Size(width * 0.20f, height * 0.36f),
+            cornerRadius = CornerRadius(width * 0.03f, width * 0.03f)
+        )
+        // Chair Leg / Pole
         drawRect(
-            color = Color(0xFFB0BEC5),
-            topLeft = Offset(width - 56f, height - 70f),
-            size = Size(10f, 32f)
+            color = Color(0xFF78909C),
+            topLeft = Offset(width * 0.76f, height * 0.78f),
+            size = Size(width * 0.04f, height * 0.18f)
         )
 
-        // 2. Girl Sitting at Chair (Hair, Face, Orange Shirt, Dark Green Pants)
-        // Hair (Black)
-        drawCircle(
-            color = Color(0xFF212121),
-            radius = 28f,
-            center = Offset(width - 50f, height - 148f)
-        )
-        // Face / Neck (Skin Tone)
-        drawCircle(
-            color = Color(0xFFFFCC80),
-            radius = 20f,
-            center = Offset(width - 58f, height - 144f)
-        )
+        // 6. Student Character (Girl studying intently)
         // Hair Ponytail
         drawOval(
-            color = Color(0xFF212121),
-            topLeft = Offset(width - 32f, height - 158f),
-            size = Size(20f, 36f)
+            color = Color(0xFF1E1E2D),
+            topLeft = Offset(width * 0.84f, height * 0.18f),
+            size = Size(width * 0.11f, height * 0.24f)
         )
-        // Orange Top Shirt
-        drawRoundRect(
-            color = Color(0xFFF4511E),
-            topLeft = Offset(width - 74f, height - 120f),
-            size = Size(42f, 48f),
-            cornerRadius = CornerRadius(10f, 10f)
+        // Hair Bun Band
+        drawCircle(
+            color = Color(0xFFFF5722),
+            radius = width * 0.025f,
+            center = Offset(width * 0.85f, height * 0.20f)
         )
-        // Dark Green/Teal Pants
+        // Main Hair Mass
+        drawCircle(
+            color = Color(0xFF1E1E2D),
+            radius = width * 0.14f,
+            center = Offset(width * 0.73f, height * 0.22f)
+        )
+        // Face / Neck (Warm Skin Tone)
+        drawCircle(
+            color = Color(0xFFFFCC80),
+            radius = width * 0.10f,
+            center = Offset(width * 0.68f, height * 0.25f)
+        )
+        // Hair Front Fringe
+        val hairFront = Path().apply {
+            moveTo(width * 0.58f, height * 0.20f)
+            cubicTo(
+                width * 0.64f, height * 0.12f,
+                width * 0.76f, height * 0.14f,
+                width * 0.80f, height * 0.22f
+            )
+            lineTo(width * 0.72f, height * 0.18f)
+            close()
+        }
+        drawPath(path = hairFront, color = Color(0xFF1E1E2D))
+
+        // Torso / Orange Shirt
         drawRoundRect(
-            color = Color(0xFF00695C),
-            topLeft = Offset(width - 80f, height - 72f),
-            size = Size(32f, 60f),
-            cornerRadius = CornerRadius(8f, 8f)
+            brush = Brush.verticalGradient(
+                colors = listOf(Color(0xFFF4511E), Color(0xFFD84315))
+            ),
+            topLeft = Offset(width * 0.60f, height * 0.36f),
+            size = Size(width * 0.25f, height * 0.34f),
+            cornerRadius = CornerRadius(width * 0.05f, width * 0.05f)
         )
 
-        // 3. Wooden Table
-        // Tabletop
-        drawRoundRect(
-            color = Color(0xFF795548),
-            topLeft = Offset(5f, deskY),
-            size = Size(width - 20f, 14f),
-            cornerRadius = CornerRadius(3f, 3f)
-        )
-        // Table Legs
-        drawRect(
-            color = Color(0xFF5D4037),
-            topLeft = Offset(20f, deskY + 14f),
-            size = Size(12f, 24f)
-        )
-        drawRect(
-            color = Color(0xFF5D4037),
-            topLeft = Offset(width - 55f, deskY + 14f),
-            size = Size(12f, 24f)
+        // Arm leaning forward onto keyboard
+        val armPath = Path().apply {
+            moveTo(width * 0.64f, height * 0.44f)
+            lineTo(width * 0.46f, height * 0.76f)
+            lineTo(width * 0.53f, height * 0.80f)
+            lineTo(width * 0.71f, height * 0.48f)
+            close()
+        }
+        drawPath(path = armPath, color = Color(0xFFFF7043))
+        // Hand resting near laptop
+        drawOval(
+            color = Color(0xFFFFCC80),
+            topLeft = Offset(width * 0.44f, height * 0.75f),
+            size = Size(width * 0.08f, height * 0.05f)
         )
 
-        // 4. Laptop on Table
+        // 7. Desk Lamp (Modern Orange & Charcoal Lamp)
+        val lampBaseX = width * 0.18f
         // Base
-        drawRoundRect(
-            color = Color(0xFF455A64),
-            topLeft = Offset(82f, deskY - 6f),
-            size = Size(60f, 6f),
-            cornerRadius = CornerRadius(2f, 2f)
+        drawOval(
+            color = Color(0xFF37474F),
+            topLeft = Offset(lampBaseX, deskY - height * 0.02f),
+            size = Size(width * 0.09f, height * 0.04f)
         )
-        // Screen Lid
+        // Curved Stem
+        val lampStem = Path().apply {
+            moveTo(lampBaseX + width * 0.045f, deskY - height * 0.01f)
+            cubicTo(
+                lampBaseX + width * 0.045f, height * 0.35f,
+                width * 0.12f, height * 0.22f,
+                width * 0.24f, height * 0.20f
+            )
+        }
+        drawPath(
+            path = lampStem,
+            color = Color(0xFF455A64),
+            style = Stroke(width = width * 0.025f, cap = StrokeCap.Round)
+        )
+        // Lamp Head Shade
+        val lampShade = Path().apply {
+            moveTo(width * 0.18f, height * 0.24f)
+            lineTo(width * 0.26f, height * 0.16f)
+            lineTo(width * 0.30f, height * 0.25f)
+            close()
+        }
+        drawPath(path = lampShade, color = Color(0xFFF57C00))
+
+        // 8. Laptop on Desk
+        val laptopX = width * 0.27f
+        val laptopW = width * 0.32f
+        val laptopH = height * 0.28f
+
+        // Outer Screen Shadow
         drawRoundRect(
-            color = Color(0xFF212121),
-            topLeft = Offset(90f, deskY - 50f),
-            size = Size(48f, 44f),
+            color = Color.Black.copy(alpha = 0.22f),
+            topLeft = Offset(laptopX - width * 0.01f, deskY - laptopH),
+            size = Size(laptopW + width * 0.02f, laptopH),
+            cornerRadius = CornerRadius(width * 0.02f, width * 0.02f)
+        )
+        // Laptop Screen Outer Frame
+        drawRoundRect(
+            color = Color(0xFF263238),
+            topLeft = Offset(laptopX, deskY - laptopH),
+            size = Size(laptopW, laptopH),
+            cornerRadius = CornerRadius(width * 0.02f, width * 0.02f)
+        )
+        // Laptop Screen Inner Glow (Cyan / Soft White Display)
+        drawRoundRect(
+            brush = Brush.verticalGradient(
+                colors = listOf(Color(0xFFE0F7FA), Color(0xFF80DEEA))
+            ),
+            topLeft = Offset(laptopX + width * 0.015f, deskY - laptopH + height * 0.015f),
+            size = Size(laptopW - width * 0.03f, laptopH - height * 0.03f),
+            cornerRadius = CornerRadius(width * 0.012f, width * 0.012f)
+        )
+        // UI Code / Graph Lines on Screen
+        val startY = deskY - laptopH + height * 0.04f
+        drawRoundRect(
+            color = Color(0xFF0284C7),
+            topLeft = Offset(laptopX + width * 0.03f, startY),
+            size = Size(laptopW * 0.42f, height * 0.028f),
             cornerRadius = CornerRadius(4f, 4f)
         )
-        // Screen Display
+        drawRoundRect(
+            color = Color(0xFFF5A623),
+            topLeft = Offset(laptopX + width * 0.03f, startY + height * 0.045f),
+            size = Size(laptopW * 0.65f, height * 0.022f),
+            cornerRadius = CornerRadius(4f, 4f)
+        )
+        drawRoundRect(
+            color = Color(0xFF10B981),
+            topLeft = Offset(laptopX + width * 0.03f, startY + height * 0.08f),
+            size = Size(laptopW * 0.52f, height * 0.022f),
+            cornerRadius = CornerRadius(4f, 4f)
+        )
+        // Laptop Keyboard Base
+        drawRoundRect(
+            color = Color(0xFF37474F),
+            topLeft = Offset(laptopX - width * 0.04f, deskY - height * 0.035f),
+            size = Size(laptopW + width * 0.08f, height * 0.04f),
+            cornerRadius = CornerRadius(width * 0.012f, width * 0.012f)
+        )
+        // Trackpad
         drawRect(
-            color = Color(0xFFECEFF1),
-            topLeft = Offset(93f, deskY - 47f),
-            size = Size(42f, 38f)
+            color = Color(0xFF546E7A),
+            topLeft = Offset(laptopX + laptopW * 0.35f, deskY - height * 0.018f),
+            size = Size(laptopW * 0.30f, height * 0.015f)
         )
 
-        // 5. Stack of Books on Table
+        // 9. Stack of Colorful Books
+        val bX = width * 0.05f
+        // Book 1 (Bottom Teal)
         drawRoundRect(
             color = Color(0xFF00897B),
-            topLeft = Offset(18f, deskY - 11f),
-            size = Size(46f, 11f),
-            cornerRadius = CornerRadius(2f, 2f)
+            topLeft = Offset(bX, deskY - height * 0.05f),
+            size = Size(width * 0.19f, height * 0.05f),
+            cornerRadius = CornerRadius(width * 0.008f, width * 0.008f)
         )
-        drawRoundRect(
-            color = Color(0xFFE53935),
-            topLeft = Offset(21f, deskY - 22f),
-            size = Size(40f, 11f),
-            cornerRadius = CornerRadius(2f, 2f)
+        drawRect(
+            color = Color(0xFFFFF9C4),
+            topLeft = Offset(bX + width * 0.16f, deskY - height * 0.045f),
+            size = Size(width * 0.025f, height * 0.04f)
         )
+
+        // Book 2 (Middle Purple)
         drawRoundRect(
-            color = Color(0xFF1E88E5),
-            topLeft = Offset(19f, deskY - 33f),
-            size = Size(43f, 11f),
-            cornerRadius = CornerRadius(2f, 2f)
+            color = Color(0xFF7E57C2),
+            topLeft = Offset(bX + width * 0.01f, deskY - height * 0.098f),
+            size = Size(width * 0.17f, height * 0.045f),
+            cornerRadius = CornerRadius(width * 0.008f, width * 0.008f)
+        )
+        drawRect(
+            color = Color(0xFFFFF9C4),
+            topLeft = Offset(bX + width * 0.15f, deskY - height * 0.092f),
+            size = Size(width * 0.025f, height * 0.035f)
+        )
+
+        // Book 3 (Top Coral Red)
+        drawRoundRect(
+            color = Color(0xFFEF5350),
+            topLeft = Offset(bX + width * 0.02f, deskY - height * 0.142f),
+            size = Size(width * 0.15f, height * 0.042f),
+            cornerRadius = CornerRadius(width * 0.008f, width * 0.008f)
+        )
+        drawRect(
+            color = Color(0xFFFFF9C4),
+            topLeft = Offset(bX + width * 0.14f, deskY - height * 0.138f),
+            size = Size(width * 0.025f, height * 0.032f)
+        )
+
+        // 10. Decorative Sparkles / Floating Magic Dots
+        drawCircle(
+            color = Color.White.copy(alpha = 0.95f),
+            radius = width * 0.020f,
+            center = Offset(width * 0.12f, height * 0.10f)
+        )
+        drawCircle(
+            color = Color(0xFFFFD54F),
+            radius = width * 0.028f,
+            center = Offset(width * 0.48f, height * 0.08f)
+        )
+        drawCircle(
+            color = Color.White.copy(alpha = 0.85f),
+            radius = width * 0.018f,
+            center = Offset(width * 0.92f, height * 0.12f)
         )
     }
 }
