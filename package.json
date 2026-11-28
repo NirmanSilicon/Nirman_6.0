@@ -1,0 +1,28 @@
+{
+  "name": "hazardlens",
+  "version": "1.0.0",
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "install:all": "npm run setup",
+    "predev": "node scripts/setup.js --if-missing",
+    "dev": "concurrently -n \"BACKEND,FRONTEND,PYTHON-AI\" \"npm --prefix backend start\" \"npm --prefix frontend run dev\" \"node scripts/run-ai.js\"",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jack-O-trades/HazardLens.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jack-O-trades/HazardLens/issues"
+  },
+  "homepage": "https://github.com/Jack-O-trades/HazardLens#readme",
+  "dependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

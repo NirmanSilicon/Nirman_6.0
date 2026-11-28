@@ -1,0 +1,523 @@
+/* TopBar — image-matched style */
+.topbar {
+  height: var(--topbar-h);
+  min-height: var(--topbar-h);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.25rem;
+  z-index: 10;
+  position: relative;
+}
+
+/* Soft two-tone accent line under the bar, fading at both edges. Colors
+   are pulled from the shield mark itself (accent orange + its ice-blue
+   detail) so it reads as intentional branding, not a stock gradient. */
+.topbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--accent) 15%,
+    #7bafd4 50%,
+    var(--accent) 85%,
+    transparent 100%
+  );
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ─── Left section ─── */
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Hamburger / menu button */
+.topbar-menu-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+  flex-shrink: 0;
+}
+.topbar-menu-btn:hover {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+.topbar-menu-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Brand */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  transition: background var(--dur-fast) var(--ease);
+}
+.topbar-brand:hover { background: var(--bg-card); }
+.topbar-brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.topbar-brand-mark {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* Small "monitoring active" status dot on the brand mark — static, not
+   pulsing, since this sits on every page and a permanent animation
+   would wear out its welcome fast. */
+.topbar-brand-status {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid var(--bg-surface);
+  box-shadow: 0 0 0 2px hsla(142, 71%, 45%, 0.22);
+}
+
+.topbar-brand-status--offline {
+  background: #f59e0b;
+  box-shadow: 0 0 0 2px hsla(38, 92%, 50%, 0.25);
+}
+
+.topbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.2;
+}
+
+.topbar-brand-name {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.topbar-brand-sub {
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+/* Search */
+.topbar-search-wrap {
+  flex: 1;
+  max-width: 440px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-search-icon {
+  position: absolute;
+  left: 11px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.topbar-search-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 0.45rem 3.5rem 0.45rem 2.125rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
+.topbar-search-input::placeholder { color: var(--text-muted); }
+.topbar-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.topbar-search-wrap:has(form) > .topbar-search-icon,
+.topbar-search-wrap:has(form) > .topbar-search-input,
+.topbar-search-wrap:has(form) > .topbar-kbd {
+  display: none !important;
+}
+
+.topbar-kbd {
+  position: absolute;
+  right: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Right */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Theme Toggle */
+.topbar-theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.topbar-theme-btn:hover { background: var(--bg-card); border-color: var(--border); color: var(--text-primary); }
+.topbar-theme-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Bell */
+.topbar-bell-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  position: relative;
+  transition: all var(--dur-fast) var(--ease);
+  background: transparent;
+  border: 1px solid transparent;
+}
+.topbar-bell-btn:hover { background: var(--bg-card); border-color: var(--border); color: var(--text-primary); }
+.topbar-bell-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Unread count badge — only rendered when there's something real to
+   show, driven by AlertsContext's unreadNotificationCount rather than
+   an always-on decorative dot. */
+.topbar-notif-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: #d93025;
+  border-radius: 999px;
+  border: 1.5px solid var(--bg-surface);
+}
+
+/* ─── User button & dropdown wrapper ─── */
+.topbar-user-wrap {
+  position: relative;
+}
+
+.topbar-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px 5px 5px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  transition: all var(--dur-fast) var(--ease);
+  cursor: pointer;
+  max-width: 220px;
+}
+.topbar-user-btn:hover,
+.topbar-user-btn--open {
+  border-color: var(--border-accent);
+  background: var(--bg-card);
+}
+.topbar-user-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Dynamic initials avatar */
+.topbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+}
+.topbar-avatar--initials {
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.topbar-avatar--lg {
+  width: 42px;
+  height: 42px;
+  font-size: 0.85rem;
+}
+
+.topbar-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.topbar-user-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+/* Role tag — reused in both the compact trigger and the dropdown
+   profile card, color-coded per role via inline styles from
+   ROLE_AVATAR_COLORS. */
+.topbar-role-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: capitalize;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.topbar-chevron {
+  color: var(--text-muted);
+  transition: transform var(--dur-fast) var(--ease);
+  flex-shrink: 0;
+}
+.topbar-chevron--up {
+  transform: rotate(180deg);
+}
+
+/* ─── Dropdown menu ─── */
+.topbar-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  z-index: 200;
+  overflow: hidden;
+  animation: dropIn 0.15s var(--ease) both;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Profile mini-card inside dropdown */
+.topbar-drop-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 12px;
+}
+
+.topbar-drop-profile > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.topbar-drop-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-drop-email {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-drop-profile .topbar-role-badge {
+  margin-top: 2px;
+}
+
+.topbar-drop-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 0;
+}
+
+.topbar-drop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.topbar-drop-item:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+.topbar-drop-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.topbar-drop-item--danger { color: #d93025; }
+.topbar-drop-item--danger:hover { background: hsla(0,75%,55%,0.08); color: #c0392b; }
+
+/* ─── Network Status Pill (Online / Offline) ─── */
+.topbar-net-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.topbar-net-pill--online {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.32);
+  color: #22c55e;
+}
+
+.topbar-net-pill--offline {
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.38);
+  color: #f59e0b;
+}
+
+.topbar-net-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  animation: topbar-net-pulse 2s ease-in-out infinite;
+}
+
+@keyframes topbar-net-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.25);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .topbar-brand-text { display: none; }
+  .topbar-search-wrap { max-width: unset; }
+  .topbar-user-info { display: none; }
+  .topbar-chevron { display: none; }
+}
+
+@media (min-width: 769px) {
+  .topbar-menu-btn {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-search-wrap { display: none; }
+  .topbar-net-pill {
+    height: 28px;
+    padding: 0 8px;
+    gap: 5px;
+    font-size: 0.7rem;
+  }
+  .topbar-net-icon {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .topbar-dropdown,
+  .topbar-net-dot {
+    animation: none;
+  }
+}

@@ -1,0 +1,324 @@
+/* ================================================================
+   HazardLens — Sidebar (Light Theme)
+   ================================================================ */
+
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: width var(--dur-med) var(--ease), min-width var(--dur-med) var(--ease),
+              transform var(--dur-med) var(--ease), border-color var(--dur-med) var(--ease),
+              opacity var(--dur-med) var(--ease);
+  z-index: 50;
+  box-shadow: 1px 0 0 var(--border-subtle);
+}
+
+/* Authorized reviewers (verifier / corrector / admin) get a persistent,
+   glanceable cue in their role color — a reminder they're in a session
+   with review/correction authority, not just browsing as a resident. */
+.sidebar--authorized {
+  border-top: 3px solid var(--role-accent, var(--accent));
+}
+
+.sidebar--closed {
+  width: 0 !important;
+  min-width: 0 !important;
+  border-right-width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateX(-18px);
+}
+
+.sidebar--closed > * {
+  visibility: hidden !important;
+}
+
+/* Sidebar header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.125rem 1rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-logo-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.sidebar-logo-name span { color: var(--accent); }
+
+.sidebar-close { display: none !important; }
+
+/* User card — clickable button */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0.75rem 0.5rem;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  width: calc(100% - 1.5rem);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease);
+}
+.sidebar-user:hover {
+  background: var(--bg-card-hover);
+  border-color: hsl(220, 13%, 80%);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-user-chevron {
+  margin-left: auto;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.sidebar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  border: 1.5px solid hsla(25, 95%, 53%, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-text);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sidebar-user-name {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-role-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 99px;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.sidebar-nav-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0.875rem 0.625rem 0.35rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.575rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--dur-fast) var(--ease);
+  position: relative;
+}
+
+.sidebar-link:hover {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+.sidebar-link--active {
+  background: hsla(34, 92%, 50%, 0.14);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .sidebar-link--active {
+  background: hsla(34, 85%, 45%, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sidebar-link--active {
+    background: hsla(34, 85%, 45%, 0.18);
+  }
+}
+
+.sidebar-link--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 2px 2px 0;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  background: var(--accent);
+  color: hsl(0, 0%, 100%);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 99px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 0.875rem 0.625rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.sidebar-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0.575rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: all var(--dur-fast) var(--ease);
+}
+
+.sidebar-logout:hover {
+  background: hsla(0, 80%, 50%, 0.07);
+  color: var(--text-danger);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    width: min(var(--sidebar-w), 82vw);
+    min-width: min(var(--sidebar-w), 82vw);
+    transition: transform var(--dur-med) var(--ease), opacity var(--dur-med) var(--ease);
+    box-shadow: none;
+  }
+  .sidebar.sidebar--open {
+    transform: translateX(0) !important;
+    box-shadow: var(--shadow-lg) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: min(var(--sidebar-w), 82vw) !important;
+    min-width: min(var(--sidebar-w), 82vw) !important;
+  }
+  .sidebar.sidebar--open > * {
+    visibility: visible !important;
+  }
+  .sidebar-close { display: flex !important; }
+}
+
+/* ================================================================
+   LIGHT THEME SIDEBAR VISIBILITY & CONTRAST
+   ================================================================ */
+[data-theme='light'] .sidebar,
+:root:not([data-theme='dark']) .sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e2e8f0 !important;
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='light'] .sidebar-logo-name,
+:root:not([data-theme='dark']) .sidebar-logo-name {
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .sidebar-logo-name span,
+:root:not([data-theme='dark']) .sidebar-logo-name span {
+  color: var(--accent, #f97316) !important;
+}
+
+[data-theme='light'] .sidebar-user,
+:root:not([data-theme='dark']) .sidebar-user {
+  background: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme='light'] .sidebar-user:hover,
+:root:not([data-theme='dark']) .sidebar-user:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+[data-theme='light'] .sidebar-user-name,
+:root:not([data-theme='dark']) .sidebar-user-name {
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .sidebar-nav-label,
+:root:not([data-theme='dark']) .sidebar-nav-label {
+  color: #64748b !important;
+}
+
+[data-theme='light'] .sidebar-link,
+:root:not([data-theme='dark']) .sidebar-link {
+  color: #334155 !important;
+}
+
+[data-theme='light'] .sidebar-link:hover,
+:root:not([data-theme='dark']) .sidebar-link:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-theme='light'] .sidebar-link--active,
+:root:not([data-theme='dark']) .sidebar-link--active {
+  background: #ffedd5 !important;
+  color: #c2410c !important;
+}
