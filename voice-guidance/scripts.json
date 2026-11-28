@@ -1,0 +1,236 @@
+{
+  "en": {
+    "OFFICIAL_DOMAIN": {
+      "headline": "Verified Official or Trusted Domain",
+      "summary": "This link points to a verified official or Tranco-trusted domain ({domain}) with no phishing or scam indicators detected.",
+      "signals": [
+        "Verified official/Tranco top domain: {domain}",
+        "No brand spoofing, suspicious TLD (.xyz/.top), or raw IP tricks found",
+        "No urgent KYC, OTP, or UPI PIN scam cues detected"
+      ],
+      "recommendedAction": "You may proceed safely using this official portal while keeping normal security precautions."
+    },
+    "BANK_ALERT": {
+      "headline": "Standard Bank Transaction Alert (Safe)",
+      "summary": "This message matches a standard informational bank transaction notification without external phishing links or credential requests.",
+      "signals": [
+        "Matches routine debit/credit or UPI reference notification structure",
+        "Contains no external login URLs or URL shorteners",
+        "Does not demand OTP, UPI PIN, or urgent KYC action"
+      ],
+      "recommendedAction": "If you did not authorize this transaction, contact your bank directly via its official helpline number."
+    },
+    "SAFE_UPI": {
+      "headline": "Standard UPI Handle Structure (Safe)",
+      "summary": "This UPI ID uses a recognized payment provider handle and shows no prize, cashback, lottery, or refund trap patterns.",
+      "signals": [
+        "Uses a recognized Indian banking/UPI PSP handle",
+        "No deceptive reward, lottery, cashback, or refund keywords in the ID",
+        "Always verify the recipient display name inside your UPI app before paying"
+      ],
+      "recommendedAction": "Confirm the verified merchant or person name in your UPI app; never enter a UPI PIN to receive money."
+    },
+    "SCAM_UPI": {
+      "headline": "High Risk: Deceptive Prize / Refund UPI Handle",
+      "summary": "This UPI ID uses reward, cashback, or refund lure wording commonly used by scammers to trick victims into authorizing a debit with their UPI PIN.",
+      "signals": [
+        "UPI handle prefix mimics a cashback, prize, lottery, or refund desk",
+        "Receiving genuine cashback or refunds never requires entering your UPI PIN",
+        "Approving collect requests from such handles immediately debits your account"
+      ],
+      "recommendedAction": "Decline any collect request from this UPI ID, do not enter your UPI PIN, and block the sender in your UPI app."
+    },
+    "PHISHING_URL": {
+      "headline": "High Risk: Phishing or Deceptive URL Detected",
+      "summary": "The ML URL classifier flagged high-risk phishing features such as lookalike brand spoofing, suspicious domain extensions, or credential-harvesting keywords.",
+      "signals": [
+        "Unverified and high-risk phishing domain pattern detected"
+      ],
+      "recommendedAction": "Do not open this link or enter any personal/banking details; delete it and report to 1930 if you interacted with it."
+    },
+    "DIGITAL_ARREST": {
+      "headline": "High Risk: Digital Arrest / Impersonation Threat",
+      "summary": "This message uses intimidation claiming police, CBI, customs, or cyber cell action to coerce victims into transferring money or sharing sensitive data.",
+      "signals": [
+        "Contains law-enforcement, customs, or digital-arrest intimidation language",
+        "Genuine government authorities never conduct arrests or demand money over calls/messages",
+        "Uses panic and urgency to bypass verification"
+      ],
+      "recommendedAction": "Do not panic or transfer money; disconnect immediately and report the number at 1930 or cybercrime.gov.in."
+    },
+    "APK_LURE": {
+      "headline": "High Risk: Malicious APK or Remote-Access Trap",
+      "summary": "This message lures users into installing unverified APK files, remote screen-sharing apps, or fake job/loan offers that compromise bank accounts.",
+      "signals": [
+        "Mentions APK installation, remote-access apps, or high-return job/loan lures",
+        "Installing unknown APKs allows attackers to intercept banking OTPs",
+        "Matches active Indian cyber-fraud campaign patterns"
+      ],
+      "recommendedAction": "Never download APK files from messages or install remote-access apps for strangers; block the sender immediately."
+    },
+    "SCAM_SMS": {
+      "headline": "High Risk: Fake KYC / Account Block Scam",
+      "summary": "This message uses artificial urgency threatening account suspension or KYC blocking to trick you into clicking unsafe links or sharing OTPs.",
+      "signals": [
+        "Contains high-urgency account-block or KYC threat wording"
+      ],
+      "recommendedAction": "Do not click links, call unknown mobile numbers, or share OTPs; verify directly via your official bank app."
+    }
+  },
+  "hi": {
+    "OFFICIAL_DOMAIN": {
+      "headline": "सत्यापित आधिकारिक या विश्वसनीय डोमेन",
+      "summary": "यह लिंक या संदेश सत्यापित डोमेन ({domain}) की ओर जाता है और इसमें किसी ठगी या फ़िशिंग का संकेत नहीं मिला।",
+      "signals": [
+        "सत्यापित आधिकारिक/Tranco विश्वसनीय डोमेन: {domain}",
+        "फ़िशिंग, ब्रांड नकल या संदिग्ध TLD (.xyz/.top) का कोई संकेत नहीं",
+        "संदेश में OTP, UPI पिन या भुगतान दबाव की मांग नहीं है"
+      ],
+      "recommendedAction": "आप सामान्य सावधानी के साथ इस आधिकारिक पोर्टल का उपयोग कर सकते हैं।"
+    },
+    "BANK_ALERT": {
+      "headline": "सामान्य बैंक लेन-देन सूचना (सुरक्षित)",
+      "summary": "यह एक मानक बैंक लेन-देन अलर्ट जैसा दिखता है जिसमें कोई संदिग्ध बाहरी लिंक या OTP/KYC दबाव नहीं है।",
+      "signals": [
+        "सामान्य डेबिट/क्रेडिट या UPI रेफरेंस प्रारूप से मेल खाता है",
+        "कोई बाहरी फ़िशिंग लिंक या शॉर्ट URL शामिल नहीं है",
+        "OTP, UPI पिन या तत्काल KYC अपडेट का दबाव नहीं है"
+      ],
+      "recommendedAction": "यदि यह लेन-देन आपने नहीं किया है, तो संदेश में दिए आधिकारिक बैंक हेल्पलाइन नंबर पर कॉल करें।"
+    },
+    "SAFE_UPI": {
+      "headline": "मानक UPI आईडी प्रारूप (सुरक्षित)",
+      "summary": "यह UPI हैंडल एक मान्यता प्राप्त बैंक/पेमेंट PSP डोमेन पर है और इसमें इनाम, कैशबैक या रिफंड जाल के शब्द नहीं हैं।",
+      "signals": [
+        "मान्यता प्राप्त और सामान्य UPI भुगतान हैंडल संरचना",
+        "लॉटरी, कैशबैक, इनाम या फर्जी कस्टमर-केयर जैसा कोई भ्रामक शब्द नहीं",
+        "भुगतान करने से पहले ऐप में प्राप्तकर्ता का नाम अवश्य जांचें"
+      ],
+      "recommendedAction": "पैसे भेजते समय UPI ऐप पर दिखने वाले नाम की पुष्टि करें; पैसे प्राप्त करने के लिए कभी पिन न डालें।"
+    },
+    "SCAM_UPI": {
+      "headline": "उच्च जोखिम: संदिग्ध इनाम/रिफंड UPI आईडी",
+      "summary": "इस UPI हैंडल में कैशबैक, इनाम या रिफंड जैसे भ्रामक शब्द हैं जिनका उपयोग ठग लोगों से UPI पिन डलवाकर पैसे काटने के लिए करते हैं।",
+      "signals": [
+        "UPI हैंडल नाम कैशबैक, लॉटरी, इनाम या रिफंड का लालच दिखाता है",
+        "असली इनाम या रिफंड लेने के लिए कभी UPI पिन नहीं डालना होता",
+        "अज्ञात UPI कलेक्ट या QR रिक्वेस्ट से तुरंत पैसे कट सकते हैं"
+      ],
+      "recommendedAction": "इस UPI आईडी से आने वाले किसी भी भुगतान या कलेक्ट अनुरोध को अस्वीकार करें और इसे ब्लॉक करें।"
+    },
+    "PHISHING_URL": {
+      "headline": "उच्च जोखिम: फ़िशिंग या नकली लिंक पहचाना गया",
+      "summary": "इस लिंक में संदिग्ध डोमेन संरचना, नकली ब्रांड नाम या फ़िशिंग पैटर्न पाया गया है जो आपकी बैंकिंग जानकारी और OTP चुराने के लिए बनाया गया है।",
+      "signals": [
+        "असत्यापित और उच्च जोखिम वाला वेब लिंक पहचाना गया"
+      ],
+      "recommendedAction": "इस लिंक पर बिल्कुल क्लिक न करें, इसे तुरंत डिलीट करें और यदि पैसे कटे हैं तो 1930 पर कॉल करें।"
+    },
+    "DIGITAL_ARREST": {
+      "headline": "उच्च जोखिम: डिजिटल अरेस्ट / फर्जी पुलिस धमकी",
+      "summary": "यह संदेश पुलिस, CBI, कस्टम या साइबर सेल के नाम पर गिरफ्तारी या कानूनी कार्रवाई का डर दिखाकर पैसे ऐंठने की कोशिश कर रहा है।",
+      "signals": [
+        "पुलिस, CBI, कस्टम या साइबर सेल के नाम से डराने की भाषा",
+        "आधिकारिक सरकारी एजेंसी कभी वीडियो कॉल या संदेश से \"डिजिटल अरेस्ट\" नहीं करती",
+        "तत्काल भुगतान या गोपनीय जानकारी मांगने का दबाव"
+      ],
+      "recommendedAction": "डरें नहीं, कॉल या चैट तुरंत काटें, कोई पैसा न भेजें और 1930 या cybercrime.gov.in पर रिपोर्ट करें।"
+    },
+    "APK_LURE": {
+      "headline": "उच्च जोखिम: खतरनाक APK या रिमोट-एक्सेस ठगी",
+      "summary": "यह संदेश खतरनाक APK फ़ाइल, स्क्रीन-शेयरिंग ऐप (AnyDesk/TeamViewer) या फर्जी नौकरी/लोन के लालच से आपका फोन और बैंक खाता हैक कर सकता है।",
+      "signals": [
+        "खतरनाक .apk फ़ाइल, रिमोट-एक्सेस ऐप या आसान कमाई/लोन का लालच",
+        "अनजान APK इंस्टॉल करने से OTP और बैंक डेटा चोरी हो सकता है",
+        "उच्च जोखिम वाले ठगी पैटर्न से मेल खाता है"
+      ],
+      "recommendedAction": "कोई भी APK फ़ाइल या स्क्रीन-शेयरिंग ऐप इंस्टॉल न करें और भेजने वाले को तुरंत ब्लॉक करें।"
+    },
+    "SCAM_SMS": {
+      "headline": "उच्च जोखिम: फर्जी KYC / खाता बंद होने का झांसा",
+      "summary": "इस संदेश में खाता बंद होने या KYC अपडेट की झूठी जल्दबाज़ी दिखाई गई है ताकि आप घबराकर OTP, पिन या लिंक पर जानकारी साझा कर दें।",
+      "signals": [
+        "तात्कालिकता और खाता बंद होने की धमकी वाला संदिग्ध संदेश"
+      ],
+      "recommendedAction": "किसी लिंक पर क्लिक न करें और न ही OTP साझा करें; पुष्टि के लिए सीधे अपने बैंक की आधिकारिक ऐप देखें।"
+    }
+  },
+  "or": {
+    "OFFICIAL_DOMAIN": {
+      "headline": "ସତ୍ୟାପିତ ସରକାରୀ କିମ୍ବା ବିଶ୍ୱସ୍ତ ଡୋମେନ୍",
+      "summary": "ଏହି ଲିଙ୍କ୍ କିମ୍ବା ବାର୍ତ୍ତା ଯାଞ୍ଚ ହୋଇଥିବା ଡୋମେନ୍ ({domain}) କୁ ଯାଉଛି ଏବଂ ଏଥିରେ କୌଣସି ଫିସିଂ କିମ୍ବା ଠକେଇ ସଙ୍କେତ ମିଳିନାହିଁ।",
+      "signals": [
+        "ସତ୍ୟାପିତ ସରକାରୀ/Tranco ବିଶ୍ୱସ୍ତ ଡୋମେନ୍: {domain}",
+        "ନକଲି ବ୍ରାଣ୍ଡ୍ କିମ୍ବା ସନ୍ଦେହଜନକ TLD (.xyz/.top) ସଙ୍କେତ ନାହିଁ",
+        "ବାର୍ତ୍ତାରେ OTP କିମ୍ବା UPI ପିନ୍ ମଗାଯାଇ ନାହିଁ"
+      ],
+      "recommendedAction": "ଆପଣ ସାଧାରଣ ସତର୍କତା ସହିତ ଏହି ସରକାରୀ କିମ୍ବା ବିଶ୍ୱସ୍ତ ୱେବସାଇଟ୍ ବ୍ୟବହାର କରିପାରିବେ।"
+    },
+    "BANK_ALERT": {
+      "headline": "ସାଧାରଣ ବ୍ୟାଙ୍କ କାରବାର ସୂଚନା (ସୁରକ୍ଷିତ)",
+      "summary": "ଏହା ଏକ ସାଧାରଣ ବ୍ୟାଙ୍କ ଟ୍ରାଞ୍ଜାକ୍ସନ୍ ଆଲର୍ଟ ପରି ଦେଖାଯାଉଛି, ଯେଉଁଥିରେ କୌଣସି ସନ୍ଦେହଜନକ ବାହ୍ୟ ଲିଙ୍କ୍ କିମ୍ବା OTP ଚାପ ନାହିଁ।",
+      "signals": [
+        "ସାଧାରଣ ଡେବିଟ୍/କ୍ରେଡିଟ୍ କିମ୍ବା UPI ରେଫରେନ୍ସ ଗଠନ ସହିତ ମେଳ ଖାଉଛି",
+        "କୌଣସି ଫିସିଂ ଲିଙ୍କ୍ କିମ୍ବା ଶର୍ଟ୍ URL ନାହିଁ",
+        "OTP, UPI ପିନ୍ କିମ୍ବା ତୁରନ୍ତ KYC ଚାପ ନାହିଁ"
+      ],
+      "recommendedAction": "ଯଦି ଏହି କାରବାର ଆପଣ କରିନାହାନ୍ତି, ତେବେ ବ୍ୟାଙ୍କର ସରକାରୀ ହେଲ୍ପଲାଇନ୍ ନମ୍ବରରେ ତୁରନ୍ତ ଯୋଗାଯୋଗ କରନ୍ତୁ।"
+    },
+    "SAFE_UPI": {
+      "headline": "ସାଧାରଣ UPI ଆଇଡି ଗଠନ (ସୁରକ୍ଷିତ)",
+      "summary": "ଏହି UPI ହ୍ୟାଣ୍ଡେଲ୍ ଏକ ସ୍ୱୀକୃତ ବ୍ୟାଙ୍କ/PSP ଡୋମେନ୍‌ରେ ଅଛି ଏବଂ ଏଥିରେ ପୁରସ୍କାର, କ୍ୟାସବ୍ୟାକ୍ କିମ୍ବା ରିଫଣ୍ଡ୍ ଜାଲର କୌଣସି ଶବ୍ଦ ନାହିଁ।",
+      "signals": [
+        "ସ୍ୱୀକୃତ ଏବଂ ସାଧାରଣ UPI ପେମେଣ୍ଟ୍ ହ୍ୟାଣ୍ଡେଲ୍ ଗଠନ",
+        "ଲଟେରୀ, କ୍ୟାସବ୍ୟାକ୍ କିମ୍ବା ରିଫଣ୍ଡ୍ ପ୍ରଲୋଭନ ଶବ୍ଦ ନାହିଁ",
+        "ଟଙ୍କା ପଠାଇବା ପୂର୍ବରୁ ଆପ୍‌ରେ ପ୍ରାପକଙ୍କ ନାମ ଯାଞ୍ଚ କରନ୍ତୁ"
+      ],
+      "recommendedAction": "ଟଙ୍କା ପଠାଇବା ସମୟରେ UPI ଆପ୍‌ରେ ଦେଖାଯାଉଥିବା ନାମ ନିଶ୍ଚିତ କରନ୍ତୁ; ଟଙ୍କା ପାଇବା ପାଇଁ କେବେ ପିନ୍ ଦିଅନ୍ତୁ ନାହିଁ।"
+    },
+    "SCAM_UPI": {
+      "headline": "ଉଚ୍ଚ ବିପଦ: ନକଲି ପୁରସ୍କାର/ରିଫଣ୍ଡ୍ UPI ଆଇଡି",
+      "summary": "ଏହି UPI ହ୍ୟାଣ୍ଡେଲ୍‌ରେ କ୍ୟାସବ୍ୟାକ୍, ପୁରସ୍କାର କିମ୍ବା ରିଫଣ୍ଡ୍ ପରି ପ୍ରଲୋଭନ ଶବ୍ଦ ଅଛି, ଯାହାକୁ ଠକମାନେ UPI ପିନ୍ ନେଇ ଟଙ୍କା କାଟିବା ପାଇଁ ବ୍ୟବହାର କରନ୍ତି।",
+      "signals": [
+        "UPI ହ୍ୟାଣ୍ଡେଲ୍ ନାମ କ୍ୟାସବ୍ୟାକ୍, ଲଟେରୀ କିମ୍ବା ରିଫଣ୍ଡ୍ ଦେଖାଉଛି",
+        "ଟଙ୍କା କିମ୍ବା ରିଫଣ୍ଡ୍ ପାଇବା ପାଇଁ କେବେ UPI ପିନ୍ ଦେବାକୁ ପଡ଼େ ନାହିଁ",
+        "ଅଜଣା କଲେକ୍ଟ୍ ଅନୁରୋଧ ଗ୍ରହଣ କଲେ ଟଙ୍କା କଟିଯାଇପାରେ"
+      ],
+      "recommendedAction": "ଏହି UPI ଆଇଡିରୁ ଆସୁଥିବା କୌଣସି କଲେକ୍ଟ୍ କିମ୍ବା ପେମେଣ୍ଟ୍ ଅନୁରୋଧ ଗ୍ରହଣ କରନ୍ତୁ ନାହିଁ ଏବଂ ବ୍ଲକ୍ କରନ୍ତୁ।"
+    },
+    "PHISHING_URL": {
+      "headline": "ଉଚ୍ଚ ବିପଦ: ଫିସିଂ କିମ୍ବା ନକଲି ଲିଙ୍କ୍ ଚିହ୍ନଟ",
+      "summary": "ଏହି ଲିଙ୍କ୍‌ରେ ସନ୍ଦେହଜନକ ଡୋମେନ୍, ନକଲି ବ୍ରାଣ୍ଡ୍ ନାମ କିମ୍ବା ଫିସିଂ ଗଠନ ମିଳିଛି ଯାହା ଆପଣଙ୍କ ବ୍ୟାଙ୍କ ତଥ୍ୟ ଓ OTP ଚୋରି କରିବା ପାଇଁ ତିଆରି ହୋଇଛି।",
+      "signals": [
+        "ଅସତ୍ୟାପିତ ଏବଂ ଉଚ୍ଚ ବିପଦପୂର୍ଣ୍ଣ ୱେବ୍ ଲିଙ୍କ୍ ଚିହ୍ନଟ ହୋଇଛି"
+      ],
+      "recommendedAction": "ଏହି ଲିଙ୍କ୍‌ରେ କ୍ଲିକ୍ କରନ୍ତୁ ନାହିଁ, ତୁରନ୍ତ ଡିଲିଟ୍ କରନ୍ତୁ ଏବଂ ଟଙ୍କା କଟିଥିଲେ 1930 କୁ କଲ୍ କରନ୍ତୁ।"
+    },
+    "DIGITAL_ARREST": {
+      "headline": "ଉଚ୍ଚ ବିପଦ: ଡିଜିଟାଲ୍ ଆରେଷ୍ଟ୍ / ନକଲି ପୋଲିସ୍ ଧମକ",
+      "summary": "ଏହି ବାର୍ତ୍ତା ପୋଲିସ୍, CBI, କଷ୍ଟମ୍ସ କିମ୍ବା ସାଇବର ସେଲ୍ ନାଁରେ ଗିରଫ ଭୟ ଦେଖାଇ ଟଙ୍କା ଆଦାୟ କରିବାକୁ ଚେଷ୍ଟା କରୁଛି।",
+      "signals": [
+        "ପୋଲିସ୍, CBI, କଷ୍ଟମ୍ସ କିମ୍ବା ସାଇବର ସେଲ୍ ନାଁରେ ଭୟ ଦେଖାଉଛି",
+        "କୌଣସି ସରକାରୀ ସଂସ୍ଥା ଭିଡିଓ କଲ୍ କିମ୍ବା ମେସେଜ୍‌ରେ \"ଡିଜିଟାଲ୍ ଆରେଷ୍ଟ୍\" କରେ ନାହିଁ",
+        "ତୁରନ୍ତ ଟଙ୍କା କିମ୍ବା ଗୋପନୀୟ ତଥ୍ୟ ଦେବାକୁ ଚାପ ପକାଉଛି"
+      ],
+      "recommendedAction": "ଭୟଭୀତ ହୁଅନ୍ତୁ ନାହିଁ, କୌଣସି ଟଙ୍କା ପଠାନ୍ତୁ ନାହିଁ ଏବଂ ତୁରନ୍ତ 1930 କିମ୍ବା cybercrime.gov.in ରେ ଅଭିଯୋଗ କରନ୍ତୁ।"
+    },
+    "APK_LURE": {
+      "headline": "ଉଚ୍ଚ ବିପଦ: କ୍ଷତିକାରକ APK କିମ୍ବା ରିମୋଟ୍-ଆକ୍ସେସ୍ ଠକେଇ",
+      "summary": "ଏହି ବାର୍ତ୍ତା ନକଲି APK ଫାଇଲ୍, ସ୍କ୍ରିନ୍-ସେୟାରିଂ ଆପ୍ କିମ୍ବା ଚାକିରି/ଋଣ ପ୍ରଲୋଭନ ଦ୍ୱାରା ଆପଣଙ୍କ ଫୋନ୍ ଓ ବ୍ୟାଙ୍କ ଆକାଉଣ୍ଟ୍ ହ୍ୟାକ୍ କରିପାରେ।",
+      "signals": [
+        "କ୍ଷତିକାରକ .apk ଫାଇଲ୍, ରିମୋଟ୍ ଆପ୍ କିମ୍ବା ସହଜ ଆୟ/ଋଣ ପ୍ରଲୋଭନ",
+        "ଅଜଣା APK ଇନଷ୍ଟଲ୍ କଲେ OTP ଏବଂ ବ୍ୟାଙ୍କ ତଥ୍ୟ ଚୋରି ହୋଇପାରେ",
+        "ଉଚ୍ଚ ବିପଦପୂର୍ଣ୍ଣ ସାଇବର ଠକେଇ ଧାରା ସହିତ ମେଳ ଖାଉଛି"
+      ],
+      "recommendedAction": "କୌଣସି APK ଫାଇଲ୍ କିମ୍ବା ସ୍କ୍ରିନ୍-ସେୟାରିଂ ଆପ୍ ଇନଷ୍ଟଲ୍ କରନ୍ତୁ ନାହିଁ ଏବଂ ପ୍ରେରକଙ୍କୁ ବ୍ଲକ୍ କରନ୍ତୁ।"
+    },
+    "SCAM_SMS": {
+      "headline": "ଉଚ୍ଚ ବିପଦ: ନକଲି KYC / ଆକାଉଣ୍ଟ୍ ବନ୍ଦ ଧମକ",
+      "summary": "ଏହି ବାର୍ତ୍ତାରେ ଆକାଉଣ୍ଟ୍ ବନ୍ଦ ହେବା କିମ୍ବା KYC ଅପଡେଟ୍‌ର ମିଥ୍ୟା ଜରୁରୀ ପରିସ୍ଥିତି ଦେଖାଇ OTP କିମ୍ବା ବ୍ୟକ୍ତିଗତ ତଥ୍ୟ ନେବାକୁ ଚେଷ୍ଟା କରାଯାଇଛି।",
+      "signals": [
+        "ଜରୁରୀ ଧମକ ଏବଂ ଆକାଉଣ୍ଟ୍ ବ୍ଲକ୍ ଭୟ ଦେଖାଉଥିବା ସନ୍ଦେହଜନକ ବାର୍ତ୍ତା"
+      ],
+      "recommendedAction": "କୌଣସି ଲିଙ୍କ୍ ଖୋଲନ୍ତୁ ନାହିଁ କିମ୍ବା OTP ଦିଅନ୍ତୁ ନାହିଁ; ଯାଞ୍ଚ ପାଇଁ ସିଧାସଳଖ ବ୍ୟାଙ୍କର ସରକାରୀ ଆପ୍ ଦେଖନ୍ତୁ।"
+    }
+  }
+}
