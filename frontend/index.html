@@ -116,12 +116,13 @@ footer{background:#14171a;color:#c9ced4;padding:36px 0;font-size:14px}footer .wr
 <body><div id="root"></div>
 <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.7/babel.min.js"></script>
 <script type="text/babel">
 const {useState,useEffect,useMemo,useRef}=React;
-const P={dash:"M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",live:"M2 12h4l3-8 6 16 3-8h4",att:"M2 5h20v14H2zM6 10h5M6 14h3M15 10h3v4h-3z",rep:"M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8",zone:"M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 7a3 3 0 100 6 3 3 0 000-6z",chat:"M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z",set:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",moon:"M21 13A9 9 0 1111 3a7 7 0 0010 10z",sun:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",out:"M9 21H5V3h4M16 17l5-5-5-5M21 12H9",menu:"M3 6h18M3 12h18M3 18h18",eye:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 9a3 3 0 100 6 3 3 0 000-6z",eyeoff:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM3 3l18 18",x:"M18 6L6 18M6 6l12 12",plus:"M12 5v14M5 12h14",dl:"M12 3v12M7 10l5 5 5-5M4 21h16",send:"M22 2L11 13M22 2l-7 20-4-9-9-4z",search:"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5",edit:"M4 20h4L19 9l-4-4L4 16z",trash:"M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15",users:"M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2",shield:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z",chev:"M15 6l-6 6 6 6"};
+const P={dash:"M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z",live:"M2 12h4l3-8 6 16 3-8h4",att:"M2 5h20v14H2zM6 10h5M6 14h3M15 10h3v4h-3z",rep:"M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8",zone:"M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11zM12 7a3 3 0 100 6 3 3 0 000-6z",chat:"M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z",set:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",moon:"M21 13A9 9 0 1111 3a7 7 0 0010 10z",sun:"M12 8a4 4 0 100 8 4 4 0 000-8zM12 1v3M12 20v3M1 12h3M20 12h3",out:"M9 21H5V3h4M16 17l5-5-5-5M21 12H9",menu:"M3 6h18M3 12h18M3 18h18",eye:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 9a4 4 0 100 6 3 3 0 000-6z",eyeoff:"M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM3 3l18 18",x:"M18 6L6 18M6 6l12 12",plus:"M12 5v14M5 12h14",dl:"M12 3v12M7 10l5 5 5-5M4 21h16",send:"M22 2L11 13M22 2l-7 20-4-9-9-4z",search:"M11 4a7 7 0 100 14 7 7 0 000-14zM21 21l-5-5",edit:"M4 20h4L19 9l-4-4L4 16z",trash:"M3 6h18M8 6V3h8v3M6 6l1 15h10l1-15",users:"M9 11a4 4 0 100-8 4 4 0 000 8zM2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2",shield:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z",chev:"M15 6l-6 6 6 6"};
 Object.assign(P,{mail:"M3 5h18v14H3zM3 6l9 7 9-7",lock:"M5 11h14v10H5zM8 11V7a4 4 0 018 0v4",cam:"M3 7h4l2-3h6l2 3h4v13H3zM12 10a4 4 0 100 8 4 4 0 000-8z",shieldck:"M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5zM8.5 12l2.5 2.5 4.5-5",chart:"M5 20V10M12 20V4M19 20v-7",crown:"M3 8l4 4 5-7 5 7 4-4-2 11H5z",user:"M12 11a4 4 0 100-8 4 4 0 000 8zM4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1",arrow:"M5 12h14M13 6l6 6-6 6"});
-Object.assign(P,{video:"M3 6h12v12H3zM15 10l6-3v10l-6-3",cal:"M4 5h16v16H4zM4 10h16M8 3v4M16 3v4M9 15l2 2 4-4",clock:"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2",down:"M6 9l6 6 6-6"});
+Object.assign(P,{video:"M3 6h12v12H3zM15 10l6-3v10l-6-3",cal:"M4 5h16v16H4zM4 10h16M8 3v4M16 3v4M9 15l2 2 4-4",clock:"M12 3a9 9 0 100 18 9 9 0 000-18zM12 7v5l3 2",down:"M6 9l6 6 6-6",bell:"M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"});
 const Ic=({n})=><svg className="i" viewBox="0 0 24 24"><path d={P[n]}/></svg>;
 const Logo=()=><span className="brand"><span className="logo"><Ic n="shield"/></span><span className="t">Warden Eye</span></span>;
 const COL=["#d93a37","#1f9d55","#4a5568","#2b6cb0","#b7791f","#805ad5"];
@@ -161,7 +162,81 @@ const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,hei
 const RAW_HOST=(typeof location!=="undefined"&&location.hostname)?location.hostname:"127.0.0.1";
 const STREAM_HOST=(RAW_HOST==="localhost"||RAW_HOST==="::1"||!RAW_HOST)?"127.0.0.1":RAW_HOST;
 const ML_STREAM_BASE=`http://${STREAM_HOST}:8765`;
-const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`http://${STREAM_HOST}:5000/api`;
+const SOCKET_ORIGIN=`http://${STREAM_HOST}:5000`;
+const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`${SOCKET_ORIGIN}/api`;
+
+function playAlertTone(kind="warning"){
+ try{
+  if(localStorage.getItem("we-sound")==="off")return;
+  const Ctx=window.AudioContext||window.webkitAudioContext;
+  if(!Ctx)return;
+  const ctx=new Ctx();
+  const beep=(freq,start,dur,vol=0.12,type="sine")=>{
+   const o=ctx.createOscillator(),g=ctx.createGain();
+   o.type=type;o.frequency.value=freq;
+   g.gain.setValueAtTime(vol,ctx.currentTime+start);
+   g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+start+dur);
+   o.connect(g);g.connect(ctx.destination);
+   o.start(ctx.currentTime+start);o.stop(ctx.currentTime+start+dur);
+  };
+  if(kind==="emergency"){beep(880,0,0.18,0.2,"sawtooth");beep(660,0.2,0.18,0.2,"sawtooth");beep(980,0.4,0.28,0.22,"sawtooth")}
+  else if(kind==="warning"){beep(740,0,0.14,0.14,"triangle");beep(880,0.16,0.18,0.14,"triangle")}
+  else{beep(620,0,0.12,0.09,"sine")}
+ }catch(_e){}
+}
+
+function showDesktopNotification(title,body){
+ try{
+  if(typeof Notification!=="undefined"&&Notification.permission==="granted"){
+   const n=new Notification(title,{body,tag:"wardens-eye-live"});
+   n.onclick=()=>{window.focus();location.hash="notifications"};
+  }
+ }catch(_e){}
+}
+
+function urlBase64ToUint8Array(base64String){
+ const padding="=".repeat((4-base64String.length%4)%4);
+ const base64=(base64String+padding).replace(/-/g,"+").replace(/_/g,"/");
+ const rawData=atob(base64);
+ const outputArray=new Uint8Array(rawData.length);
+ for(let i=0;i<rawData.length;++i)outputArray[i]=rawData.charCodeAt(i);
+ return outputArray;
+}
+
+async function subscribeBrowserWebPush(){
+ if(typeof Notification==="undefined")return {ok:false,message:"Browser notifications not supported."};
+ const perm=await Notification.requestPermission();
+ if(perm!=="granted")return {ok:false,message:"Notification permission declined in browser."};
+ try{
+  const tok=localStorage.getItem("we-token");
+  if("serviceWorker" in navigator&&location.protocol.startsWith("http")){
+   const reg=await navigator.serviceWorker.register("/sw.js");
+   await navigator.serviceWorker.ready;
+   const vr=await fetch(`${API_BASE}/notifications/vapid-public-key`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(vr.ok){
+    const vj=await vr.json();
+    const pubKey=vj.data?.publicKey;
+    if(pubKey&&reg.pushManager){
+     let sub=await reg.pushManager.getSubscription();
+     if(!sub){
+      sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:urlBase64ToUint8Array(pubKey)});
+     }
+     if(sub){
+      await fetch(`${API_BASE}/notifications/subscribe`,{
+       method:"POST",
+       headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+       body:JSON.stringify(sub.toJSON())
+      });
+      return {ok:true,message:"Web Push + Desktop OS Notifications enabled and saved in MongoDB Atlas!"};
+     }
+    }
+   }
+  }
+  return {ok:true,message:"Desktop OS Browser Notifications enabled!"};
+ }catch(_e){
+  return {ok:true,message:"Desktop OS Browser Notifications active (local LAN mode)."};
+ }
+}
 
 function SignIn({onAuthSuccess,existingUser,onLogout}){
  const [show,setShow]=useState(false);const [u,setU]=useState("");const [p,setP]=useState("");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
@@ -568,7 +643,7 @@ function Chat(){
  <div className="cm"><div className="row" style={{padding:"12px 16px",borderBottom:"1px solid var(--line)",justifyContent:"flex-start"}}><b>{CT[a][0]}</b><span className="bd">{CT[a][1]}</span></div><div className="msgs" ref={box}>{(M[a]||[]).map((m,i)=><div key={i} className={"m "+(m[0]==="me"?"me":"")}>{m[1]}<small>{m[2]}</small></div>)}{!(M[a]||[]).length&&<p style={{color:"var(--mut)"}}>No messages yet. Say hello.</p>}</div>
  <form onSubmit={send}><input className="in" placeholder="Type a message" value={t} onChange={e=>setT(e.target.value)}/><button className="btn grn" aria-label="Send"><Ic n="send"/></button></form></div></div>}
 
-const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["supervisors","users","Supervisor Access"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
+const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["notifications","bell","Notifications"],["zones","zone","Zone Management"],["supervisors","users","Supervisor Access"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
 const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
 const ALL=NAV.concat(HIST);
 function HistoryNav({active}){
@@ -974,6 +1049,111 @@ function SupervisorsPage({zones,curUser}){
   {editSup&&<div className="modal" onClick={()=>setEditSup(null)}><form className="card" onSubmit={resetPass} onClick={e=>e.stopPropagation()}><div className="row"><h3>Reset Password for {editSup.name}</h3><button type="button" className="btn" onClick={()=>setEditSup(null)}><Ic n="x"/></button></div><p style={{margin:0,color:"var(--mut)"}}>Supervisor ID: <code>{editSup.email}</code></p><label>New Password (min 6 chars)<input className="in" type="text" placeholder="Enter new password" value={newPass} onChange={e=>setNewPass(e.target.value)} minLength={6} required autoFocus/></label><button className="btn red">Update Supervisor Password in MongoDB</button></form></div>}
  </div>}
 
+function NotificationsPage({notifs=[],readIds={},markRead,markAllRead,socketLive,pushSub,setPushSub,reloadNotifs}){
+ const [f,setF]=useState("ALL");const [soundOn,setSoundOn]=useState(()=>localStorage.getItem("we-sound")!=="off");
+ const [statusMsg,setStatusMsg]=useState("");const [busy,setBusy]=useState(false);const [nowTick,setNowTick]=useState(Date.now());
+ useEffect(()=>{const id=setInterval(()=>setNowTick(Date.now()),1000);return()=>clearInterval(id)},[]);
+ const toggleSound=()=>{
+  const next=!soundOn;setSoundOn(next);
+  try{localStorage.setItem("we-sound",next?"on":"off")}catch(_e){}
+  if(next)playAlertTone("info");
+ };
+ const enablePush=async()=>{
+  setBusy(true);
+  const res=await subscribeBrowserWebPush();
+  setStatusMsg(res.message);
+  if(res.ok)setPushSub(true);
+  setBusy(false);
+ };
+ const triggerTest=async()=>{
+  setBusy(true);setStatusMsg("");
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/notifications/test`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+   const j=await r.json();
+   if(r.ok){
+    setStatusMsg("✓ Live test notification sent over Socket.IO + Browser Push!");
+    if(reloadNotifs)reloadNotifs();
+   }else{setStatusMsg(j.message||"Could not trigger test alert")}
+  }catch(_e){setStatusMsg("Error sending test notification")}finally{setBusy(false)}
+ };
+ const ackIncident=async n=>{
+  if(!n.incidentId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   await fetch(`${API_BASE}/supervisor/incidents/${n.incidentId}/acknowledge`,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:"{}"});
+   markRead(n.notificationId);
+   if(reloadNotifs)await reloadNotifs();
+   setStatusMsg(`✓ Incident ${(n.incidentId||"").slice(-5).toUpperCase()} acknowledged in MongoDB Atlas.`);
+  }catch(_e){}
+ };
+ const shown=notifs.filter(n=>{
+  const unread=!readIds[n.notificationId];
+  if(f==="UNREAD")return unread;
+  if(f==="EMERGENCY")return n.category==="EMERGENCY"||n.isEmergency;
+  if(f==="GRACE")return n.category==="GRACE_WARNING"||n.status==="WARNING_GRACE_PERIOD";
+  if(f==="ESCALATED")return n.status==="OPEN"||n.status==="UNDER_REVIEW";
+  return true;
+ });
+ const unreadCount=notifs.filter(n=>!readIds[n.notificationId]).length;
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{display:"flex",flexWrap:"wrap",gap:14,alignItems:"center",justifyContent:"space-between",borderLeft:"4px solid var(--red)"}}>
+   <div>
+    <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center"}}>
+     <span className={"pill "+(socketLive?"live":"")} style={{margin:0}}><span className={"dot "+(socketLive?"":"r")}/>{socketLive?"Socket.IO Real-Time Connected":"Live Polling Active"}</span>
+     <span className={"bd "+(pushSub?"g":"a")}>{pushSub?"Web Push Subscribed (VAPID)":"Browser Push Not Enabled"}</span>
+     <span className="bd">{unreadCount} Unread</span>
+    </div>
+    <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
+     Real-time safety alerts for <b>Critical Fire/Smoke Emergencies (0s bypass)</b>, <b>120-Second PPE Grace Countdowns</b>, <b>Escalated Supervisor Incidents</b>, and <b>Unregistered RFID Cards</b>.
+    </p>
+    {statusMsg&&<div className="bd g" style={{marginTop:8,padding:"6px 10px"}}>{statusMsg}</div>}
+   </div>
+   <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+    <button className={"btn "+(soundOn?"grn":"")} onClick={toggleSound}>{soundOn?"🔊 Sound ON":"🔇 Sound Muted"}</button>
+    <button className="btn" disabled={busy} onClick={enablePush}>🔔 Enable Desktop Push</button>
+    <button className="btn red" disabled={busy} onClick={triggerTest}>⚡ Send Live Test Alert</button>
+   </div>
+  </div>
+  <div className="bar" style={{justifyContent:"space-between"}}>
+   <div className="tabs">
+    {[["ALL","All Alerts"],["UNREAD",`Unread (${unreadCount})`],["EMERGENCY","🚨 Critical"],["GRACE","⏱ 120s Grace"],["ESCALATED","Escalated"]].map(([k,lbl])=><button key={k} className={f===k?"on":""} onClick={()=>setF(k)}>{lbl}</button>)}
+   </div>
+   <div style={{display:"flex",gap:8}}>
+    <button className="btn" onClick={markAllRead}>Mark All Read</button>
+    <button className="btn" onClick={reloadNotifs}>Refresh</button>
+   </div>
+  </div>
+  <div className="grid" style={{gap:10}}>
+   {shown.map(n=>{
+    const unread=!readIds[n.notificationId];
+    const expMs=n.graceExpiresAt?new Date(n.graceExpiresAt).getTime():0;
+    const secsLeft=(n.status==="WARNING_GRACE_PERIOD"&&expMs>nowTick)?Math.max(0,Math.ceil((expMs-nowTick)/1000)):0;
+    const borderCol=n.category==="EMERGENCY"?"var(--red)":n.category==="GRACE_WARNING"?"var(--amb)":n.category==="RESOLVED"?"var(--grn)":unread?"var(--red)":"var(--line)";
+    return <div className="card" key={n.notificationId} style={{borderLeft:`4px solid ${borderCol}`,display:"flex",flexWrap:"wrap",justifyContent:"space-between",alignItems:"center",gap:12,background:unread?"var(--surf)":"var(--card)"}}>
+     <div style={{flex:"1 1 380px"}}>
+      <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap",marginBottom:4}}>
+       {unread&&<span className="dot r" title="Unread"/>}
+       <b>{n.title}</b>
+       <Badge s={n.category==="EMERGENCY"?"Absent":n.category==="RESOLVED"?"Resolved":n.category==="GRACE_WARNING"?"Late":"Pending"}/>
+       <span className="bd">{n.zoneName||"Zone"} · {n.source||"CAM_001"}</span>
+       {secsLeft>0&&<span className="bd a">⏱ {secsLeft}s left in 120s grace window</span>}
+      </div>
+      <p style={{margin:0,fontSize:14}}>{n.message}</p>
+      <small style={{color:"var(--mut)"}}>{n.createdAt?new Date(n.createdAt).toLocaleString("en-GB"):"Just now"}{n.workerName?` · Worker: ${n.workerName}`:""}</small>
+     </div>
+     <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+      {n.incidentId&&!n.acknowledged&&n.status!=="RESOLVED"&&n.status!=="SELF_RESOLVED_IN_GRACE"&&<button className="btn grn" onClick={()=>ackIncident(n)}>Acknowledge</button>}
+      {n.incidentId&&<button className="btn" onClick={()=>{markRead(n.notificationId);go("reports")}}>Open Incident →</button>}
+      {unread&&<button className="btn" onClick={()=>markRead(n.notificationId)}>Mark Read</button>}
+     </div>
+    </div>;
+   })}
+   {!shown.length&&<div className="card">No notifications match this filter. Click "⚡ Send Live Test Alert" above to test real-time notifications!</div>}
+  </div>
+ </div>;
+}
+
 function CloudConsole(){
  const [syncSt,setSyncSt]=useState(null);const [connSt,setConnSt]=useState(null);const [plans,setPlans]=useState([]);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState("");
  const loadCloud=async()=>{
@@ -1057,6 +1237,35 @@ function CloudConsole(){
 
 function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
  const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState([]);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);
+ const [notifs,setNotifs]=useState([]);const [pushSub,setPushSub]=useState(false);const [socketLive,setSocketLive]=useState(false);const [bellOpen,setBellOpen]=useState(false);const [toasts,setToasts]=useState([]);
+ const [readIds,setReadIds]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-read-notifs")||"{}")}catch(_e){return {}}});
+ const markRead=id=>{
+  setReadIds(prev=>{const next={...prev,[id]:1};try{localStorage.setItem("we-read-notifs",JSON.stringify(next))}catch(_e){}return next});
+ };
+ const markAllRead=()=>{
+  const next={...readIds};notifs.forEach(n=>{next[n.notificationId]=1});
+  setReadIds(next);try{localStorage.setItem("we-read-notifs",JSON.stringify(next))}catch(_e){}
+ };
+ const pushToast=(title,message,kind="warning",notifObj=null)=>{
+  const id="t-"+Date.now()+"-"+Math.random().toString(36).slice(2,6);
+  setToasts(prev=>[{id,title,message,kind},...prev].slice(0,4));
+  playAlertTone(kind);
+  showDesktopNotification(title,message);
+  if(notifObj)setNotifs(prev=>[notifObj,...prev.filter(x=>x.notificationId!==notifObj.notificationId)]);
+  setTimeout(()=>setToasts(prev=>prev.filter(t=>t.id!==id)),7000);
+ };
+ const loadNotifications=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/notifications?limit=35`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(Array.isArray(j.data?.notifications))setNotifs(j.data.notifications);
+    if(j.data?.pushSubscribed!==undefined)setPushSub(Boolean(j.data.pushSubscribed));
+   }
+  }catch(_e){}
+ };
  const loadMongoData=async()=>{
   try{
    const h=await fetch(`${API_BASE}/health`);
@@ -1104,16 +1313,48 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
  };
  useEffect(()=>{
   loadMongoData();
-  const id=setInterval(loadMongoData,5000);
+  loadNotifications();
+  const id=setInterval(()=>{loadMongoData();loadNotifications()},8000);
   return()=>clearInterval(id);
  },[]);
+ useEffect(()=>{
+  const tok=localStorage.getItem("we-token");
+  if(!tok||typeof window.io!=="function")return;
+  const sock=window.io(SOCKET_ORIGIN,{auth:{token:tok},transports:["websocket","polling"]});
+  sock.on("connect",()=>setSocketLive(true));
+  sock.on("disconnect",()=>setSocketLive(false));
+  sock.on("emergency:critical",p=>{
+   pushToast(`🚨 CRITICAL EMERGENCY: ${p.incidentType||"HAZARD"}`,`${p.zoneLabel||"Workplace Zone"} — Immediate evacuation & SOS required!`,"emergency");
+   loadNotifications();
+  });
+  sock.on("warning:started",p=>{
+   pushToast(`⚠️ 120s Grace Warning (${p.cameraCode||"CAM"})`,`${p.incidentType} detected. Worker has 120s to comply before escalation.`,"warning");
+   loadNotifications();
+  });
+  sock.on("warning:resolved",p=>{
+   pushToast(`✓ Compliance Restored (${p.cameraCode||"CAM"})`,`Worker self-resolved PPE warning within 120s grace period.`,"info");
+   loadNotifications();
+  });
+  sock.on("incident:new",p=>{
+   pushToast(`🚨 Incident Escalated: ${p.incidentType}`,`120s grace expired — Supervisor verification required.`,"emergency");
+   loadNotifications();
+  });
+  sock.on("rfid:scan",p=>{
+   pushToast(`🪪 RFID Check-In (${p.deviceCode||"ESP32"})`,`${p.workerName||p.rfidUid} scanned at ${new Date().toLocaleTimeString("en-GB")}.`,"info");
+  });
+  sock.on("notification:test",p=>{
+   pushToast(p.title||"🔔 Live Safety Alert",p.message||"Test notification received.","warning",p);
+  });
+  return()=>{try{sock.disconnect()}catch(_e){}};
+ },[]);
+ const unreadCount=notifs.filter(n=>!readIds[n.notificationId]).length;
  const isH=HIST.some(h=>h[0]===page);
  const [hist,setHist]=useState(()=>isH);
  useEffect(()=>{if(isH)setHist(true)},[isH]);
  const title=(ALL.find(n=>n[0]===page)||["","","Dashboard"])[2];
  const visibleNav=NAV.filter(x=>x[0]!=="supervisors"||!curUser||curUser.role==="ADMINISTRATOR");
- const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
- const nav=h=>{go(h);setOpen(false)};
+ const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span>{h==="notifications"&&unreadCount>0&&<span className="t" style={{marginLeft:"auto"}}><span className="bd r" style={{padding:"1px 7px",fontSize:11}}>{unreadCount}</span></span>}</button>;
+ const nav=h=>{go(h);setOpen(false);setBellOpen(false)};
  const clickHistory=()=>{
   const next=!hist;
   setHist(next);
@@ -1126,8 +1367,38 @@ function Shell({page,dark,setDark,curUser,setCurUser,onLogout}){
  <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
  
  <button className="nv" onClick={onLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Account / Role">{curUser?`${curUser.name} · ${roleLabel}`:"Signing in..."}</span><Av name={curUser?.name||"User"}/></div>
- <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
+ <div className={"main-c "+(pin?"":"col")}>
+  <div className="top" style={{position:"sticky",top:0}}>
+   <button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button>
+   <h1>{title}</h1>
+   <span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB (${cloudSync?.syncedCount??0} synced)`):"System online"}</span>
+   <div style={{position:"relative"}}>
+    <button className="btn" style={{position:"relative",padding:"7px 11px"}} aria-label="Notifications" onClick={()=>setBellOpen(!bellOpen)}>
+     <Ic n="bell"/>
+     {unreadCount>0&&<span style={{position:"absolute",top:-5,right:-5,background:"var(--red)",color:"#fff",borderRadius:99,padding:"1px 6px",fontSize:11,fontWeight:700}}>{unreadCount>99?"99+":unreadCount}</span>}
+    </button>
+    {bellOpen&&<div className="card" style={{position:"absolute",right:0,top:"calc(100% + 8px)",width:360,maxHeight:440,overflowY:"auto",zIndex:30,boxShadow:"0 12px 32px rgba(0,0,0,.22)",padding:14,display:"grid",gap:10}}>
+     <div className="row"><b>Safety Notifications ({unreadCount} unread)</b><div style={{display:"flex",gap:6}}><button className="btn" style={{padding:"3px 8px",fontSize:12}} onClick={markAllRead}>Mark read</button><button className="btn red" style={{padding:"3px 8px",fontSize:12}} onClick={()=>nav("notifications")}>View All</button></div></div>
+     {notifs.slice(0,8).map(n=>{
+      const unread=!readIds[n.notificationId];
+      return <div key={n.notificationId} onClick={()=>{markRead(n.notificationId);nav("notifications")}} style={{padding:"8px 10px",borderRadius:8,background:unread?"var(--surf)":"transparent",border:"1px solid var(--line)",cursor:"pointer"}}>
+       <div style={{display:"flex",justifyContent:"space-between",gap:6,fontSize:13}}><b>{n.title}</b>{unread&&<span className="dot r"/>}</div>
+       <div style={{fontSize:12,color:"var(--mut)",marginTop:2}}>{n.zoneName} · {n.source} · {n.createdAt?new Date(n.createdAt).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"}):"Now"}</div>
+      </div>;
+     })}
+     {!notifs.length&&<p style={{fontSize:13}}>No notifications yet.</p>}
+    </div>}
+   </div>
+   <span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Account / Role">{curUser?`${curUser.name} · ${roleLabel}`:"Signing in..."}</span>
+   <Av name={curUser?.name||"User"}/>
+  </div>
+  {toasts.length>0&&<div style={{position:"fixed",right:20,bottom:20,zIndex:50,display:"grid",gap:10,maxWidth:380}}>
+   {toasts.map(t=><div key={t.id} className="card" style={{borderLeft:`5px solid ${t.kind==="emergency"?"var(--red)":t.kind==="warning"?"var(--amb)":"var(--grn)"}`,boxShadow:"0 10px 30px rgba(0,0,0,.25)",padding:"12px 14px"}}>
+    <div className="row" style={{alignItems:"flex-start"}}><b style={{fontSize:14}}>{t.title}</b><button className="btn" style={{padding:"2px 6px",fontSize:11}} onClick={()=>setToasts(prev=>prev.filter(x=>x.id!==t.id))}>✕</button></div>
+    <p style={{fontSize:13,marginTop:4}}>{t.message}</p>
+   </div>)}
+  </div>}
+  <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="notifications"&&<NotificationsPage notifs={notifs} readIds={readIds} markRead={markRead} markAllRead={markAllRead} socketLive={socketLive} pushSub={pushSub} setPushSub={setPushSub} reloadNotifs={loadNotifications}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData} curUser={curUser}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend dbWorkers={dbWorkers}/>}{page==="rec-reports"&&<RecReports curUser={curUser}/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance &amp; Session</h3><p style={{margin:"8px 0 14px"}}>Signed in as <b>{curUser?.name}</b> (<code>{curUser?.email}</code> · {roleLabel}).</p><div className="tabs" style={{marginBottom:14}}><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div><div><button className="btn red" onClick={onLogout}><Ic n="out"/>Sign Out of Session</button></div></div>}</div></div></div>}
 
 function App(){

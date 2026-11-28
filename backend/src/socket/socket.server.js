@@ -64,6 +64,19 @@ const bindEventBusToSockets = () => {
       urgency: 'high',
     }).catch(() => {});
   });
+
+  eventBus.on('rfid:scan', (payload) => {
+    emitZoneEvent(payload.zoneId, 'rfid:scan', payload);
+  });
+
+  eventBus.on('notification:test', (payload) => {
+    if (ioInstance) {
+      ioInstance.to('admin:all').emit('notification:test', payload);
+      if (payload.targetZoneId) {
+        ioInstance.to(`zone:${String(payload.targetZoneId)}`).emit('notification:test', payload);
+      }
+    }
+  });
 };
 
 /**
