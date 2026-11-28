@@ -287,15 +287,18 @@ def parse_csv(payload, date_format):
         raise IngestionError("encoding", "Export CSV using UTF-8 encoding") from exc
     from .sbi_statement import fingerprint, parse_rows
 
+    rows = list(csv.reader(io.StringIO(text), strict=True))
+    if split_grid_header(rows) is not None:
+        return parse_split_grid(rows, hashlib.sha256(payload).hexdigest())
+
     if fingerprint(text):
-        rows = list(csv.reader(io.StringIO(text), strict=True))
         # Converted bank CSVs can have rasterized/missing header text. Use the
         # matching printed summary, never a headerless generic fallback.
         summary_at = next((i for i, row in enumerate(rows) if any("Statement Summary" in str(c) for c in row)), None)
         if summary_at is not None:
             summary_text = "\n".join(" ".join(row) for row in rows)
             return parse_rows(rows[:summary_at], summary_text, hashlib.sha256(payload).hexdigest())
-    reader = csv.reader(io.StringIO(text), strict=True)
+    reader = iter(rows)
     first = next(reader, [])
     if REQUIRED <= set(first):
         frame = pd.read_csv(io.StringIO(text), dtype=str, nrows=MAX_ROWS + 1)
@@ -307,6 +310,80 @@ def parse_csv(payload, date_format):
         iter([first, *reader]), date_format, hashlib.sha256(payload).hexdigest()
     )
     return frame, declared, {"adapter": "bank-csv-v1", "skipped_nontransaction_rows": skipped}
+
+
+def split_grid_header(rows):
+    """Recognize the 11-column, three-line transaction grid in converted bank CSVs."""
+    for i in range(min(len(rows) - 2, 1000)):
+        a, b, c = rows[i:i + 3]
+        if not all(len(row) == 11 for row in (a, b, c)):
+            continue
+        if (a[1].strip().casefold() == "transaction"
+                and a[3].strip().casefold() == "debit"
+                and a[5].strip().casefold() == "credit"
+                and b[0].strip().casefold() == "date"
+                and b[2].strip().casefold() == "remarks"
+                and b[7].strip().casefold().startswith("balance(")
+                and c[1].strip().casefold() == "id"
+                and c[3].strip().casefold().startswith("amount(")
+                and c[5].strip().casefold().startswith("amount(")):
+            return i
+    return None
+
+
+def parse_split_grid(rows, source_tag):
+    start = split_grid_header(rows)
+    if start is None:
+        raise IngestionError("missing_header", "The split transaction grid header is incomplete")
+    output, skipped = [], 0
+    for ordinal, row in enumerate(rows[start + 3:], start + 3):
+        if len(row) != 11:
+            raise IngestionError("ambiguous_columns", "The split transaction grid changed column count")
+        cells = [str(value or "").strip() for value in row]
+        if not any(cells):
+            continue
+        if re.fullmatch(r"\d{2}-\d{2}-\d{4}", cells[0]):
+            try:
+                date = datetime.strptime(cells[0], "%d-%m-%Y")
+            except ValueError as exc:
+                raise IngestionError("invalid_date", f"Transaction row {ordinal + 1} has an invalid date") from exc
+            if not cells[1] or (bool(cells[3]) == bool(cells[5])) or not cells[7]:
+                raise IngestionError("ambiguous_amount", f"Transaction row {ordinal + 1} has incomplete amounts")
+            amount_text = cells[3] or cells[5]
+            match = re.search(r"\((Dr|Cr)\)$", amount_text, re.I)
+            expected = "dr" if cells[3] else "cr"
+            if not match or match[1].casefold() != expected:
+                raise IngestionError("ambiguous_amount", f"Transaction row {ordinal + 1} has inconsistent Dr/Cr markers")
+            amount = abs(money(amount_text, balance=True))
+            if amount <= 0:
+                raise IngestionError("invalid_amount", "Every transaction needs a positive amount")
+            output.append({
+                "transaction_id": cells[1], "account_id": "uploaded-account",
+                "customer_id": "uploaded-customer", "date": date,
+                "description": cells[2], "amount": amount,
+                "direction": "debit" if cells[3] else "credit",
+                "balance": money(cells[7], balance=True), "category": "unknown",
+                "country": "IN", "currency": "INR",
+            })
+            if len(output) > MAX_ROWS:
+                raise IngestionError("row_limit", "More than 50,000 transactions")
+        elif split_grid_header(rows[ordinal:ordinal + 3]) == 0:
+            skipped += 3
+        elif output and cells[2] and not any(cells[j] for j in (0, 1, 3, 4, 5, 6, 7, 8, 9, 10)):
+            output[-1]["description"] = (output[-1]["description"] + " " + cells[2]).strip()[:1000]
+        elif any(re.fullmatch(r"[\d,]+(?:\.\d{2})?\s*\((?:Dr|Cr)\)", cell, re.I) for cell in cells):
+            raise IngestionError("ambiguous_rows", "An undated row contains a monetary amount")
+        elif cells[0] and re.match(r"^\d{1,2}[-/]\d{1,2}[-/]", cells[0]):
+            raise IngestionError("invalid_date", "A transaction date could not be read")
+        else:
+            skipped += 1
+    frame = pd.DataFrame(output)
+    return frame, None, {
+        "adapter": "split-bank-grid-csv-v1", "detected_date_format": "%d-%m-%Y",
+        "skipped_nontransaction_rows": skipped, "warnings": [
+            "Split bank grid parsed; narration continuation lines were joined only when unambiguous",
+        ],
+    }
 
 
 def parse_xlsx(payload, date_format):

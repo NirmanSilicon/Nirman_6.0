@@ -1,4 +1,5 @@
 import io
+import csv
 from datetime import datetime
 import subprocess
 
@@ -25,6 +26,33 @@ def test_csv_and_xlsx_normalize_to_same_ledger():
     pd.testing.assert_frame_equal(csv.transactions, excel.transactions)
     assert csv.report["balance_checks"] == 1
     assert not csv.report["authenticity_verified"]
+
+
+def test_split_bank_grid_csv_joins_remarks_and_checks_balances():
+    rows = [
+        ["", "Transaction", "", "Debit", "", "Credit", "", "", "", "", ""],
+        ["Date", "", "Remarks", "", "", "", "", "Balance(", ")", "", ""],
+        ["", "Id", "", "Amount(", ")", "Amount(", ")", "", "", "", ""],
+        ["01-08-2026", "id-1", "", "50.00(Dr)", "", "", "", "950.00(Cr)", "", "", ""],
+        ["", "", "Grocery payment", "", "", "", "", "", "", "", ""],
+        ["02-08-2026", "id-2", "", "", "", "100.00(Cr)", "", "1050.00(Cr)", "", "", ""],
+        ["", "", "Refund received", "", "", "", "", "", "", "", ""],
+    ]
+    stream = io.StringIO()
+    writer = csv.writer(stream)
+    writer.writerows(rows)
+    payload = stream.getvalue().encode()
+    parsed = parse_statement("bank.csv", payload)
+    assert len(parsed.transactions) == 2
+    assert parsed.transactions.description.tolist() == ["Grocery payment", "Refund received"]
+    assert parsed.report["adapter"] == "split-bank-grid-csv-v1"
+    assert parsed.report["balance_checks"] == 1
+    assert parsed.report["detected_date_format"] == "%d-%m-%Y"
+
+    bad = payload.replace(b"1050.00(Cr)", b"1049.00(Cr)")
+    with pytest.raises(IngestionError) as caught:
+        parse_statement("bank.csv", bad)
+    assert caught.value.code == "reconciliation_failed"
 
 
 def test_paged_csv_headers_and_unassigned_narration_are_explicit():
