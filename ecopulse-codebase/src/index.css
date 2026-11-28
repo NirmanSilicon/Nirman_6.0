@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  .font-editorial {
+    font-family: 'Instrument Serif', Georgia, serif;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(0%);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(260px);
+    opacity: 0.2;
+  }
+}
+
+.animate-scanline {
+  animation: scanline 2.2s ease-in-out infinite;
+}
+
+@keyframes gentle-drift {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-gentle-drift {
+  animation: gentle-drift 6s ease-in-out infinite;
+}
