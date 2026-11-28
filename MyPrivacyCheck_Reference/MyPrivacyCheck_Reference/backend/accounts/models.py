@@ -1,0 +1,1 @@
+# Use Django's built-in User model; do not create a separate password table.

@@ -1,0 +1,8 @@
+-- Logical data dictionary only. Django migrations create the actual tables.
+-- Django auth user: authentication identity, password hash and session support.
+-- Question: category, text, explanation, weight, active, order.
+-- Assessment: user_id (FK to Django user), created_at, completed.
+-- Answer: assessment_id, question_id, response.
+-- AssessmentResult: assessment_id, overall_score, risk_level, category_scores JSON,
+-- recommendations JSON, explanation.
+-- Do not create duplicate Django tables manually.
