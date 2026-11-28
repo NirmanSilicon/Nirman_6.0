@@ -1,0 +1,31 @@
+{
+  "type": "FeatureCollection",
+  "name": "AFTERSHOCK_District_Assets",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "asset_id": "P-01", "name": "Substation Alpha", "type": "substation", "capacity_mw": 120 },
+      "geometry": { "type": "Point", "coordinates": [-73.985, 40.748] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_id": "P-02", "name": "Substation Beta", "type": "substation", "capacity_mw": 95 },
+      "geometry": { "type": "Point", "coordinates": [-73.975, 40.755] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_id": "W-01", "name": "Water Treatment Facility 1", "type": "water_treatment", "capacity_mgd": 45 },
+      "geometry": { "type": "Point", "coordinates": [-73.99, 40.74] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_id": "H-01", "name": "Metropolitan Hospital", "type": "hospital", "beds": 450 },
+      "geometry": { "type": "Point", "coordinates": [-73.982, 40.75] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "asset_id": "R-01", "name": "Main River Suspension Bridge", "type": "bridge", "lanes": 4 },
+      "geometry": { "type": "Point", "coordinates": [-73.984, 40.738] }
+    }
+  ]
+}
