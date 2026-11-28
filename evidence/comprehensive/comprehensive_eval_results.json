@@ -1,0 +1,667 @@
+{
+  "environment": {
+    "tesseract_binary": null,
+    "tesseract_source": "none",
+    "language_availability": {
+      "eng": {
+        "available": false,
+        "binary_available": false,
+        "requested_lang": "eng",
+        "requested_langs": [
+          "eng"
+        ],
+        "installed_langs": [],
+        "missing_langs": [
+          "eng"
+        ],
+        "error": "Tesseract OCR binary not found in standard paths or bundle."
+      },
+      "hin": {
+        "available": false,
+        "binary_available": false,
+        "requested_lang": "hin",
+        "requested_langs": [
+          "hin"
+        ],
+        "installed_langs": [],
+        "missing_langs": [
+          "hin"
+        ],
+        "error": "Tesseract OCR binary not found in standard paths or bundle."
+      },
+      "ori": {
+        "available": false,
+        "binary_available": false,
+        "requested_lang": "ori",
+        "requested_langs": [
+          "ori"
+        ],
+        "installed_langs": [],
+        "missing_langs": [
+          "ori"
+        ],
+        "error": "Tesseract OCR binary not found in standard paths or bundle."
+      }
+    },
+    "track_b_ocr_status": "BLOCKED",
+    "track_c_indic_ocr_status": "BLOCKED"
+  },
+  "supported_native_vector_results": [
+    {
+      "id": "SUP_AADHAAR_MASKED",
+      "category": "Identity",
+      "doc_type_label": "Aadhaar (Masked)",
+      "expected_type": "AADHAAR",
+      "classified_type": "AADHAAR",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "dob": {
+          "expected": "1990-05-15",
+          "actual": "1990-05-15",
+          "exact_match": true
+        },
+        "gender": {
+          "expected": "FEMALE",
+          "actual": "FEMALE",
+          "exact_match": true
+        },
+        "aadhaar_no": {
+          "expected": "XXXXXXXX9012",
+          "actual": "XXXXXXXX9012",
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "805f547b9b15d7aa6bb90d215079401cc0e36c3c4e6af99f0af4435a0e3538f9"
+    },
+    {
+      "id": "SUP_INCOME_CERT",
+      "category": "Government Certificate",
+      "doc_type_label": "Income Certificate",
+      "expected_type": "INCOME_CERT",
+      "classified_type": "INCOME_CERT",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "father_name": {
+          "expected": "Ramesh Das",
+          "actual": "RAMESH DAS",
+          "exact_match": true
+        },
+        "annual_income": {
+          "expected": 120000.0,
+          "actual": 120000.0,
+          "exact_match": true
+        },
+        "issue_date": {
+          "expected": "2024-02-10",
+          "actual": "2024-02-10",
+          "exact_match": true
+        },
+        "certificate_no": {
+          "expected": "SYN/INC/2024/0001",
+          "actual": "SYN/INC/2024/0001",
+          "exact_match": true
+        },
+        "state": {
+          "expected": "ODISHA",
+          "actual": "ODISHA",
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "b4cefa554feb1d6a1f2ac6a4efe65f202064986439dc8733b760dad74269f115"
+    },
+    {
+      "id": "SUP_CASTE_CERT",
+      "category": "Government Certificate",
+      "doc_type_label": "Caste Certificate",
+      "expected_type": "CASTE_CERT",
+      "classified_type": "CASTE_CERT",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "father_name": {
+          "expected": "Ramesh Das",
+          "actual": "RAMESH DAS",
+          "exact_match": true
+        },
+        "caste_category": {
+          "expected": "OBC",
+          "actual": "OBC",
+          "exact_match": true
+        },
+        "certificate_no": {
+          "expected": "SYN/CST/2024/0002",
+          "actual": "SYN/CST/2024/0002",
+          "exact_match": true
+        },
+        "issue_date": {
+          "expected": "2024-02-12",
+          "actual": "2024-02-12",
+          "exact_match": true
+        },
+        "state": {
+          "expected": "ODISHA",
+          "actual": "ODISHA",
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "32bd6f0effb214fbe82ac2436e81a8213c505bac9e6b5d8aedf6b5ee85d4e6bf"
+    },
+    {
+      "id": "SUP_RESIDENCE_CERT",
+      "category": "Government Certificate",
+      "doc_type_label": "Residence / Domicile Certificate",
+      "expected_type": "RESIDENCE_CERT",
+      "classified_type": "RESIDENCE_CERT",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "father_name": {
+          "expected": "Ramesh Das",
+          "actual": "RAMESH DAS",
+          "exact_match": true
+        },
+        "state": {
+          "expected": "ODISHA",
+          "actual": "ODISHA",
+          "exact_match": true
+        },
+        "certificate_no": {
+          "expected": "SYN/RES/2024/0003",
+          "actual": "SYN/RES/2024/0003",
+          "exact_match": true
+        },
+        "issue_date": {
+          "expected": "2024-02-15",
+          "actual": "2024-02-15",
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "59c56d042c0a0129d5c5237e742dee3786db03d9a155a02d7d5fe858ca5263c4"
+    },
+    {
+      "id": "SUP_MARKSHEET",
+      "category": "Education",
+      "doc_type_label": "Academic Marksheet (Class 10)",
+      "expected_type": "MARKSHEET",
+      "classified_type": "MARKSHEET",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "father_name": {
+          "expected": "Ramesh Das",
+          "actual": "RAMESH DAS",
+          "exact_match": true
+        },
+        "dob": {
+          "expected": "1990-05-15",
+          "actual": "1990-05-15",
+          "exact_match": true
+        },
+        "roll_no": {
+          "expected": "SYN2024001",
+          "actual": "SYN2024001",
+          "exact_match": true
+        },
+        "percentage": {
+          "expected": 78.5,
+          "actual": 78.5,
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "f19c36389d5dd1be2ad1575e00d34638429d4de3c1f82006171347cca60093c3"
+    },
+    {
+      "id": "SUP_BANK_PASSBOOK",
+      "category": "Financial",
+      "doc_type_label": "Bank Passbook",
+      "expected_type": "BANK_PASSBOOK",
+      "classified_type": "BANK_PASSBOOK",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "account_no": {
+          "expected": "00001234567890",
+          "actual": "00001234567890",
+          "exact_match": true
+        },
+        "ifsc": {
+          "expected": "SBIN0000123",
+          "actual": "SBIN0000123",
+          "exact_match": true
+        },
+        "dbt_seeded": {
+          "expected": true,
+          "actual": true,
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "d8c8246ca866a0d0f14430fa7f9ecdeafd5916840429d3fdf044b0d29502d3e3"
+    },
+    {
+      "id": "SUP_APPLICATION_FORM",
+      "category": "Application",
+      "doc_type_label": "Scheme Application Form",
+      "expected_type": "APPLICATION_FORM",
+      "classified_type": "APPLICATION_FORM",
+      "classification_confident": true,
+      "classification_correct": true,
+      "extraction_method": "NATIVE_VECTOR",
+      "doc_status": "VALID",
+      "field_checks": {
+        "applicant_name": {
+          "expected": "Ananya Das",
+          "actual": "ANANYA DAS",
+          "exact_match": true
+        },
+        "dob": {
+          "expected": "1990-05-15",
+          "actual": "1990-05-15",
+          "exact_match": true
+        },
+        "annual_income": {
+          "expected": 120000.0,
+          "actual": 120000.0,
+          "exact_match": true
+        },
+        "ifsc": {
+          "expected": "SBIN0000123",
+          "actual": "SBIN0000123",
+          "exact_match": true
+        }
+      },
+      "pdf_sha256": "fe28131e75632d2f658a943bd3033e4e6ccb151f83b5ba46b776c85259b307fd"
+    }
+  ],
+  "unsupported_negative_results": [
+    {
+      "id": "UNSUP_PASSPORT",
+      "doc_type_label": "Passport",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "41cf97842ccb87ba9084f4189f013f4d2fbe6ab6a7c1885c193cb06ed38b24dd"
+    },
+    {
+      "id": "UNSUP_PAN",
+      "doc_type_label": "PAN Card",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "Corroborating terms (1) present but authoritative primary title anchors are missing; supporting terms alone cannot establish document identity",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "278eb7d2e2e2773ba9f07e8e40eab778cb28c50d4dd059491215b1d64041ac7f"
+    },
+    {
+      "id": "UNSUP_VOTER_ID",
+      "doc_type_label": "Voter ID",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "7fda6b74e14c4d77354a8612881049270958c0429feae374d35e01367c36f977"
+    },
+    {
+      "id": "UNSUP_DRIVING_LICENCE",
+      "doc_type_label": "Driving Licence",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "03e0dc492bc1b0ea3a60bafa241d5a30c6e21fe6dde4148457d25b938a509979"
+    },
+    {
+      "id": "UNSUP_RATION_CARD",
+      "doc_type_label": "Ration Card",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "1a4069732fb4cfa6d3169f51461ba1d36d22814c17d8e9dcd40dace2fcd03ecc"
+    },
+    {
+      "id": "UNSUP_BIRTH_CERT",
+      "doc_type_label": "Birth Certificate",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "a4638f464a72c5f957b9de12295a2361170865732da801dd7520462073d45d5c"
+    },
+    {
+      "id": "UNSUP_SLC",
+      "doc_type_label": "School Leaving Certificate",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "Corroborating terms (3) present but authoritative primary title anchors are missing; supporting terms alone cannot establish document identity",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "41072ba0934cddb3aab4074f2db02fa67889c6a53b2b43a2faf346b13f47853a"
+    },
+    {
+      "id": "UNSUP_BANK_STATEMENT",
+      "doc_type_label": "Bank Statement",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "Document identifies as a bank statement, which cannot be accepted as a bank passbook",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "ae9445a0e6a19d73bf05cc111b37a300aeafde53e5bec7d13855e8766db6e5ff"
+    },
+    {
+      "id": "UNSUP_UTILITY_BILL",
+      "doc_type_label": "Utility Bill",
+      "classified_type": null,
+      "is_uncertain": true,
+      "uncertainty_reason": "No recognized document title anchors or specific identifiers detected; generic or unreadable content",
+      "safely_rejected_as_unsupported": true,
+      "pdf_sha256": "ffe843b7396edc0b5d90de15c1573dc33a2a6ac787d78e8024c8375cf6f592c4"
+    }
+  ],
+  "summary_metrics": {
+    "supported_classification_accuracy": {
+      "k": 7,
+      "n": 7,
+      "rate": 1.0,
+      "wilson_95": [
+        0.6457,
+        1.0
+      ]
+    },
+    "unsupported_rejection_rate": {
+      "k": 9,
+      "n": 9,
+      "rate": 1.0,
+      "wilson_95": [
+        0.7009,
+        1.0
+      ]
+    },
+    "native_vector_field_exact_match": {
+      "k": 34,
+      "n": 34,
+      "rate": 1.0,
+      "wilson_95": [
+        0.8985,
+        1.0
+      ]
+    }
+  },
+  "adversarial_and_failure_tests": {
+    "scanned_pdf_without_tesseract": {
+      "status": "UNREADABLE",
+      "fields_extracted": 0,
+      "sha256": "3da845871f05894f14e7b5d6078f033d65fcefc2850e36235a79e6d35aab2233"
+    },
+    "malformed_pdf": {
+      "status": "CORRUPTED",
+      "fields_extracted": 0,
+      "sha256": "f98f8288d93b9fad87951f5365ce9789638804f8f295bcc2d32d3d5de0a6d3bb"
+    },
+    "conflicting_anchors": {
+      "candidate_type": null,
+      "is_uncertain": true,
+      "reason": "Conflicting primary anchors detected from multiple types: INCOME_CERT, CASTE_CERT"
+    },
+    "subhadra_clean": {
+      "readiness": "NO_ISSUES_FOUND"
+    },
+    "subhadra_underage": {
+      "readiness": "NEEDS_CHECKS"
+    },
+    "generic_clean": {
+      "readiness": "NEEDS_CHECKS"
+    },
+    "generic_name_mismatch": {
+      "readiness": "NOT_READY"
+    }
+  },
+  "indic_normalizer_checks": {
+    "odia_digits_to_ascii": "2024-01-15",
+    "devanagari_digits_to_ascii": "2024-01-15",
+    "odia_cert_no": "SYN/INC/2024/0001",
+    "devanagari_cert_no": "SYN/INC/2024/0001",
+    "odia_date_parse": "(datetime.date(1990, 5, 15), 'VALID', False)",
+    "indic_only_name": ""
+  },
+  "phase_d_abstention_taxonomy": {
+    "total_reviews": 42,
+    "total_test": 48,
+    "by_evidence_state": {
+      "PROVISIONAL": 12,
+      "UNCERTAIN": 30
+    },
+    "by_perturbation": {
+      "rotation": 6,
+      "blur": 6,
+      "jpeg_low_quality": 6,
+      "low_dpi": 6,
+      "low_contrast": 6,
+      "overlapping_stamp": 6,
+      "bilingual_indic": 6
+    },
+    "taxonomy": {
+      "OCR_UNCERTAINTY_PROVISIONAL": {
+        "count": 10,
+        "packets": [
+          "SYN_TEST_001",
+          "SYN_TEST_007",
+          "SYN_TEST_009",
+          "SYN_TEST_015",
+          "SYN_TEST_017",
+          "SYN_TEST_025",
+          "SYN_TEST_031",
+          "SYN_TEST_033",
+          "SYN_TEST_039",
+          "SYN_TEST_041"
+        ],
+        "evidence": "calibrated_prob in [0.60, 0.85) -> PROVISIONAL -> resolve_outcome() downgrades to NEEDS_CHECKS",
+        "pct_of_42_reviews": 23.81,
+        "pct_of_48_test": 20.83
+      },
+      "OCR_UNCERTAINTY_LOW_CONFIDENCE": {
+        "count": 24,
+        "packets": [
+          "SYN_TEST_002",
+          "SYN_TEST_003",
+          "SYN_TEST_004",
+          "SYN_TEST_006",
+          "SYN_TEST_011",
+          "SYN_TEST_012",
+          "SYN_TEST_014",
+          "SYN_TEST_018",
+          "SYN_TEST_019",
+          "SYN_TEST_020",
+          "SYN_TEST_021",
+          "SYN_TEST_022",
+          "SYN_TEST_026",
+          "SYN_TEST_027",
+          "SYN_TEST_028",
+          "SYN_TEST_030",
+          "SYN_TEST_035",
+          "SYN_TEST_036",
+          "SYN_TEST_038",
+          "SYN_TEST_042",
+          "SYN_TEST_043",
+          "SYN_TEST_044",
+          "SYN_TEST_045",
+          "SYN_TEST_046"
+        ],
+        "evidence": "calibrated_prob < 0.60 -> UNCERTAIN -> fail-closed to NEEDS_CHECKS",
+        "pct_of_42_reviews": 57.14,
+        "pct_of_48_test": 50.0
+      },
+      "UNREADABLE_OR_NEGATIVE_CONTROL": {
+        "count": 8,
+        "packets": [
+          "SYN_TEST_005",
+          "SYN_TEST_010",
+          "SYN_TEST_013",
+          "SYN_TEST_023",
+          "SYN_TEST_029",
+          "SYN_TEST_034",
+          "SYN_TEST_037",
+          "SYN_TEST_047"
+        ],
+        "evidence": "aadhaar_doc.status == UNREADABLE (blur/low_contrast defective or wrong_doc_in_slot) + OCR uncertainty",
+        "pct_of_42_reviews": 19.05,
+        "pct_of_48_test": 16.67
+      }
+    }
+  },
+  "corpus_manifest": [
+    {
+      "id": "SUP_AADHAAR_MASKED",
+      "type": "Aadhaar (Masked)",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "805f547b9b15d7aa6bb90d215079401cc0e36c3c4e6af99f0af4435a0e3538f9"
+    },
+    {
+      "id": "SUP_INCOME_CERT",
+      "type": "Income Certificate",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "b4cefa554feb1d6a1f2ac6a4efe65f202064986439dc8733b760dad74269f115"
+    },
+    {
+      "id": "SUP_CASTE_CERT",
+      "type": "Caste Certificate",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "32bd6f0effb214fbe82ac2436e81a8213c505bac9e6b5d8aedf6b5ee85d4e6bf"
+    },
+    {
+      "id": "SUP_RESIDENCE_CERT",
+      "type": "Residence / Domicile Certificate",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "59c56d042c0a0129d5c5237e742dee3786db03d9a155a02d7d5fe858ca5263c4"
+    },
+    {
+      "id": "SUP_MARKSHEET",
+      "type": "Academic Marksheet (Class 10)",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "f19c36389d5dd1be2ad1575e00d34638429d4de3c1f82006171347cca60093c3"
+    },
+    {
+      "id": "SUP_BANK_PASSBOOK",
+      "type": "Bank Passbook",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "d8c8246ca866a0d0f14430fa7f9ecdeafd5916840429d3fdf044b0d29502d3e3"
+    },
+    {
+      "id": "SUP_APPLICATION_FORM",
+      "type": "Scheme Application Form",
+      "language": "eng",
+      "condition": "clean_native_vector",
+      "sha256": "fe28131e75632d2f658a943bd3033e4e6ccb151f83b5ba46b776c85259b307fd"
+    },
+    {
+      "id": "UNSUP_PASSPORT",
+      "type": "Passport",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "41cf97842ccb87ba9084f4189f013f4d2fbe6ab6a7c1885c193cb06ed38b24dd"
+    },
+    {
+      "id": "UNSUP_PAN",
+      "type": "PAN Card",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "278eb7d2e2e2773ba9f07e8e40eab778cb28c50d4dd059491215b1d64041ac7f"
+    },
+    {
+      "id": "UNSUP_VOTER_ID",
+      "type": "Voter ID",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "7fda6b74e14c4d77354a8612881049270958c0429feae374d35e01367c36f977"
+    },
+    {
+      "id": "UNSUP_DRIVING_LICENCE",
+      "type": "Driving Licence",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "03e0dc492bc1b0ea3a60bafa241d5a30c6e21fe6dde4148457d25b938a509979"
+    },
+    {
+      "id": "UNSUP_RATION_CARD",
+      "type": "Ration Card",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "1a4069732fb4cfa6d3169f51461ba1d36d22814c17d8e9dcd40dace2fcd03ecc"
+    },
+    {
+      "id": "UNSUP_BIRTH_CERT",
+      "type": "Birth Certificate",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "a4638f464a72c5f957b9de12295a2361170865732da801dd7520462073d45d5c"
+    },
+    {
+      "id": "UNSUP_SLC",
+      "type": "School Leaving Certificate",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "41072ba0934cddb3aab4074f2db02fa67889c6a53b2b43a2faf346b13f47853a"
+    },
+    {
+      "id": "UNSUP_BANK_STATEMENT",
+      "type": "Bank Statement",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "ae9445a0e6a19d73bf05cc111b37a300aeafde53e5bec7d13855e8766db6e5ff"
+    },
+    {
+      "id": "UNSUP_UTILITY_BILL",
+      "type": "Utility Bill",
+      "language": "eng",
+      "condition": "clean_native_vector_unsupported",
+      "sha256": "ffe843b7396edc0b5d90de15c1573dc33a2a6ac787d78e8024c8375cf6f592c4"
+    }
+  ]
+}

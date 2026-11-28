@@ -1,0 +1,428 @@
+{
+  "phase9_date_traces": [
+    {
+      "raw_dob": "10/08/2006",
+      "description": "Reported ambiguous underage DD/MM/YYYY",
+      "parse_and_normalize_date": {
+        "parsed": "2006-08-10",
+        "status": "VALID",
+        "is_ambiguous": true
+      },
+      "get_date_ambiguity_candidates": [
+        "2006-08-10",
+        "2006-10-08"
+      ],
+      "extracted_dob_state": "AMBIGUOUS",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "EVIDENCE_UNCERTAIN"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "b79227b12ff3d1dfb830baef9da949b9235eac27972bdf0e2a1e67e23ec509b3"
+    },
+    {
+      "raw_dob": "05/15/1990",
+      "description": "Reported MM/DD/YYYY (DD>12)",
+      "parse_and_normalize_date": {
+        "parsed": null,
+        "status": "INVALID_FORMAT",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [],
+      "extracted_dob_state": "LOW_CONFIDENCE",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "INSUFFICIENT_DATA"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "524bc9a9d3c766e28c7f05d589a0bbf72e19b34f3a43d5bc2dd5dfd7940b0f8a"
+    },
+    {
+      "raw_dob": "2006-08-10",
+      "description": "Reported ISO YYYY-MM-DD underage",
+      "parse_and_normalize_date": {
+        "parsed": "2006-08-10",
+        "status": "VALID",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [
+        "2006-08-10",
+        "2006-10-08"
+      ],
+      "extracted_dob_state": "VERIFIED_TEXT",
+      "rule_sub_age_01": {
+        "status": "Status.FAIL",
+        "reason_code": "DEFECT_CONFIRMED"
+      },
+      "final_readiness": "NOT_READY",
+      "pdf_sha256": "0a2c60ba8aa06bd4a8449ba82581cb51e2e470530bf2819935949297f249cb77"
+    },
+    {
+      "raw_dob": "01/07/2003",
+      "description": "Reported boundary 21st birthday on 2024-07-01",
+      "parse_and_normalize_date": {
+        "parsed": "2003-07-01",
+        "status": "VALID",
+        "is_ambiguous": true
+      },
+      "get_date_ambiguity_candidates": [
+        "2003-07-01",
+        "2003-01-07"
+      ],
+      "extracted_dob_state": "AMBIGUOUS",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "CANNOT_CONFIRM"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "6ee7427f284b6b542ca667c37af6878b21d5661136d5e52d39c10229163a1049"
+    },
+    {
+      "raw_dob": "02/07/2003",
+      "description": "Boundary underage by 1 day (DD<=12)",
+      "parse_and_normalize_date": {
+        "parsed": "2003-07-02",
+        "status": "VALID",
+        "is_ambiguous": true
+      },
+      "get_date_ambiguity_candidates": [
+        "2003-07-02",
+        "2003-02-07"
+      ],
+      "extracted_dob_state": "AMBIGUOUS",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "EVIDENCE_UNCERTAIN"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "0acb5503546315bfbd028319e92a19166e9933760e10077be8bbf6afc0d16c79"
+    },
+    {
+      "raw_dob": "15/05/1990",
+      "description": "Unambiguous eligible DD/MM/YYYY",
+      "parse_and_normalize_date": {
+        "parsed": "1990-05-15",
+        "status": "VALID",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [
+        "1990-05-15"
+      ],
+      "extracted_dob_state": "VERIFIED_TEXT",
+      "rule_sub_age_01": {
+        "status": "Status.PASS",
+        "reason_code": "CONFIRMED_OK"
+      },
+      "final_readiness": "NO_ISSUES_FOUND",
+      "pdf_sha256": "4d4e84b21c9c75e1fee86992a1902216d06c3cb4926ffb53a2a578704f620c7c"
+    },
+    {
+      "raw_dob": "01/07/1964",
+      "description": "Boundary age 60 (ineligible >=60, DD<=12)",
+      "parse_and_normalize_date": {
+        "parsed": "1964-07-01",
+        "status": "VALID",
+        "is_ambiguous": true
+      },
+      "get_date_ambiguity_candidates": [
+        "1964-07-01",
+        "1964-01-07"
+      ],
+      "extracted_dob_state": "AMBIGUOUS",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "EVIDENCE_UNCERTAIN"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "73359d294438475dfe1079fd64e3b37673562152452c2719460ec1ca8d40316d"
+    },
+    {
+      "raw_dob": "1964-07-01",
+      "description": "Boundary age 60 ISO (ineligible >=60)",
+      "parse_and_normalize_date": {
+        "parsed": "1964-07-01",
+        "status": "VALID",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [
+        "1964-07-01",
+        "1964-01-07"
+      ],
+      "extracted_dob_state": "VERIFIED_TEXT",
+      "rule_sub_age_01": {
+        "status": "Status.FAIL",
+        "reason_code": "DEFECT_CONFIRMED"
+      },
+      "final_readiness": "NOT_READY",
+      "pdf_sha256": "c46cae256ae8a275474814dcbba8bc9409010b2d342b487a535fdf3731828f45"
+    },
+    {
+      "raw_dob": "02/07/1964",
+      "description": "Boundary age 59 (eligible, DD<=12)",
+      "parse_and_normalize_date": {
+        "parsed": "1964-07-02",
+        "status": "VALID",
+        "is_ambiguous": true
+      },
+      "get_date_ambiguity_candidates": [
+        "1964-07-02",
+        "1964-02-07"
+      ],
+      "extracted_dob_state": "AMBIGUOUS",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "CANNOT_CONFIRM"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "7f0d76aa44d9d8312aaa2a812a53630cc220d5515a050c596bdc1ce2335058f9"
+    },
+    {
+      "raw_dob": "31/02/1995",
+      "description": "Invalid calendar date",
+      "parse_and_normalize_date": {
+        "parsed": null,
+        "status": "INVALID_FORMAT",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [],
+      "extracted_dob_state": "LOW_CONFIDENCE",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "INSUFFICIENT_DATA"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "5da6efa1e14efa7d659f76a0bad412936b88947d213bef67822f46a68ae2d137"
+    },
+    {
+      "raw_dob": "",
+      "description": "Empty date",
+      "parse_and_normalize_date": {
+        "parsed": null,
+        "status": "EMPTY",
+        "is_ambiguous": false
+      },
+      "get_date_ambiguity_candidates": [],
+      "extracted_dob_state": "ABSENT",
+      "rule_sub_age_01": {
+        "status": "Status.REVIEW",
+        "reason_code": "INSUFFICIENT_DATA"
+      },
+      "final_readiness": "NEEDS_CHECKS",
+      "pdf_sha256": "9597451b0e4383bbb20d30880403aaa0ea3bdaca24f610f1dd6f3d0e71a8fb8b"
+    }
+  ],
+  "phase9_indic_name_traces": [
+    {
+      "label": "Odia-only NFC",
+      "input": "ଅନନ୍ୟା ଦାସ",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "ଅନନୟା ଦାସ",
+      "stage3_upper": "ଅନନୟା ଦାସ",
+      "stage4_honorifics_removed": "ଅନନୟା ଦାସ",
+      "stage5_ascii_regex_sub": "         ",
+      "stage6_tokens": [],
+      "final_normalize_name": ""
+    },
+    {
+      "label": "Odia-only NFD",
+      "input": "ଅନନ୍ୟା ଦାସ",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "ଅନନୟା ଦାସ",
+      "stage3_upper": "ଅନନୟା ଦାସ",
+      "stage4_honorifics_removed": "ଅନନୟା ଦାସ",
+      "stage5_ascii_regex_sub": "         ",
+      "stage6_tokens": [],
+      "final_normalize_name": ""
+    },
+    {
+      "label": "Hindi-only NFC",
+      "input": "अनन्या दास",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "अननया दास",
+      "stage3_upper": "अननया दास",
+      "stage4_honorifics_removed": "अननया दास",
+      "stage5_ascii_regex_sub": "         ",
+      "stage6_tokens": [],
+      "final_normalize_name": ""
+    },
+    {
+      "label": "Hindi-only NFD",
+      "input": "अनन्या दास",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "अननया दास",
+      "stage3_upper": "अननया दास",
+      "stage4_honorifics_removed": "अननया दास",
+      "stage5_ascii_regex_sub": "         ",
+      "stage6_tokens": [],
+      "final_normalize_name": ""
+    },
+    {
+      "label": "English-only with honorific & diacritic",
+      "input": "Smt. Ananyá   Das",
+      "stage1_nfkd_len": 18,
+      "stage2_combining_stripped": "Smt. Ananya   Das",
+      "stage3_upper": "SMT. ANANYA   DAS",
+      "stage4_honorifics_removed": " . ANANYA   DAS",
+      "stage5_ascii_regex_sub": "   ANANYA   DAS",
+      "stage6_tokens": [
+        "ANANYA",
+        "DAS"
+      ],
+      "final_normalize_name": "ANANYA DAS"
+    },
+    {
+      "label": "English-only middle Kumar",
+      "input": "Rajesh Kumar Patel",
+      "stage1_nfkd_len": 18,
+      "stage2_combining_stripped": "Rajesh Kumar Patel",
+      "stage3_upper": "RAJESH KUMAR PATEL",
+      "stage4_honorifics_removed": "RAJESH KUMAR PATEL",
+      "stage5_ascii_regex_sub": "RAJESH KUMAR PATEL",
+      "stage6_tokens": [
+        "RAJESH",
+        "KUMAR",
+        "PATEL"
+      ],
+      "final_normalize_name": "RAJESH PATEL"
+    },
+    {
+      "label": "Mixed English + Odia",
+      "input": "Ananya ଦାସ",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "Ananya ଦାସ",
+      "stage3_upper": "ANANYA ଦାସ",
+      "stage4_honorifics_removed": "ANANYA ଦାସ",
+      "stage5_ascii_regex_sub": "ANANYA    ",
+      "stage6_tokens": [
+        "ANANYA"
+      ],
+      "final_normalize_name": "ANANYA"
+    },
+    {
+      "label": "Mixed English + Hindi",
+      "input": "Ananya दास",
+      "stage1_nfkd_len": 10,
+      "stage2_combining_stripped": "Ananya दास",
+      "stage3_upper": "ANANYA दास",
+      "stage4_honorifics_removed": "ANANYA दास",
+      "stage5_ascii_regex_sub": "ANANYA    ",
+      "stage6_tokens": [
+        "ANANYA"
+      ],
+      "final_normalize_name": "ANANYA"
+    }
+  ],
+  "phase9_cross_script_compare": [
+    {
+      "n1": "Ananya Das",
+      "n2": "ଅନନ୍ୟା ଦାସ",
+      "grade": "MatchGrade.AMBIGUOUS",
+      "match_grade": "MatchGrade.AMBIGUOUS",
+      "status": "FAIL",
+      "type": "EMPTY_FIELD",
+      "similarity": "0.0",
+      "notes": "One or both name fields are missing or blank"
+    },
+    {
+      "n1": "Ananya Das",
+      "n2": "अनन्या दास",
+      "grade": "MatchGrade.AMBIGUOUS",
+      "match_grade": "MatchGrade.AMBIGUOUS",
+      "status": "FAIL",
+      "type": "EMPTY_FIELD",
+      "similarity": "0.0",
+      "notes": "One or both name fields are missing or blank"
+    },
+    {
+      "n1": "Ananya Das",
+      "n2": "Ananya ଦାସ",
+      "grade": "MatchGrade.AMBIGUOUS",
+      "match_grade": "MatchGrade.AMBIGUOUS",
+      "status": "REVIEW",
+      "type": "SINGLE_TOKEN_NAME",
+      "similarity": "0.6",
+      "notes": "One name is a single token ('ANANYA DAS' vs 'ANANYA'); cannot verify full identity"
+    },
+    {
+      "n1": "Ananya Das",
+      "n2": "Smt. Ananyá Das",
+      "grade": "MatchGrade.EXACT",
+      "match_grade": "MatchGrade.EXACT",
+      "status": "PASS",
+      "type": "EXACT_MATCH",
+      "similarity": "1.0",
+      "notes": "Exact character-for-character match"
+    }
+  ],
+  "phase9_education_formats": [
+    {
+      "id": "EDU_10_PCT",
+      "label": "Class 10 (%)",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "dob": "1992-08-22",
+        "roll_no": "10A-001",
+        "percentage": "84.2"
+      },
+      "sha256": "eab64302c08ec5ded94ae46528494d2b09c50e72a80518b29bb5b429fc50ca9f"
+    },
+    {
+      "id": "EDU_12_PCT",
+      "label": "Class 12 (%)",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "dob": "1992-08-22",
+        "roll_no": "12A-002",
+        "percentage": "76.5"
+      },
+      "sha256": "fd93bd8e20817a5e4293baac5b4b84d2d56a83f24eb6ff9ed2ca401235224d70"
+    },
+    {
+      "id": "EDU_UNIV_SGPA",
+      "label": "University (SGPA only)",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "roll_no": "U-003"
+      },
+      "sha256": "dfa60af3004288dcfd9fc31183232228b05c5f5ba05e9001cf1eb5c2f1121be0"
+    },
+    {
+      "id": "EDU_UNIV_CGPA",
+      "label": "University (CGPA only)",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "roll_no": "U-004"
+      },
+      "sha256": "864e5fa96480033b32757a769f32a2f28957faba03d8f1ae52ca80405c24068a"
+    },
+    {
+      "id": "EDU_GRADE_ONLY",
+      "label": "Grade-only Marksheet",
+      "classified_type": "MARKSHEET",
+      "is_uncertain": false,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN",
+        "roll_no": "G-005"
+      },
+      "sha256": "14b85f0a2dafcad670438a584d5a8e16f971cea4f503b851e1bd07d659facbd3"
+    },
+    {
+      "id": "EDU_SEMESTER_GRADE_CARD",
+      "label": "University Semester Grade Card (no MARKSHEET anchor)",
+      "classified_type": null,
+      "is_uncertain": true,
+      "extracted_fields": {
+        "applicant_name": "KAVITA SWAIN"
+      },
+      "sha256": "cf6ad93a89ed0472fd19967c212abd092d5743a41833733644a4d17052489723"
+    }
+  ]
+}
