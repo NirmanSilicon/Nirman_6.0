@@ -1,0 +1,6 @@
+{
+  "name": "AquaCompute AI",
+  "description": "Intelligent multi-agent platform for monitoring, predicting, detecting anomalies, and optimizing data-center water consumption.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
