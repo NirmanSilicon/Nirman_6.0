@@ -1,0 +1,44 @@
+name: scaffold-checks
+on: [push, pull_request]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      AGENT_X_OPERATOR_TOKEN: ci-operator-only
+      AGENT_X_SANDBOX_TOKEN: ci-sandbox-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements.lock
+      - run: python -m pip install -c requirements.lock -e .
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/export_openapi.py --check
+      - name: Validate presentation configuration
+        run: docker compose --profile presentation config --quiet
+      - run: docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from tests
+      - name: Presentation and consumer smoke
+        run: |
+          docker compose --profile presentation up --build --wait
+          python scripts/smoke.py
+          python scripts/check_presentation.py
+          python scripts/check_documents.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Browser workflow tests
+        working-directory: web
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - name: Container logs
+        if: failure()
+        run: docker compose --profile presentation logs --no-color
+      - name: Cleanup
+        if: always()
+        run: docker compose --profile presentation down

@@ -1,0 +1,91 @@
+name: agent-x
+
+x-runtime: &runtime
+  build:
+    context: .
+    target: runtime
+  init: true
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=32m,mode=1777
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  networks: [agent-x]
+  healthcheck:
+    test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+    interval: 10s
+    timeout: 3s
+    retries: 3
+    start_period: 15s
+
+services:
+  product:
+    <<: *runtime
+    profiles: [production]
+    environment:
+      AGENT_X_PROFILE: production
+      AGENT_X_OPERATOR_TOKEN: ${AGENT_X_OPERATOR_TOKEN:-}
+    ports: ["127.0.0.1:${AGENT_X_PRODUCT_PORT:-8000}:8000"]
+    volumes: [product-data:/app/data]
+
+  product-sandbox:
+    <<: *runtime
+    profiles: [sandbox, presentation]
+    environment:
+      AGENT_X_PROFILE: sandbox
+      AGENT_X_OPERATOR_TOKEN: ${AGENT_X_OPERATOR_TOKEN:-local-operator-change-me}
+      AGENT_X_SANDBOX_TOKEN: ${AGENT_X_SANDBOX_TOKEN:-local-sandbox-change-me}
+    ports: ["127.0.0.1:${AGENT_X_PRODUCT_PORT:-8000}:8000"]
+    volumes: [sandbox-product-data:/app/data]
+
+  sandbox:
+    <<: *runtime
+    profiles: [sandbox, presentation]
+    command: [uvicorn, "agent_x_sandbox.app:create_app", --factory, --host, "0.0.0.0", --port, "8000"]
+    environment:
+      AGENT_X_PRODUCT_URL: http://product-sandbox:8000
+      AGENT_X_DASHBOARD_URL: http://localhost:${AGENT_X_PRODUCT_PORT:-8000}
+      AGENT_X_SANDBOX_TOKEN: ${AGENT_X_SANDBOX_TOKEN:-local-sandbox-change-me}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      AGENT_X_MODEL: ${AGENT_X_MODEL:-gpt-4.1-mini}
+      AGENT_X_MODEL_BASE_URL: ${AGENT_X_MODEL_BASE_URL:-${OPENAI_BASE_URL:-https://api.openai.com/v1}}
+    ports: ["127.0.0.1:${AGENT_X_SANDBOX_PORT:-8080}:8000"]
+    depends_on:
+      product-sandbox:
+        condition: service_healthy
+
+  evaluation:
+    <<: *runtime
+    profiles: [evaluation, presentation]
+    command: [uvicorn, "agent_x_evaluation.app:create_app", --factory, --host, "0.0.0.0", --port, "8000"]
+    ports: ["127.0.0.1:${AGENT_X_EVALUATION_PORT:-18082}:8000"]
+
+  web:
+    profiles: [presentation]
+    build:
+      context: ./web
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [agent-x]
+    environment:
+      AGENT_X_EVALUATION_URL: http://evaluation:8000
+      AGENT_X_SANDBOX_URL: http://sandbox:8000
+    ports: ["127.0.0.1:${AGENT_X_WEB_PORT:-13080}:3000"]
+    depends_on:
+      evaluation:
+        condition: service_healthy
+      sandbox:
+        condition: service_healthy
+
+volumes:
+  product-data:
+  sandbox-product-data:
+
+networks:
+  agent-x:
+    driver: bridge
