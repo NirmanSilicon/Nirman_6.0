@@ -1,0 +1,815 @@
+/* ============================================================
+   SettingsPage — Profile + Alert Preferences
+   ============================================================ */
+
+/* ── Page shell ── */
+.sp-page {
+  min-height: calc(100vh - var(--topbar-h));
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  margin: -1.75rem -2rem;
+  padding-bottom: 3rem;
+}
+
+/* ── Centered container ──
+   Single source of truth for the page's max width and horizontal
+   padding. Wide enough on desktop to host a two-column layout without
+   the page reading as a narrow mobile stack stranded in empty space;
+   narrow enough on mobile to stay comfortable. */
+.sp-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* ── Header ── */
+.sp-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 24px 0 20px;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 24px;
+}
+
+.sp-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 2px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.sp-back-btn:hover { background: var(--accent-glow); }
+
+.sp-header-text { flex: 1; }
+
+.sp-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  letter-spacing: -0.01em;
+}
+
+.sp-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Content layout ──
+   Mobile/tablet: one flowing column, profile first.
+   Desktop (≥900px): a sticky profile rail beside a main column, so the
+   page uses the full width of the viewport instead of one narrow strip
+   of cards floating in the middle of the screen. */
+.sp-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sp-col-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* Notifications + Personalization: stacked on narrow screens, side by
+   side once there's room to breathe. */
+.sp-row-2col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .sp-content {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+  }
+  .sp-col-side {
+    position: sticky;
+    top: 24px;
+  }
+  .sp-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .sp-content { grid-template-columns: 360px minmax(0, 1fr); }
+}
+
+/* ── Cards ── */
+.sp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.sp-card:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-md, 0 10px 28px rgba(0, 0, 0, 0.28));
+}
+
+/* Compact variant — used for the secondary preference cards (Notifications,
+   Personalization, Reduce Noise) so they read as tighter, denser groupings
+   than the primary Profile / Alert Criteria cards above them. */
+.sp-card--compact .sp-card-header {
+  padding: 14px 16px 12px;
+}
+.sp-card--compact .sp-pref-section {
+  padding: 0 16px 14px;
+}
+.sp-card--compact .sp-row-main {
+  padding: 11px 16px;
+}
+
+/* ── Profile Card ── */
+.sp-profile-card {
+  padding: 0;
+  position: relative;
+}
+
+.sp-profile-banner {
+  height: 56px;
+  width: 100%;
+}
+
+.sp-profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px 16px;
+  margin-top: -28px;
+}
+
+.sp-profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 0 4px var(--bg-card);
+}
+
+.sp-profile-avatar-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding-top: 28px;
+}
+
+.sp-profile-avatar-name {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sp-profile-role-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  width: fit-content;
+}
+
+.sp-avatar-change-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card-hover);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 28px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.sp-avatar-change-btn:hover {
+  background: var(--bg-base);
+  border-color: var(--border-accent);
+}
+
+.sp-profile-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 16px;
+  flex-wrap: wrap;
+}
+
+.sp-profile-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sp-profile-stat-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-family: var(--font-heading, 'Inter', sans-serif);
+}
+
+.sp-profile-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.sp-profile-stat-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+/* Editable profile form */
+.sp-profile-form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 6px;
+}
+
+.sp-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.sp-field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.sp-field-input {
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-input);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  box-sizing: border-box;
+}
+.sp-field-input::placeholder { color: var(--text-muted); }
+.sp-field-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Save button */
+.sp-save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 20px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: var(--bg-surface);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s, transform 0.15s;
+  font-family: var(--font-body, 'Inter', sans-serif);
+}
+.sp-save-btn:hover { background: var(--accent-dim); transform: translateY(-1px); }
+.sp-save-btn:active { transform: translateY(0); }
+
+.sp-save-btn--saved {
+  background: var(--text-success);
+}
+.sp-save-btn--saved:hover { background: var(--sev-safe); }
+
+/* Card header row */
+.sp-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 16px 14px;
+}
+
+.sp-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.sp-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  font-family: var(--font-heading, 'Inter', sans-serif);
+}
+
+.sp-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+/* ── Alert Criteria (distance + severity) ── */
+.sp-criteria-row {
+  padding: 0 16px 18px;
+}
+
+.sp-criteria-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sp-criteria-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sp-value-badge {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sp-value-badge--muted {
+  color: var(--text-secondary);
+}
+
+/* ── Sliders ── */
+.sp-slider-wrap {}
+
+.sp-slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 99px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+.sp-slider--blue {
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) var(--fill-pct, 50%),
+    var(--border) var(--fill-pct, 50%),
+    var(--border) 100%
+  );
+}
+
+.sp-slider::-webkit-slider-runnable-track {
+  background: transparent;
+  height: 6px;
+  border-radius: 99px;
+}
+.sp-slider::-moz-range-track {
+  background: transparent;
+  height: 6px;
+  border-radius: 99px;
+  border: none;
+}
+.sp-slider::-moz-range-progress {
+  background: transparent;
+}
+
+.sp-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.15s;
+  margin-top: -8px;
+}
+.sp-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
+
+.sp-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.sp-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── Severity slider ── */
+.sp-sev-slider-track {
+  position: relative;
+  height: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.sp-sev-fill {
+  position: absolute;
+  left: 0;
+  height: 6px;
+  border-radius: 99px 0 0 99px;
+  background: linear-gradient(to right, #c8a030 0%, #b04030 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sp-slider--sev {
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.sp-sev-slider-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  z-index: 0;
+}
+
+.sp-sev-labels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 8px;
+  gap: 0;
+}
+
+.sp-sev-label-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.sp-sev-label-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.sp-sev-label-text--active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sp-sev-warn { display: flex; align-items: center; justify-content: center; }
+
+/* ── Toggle rows (Quiet Hours / High-Confidence) ── */
+.sp-row-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+}
+
+.sp-row-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sp-row-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sp-row-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.sp-toggle {
+  width: 48px;
+  height: 28px;
+  border-radius: 99px;
+  background: var(--border);
+  border: none;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+  padding: 0;
+}
+
+.sp-toggle--on {
+  background: var(--text-success);
+}
+
+.sp-toggle-thumb {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.sp-toggle--on .sp-toggle-thumb {
+  transform: translateX(20px);
+}
+
+.sp-card-divider {
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.sp-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+}
+
+.sp-sub-row--info {
+  background: var(--bg-card-hover);
+}
+
+.sp-sub-label {
+  flex: 1;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.sp-sub-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ── Notification channels ── */
+.sp-pref-section {
+  padding: 0 16px 16px;
+}
+
+.sp-section-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.sp-channel-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.sp-channel-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  background: var(--bg-input);
+}
+
+.sp-channel-row + .sp-channel-row {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.sp-channel-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+}
+
+.sp-channel-label {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ── Chips (areas / hazard types) ── */
+.sp-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sp-chip {
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.sp-chip:hover {
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+}
+
+.sp-chip--active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--text-accent);
+}
+
+/* ── Persona picker ── */
+.sp-persona-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sp-persona-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  border-radius: 12px;
+  padding: 12px 12px;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.sp-persona-card:hover {
+  border-color: var(--border-accent);
+}
+
+.sp-persona-card--active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.sp-persona-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.sp-persona-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Language select ── */
+.sp-language-select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.sp-language-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ── Cadence toggle ── */
+.sp-mode-toggle {
+  display: inline-flex;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.sp-mode-toggle-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.sp-mode-toggle-btn--active {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── Light theme overrides ── */
+html.hl-light .sp-page {
+  background: var(--bg-base);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .sp-container { padding: 0 16px; }
+  .sp-header { padding: 16px 0 14px; margin-bottom: 16px; }
+  .sp-title { font-size: 1.5rem; }
+  .sp-profile-avatar { width: 52px; height: 52px; font-size: 1.1rem; }
+  .sp-persona-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .sp-container { padding: 0 12px; }
+  .sp-title { font-size: 1.3rem; }
+  .sp-header { padding: 12px 0 10px; margin-bottom: 12px; }
+  .sp-card-header { padding: 14px 14px 12px; }
+  .sp-card-body { padding: 14px; }
+  .sp-profile-row { gap: 12px; }
+  .sp-profile-avatar { width: 44px; height: 44px; font-size: 0.95rem; }
+  .sp-row-2col { gap: 14px; }
+}
+
+@media (max-width: 360px) {
+  .sp-title { font-size: 1.1rem; }
+  .sp-container { padding: 0 10px; }
+}
