@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "ferrosphile")(type "KiCad")(uri "${KIPRJMOD}/ferrosphile.pretty")(options "")(descr "Ferrosphile custom footprints"))
+)

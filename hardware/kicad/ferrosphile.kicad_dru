@@ -1,0 +1,3 @@
+(version 1)
+(rule "Allow single thermal spoke on hand-soldered header pins"
+  (constraint min_resolved_spokes 1))
