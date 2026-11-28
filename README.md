@@ -272,7 +272,7 @@ Follow official announcements for submission deadlines and any changes to the wo
 
 Contact the event organizers if:
 
-- Your assigned team branch is missing.
+- Your assigned team branch is missing. check `teams/README.md`
 - Your collaborator invitation is not working.
 - You cannot push changes to the team leader's fork.
 - You encounter unexpected repository access or permission issues.
