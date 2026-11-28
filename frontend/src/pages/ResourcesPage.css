@@ -1,0 +1,463 @@
+/* ========================================================================
+   HAZARDLENS RESOURCES & EMERGENCY GUIDANCE
+   Knowledge Atlas with Search, Categorized Cards, Emergency Helpline Strip
+   ======================================================================== */
+
+.rsc-page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  animation: rscFadeIn 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rscFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Knowledge Search Hero ── */
+.rsc-search-hero {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .rsc-search-hero {
+  background: linear-gradient(175deg, hsl(220, 24%, 11%) 0%, hsl(220, 26%, 8%) 100%);
+  border-color: hsl(220, 18%, 17%);
+}
+
+.rsc-search-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, hsla(215, 80%, 55%, 0.06), transparent);
+  pointer-events: none;
+}
+
+.rsc-search-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.rsc-search-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: hsla(145, 55%, 45%, 0.1);
+  border: 1px solid hsla(145, 55%, 45%, 0.25);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #10b981;
+}
+
+.rsc-search-hero-title {
+  font-family: var(--font-heading);
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.rsc-search-hero-sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 460px;
+}
+
+.rsc-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.6rem 1rem;
+  margin-top: 0.5rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.rsc-search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px hsla(34, 92%, 50%, 0.15);
+}
+
+.rsc-search-icon { color: var(--text-muted); flex-shrink: 0; }
+
+.rsc-search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.rsc-search-input::placeholder { color: var(--text-muted); }
+
+.rsc-search-clear {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.rsc-search-clear:hover { color: var(--text-primary); }
+
+/* ── Category Filter Pills ── */
+.rsc-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.rsc-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 140ms ease;
+  white-space: nowrap;
+}
+
+.rsc-filter-pill:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.rsc-filter-pill--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .rsc-filter-pill--active { color: #0f172a; }
+
+/* ── Resource Cards Grid ── */
+.rsc-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.rsc-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.35rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: all 180ms ease;
+}
+
+[data-theme="dark"] .rsc-card {
+  background: hsl(220, 22%, 10%);
+  border-color: hsl(220, 18%, 17%);
+}
+
+.rsc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.rsc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rsc-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rsc-card-icon--mint   { background: hsla(145, 55%, 45%, 0.12); color: #10b981; }
+.rsc-card-icon--blue   { background: hsla(215, 80%, 55%, 0.12); color: #3b82f6; }
+.rsc-card-icon--peach  { background: hsla(25, 90%, 55%, 0.12); color: #f97316; }
+.rsc-card-icon--green  { background: hsla(145, 55%, 45%, 0.12); color: #22c55e; }
+
+.rsc-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rsc-format-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-md);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.rsc-format-pill--green  { background: hsla(145, 55%, 45%, 0.12); color: #10b981; }
+.rsc-format-pill--blue   { background: hsla(215, 80%, 55%, 0.12); color: #3b82f6; }
+.rsc-format-pill--orange { background: hsla(25, 90%, 55%, 0.12); color: #f97316; }
+.rsc-format-pill--gray   { background: var(--bg-card); color: var(--text-muted); }
+
+.rsc-read-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-md);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.rsc-card-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.rsc-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.rsc-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: hsla(34, 92%, 50%, 0.08);
+  border: 1px solid hsla(34, 92%, 50%, 0.2);
+  cursor: pointer;
+  transition: all 140ms ease;
+}
+
+.rsc-card-action:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] .rsc-card-action:hover { color: #0f172a; }
+
+/* ── Empty State ── */
+.rsc-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.rsc-empty p {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ── Emergency Helpline Strip ── */
+.rsc-helpline-strip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="dark"] .rsc-helpline-strip {
+  background: hsl(220, 22%, 10%);
+  border-color: hsl(220, 18%, 17%);
+}
+
+.rsc-helpline-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  color: #ef4444;
+}
+
+.rsc-helpline-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+}
+
+.rsc-helpline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.rsc-hotline-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 140ms ease;
+}
+
+.rsc-hotline-row:hover { border-color: var(--border-hover); }
+
+.rsc-hotline-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rsc-hotline-icon--red    { background: hsla(0, 85%, 55%, 0.12); color: #ef4444; }
+.rsc-hotline-icon--blue   { background: hsla(215, 80%, 55%, 0.12); color: #3b82f6; }
+.rsc-hotline-icon--purple { background: hsla(275, 75%, 60%, 0.12); color: #8b5cf6; }
+.rsc-hotline-icon--orange { background: hsla(25, 90%, 55%, 0.12); color: #f97316; }
+
+.rsc-hotline-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rsc-hotline-sub {
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.rsc-hotline-number {
+  font-size: 0.88rem;
+  font-weight: 900;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.rsc-hotline-number:hover { color: var(--accent); }
+
+.rsc-hotline-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.rsc-hotline-detail {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.rsc-helpline-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rsc-helpline-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.rsc-helpline-notice svg { color: #10b981; flex-shrink: 0; }
+
+.rsc-find-local {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.rsc-find-local:hover { text-decoration: underline; }
+
+/* ── Page Footer ── */
+.rsc-page-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .rsc-search-hero { padding: 1.75rem 1.25rem; }
+  .rsc-search-hero-title { font-size: 1.3rem; }
+  .rsc-cards-grid { grid-template-columns: 1fr; }
+  .rsc-helpline-grid { grid-template-columns: 1fr; }
+}
