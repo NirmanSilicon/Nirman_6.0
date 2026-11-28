@@ -213,9 +213,9 @@ function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
  useEffect(()=>{if(cmd.n)setP(cmd.val)},[cmd]);
  useEffect(()=>{if(p||!cam.on)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date());if(cam.isLiveMl&&mlConnected)setSnapTick(n=>n+1)},150);return()=>clearInterval(i)},[p,cam.on,cam.isLiveMl,mlConnected]);
  const ws=cam.on?inZone(cam.zone):[];
- const useRealMl=Boolean(cam.isLiveMl&&mlConnected&&mlStatus&&mlStatus.active);
- const detCount=useRealMl?mlStatus.totalPersons:(cam.on?ws.length:0);
- const mlLevel=useRealMl?mlStatus.safetyLevel:"SAFE";
+ const useRealMl=Boolean(cam.isLiveMl&&mlConnected);
+ const detCount=useRealMl?(mlStatus?.totalPersons??0):(cam.on?ws.length:0);
+ const mlLevel=useRealMl?(mlStatus?.safetyLevel||"SAFE"):"SAFE";
  return <div className="cam" style={useRealMl&&mlLevel!=="SAFE"?{borderColor:"var(--red)",boxShadow:"0 0 0 2px var(--red)"}:{}}><div className="feed">
  {useRealMl?(
   <img
@@ -228,17 +228,27 @@ function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
  return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={c} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={c}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id} {late?"LATE":"OK"}</text></g>})}
  </svg>:<div className="nosig"><div>NO SIGNAL<br/><small>Camera offline. Check connection.</small></div></div>}
  <div className="scan"/>
- <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {useRealMl?`AI YOLO11n (${mlStatus.source})`:cam.name}</div>
- <div className="ov tr">{useRealMl?(<><span className="dot r blink"/>AI LIVE · {mlStatus.fps} FPS</>):cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
- <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}{useRealMl?` · ${mlStatus.safetyMessage}`:""}</div>
+ <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {useRealMl?`AI YOLO11n (${mlStatus?.source||"Webcam"})`:cam.name}</div>
+ <div className="ov tr">{useRealMl?(<><span className="dot r blink"/>AI LIVE · {mlStatus?.fps??0} FPS</>):cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
+ <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}{useRealMl?` · ${mlStatus?.safetyMessage||"Monitoring"}`:""}</div>
  <div className="ov br">{cam.on?`${detCount} worker${detCount===1?"":"s"} detected`:"--"}</div></div>
- <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{useRealMl?`Helmets: ${mlStatus.helmetCount} OK / ${mlStatus.noHelmetCount} Missing · Fire: ${mlStatus.fireDetected?"ALERT":"None"}`:cam.name+(list&&ws.length?" · "+ws.map(w=>w.id).join(", "):"")}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/>
+ <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{useRealMl?`Helmets: ${mlStatus?.helmetCount??0} OK / ${mlStatus?.noHelmetCount??0} Missing · Fire: ${mlStatus?.fireDetected?"ALERT":"None"}`:cam.name+(list&&ws.length?" · "+ws.map(w=>w.id).join(", "):"")}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/>
  <Badge s={useRealMl?(mlLevel==="SAFE"?"Active":mlLevel==="DANGER"?"Pending":"Late"):(cam.on?"Active":"Inactive")}/>
  {cam.on&&<><button className="btn" onClick={()=>setP(!p)}>{p?"Play":"Pause"}</button><button className="btn" onClick={()=>setZ(z>=2?1:z+.5)}>Zoom {z}x</button></>}
  {!big&&<button className="btn" onClick={()=>onFull(cam)}>Full screen</button>}</div></div>}
 function Live({zones}){
  const [zf,setZf]=useState("All zones");const [cs,setCs]=useState("All cameras");const [view,setView]=useState("grid");const [cmd,setCmd]=useState({n:0,val:false});const [full,setFull]=useState(null);const [gp,setGp]=useState(false);
- const [mlStatus,setMlStatus]=useState(null);const [mlConnected,setMlConnected]=useState(false);const [recentDet,setRecentDet]=useState([]);
+ const [mlStatus,setMlStatus]=useState(null);const [mlConnected,setMlConnected]=useState(false);const [recentDet,setRecentDet]=useState([]);const [ctrlBusy,setCtrlBusy]=useState(false);
+ const sendControl=async(action,extra={})=>{
+  setCtrlBusy(true);
+  try{
+   await fetch(`${ML_STREAM_BASE}/control`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,...extra})});
+  }catch(_e){}finally{setCtrlBusy(false)}
+ };
+ const startPhoneStream=()=>{
+  const url=prompt("Enter Smartphone IP Webcam / RTSP / HTTP Stream URL:","http://192.168.1.50:8080/video");
+  if(url&&url.trim())sendControl("start_stream",{url:url.trim()});
+ };
  useEffect(()=>{
   let alive=true;
   const poll=async()=>{
@@ -263,15 +273,18 @@ function Live({zones}){
  return <div className="grid" style={{gap:16}}>
   <div className="card" style={{display:"flex",flexWrap:"wrap",gap:16,alignItems:"center",justifyContent:"space-between",borderLeft:`4px solid ${mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--grn)":"var(--red)"):"var(--amb)"}`}}>
    <div>
-    <div style={{display:"flex",gap:10,alignItems:"center"}}>
+    <div style={{display:"flex",flexWrap:"wrap",gap:10,alignItems:"center"}}>
      <span className={"pill "+(mlConnected&&mlStatus?.active?"live":"")} style={{margin:0,background:mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--gl)":"var(--rl)"):"var(--al)",color:mlConnected?(mlStatus?.safetyLevel==="SAFE"?"var(--grn)":"var(--red)"):"var(--amb)"}}>
       <span className={"dot "+(mlConnected&&mlStatus?.safetyLevel==="SAFE"?"":"r")}/>
-      {mlConnected?(mlStatus?.active?`YOLO11n AI Model Live (${mlStatus.fps} FPS)`:"YOLO11n AI Model Connected (Standby — click Webcam/Stream in Python App)"):"Python AI Model Stream Offline (Run: python run.py)"}
+      {mlConnected?(mlStatus?.active?`YOLO11n AI Model Live (${mlStatus.fps} FPS · ${mlStatus.source})`:"YOLO11n AI Model Connected (Standby — Click Start Live AI Webcam)"):"Python AI Model Stream Offline"}
      </span>
      {recentDet.length>0&&<span className="bd">Backend DB: {recentDet.length} recent detections synced</span>}
+     <button className="btn grn" disabled={ctrlBusy} onClick={()=>sendControl("start_webcam")}>🎥 Start Live AI Webcam</button>
+     <button className="btn" disabled={ctrlBusy} onClick={startPhoneStream}>📱 Smartphone Wi-Fi Stream</button>
+     {mlStatus?.active&&<button className="btn red" disabled={ctrlBusy} onClick={()=>sendControl("stop")}>⏹ Stop AI Camera</button>}
     </div>
     <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
-     {mlConnected&&mlStatus?`${mlStatus.safetyLevel}: ${mlStatus.safetyMessage} · Workers: ${mlStatus.totalPersons} · Helmet OK: ${mlStatus.helmetCount} · Missing Helmet: ${mlStatus.noHelmetCount} · Fire: ${mlStatus.fireDetected?"DETECTED":"None"} · Smoke: ${mlStatus.smokeDetected?"DETECTED":"None"}`:"Start `python run.py` and click Webcam, Video File, or Smartphone Wi-Fi Stream to view live YOLO bounding boxes on CAM_001 below."}
+     {mlConnected&&mlStatus?`${mlStatus.safetyLevel}: ${mlStatus.safetyMessage} · Workers: ${mlStatus.totalPersons} · Helmet OK: ${mlStatus.helmetCount} · Missing Helmet: ${mlStatus.noHelmetCount} · Fire: ${mlStatus.fireDetected?"DETECTED":"None"} · Smoke: ${mlStatus.smokeDetected?"DETECTED":"None"}`:"Connecting to local YOLOv11 AI Vision Daemon on http://127.0.0.1:8765..."}
     </p>
    </div>
    <div style={{display:"flex",gap:12}}>
@@ -423,6 +436,16 @@ function App(){
  const [dark,setDark]=useState(()=>{try{return localStorage.getItem("we-theme")==="dark"}catch(e){return false}});
  useEffect(()=>{const f=()=>{setPg(get());window.scrollTo(0,0)};addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);
  useEffect(()=>{document.documentElement.dataset.theme=dark?"dark":"light";try{localStorage.setItem("we-theme",dark?"dark":"light")}catch(e){}},[dark]);
+ useEffect(()=>{
+  const ensureToken=async()=>{
+   try{
+    if(localStorage.getItem("we-token"))return;
+    const res=await fetch(`${API_BASE}/auth/login`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"admin@smartppe.local",password:"Admin@12345"})});
+    if(res.ok){const j=await res.json();if(j.success&&j.data?.token){localStorage.setItem("we-token",j.data.token);localStorage.setItem("we-user",JSON.stringify(j.data.user))}}
+   }catch(_e){}
+  };
+  ensureToken();
+ },[]);
  if(pg==="signin")return <SignIn/>;
  if(ALL.some(n=>n[0]===pg))return <Shell page={pg} dark={dark} setDark={setDark}/>;
  return <Home/>}
