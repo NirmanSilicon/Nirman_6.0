@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --bg-canvas: #F4F8FB;
+  --surface-card: #FFFFFF;
+  --text-navy: #0F172A;
+  --text-muted: #475569;
+  --accent-teal: #00A8B5;
+  --accent-teal-dark: #008B96;
+  --border-subtle: #E2E8F0;
+}
+
+@layer base {
+  html {
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text-navy);
+    background-color: var(--bg-canvas);
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle sidebar bottom-left wave matching industrial light aesthetic */
+.sidebar-teal-wave {
+  background: radial-gradient(
+      125% 55% at 0% 100%,
+      rgba(0, 168, 181, 0.14) 0%,
+      rgba(0, 168, 181, 0.05) 45%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+    #ffffff;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+}
