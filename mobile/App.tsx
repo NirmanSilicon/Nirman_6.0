@@ -2,7 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { CabModal } from './src/components/CabModal';
+import { DemoModal } from './src/components/DemoModal';
+import { TopHeader } from './src/components/TopHeader';
 import { MapScreen } from './src/screens/MapScreen';
+import { OverviewScreen } from './src/screens/OverviewScreen';
 import { RescueScreen } from './src/screens/RescueScreen';
 import { SearchScreen } from './src/screens/SearchScreen';
 import { TimelineScreen } from './src/screens/TimelineScreen';
@@ -10,8 +14,8 @@ import { evaluateRescue, fetchCorridorState, fetchForecast } from './src/service
 import { wsClient } from './src/services/wsClient';
 import { type MobileTab, useRailStore } from './src/stores/useRailStore';
 
-const TABS: Array<{ id: MobileTab; label: string }> = [
-  { id: 'search', label: 'Trains' },
+const DASHBOARD_TABS: Array<{ id: MobileTab; label: string }> = [
+  { id: 'overview', label: 'Overview' },
   { id: 'timeline', label: 'Timeline' },
   { id: 'map', label: 'Live Map' },
   { id: 'rescue', label: 'Rescue' },
@@ -20,6 +24,7 @@ const TABS: Array<{ id: MobileTab; label: string }> = [
 export default function App() {
   const {
     backendOrigin,
+    currentView,
     activeCorridorId,
     activeTab,
     selectedTrain,
@@ -96,32 +101,48 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <SafeAreaView
+        style={[
+          styles.safeArea,
+          currentView === 'landing' && { backgroundColor: '#F4F7FA' },
+        ]}
+        edges={['top', 'bottom']}
+      >
         <StatusBar style="dark" />
-        <View style={styles.screenArea}>
-          {activeTab === 'search' && <SearchScreen />}
-          {activeTab === 'timeline' && <TimelineScreen />}
-          {activeTab === 'map' && <MapScreen />}
-          {activeTab === 'rescue' && <RescueScreen />}
-        </View>
+        {currentView === 'landing' ? (
+          <SearchScreen />
+        ) : (
+          <View style={styles.dashboardRoot}>
+            <TopHeader />
+            <View style={styles.screenArea}>
+              {activeTab === 'overview' && <OverviewScreen />}
+              {activeTab === 'timeline' && <TimelineScreen />}
+              {activeTab === 'map' && <MapScreen />}
+              {activeTab === 'rescue' && <RescueScreen />}
+            </View>
 
-        <View style={styles.tabBar}>
-          {TABS.map((tab) => {
-            const active = activeTab === tab.id;
-            return (
-              <Pressable
-                key={tab.id}
-                onPress={() => setActiveTab(tab.id)}
-                style={styles.tabItem}
-              >
-                <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>
-                  {tab.label}
-                </Text>
-                {active && <View style={styles.tabIndicator} />}
-              </Pressable>
-            );
-          })}
-        </View>
+            <View style={styles.tabBar}>
+              {DASHBOARD_TABS.map((tab) => {
+                const active = activeTab === tab.id;
+                return (
+                  <Pressable
+                    key={tab.id}
+                    onPress={() => setActiveTab(tab.id)}
+                    style={styles.tabItem}
+                  >
+                    <Text style={[styles.tabLabel, active && styles.tabLabelActive]}>
+                      {tab.label}
+                    </Text>
+                    {active && <View style={styles.tabIndicator} />}
+                  </Pressable>
+                );
+              })}
+            </View>
+
+            <DemoModal />
+            <CabModal />
+          </View>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -129,6 +150,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#FAF9F6' },
+  dashboardRoot: { flex: 1 },
   screenArea: { flex: 1 },
   tabBar: {
     flexDirection: 'row',
@@ -138,13 +160,13 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   tabItem: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  tabLabel: { fontSize: 13, fontWeight: '600', color: '#6B7280' },
-  tabLabelActive: { color: '#111827', fontWeight: '800' },
+  tabLabel: { fontSize: 12.5, fontWeight: '600', color: '#64748B' },
+  tabLabelActive: { color: '#0F294A', fontWeight: '800' },
   tabIndicator: {
     width: 24,
     height: 3,
     borderRadius: 2,
-    backgroundColor: '#111827',
+    backgroundColor: '#0F294A',
     marginTop: 4,
   },
 });
