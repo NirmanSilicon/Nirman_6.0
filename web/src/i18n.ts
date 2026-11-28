@@ -19,7 +19,7 @@ const en = {
     components: "Components", count: "Count", conf: "Confidence", reusable: "May be reusable", boardConf: "Board confidence", how: "How this was calculated",
     asOf: "Prices as of", share: "Share", download: "Download", delete: "Delete scan", confirmDelete: "Delete this scan and its photo?",
     useLocation: "Use my location", noRecyclers: "No recyclers found", directions: "Directions", call: "Call", listed: "Listed by CPCB (Jun 2023). Confirm it is still authorised before visiting.", approx: "Approximate location", source: "Source",
-    seeMap: "See all on map", authorisedOnly: "Authorised recyclers only", notEligible: "Not eligible", unsafe: "Never burn or acid-leach boards at home.", nextStep: "Next step", nextText: "Take it to a listed recycler and log the hand-over to earn points.", openMap: "Open map", recordHint: "Structured record for EPR/DPP" },
+    seeMap: "See all on map", authorisedOnly: "Authorised recyclers only", notEligible: "Not eligible", unsafe: "Never burn or acid-leach boards at home.", nextStep: "Next step", presenceNote: "This model reports which component types are present, not where or how many. Counts are estimated as ranges, so the value range is wider.", modelSees: "Component types the model found", nextText: "Take it to a listed recycler and log the hand-over to earn points.", openMap: "Open map", recordHint: "Structured record for EPR/DPP" },
   routes: { Reuse: "Reuse", Desolder: "Desolder", Hydromet: "Hydrometallurgy", Pyromet: "Pyrometallurgy" },
   crit: { value: "Value", cost: "Cost", energy: "Energy", co2: "CO₂", score: "Score", moreBetter: "more dots = better" },
   cls: { RAM_IC: "RAM chip", IC: "IC", CAPACITOR: "Capacitor", RESISTOR: "Resistor", CONNECTOR: "Connector", CRYSTAL: "Crystal" },

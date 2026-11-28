@@ -106,6 +106,11 @@ export default function Result() {
         <section className="space-y-3">
           <p className="eyebrow">{t("result.details")}</p>
           <BBoxOverlay r={r} />
+          {r.model.kind === "presence" && <p className="rounded-xl bg-cream p-3 text-xs text-ink/80">{t("result.presenceNote")}</p>}
+          {!!r.presence?.length && (
+            <div><p className="mb-1 text-xs font-semibold text-mute">{t("result.modelSees")}</p>
+              <div className="flex flex-wrap gap-1">{r.presence.map((p) => (
+                <span key={p.class} className="rounded-full border border-line bg-white px-2 py-0.5 text-[11px] font-semibold" title={`p=${p.probability}, threshold ${p.threshold}`}>{p.class} · {Math.round(p.confidence * 100)}%</span>))}</div></div>)}
           <p className="text-sm">{t("result.boardConf")}: <b>{pct}%</b>{r.board.type ? ` · ${r.board.type}` : ""}</p>
           {r.components.length > 0 && (
             <table className="w-full text-sm">
@@ -113,14 +118,14 @@ export default function Result() {
               <tbody>{r.components.map((c) => (
                 <tr key={c.class} className="border-t border-line">
                   <td className="py-1.5">{cls(c.class)}{c.reusable && <span className="ml-1 text-xs text-ember">{t("result.reusable")}</span>}</td>
-                  <td>{c.count}</td><td>{Math.round(c.avg_conf * 100)}%</td></tr>))}</tbody>
+                  <td>{c.count_unknown && c.count_range ? `${c.count_range[0]}–${c.count_range[1]} (est.)` : c.count}</td><td>{Math.round(c.avg_conf * 100)}%</td></tr>))}</tbody>
             </table>)}
           {r.trace && (
             <details className="card text-sm">
               <summary className="cursor-pointer font-semibold">{t("result.how")}</summary>
               <div className="mt-2 space-y-2">
                 {r.trace.reuse.map((x) => (
-                  <p key={x.class}>{x.count} × {cls(x.class)} × ₹{x.price[0]}–{x.price[1]} × {x.reuse_prob[0]}–{x.reuse_prob[1]} = <b>₹{x.subtotal[0]}–{x.subtotal[1]}</b><br /><span className="text-xs text-mute">{x.source}</span></p>))}
+                  <p key={x.class}>{x.count_range && x.count_range[0] !== x.count_range[1] ? `${x.count_range[0]}–${x.count_range[1]}` : x.count} × {cls(x.class)} × ₹{x.price[0]}–{x.price[1]} × {x.reuse_prob[0]}–{x.reuse_prob[1]} = <b>₹{x.subtotal[0]}–{x.subtotal[1]}</b><br /><span className="text-xs text-mute">{x.source}</span></p>))}
                 {r.trace.metals.map((x) => (
                   <p key={x.metal}>{x.metal}: {x.grams[0]}–{x.grams[1]} g × ₹{x.price[0]}–{x.price[1]}/g × {Math.round(x.recovery * 100)}% = <b>₹{x.subtotal[0]}–{x.subtotal[1]}</b></p>))}
               </div>

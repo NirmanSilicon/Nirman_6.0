@@ -76,7 +76,7 @@ function Under() {
   useEffect(() => { api.getSystem().then(setSys).catch(() => {}); }, []);
   const inf = sys?.inference;
   const w = inf?.weights ?? {};
-  const rows = useMemo(() => [["detector.pt", w["detector.pt"]], ["board_classifier.pt", w["board_classifier.pt"]], ["classes.json", w["classes.json"]]], [w]);
+  const rows = useMemo(() => [["ouroboros_pcb_classifier.pt", w["ouroboros_pcb_classifier.pt"]], ["detector.pt", w["detector.pt"]], ["board_classifier.pt", w["board_classifier.pt"]], ["classes.json", w["classes.json"]]], [w]);
   return (
     <div className="space-y-8">
       <section><p className="eyebrow">{t("under.eyebrow")}</p><h1 className="text-4xl">{t("under.title")}</h1><p className="mt-2 max-w-2xl text-mute">{t("under.lead")}</p></section>
@@ -86,6 +86,10 @@ function Under() {
           <p className="eyebrow">{t("under.model")}</p>
           <p className="mt-2 flex items-center gap-2"><span className={`h-3 w-3 rounded-full ${inf?.reachable ? "bg-orange" : "bg-ink/30"}`} />
             <b>{inf?.reachable ? `${t("under.service")}: ${inf.mode}` : t("under.down")}</b></p>
+          {inf?.test_metrics && (
+            <div className="mt-3 grid grid-cols-3 gap-2 text-center">{[["mAP", inf.test_metrics.mAP], ["micro-F1", inf.test_metrics.micro_F1], ["precision", inf.test_metrics.micro_precision]].map(([k, v]) => (
+              <div key={String(k)} className="rounded-xl bg-cream p-2"><b className="display text-xl text-ember">{Number(v).toFixed(2)}</b><p className="text-[11px] text-mute">test {k}</p></div>))}</div>)}
+          {inf?.kind === "presence" && <p className="mt-2 text-xs text-mute">{t("result.presenceNote")}</p>}
           {inf?.mode === "mock" && <p className="mt-1 text-sm text-mute">{t("under.mockNote")}</p>}
           <ul className="mt-3 space-y-1 text-sm">{rows.map(([f, ok]) => <li key={String(f)}>models/{f}: <span className={ok ? "font-semibold text-ember" : "text-mute"}>{ok ? "present" : "not added"}</span></li>)}</ul>
         </div>
