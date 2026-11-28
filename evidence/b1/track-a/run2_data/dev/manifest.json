@@ -1,0 +1,782 @@
+{
+  "dataset_sha256": "bf0b23413727809f73f0a097417ff6b6e3e71f68cccfef862a9be81f7c8cc70d",
+  "layouts_used": [
+    "L1_STANDARD_PORTRAIT",
+    "L2_COMPACT_GRID"
+  ],
+  "n_samples": 24,
+  "samples": [
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_000_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_000_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "311a418bc6a52c126e644ab55fc6da28c244a25223de58d283c888c68964bc37",
+        "bank_passbook": "e573b16f22c34e4fd91a58f3089f480caf69588a7cbf4afa6bb0ba0e9e20fc87"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Behera",
+        "dob": "15/05/1990",
+        "passbook_name": "Bikash Behera"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "NATIVE_VECTOR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.94
+      },
+      "packet_id": "SYN_DEV_000",
+      "perturbation": "unperturbed",
+      "seed": 101,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_001_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_001_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "6810e7559a607ec132a0346bcf052c2ec5bcbea16c14baf456c110b373abd742",
+        "bank_passbook": "36c35b51147a1fae041d48a1f591eae838a1c8e3b9a414f355089ff397098e5e"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Panda",
+        "dob": "10/08/2006",
+        "passbook_name": "Bikash Panda"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.72,
+        "rotation_deg": 8.5,
+        "token_confidence": 0.78
+      },
+      "packet_id": "SYN_DEV_001",
+      "perturbation": "rotation",
+      "seed": 102,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_002_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_002_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "cc1ef13d77018e7b97bc3ecf9833b6f191eea83898949a957858947517b1e2d5",
+        "bank_passbook": "31ad107f2b235c1056c6f78c670de2f086e6b6d32147ba830a093d69044afd94"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Patra",
+        "dob": "15/05/1990",
+        "passbook_name": "Bikash Patra"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.65,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.42
+      },
+      "packet_id": "SYN_DEV_002",
+      "perturbation": "blur",
+      "seed": 103,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_003_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_003_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "bfedb255f32d1780060f5e5e426c3cbe3eea6f99d97659c456753d7068781117",
+        "bank_passbook": "3fa60ed47767a4abdc307527c9a1f90e5dcb96bb9602a57ee037ffce065fbca9"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Minati Panda",
+        "dob": "15/05/1990",
+        "passbook_name": "Minati Panda"
+      },
+      "is_defective": false,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.7,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.54
+      },
+      "packet_id": "SYN_DEV_003",
+      "perturbation": "jpeg_low_quality",
+      "seed": 104,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_004_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_004_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "2f1ddcb867131ee8648b841ccaeff9267fbbdee0aa5ff27acdf51895c850fe38",
+        "bank_passbook": "032f854f4951188474b73c6bdea651441873b37f74d8846061e673db237875a5"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Subhashree Devi",
+        "dob": "10/08/2006",
+        "passbook_name": "Subhashree Devi"
+      },
+      "is_defective": true,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.68,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.5
+      },
+      "packet_id": "SYN_DEV_004",
+      "perturbation": "low_dpi",
+      "seed": 105,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_005_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_005_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "460c5a231cfee486fe51de8a923c7cdd5f6b4bccb63a067ef55d290e162b2895",
+        "bank_passbook": "4c63334698d2dd5a8f2fa89c446d24603f791c09092c3fe71dd8d25ea49f3581"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Mohanty",
+        "dob": "15/05/1990",
+        "passbook_name": "Bikash Mohanty"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "same_name_different_person",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.48
+      },
+      "packet_id": "SYN_DEV_005",
+      "perturbation": "low_contrast",
+      "seed": 106,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_006_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_006_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "38fabd3a69b584b20a617c958f4ec1e77a367c27baefa5a3e7de774d809abee0",
+        "bank_passbook": "b9b6c87c2da7afda9dffb98b549bb27bb761c5807c5c51ea6d15d91529b4800f"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Behera",
+        "dob": "15/05/1990",
+        "passbook_name": "Bikash Behera"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.7,
+        "layout_consistency": 0.74,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.66
+      },
+      "packet_id": "SYN_DEV_006",
+      "perturbation": "overlapping_stamp",
+      "seed": 107,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_007_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_007_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "1c53d199263b3275f0fbdd2a79f219f156906379d4249c8bdf7b0e57d7533fd8",
+        "bank_passbook": "6790c9cd311d8e653818bbfa1d124db72556b472017b053779d98814ad6f8faa"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Laxmipriya Sahoo",
+        "dob": "10/08/2006",
+        "passbook_name": "Laxmipriya Sahoo"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.88,
+        "layout_consistency": 0.86,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.85
+      },
+      "packet_id": "SYN_DEV_007",
+      "perturbation": "bilingual_indic",
+      "seed": 108,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_008_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_008_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "2cc07d88ca4c1bf443b39f515f566d17bdf5d3801df819e42c40998de484f663",
+        "bank_passbook": "68e33c7f5d3189bc3a03014f646eb2fda523512f913378827ab877e7b492a0de"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Sasmita Behera",
+        "dob": "15/05/1990",
+        "passbook_name": "Sasmita Behera"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "NATIVE_VECTOR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.94
+      },
+      "packet_id": "SYN_DEV_008",
+      "perturbation": "unperturbed",
+      "seed": 109,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_009_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_009_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "75bf16a5612d823360873e06b11fd17175985316761e6c02cf7fccb0365115b9",
+        "bank_passbook": "607da021fb5017cae3a4d49859a21f588e7e282a2a0643d955b601af657de6ed"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Minati Patra",
+        "dob": "15/05/1990",
+        "passbook_name": "Minati Patra"
+      },
+      "is_defective": false,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.72,
+        "rotation_deg": 8.5,
+        "token_confidence": 0.78
+      },
+      "packet_id": "SYN_DEV_009",
+      "perturbation": "rotation",
+      "seed": 110,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_010_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_010_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "2144911793d1332c04cb4940ff19a4845f3498c6a1b1d11059371dae093f873b",
+        "bank_passbook": "141f840364f7186d956d330200f9d33f4bd5e50f91c7d2860c13f755e8cdd110"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Ananya Devi",
+        "dob": "10/08/2006",
+        "passbook_name": "Ananya Devi"
+      },
+      "is_defective": true,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.65,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.42
+      },
+      "packet_id": "SYN_DEV_010",
+      "perturbation": "blur",
+      "seed": 111,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_011_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_011_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "04aa61f625293d9d8c1eb4edadec024bb50ba3057bbaffa0cba9227ea2a89537",
+        "bank_passbook": "0597d235a8d21f8caabeda34e9f8585a86034591f2ef2e54f32c6723880f0a81"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Laxmipriya Patra",
+        "dob": "15/05/1990",
+        "passbook_name": "Laxmipriya Patra"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "near_identical_numbers",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.7,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.54
+      },
+      "packet_id": "SYN_DEV_011",
+      "perturbation": "jpeg_low_quality",
+      "seed": 112,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_012_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_012_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "208e1fd4dd3b6038d31aafd528ba6ada619efd4dcecbf8708b1e274bcf4a931f",
+        "bank_passbook": "25934f0ccb654ef380ca0dcbced1338626bae9b5124e316a166ceb468fe5b066"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Ananya Devi",
+        "dob": "15/05/1990",
+        "passbook_name": "Ananya Devi"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.68,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.5
+      },
+      "packet_id": "SYN_DEV_012",
+      "perturbation": "low_dpi",
+      "seed": 113,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_013_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_013_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "0fa30899fdf62b9fb5d9f38c4c0d042fc70a8ab86f448e7915180e8b6d9e7e2d",
+        "bank_passbook": "b2dc6f2bd714653cbce46c2f99eeeff667cfb8fc7bf1931cb116043992b06c23"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Bikash Behera",
+        "dob": "10/08/2006",
+        "passbook_name": "Bikash Behera"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.48
+      },
+      "packet_id": "SYN_DEV_013",
+      "perturbation": "low_contrast",
+      "seed": 114,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_014_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_014_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "c9d9d3fbf7c52198c95268a79e43469086f5c83347ed0610e786ea1327eaaf31",
+        "bank_passbook": "0cbd78ea3db825e6ea24e749a7982d5e74c1dcf170395edfabe5b0367f543f4e"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Ananya Devi",
+        "dob": "15/05/1990",
+        "passbook_name": "Ananya Devi"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.7,
+        "layout_consistency": 0.74,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.66
+      },
+      "packet_id": "SYN_DEV_014",
+      "perturbation": "overlapping_stamp",
+      "seed": 115,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_015_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_015_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "e89d76fd0daa1ed0d884db07878259357175bfab37fa702bff365d6ff1b7ef1b",
+        "bank_passbook": "0fc9e2356d619eecd6f3913f3483844d5e11cb3901642085241388ccc176f2af"
+      },
+      "expected_readiness": "NO_ISSUES_FOUND",
+      "ground_truth_fields": {
+        "applicant_name": "Minati Panda",
+        "dob": "15/05/1990",
+        "passbook_name": "Minati Panda"
+      },
+      "is_defective": false,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.88,
+        "layout_consistency": 0.86,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.85
+      },
+      "packet_id": "SYN_DEV_015",
+      "perturbation": "bilingual_indic",
+      "seed": 116,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_016_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_016_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "31e484c35d6434146fa9d60896c6ab1adc6d16beee5e9ccb53c94b534887495a",
+        "bank_passbook": "796432863cf82fde44ea64f04e48ba324937037480f1c2ce553e654f49530c72"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Pravasini Behera",
+        "dob": "10/08/2006",
+        "passbook_name": "Pravasini Behera"
+      },
+      "is_defective": true,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "NATIVE_VECTOR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.94
+      },
+      "packet_id": "SYN_DEV_016",
+      "perturbation": "unperturbed",
+      "seed": 117,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_017_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_017_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "84169436bec6fc5b5357ec71e586d3ef5b7821915f89ebf5b17f92c54f870ea6",
+        "bank_passbook": "0edfe19d7ec1229ac7b5a60fad5e3963b4c9f32e766031205dbc5b342dd0a972"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Sita Panda",
+        "dob": "15/05/1990",
+        "passbook_name": "Sita Panda"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "common_name_collision",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.72,
+        "rotation_deg": 8.5,
+        "token_confidence": 0.78
+      },
+      "packet_id": "SYN_DEV_017",
+      "perturbation": "rotation",
+      "seed": 118,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_018_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_018_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "497437b18919f0563c8bfffb38cedef12c1d915011e9b5e258c198e4add2db07",
+        "bank_passbook": "abc4f69b75528bdef5e3709e123180ab644591b6ce15438101dc94e587157a14"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Sasmita Sahoo",
+        "dob": "15/05/1990",
+        "passbook_name": "Sasmita Sahoo"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.65,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.42
+      },
+      "packet_id": "SYN_DEV_018",
+      "perturbation": "blur",
+      "seed": 119,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_019_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_019_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "38ba23845cda45e9fab4f75f34ac0b6f192c8958216b3936496451bfb6ff4dc0",
+        "bank_passbook": "d21142392dd1a8db443f5cacca2c3f730c813225c4d257733bf959a746135fe6"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Aarav Panda",
+        "dob": "10/08/2006",
+        "passbook_name": "Aarav Panda"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.7,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.54
+      },
+      "packet_id": "SYN_DEV_019",
+      "perturbation": "jpeg_low_quality",
+      "seed": 120,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_020_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_020_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "fa8e11773736993139ee7c1ce99483b252233ace5d24dfbe39ba5cd5f191e164",
+        "bank_passbook": "1ea48747c18caf7780f4a2606d6cc2ba7e3df37183e49dcb685c440546560bf2"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Rohan Nayak",
+        "dob": "15/05/1990",
+        "passbook_name": "Rohan Nayak"
+      },
+      "is_defective": false,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.68,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.5
+      },
+      "packet_id": "SYN_DEV_020",
+      "perturbation": "low_dpi",
+      "seed": 121,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_021_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_021_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "1bbec3159d6a08bc473c4deab43d2f467d901cda4b1eea52e9be24a319f475c5",
+        "bank_passbook": "fb6913b60ee3f91dbe576ca5a782a5af3fafcf888973258ea276128d333ba333"
+      },
+      "expected_readiness": "NEEDS_CHECKS",
+      "ground_truth_fields": {
+        "applicant_name": "Ananya Behera",
+        "dob": "15/05/1990",
+        "passbook_name": "Ananya Behera"
+      },
+      "is_defective": false,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.96,
+        "layout_consistency": 0.94,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.48
+      },
+      "packet_id": "SYN_DEV_021",
+      "perturbation": "low_contrast",
+      "seed": 122,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_022_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_022_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "2d62f45d87e683d9fcf5b2f1a1e5cc035ee6768675d9cc177924bfaa314107a0",
+        "bank_passbook": "2ab67204a3217cec7d0bc46d4d18eb9fa5b3afcf9c6eeb281abeb0f66b336146"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Sasmita Nayak",
+        "dob": "10/08/2006",
+        "passbook_name": "Sasmita Nayak"
+      },
+      "is_defective": true,
+      "layout_id": "L1_STANDARD_PORTRAIT",
+      "negative_control": "none",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.7,
+        "layout_consistency": 0.74,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.66
+      },
+      "packet_id": "SYN_DEV_022",
+      "perturbation": "overlapping_stamp",
+      "seed": 123,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    },
+    {
+      "document_paths": {
+        "aadhaar_card": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_023_aadhaar.pdf",
+        "bank_passbook": "C:\\Users\\akrit\\Downloads\\Nirman_6.0-wt-akriti\\evidence\\b1\\track-a\\run2_data\\dev\\SYN_DEV_023_passbook.pdf"
+      },
+      "document_sha256s": {
+        "aadhaar_card": "b93193e8dd171ff152d1a783025c89f0150b4dc28c2c159f961c1cef13836bdd",
+        "bank_passbook": "2723896b0350779e7d504a6b0b998a1105765cc909dd881f0c625055c1139af8"
+      },
+      "expected_readiness": "NOT_READY",
+      "ground_truth_fields": {
+        "applicant_name": "Rohan Sahoo",
+        "dob": "15/05/1990",
+        "passbook_name": "Rohan Sahoo"
+      },
+      "is_defective": true,
+      "layout_id": "L2_COMPACT_GRID",
+      "negative_control": "wrong_doc_in_slot",
+      "ocr_sim_params": {
+        "extraction_method": "LOCAL_OCR",
+        "label_distance_pt": 12.0,
+        "label_match_confidence": 0.88,
+        "layout_consistency": 0.86,
+        "rotation_deg": 0.0,
+        "token_confidence": 0.85
+      },
+      "packet_id": "SYN_DEV_023",
+      "perturbation": "bilingual_indic",
+      "seed": 124,
+      "split": "dev",
+      "synthetic_label": "synthetic"
+    }
+  ],
+  "seed": 101,
+  "split": "dev",
+  "synthetic_label": "synthetic",
+  "watermark": "SYNTHETIC DOCUMENT \u2014 NOT FOR OFFICIAL USE"
+}

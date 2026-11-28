@@ -1,0 +1,487 @@
+{
+  "algorithm": "SHA-256 over sorted (relative_path + ':' + file_sha256 + '\\n')",
+  "n_pdfs": 96,
+  "content_bundle_sha256": "7881ea3e7614cf8fc87978020718648a431cea19e4c3658afa9129896e0fb674",
+  "files": [
+    {
+      "relative_path": "test/SYN_TEST_000_aadhaar.pdf",
+      "size_bytes": 2220,
+      "sha256": "87d7811e5869a049e015ea974f662bcb248729dae303f6082606a06e090a8564"
+    },
+    {
+      "relative_path": "test/SYN_TEST_000_passbook.pdf",
+      "size_bytes": 2221,
+      "sha256": "2526f19fc0890a43f31133bb309a085155c0a2ac1db3a9bb1711de3ed5df3da6"
+    },
+    {
+      "relative_path": "test/SYN_TEST_001_aadhaar.pdf",
+      "size_bytes": 79655,
+      "sha256": "c7ada6d7483047f8bf10406221bd0df1c166588bed31d69c9c36a43339466852"
+    },
+    {
+      "relative_path": "test/SYN_TEST_001_passbook.pdf",
+      "size_bytes": 2203,
+      "sha256": "429ba17c763ba9c77c38f6409a5f63a42413439ca45be20bd4798e66c863761e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_002_aadhaar.pdf",
+      "size_bytes": 118897,
+      "sha256": "e6995d7fad0fbeafdc27aaa5c4fdaf2cc9ca6067e9a8613f613e453fe562f6e0"
+    },
+    {
+      "relative_path": "test/SYN_TEST_002_passbook.pdf",
+      "size_bytes": 2274,
+      "sha256": "e5c27428efed7960fccee41023eda69521bd5ade1631ecb142ae0d984f1ef1d6"
+    },
+    {
+      "relative_path": "test/SYN_TEST_003_aadhaar.pdf",
+      "size_bytes": 107066,
+      "sha256": "a0bb667c196fb609890293f447cdc2d48d5a8d59859dd1a5bf27e5acef9ee5f7"
+    },
+    {
+      "relative_path": "test/SYN_TEST_003_passbook.pdf",
+      "size_bytes": 2220,
+      "sha256": "400785ec4c22c245d07b15a57544ea07af090b1d67a176f25f64d87728a3c42d"
+    },
+    {
+      "relative_path": "test/SYN_TEST_004_aadhaar.pdf",
+      "size_bytes": 148746,
+      "sha256": "928b0f41f863822983c653159be523ac8478b0d77510f92b82455f097b4b374e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_004_passbook.pdf",
+      "size_bytes": 2194,
+      "sha256": "60fdd0a4043e04b12929e004c51ae6156c0a555aae246e483c98fad1ba9a35a1"
+    },
+    {
+      "relative_path": "test/SYN_TEST_005_aadhaar.pdf",
+      "size_bytes": 43025,
+      "sha256": "e049c1211b79c94f6f89e562c12d6bf2598074223da197f734a062abe2ae1b8b"
+    },
+    {
+      "relative_path": "test/SYN_TEST_005_passbook.pdf",
+      "size_bytes": 2274,
+      "sha256": "9c3eed9e62e6473faebe006eedb5ccdb95d1ba419330ece337f74e678a9e0272"
+    },
+    {
+      "relative_path": "test/SYN_TEST_006_aadhaar.pdf",
+      "size_bytes": 2281,
+      "sha256": "7504f8314106739fbfd12752c110c07789eff1e87739ac04c542de43bbbdcb7b"
+    },
+    {
+      "relative_path": "test/SYN_TEST_006_passbook.pdf",
+      "size_bytes": 2225,
+      "sha256": "78fd799f6465b3098c93c5abb2d1e3c510187ec3dfc015aa62a23ae527113f1e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_007_aadhaar.pdf",
+      "size_bytes": 2332,
+      "sha256": "5c1c2235a186ff2fdeb3791b50a24c528cdd110b0b796bfee48c65430f2a7c45"
+    },
+    {
+      "relative_path": "test/SYN_TEST_007_passbook.pdf",
+      "size_bytes": 2197,
+      "sha256": "a28130e3e78c77029006f1d38faa61c63c438051325c1d26a8405371be1a1f31"
+    },
+    {
+      "relative_path": "test/SYN_TEST_008_aadhaar.pdf",
+      "size_bytes": 2279,
+      "sha256": "696500d64e8c567aa62514aab3baebf7c4bf3c0fa85caf5a01ef505bf5eb4ac5"
+    },
+    {
+      "relative_path": "test/SYN_TEST_008_passbook.pdf",
+      "size_bytes": 2279,
+      "sha256": "6932378cf02bc73a2bdab77a8167e4960dd9b50139fbd42e78264a731cc3a4d5"
+    },
+    {
+      "relative_path": "test/SYN_TEST_009_aadhaar.pdf",
+      "size_bytes": 63938,
+      "sha256": "3e870cde3b48a24e4ee348df84da76b9c706c1c3a0af347de49b237fbcc1d99e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_009_passbook.pdf",
+      "size_bytes": 2223,
+      "sha256": "c31629a470d70ede8e4c0279ac85961561a166451a0ae4eb09f3df3273a8cb34"
+    },
+    {
+      "relative_path": "test/SYN_TEST_010_aadhaar.pdf",
+      "size_bytes": 153378,
+      "sha256": "ec1a8ed145ff2eba21fefaa48962fe5150a48bd17215b8da8b305a24253f480d"
+    },
+    {
+      "relative_path": "test/SYN_TEST_010_passbook.pdf",
+      "size_bytes": 2201,
+      "sha256": "76dbf383ca02eb62ad34b960f48b59dac79799b163b2a0997ad71602b9ed4d34"
+    },
+    {
+      "relative_path": "test/SYN_TEST_011_aadhaar.pdf",
+      "size_bytes": 130403,
+      "sha256": "cd60606db42667fb1f5aa003a2d619a57963a1a96e7db92ba852537c38a495c9"
+    },
+    {
+      "relative_path": "test/SYN_TEST_011_passbook.pdf",
+      "size_bytes": 2271,
+      "sha256": "99ecc4fdc02f129c5e5414eccf5b164bd7f12710aed3e51f216ed2a90717291e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_012_aadhaar.pdf",
+      "size_bytes": 88806,
+      "sha256": "8db53282b659e1e49039923b7094fb5782d02d0a1af3fc4a9b5f1e7c947c0ca1"
+    },
+    {
+      "relative_path": "test/SYN_TEST_012_passbook.pdf",
+      "size_bytes": 2218,
+      "sha256": "ef9491e3f9f018a85abd4106da64cd68182dabf1407aace513ba0798ab506b1a"
+    },
+    {
+      "relative_path": "test/SYN_TEST_013_aadhaar.pdf",
+      "size_bytes": 45990,
+      "sha256": "7ecb170643dc10f4a74ab2b59398258085379891ef72f27ed86692f2229a1d36"
+    },
+    {
+      "relative_path": "test/SYN_TEST_013_passbook.pdf",
+      "size_bytes": 2193,
+      "sha256": "e4b5f78e78a7823ca9e152b9740293abf458d95beff9e12a0bb6c276f2550a34"
+    },
+    {
+      "relative_path": "test/SYN_TEST_014_aadhaar.pdf",
+      "size_bytes": 2330,
+      "sha256": "a7cdd9049c6e2d5bc665b73b6d2527f4f6e2e76bcd5d0daf091ca6e48ff88a35"
+    },
+    {
+      "relative_path": "test/SYN_TEST_014_passbook.pdf",
+      "size_bytes": 2268,
+      "sha256": "12646a9735cf6db95c32d21be052f4c12afbeda7e98f102ac6057a7991e16942"
+    },
+    {
+      "relative_path": "test/SYN_TEST_015_aadhaar.pdf",
+      "size_bytes": 2239,
+      "sha256": "922bd9fa2de41a2fa7b6e583f1b0357677eb86c73deb5cc87d20bd191b7ba647"
+    },
+    {
+      "relative_path": "test/SYN_TEST_015_passbook.pdf",
+      "size_bytes": 2225,
+      "sha256": "788321d77292ff9f2d8bbe576fbc8cbb597256704b24b9633491c0ddfda0434e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_016_aadhaar.pdf",
+      "size_bytes": 2194,
+      "sha256": "122515759f2307948afcbedc499639dbe2580fb4d4764725b9527188e92acf49"
+    },
+    {
+      "relative_path": "test/SYN_TEST_016_passbook.pdf",
+      "size_bytes": 2196,
+      "sha256": "9f0e284de9913d7f2e49515ef729dc8fa1c53c9e67bde129d32ab2892b5d3b25"
+    },
+    {
+      "relative_path": "test/SYN_TEST_017_aadhaar.pdf",
+      "size_bytes": 74422,
+      "sha256": "dc9882d3d681f690b2235c2d4d6d1a4175a0e3be39a08f291880c69f98aa012f"
+    },
+    {
+      "relative_path": "test/SYN_TEST_017_passbook.pdf",
+      "size_bytes": 2271,
+      "sha256": "d80bbfb4db4784b8129aa93504ea56583c2efab2faa157c769e25bdb36f516ee"
+    },
+    {
+      "relative_path": "test/SYN_TEST_018_aadhaar.pdf",
+      "size_bytes": 89169,
+      "sha256": "15f8953250b66e3ae350302e3b91d4e815de966e1efec4eb49af368b20da712c"
+    },
+    {
+      "relative_path": "test/SYN_TEST_018_passbook.pdf",
+      "size_bytes": 2220,
+      "sha256": "cd166700a885685fa5b3b55493525788929066635f703335b2fbbae3e7258ba0"
+    },
+    {
+      "relative_path": "test/SYN_TEST_019_aadhaar.pdf",
+      "size_bytes": 170391,
+      "sha256": "c7d78afc3f5bb225e9a0fc52e2e2de41a324e0edba6a8d524008b2fe9a59721b"
+    },
+    {
+      "relative_path": "test/SYN_TEST_019_passbook.pdf",
+      "size_bytes": 2196,
+      "sha256": "139ca128516ff1dc6ea485714e054b9eaf4f9d689835514a893ac73faa33b399"
+    },
+    {
+      "relative_path": "test/SYN_TEST_020_aadhaar.pdf",
+      "size_bytes": 124657,
+      "sha256": "e57ec02f2809672c72215d68884c5939b65bb12fd3b10390065b80b7a9290a1b"
+    },
+    {
+      "relative_path": "test/SYN_TEST_020_passbook.pdf",
+      "size_bytes": 2278,
+      "sha256": "bf030319355cad4fb19002c6bfd9c33532e38fe760b79b653106485a945765cd"
+    },
+    {
+      "relative_path": "test/SYN_TEST_021_aadhaar.pdf",
+      "size_bytes": 34023,
+      "sha256": "042889e04e59344e696e0c46ccc58f79581ccd809b5cf89d0724db56b8ef5a6e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_021_passbook.pdf",
+      "size_bytes": 2219,
+      "sha256": "d435bb33f7078de33d00a2cc926434b2ce1bb77e63df0d635a21f4debcdfcca5"
+    },
+    {
+      "relative_path": "test/SYN_TEST_022_aadhaar.pdf",
+      "size_bytes": 2197,
+      "sha256": "53a270734c76d570ded1c6bcd52cb374f9d1994240ffc7de8816610a6261f984"
+    },
+    {
+      "relative_path": "test/SYN_TEST_022_passbook.pdf",
+      "size_bytes": 2197,
+      "sha256": "c0ebd0007e699092eb0f5fe4d8b4acb4fba2696afbaa45a7dde70946aa320dc9"
+    },
+    {
+      "relative_path": "test/SYN_TEST_023_aadhaar.pdf",
+      "size_bytes": 2404,
+      "sha256": "269aedc69cd28796c0f9ef4b1a06b79fb89fdd78873385b1e520a665b89a0399"
+    },
+    {
+      "relative_path": "test/SYN_TEST_023_passbook.pdf",
+      "size_bytes": 2270,
+      "sha256": "17ab8f457431a3bf671deb357284a96a49299007a44bbf8c7ae65da027af0387"
+    },
+    {
+      "relative_path": "test/SYN_TEST_024_aadhaar.pdf",
+      "size_bytes": 2215,
+      "sha256": "51a02ace94d79ccd2be0f938bdb9a5042c998849d8305535c218fa3ce997cd0a"
+    },
+    {
+      "relative_path": "test/SYN_TEST_024_passbook.pdf",
+      "size_bytes": 2216,
+      "sha256": "ed5f7a017a28c206d4673f344e5e4f31004b750480719e4a23baeb1c030c14e4"
+    },
+    {
+      "relative_path": "test/SYN_TEST_025_aadhaar.pdf",
+      "size_bytes": 79965,
+      "sha256": "a5d9c590dd37a4ff08ec0de44ab742b1bd3e45ba62660a000bee3333c6c2d1ac"
+    },
+    {
+      "relative_path": "test/SYN_TEST_025_passbook.pdf",
+      "size_bytes": 2197,
+      "sha256": "bd1928e48858969be8d90ad13d2eabab8cc606a98b5779d40afcefaf2c79b215"
+    },
+    {
+      "relative_path": "test/SYN_TEST_026_aadhaar.pdf",
+      "size_bytes": 122529,
+      "sha256": "4905a8ada2e969f241914c5da157de127b7f53b179ac6ce69f3a12c5bc9a431e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_026_passbook.pdf",
+      "size_bytes": 2271,
+      "sha256": "2c4635d92839e5f88a961e2bd020bc8ef55b61be4d8b559431bdf18abaa335e5"
+    },
+    {
+      "relative_path": "test/SYN_TEST_027_aadhaar.pdf",
+      "size_bytes": 107311,
+      "sha256": "f18f88a4ca20fd8c88af25eadb5f5a4bacfdf75e989e718dd5edacf27cf04307"
+    },
+    {
+      "relative_path": "test/SYN_TEST_027_passbook.pdf",
+      "size_bytes": 2220,
+      "sha256": "555fe4da4c7f32a782e61c1486183da133f5adfa62cfa95e01c07a915bcba734"
+    },
+    {
+      "relative_path": "test/SYN_TEST_028_aadhaar.pdf",
+      "size_bytes": 148971,
+      "sha256": "ab27ecbc8e35753a8eb2e3bd2667303cb030d93ee23d5be5d9e886548ec697b9"
+    },
+    {
+      "relative_path": "test/SYN_TEST_028_passbook.pdf",
+      "size_bytes": 2194,
+      "sha256": "63fee1abb2ee038d3203e006560da0e12ccb8d9e863c0903332fe106b9f3ead9"
+    },
+    {
+      "relative_path": "test/SYN_TEST_029_aadhaar.pdf",
+      "size_bytes": 42932,
+      "sha256": "644a8cfbde64a837da260c4347aff6d25c183f8dc31b167a7d1de61078dbf1e3"
+    },
+    {
+      "relative_path": "test/SYN_TEST_029_passbook.pdf",
+      "size_bytes": 2273,
+      "sha256": "c552e110e6d1f9929d3373f8828287d11ec01572754083eb51fb0778f31a6970"
+    },
+    {
+      "relative_path": "test/SYN_TEST_030_aadhaar.pdf",
+      "size_bytes": 2276,
+      "sha256": "fcf8a7414014e0b9b903cc263289d73ad3d079d5d8932ebe182b344eea007047"
+    },
+    {
+      "relative_path": "test/SYN_TEST_030_passbook.pdf",
+      "size_bytes": 2219,
+      "sha256": "b6f903ff0cc4a46dcf5bae0ff72a311c0e6fa45a6e75e130a06ffc3aea7db25d"
+    },
+    {
+      "relative_path": "test/SYN_TEST_031_aadhaar.pdf",
+      "size_bytes": 2336,
+      "sha256": "ba66f868e1cfd5c0ac3bdee772ed948929d7f6f00112672a9929fe8f949ecc7a"
+    },
+    {
+      "relative_path": "test/SYN_TEST_031_passbook.pdf",
+      "size_bytes": 2198,
+      "sha256": "b21b8e532abbf3b97f3570612eb98bb2438b68d016240fd300daf5de62372fcc"
+    },
+    {
+      "relative_path": "test/SYN_TEST_032_aadhaar.pdf",
+      "size_bytes": 2278,
+      "sha256": "47772ea595910e1b9741ea226055fa2865e93c5929ef05af62af1a286945f622"
+    },
+    {
+      "relative_path": "test/SYN_TEST_032_passbook.pdf",
+      "size_bytes": 2278,
+      "sha256": "8e04533af7cb08a656f6736214ba6babae563d5ef16cffa288a2a17b81db3dd5"
+    },
+    {
+      "relative_path": "test/SYN_TEST_033_aadhaar.pdf",
+      "size_bytes": 64273,
+      "sha256": "1684d6c02f77640c6f325c3d408e79ff10115ed70b24a794ec6a92b3e0d7e235"
+    },
+    {
+      "relative_path": "test/SYN_TEST_033_passbook.pdf",
+      "size_bytes": 2223,
+      "sha256": "5495b708292a9bbb80856222fe127b110286fa7f3081f7dbb101686197059026"
+    },
+    {
+      "relative_path": "test/SYN_TEST_034_aadhaar.pdf",
+      "size_bytes": 154006,
+      "sha256": "34ed1cf2bf0edc37292c25a143649df022df61a78050c3c94fed7df4c8884616"
+    },
+    {
+      "relative_path": "test/SYN_TEST_034_passbook.pdf",
+      "size_bytes": 2201,
+      "sha256": "686d7a8b64cae2f0972100e7e9b56c1645ac52ecf557e3c0dc6b0ec65ed7aafb"
+    },
+    {
+      "relative_path": "test/SYN_TEST_035_aadhaar.pdf",
+      "size_bytes": 131133,
+      "sha256": "f7503ba1486752182c7caf735e9ad3b4d95bcae3db48847d185608c28e41895e"
+    },
+    {
+      "relative_path": "test/SYN_TEST_035_passbook.pdf",
+      "size_bytes": 2273,
+      "sha256": "145b4e454ea7369e2dec9c69a577bae01668240daf7210cd86f81f8dd954a35b"
+    },
+    {
+      "relative_path": "test/SYN_TEST_036_aadhaar.pdf",
+      "size_bytes": 89892,
+      "sha256": "cd16666ca4f37114d3d5e3959fa6df9f999a0088655137d1b973846855d56cc3"
+    },
+    {
+      "relative_path": "test/SYN_TEST_036_passbook.pdf",
+      "size_bytes": 2220,
+      "sha256": "9cae4acdc0238003f4c6cea9ac413710f7ab0525fcf8d212401c68cbbabb12b8"
+    },
+    {
+      "relative_path": "test/SYN_TEST_037_aadhaar.pdf",
+      "size_bytes": 46350,
+      "sha256": "815408ab895e79a587f6251393a321829e8babf18040c73273854b83102291e9"
+    },
+    {
+      "relative_path": "test/SYN_TEST_037_passbook.pdf",
+      "size_bytes": 2197,
+      "sha256": "4a3e56f700e3701552a571085621368142da3ecef2f1afbd80ac8c7e58ba5a92"
+    },
+    {
+      "relative_path": "test/SYN_TEST_038_aadhaar.pdf",
+      "size_bytes": 2341,
+      "sha256": "1a57b25cbababb26eb76dffcbb34bd046321f7eac526f4ac5bb8cd2de979db44"
+    },
+    {
+      "relative_path": "test/SYN_TEST_038_passbook.pdf",
+      "size_bytes": 2279,
+      "sha256": "3c5a3bacebfc4c3325aa8fc550a1906da74897bee55d16837faecc6c5b4c5e29"
+    },
+    {
+      "relative_path": "test/SYN_TEST_039_aadhaar.pdf",
+      "size_bytes": 2230,
+      "sha256": "311b08fa21f7cf1704fc27cca87fbd48c1258146e6a649febf35dd2d7a713c97"
+    },
+    {
+      "relative_path": "test/SYN_TEST_039_passbook.pdf",
+      "size_bytes": 2218,
+      "sha256": "39ce37126f2f926815a6d8aefc5c0424ebe4d4cba081919c73c2d47663740229"
+    },
+    {
+      "relative_path": "test/SYN_TEST_040_aadhaar.pdf",
+      "size_bytes": 2196,
+      "sha256": "3ef2bee8c9e18c50fef78b02aaaf8154a61acc404f114354c1ed9d6f4388e9a4"
+    },
+    {
+      "relative_path": "test/SYN_TEST_040_passbook.pdf",
+      "size_bytes": 2196,
+      "sha256": "ee2388be29f4df9dd093ea099d081c2f846c4a8359fab2bfe776872016c2abab"
+    },
+    {
+      "relative_path": "test/SYN_TEST_041_aadhaar.pdf",
+      "size_bytes": 74409,
+      "sha256": "ab84b784f305140a3df3a9bf94d2fac26c2dd9355f5f745a468a05233de68c97"
+    },
+    {
+      "relative_path": "test/SYN_TEST_041_passbook.pdf",
+      "size_bytes": 2275,
+      "sha256": "ec0012bf6b4e9f934adb7fe958fbedc8c78e6706f990fc64c5729fc70c536b09"
+    },
+    {
+      "relative_path": "test/SYN_TEST_042_aadhaar.pdf",
+      "size_bytes": 89339,
+      "sha256": "f94195abb6809b2237ae80eaa89abe38e3c7a44ae882c08847fb8d21bb5f4682"
+    },
+    {
+      "relative_path": "test/SYN_TEST_042_passbook.pdf",
+      "size_bytes": 2223,
+      "sha256": "89b30a4afe15a106d082be7b67832e4790ca71eb22306c6b51f2b43e69486611"
+    },
+    {
+      "relative_path": "test/SYN_TEST_043_aadhaar.pdf",
+      "size_bytes": 171261,
+      "sha256": "7cdee9e0e75ffa4b2c4019d4160e282ce76a20cf321972ebfb6887114cadb342"
+    },
+    {
+      "relative_path": "test/SYN_TEST_043_passbook.pdf",
+      "size_bytes": 2196,
+      "sha256": "0a6147224492f53938fa7bc59c53de19627b8e7a1978548614fe78254461827f"
+    },
+    {
+      "relative_path": "test/SYN_TEST_044_aadhaar.pdf",
+      "size_bytes": 123560,
+      "sha256": "69a5734b1da3bad6be3be903fe072dfeda7ffcc12c59b94445e330e04df33d32"
+    },
+    {
+      "relative_path": "test/SYN_TEST_044_passbook.pdf",
+      "size_bytes": 2273,
+      "sha256": "9ed6a45bfb70326859b4c8ac1a7042a68ab3d033862ff67321696edd676cdf27"
+    },
+    {
+      "relative_path": "test/SYN_TEST_045_aadhaar.pdf",
+      "size_bytes": 34302,
+      "sha256": "9b595d53b1990ea27a6e78a32789bf1cdea0ea698dfb1e6a8df8385fe008e2ab"
+    },
+    {
+      "relative_path": "test/SYN_TEST_045_passbook.pdf",
+      "size_bytes": 2224,
+      "sha256": "41df9c37ee0bca5c84d9449d67db82053473bea1c281c4e98f4bf0a90dca4279"
+    },
+    {
+      "relative_path": "test/SYN_TEST_046_aadhaar.pdf",
+      "size_bytes": 2194,
+      "sha256": "b4ea980c3a971b6542f374ef077010f9d1ef6743253182f5a99be6383f30cdb8"
+    },
+    {
+      "relative_path": "test/SYN_TEST_046_passbook.pdf",
+      "size_bytes": 2196,
+      "sha256": "834e5febc468b93940266ccfb13eb07585ad928d615aa86c6409f37af0cd53f0"
+    },
+    {
+      "relative_path": "test/SYN_TEST_047_aadhaar.pdf",
+      "size_bytes": 2414,
+      "sha256": "2f32c60a9145a6a5ad82eaa220b3821012572dfe43c79f20881739368f2e1694"
+    },
+    {
+      "relative_path": "test/SYN_TEST_047_passbook.pdf",
+      "size_bytes": 2279,
+      "sha256": "fcbff35c1e53a9086b5a34b38fca1aab2e798cb1ea8fe28b76fd0f3ee3eeb333"
+    }
+  ]
+}
