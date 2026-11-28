@@ -8,9 +8,9 @@ const PLAYBACK_SMOOTH_STEPS = 3;
 const MAX_ACTIVITY_ITEMS = 20;
 
 export function useSimulation({ activePlantId, onNotification }) {
-  const [faultId, setFaultId] = useState(6);
+  const [faultId, setFaultIdState] = useState(6);
   const [episodeIndex, setEpisodeIndex] = useState(0);
-  const [preFaultSteps, setPreFaultSteps] = useState(20);
+  const [preFaultSteps, setPreFaultSteps] = useState(10);
   const [stepIndex, setStepIndex] = useState(0);
   const [windowSize, setWindowSize] = useState(20);
 
@@ -85,13 +85,24 @@ export function useSimulation({ activePlantId, onNotification }) {
     }
 
     requestIdRef.current += 1;
-    inFlightRef.current = false;
 
     if (mountedRef.current) {
       setIsPlaying(false);
       setLoading(false);
     }
   }, []);
+
+  // Update fault ID with state reset.
+  const setFaultId = useCallback(
+    (nextFaultId) => {
+      stopPlayback();
+      setError(null);
+      setEpisodeIndex(0);
+      setStepIndex(0);
+      setFaultIdState(nextFaultId);
+    },
+    [stopPlayback],
+  );
 
   // Stop playback when switching to a custom plant.
   useEffect(() => {
@@ -196,11 +207,12 @@ export function useSimulation({ activePlantId, onNotification }) {
 
         return null;
       } finally {
+        inFlightRef.current = false;
+
         if (
           mountedRef.current &&
           requestId === requestIdRef.current
         ) {
-          inFlightRef.current = false;
           setLoading(false);
         }
       }

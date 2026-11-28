@@ -29,6 +29,7 @@ import {
 export function RecommendationsView({
   result,
   faults = [],
+  activePlant = null,
   loading = false,
   onRunSimulation,
   onFeedbackRecorded,
@@ -61,6 +62,25 @@ export function RecommendationsView({
           typeof fault === "object"
       )
     : [];
+
+  const faultOptions = useMemo(() => {
+    if (
+      activePlant?.plant_id &&
+      activePlant.plant_id !== "tep" &&
+      Array.isArray(activePlant.classes) &&
+      activePlant.classes.length > 0
+    ) {
+      return activePlant.classes.map((classId) => ({
+        fault_id: classId,
+        name: `Operating State ${classId}`,
+      }));
+    }
+
+    return safeFaults.map((fault) => ({
+      fault_id: fault.fault_id,
+      name: fault.name || `Fault ${fault.fault_id}`,
+    }));
+  }, [activePlant, safeFaults]);
 
   const actions = useMemo(() => {
     return Array.isArray(result?.recommended_actions)
@@ -120,7 +140,7 @@ export function RecommendationsView({
   // 5. VALIDATE CORRECTED FAULT
   // --------------------------------------------------
 
-  const correctedFaultExists = safeFaults.some(
+  const correctedFaultExists = faultOptions.some(
     (fault) =>
       String(fault.fault_id) === String(correctedFaultId)
   );
@@ -512,19 +532,20 @@ export function RecommendationsView({
                   Select the actual fault
                 </option>
 
-                {safeFaults.map((fault, index) => (
+                {faultOptions.map((fault, index) => (
                   <option
                     key={fault.fault_id ?? `fault-${index}`}
                     value={String(fault.fault_id)}
                   >
-                    Fault {fault.fault_id} —{" "}
-                    {fault.name || "Unknown Fault"}
+                    {activePlant?.plant_id && activePlant.plant_id !== "tep"
+                      ? `Class ${fault.fault_id} — ${fault.name}`
+                      : `Fault ${fault.fault_id} — ${fault.name || "Unknown Fault"}`}
                   </option>
                 ))}
 
               </select>
 
-              {safeFaults.length === 0 && (
+              {faultOptions.length === 0 && (
                 <p className="text-[11px] text-rose-600 mt-1">
                   No supported faults are available in the catalog.
                 </p>
