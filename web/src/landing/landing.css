@@ -1,0 +1,77 @@
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+@source "./";
+
+/* Scoped Landing Page Overrides and Resets */
+.gr-root a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gr-root ul,
+.gr-root ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gr-root li {
+  list-style: none;
+}
+
+/* Metallic lavender accents */
+.metallic-lavender-border {
+  border-image: linear-gradient(135deg, #7A66B0, #D9CCFF, #8F7BC4) 1;
+}
+
+.metallic-lavender-bg {
+  background: linear-gradient(135deg, #7A66B0, #D9CCFF, #8F7BC4);
+}
+
+.metallic-lavender-text {
+  background: linear-gradient(135deg, #7A66B0, #D9CCFF, #8F7BC4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cursor follower */
+.ps-cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  background: linear-gradient(135deg, rgba(122, 102, 176, 0.85), rgba(217, 204, 255, 0.95), rgba(143, 123, 196, 0.85));
+  box-shadow: 0 0 10px rgba(143, 123, 196, 0.6);
+  transform: translate(-50%, -50%);
+  transition: width 0.22s ease-out, height 0.22s ease-out, opacity 0.2s, background-color 0.2s;
+}
+
+.ps-cursor-follower.is-hovering {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, rgba(122, 102, 176, 0.35), rgba(217, 204, 255, 0.55), rgba(143, 123, 196, 0.4));
+  border: 1.5px solid rgba(217, 204, 255, 0.85);
+  box-shadow: 0 0 16px rgba(143, 123, 196, 0.7);
+}
+
+@media (pointer: coarse) {
+  .ps-cursor-follower {
+    display: none !important;
+  }
+}
+
+/* Scroll progress bar */
+.ps-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  z-index: 99990;
+  background: linear-gradient(135deg, #7A66B0, #D9CCFF, #8F7BC4);
+  transform-origin: 0%;
+}

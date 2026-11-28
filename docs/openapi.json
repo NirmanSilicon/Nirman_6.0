@@ -1,0 +1,1893 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ParkSMART Backend API",
+    "summary": "AI-Powered Smart Parking and Commercial Loading-Zone Management Platform",
+    "description": "Backend platform specification for Bhubaneswar deployment, providing real-time telemetry, predictive parking availability via Monte Carlo simulations, automated loading bay reservations with PostgreSQL exclusion constraints, and multi-role operations.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "ParkSMART Engineering Team"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Local Development / Docker Compose"
+    }
+  ],
+  "tags": [
+    {
+      "name": "health",
+      "description": "System Health & Liveness Probes"
+    },
+    {
+      "name": "auth",
+      "description": "Authentication & Token Lifecycle Management"
+    },
+    {
+      "name": "users",
+      "description": "User Management & Profiles"
+    },
+    {
+      "name": "businesses",
+      "description": "Commercial Business Entities & Fleet Accounts"
+    },
+    {
+      "name": "zones",
+      "description": "Parking Zones, Telemetry & Facilities"
+    },
+    {
+      "name": "bays",
+      "description": "Individual Parking and Loading Bays"
+    },
+    {
+      "name": "parking-reservations",
+      "description": "Parking Bay Reservations and Lifecycle State Machine"
+    },
+    {
+      "name": "loading",
+      "description": "Commercial Loading Dock Management & 30-Min Slot Booking"
+    },
+    {
+      "name": "availability",
+      "description": "Arrival-Time Availability Probability & Monte Carlo Engine"
+    },
+    {
+      "name": "recommendations",
+      "description": "Multi-Zone Multi-Criteria Smart Parking Recommendations"
+    },
+    {
+      "name": "notifications",
+      "description": "In-App Alerts and Push Notifications"
+    },
+    {
+      "name": "admin",
+      "description": "Municipal & System Administration and Approvals"
+    },
+    {
+      "name": "reports",
+      "description": "Municipal Operational Analytics & Revenue Reports"
+    },
+    {
+      "name": "audit",
+      "description": "Append-Only Audit Log Inquiries"
+    }
+  ],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Liveness Probe",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ok"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Readiness Probe",
+        "responses": {
+          "200": {
+            "description": "Service is ready to handle traffic",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "ready"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service or Database Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Register New User",
+        "description": "Self-registration for drivers (auto-approved) and business operators (pending approval). Disallowed for administrative roles.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role cannot be self-assigned"
+          },
+          "409": {
+            "description": "Email already registered"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Authenticate User",
+        "description": "Validates email and argon2id password hash. Returns access and refresh token pair.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPair"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "403": {
+            "description": "Account pending approval or suspended"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/refresh": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Rotate Refresh Token",
+        "description": "Rotates refresh token atomically with token theft / reuse detection.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "refresh_token"
+                ],
+                "properties": {
+                  "refresh_token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Refreshed token pair",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPair"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or reused refresh token"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Revoke Refresh Token",
+        "description": "Revokes the specified refresh token session. Idempotent.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "refresh_token"
+                ],
+                "properties": {
+                  "refresh_token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successfully logged out"
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Get Current User Profile",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current authenticated user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Update User Profile",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/zones": {
+      "get": {
+        "tags": [
+          "zones"
+        ],
+        "summary": "List Parking Zones",
+        "parameters": [
+          {
+            "name": "city_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "parking",
+                "loading",
+                "mixed"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of zones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZonePage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/zones/{zone_id}": {
+      "get": {
+        "tags": [
+          "zones"
+        ],
+        "summary": "Get Zone Details",
+        "parameters": [
+          {
+            "name": "zone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Zone record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZoneOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Zone not found"
+          }
+        }
+      }
+    },
+    "/api/v1/zones/{zone_id}/live": {
+      "get": {
+        "tags": [
+          "zones"
+        ],
+        "summary": "Get Live Telemetry Summary",
+        "description": "Returns real-time occupancy counts, crowd level, data state (LIVE, STALE, UNAVAILABLE), and freshness.",
+        "parameters": [
+          {
+            "name": "zone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Live zone occupancy and crowd telemetry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ZoneLiveSummaryOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Zone not found"
+          }
+        }
+      }
+    },
+    "/api/v1/parking-reservations": {
+      "post": {
+        "tags": [
+          "parking-reservations"
+        ],
+        "summary": "Create Parking Reservation",
+        "description": "Transactionally books a regular bay with PostgreSQL exclusion constraint overlap protection and automatic ascending bay assignment.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParkingReservationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reservation created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationOut"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Booking overlap or slot unavailable"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "parking-reservations"
+        ],
+        "summary": "List Parking Reservations",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ReservationStatus"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User reservation history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationPage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/parking-reservations/{reservation_id}/status": {
+      "patch": {
+        "tags": [
+          "parking-reservations"
+        ],
+        "summary": "Transition Reservation Status",
+        "description": "Transitions a reservation through validated lifecycle state machine (checked_in, in_progress, completed, cancelled). Enforces cancellation cutoffs and check-in grace periods.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "reservation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated reservation state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationOut"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Invalid state transition, cutoff exceeded, or grace window closed"
+          }
+        }
+      }
+    },
+    "/api/v1/loading/zones": {
+      "get": {
+        "tags": [
+          "loading"
+        ],
+        "summary": "List Commercial Loading Zones",
+        "responses": {
+          "200": {
+            "description": "List of zones supporting commercial loading",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ZoneOut"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/loading/zones/{zone_id}/slots": {
+      "get": {
+        "tags": [
+          "loading"
+        ],
+        "summary": "Get 30-Minute Loading Slot Availability",
+        "parameters": [
+          {
+            "name": "zone_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "vehicle_category",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/VehicleCategory"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available loading slots",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SlotOut"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/loading/reservations": {
+      "post": {
+        "tags": [
+          "loading"
+        ],
+        "summary": "Book Commercial Loading Bay",
+        "description": "Restricted to verified business operators. Enforces half-open interval overlap protection on commercial delivery bays.",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoadingReservationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Loading reservation confirmed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationOut"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Booking overlap or slot collision"
+          }
+        }
+      }
+    },
+    "/api/v1/availability/estimate": {
+      "post": {
+        "tags": [
+          "availability"
+        ],
+        "summary": "Estimate Arrival-Time Parking Probability",
+        "description": "Calculates the arrival-time probability of finding at least one available regular bay using binomial nowcasting (<=15m) or time-series forecast center/sigma sampling (up to 168h) over 2,000 Monte Carlo runs.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AvailabilityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Arrival availability prediction output",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailabilityOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Zone not found"
+          }
+        }
+      }
+    },
+    "/api/v1/availability/compare": {
+      "post": {
+        "tags": [
+          "availability"
+        ],
+        "summary": "Compare Multiple Zones / Arrival Windows",
+        "description": "Runs Monte Carlo availability simulation on multiple candidate zones or arrival times, returning ranked options ordered by highest availability probability.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ranked availability comparison",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations": {
+      "post": {
+        "tags": [
+          "recommendations"
+        ],
+        "summary": "Get Intelligent Parking Recommendations",
+        "description": "Ranks nearby candidate zones by weighted composite score: availability probability, walking distance from destination, price, and crowd congestion.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recommended parking options",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "List Users (Admin)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "suspended",
+                "rejected"
+              ]
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/Role"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserOut"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{user_id}/status": {
+      "patch": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Update User Status (Approve/Suspend)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "status"
+                ],
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "approved",
+                      "suspended",
+                      "rejected"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/occupancy": {
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "summary": "Generate Historical Occupancy Report",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "zone_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregated occupancy metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportOccupancyOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/audit/logs": {
+      "get": {
+        "tags": [
+          "audit"
+        ],
+        "summary": "Query Immutable Audit Trail",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "entity_type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "entity_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "actor_user_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audit trail records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogRowOut"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "ParkSMART HS256 JWT Access Token"
+      }
+    },
+    "schemas": {
+      "Role": {
+        "type": "string",
+        "enum": [
+          "driver",
+          "business_operator",
+          "field_operator",
+          "municipal_admin",
+          "system_admin",
+          "analyst",
+          "device"
+        ]
+      },
+      "ReservationStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "confirmed",
+          "checked_in",
+          "in_progress",
+          "completed",
+          "cancelled",
+          "no_show",
+          "expired"
+        ]
+      },
+      "VehicleCategory": {
+        "type": "string",
+        "enum": [
+          "two_wheeler",
+          "car",
+          "auto_rickshaw",
+          "lcv",
+          "hcv",
+          "bus"
+        ]
+      },
+      "CrowdLevel": {
+        "type": "string",
+        "enum": [
+          "low",
+          "moderate",
+          "high",
+          "very_high",
+          "unknown"
+        ]
+      },
+      "DataState": {
+        "type": "string",
+        "enum": [
+          "live",
+          "stale",
+          "unavailable",
+          "unknown"
+        ]
+      },
+      "PredictionStatus": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "unavailable",
+          "degraded"
+        ]
+      },
+      "Provenance": {
+        "type": "string",
+        "enum": [
+          "observed",
+          "forecast",
+          "simulated",
+          "manual"
+        ]
+      },
+      "Reliability": {
+        "type": "string",
+        "enum": [
+          "high",
+          "medium",
+          "low",
+          "unavailable"
+        ]
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "full_name",
+          "role"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 128
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "business_name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "TokenPair": {
+        "type": "object",
+        "required": [
+          "access_token",
+          "refresh_token",
+          "token_type",
+          "expires_in"
+        ],
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "refresh_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string",
+            "example": "bearer"
+          },
+          "expires_in": {
+            "type": "integer",
+            "example": 900
+          }
+        }
+      },
+      "UserOut": {
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "status",
+          "roles",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "approved"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UserUpdate": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          }
+        }
+      },
+      "ZoneOut": {
+        "type": "object",
+        "required": [
+          "id",
+          "city_id",
+          "name",
+          "kind",
+          "is_active"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "city_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "parking",
+              "loading",
+              "mixed"
+            ]
+          },
+          "centroid": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              }
+            }
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "operating_schedule": {
+            "type": "object",
+            "nullable": true
+          },
+          "crowd_thresholds": {
+            "type": "object",
+            "nullable": true
+          },
+          "reservation_rules": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      },
+      "ZonePage": {
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ZoneOut"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "page_size": {
+            "type": "integer"
+          }
+        }
+      },
+      "ZoneLiveSummaryOut": {
+        "type": "object",
+        "required": [
+          "zone_id",
+          "capacity",
+          "occupied",
+          "available",
+          "occupancy_pct",
+          "crowd_level",
+          "data_state",
+          "data_freshness_s",
+          "observed_at",
+          "source",
+          "provenance"
+        ],
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "capacity": {
+            "type": "integer"
+          },
+          "occupied": {
+            "type": "integer"
+          },
+          "available": {
+            "type": "integer"
+          },
+          "occupancy_pct": {
+            "type": "number"
+          },
+          "crowd_level": {
+            "$ref": "#/components/schemas/CrowdLevel"
+          },
+          "pedestrians": {
+            "type": "integer",
+            "nullable": true
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/DataState"
+          },
+          "data_freshness_s": {
+            "type": "integer",
+            "nullable": true
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "source": {
+            "type": "string"
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          }
+        }
+      },
+      "ParkingReservationCreate": {
+        "type": "object",
+        "required": [
+          "facility_id",
+          "vehicle_category",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "vehicle_category": {
+            "$ref": "#/components/schemas/VehicleCategory"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicle_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        }
+      },
+      "LoadingReservationCreate": {
+        "type": "object",
+        "required": [
+          "zone_id",
+          "vehicle_category",
+          "start",
+          "end",
+          "business_id"
+        ],
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bay_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "vehicle_category": {
+            "$ref": "#/components/schemas/VehicleCategory"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "delivery_manifest_ref": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ReservationOut": {
+        "type": "object",
+        "required": [
+          "id",
+          "reference",
+          "kind",
+          "bay_id",
+          "status",
+          "start",
+          "end",
+          "vehicle_category",
+          "created_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reference": {
+            "type": "string",
+            "example": "PS-AB12CD34EF"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "parking",
+              "loading"
+            ]
+          },
+          "bay_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReservationStatus"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicle_category": {
+            "$ref": "#/components/schemas/VehicleCategory"
+          },
+          "business_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "delivery_info": {
+            "type": "object",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ReservationPage": {
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "page",
+          "page_size"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReservationOut"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "page_size": {
+            "type": "integer"
+          }
+        }
+      },
+      "StatusUpdate": {
+        "type": "object",
+        "required": [
+          "to_status"
+        ],
+        "properties": {
+          "to_status": {
+            "$ref": "#/components/schemas/ReservationStatus"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SlotOut": {
+        "type": "object",
+        "required": [
+          "bay_id",
+          "start",
+          "end"
+        ],
+        "properties": {
+          "bay_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AvailabilityRequest": {
+        "type": "object",
+        "required": [
+          "zone_id"
+        ],
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "arrival_time": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "vehicle_category": {
+            "$ref": "#/components/schemas/VehicleCategory",
+            "default": "car"
+          },
+          "origin": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              }
+            },
+            "nullable": true
+          },
+          "use_travel_time": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "AvailabilityOut": {
+        "type": "object",
+        "required": [
+          "zone_id",
+          "status",
+          "crowd_level",
+          "requested_arrival_time",
+          "estimated_arrival_time",
+          "generated_at",
+          "data_state",
+          "reliability",
+          "method",
+          "provenance"
+        ],
+        "properties": {
+          "zone_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PredictionStatus"
+          },
+          "reason": {
+            "type": "string",
+            "nullable": true
+          },
+          "probability": {
+            "type": "number",
+            "nullable": true
+          },
+          "expected_available": {
+            "type": "integer",
+            "nullable": true
+          },
+          "expected_occupancy_pct": {
+            "type": "number",
+            "nullable": true
+          },
+          "crowd_level": {
+            "$ref": "#/components/schemas/CrowdLevel"
+          },
+          "pedestrians": {
+            "type": "integer",
+            "nullable": true
+          },
+          "requested_arrival_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "estimated_arrival_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_freshness_s": {
+            "type": "integer",
+            "nullable": true
+          },
+          "data_state": {
+            "$ref": "#/components/schemas/DataState"
+          },
+          "reliability": {
+            "$ref": "#/components/schemas/Reliability"
+          },
+          "uncertainty": {
+            "type": "object",
+            "nullable": true
+          },
+          "method": {
+            "type": "string"
+          },
+          "n_simulations": {
+            "type": "integer",
+            "nullable": true
+          },
+          "model_version_id": {
+            "type": "string",
+            "nullable": true
+          },
+          "provenance": {
+            "$ref": "#/components/schemas/Provenance"
+          }
+        }
+      },
+      "CompareRequest": {
+        "type": "object",
+        "required": [
+          "candidates"
+        ],
+        "properties": {
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "zone_id"
+              ],
+              "properties": {
+                "zone_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "arrival_time": {
+                  "type": "string",
+                  "format": "date-time",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "CompareOut": {
+        "type": "object",
+        "required": [
+          "ranked"
+        ],
+        "properties": {
+          "ranked": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityOut"
+            }
+          }
+        }
+      },
+      "RecommendationRequest": {
+        "type": "object",
+        "required": [
+          "destination_lat",
+          "destination_lon"
+        ],
+        "properties": {
+          "destination_lat": {
+            "type": "number"
+          },
+          "destination_lon": {
+            "type": "number"
+          },
+          "arrival_time": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "max_walk_m": {
+            "type": "integer",
+            "default": 1000
+          },
+          "limit": {
+            "type": "integer",
+            "default": 5
+          }
+        }
+      },
+      "RecommendationOut": {
+        "type": "object",
+        "required": [
+          "recommendations"
+        ],
+        "properties": {
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "zone_id",
+                "zone_name",
+                "score",
+                "probability",
+                "walk_dist_m"
+              ],
+              "properties": {
+                "zone_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "zone_name": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number"
+                },
+                "probability": {
+                  "type": "number"
+                },
+                "expected_available": {
+                  "type": "integer"
+                },
+                "walk_dist_m": {
+                  "type": "integer"
+                },
+                "crowd_level": {
+                  "$ref": "#/components/schemas/CrowdLevel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ReportOccupancyOut": {
+        "type": "object",
+        "required": [
+          "records"
+        ],
+        "properties": {
+          "records": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bucket": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "avg_occupancy_pct": {
+                  "type": "number"
+                },
+                "peak_occupancy_pct": {
+                  "type": "number"
+                },
+                "total_turnover": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AuditLogRowOut": {
+        "type": "object",
+        "required": [
+          "id",
+          "action",
+          "entity_type",
+          "entity_id",
+          "recorded_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "action": {
+            "type": "string"
+          },
+          "entity_type": {
+            "type": "string"
+          },
+          "entity_id": {
+            "type": "string"
+          },
+          "actor_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "before": {
+            "type": "object",
+            "nullable": true
+          },
+          "after": {
+            "type": "object",
+            "nullable": true
+          },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

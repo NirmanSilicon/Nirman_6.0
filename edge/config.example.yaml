@@ -1,0 +1,65 @@
+# ParkSMART Edge AI Pipeline - Example Configuration (File 160 / M2 Ownership)
+#
+# HONESTY NOTICE:
+# All detection confidence thresholds, image resolutions, overlap ratios,
+# and sampling frequencies are UNVALIDATED engineering placeholders.
+# No accuracy or validation is claimed for Bhubaneswar municipal deployments.
+
+camera_id: "c1a1a1a1-1111-4111-8111-111111111111"
+zone_id: "a1a1a1a1-1111-4111-8111-111111111111"
+
+# ----------------------------------------------------------------------------
+# Video Input Configuration
+# ----------------------------------------------------------------------------
+video:
+  source: "/data/parking_sample.mp4"
+  loop: true
+  target_fps: 5.0              # UNVALIDATED: arbitrary frame sampling rate
+  timeout_s: 10.0
+
+# ----------------------------------------------------------------------------
+# YOLO Model Configuration
+# ----------------------------------------------------------------------------
+model:
+  # Model weights belong under /models and must be mounted read-only
+  model_path: "/models/yolo26n.pt"
+  model_version: "yolo26n"
+  imgsz: 640                   # UNVALIDATED: standard COCO model resolution
+  conf_threshold: 0.25         # UNVALIDATED: detection confidence threshold
+  device: "cpu"                # Hardware choice: 'cpu', 'cuda', or device id
+  # Privacy enforcement: Disk saving MUST remain disabled
+  save_frames: false           # LOCKED: Never write raw frames to disk
+  save_crops: false            # LOCKED: Never write detection crops to disk
+  save_txt: false              # LOCKED: Never write raw detection coordinates
+
+# ----------------------------------------------------------------------------
+# Region of Interest (ROI) Mapping
+# ----------------------------------------------------------------------------
+roi:
+  roi_file: "docs/contracts/roi_mapping.example.json"
+  occupancy_overlap_threshold: 0.30  # UNVALIDATED: overlap threshold for bay occupancy
+  unoccupied_confidence: 1.0         # UNVALIDATED: confidence reported for free bay
+
+# ----------------------------------------------------------------------------
+# Telemetry Aggregation & Publishing Intervals
+# ----------------------------------------------------------------------------
+aggregator:
+  occupancy_interval_s: 10     # UNVALIDATED: seconds between occupancy publications
+  crowd_interval_s: 60         # UNVALIDATED: seconds between crowd publications (divides 900)
+  health_interval_s: 30        # UNVALIDATED: seconds between health heartbeat publications
+  area_m2: 150.0               # UNVALIDATED: monitored physical area in m2
+
+# ----------------------------------------------------------------------------
+# MQTT Broker Settings
+# ----------------------------------------------------------------------------
+mqtt:
+  broker_host: "localhost"
+  broker_port: 8883            # Default port 8883 with TLS
+  username: "edge_camera_c1"
+  password: "change_in_production"
+  tls: true                    # Set false only for local insecure development
+  ca_cert: null
+  client_cert: null
+  client_key: null
+  insecure_tls: false
+  qos: 1                       # Mandatory QoS 1 for all ParkSMART messages

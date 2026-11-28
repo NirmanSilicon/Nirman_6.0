@@ -1,0 +1,6 @@
+# ParkSMART Edge AI Vision Client Dependencies (File 159 / M2 Ownership)
+ultralytics>=8.3.0
+opencv-python-headless>=4.8.0
+pyyaml>=6.0
+numpy>=1.24.0
+paho-mqtt>=1.6.1

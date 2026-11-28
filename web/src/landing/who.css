@@ -1,0 +1,22 @@
+.ps-who { box-sizing: border-box; overflow: hidden; padding: 4rem 0; background: #FFF6D6; color: #1F1C28; font-family: ui-sans-serif, system-ui, sans-serif; }
+.ps-who *, .ps-who *::before, .ps-who *::after { box-sizing: border-box; }
+.ps-who h2 { margin: 0; padding: 0 clamp(1rem, 5vw, 5rem); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.1; }
+.ps-who .cf { width: 100%; }
+.ps-who .cf-wrap { position: relative; }
+.ps-who .cf-frame { overflow: hidden; padding: 2.5rem 0; cursor: grab; outline: none; }
+.ps-who .cf-frame:active { cursor: grabbing; }
+.ps-who .cf-frame:focus-visible { box-shadow: inset 0 0 0 3px #7A66B0; }
+.ps-who .cf-track { position: relative; height: var(--cf-card); transform-style: preserve-3d; user-select: none; pointer-events: none; }
+.ps-who .cf-card { position: absolute; top: 0; left: 50%; width: var(--cf-card); height: var(--cf-card); overflow: hidden; border: 3px solid #FFFFFF; border-radius: 22px; background: #1F1C28; box-shadow: 0 18px 40px rgba(31, 28, 40, 0.28); will-change: transform; pointer-events: auto; }
+.ps-who .cf-card img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.ps-who .cf-arrow { position: absolute; top: 50%; z-index: 200; display: grid; place-items: center; width: 44px; height: 44px; margin: 0; padding: 0; transform: translateY(-50%); border: 0; border-radius: 50%; background: #1F1C28; color: #F5C518; cursor: pointer; }
+.ps-who .cf-prev { left: clamp(0.5rem, 3vw, 3rem); }
+.ps-who .cf-next { right: clamp(0.5rem, 3vw, 3rem); }
+.ps-who .cf-arrow:focus-visible { outline: 3px solid #7A66B0; outline-offset: 3px; }
+.ps-who .cf-caption { display: flex; flex-direction: column; align-items: center; padding: 0 1.5rem; text-align: center; }
+.ps-who .cf-title { margin: 0; font-size: 1.5rem; font-weight: 800; }
+.ps-who .cf-sub { margin: 0.25rem 0 0; color: #55505F; }
+.ps-who dl { width: 100%; max-width: 360px; margin: 1.5rem 0 0; font-size: 0.95rem; }
+.ps-who dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0; border-top: 2px solid transparent; border-image: linear-gradient(90deg, #7A66B0, #D9CCFF, #8F7BC4) 1; }
+.ps-who dt { color: #55505F; }
+.ps-who dd { margin: 0; font-weight: 600; text-align: right; }
