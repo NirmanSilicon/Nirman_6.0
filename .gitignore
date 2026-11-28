@@ -1,2 +1,6 @@
 branchcreation.sh
 .env
+.venv/
+__pycache__/
+*.pyc
+events.db
