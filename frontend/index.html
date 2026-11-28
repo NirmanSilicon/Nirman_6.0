@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBVAP // Border Surveillance Command</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="tactical-header">
+    <div>
+      <div class="title-row">
+        <span class="pulse-dot"></span>
+        <h1>IBVAP // BORDER SURVEILLANCE COMMAND</h1>
+      </div>
+      <p class="subtitle">NODE: BOP_SECTOR_01 • MODE: PERIMETER DEFENSE • EDGE AI: ACTIVE</p>
+    </div>
+
+    <div class="controls">
+      <span id="outbox-badge" class="badge-amber hidden">OUTBOX QUEUED: 0 ALERTS</span>
+      <button id="sat-toggle-btn" class="btn btn-online">
+        4G/SAT UPLINK: ONLINE (C2 SYNC)
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div id="empty-state" class="empty-state">
+      NO PERIMETER BREACHES DETECTED. MONITORING LIVE FEED...
+    </div>
+    <section id="alert-grid" class="alert-grid"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
