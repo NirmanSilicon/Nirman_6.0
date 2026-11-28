@@ -179,6 +179,19 @@ class VideoSource:
         log.info("Opening network/smartphone stream: %s", url)
 
         try:
+            # Fast 1.5s TCP reachability check so unreachable phone IPs never hang OpenCV for 30s
+            from urllib.parse import urlparse
+            import socket
+            parsed = urlparse(url)
+            if parsed.hostname:
+                port = parsed.port or (443 if parsed.scheme == "https" else 554 if parsed.scheme == "rtsp" else 80)
+                try:
+                    with socket.create_connection((parsed.hostname, port), timeout=1.5):
+                        pass
+                except OSError as sock_err:
+                    log.warning("Stream host %s:%s unreachable (1.5s timeout): %s", parsed.hostname, port, sock_err)
+                    return False
+
             cap = cv2.VideoCapture(url)
 
             if not cap.isOpened():

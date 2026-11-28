@@ -158,9 +158,10 @@ function Home(){
 
 const EyeLogo=({w=64})=><svg viewBox="0 0 120 64" width={w} aria-hidden="true"><path d="M4 34C24 8 96 8 116 34C96 58 24 58 4 34Z" fill="none" stroke="var(--tx)" strokeWidth="5" strokeLinejoin="round"/><circle cx="60" cy="33" r="17" fill="var(--red)"/><g stroke="#fff" strokeWidth="2" opacity=".85">{[0,60,120].map(a=><line key={a} x1="60" y1="18" x2="60" y2="48" transform={`rotate(${a} 60 33)`}/>)}</g><circle cx="60" cy="33" r="6" fill="#14181c"/></svg>;
 const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,height:20}} aria-hidden="true"><path d="M2 12c3-5.5 6.5-7 10-7s7 1.5 10 7c-3 5.5-6.5 7-10 7S5 17.5 2 12z"/><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/>{off&&<path d="M4 4l16 16" strokeWidth="2.4"/>}</svg>;
-const HOST_NAME=(typeof location!=="undefined"&&location.hostname)?location.hostname:"127.0.0.1";
-const ML_STREAM_BASE=`http://${HOST_NAME}:8765`;
-const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`http://${HOST_NAME}:5000/api`;
+const RAW_HOST=(typeof location!=="undefined"&&location.hostname)?location.hostname:"127.0.0.1";
+const STREAM_HOST=(RAW_HOST==="localhost"||RAW_HOST==="::1"||!RAW_HOST)?"127.0.0.1":RAW_HOST;
+const ML_STREAM_BASE=`http://${STREAM_HOST}:8765`;
+const API_BASE=(typeof location!=="undefined"&&location.port==="5000")?"/api":`http://${STREAM_HOST}:5000/api`;
 
 function SignIn({onAuthSuccess,existingUser,onLogout}){
  const [show,setShow]=useState(false);const [u,setU]=useState("");const [p,setP]=useState("");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
@@ -274,22 +275,25 @@ function Live({zones}){
   if(url&&url.trim())sendControl("start_stream",{cam:"CAM_002",url:url.trim()});
  };
  useEffect(()=>{
-  let alive=true,fails=0;
+  let alive=true,fails=0,tick=0;
   const poll=async()=>{
+   tick++;
    try{
     const r=await fetch(`${ML_STREAM_BASE}/status.json`,{cache:"no-store"});
     if(r.ok){fails=0;const j=await r.json();if(alive){setMlStatus(j);setMlConnected(true)}}else if(alive){fails++;if(fails>=3)setMlConnected(false)}
    }catch(_e){if(alive){fails++;if(fails>=3)setMlConnected(false)}}
-   try{
-    const tok=localStorage.getItem("we-token");
-    if(tok){
-     const dr=await fetch(`${API_BASE}/detections?limit=5`,{headers:{Authorization:`Bearer ${tok}`}});
-     if(dr.ok){const dj=await dr.json();if(alive&&dj.data&&dj.data.detections)setRecentDet(dj.data.detections)}
-    }
-   }catch(_e){}
+   if(tick%4===1){
+    try{
+     const tok=localStorage.getItem("we-token");
+     if(tok){
+      const dr=await fetch(`${API_BASE}/detections?limit=5`,{headers:{Authorization:`Bearer ${tok}`}});
+      if(dr.ok){const dj=await dr.json();if(alive&&dj.data&&dj.data.detections)setRecentDet(dj.data.detections)}
+     }
+    }catch(_e){}
+   }
   };
   poll();
-  const id=setInterval(poll,1200);
+  const id=setInterval(poll,1000);
   return()=>{alive=false;clearInterval(id)};
  },[]);
  const shown=CAMS.filter(c=>(zf==="All zones"||c.zone===zf)&&(cs==="All cameras"||c.id===cs));

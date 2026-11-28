@@ -65,10 +65,15 @@ if (getEnv().nodeEnv !== 'test') {
   app.use(morgan('dev'));
 }
 
-// 4. Global API Rate Limiting
+// 4. Global API Rate Limiting (sized for real-time multi-camera dashboard & IoT telemetry)
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: () => (getEnv().nodeEnv === 'test' ? 1000 : 300),
+  max: () => (getEnv().nodeEnv === 'production' ? 5000 : 50000),
+  skip: (req) =>
+    req.path === '/health' ||
+    req.path === '/health/connectivity' ||
+    Boolean(req.headers['x-ml-service-key']) ||
+    Boolean(req.headers['x-device-key']),
   standardHeaders: true,
   legacyHeaders: false,
   message: {

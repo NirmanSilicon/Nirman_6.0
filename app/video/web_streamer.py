@@ -538,7 +538,7 @@ class HeadlessMLWebDaemon:
         self.fire_ok = self.fire_detector.load()
 
         self.publisher = WebStreamPublisher(
-            host="127.0.0.1",
+            host="0.0.0.0",
             port=8765,
             control_callback=self.handle_control,
         )
