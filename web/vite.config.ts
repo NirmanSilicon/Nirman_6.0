@@ -14,8 +14,8 @@ export default defineConfig({
         name: "Ouroboros — PCB value & recovery",
         short_name: "Ouroboros",
         description: "One phone photo in → value and next step out.",
-        theme_color: "#166534",
-        background_color: "#fafaf9",
+        theme_color: "#0e0d0c",
+        background_color: "#fff7f0",
         display: "standalone",
         start_url: "/",
         icons: [

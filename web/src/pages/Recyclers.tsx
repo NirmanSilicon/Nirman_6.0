@@ -14,15 +14,15 @@ export default function Recyclers() {
   const center = pos ?? DELHI;
   useEffect(() => { api.getRecyclers(center.lat, center.lng, 300).then((r) => setItems(r.items)).catch(() => {}); }, [center.lat, center.lng]);
   return (
-    <div className="space-y-3 p-4">
-      <h1 className="text-xl font-bold">{t("rec.title")}</h1>
+    <div className="space-y-3 p-4 md:p-8">
+      <h1 className="text-3xl">{t("rec.title")}</h1>
       {!pos && <button className="btn btn-ghost w-full" onClick={() => store.locate().then(setPos).catch(() => {})}>📍 {t("rec.allow")}</button>}
       <RecyclerMap center={center} items={items} />
       {items.map((r) => (
         <div key={r.id} className="card">
-          <div className="flex justify-between gap-2"><b>{r.name}</b><span className="whitespace-nowrap text-green-800">{r.distance_km} km</span></div>
-          <p className="text-sm text-zinc-500">{r.address} · CPCB {r.cpcb_reg_no}</p>
-          <p className="text-xs text-zinc-500">{r.accepts.join(", ")}</p>
+          <div className="flex justify-between gap-2"><b>{r.name}</b><span className="whitespace-nowrap text-ember">{r.distance_km} km</span></div>
+          <p className="text-sm text-mute">{r.address} · CPCB {r.cpcb_reg_no}</p>
+          <p className="text-xs text-mute">{r.accepts.join(", ")}</p>
           {!r.verified && <p className="text-xs text-amber-700">⚠ {t("result.sample")}</p>}
           <div className="mt-2 flex gap-2 text-sm">
             <a className="btn btn-ghost !py-1.5" target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${r.lat},${r.lng}`}>{t("result.directions")}</a>

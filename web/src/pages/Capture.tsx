@@ -65,7 +65,7 @@ export default function Capture() {
   };
 
   return (
-    <div className="relative flex h-full flex-col bg-black">
+    <div className="relative mx-auto flex h-full max-w-3xl flex-col overflow-hidden bg-ink md:my-0 md:h-full md:rounded-b-3xl">
       <div className="relative min-h-0 flex-1">
         <video ref={video} playsInline muted className="h-full w-full object-cover" />
         {!cam && <p className="absolute inset-0 flex items-center justify-center p-8 text-center text-white">{t("scan.noCamera")}</p>}
@@ -73,19 +73,19 @@ export default function Capture() {
           <div className="h-[28%] w-[92%] rounded-xl border-4 border-dashed border-white/80" />
         </div>
         <p className="absolute top-3 w-full text-center text-sm font-semibold text-white drop-shadow">{t("scan.hint")}</p>
-        {hint && <span className={`absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold ${hint.ok ? "bg-green-600 text-white" : "bg-amber-400 text-amber-950"}`}>
+        {hint && <span className={`absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold ${hint.ok ? "bg-orange text-white" : "bg-amber text-ink"}`}>
           {hint.ok ? `✓ ${t("scan.good")}` : t(`scan.${hint.issues[0]}`)}</span>}
         {(busy || msg) && <div className="absolute inset-0 flex items-center justify-center bg-black/60 p-8 text-center text-lg font-semibold text-white" onClick={() => !busy && setMsg("")}>{msg}</div>}
       </div>
-      <div className="bg-zinc-900 p-3 text-white">
+      <div className="bg-ink2 p-3 text-cream">
         <label className="mb-3 flex items-center gap-2 text-sm">
           <input type="checkbox" className="h-5 w-5" checked={consent} onChange={(e) => { setConsent(e.target.checked); localStorage.setItem("consent", e.target.checked ? "1" : "0"); }} />
           {t("scan.consent")}
         </label>
         <div className="flex items-center justify-around">
-          <button className="btn btn-ghost !bg-zinc-800 !text-white !border-zinc-700" onClick={() => file.current?.click()} disabled={busy}>🖼 {t("scan.gallery")}</button>
+          <button className="btn btn-ghost !bg-ink !text-cream !border-cream/30" onClick={() => file.current?.click()} disabled={busy}>🖼 {t("scan.gallery")}</button>
           <button aria-label={t("scan.shutter")} onClick={snap} disabled={busy || !cam}
-            className="h-20 w-20 rounded-full border-4 border-white bg-green-600 active:scale-90 disabled:opacity-40" />
+            className="h-20 w-20 rounded-full border-4 border-cream bg-orange active:scale-90 disabled:opacity-40" />
           <span className="w-24" />
         </div>
         <input ref={file} type="file" accept="image/*" capture="environment" hidden onChange={(e) => pick(e.target.files?.[0])} />

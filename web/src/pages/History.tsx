@@ -26,21 +26,21 @@ export default function History() {
     return () => { window.removeEventListener("history-changed", load); window.removeEventListener("queue-changed", load); };
   }, []);
   return (
-    <div className="space-y-3 p-4">
-      <h1 className="text-xl font-bold">{t("history.title")}</h1>
+    <div className="space-y-3 p-4 md:p-8">
+      <h1 className="text-3xl">{t("history.title")}</h1>
       {pend > 0 && (
-        <div className="card flex items-center justify-between border-amber-300 bg-amber-50">
+        <div className="card flex items-center justify-between border-amber bg-cream">
           <span>{pend} {t("history.pending")}</span>
           <button className="btn btn-primary !py-1.5" onClick={() => store.flush()}>{t("history.upload")}</button>
         </div>)}
-      {!items.length && <p className="text-zinc-500">{t("history.empty")}</p>}
+      {!items.length && <p className="text-mute">{t("history.empty")}</p>}
       {items.map((s) => (
         <Link key={s.scan_id} to={`/result/${s.scan_id}`} className="card block">
           <div className="flex justify-between">
-            <b className="text-green-900">{s.value_low != null ? inr(s.value_low, s.value_high!) : t("result.notSure")}</b>
-            <span className="text-sm text-zinc-500">{new Date(s.created_at).toLocaleString()}</span>
+            <b className="text-ember">{s.value_low != null ? inr(s.value_low, s.value_high!) : t("result.notSure")}</b>
+            <span className="text-sm text-mute">{new Date(s.created_at).toLocaleString()}</span>
           </div>
-          {s.top_route && <p className="text-sm text-zinc-600">{t(`routes.${s.top_route}`)}</p>}
+          {s.top_route && <p className="text-sm text-mute">{t(`routes.${s.top_route}`)}</p>}
         </Link>))}
     </div>
   );

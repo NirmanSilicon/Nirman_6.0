@@ -3,11 +3,23 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as store from "../lib/store";
 
+/** Round rating dots, like the deck's route-scoring table (dots + label: colour-blind safe). */
 export function Dots({ n, label }: { n: number; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1 text-sm" aria-label={`${label}: ${n}/5`}>
-      <span className="w-14 text-zinc-500">{label}</span>
-      <span className="tracking-widest text-green-800" aria-hidden>{"●".repeat(n)}<span className="text-zinc-300">{"●".repeat(5 - n)}</span></span>
+    <span className="flex items-center justify-between gap-2 text-xs" aria-label={`${label}: ${n}/5`}>
+      <span className="text-mute">{label}</span>
+      <span className="flex gap-1" aria-hidden>
+        {[0, 1, 2, 3, 4].map((i) => <span key={i} className={`h-2.5 w-2.5 rounded-full ${i < n ? "bg-orange" : "bg-line"}`} />)}
+      </span>
+    </span>
+  );
+}
+
+export function Logo({ dark = true }: { dark?: boolean }) {
+  return (
+    <span className="display flex items-center gap-2 text-2xl leading-none" style={{ fontFamily: "var(--font-sans)", fontWeight: 700 }}>
+      <svg width="28" height="28" viewBox="0 0 512 512" aria-hidden><circle cx="256" cy="256" r="200" fill="none" stroke="#f26a1b" strokeWidth="26" /><circle cx="256" cy="256" r="84" fill="#f5a623" /><circle cx="440" cy="256" r="40" fill="#fbe8da" /></svg>
+      <span><span className={dark ? "text-cream" : "text-ink"}>Ouro</span><span className="text-orange">Boros</span></span>
     </span>
   );
 }
@@ -15,8 +27,13 @@ export function Dots({ n, label }: { n: number; label: string }) {
 export function LangToggle() {
   const { i18n } = useTranslation();
   const hi = i18n.language === "hi";
-  return <button className="rounded-full border border-white/50 px-3 py-1 text-sm font-semibold" onClick={() => i18n.changeLanguage(hi ? "en" : "hi")}>{hi ? "English" : "हिन्दी"}</button>;
+  return <button className="rounded-full border border-cream/40 px-3 py-1 text-xs font-semibold text-cream hover:bg-cream/10" onClick={() => i18n.changeLanguage(hi ? "en" : "hi")}>{hi ? "English" : "हिन्दी"}</button>;
 }
+
+const NAV = [
+  { to: "/", key: "scan", icon: "◉", end: true }, { to: "/history", key: "history", icon: "◷" },
+  { to: "/recyclers", key: "recyclers", icon: "⌖" }, { to: "/how", key: "how", icon: "?" }, { to: "/more", key: "more", icon: "⋯" },
+];
 
 export function Layout() {
   const { t } = useTranslation();
@@ -29,25 +46,43 @@ export function Layout() {
     refresh(); if (navigator.onLine) store.flush();
     return () => { window.removeEventListener("online", up); window.removeEventListener("offline", down); window.removeEventListener("queue-changed", refresh); };
   }, []);
-  const tab = ({ isActive }: { isActive: boolean }) => `flex-1 py-3 text-center text-sm font-semibold ${isActive ? "text-green-800 border-t-2 border-green-800" : "text-zinc-500"}`;
+  const mobile = ({ isActive }: { isActive: boolean }) => `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-semibold ${isActive ? "text-orange" : "text-cream/60"}`;
+  const desk = ({ isActive }: { isActive: boolean }) => `rounded-full px-4 py-1.5 text-sm font-semibold ${isActive ? "bg-orange text-white" : "text-cream/80 hover:text-cream"}`;
   return (
-    <div className="mx-auto flex h-full max-w-lg flex-col bg-stone-50">
-      <header className="flex items-center justify-between bg-green-800 px-4 py-3 text-white">
-        <span className="text-lg font-bold">Ouroboros</span>
-        <div className="flex items-center gap-2">
-          {(!online || q > 0) && <span className="rounded-full bg-amber-400 px-2 py-0.5 text-xs font-bold text-amber-950">{online ? `${q} ↑` : "Offline"}{!online && q > 0 ? ` · ${q}` : ""}</span>}
-          <LangToggle />
+    <div className="flex h-dvh flex-col">
+      <header className="bg-ink text-cream">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+          <Logo />
+          <nav className="hidden gap-1 md:flex">{NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={desk}>{t(`nav.${n.key}`)}</NavLink>)}</nav>
+          <div className="flex items-center gap-2">
+            {(!online || q > 0) && <span className="rounded-full bg-amber px-2 py-0.5 text-xs font-bold text-ink">{online ? `${q} ↑` : `Offline${q ? ` · ${q}` : ""}`}</span>}
+            <LangToggle />
+          </div>
         </div>
       </header>
-      <main className="min-h-0 flex-1 overflow-y-auto"><Outlet /></main>
-      <nav className="flex border-t border-zinc-200 bg-white pb-[env(safe-area-inset-bottom)]">
-        <NavLink to="/" end className={tab}>📷<br />{t("nav.scan")}</NavLink>
-        <NavLink to="/history" className={tab}>🕘<br />{t("nav.history")}</NavLink>
-        <NavLink to="/recyclers" className={tab}>📍<br />{t("nav.recyclers")}</NavLink>
-        <NavLink to="/more" className={tab}>⋯<br />{t("nav.more")}</NavLink>
+      <main className="min-h-0 flex-1 overflow-y-auto"><div className="mx-auto h-full max-w-6xl"><Outlet /></div></main>
+      <nav className="flex bg-ink pb-[env(safe-area-inset-bottom)] md:hidden">
+        {NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={mobile}><span className="text-lg leading-none">{n.icon}</span>{t(`nav.${n.key}`)}</NavLink>)}
       </nav>
     </div>
   );
 }
 
 export const inr = (lo: number, hi: number) => `₹${lo.toLocaleString("en-IN")}–${hi.toLocaleString("en-IN")}`;
+
+/** The deck's Capture → Detect → Identify → Value → Decide → Report flow. */
+export function Pipeline({ active = -1, compact = false }: { active?: number; compact?: boolean }) {
+  const { t } = useTranslation();
+  const steps = ["capture", "detect", "identify", "value", "decide", "report"];
+  return (
+    <ol className={`grid gap-3 ${compact ? "grid-cols-6" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"}`}>
+      {steps.map((s, i) => (
+        <li key={s} className="text-center">
+          <span className={`mx-auto flex h-11 w-11 items-center justify-center rounded-full border-2 border-orange text-sm font-bold ${i <= active || active === -1 && i === 5 ? "bg-orange text-white" : "bg-paper text-orange"}`}>{i + 1}</span>
+          <p className="display mt-1 text-sm uppercase tracking-wider">{t(`how.steps.${s}`)}</p>
+          {!compact && <p className="mx-auto mt-0.5 max-w-[11rem] text-xs text-mute">{t(`how.stepsDesc.${s}`)}</p>}
+        </li>
+      ))}
+    </ol>
+  );
+}

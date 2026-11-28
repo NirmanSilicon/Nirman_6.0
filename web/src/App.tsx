@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/ui";
 import Capture from "./pages/Capture";
+import How from "./pages/How";
 import History from "./pages/History";
 import More from "./pages/More";
 import Prices from "./pages/Prices";
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="result/:id" element={<Result />} />
         <Route path="history" element={<History />} />
         <Route path="recyclers" element={<Recyclers />} />
+        <Route path="how" element={<How />} />
         <Route path="prices" element={<Prices />} />
         <Route path="more" element={<More />} />
         <Route path="*" element={<Capture />} />

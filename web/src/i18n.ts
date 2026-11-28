@@ -2,7 +2,13 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const en = {
-  nav: { scan: "Scan", history: "History", recyclers: "Recyclers", more: "More" },
+  nav: { scan: "Scan", history: "History", recyclers: "Recyclers", how: "How it works", more: "More" },
+  how: { eyebrow: "How it works", title: "Boards get shredded before anyone looks", lead: "One phone photo in → value and next step out.", problem: "The problem", untreated: "untreated",
+    problemText: "India produced about 1.75 MT of e-waste in FY24. Only ~43% was formally processed; ~57% (~990,000 t) went untreated or informal, where boards are burned or acid-leached before anyone checks what is on them.",
+    pipeline: "From photo to decision", different: "What makes it different", honest: "Why you can trust the number", honestText: "Values are always ranges. Every figure comes from a visible table with its source and date, and hazardous recovery is only ever pointed to authorised recyclers.", cta: "Scan a board",
+    steps: { capture: "Capture", detect: "Detect", identify: "Identify", value: "Value", decide: "Decide", report: "Report" },
+    stepsDesc: { capture: "Photo with framing and light checks", detect: "Boxes drawn around components", identify: "Each part classified, with confidence", value: "Reuse + metals − cost, as a ₹ range", decide: "Routes scored on value, cost, energy, CO₂", report: "Shareable card and nearest recycler" },
+    diff: { value: { t: "Value-first", d: "Rupees per board, not just boxes" }, reuse: { t: "Reuse layer", d: "Spots resalable ICs and memory" }, route: { t: "Route scoring", d: "Value, cost, energy, CO₂" }, phone: { t: "Phone-ready", d: "Built for informal recyclers" } } },
   scan: { title: "Snap the board", hint: "Fit the RAM stick inside the frame", shutter: "Take photo", gallery: "Gallery",
     analysing: "Reading the board…", consent: "Save my photo to help improve results", noCamera: "Camera unavailable. Pick a photo instead.",
     queued: "No internet. Scan saved and will upload automatically.", retake: "Retake", useAnyway: "Use anyway", poor: "Photo may be poor quality",
@@ -25,7 +31,13 @@ const en = {
   common: { loading: "Loading…", back: "Back" },
 };
 const hi: typeof en = {
-  nav: { scan: "स्कैन", history: "इतिहास", recyclers: "रिसाइक्लर", more: "और" },
+  nav: { scan: "स्कैन", history: "इतिहास", recyclers: "रिसाइक्लर", how: "कैसे काम करता है", more: "और" },
+  how: { eyebrow: "कैसे काम करता है", title: "देखने से पहले ही बोर्ड कट जाते हैं", lead: "एक फोटो अंदर → कीमत और अगला कदम बाहर।", problem: "समस्या", untreated: "अनुपचारित",
+    problemText: "भारत में FY24 में लगभग 1.75 MT ई-कचरा बना। सिर्फ़ ~43% औपचारिक रूप से प्रोसेस हुआ; ~57% (~9.9 लाख टन) अनौपचारिक रास्तों में गया, जहाँ बोर्ड जला या एसिड में डाल दिए जाते हैं, बिना देखे कि उन पर क्या है।",
+    pipeline: "फोटो से फैसले तक", different: "क्या अलग है", honest: "नंबर पर भरोसा क्यों", honestText: "कीमत हमेशा रेंज में होती है। हर आँकड़ा स्रोत और तारीख के साथ दिखाई देने वाली तालिका से आता है, और खतरनाक प्रोसेसिंग सिर्फ़ अधिकृत रिसाइक्लर को सुझाई जाती है।", cta: "बोर्ड स्कैन करें",
+    steps: { capture: "फोटो", detect: "पहचान", identify: "वर्गीकरण", value: "मूल्य", decide: "फैसला", report: "रिपोर्ट" },
+    stepsDesc: { capture: "फ्रेम और रोशनी की जाँच के साथ फोटो", detect: "पुर्ज़ों के चारों ओर बॉक्स", identify: "हर पुर्ज़ा भरोसे के साथ पहचाना", value: "पुन: उपयोग + धातु − खर्च, ₹ रेंज में", decide: "मूल्य, खर्च, ऊर्जा, CO₂ पर रूट स्कोर", report: "शेयर कार्ड और नज़दीकी रिसाइक्लर" },
+    diff: { value: { t: "मूल्य पहले", d: "बोर्ड के रुपये, सिर्फ़ बॉक्स नहीं" }, reuse: { t: "पुन: उपयोग परत", d: "बिकने लायक IC और मेमोरी पहचानता है" }, route: { t: "रूट स्कोरिंग", d: "मूल्य, खर्च, ऊर्जा, CO₂" }, phone: { t: "फोन के लिए", d: "अनौपचारिक रिसाइक्लर के लिए बना" } } },
   scan: { title: "बोर्ड की फोटो लें", hint: "RAM स्टिक को फ्रेम में रखें", shutter: "फोटो लें", gallery: "गैलरी",
     analysing: "बोर्ड पढ़ रहे हैं…", consent: "नतीजे बेहतर करने के लिए मेरी फोटो सेव करें", noCamera: "कैमरा उपलब्ध नहीं। फोटो चुनें।",
     queued: "इंटरनेट नहीं है। स्कैन सेव हो गया, अपने आप अपलोड होगा।", retake: "दोबारा लें", useAnyway: "फिर भी इस्तेमाल करें", poor: "फोटो साफ़ नहीं हो सकती",

@@ -3,7 +3,7 @@ import type { ScanResult } from "../types";
 import { localImage } from "../lib/store";
 import { imageUrl } from "../lib/api";
 
-const COLORS: Record<string, string> = { RAM_IC: "#16a34a", IC: "#2563eb", CAPACITOR: "#d97706", RESISTOR: "#9333ea", CONNECTOR: "#0891b2", CRYSTAL: "#db2777" };
+const COLORS: Record<string, string> = { RAM_IC: "#f26a1b", IC: "#2563eb", CAPACITOR: "#d97706", RESISTOR: "#9333ea", CONNECTOR: "#0891b2", CRYSTAL: "#db2777" };
 
 export default function BBoxOverlay({ r }: { r: ScanResult }) {
   const [src, setSrc] = useState<string | null>(null);

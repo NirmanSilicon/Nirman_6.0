@@ -1,9 +1,36 @@
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/rajdhani/600.css";
+@import "@fontsource/rajdhani/700.css";
+@import "@fontsource/noto-sans-devanagari/devanagari-400.css";
+@import "@fontsource/noto-sans-devanagari/devanagari-600.css";
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
+/* Palette taken from the Ouroboros pitch deck */
+@theme {
+  --color-ink: #0e0d0c;
+  --color-ink2: #1c1a18;
+  --color-cream: #fbe8da;
+  --color-paper: #fff7f0;
+  --color-line: #f0d2bd;
+  --color-ember: #b8470f;
+  --color-orange: #f26a1b;
+  --color-amber: #f5a623;
+  --color-mute: #7a6b60;
+  --font-sans: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-display: "Rajdhani", "Poppins", "Noto Sans Devanagari", sans-serif;
+}
+
 html, body, #root { height: 100%; }
-body { background: #fafaf9; color: #18181b; -webkit-tap-highlight-color: transparent; }
-.btn { @apply rounded-2xl px-5 py-3 font-semibold active:scale-95 transition disabled:opacity-50; }
-.btn-primary { @apply bg-green-800 text-white; }
-.btn-ghost { @apply bg-white border border-zinc-300 text-zinc-800; }
-.card { @apply bg-white rounded-2xl border border-zinc-200 p-4; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-tap-highlight-color: transparent; }
+h1, h2, .display { font-family: var(--font-display); font-weight: 700; letter-spacing: .01em; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: .75rem; letter-spacing: .28em; text-transform: uppercase; color: var(--color-ember); }
+.btn { @apply rounded-full px-5 py-3 text-sm font-semibold transition active:scale-95 disabled:opacity-50; }
+.btn-primary { @apply bg-ink text-cream hover:bg-ink2; }
+.btn-accent { @apply bg-orange text-white; }
+.btn-ghost { @apply bg-transparent border border-ink/30 text-ink hover:bg-cream; }
+.card { @apply rounded-2xl border border-line bg-white p-4; }
+.card-dark { @apply rounded-2xl border border-orange/60 bg-ink text-cream p-4; }
+.dot-grid { background-image: radial-gradient(rgba(242,106,27,.18) 1px, transparent 1px); background-size: 18px 18px; }

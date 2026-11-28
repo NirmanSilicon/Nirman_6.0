@@ -11,7 +11,7 @@ export default function RecyclerMap({ center, items }: { center: { lat: number; 
     L.circleMarker([center.lat, center.lng], { radius: 8, color: "#2563eb", fillOpacity: 0.9 }).addTo(map).bindTooltip("You");
     const pts: L.LatLngTuple[] = [[center.lat, center.lng]];
     items.forEach((r) => {
-      L.circleMarker([r.lat, r.lng], { radius: 9, color: "#166534", fillColor: "#16a34a", fillOpacity: 0.9 }).addTo(map)
+      L.circleMarker([r.lat, r.lng], { radius: 9, color: "#0e0d0c", fillColor: "#f26a1b", fillOpacity: 0.9 }).addTo(map)
         .bindPopup(`<b>${r.name.replace(/</g, "&lt;")}</b><br/>${r.distance_km} km`);
       pts.push([r.lat, r.lng]);
     });
