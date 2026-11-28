@@ -78,7 +78,7 @@ const seedDemoData = async () => {
       { new: true, upsert: true }
     );
 
-    // 2. Seed Workplace Zones (ZONE_A & ZONE_B)
+    // 2. Seed Workplace Zones (ZONE_A .. ZONE_F)
     const zoneA = await Zone.findOneAndUpdate(
       { zoneCode: 'ZONE_A' },
       {
@@ -103,9 +103,69 @@ const seedDemoData = async () => {
       { new: true, upsert: true }
     );
 
-    // 3. Assign Supervisor A to Assembly Zone A
+    const zoneC = await Zone.findOneAndUpdate(
+      { zoneCode: 'ZONE_C' },
+      {
+        $set: {
+          zoneName: 'Zone C',
+          description: 'Factory Floor Assembly & Inspection Zone',
+          status: 'ACTIVE',
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    const zoneD = await Zone.findOneAndUpdate(
+      { zoneCode: 'ZONE_D' },
+      {
+        $set: {
+          zoneName: 'Zone D',
+          description: 'Storage Aisle & Material Handling Zone',
+          status: 'ACTIVE',
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    const zoneE = await Zone.findOneAndUpdate(
+      { zoneCode: 'ZONE_E' },
+      {
+        $set: {
+          zoneName: 'Zone E',
+          description: 'Loading Dock & Outbound Freight Zone',
+          status: 'INACTIVE',
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    const zoneF = await Zone.findOneAndUpdate(
+      { zoneCode: 'ZONE_F' },
+      {
+        $set: {
+          zoneName: 'Zone F',
+          description: 'Control Room & Operations Monitoring Zone',
+          status: 'ACTIVE',
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    // 3. Assign Supervisor A to Assembly Zone A & Warehouse Zone B
     await ZoneAssignment.findOneAndUpdate(
       { userId: supervisorA._id, zoneId: zoneA._id },
+      {
+        $set: {
+          assignedBy: adminUser._id,
+          status: 'ACTIVE',
+          assignedAt: new Date(),
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    await ZoneAssignment.findOneAndUpdate(
+      { userId: supervisorA._id, zoneId: zoneB._id },
       {
         $set: {
           assignedBy: adminUser._id,
@@ -147,6 +207,22 @@ const seedDemoData = async () => {
       },
       { new: true, upsert: true }
     );
+
+    const extraWorkers = [
+      { employeeCode: 'W-101', name: 'Ravi Kumar', department: 'Assembly', designation: 'Operator', rfidUid: '48A10101', zoneId: zoneA._id },
+      { employeeCode: 'W-102', name: 'Anita Das', department: 'Quality', designation: 'Inspector', rfidUid: '48B70102', zoneId: zoneC._id },
+      { employeeCode: 'W-103', name: 'Suresh Nayak', department: 'Storage', designation: 'Handler', rfidUid: '49C20103', zoneId: zoneD._id },
+      { employeeCode: 'W-104', name: 'Priya Sahoo', department: 'Control', designation: 'Technician', rfidUid: '4A100104', zoneId: zoneF._id },
+      { employeeCode: 'W-105', name: 'Manoj Behera', department: 'Warehouse', designation: 'Operator', rfidUid: '4B330105', zoneId: zoneB._id },
+      { employeeCode: 'W-106', name: 'Kavita Rao', department: 'Assembly', designation: 'Welder', rfidUid: '4C5D0106', zoneId: zoneC._id },
+    ];
+    for (const ew of extraWorkers) {
+      await Worker.findOneAndUpdate(
+        { employeeCode: ew.employeeCode },
+        { $set: { ...ew, status: 'ACTIVE' } },
+        { new: true, upsert: true }
+      );
+    }
 
     // 5. Seed Registered ESP32 Device (ESP32_001 in Zone A)
     await Device.findOneAndUpdate(

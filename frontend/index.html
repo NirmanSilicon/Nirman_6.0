@@ -312,7 +312,7 @@ const same=(a,b)=>a.toDateString()===b.toDateString();
 const fmt=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 function dayRows(d){const t=same(d,TODAY);return W.map((w,i)=>{if(t)return w;const v=(i*5+d.getDate()*3+d.getMonth())%8,st=v<2?"Absent":v<4?"Late":"Present";return {...w,st,in:st==="Absent"?"—":st==="Late"?"09:"+String(10+i*3).padStart(2,"0"):"08:"+String(40+i*2),out:st==="Absent"?"—":"17:0"+(i%6)}})}
 
-function Attend(){
+function Attend({dbWorkers=[]}){
  const [q,setQ]=useState("");const [f,setF]=useState("All");const [r,setR]=useState("Daily");const [scan,setScan]=useState(null);
  const [sel,setSel]=useState(TODAY);const [mon,setMon]=useState(new Date(2026,10,1));const [liveLogs,setLiveLogs]=useState([]);
  useEffect(()=>{
@@ -321,14 +321,14 @@ function Attend(){
    try{
     const tok=localStorage.getItem("we-token");
     if(!tok)return;
-    const res=await fetch(`${API_BASE}/rfid/logs?limit=15`,{headers:{Authorization:`Bearer ${tok}`}});
+    const res=await fetch(`${API_BASE}/rfid/logs?limit=25`,{headers:{Authorization:`Bearer ${tok}`}});
     if(res.ok){
      const j=await res.json();
      if(alive&&j.data&&Array.isArray(j.data.logs)&&j.data.logs.length){
       const latest=j.data.logs[0];
       const wName=latest.workerId?.name||"Unregistered Card";
       const tStr=latest.scannedAt?new Date(latest.scannedAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"}):"Now";
-      setScan(`[ESP32 ${latest.deviceId?.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.eventType}) at ${tStr}`);
+      setScan(`[MongoDB Live · ESP32 ${latest.deviceId?.deviceCode||"ESP32_001"}] ${wName} scanned UID ${latest.rfidUid} (${latest.eventType}) at ${tStr}`);
       const mapped=j.data.logs.map((lg,idx)=>({
        id:lg.workerId?.employeeCode||`RFID-${idx+1}`,
        name:lg.workerId?.name||`Card ${lg.rfidUid}`,
@@ -346,69 +346,148 @@ function Attend(){
   const id=setInterval(loadRfid,2000);
   return()=>{alive=false;clearInterval(id)};
  },[]);
- const all=liveLogs.length?[...liveLogs,...dayRows(sel)]:dayRows(sel);const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
+ const workerFallback=dbWorkers.length?dbWorkers.map((w,i)=>({id:w.employeeCode||w.id,name:w.name,rfid:w.rfidUid||w.rfid||"—",in:"08:50",out:"—",st:w.status==="ACTIVE"?"Present":"Absent"})):dayRows(sel);
+ const all=liveLogs.length?[...liveLogs,...workerFallback]:workerFallback;
+ const rows=all.filter(w=>(f==="All"||w.st===f)&&(w.name+w.id+w.rfid).toLowerCase().includes(q.toLowerCase()));
  const abs=all.filter(w=>w.st==="Absent").length,late=all.filter(w=>w.st==="Late").length,pres=all.length-abs;
  const ws=new Date(sel);ws.setDate(sel.getDate()-(sel.getDay()+6)%7);const we=new Date(ws);we.setDate(ws.getDate()+6);
  const dl=r==="Daily"?fmt(sel):r==="Weekly"?fmt(ws)+" – "+fmt(we):sel.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
  const sim=async()=>{
+  const pick=dbWorkers.length?dbWorkers[Math.floor(Math.random()*dbWorkers.length)]:{name:"Rajesh Sharma",rfidUid:"A1B2C3D4"};
+  const uid=pick.rfidUid||"A1B2C3D4";
   try{
-   await fetch(`${API_BASE}/rfid/scan`,{method:"POST",headers:{"Content-Type":"application/json","X-Device-Key":"esp32_dev_local_node_001_key"},body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:"A1B2C3D4",eventType:"ENTRY"})});
+   await fetch(`${API_BASE}/rfid/scan`,{method:"POST",headers:{"Content-Type":"application/json","X-Device-Key":"esp32_dev_local_node_001_key"},body:JSON.stringify({deviceCode:"ESP32_001",rfidUid:uid,eventType:"ENTRY"})});
   }catch(_e){}
-  const w=W[Math.floor(Math.random()*W.length)];setScan(w.name+" scanned "+w.rfid+" at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}));
+  setScan(`[MongoDB Saved] ${pick.name} scanned ${uid} at `+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"}));
  };
- return <div className="grid" style={{gap:16}}><div className="card"><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label></div>
- <div className="card row"><span className="live"><span className="dot"/> ESP32 RC522 RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate scan</button></div>
+ return <div className="grid" style={{gap:16}}><div className="card" style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:10}}><label style={{display:"inline-flex",gap:10,alignItems:"center",fontWeight:500}}>Select date<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(sel)} onChange={e=>{const v=e.target.value;if(!v)return;const[y,m,d]=v.split("-").map(Number);setSel(new Date(y,m-1,d))}}/></label><span className="bd g">MongoDB Connected · {dbWorkers.length||W.length} Registered Workers · {liveLogs.length} RFID Scans</span></div>
+ <div className="card row"><span className="live"><span className="dot"/> ESP32 RC522 RFID reader online. {scan||"Waiting for a card scan."}</span><button className="btn grn" onClick={sim}>Simulate RFID Scan → MongoDB</button></div>
  <div className="bar"><div className="tabs">{["Daily","Weekly","Monthly"].map(x=><button key={x} className={r===x?"on":""} onClick={()=>setR(x)}>{x}</button>)}</div><input className="in" placeholder="Search name, ID, or card" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 140px"}} value={f} onChange={e=>setF(e.target.value)}>{["All","Present","Late","Absent"].map(x=><option key={x}>{x}</option>)}</select></div>
- <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.id+"-"+idx}><td>{w.id}</td><td>{w.name}</td><td>{w.rfid}</td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
+ <div className="card tw"><table><thead><tr><th>Worker ID</th><th>Name</th><th>RFID card</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Status</th></tr></thead><tbody>{rows.map((w,idx)=><tr key={w.id+"-"+idx}><td><b>{w.id}</b></td><td>{w.name}</td><td><code>{w.rfid}</code></td><td>{dl}</td><td>{w.in}</td><td>{w.out}</td><td><Badge s={w.st}/></td></tr>)}{!rows.length&&<tr><td colSpan="7">No records match. Clear the search or filter.</td></tr>}</tbody></table></div></div>}
 function Reports({zones}){
- const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);const [liveInc,setLiveInc]=useState([]);
- useEffect(()=>{
-  let alive=true;
-  const loadInc=async()=>{
-   try{
-    const tok=localStorage.getItem("we-token");
-    if(!tok)return;
-    const r=await fetch(`${API_BASE}/incidents?limit=30`,{headers:{Authorization:`Bearer ${tok}`}});
-    if(r.ok){
-     const j=await r.json();
-     if(alive&&j.data&&Array.isArray(j.data.incidents)){
-      const mapped=j.data.incidents.map(inc=>({
-       id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-LIVE",
-       rawId:inc.incidentId,
-       w:inc.workerId?.name||"Unidentified Worker",
-       wid:inc.workerId?.employeeCode||inc.deviceOrCameraCode||"CAM_001",
-       zone:inc.zoneId?.zoneName||"Zone A",
-       d:`[${inc.incidentType}] ${inc.description}`,
-       t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Live",
-       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
-       rawStatus:inc.status,
-      }));
-      setLiveInc(mapped);
-     }
+ const [q,setQ]=useState("");const [z,setZ]=useState("All");const [s,setS]=useState("All");const [sel,setSel]=useState(null);const [liveInc,setLiveInc]=useState([]);const [sosData,setSosData]=useState(null);const [actMsg,setActMsg]=useState("");
+ const loadInc=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/incidents?limit=40`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data&&Array.isArray(j.data.incidents)){
+     const mapped=j.data.incidents.map(inc=>({
+      id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-LIVE",
+      mongoId:inc._id,
+      rawId:inc.incidentId,
+      w:inc.workerId?.name||"Unidentified Worker",
+      wid:inc.workerId?.employeeCode||inc.deviceOrCameraCode||"CAM_001",
+      zone:inc.zoneId?.zoneName||"Zone A",
+      d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
+      t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Live",
+      st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
+      rawStatus:inc.status,
+      recordHash:inc.recordHash,
+     }));
+     setLiveInc(mapped);
     }
-   }catch(_e){}
-  };
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
   loadInc();
   const id=setInterval(loadInc,2500);
-  return()=>{alive=false;clearInterval(id)};
+  return()=>clearInterval(id);
  },[]);
+ const doIncidentAction=async(inc,type)=>{
+  if(!inc.mongoId)return;
+  setActMsg("Updating MongoDB...");
+  try{
+   const tok=localStorage.getItem("we-token");
+   let url=`${API_BASE}/supervisor/incidents/${inc.mongoId}/${type}`;
+   let body={};
+   if(type==="resolve")body={resolutionNotes:"Resolved via Warden's Eye Web Console"};
+   const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify(body)});
+   const j=await r.json();
+   setActMsg(j.message||"Updated in MongoDB!");
+   await loadInc();
+   setSel(null);
+  }catch(e){setActMsg("Error updating incident")}
+ };
+ const viewSos=async(inc)=>{
+  if(!inc.mongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/incidents/${inc.mongoId}/sos`,{headers:{Authorization:`Bearer ${tok}`}});
+   const j=await r.json();
+   if(j.data?.sosSummary)setSosData(j.data.sosSummary);
+  }catch(_e){}
+ };
  const allReports=liveInc.length?[...liveInc,...RP]:RP;
  const rows=allReports.filter(r=>(z==="All"||r.zone===z||r.zone.includes(z))&&(s==="All"||r.st===s)&&(r.w+r.id+r.d).toLowerCase().includes(q.toLowerCase()));
  const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
- return <div><div className="bar"><input className="in" placeholder="Search reports & live AI incidents" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select></div>
- <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID / Source</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:280,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>setSel(r)}>View</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No reports match these filters.</td></tr>}</tbody></table></div>
- {sel&&<div className="modal" onClick={()=>setSel(null)}><div className="card" onClick={e=>e.stopPropagation()}><div className="row"><h3>{sel.id}</h3><Badge s={sel.st}/></div><p><b>{sel.w}</b> ({sel.wid}) in {sel.zone}</p><p>{sel.d}</p><small style={{color:"var(--mut)"}}>{sel.t}{sel.rawStatus?` · Workflow State: ${sel.rawStatus}`:""}</small><div className="row"><button className="btn" onClick={()=>setSel(null)}>Close</button><button className="btn red" onClick={()=>dl(sel)}><Ic n="dl"/>Download report</button></div></div></div>}</div>}
+ return <div><div className="bar"><input className="in" placeholder="Search MongoDB incidents & AI reports" value={q} onChange={e=>setQ(e.target.value)}/><select className="in" style={{flex:"0 0 170px"}} value={z} onChange={e=>setZ(e.target.value)}><option>All</option>{zones.map(x=><option key={x.id}>{x.name}</option>)}</select><select className="in" style={{flex:"0 0 150px"}} value={s} onChange={e=>setS(e.target.value)}>{["All","Pending","In Progress","Resolved"].map(x=><option key={x}>{x}</option>)}</select><span className="bd g">MongoDB Incidents: {liveInc.length}</span></div>
+ <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>ID / Source</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.wid}</td><td>{r.zone}</td><td style={{maxWidth:280,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" onClick={()=>{setSel(r);setSosData(null);setActMsg("")}}>View / Act</button> <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No reports match these filters.</td></tr>}</tbody></table></div>
+ {sel&&<div className="modal" onClick={()=>setSel(null)}><div className="card" style={{maxWidth:620}} onClick={e=>e.stopPropagation()}><div className="row"><h3>{sel.id}</h3><Badge s={sel.st}/></div><p><b>{sel.w}</b> ({sel.wid}) in {sel.zone}</p><p>{sel.d}</p><small style={{color:"var(--mut)"}}>{sel.t}{sel.rawStatus?` · MongoDB State: ${sel.rawStatus}`:""}{sel.recordHash?` · SHA-256: ${sel.recordHash.slice(0,16)}...`:""}</small>
+ {actMsg&&<div className="bd g" style={{padding:8}}>{actMsg}</div>}
+ {sosData&&<pre style={{background:"var(--surf)",padding:10,borderRadius:8,fontSize:12,overflowX:"auto",margin:0}}>{JSON.stringify(sosData,null,2)}</pre>}
+ <div className="row" style={{flexWrap:"wrap",gap:8}}>
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"acknowledge")}>Acknowledge (DB)</button>}
+  {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn grn" onClick={()=>doIncidentAction(sel,"resolve")}>Resolve Incident (DB)</button>}
+  {sel.mongoId&&<button className="btn" onClick={()=>viewSos(sel)}>🚨 Generate Manual SOS</button>}
+  <button className="btn red" onClick={()=>dl(sel)}><Ic n="dl"/>Download</button>
+  <button className="btn" onClick={()=>setSel(null)}>Close</button>
+ </div></div></div>}</div>}
 
-function Zones({zones,setZones}){
+function Zones({zones,setZones,dbWorkers=[],reloadDb}){
  const [m,setM]=useState(null);
- const save=e=>{e.preventDefault();const f=new FormData(e.target),name=f.get("name").trim(),on=f.get("on")==="1";if(!name)return;
-  setZones(m.id?zones.map(z=>z.id===m.id?{...z,name,on,mon:on?"Active":"Inactive"}:z):[...zones,{id:Date.now(),name,on,mon:on?"Active":"Inactive"}]);setM(null)};
- const assign=(zn,wid)=>{const w=W.find(x=>x.id===wid);if(w)w.zone=zn;setZones([...zones])};
- return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>{zones.length} zones, {zones.filter(z=>z.on).length} active</span><button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone</button></div>
- <div className="grid g3">{zones.map(z=><div className="card" key={z.id}><div className="row"><h3>{z.name}</h3><Badge s={z.mon}/></div><p style={{margin:"10px 0"}}><Ic n="users"/> {W.filter(w=>w.zone===z.name).length} workers assigned</p>
- <select className="in" value="" onChange={e=>assign(z.name,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker…</option>{W.filter(w=>w.zone!==z.name).map(w=><option key={w.id} value={w.id}>{w.name}</option>)}</select>
- <div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>confirm("Remove "+z.name+"?")&&setZones(zones.filter(x=>x.id!==z.id))}><Ic n="trash"/>Remove</button></div></div>)}</div>
- {m&&<div className="modal"><form className="card" onSubmit={save}><div className="row"><h3>{m.id?"Edit zone":"Add zone"}</h3><button type="button" className="btn" aria-label="Close" onClick={()=>setM(null)}><Ic n="x"/></button></div><label>Zone name<input className="in" name="name" defaultValue={m.name||""} required autoFocus/></label><label>Monitoring<select className="in" name="on" defaultValue={m.id&&!m.on?"0":"1"}><option value="1">Active</option><option value="0">Inactive</option></select></label><button className="btn red">{m.id?"Save changes":"Add zone"}</button></form></div>}</div>}
+ const save=async e=>{
+  e.preventDefault();const f=new FormData(e.target),name=f.get("name").trim(),on=f.get("on")==="1";if(!name)return;
+  const tok=localStorage.getItem("we-token");
+  const code=name.toUpperCase().replace(/[^A-Z0-9]+/g,"_").replace(/^_|_$/g,"")||("ZONE_"+Date.now());
+  try{
+   if(tok){
+    if(m.mongoId){
+     await fetch(`${API_BASE}/admin/zones/${m.mongoId}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneName:name,status:on?"ACTIVE":"INACTIVE"})});
+    }else{
+     await fetch(`${API_BASE}/admin/zones`,{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneCode:code,zoneName:name,description:`Managed via Warden's Eye Web Console`,status:on?"ACTIVE":"INACTIVE"})});
+    }
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+  setZones(m.id?zones.map(z=>z.id===m.id?{...z,name,on,mon:on?"Active":"Inactive"}:z):[...zones,{id:Date.now(),name,on,mon:on?"Active":"Inactive"}]);
+  setM(null);
+ };
+ const removeZone=async z=>{
+  if(!confirm("Remove "+z.name+" from MongoDB?"))return;
+  const tok=localStorage.getItem("we-token");
+  try{
+   if(tok&&z.mongoId){
+    await fetch(`${API_BASE}/admin/zones/${z.mongoId}`,{method:"DELETE",headers:{Authorization:`Bearer ${tok}`}});
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+  setZones(zones.filter(x=>x.id!==z.id));
+ };
+ const assign=async(zObj,wid)=>{
+  if(!wid)return;
+  const tok=localStorage.getItem("we-token");
+  const wDoc=dbWorkers.find(x=>(x._id===wid||x.employeeCode===wid||x.id===wid));
+  try{
+   if(tok&&wDoc&&wDoc._id&&zObj.mongoId){
+    await fetch(`${API_BASE}/workers/${wDoc._id}`,{method:"PUT",headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},body:JSON.stringify({zoneId:zObj.mongoId})});
+    if(reloadDb)await reloadDb();
+   }
+  }catch(_e){}
+  const w=W.find(x=>x.id===wid);if(w)w.zone=zObj.name;setZones([...zones]);
+ };
+ const workersList=dbWorkers.length?dbWorkers.map(w=>({id:w.employeeCode,mongoId:w._id,name:w.name,zone:w.zoneId?.zoneName||"Zone A",zoneMongoId:w.zoneId?._id||w.zoneId})):W;
+ return <div><div className="bar" style={{justifyContent:"space-between"}}><span style={{color:"var(--mut)"}}>MongoDB Zones: {zones.length} total, {zones.filter(z=>z.on).length} active</span><button className="btn red" onClick={()=>setM({})}><Ic n="plus"/>Add zone to MongoDB</button></div>
+ <div className="grid g3">{zones.map(z=>{
+  const inThisZone=workersList.filter(w=>(z.mongoId&&w.zoneMongoId===z.mongoId)||w.zone===z.name||z.name.includes(w.zone));
+  const notInThisZone=workersList.filter(w=>!inThisZone.some(x=>x.id===w.id));
+  return <div className="card" key={z.id}><div className="row"><h3>{z.name}</h3><Badge s={z.mon}/></div><p style={{margin:"10px 0"}}><Ic n="users"/> {inThisZone.length} workers assigned {inThisZone.length>0?`(${inThisZone.map(w=>w.name).join(", ")})`:""}</p>
+  <select className="in" value="" onChange={e=>assign(z,e.target.value)} aria-label="Assign worker"><option value="">Assign a worker (MongoDB)…</option>{notInThisZone.map(w=><option key={w.id} value={w.mongoId||w.id}>{w.name} ({w.id})</option>)}</select>
+  <div style={{display:"flex",gap:8,marginTop:12}}><button className="btn" onClick={()=>setM(z)}><Ic n="edit"/>Edit</button><button className="btn" onClick={()=>removeZone(z)}><Ic n="trash"/>Remove</button></div></div>})}</div>
+ {m&&<div className="modal"><form className="card" onSubmit={save}><div className="row"><h3>{m.id?"Edit zone in MongoDB":"Add zone to MongoDB"}</h3><button type="button" className="btn" aria-label="Close" onClick={()=>setM(null)}><Ic n="x"/></button></div><label>Zone name<input className="in" name="name" defaultValue={m.name||""} required autoFocus/></label><label>Monitoring<select className="in" name="on" defaultValue={m.id&&!m.on?"0":"1"}><option value="1">Active</option><option value="0">Inactive</option></select></label><button className="btn red">{m.id?"Save changes to MongoDB":"Add zone to MongoDB"}</button></form></div>}</div>}
 
 const CT=[["Admin Desk","Online"],["Ravi Kumar","Online"],["Anita Das","Offline"],["Priya Sahoo","Online"],["Suresh Nayak","Offline"]];
 function Chat(){
@@ -452,12 +531,73 @@ function RecAttend(){
  return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(from)} onChange={pick(setFrom)}/></label><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(to)} onChange={pick(setTo)}/></label><button className="btn" onClick={csv}><Ic n="dl"/>Download CSV</button></div>
  <div className="card tw"><table><thead><tr><th>Date</th><th>Total workers</th><th>Present</th><th>Late</th><th>Absent</th><th>Attendance</th></tr></thead><tbody>{rows.map(r=><tr key={r.d.getTime()}><td>{r.d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}</td><td>{r.n}</td><td><Badge s="Present"/> {r.p}</td><td><Badge s="Late"/> {r.l}</td><td><Badge s="Absent"/> {r.a}</td><td>{Math.round((r.n-r.a)/r.n*100)}%</td></tr>)}</tbody></table></div></div>}
 function RecReports(){
- const [q,setQ]=useState("");
- const rows=RP.filter(r=>(r.st==="Resolved"||r.t<"2026-11-28")&&(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
+ const [q,setQ]=useState("");const [dbInc,setDbInc]=useState([]);
+ useEffect(()=>{
+  let alive=true;
+  const load=async()=>{
+   try{
+    const tok=localStorage.getItem("we-token");
+    if(!tok)return;
+    const r=await fetch(`${API_BASE}/incidents?limit=50`,{headers:{Authorization:`Bearer ${tok}`}});
+    if(r.ok){
+     const j=await r.json();
+     if(alive&&j.data&&Array.isArray(j.data.incidents)){
+      const mapped=j.data.incidents.map(inc=>({
+       id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-DB",
+       w:inc.workerId?.name||"Unidentified Worker",
+       zone:inc.zoneId?.zoneName||"Zone A",
+       d:`[${inc.incidentType}] ${inc.description}`,
+       t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Recorded",
+       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":"In Progress"
+      }));
+      setDbInc(mapped);
+     }
+    }
+   }catch(_e){}
+  };
+  load();
+  return()=>{alive=false};
+ },[]);
+ const baseRows=dbInc.length?[...dbInc,...RP]:RP;
+ const rows=baseRows.filter(r=>(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
  const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
- return <div><div className="bar"><input className="in" placeholder="Search past reports" value={q} onChange={e=>setQ(e.target.value)}/></div><div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="7">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+ return <div><div className="bar"><input className="in" placeholder="Search MongoDB recorded reports" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Archive: {dbInc.length} records</span></div><div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="7">No past reports match your search.</td></tr>}</tbody></table></div></div>}
 function Shell({page,dark,setDark}){
- const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);
+ const loadMongoData=async()=>{
+  try{
+   const h=await fetch(`${API_BASE}/health`);
+   if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected))}
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const [zr,wr]=await Promise.all([
+    fetch(`${API_BASE}/zones`,{headers:{Authorization:`Bearer ${tok}`}}),
+    fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}})
+   ]);
+   if(zr.ok){
+    const zj=await zr.json();
+    if(zj.data?.zones?.length){
+     setZones(zj.data.zones.map((z,i)=>({
+      id:z._id||i+1,
+      mongoId:z._id,
+      code:z.zoneCode,
+      name:z.zoneName,
+      on:z.status==="ACTIVE",
+      mon:z.status==="ACTIVE"?"Active":"Inactive"
+     })));
+    }
+   }
+   if(wr.ok){
+    const wj=await wr.json();
+    if(wj.data?.workers?.length)setDbWorkers(wj.data.workers);
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadMongoData();
+  const id=setInterval(loadMongoData,5000);
+  return()=>clearInterval(id);
+ },[]);
  const [hist,setHist]=useState(()=>HIST.some(h=>h[0]===page));const isH=HIST.some(h=>h[0]===page);
  const title=ALL.find(n=>n[0]===page)[2];
  const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
@@ -467,8 +607,8 @@ function Shell({page,dark,setDark}){
  <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
  
  <button className="nv" onClick={()=>go("home")}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0}}><span className="dot"/>System online</span><Av name="Admin User"/></div>
- <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones}/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0}}><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?"MongoDB Connected (127.0.0.1:27017)":"System online"}</span><Av name="Admin User"/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
 
 function App(){
