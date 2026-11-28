@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machine Whisperer · Liquid Glass &amp; 3D Acoustic Diagnostics</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Signature 3D Reflective Chrome Ring WebGL Canvas (Background) -->
+  <canvas id="chrome-ring-canvas" class="chrome-ring-canvas"></canvas>
+  <div class="ambient-lighting-overlay"></div>
+
+  <!-- Startup Loading Screen (Smooth 300ms Fade-out) -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-glass-card">
+      <div class="loading-icon-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 2v20M17 5v14M7 9v6M22 8v8M2 11v2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="loading-brand">Machine Whisperer</div>
+      <div class="loading-sub">Industrial Acoustic Diagnostics &amp; 3D Spatial Intelligence</div>
+      <div class="loading-bar-track">
+        <div class="loading-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Liquid Glass Application Shell -->
+  <div class="glass-app-shell">
+    <!-- Inset Translucent Frosted Sidebar (230px) -->
+    <aside class="sidebar">
+      <!-- Top Brand Wordmark -->
+      <div class="sidebar-header">
+        <div class="brand-group">
+          <div class="brand-icon-wrap">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+              <path d="M12 2v20M17 5v14M7 9v6M22 8v8M2 11v2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-text-col">
+            <span class="brand-title">Machine Whisperer</span>
+            <span class="brand-tag">Acoustic Diagnostics</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Client-Side Tab Switching) -->
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="overview" type="button" title="System Fleet Overview">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+          <span>Overview</span>
+          <span class="nav-active-pill"></span>
+        </button>
+
+        <button class="nav-item" data-view="signals" type="button" title="Live Signal Oscilloscope & Spectrum">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h3l3-9 6 18 3-9h3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Live Signal</span>
+          <span class="nav-active-pill"></span>
+        </button>
+
+        <button class="nav-item" data-view="diagnostics" type="button" title="Machinery Deep Diagnostic Breakdown">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4l3 3" stroke-linecap="round"/>
+          </svg>
+          <span>Diagnostics</span>
+          <span class="nav-active-pill"></span>
+        </button>
+
+        <button class="nav-item" data-view="events" type="button" title="Historical SQLite Alarm Log">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Event Log</span>
+          <span class="nav-active-pill"></span>
+        </button>
+
+        <button class="nav-item" data-view="settings" type="button" title="Hardware, Audio & Threshold Settings">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>Settings</span>
+          <span class="nav-active-pill"></span>
+        </button>
+      </nav>
+
+      <!-- Bottom System Status & Mode Toggle Footer -->
+      <div class="sidebar-footer">
+        <!-- Raspberry Pi 4 Hardware Pinout Status Block -->
+        <div class="sidebar-hardware-block" id="sidebar-hardware-block">
+          <div class="hw-block-header">
+            <span class="hw-block-title">RPi 4 Actuators</span>
+            <span class="hw-platform-tag" id="hw-platform-tag">Safe Mock</span>
+          </div>
+          <div class="hw-pins-grid">
+            <div class="hw-pin-pill pin-pill-green active" id="pin-pill-m1" title="Machine 1 (Left / Mic 0): BCM 5 Green (OK) / BCM 6 Red (Fault)">
+              <span class="hw-pin-dot dot-ok" id="pin-dot-m1"></span>
+              <span class="hw-pin-name" id="pin-name-m1">M1 (Mic 0): OK</span>
+            </div>
+            <div class="hw-pin-pill pin-pill-green active" id="pin-pill-m2" title="Machine 2 (Right / Mic 1): BCM 17 Green (OK) / BCM 27 Red (Fault)">
+              <span class="hw-pin-dot dot-ok" id="pin-dot-m2"></span>
+              <span class="hw-pin-name" id="pin-name-m2">M2 (Mic 1): OK</span>
+            </div>
+            <div class="hw-pin-pill pin-pill-buzzer" id="pin-pill-buzzer" title="Buzzer (BCM 22 / Pin 15, Active-Low) - Alarm Buzzer">
+              <span class="hw-pin-dot dot-buzzer"></span>
+              <span class="hw-pin-name">BUZZ (BCM 22)</span>
+            </div>
+            <div class="hw-pin-pill pin-pill-i2s active" id="pin-pill-i2s" title="Dual INMP441 I2S Stereo: Mic 0 -> M1, Mic 1 -> M2">
+              <span class="hw-pin-dot dot-cyan"></span>
+              <span class="hw-pin-name">2-MIC I2S</span>
+            </div>
+            <!-- Hidden backward-compatible hooks -->
+            <div id="pin-pill-green" style="display:none;"></div>
+            <div id="pin-pill-red" style="display:none;"></div>
+          </div>
+        </div>
+
+        <div class="footer-status-indicator">
+          <span class="status-dot dot-demo" id="sidebar-status-dot"></span>
+          <span class="status-text" id="sidebar-status-text">Demo Mode · 16 kHz</span>
+        </div>
+        <div class="mode-segmented-control">
+          <button id="btn-mode-live" class="mode-btn" type="button">Live Mic</button>
+          <button id="btn-mode-demo" class="mode-btn active" type="button">Demo</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="main-content">
+      <!-- ===================================================================
+           VIEW 1: OVERVIEW (Fleet Dashboard with 4 Glass KPI Cards)
+           =================================================================== -->
+      <section class="view-panel active" id="view-overview">
+        <!-- Floating Glass Header -->
+        <header class="view-header">
+          <div class="header-title-group">
+            <h1 class="view-title">Fleet Overview</h1>
+            <span class="header-subtitle">Continuous acoustic anomaly detection &amp; 3D spatial beamforming</span>
+          </div>
+
+          <div class="header-actions">
+            <!-- Time Range Selector -->
+            <div class="time-range-group" id="overview-time-range">
+              <button class="time-btn active" data-range="30s" type="button">30s</button>
+              <button class="time-btn" data-range="1m" type="button">1m</button>
+              <button class="time-btn" data-range="5m" type="button">5m</button>
+              <button class="time-btn" data-range="15m" type="button">15m</button>
+            </div>
+
+            <div class="header-divider"></div>
+
+            <!-- Demo Fault Simulation Dropdown (Only in Demo Mode) -->
+            <div class="demo-popover-container" id="demo-dropdown-container">
+              <button id="btn-demo-popover" class="btn-demo-dropdown" type="button">
+                <span>Simulate Fault</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div id="demo-popover-menu" class="demo-popover-menu hidden">
+                <div class="popover-row">
+                  <label class="popover-label" for="popover-machine-select">Target Asset</label>
+                  <select id="popover-machine-select" class="popover-select">
+                    <!-- Populated dynamically -->
+                  </select>
+                </div>
+                <div class="popover-row">
+                  <label class="popover-label">Fault Condition</label>
+                  <div class="popover-fault-grid">
+                    <button class="fault-pick-btn active" data-fault="normal" type="button">Normal (Healthy)</button>
+                    <button class="fault-pick-btn" data-fault="imbalance" type="button">Imbalance (1x Harmonic)</button>
+                    <button class="fault-pick-btn" data-fault="misalignment" type="button">Misalignment (2x/3x Harmonics)</button>
+                    <button class="fault-pick-btn" data-fault="bearing_wear" type="button">Bearing Wear (4–12 kHz)</button>
+                    <button class="fault-pick-btn" data-fault="cavitation" type="button">Cavitation (Broadband Roar)</button>
+                    <button class="fault-pick-btn" data-fault="voice_ignored" type="button">Speech / Voice (Filter Rejection)</button>
+                  </div>
+                </div>
+                <div class="popover-row" id="popover-timer-row" style="display: none;">
+                  <span class="popover-timer-badge" id="popover-timer-badge">Auto-reset in 30s</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="header-clock" id="clock-overview">--:--:--</div>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <!-- 4 Glass KPI Metric Cards Row -->
+          <div class="overview-kpi-grid">
+            <div class="glass-kpi-card">
+              <div class="kpi-icon-wrap kpi-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="8" rx="2"/>
+                  <rect x="2" y="14" width="20" height="8" rx="2"/>
+                  <line x1="6" y1="6" x2="6.01" y2="6"/>
+                  <line x1="6" y1="18" x2="6.01" y2="18"/>
+                </svg>
+              </div>
+              <div class="kpi-info-col">
+                <span class="kpi-label">Monitored Assets</span>
+                <div class="kpi-value-row">
+                  <span class="kpi-number tabular-nums" id="kpi-total-machines">3</span>
+                  <span class="kpi-badge kpi-badge-blue">Active</span>
+                </div>
+                <span class="kpi-subtext">3 acoustic sensor channels</span>
+              </div>
+            </div>
+
+            <div class="glass-kpi-card">
+              <div class="kpi-icon-wrap kpi-mint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div class="kpi-info-col">
+                <span class="kpi-label">Healthy Machines</span>
+                <div class="kpi-value-row">
+                  <span class="kpi-number tabular-nums text-mint" id="kpi-healthy-machines">3</span>
+                  <span class="kpi-badge kpi-badge-mint" id="kpi-healthy-badge">Nominal</span>
+                </div>
+                <span class="kpi-subtext" id="kpi-healthy-sub">Zero anomalies detected</span>
+              </div>
+            </div>
+
+            <div class="glass-kpi-card">
+              <div class="kpi-icon-wrap kpi-coral">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <div class="kpi-info-col">
+                <span class="kpi-label">Active Faults</span>
+                <div class="kpi-value-row">
+                  <span class="kpi-number tabular-nums" id="kpi-active-faults">0</span>
+                  <span class="kpi-badge kpi-badge-coral" id="kpi-faults-badge">0 Alarms</span>
+                </div>
+                <span class="kpi-subtext" id="kpi-faults-sub">3-of-5 debouncer window</span>
+              </div>
+            </div>
+
+            <div class="glass-kpi-card">
+              <div class="kpi-icon-wrap kpi-lavender">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <div class="kpi-info-col">
+                <span class="kpi-label">Fleet Acoustic Health</span>
+                <div class="kpi-value-row">
+                  <span class="kpi-number tabular-nums" id="kpi-system-health">97%</span>
+                  <span class="kpi-badge kpi-badge-blue">Optimal</span>
+                </div>
+                <div class="kpi-mini-track">
+                  <div class="kpi-mini-fill" id="kpi-health-bar" style="width: 97%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-Column Asset Cards Row (Clickable -> Opens Machine Diagnostics) -->
+          <div class="assets-grid" id="overview-assets-grid">
+            <!-- Dynamically populated machine cards -->
+          </div>
+
+          <!-- Bottom Split Row (55% Spectrum / 45% Acoustic DOA Bearing) -->
+          <div class="overview-telemetry-split">
+            <!-- 55% FFT Spectrum -->
+            <div class="glass-card split-spectrum-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Acoustic Frequency Spectrum</h2>
+                  <span class="card-subtitle">32 log bins · 20 Hz – 8 kHz · Real-time resonant harmonics</span>
+                </div>
+                <span class="card-readout-text" id="overview-spectrum-peak">Peak: -14.2 dB</span>
+              </div>
+              <div class="card-canvas-box" id="spectrum-box-overview">
+                <canvas id="spectrum-canvas-overview"></canvas>
+                <div class="chart-tooltip hidden" id="spectrum-tooltip-overview"></div>
+              </div>
+            </div>
+
+            <!-- 45% Acoustic DOA Bearing -->
+            <div class="glass-card split-doa-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Acoustic Bearing (DOA)</h2>
+                  <span class="card-subtitle">-90° to +90° GCC-PHAT Spatial Beamformer</span>
+                </div>
+                <span class="card-readout-text" id="overview-doa-readout">Bearing: 0.0°</span>
+              </div>
+              <div class="card-canvas-box" id="doa-box-overview">
+                <canvas id="doa-canvas-overview"></canvas>
+                <div class="chart-tooltip hidden" id="doa-tooltip-overview"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 2: LIVE SIGNAL WORKSTATION
+           =================================================================== -->
+      <section class="view-panel" id="view-signals">
+        <header class="view-header">
+          <div class="header-title-group">
+            <h1 class="view-title">Live Signal Workstation</h1>
+            <span class="header-subtitle">Real-time acoustic oscilloscope &amp; high-resolution spectral inspection</span>
+          </div>
+          <div class="header-actions">
+            <!-- Signal Playback Controls -->
+            <div class="signal-controls-group">
+              <button id="btn-signal-pause" class="btn-playback" type="button" title="Pause live trace for close inspection">
+                <span id="btn-signal-pause-text">Pause</span>
+              </button>
+              <button id="btn-signal-reset" class="btn-playback" type="button" title="Reset peak hold and signal buffers">
+                <span>Reset Peaks</span>
+              </button>
+            </div>
+            <div class="header-divider"></div>
+            <span class="header-meta-text" id="signals-channel-info">16 kHz · 1 channel</span>
+            <div class="header-clock" id="clock-signals">--:--:--</div>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <!-- Live Signal Metrics Strip -->
+          <div class="signal-metrics-strip">
+            <div class="glass-metric-cell">
+              <span class="cell-label">Peak Frequency</span>
+              <span class="cell-value tabular-nums" id="metric-peak-freq">240 Hz</span>
+              <span class="cell-sub">Dominant tone</span>
+            </div>
+            <div class="glass-metric-cell">
+              <span class="cell-label">RMS Amplitude</span>
+              <span class="cell-value tabular-nums" id="metric-rms-amp">-14.2 dBFS</span>
+              <span class="cell-sub">Full scale power</span>
+            </div>
+            <div class="glass-metric-cell">
+              <span class="cell-label">Spectral Centroid</span>
+              <span class="cell-value tabular-nums" id="metric-centroid">1,420 Hz</span>
+              <span class="cell-sub">Spectral center of mass</span>
+            </div>
+            <div class="glass-metric-cell">
+              <span class="cell-label">Crest Factor</span>
+              <span class="cell-value tabular-nums" id="metric-crest">11.8 dB</span>
+              <span class="cell-sub">Peak-to-RMS ratio</span>
+            </div>
+          </div>
+
+          <!-- Real-Time Oscilloscope Waveform Display -->
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Acoustic Time-Domain Waveform (Oscilloscope)</h2>
+                <span class="card-subtitle">Continuous high-speed time-domain acoustic trace</span>
+              </div>
+              <span class="card-readout-text" id="oscilloscope-status-text">Scanning 60 fps</span>
+            </div>
+            <div class="card-canvas-box oscilloscope-box">
+              <canvas id="waveform-canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- High-Resolution FFT Spectrum Analyzer -->
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">High-Resolution Frequency Spectrum</h2>
+                <span class="card-subtitle">32 log bins · Peak-hold decay · Interactive frequency crosshair</span>
+              </div>
+              <span class="card-readout-text" id="signals-spectrum-peak">Peak: -14.2 dB</span>
+            </div>
+            <div class="card-canvas-box large-spectrum-box" id="spectrum-box-signals">
+              <canvas id="spectrum-canvas-signals"></canvas>
+              <div class="chart-tooltip hidden" id="spectrum-tooltip-signals"></div>
+            </div>
+          </div>
+
+          <!-- Bottom 2-Column Row: DOA Bearing + Live Machine Diagnostics Matrix -->
+          <div class="signals-split-row">
+            <!-- Acoustic DOA Bearing Plot -->
+            <div class="glass-card signals-doa-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Acoustic Direction of Arrival</h2>
+                  <span class="card-subtitle">Active sound source spatial vector</span>
+                </div>
+                <span class="card-readout-text" id="signals-doa-readout">Bearing: 0.0°</span>
+              </div>
+              <div class="card-canvas-box large-doa-box" id="doa-box-signals">
+                <canvas id="doa-canvas-signals"></canvas>
+                <div class="chart-tooltip hidden" id="doa-tooltip-signals"></div>
+              </div>
+            </div>
+
+            <!-- Live Per-Machine Diagnostics Matrix -->
+            <div class="glass-card signals-metrics-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Machinery Diagnostic Status</h2>
+                  <span class="card-subtitle">Real-time novelty score &amp; debouncer state</span>
+                </div>
+              </div>
+              <div class="signals-metrics-table-wrapper">
+                <table class="glass-table">
+                  <thead>
+                    <tr>
+                      <th>Asset</th>
+                      <th>Health</th>
+                      <th>Fault Classification</th>
+                      <th>LOF Score</th>
+                      <th>Debouncer</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="signals-metrics-tbody">
+                    <!-- Populated dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 3: MACHINE DIAGNOSTICS (Deep-Dive Diagnostic View)
+           =================================================================== -->
+      <section class="view-panel" id="view-diagnostics">
+        <header class="view-header">
+          <div class="header-title-group">
+            <button id="btn-diag-back-overview" class="btn-breadcrumb-back" type="button" title="Return to Overview">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Back to Overview</span>
+            </button>
+            <h1 class="view-title" id="diag-detail-title">Asset Diagnostics</h1>
+          </div>
+          <div class="header-actions">
+            <!-- Machine Selector Tabs -->
+            <div class="machine-tabs-group" id="diag-machine-tabs">
+              <!-- Populated dynamically -->
+            </div>
+            <div class="header-divider"></div>
+            <div class="header-clock" id="clock-diagnostics">--:--:--</div>
+          </div>
+        </header>
+
+        <div class="view-body">
+          <!-- Machine Hero Banner -->
+          <div class="glass-card diag-hero-card">
+            <div class="diag-hero-main">
+              <div class="diag-hero-left">
+                <div class="diag-hero-name-row">
+                  <h2 class="diag-hero-name" id="diag-hero-machine-name">fan_id_00</h2>
+                  <span class="status-pill pill-ok" id="diag-hero-status-pill">Healthy</span>
+                </div>
+                <div class="diag-hero-meta-row">
+                  <span>Enrolled Bearing: <strong id="diag-hero-angle">-45.0°</strong></span>
+                  <span class="meta-separator">·</span>
+                  <span>Sample Rate: <strong>16,000 Hz</strong></span>
+                  <span class="meta-separator">·</span>
+                  <span>Model: <strong>LocalOutlierFactor (novelty=True)</strong></span>
+                </div>
+              </div>
+              <div class="diag-hero-right">
+                <div class="diag-health-badge">
+                  <span class="diag-health-val tabular-nums" id="diag-hero-health">97%</span>
+                  <span class="diag-health-label">Acoustic Health</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagnostic Explanation Card (Physics-Based Insight) -->
+          <div class="glass-card diag-explanation-card" id="diag-explanation-card">
+            <div class="explanation-icon-col">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4M12 8h.01" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="explanation-text-col">
+              <div class="explanation-title" id="diag-explanation-title">Diagnostic Assessment: Normal Operation</div>
+              <p class="explanation-body" id="diag-explanation-body">
+                The acoustic feature vector is within normal baseline tolerances. Energy in rotational harmonics, broadband kurtosis, and high-frequency resonance remains within the 99th percentile threshold.
+              </p>
+            </div>
+          </div>
+
+          <!-- 2-Column Diagnostic Breakdown -->
+          <div class="diag-split-grid">
+            <!-- Left: Health History & Anomaly Score -->
+            <div class="glass-card diag-score-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Health History &amp; Anomaly Score</h3>
+                  <span class="card-subtitle">60-second sliding history buffer</span>
+                </div>
+                <span class="card-readout-text" id="diag-readout-threshold">Threshold: -0.161</span>
+              </div>
+
+              <!-- Anomaly Score Metric Row -->
+              <div class="score-metric-row">
+                <div class="score-metric-box">
+                  <span class="metric-label">Current LOF Score</span>
+                  <span class="metric-val tabular-nums" id="diag-current-score">-0.4820</span>
+                </div>
+                <div class="score-metric-box">
+                  <span class="metric-label">Baseline Threshold</span>
+                  <span class="metric-val tabular-nums" id="diag-current-threshold">-0.1610</span>
+                </div>
+                <div class="score-metric-box">
+                  <span class="metric-label">Debouncer Window</span>
+                  <span class="metric-val tabular-nums" id="diag-current-debounce">0 of 5</span>
+                </div>
+              </div>
+
+              <!-- 60s Health Timeline Chart -->
+              <div class="diag-timeline-chart-box">
+                <canvas id="diag-timeline-canvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Right: Physics-Based Spectral & Spatial Diagnostic -->
+            <div class="glass-card diag-feature-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Acoustic Signature &amp; Bearing</h3>
+                  <span class="card-subtitle">Array-steered response harmonic breakdown</span>
+                </div>
+                <span class="card-readout-text" id="diag-readout-bearing">Live DOA: -45.0°</span>
+              </div>
+
+              <div class="diag-feature-grid">
+                <div class="feature-row">
+                  <span class="feature-name">1x Rotational Harmonic</span>
+                  <span class="feature-status status-normal" id="feat-imbalance-status">Normal</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-name">2x / 3x Harmonic Ratios</span>
+                  <span class="feature-status status-normal" id="feat-misalignment-status">Normal</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-name">High-Frequency Ultrasonic (4–12 kHz)</span>
+                  <span class="feature-status status-normal" id="feat-bearing-status">Normal</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-name">Broadband Turbulence / Flatness</span>
+                  <span class="feature-status status-normal" id="feat-cavitation-status">Normal</span>
+                </div>
+                <div class="feature-row">
+                  <span class="feature-name">Array Angle Alignment</span>
+                  <span class="feature-status status-normal" id="feat-angle-status">Aligned (-45.0°)</span>
+                </div>
+              </div>
+
+              <!-- Machine DOA Direction Mini Plot -->
+              <div class="diag-mini-canvas-box">
+                <canvas id="diag-machine-doa-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Machine Historical Alarms Table -->
+          <div class="glass-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Recent Alarms for this Asset</h3>
+                <span class="card-subtitle">Persistent SQLite audit log</span>
+              </div>
+            </div>
+            <div class="table-scroll-container diag-table-scroll">
+              <table class="glass-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Health</th>
+                    <th>Fault Classification</th>
+                    <th>LOF Score</th>
+                    <th>Bearing</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="diag-events-tbody">
+                  <tr class="table-empty-row">
+                    <td colspan="6">No historical alarms recorded for this machine</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 4: EVENT LOG (Enterprise Searchable & Filterable Table)
+           =================================================================== -->
+      <section class="view-panel" id="view-events">
+        <header class="view-header">
+          <div class="header-title-group">
+            <h1 class="view-title">Event Log</h1>
+            <span class="header-subtitle">Persistent SQLite historical alarm audit trail</span>
+          </div>
+
+          <div class="header-actions">
+            <!-- Search Input -->
+            <div class="search-input-box">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <input type="text" id="event-search-input" placeholder="Search events...">
+            </div>
+
+            <!-- Machine Filter Dropdown -->
+            <div class="filter-group">
+              <select id="event-machine-filter" class="table-filter-select">
+                <option value="all">All Assets</option>
+              </select>
+            </div>
+
+            <!-- Fault Type Filter Dropdown -->
+            <div class="filter-group">
+              <select id="event-fault-filter" class="table-filter-select">
+                <option value="all">All Faults</option>
+                <option value="IMBALANCE">Imbalance</option>
+                <option value="MISALIGNMENT">Misalignment</option>
+                <option value="BEARING_WEAR">Bearing Wear</option>
+                <option value="CAVITATION">Cavitation</option>
+                <option value="VOICE_IGNORED">Speech Filtered</option>
+              </select>
+            </div>
+
+            <!-- Sort By Dropdown -->
+            <div class="filter-group">
+              <select id="event-sort-select" class="table-filter-select">
+                <option value="time-desc">Newest First</option>
+                <option value="time-asc">Oldest First</option>
+                <option value="score-desc">Highest Score</option>
+                <option value="health-asc">Lowest Health</option>
+              </select>
+            </div>
+
+            <div class="header-divider"></div>
+
+            <!-- Export CSV Button -->
+            <button id="btn-export-csv" class="btn-secondary-action" type="button" title="Export events to CSV">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+              </svg>
+              <span>Export CSV</span>
+            </button>
+
+            <!-- Clear Log Button -->
+            <button id="btn-clear-events-modal" class="btn-clear-log" type="button">Clear Log</button>
+
+            <div class="header-clock" id="clock-events">--:--:--</div>
+          </div>
+        </header>
+
+        <div class="view-body events-view-body">
+          <div class="glass-card full-height-table-card">
+            <div class="table-scroll-container">
+              <table class="glass-table" id="events-main-table">
+                <thead>
+                  <tr>
+                    <th style="width: 175px;">Timestamp</th>
+                    <th style="width: 130px;">Asset</th>
+                    <th style="width: 110px;">Health</th>
+                    <th style="width: 150px;">Fault Classification</th>
+                    <th style="width: 120px;">LOF Score</th>
+                    <th style="width: 100px;">Bearing</th>
+                    <th style="width: 90px;">Status</th>
+                    <th style="width: 80px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="events-tbody">
+                  <tr class="table-empty-row">
+                    <td colspan="8">No alarm events recorded</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           VIEW 5: SETTINGS & SYSTEM CONFIGURATION
+           =================================================================== -->
+      <section class="view-panel" id="view-settings">
+        <header class="view-header">
+          <div class="header-title-group">
+            <h1 class="view-title">System Settings &amp; Hardware</h1>
+            <span class="header-subtitle">Audio capture pipelines, anomaly thresholds &amp; hardware alert pinout</span>
+          </div>
+          <div class="header-actions">
+            <div class="header-clock" id="clock-settings">--:--:--</div>
+          </div>
+        </header>
+
+        <div class="view-body settings-view-body">
+          <div class="settings-grid">
+            <!-- Audio Acquisition Card -->
+            <div class="glass-card settings-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Audio Hardware Pipeline</h3>
+                  <span class="card-subtitle">Acoustic sampling &amp; buffer parameters</span>
+                </div>
+              </div>
+              <div class="settings-content">
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Sampling Rate</span>
+                    <span class="settings-desc">Target sampling frequency for acoustic feature extraction</span>
+                  </div>
+                  <span class="settings-badge">16,000 Hz</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Audio Chunk Window</span>
+                    <span class="settings-desc">Buffer duration per inference evaluation</span>
+                  </div>
+                  <span class="settings-badge">2.0 seconds (32,000 samples)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Array Channel Count</span>
+                    <span class="settings-desc">1-Channel Mono or 2-Channel GCC-PHAT Beamformer</span>
+                  </div>
+                  <span class="settings-badge" id="settings-channel-badge">1 Channel (Auto-sensed)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Microphone Distance</span>
+                    <span class="settings-desc">Inter-microphone baseline separation for DOA calculations</span>
+                  </div>
+                  <span class="settings-badge">0.050 meters (5 cm)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anomaly Detection Model Settings -->
+            <div class="glass-card settings-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Acoustic Intelligence Model</h3>
+                  <span class="card-subtitle">Local Outlier Factor (LOF) parameters</span>
+                </div>
+              </div>
+              <div class="settings-content">
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Model Architecture</span>
+                    <span class="settings-desc">Unsupervised density-based novelty detection</span>
+                  </div>
+                  <span class="settings-badge">LocalOutlierFactor (novelty=True)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Debouncer Sliding Window</span>
+                    <span class="settings-desc">Hysteresis filter to eliminate transient false alarms</span>
+                  </div>
+                  <span class="settings-badge">3 of 5 consecutive chunks</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Health Score Normalization</span>
+                    <span class="settings-desc">Sigmoidal mapping of raw decision function to 0–100 scale</span>
+                  </div>
+                  <span class="settings-badge">Sigmoidal Normalized</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Bundle Directory</span>
+                    <span class="settings-desc">Pre-trained model bundle storage location</span>
+                  </div>
+                  <span class="settings-badge"><code>models/*_lof.joblib</code></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Raspberry Pi 4 Hardware Pinout Interface -->
+            <div class="glass-card settings-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Hardware Alert Interface (Raspberry Pi 4 GPIO)</h3>
+                  <span class="card-subtitle">Dual-machine independent indicators on Pi 4 / Safe mock fallback on Windows</span>
+                </div>
+                <span class="settings-badge" id="settings-hw-platform">Windows / Safe Fallback</span>
+              </div>
+              <div class="settings-content">
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Machine 1 (Left / Mic 0) Status</span>
+                    <span class="settings-desc">Nominal Green (BCM 5 / Pin 29) · Fault Red (BCM 6 / Pin 31)</span>
+                  </div>
+                  <span class="settings-badge pin-green" id="settings-m1-state">M1 · GREEN (OK)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Machine 2 (Right / Mic 1) Status</span>
+                    <span class="settings-desc">Nominal Green (BCM 17 / Pin 11) · Fault Red (BCM 27 / Pin 13)</span>
+                  </div>
+                  <span class="settings-badge pin-green" id="settings-m2-state">M2 · GREEN (OK)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Active-Low Piezo Buzzer</span>
+                    <span class="settings-desc">Audible alarm tone beacon (BCM 22 / Physical Pin 15, active_high=False)</span>
+                  </div>
+                  <span class="settings-badge pin-coral" id="settings-buzzer-state">GPIO BCM 22 · OFF</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Dual INMP441 I2S Microphones</span>
+                    <span class="settings-desc">Stereo capture on BCM 18 (BCLK), BCM 19 (LRCLK/WS), BCM 20 (DOUT/SD)</span>
+                  </div>
+                  <span class="settings-badge pin-cyan">3.3V Rail (Pins 1 &amp; 17)</span>
+                </div>
+                <!-- Hidden backward-compatible hooks -->
+                <span id="settings-green-state" style="display:none;"></span>
+                <span id="settings-red-state" style="display:none;"></span>
+              </div>
+            </div>
+
+            <!-- WAV Audio Diagnostics & Anomaly Threshold Calibration -->
+            <div class="glass-card settings-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Acoustic Audio Testing &amp; Threshold Calibration</h3>
+                  <span class="card-subtitle">Test speech filter &amp; fault audio (.wav) or tune LOF baseline threshold</span>
+                </div>
+              </div>
+              <div class="settings-content">
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Test Audio File (.wav)</span>
+                    <span class="settings-desc">Select Mic 0 or Mic 1 to inject synthetic broken WAVs, extreme damaged WAVs, or speech</span>
+                  </div>
+                  <div class="settings-action-group">
+                    <select id="audio-test-mic" class="table-filter-select" title="Target Microphone Channel">
+                      <option value="0">Mic 0 — Machine 1 (Left / BCM 5 &amp; 6)</option>
+                      <option value="1">Mic 1 — Machine 2 (Right / BCM 17 &amp; 27)</option>
+                    </select>
+                    <select id="audio-file-select" class="table-filter-select">
+                      <option value="data/raw/test.wav">test.wav (Speech Filtered)</option>
+                      <option value="synthetic_broken_wavs/synthetic_bearing_fault_mic0.wav">synthetic_bearing_fault_mic0.wav (Synthetic)</option>
+                      <option value="synthetic_broken_wavs/synthetic_rotor_imbalance_mic0.wav">synthetic_rotor_imbalance_mic0.wav (Synthetic)</option>
+                      <option value="extreme_damaged_wavs/extreme_impeller_cavitation_mic1.wav">extreme_impeller_cavitation_mic1.wav (Extreme)</option>
+                      <option value="extreme_damaged_wavs/extreme_bearing_seizure_mic0.wav">extreme_bearing_seizure_mic0.wav (Extreme)</option>
+                      <option value="data/raw/normal_sample.wav">normal_sample.wav (Baseline)</option>
+                      <option value="data/raw/bearing_wear_sample.wav">bearing_wear_sample.wav (Bearing Wear)</option>
+                      <option value="data/raw/cavitation_sample.wav">cavitation_sample.wav (Cavitation)</option>
+                    </select>
+                    <button id="btn-run-file-test" class="btn-primary-action btn-sm" type="button">Run Test</button>
+                  </div>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Quick Hackathon Demo Injections</span>
+                    <span class="settings-desc">One-click test: highlights selected mic RED while leaving other machine GREEN</span>
+                  </div>
+                  <div class="settings-action-group" style="flex-wrap: wrap; gap: 8px;">
+                    <button id="btn-quick-synthetic-m0" class="btn-secondary-action btn-sm" type="button">Mic 0: Synthetic Broken</button>
+                    <button id="btn-quick-extreme-m1" class="btn-secondary-action btn-sm" type="button">Mic 1: Extreme Cavitation</button>
+                    <button id="btn-quick-voice-filter" class="btn-secondary-action btn-sm" type="button">Mic 0: Voice Rejection</button>
+                    <button id="btn-quick-reset-normal" class="btn-secondary-action btn-sm" type="button">Reset Both (GREEN)</button>
+                  </div>
+                </div>
+                <div class="settings-row" id="test-audio-result-row" style="display: none;">
+                  <div class="settings-info">
+                    <span class="settings-param">Last File Test Diagnosis</span>
+                    <span class="settings-desc" id="test-file-result-desc">--</span>
+                  </div>
+                  <span class="settings-badge" id="test-file-result-badge">--</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Calibrate LOF Threshold</span>
+                    <span class="settings-desc">Tune decision boundary against normal baseline and damaged samples</span>
+                  </div>
+                  <div class="settings-action-group">
+                    <select id="calibrate-machine-select" class="table-filter-select">
+                      <!-- Populated dynamically -->
+                    </select>
+                    <input type="number" step="0.01" id="input-calibrate-threshold" class="settings-input" placeholder="-0.16">
+                    <button id="btn-save-threshold" class="btn-primary-action btn-sm" type="button">Set</button>
+                    <button id="btn-auto-calibrate" class="btn-secondary-action btn-sm" type="button">Auto-Calibrate</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- System Audit & Database -->
+            <div class="glass-card settings-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Audit Engine &amp; Storage</h3>
+                  <span class="card-subtitle">SQLite database and offline platform info</span>
+                </div>
+              </div>
+              <div class="settings-content">
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Database Engine</span>
+                    <span class="settings-desc">Local zero-configuration ACID audit log</span>
+                  </div>
+                  <span class="settings-badge">SQLite3 (<code>data/events.db</code>)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Network Dependencies</span>
+                    <span class="settings-desc">Air-gapped operation requirement</span>
+                  </div>
+                  <span class="settings-badge text-mint">100% Offline (Zero External CDNs)</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Web Application Server</span>
+                    <span class="settings-desc">WSGI application backend</span>
+                  </div>
+                  <span class="settings-badge">Flask 3.x / Python 3.12</span>
+                </div>
+                <div class="settings-row">
+                  <div class="settings-info">
+                    <span class="settings-param">Platform Version</span>
+                    <span class="settings-desc">Software release build</span>
+                  </div>
+                  <span class="settings-badge">Machine Whisperer v3.0 (Liquid Glass + 3D)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- =====================================================================
+       EVENT DETAIL MODAL / DRAWER
+       ===================================================================== -->
+  <div id="modal-event-detail" class="modal-backdrop hidden">
+    <div class="glass-modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Event Telemetry Snapshot</h3>
+          <span class="modal-subtitle" id="detail-event-id">Event #0</span>
+        </div>
+        <button id="btn-close-event-detail" class="btn-modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body" id="detail-modal-body">
+        <div class="detail-grid">
+          <div class="detail-cell">
+            <span class="detail-label">Asset</span>
+            <span class="detail-val" id="detail-machine">fan_id_00</span>
+          </div>
+          <div class="detail-cell">
+            <span class="detail-label">Timestamp</span>
+            <span class="detail-val tabular-nums" id="detail-timestamp">--</span>
+          </div>
+          <div class="detail-cell">
+            <span class="detail-label">Health Score</span>
+            <span class="detail-val tabular-nums" id="detail-health">--</span>
+          </div>
+          <div class="detail-cell">
+            <span class="detail-label">Detected Fault</span>
+            <span class="detail-val" id="detail-fault">--</span>
+          </div>
+          <div class="detail-cell">
+            <span class="detail-label">Anomaly LOF Score</span>
+            <span class="detail-val tabular-nums" id="detail-score">--</span>
+          </div>
+          <div class="detail-cell">
+            <span class="detail-label">Acoustic Bearing</span>
+            <span class="detail-val tabular-nums" id="detail-bearing">--</span>
+          </div>
+        </div>
+        <div class="detail-explanation-box">
+          <div class="detail-exp-title">Diagnosis Summary</div>
+          <p class="detail-exp-text" id="detail-explanation-text">--</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-detail-done" class="btn-primary-action" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       CLEAR LOG CONFIRMATION MODAL
+       ===================================================================== -->
+  <div id="modal-clear-confirm" class="modal-backdrop hidden">
+    <div class="glass-modal-dialog modal-dialog-sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Clear Alarm History</h3>
+        <button id="btn-close-clear-modal" class="btn-modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: var(--text-secondary); line-height: 1.5; font-size: 13px;">
+          Are you sure you want to clear the entire SQLite alarm history? This will permanently delete all records from <code>data/events.db</code>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-cancel-clear" class="btn-secondary-action" type="button">Cancel</button>
+        <button id="btn-confirm-clear" class="btn-danger-action" type="button">Delete All Records</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: 100% Offline Bundled Three.js, 3D Chrome Ring, and Dashboard Controller -->
+  <script src="/static/three.min.js"></script>
+  <script src="/static/chrome_ring.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
