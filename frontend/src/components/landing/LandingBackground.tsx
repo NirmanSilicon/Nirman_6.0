@@ -21,8 +21,8 @@ export const LandingBackground: React.FC = () => {
         </div>
       </div>
 
-      {/* Interactive Boxes Effect Layered Over the Illustration */}
-      <div className="absolute inset-0 z-10 opacity-75 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_90%)]">
+      {/* Interactive Boxes Effect Layered Over the Illustration (lighter center, brighter edges) */}
+      <div className="absolute inset-0 z-10 opacity-90 [mask-image:radial-gradient(ellipse_at_center,rgba(0,0,0,0.25)_20%,rgba(0,0,0,0.95)_85%)]">
         <Boxes variant="light" />
       </div>
     </div>

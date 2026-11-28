@@ -17,7 +17,6 @@ import {
   getTrainsForCorridor,
   getDefaultRecentForCorridor,
   getAllPilotTrains,
-  type AllPilotTrain,
   type PilotTrain,
   type RecentItem,
 } from './searchConstants';
@@ -96,8 +95,6 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
     setSelectedTrain,
     activeCorridorId,
     switchCorridor,
-    updateSnapshot,
-    triggerRefresh,
   } = useRailStore();
   const t = TRANSLATIONS[language].search;
   const skipNextSyncRef = useRef(false);
@@ -227,20 +224,7 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
       }
     }
 
-    try {
-      const res = await fetch('/api/v1/corridor/switch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ corridor_id: targetCorridor, speed_multiplier: 1 }),
-      });
-      if (res.ok) {
-        const snap = await res.json();
-        if (snap?.trains) updateSnapshot(snap);
-        triggerRefresh();
-      }
-    } catch {
-      /* ignore network errors */
-    }
+    await switchCorridor(targetCorridor);
   };
 
   const handleFromChange = (newFrom: string) => {
@@ -352,10 +336,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
   const displayedTrains: AllPilotTrain[] = trainQuery.trim()
     ? autocompleteSuggestions
     : (searchResults ?? []).map((tr) => ({
-        ...tr,
-        corridorId: activeCorridorId,
-        corridorName: isKolkata ? 'SER • Kolkata' : 'ECoR • Odisha',
-      }));
+      ...tr,
+      corridorId: activeCorridorId,
+      corridorName: isKolkata ? 'SER • Kolkata' : 'ECoR • Odisha',
+    }));
   const trackDisabled =
     currentStep === 2 && !trainQuery.trim() && !(searchResults && searchResults.length > 0);
 
@@ -371,22 +355,20 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
           <button
             type="button"
             onClick={() => void switchCorridor('ECoR_BHC_PURI')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
-              !isKolkata
-                ? 'bg-white text-indigo-950 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${!isKolkata
+              ? 'bg-white text-indigo-950 shadow-2xs'
+              : 'text-slate-600 hover:text-slate-900'
+              }`}
           >
             ECoR • Odisha (BHC–PURI)
           </button>
           <button
             type="button"
             onClick={() => void switchCorridor('SER_HWH_KGP')}
-            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${
-              isKolkata
-                ? 'bg-white text-amber-950 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900'
-            }`}
+            className={`flex-1 sm:flex-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-all cursor-pointer ${isKolkata
+              ? 'bg-white text-amber-950 shadow-2xs'
+              : 'text-slate-600 hover:text-slate-900'
+              }`}
           >
             SER • Kolkata (HWH–KGP)
           </button>
@@ -633,11 +615,10 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
                                   {tr.name}
                                 </span>
                                 <span
-                                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border whitespace-nowrap shrink-0 ${
-                                    tr.corridorId === 'SER_HWH_KGP'
-                                      ? 'bg-amber-50 text-amber-800 border-amber-200'
-                                      : 'bg-indigo-50 text-indigo-800 border-indigo-200'
-                                  }`}
+                                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border whitespace-nowrap shrink-0 ${tr.corridorId === 'SER_HWH_KGP'
+                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                    : 'bg-indigo-50 text-indigo-800 border-indigo-200'
+                                    }`}
                                 >
                                   {tr.corridorName}
                                 </span>
