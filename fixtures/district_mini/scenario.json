@@ -1,0 +1,19 @@
+{
+  "scenario_id": "SCENARIO-MINI-01",
+  "name": "Synthetic Flood Cascade Test",
+  "hazard_type": "synthetic_flood",
+  "flood_sources": [
+    {
+      "center_x": 10.0,
+      "center_y": 10.0,
+      "radius": 15.0,
+      "peak_intensity": 0.9,
+      "start_tick": 1,
+      "peak_tick": 5,
+      "end_tick": 20
+    }
+  ],
+  "seed": 1947,
+  "horizon_ticks": 60,
+  "tick_seconds": 60
+}

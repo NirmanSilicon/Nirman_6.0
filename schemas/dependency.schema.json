@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "DependencyMode": {
+      "enum": [
+        "hard",
+        "soft",
+        "alternative"
+      ],
+      "title": "DependencyMode",
+      "type": "string"
+    },
+    "DependencyType": {
+      "enum": [
+        "electricity",
+        "water",
+        "access",
+        "communication"
+      ],
+      "title": "DependencyType",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "dependency_id": {
+      "title": "Dependency Id",
+      "type": "string"
+    },
+    "source_asset_id": {
+      "title": "Source Asset Id",
+      "type": "string"
+    },
+    "target_asset_id": {
+      "title": "Target Asset Id",
+      "type": "string"
+    },
+    "dependency_type": {
+      "$ref": "#/$defs/DependencyType"
+    },
+    "mode": {
+      "$ref": "#/$defs/DependencyMode"
+    },
+    "required_fraction": {
+      "default": 1.0,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Required Fraction",
+      "type": "number"
+    },
+    "minimum_fraction": {
+      "default": 0.5,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Minimum Fraction",
+      "type": "number"
+    },
+    "latency_ticks": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Latency Ticks",
+      "type": "integer"
+    },
+    "grace_ticks": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Grace Ticks",
+      "type": "integer"
+    },
+    "importance": {
+      "default": 1.0,
+      "minimum": 0.0,
+      "title": "Importance",
+      "type": "number"
+    },
+    "alternative_group": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Alternative Group"
+    }
+  },
+  "required": [
+    "dependency_id",
+    "source_asset_id",
+    "target_asset_id",
+    "dependency_type",
+    "mode"
+  ],
+  "title": "Dependency",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

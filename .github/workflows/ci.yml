@@ -1,0 +1,39 @@
+name: AFTERSHOCK CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi uvicorn[standard] pydantic networkx numpy ortools python-dotenv websockets httpx pytest
+      - name: Run Pytest Suite
+        run: |
+          PYTHONPATH=. pytest -v tests
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install dependencies
+        run: |
+          cd apps/web
+          npm install
+      - name: Build Web Application
+        run: |
+          cd apps/web
+          npm run build

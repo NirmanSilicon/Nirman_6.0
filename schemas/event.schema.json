@@ -1,0 +1,99 @@
+{
+  "properties": {
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "sequence": {
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "tick": {
+      "title": "Tick",
+      "type": "integer"
+    },
+    "event_type": {
+      "title": "Event Type",
+      "type": "string"
+    },
+    "asset_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Asset Id"
+    },
+    "dependency_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Dependency Id"
+    },
+    "previous_state": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous State"
+    },
+    "new_state": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "New State"
+    },
+    "cause_code": {
+      "title": "Cause Code",
+      "type": "string"
+    },
+    "parent_event_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parent Event Ids",
+      "type": "array"
+    },
+    "evidence": {
+      "additionalProperties": true,
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "required": [
+    "event_id",
+    "run_id",
+    "sequence",
+    "tick",
+    "event_type",
+    "cause_code"
+  ],
+  "title": "SimulationEvent",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

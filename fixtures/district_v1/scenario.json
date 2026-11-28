@@ -1,0 +1,28 @@
+{
+  "scenario_id": "FLOOD-BASE-01",
+  "name": "Synthetic Riverine Surge Flood",
+  "hazard_type": "synthetic_flood",
+  "flood_sources": [
+    {
+      "center_x": 12.0,
+      "center_y": 14.0,
+      "radius": 22.0,
+      "peak_intensity": 0.95,
+      "start_tick": 2,
+      "peak_tick": 10,
+      "end_tick": 45
+    },
+    {
+      "center_x": 38.0,
+      "center_y": 36.0,
+      "radius": 14.0,
+      "peak_intensity": 0.7,
+      "start_tick": 8,
+      "peak_tick": 18,
+      "end_tick": 50
+    }
+  ],
+  "seed": 1947,
+  "horizon_ticks": 120,
+  "tick_seconds": 60
+}

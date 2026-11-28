@@ -1,0 +1,96 @@
+{
+  "project_id": "DISTRICT-MINI-V1",
+  "name": "District Mini Synthetic Prototype",
+  "assets": [
+    {
+      "asset_id": "P-01",
+      "asset_type": "power_substation",
+      "name": "Substation West",
+      "position": { "x": 10.0, "y": 10.0, "z": 0.0 },
+      "physical_damage": 0.0,
+      "nominal_capacity": 1.0,
+      "intrinsic_capacity_fraction": 1.0,
+      "delivered_service_fraction": 1.0,
+      "minimum_operational_service": 0.6,
+      "criticality_weight": 5.0,
+      "is_critical": true,
+      "vulnerability_scale": 1.5,
+      "resistance_threshold": 0.2,
+      "backup": []
+    },
+    {
+      "asset_id": "W-01",
+      "asset_type": "water_pump",
+      "name": "Pump North",
+      "position": { "x": 28.0, "y": 16.0, "z": 0.0 },
+      "physical_damage": 0.0,
+      "nominal_capacity": 1.0,
+      "intrinsic_capacity_fraction": 1.0,
+      "delivered_service_fraction": 1.0,
+      "minimum_operational_service": 0.6,
+      "criticality_weight": 6.0,
+      "is_critical": true,
+      "vulnerability_scale": 1.0,
+      "resistance_threshold": 0.4,
+      "backup": [
+        {
+          "resource_type": "backup_power",
+          "remaining_inventory": 12.0,
+          "max_output_per_tick": 1.0,
+          "conversion_efficiency": 1.0,
+          "is_active": false
+        }
+      ]
+    },
+    {
+      "asset_id": "H-01",
+      "asset_type": "hospital",
+      "name": "Central Hospital",
+      "position": { "x": 45.0, "y": 25.0, "z": 0.0 },
+      "physical_damage": 0.0,
+      "nominal_capacity": 1.0,
+      "intrinsic_capacity_fraction": 1.0,
+      "delivered_service_fraction": 1.0,
+      "minimum_operational_service": 0.7,
+      "criticality_weight": 10.0,
+      "is_critical": true,
+      "vulnerability_scale": 0.8,
+      "resistance_threshold": 0.5,
+      "backup": [
+        {
+          "resource_type": "emergency_generator",
+          "remaining_inventory": 20.0,
+          "max_output_per_tick": 1.0,
+          "conversion_efficiency": 1.0,
+          "is_active": false
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "dependency_id": "DEP-P01-W01-POWER",
+      "source_asset_id": "P-01",
+      "target_asset_id": "W-01",
+      "dependency_type": "electricity",
+      "mode": "hard",
+      "required_fraction": 0.8,
+      "minimum_fraction": 0.5,
+      "latency_ticks": 1,
+      "grace_ticks": 0,
+      "importance": 1.0
+    },
+    {
+      "dependency_id": "DEP-W01-H01-WATER",
+      "source_asset_id": "W-01",
+      "target_asset_id": "H-01",
+      "dependency_type": "water",
+      "mode": "hard",
+      "required_fraction": 0.7,
+      "minimum_fraction": 0.4,
+      "latency_ticks": 1,
+      "grace_ticks": 0,
+      "importance": 1.0
+    }
+  ]
+}
