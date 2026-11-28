@@ -65,6 +65,9 @@ export function ProbabilityLab({
   const [betAmount, setBetAmount] = useState<number>(defaultBet);
   const [euBalance, setEuBalance] = useState<number>(startBankroll);
   const [usBalance, setUsBalance] = useState<number>(startBankroll);
+  const [euBalance198, setEuBalance198] = useState<number>(startBankroll);
+  const [usBalance198, setUsBalance198] = useState<number>(startBankroll);
+  const [use198Multiplier, setUse198Multiplier] = useState<boolean>(true);
   const [spinCount, setSpinCount] = useState<number>(0);
   const [lastEuPocket, setLastEuPocket] = useState<string>("Ready");
   const [lastUsPocket, setLastUsPocket] = useState<string>("Ready");
@@ -77,6 +80,8 @@ export function ProbabilityLab({
   const resetRoulette = (nextBankroll = startBankroll) => {
     setEuBalance(nextBankroll);
     setUsBalance(nextBankroll);
+    setEuBalance198(nextBankroll);
+    setUsBalance198(nextBankroll);
     setSpinCount(0);
     setLastEuPocket("Ready");
     setLastUsPocket("Ready");
@@ -93,6 +98,8 @@ export function ProbabilityLab({
     setBetAmount(nextBet);
     setEuBalance(nextStart);
     setUsBalance(nextStart);
+    setEuBalance198(nextStart);
+    setUsBalance198(nextStart);
     setSpinCount(0);
     setRouletteHistory([
       { spin: 0, euBalance: nextStart, usBalance: nextStart, euHouseProfit: 0, usHouseProfit: 0 },
@@ -121,9 +128,12 @@ export function ProbabilityLab({
   const runRouletteSpins = (count: number) => {
     let curEu = euBalance;
     let curUs = usBalance;
+    let curEu198 = euBalance198;
+    let curUs198 = usBalance198;
     let curSpin = spinCount;
     const wager = Math.max(1, betAmount);
-    const winMult = betType === "number" ? 35 : 1;
+    const winMult = betType === "number" ? 35 : (use198Multiplier ? 0.98 : 1.0);
+    const winMult198 = betType === "number" ? 35 : 0.98;
 
     const newPoints: RoulettePoint[] = [...rouletteHistory];
     let latestEuLabel = lastEuPocket;
@@ -140,6 +150,8 @@ export function ProbabilityLab({
 
       curEu += euRes.won ? wager * winMult : -wager;
       curUs += usRes.won ? wager * winMult : -wager;
+      curEu198 += euRes.won ? wager * winMult198 : -wager;
+      curUs198 += euRes.won ? wager * winMult198 : -wager;
 
       if (i % sampleStep === 0 || i === count) {
         newPoints.push({
@@ -154,6 +166,8 @@ export function ProbabilityLab({
 
     setEuBalance(curEu);
     setUsBalance(curUs);
+    setEuBalance198(curEu198);
+    setUsBalance198(curUs198);
     setSpinCount(curSpin);
     setLastEuPocket(latestEuLabel);
     setLastUsPocket(latestUsLabel);
@@ -496,6 +510,70 @@ export function ProbabilityLab({
                   </ResponsiveContainer>
                 </div>
               </div>
+
+              {/* 1.98x Multiplier Breakdown Card */}
+              <div className="rounded-xl border border-indigo-500/30 bg-[#111827] p-5 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center rounded-md bg-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-indigo-300 font-mono">
+                      1.98x Multiplier Active
+                    </span>
+                    <h3 className="text-sm font-semibold text-slate-100">
+                      Winnings &amp; Losses Under 1.98x Payout
+                    </h3>
+                  </div>
+                  <span className="text-xs text-slate-400 font-mono">
+                    Standard Even-Money pays 2.0x · Reduced pays 1.98x
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* European 1.98x Card */}
+                  <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
+                    <div className="flex justify-between items-center text-xs text-emerald-400 font-medium">
+                      <span>European Wheel (1.98x)</span>
+                      <span className="font-mono">{spinCount} spins</span>
+                    </div>
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-xs text-slate-400">Balance:</span>
+                      <span className="font-mono text-lg font-bold text-slate-50 tabular-nums">
+                        {formatMoney(euBalance198)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-baseline text-xs">
+                      <span className="text-slate-400">Net P&amp;L:</span>
+                      <span className={`font-mono font-semibold tabular-nums ${euBalance198 >= startBankroll ? "text-emerald-400" : "text-red-400"}`}>
+                        {euBalance198 >= startBankroll ? "+" : ""}{formatMoney(euBalance198 - startBankroll)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* American 1.98x Card */}
+                  <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
+                    <div className="flex justify-between items-center text-xs text-red-400 font-medium">
+                      <span>American Wheel (1.98x)</span>
+                      <span className="font-mono">{spinCount} spins</span>
+                    </div>
+                    <div className="flex justify-between items-baseline">
+                      <span className="text-xs text-slate-400">Balance:</span>
+                      <span className="font-mono text-lg font-bold text-slate-50 tabular-nums">
+                        {formatMoney(usBalance198)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-baseline text-xs">
+                      <span className="text-slate-400">Net P&amp;L:</span>
+                      <span className={`font-mono font-semibold tabular-nums ${usBalance198 >= startBankroll ? "text-emerald-400" : "text-red-400"}`}>
+                        {usBalance198 >= startBankroll ? "+" : ""}{formatMoney(usBalance198 - startBankroll)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-3 text-xs text-indigo-200 leading-relaxed">
+                  <span className="font-semibold text-indigo-300">Analysis: </span>
+                  Under the 1.98x payout modifier (often used by commercial platforms instead of standard 2.0x even-money payout), winning bets return 0.98x net profit instead of 1.0x. Over {spinCount} spins, this extra operator cut reduces your winnings by <span className="font-mono font-semibold">{formatMoney(Math.max(0, (euBalance - startBankroll) - (euBalance198 - startBankroll)))}</span> on European roulette and <span className="font-mono font-semibold">{formatMoney(Math.max(0, (usBalance - startBankroll) - (usBalance198 - startBankroll)))}</span> on American roulette compared to fair 2.0x payouts!
+                </div>
+              </div>
             </div>
 
             {/* Right Control Deck */}
@@ -503,6 +581,40 @@ export function ProbabilityLab({
               <div>
                 <h2 className="text-base font-semibold text-slate-100">{t.rouletteTitle}</h2>
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">{t.rouletteDesc}</p>
+              </div>
+
+              {/* Multiplier Mode Selection / Toggle in Control Deck */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="block text-xs font-medium text-slate-300">Even-Money Payout Mode</span>
+                  <span className="text-[10px] font-mono text-indigo-400">{use198Multiplier ? "1.98x Active" : "2.0x Standard"}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2" role="group" aria-label="Payout multiplier mode">
+                  <button
+                    type="button"
+                    onClick={() => setUse198Multiplier(false)}
+                    aria-pressed={!use198Multiplier}
+                    className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                      !use198Multiplier
+                        ? "border-indigo-500 bg-indigo-500/15 text-indigo-200"
+                        : "border-slate-800 bg-[#0B1120] text-slate-300 hover:bg-slate-800"
+                    }`}
+                  >
+                    Standard (2.0x)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUse198Multiplier(true)}
+                    aria-pressed={use198Multiplier}
+                    className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                      use198Multiplier
+                        ? "border-indigo-500 bg-indigo-500/15 text-indigo-200"
+                        : "border-slate-800 bg-[#0B1120] text-slate-300 hover:bg-slate-800"
+                    }`}
+                  >
+                    Reduced (1.98x)
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-2">
