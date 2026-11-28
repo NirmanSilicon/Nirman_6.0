@@ -1,0 +1,20 @@
+{
+  "1": {
+    "English": ["chapter 1", "chapter 2"],
+    "Hindi": ["..."],
+    "Mathematics": ["..."]
+  },
+  "5": {
+    "English": ["..."],
+    "Hindi": ["..."],
+    "Mathematics": ["..."],
+    "EVS": ["..."]
+  },
+  "10": {
+    "English": ["..."],
+    "Hindi": ["..."],
+    "Mathematics": ["Arithmetic Progressions", "..."],
+    "Science": ["..."],
+    "Social Science": ["..."]
+  }
+}
