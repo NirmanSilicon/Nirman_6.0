@@ -218,6 +218,11 @@ function handleEvent(event, { isLive }) {
     return;
   }
 
+  if (event.type === "sms_received") {
+    addNotice("Incident received via SMS gateway", event.t_server);
+    return;
+  }
+
   if (event.type === "citizen_report") {
     showCitizenReport(event);
   }

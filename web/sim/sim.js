@@ -335,6 +335,12 @@ const logEl = document.getElementById("sim-log");
 const sceneWrapEl = document.getElementById("scene-wrap");
 const sceneHostEl = document.getElementById("scene-host");
 const sceneCloseBtn = document.getElementById("scene-close");
+const smsBoxEl = document.getElementById("sms-box");
+const smsStatusEl = document.getElementById("sms-status");
+const smsBubbleEl = document.getElementById("sms-bubble");
+const smsBodyEl = document.getElementById("sms-body");
+const smsCharsEl = document.getElementById("sms-chars");
+const smsDeliveredEl = document.getElementById("sms-delivered");
 
 const SCENE_MODES = new Set(["crash", "pothole", "hard_brake"]);
 let sceneCtrl = null;
@@ -412,6 +418,7 @@ function openScenario(scenario, focusPanel = true) {
   modeSectionEl.hidden = false;
   startBtn.hidden = false;
   metaEl.hidden = false;
+  smsBoxEl.hidden = true;
   kickerEl.textContent = `Scenario ${scenario.id} · ${scenario.key}`;
   titleEl.textContent = scenario.title;
   modeListEl.innerHTML = "";
@@ -586,3 +593,57 @@ document.addEventListener("keydown", (event) => {
     closePanel();
   }
 });
+
+function openSmsView() {
+  clearMarkerHighlights();
+  kickerEl.hidden = false;
+  kickerEl.textContent = "Scenario 6 · fallback";
+  titleEl.textContent = "SMS fallback";
+  modeSectionEl.hidden = true;
+  startBtn.hidden = true;
+  metaEl.hidden = true;
+  sceneWrapEl.hidden = true;
+  panelEl.hidden = false;
+  smsBoxEl.hidden = false;
+}
+
+function handleSmsWsEvent(event) {
+  const data = event.data || {};
+  if (event.type === "sms_fallback_started") {
+    openSmsView();
+    smsStatusEl.textContent = "Data link down, switching to SMS";
+    smsStatusEl.className = "sms-note amber";
+    smsStatusEl.hidden = false;
+    smsBubbleEl.hidden = true;
+    smsDeliveredEl.hidden = true;
+    return;
+  }
+  if (event.type === "sms_sent") {
+    openSmsView();
+    const body = String(data.body || "");
+    const chars = data.chars ?? body.length;
+    smsBodyEl.textContent = body;
+    smsCharsEl.textContent = `${chars} characters`;
+    smsBubbleEl.hidden = false;
+    return;
+  }
+  if (event.type === "sms_received") {
+    openSmsView();
+    smsDeliveredEl.textContent = "Delivered to server via SMS gateway";
+    smsDeliveredEl.className = "sms-note green";
+    smsDeliveredEl.hidden = false;
+  }
+}
+
+function connectWs() {
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  const ws = new WebSocket(`${proto}://${location.host}/ws`);
+  ws.onclose = () => setTimeout(connectWs, 1500);
+  ws.onmessage = (msg) => {
+    const payload = JSON.parse(msg.data);
+    if (payload.kind === "snapshot" || payload.kind === "error") return;
+    handleSmsWsEvent(payload);
+  };
+}
+
+connectWs();

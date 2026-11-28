@@ -18,6 +18,18 @@ CITIZEN_CONFIRM_DELAY_S = 1.5
 CITIZEN_REJECT_DELAY_S = 1.5
 IDENTITY_DELAY_S = 0.0
 FIRST_AID_DELAY_S = 0.0
+SMS_FALLBACK_DELAY_S = 1.0
+SMS_SENT_DELAY_S = 1.2
+SMS_OFFLINE_GAP_S = 6.0
+SMS_RECEIVED_DELAY_S = 1.5
+SMS_POST_DELAY_S = 1.0
+
+_SMS_TO_NUMBER = "+911122334455"
+_SMS_BODY = (
+    "ASHVIN ALERT. Unit ASH-07. Crash detected. "
+    "Lat 20.2725, Lon 85.8380. Speed 72 to 0 km/h. 20:41 IST."
+)
+_SMS_CHARS = len(_SMS_BODY)
 
 _CRASH_IMPACT = (
     "impact_detected",
@@ -317,6 +329,67 @@ SCENARIOS: list[dict] = [
                             ]
                         },
                         FIRST_AID_DELAY_S,
+                    ),
+                ],
+            },
+        ],
+    },
+    {
+        "id": 6,
+        "key": "fallback",
+        "title": "SMS fallback",
+        "modes": [
+            {
+                "key": "data_ok",
+                "label": "Data link OK",
+                "steps": [
+                    *_ANSWERED_HIGH_PREFIX,
+                    ("dispatched", {"service": "108", "eta_s": 420}, DISPATCH_DELAY_S),
+                ],
+            },
+            {
+                "key": "sms_only",
+                "label": "SMS fallback",
+                "steps": [
+                    _CRASH_IMPACT,
+                    (
+                        "sms_fallback_started",
+                        {"reason": "no data", "to_number": _SMS_TO_NUMBER},
+                        SMS_FALLBACK_DELAY_S,
+                    ),
+                    (
+                        "sms_sent",
+                        {"to": _SMS_TO_NUMBER, "body": _SMS_BODY, "chars": _SMS_CHARS},
+                        SMS_SENT_DELAY_S,
+                    ),
+                    (
+                        "sms_received",
+                        {"gateway": "SMS gateway", "latency_s": 6},
+                        SMS_RECEIVED_DELAY_S,
+                    ),
+                    ("alert_confirmed", {"level": "high"}, SMS_POST_DELAY_S),
+                    ("dispatched", {"service": "108", "eta_s": 420}, DISPATCH_DELAY_S),
+                ],
+            },
+            {
+                "key": "offline",
+                "label": "Offline SMS",
+                "steps": [
+                    _CRASH_IMPACT,
+                    (
+                        "sms_fallback_started",
+                        {"reason": "no signal", "to_number": _SMS_TO_NUMBER},
+                        SMS_FALLBACK_DELAY_S,
+                    ),
+                    (
+                        "sms_sent",
+                        {"to": _SMS_TO_NUMBER, "body": _SMS_BODY, "chars": _SMS_CHARS},
+                        SMS_OFFLINE_GAP_S,
+                    ),
+                    (
+                        "sms_received",
+                        {"gateway": "SMS gateway", "latency_s": 6},
+                        SMS_RECEIVED_DELAY_S,
                     ),
                 ],
             },

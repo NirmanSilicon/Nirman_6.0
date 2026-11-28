@@ -69,6 +69,9 @@ Every message on the stream has this shape. The server adds `seq` and `t_server`
 | `sensor_sample` | g, speed_kmh, source_note | live phone accelerometer, throttled to 10 per second |
 | `identity_resolved` | licence_verified, unit_code | |
 | `first_aid_shown` | steps | |
+| `sms_fallback_started` | reason, to_number | |
+| `sms_sent` | to, body, chars | |
+| `sms_received` | gateway, latency_s | |
 
 ## Scenario list
 

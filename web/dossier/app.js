@@ -169,6 +169,12 @@ function handleEvent(event, { isLive }) {
   if (event.type === "hospital_notified") {
     activateRecord();
     appendTimelineRow("Pre-arrival notice received", stamp, isLive);
+    return;
+  }
+
+  if (event.type === "sms_received") {
+    activateRecord();
+    appendTimelineRow("Incident received via SMS gateway", stamp, isLive);
   }
 }
 
