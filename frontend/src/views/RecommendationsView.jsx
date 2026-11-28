@@ -12,6 +12,7 @@ import { formatPct, getSeverityBadgeClass } from "../utils/formatters";
 export function RecommendationsView({
   result,
   faults,
+  activePlant,
   loading,
   onRunSimulation,
   onFeedbackRecorded,
@@ -49,6 +50,14 @@ export function RecommendationsView({
     setCheckedSteps((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
+  const faultOptions =
+    activePlant && activePlant.plant_id !== "tep" && activePlant.classes?.length
+      ? activePlant.classes.map((id) => ({
+          fault_id: id,
+          name: id === 0 ? "Normal" : `Class ${id}`,
+        }))
+      : faults || [];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -70,10 +79,7 @@ export function RecommendationsView({
       setNotes("");
       onFeedbackRecorded?.(response);
     } catch (err) {
-      setSubmitError(
-        err?.message ||
-          "Failed to log feedback. Note: backend feedback requires a supported TEP fault_id.",
-      );
+      setSubmitError(err?.message || "Failed to log feedback.");
     } finally {
       setSubmitting(false);
     }
@@ -203,7 +209,7 @@ export function RecommendationsView({
                 onChange={(e) => setCorrectedFaultId(Number(e.target.value))}
                 className="w-full bg-[#F4F8FB] border border-slate-200 rounded-xl px-3 py-2 text-xs sm:text-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#00A8B5]"
               >
-                {(faults || []).map((f) => (
+                {faultOptions.map((f) => (
                   <option key={f.fault_id} value={f.fault_id}>
                     Fault {f.fault_id} — {f.name}
                   </option>

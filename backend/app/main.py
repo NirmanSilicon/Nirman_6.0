@@ -4,6 +4,7 @@
 from collections import defaultdict
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+import logging
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +16,8 @@ from app.routes import router as api_v1_router
 from app.services.predictor import DEFAULT_ARTIFACTS_DIR, PredictorService
 from app.services.tep_loader import load_tep_parquet, split_episodes
 
+logger = logging.getLogger(__name__)
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -22,52 +25,61 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     predictor = PredictorService()
 
-    df = load_tep_parquet(
-        path=PARQUET_PATH,
-        target_faults=TARGET_FAULTS,
-    )
-
-    _, _, test_df = split_episodes(
-        df,
-        train_ratio=0.70,
-        val_ratio=0.15,
-        seed=42,
-    )
-
-    # Group test episodes by fault status.
+    test_df: pd.DataFrame | None = None
     test_episodes_by_fault: dict[int, list[pd.DataFrame]] = defaultdict(list)
-
-    for _, ep_df in test_df.groupby("episode_id", sort=True):
-        fault_status = int(ep_df["STATUS"].iloc[0])
-        test_episodes_by_fault[fault_status].append(
-            ep_df.reset_index(drop=True)
-        )
-
-    # Precompute up to 100 contiguous preceding normal-operation rows
-    # for each test fault episode.
-    test_ep_ids = set(
-        int(ep_id) for ep_id in test_df["episode_id"].unique()
-    )
-
     natural_normal_prefix_by_ep_id: dict[int, pd.DataFrame] = {}
 
-    prev_ep_df: pd.DataFrame | None = None
+    try:
+        df = load_tep_parquet(
+            path=PARQUET_PATH,
+            target_faults=TARGET_FAULTS,
+        )
 
-    for ep_id_val, full_ep_df in df.groupby("episode_id", sort=True):
-        ep_int = int(ep_id_val)
-        ep_status = int(full_ep_df["STATUS"].iloc[0])
+        _, _, test_df = split_episodes(
+            df,
+            train_ratio=0.70,
+            val_ratio=0.15,
+            seed=42,
+        )
 
-        if (
-            ep_int in test_ep_ids
-            and ep_status != 0
-            and prev_ep_df is not None
-            and int(prev_ep_df["STATUS"].iloc[0]) == 0
-        ):
-            natural_normal_prefix_by_ep_id[ep_int] = (
-                prev_ep_df.iloc[-100:].reset_index(drop=True)
+        # Group test episodes by fault status.
+        for _, ep_df in test_df.groupby("episode_id", sort=True):
+            fault_status = int(ep_df["STATUS"].iloc[0])
+            test_episodes_by_fault[fault_status].append(
+                ep_df.reset_index(drop=True)
             )
 
-        prev_ep_df = full_ep_df
+        # Precompute up to 100 contiguous preceding normal-operation rows
+        # for each test fault episode.
+        test_ep_ids = set(
+            int(ep_id) for ep_id in test_df["episode_id"].unique()
+        )
+
+        prev_ep_df: pd.DataFrame | None = None
+
+        for ep_id_val, full_ep_df in df.groupby("episode_id", sort=True):
+            ep_int = int(ep_id_val)
+            ep_status = int(full_ep_df["STATUS"].iloc[0])
+
+            if (
+                ep_int in test_ep_ids
+                and ep_status != 0
+                and prev_ep_df is not None
+                and int(prev_ep_df["STATUS"].iloc[0]) == 0
+            ):
+                natural_normal_prefix_by_ep_id[ep_int] = (
+                    prev_ep_df.iloc[-100:].reset_index(drop=True)
+                )
+
+            prev_ep_df = full_ep_df
+    except FileNotFoundError as exc:
+        logger.warning(
+            "TEP parquet dataset not found (%s); starting without TEP simulation episodes.",
+            exc,
+        )
+        test_df = None
+        test_episodes_by_fault = defaultdict(list)
+        natural_normal_prefix_by_ep_id = {}
 
     # Store preloaded resources in application state.
     app.state.predictor = predictor

@@ -6,9 +6,9 @@ import { simulateFault } from "../api/client";
  * custom analysis results, and immutable session activity history.
  */
 export function useSimulation({ activePlantId, onNotification }) {
-  const [faultId, setFaultId] = useState(6);
+  const [faultId, setFaultIdState] = useState(6);
   const [episodeIndex, setEpisodeIndex] = useState(0);
-  const [preFaultSteps, setPreFaultSteps] = useState(20);
+  const [preFaultSteps, setPreFaultSteps] = useState(10);
   const [stepIndex, setStepIndex] = useState(0);
   const [windowSize, setWindowSize] = useState(20);
 
@@ -20,6 +20,7 @@ export function useSimulation({ activePlantId, onNotification }) {
   const [activityLog, setActivityLog] = useState([]);
 
   const playingRef = useRef(false);
+  const playSessionIdRef = useRef(0);
   const timerRef = useRef(null);
   const paramsRef = useRef({
     faultId,
@@ -52,12 +53,24 @@ export function useSimulation({ activePlantId, onNotification }) {
 
   const stopPlayback = useCallback(() => {
     playingRef.current = false;
+    playSessionIdRef.current += 1;
     setIsPlaying(false);
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
   }, []);
+
+  const setFaultId = useCallback(
+    (nextFaultId) => {
+      stopPlayback();
+      setFaultIdState(nextFaultId);
+      setEpisodeIndex(0);
+      setStepIndex(0);
+      setError(null);
+    },
+    [stopPlayback],
+  );
 
   // Stop replay automatically when switching away from TEP
   useEffect(() => {
@@ -167,8 +180,8 @@ export function useSimulation({ activePlantId, onNotification }) {
   }, [runSimulationAt, stopPlayback]);
 
   const scheduleNextTick = useCallback(
-    (latestData) => {
-      if (!playingRef.current) return;
+    (latestData, sessionId) => {
+      if (!playingRef.current || playSessionIdRef.current !== sessionId) return;
       const p = paramsRef.current;
       const maxStart = latestData
         ? Math.max(0, latestData.episode_total_steps - latestData.window_size)
@@ -187,7 +200,7 @@ export function useSimulation({ activePlantId, onNotification }) {
       }
 
       timerRef.current = setTimeout(async () => {
-        if (!playingRef.current) return;
+        if (!playingRef.current || playSessionIdRef.current !== sessionId) return;
         const curr = paramsRef.current;
         const data = await runSimulationAt({
           nextFaultId: curr.faultId,
@@ -198,8 +211,8 @@ export function useSimulation({ activePlantId, onNotification }) {
           smoothSteps: 3,
           logActivity: false,
         });
-        if (data && playingRef.current) {
-          scheduleNextTick(data);
+        if (data && playingRef.current && playSessionIdRef.current === sessionId) {
+          scheduleNextTick(data, sessionId);
         }
       }, 900);
     },
@@ -211,6 +224,7 @@ export function useSimulation({ activePlantId, onNotification }) {
       stopPlayback();
       return;
     }
+    const sessionId = ++playSessionIdRef.current;
     playingRef.current = true;
     setIsPlaying(true);
     const p = paramsRef.current;
@@ -223,8 +237,8 @@ export function useSimulation({ activePlantId, onNotification }) {
       smoothSteps: 3,
       logActivity: true,
     });
-    if (initial && playingRef.current) {
-      scheduleNextTick(initial);
+    if (initial && playingRef.current && playSessionIdRef.current === sessionId) {
+      scheduleNextTick(initial, sessionId);
     }
   }, [runSimulationAt, scheduleNextTick, stopPlayback]);
 

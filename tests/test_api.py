@@ -131,9 +131,29 @@ def test_health_returns_ok_when_predictor_is_loaded(client):
 
     assert data["status"] == "ok"
     assert data["model_loaded"] is True
+    assert data["simulation_ready"] is False
     assert data["active_plant_id"] == "tep"
     assert data["supported_faults"] == len(TARGET_FAULTS)
     assert data["fault_ids"] == TARGET_FAULTS
+
+
+def test_health_reports_simulation_ready_when_episodes_loaded(api_app):
+    episode = pd.DataFrame(
+        {
+            sensor: np.ones(DEFAULT_WINDOW_SIZE)
+            for sensor in SENSOR_COLS
+        }
+    )
+    episode["STATUS"] = 1
+    episode["episode_id"] = 10
+
+    api_app.state.test_episodes_by_fault = {1: [episode]}
+
+    with TestClient(api_app) as test_client:
+        response = test_client.get("/api/v1/health")
+
+    assert response.status_code == 200
+    assert response.json()["simulation_ready"] is True
 
 
 def test_health_returns_degraded_without_predictor(api_app):
@@ -148,7 +168,34 @@ def test_health_returns_degraded_without_predictor(api_app):
 
     assert data["status"] == "degraded"
     assert data["model_loaded"] is False
+    assert data["simulation_ready"] is False
     assert data["active_plant_id"] == "tep"
+
+
+def test_lifespan_starts_gracefully_without_parquet(tmp_path, monkeypatch):
+    from app import main
+
+    monkeypatch.setattr(main, "PredictorService", FakePredictor)
+    monkeypatch.setattr(
+        main,
+        "PARQUET_PATH",
+        str(tmp_path / "missing_tep_3years.parquet"),
+    )
+
+    application = main.create_app()
+
+    with TestClient(application) as test_client:
+        health_response = test_client.get("/api/v1/health")
+        sim_response = test_client.post("/api/v1/simulate/1")
+
+    assert health_response.status_code == 200
+    health_data = health_response.json()
+    assert health_data["status"] == "ok"
+    assert health_data["model_loaded"] is True
+    assert health_data["simulation_ready"] is False
+
+    assert sim_response.status_code == 503
+    assert "simulation" in sim_response.json()["detail"].lower()
 
 
 # ---------------------------------------------------------------------
@@ -298,6 +345,33 @@ def test_analyze_rejects_unexpected_request_fields(client):
     assert response.status_code == 422
 
 
+def test_analyze_rejects_non_finite_values(client):
+    import json
+
+    window = make_sensor_window()
+    window[0][SENSOR_COLS[0]] = 1e39
+
+    inf_response = client.post(
+        "/api/v1/analyze",
+        json={"window": window},
+    )
+
+    assert inf_response.status_code == 422
+    assert "non-finite" in inf_response.json()["detail"].lower()
+
+    nan_window = make_sensor_window()
+    nan_window[0][SENSOR_COLS[0]] = float("nan")
+    raw_nan_payload = json.dumps({"window": nan_window}, allow_nan=True)
+
+    nan_response = client.post(
+        "/api/v1/analyze",
+        content=raw_nan_payload,
+        headers={"Content-Type": "application/json"},
+    )
+
+    assert nan_response.status_code == 422
+
+
 # ---------------------------------------------------------------------
 # Simulation endpoint
 # ---------------------------------------------------------------------
@@ -318,7 +392,25 @@ def test_simulate_returns_503_without_predictor(api_app):
     assert response.status_code == 503
 
 
-def test_simulate_rejects_missing_test_episodes(client):
+def test_simulate_returns_503_when_simulation_not_ready(client):
+    response = client.post("/api/v1/simulate/1")
+
+    assert response.status_code == 503
+    assert "simulation" in response.json()["detail"].lower()
+
+
+def test_simulate_rejects_missing_test_episodes(client, api_app):
+    episode = pd.DataFrame(
+        {
+            sensor: np.ones(DEFAULT_WINDOW_SIZE)
+            for sensor in SENSOR_COLS
+        }
+    )
+    episode["STATUS"] = 0
+    episode["episode_id"] = 9
+
+    api_app.state.test_episodes_by_fault = {0: [episode]}
+
     response = client.post("/api/v1/simulate/1")
 
     assert response.status_code == 422
@@ -482,6 +574,59 @@ def test_retrain_rejects_invalid_plant_id(client):
 
     assert response.status_code == 422
     assert "Invalid plant_id" in response.json()["detail"]
+
+
+def test_retrain_returns_relative_artifacts_dir(
+    client, monkeypatch, tmp_path
+):
+    from app import routes
+
+    host_artifacts_dir = str(tmp_path / "plants" / "custom_unit")
+
+    def fake_train_custom_plant_csv(**kwargs):
+        return {
+            "plant_id": "custom_unit",
+            "plant_name": "Custom Unit",
+            "n_sensors": 2,
+            "sensor_cols": ["SENSOR_A", "SENSOR_B"],
+            "classes": [0, 1],
+            "train_windows": 4,
+            "validation_windows": 2,
+            "test_windows": 2,
+            "sample_accuracy": 1.0,
+            "sample_macro_f1": 1.0,
+            "train_time_sec": 0.1,
+            "artifacts_dir": host_artifacts_dir,
+        }
+
+    monkeypatch.setattr(
+        routes,
+        "train_custom_plant_csv",
+        fake_train_custom_plant_csv,
+    )
+    monkeypatch.setattr(
+        routes,
+        "PredictorService",
+        lambda artifacts_dir: FakePredictor(),
+    )
+
+    response = client.post(
+        "/api/v1/plants/retrain",
+        data={"plant_id": "custom_unit", "activate": "true"},
+        files={
+            "file": (
+                "plant.csv",
+                b"STATUS,SENSOR_A,SENSOR_B\n0,1,2\n1,3,4\n",
+                "text/csv",
+            )
+        },
+    )
+
+    assert response.status_code == 201
+    data = response.json()
+    assert data["status"] == "trained"
+    assert data["activated"] is True
+    assert data["artifacts_dir"] == "plants/custom_unit"
 
 
 # ---------------------------------------------------------------------
@@ -670,3 +815,51 @@ def test_feedback_log_is_written_to_configured_path(
     ]
 
     assert len(entries) == 1
+
+
+def test_feedback_accepts_custom_plant_classes_and_logs_name(
+    client, api_app
+):
+    import json
+
+    custom_predictor = FakePredictor()
+    custom_predictor.plant_id = "custom_unit"
+    custom_predictor.plant_name = "Custom Unit"
+    custom_predictor.classes = [0, 3, 5]
+    custom_predictor.fault_names = {
+        0: "Normal",
+        3: "Bearing Wear",
+        5: "Seal Leak",
+    }
+    api_app.state.predictor = custom_predictor
+
+    ok_response = client.post(
+        "/api/v1/feedback",
+        json={
+            "fault_id": 3,
+            "action": "reject",
+            "corrected_fault_id": 5,
+            "notes": "Custom plant bearing fault",
+        },
+    )
+
+    assert ok_response.status_code == 201
+    assert ok_response.json()["total_feedback_count"] == 1
+
+    log_path = Path(api_app.state.feedback_log_path)
+    logged = json.loads(
+        log_path.read_text(encoding="utf-8").splitlines()[0]
+    )
+    assert logged["fault_id"] == 3
+    assert logged["fault_name"] == "Bearing Wear"
+    assert logged["corrected_fault_id"] == 5
+
+    invalid_response = client.post(
+        "/api/v1/feedback",
+        json={
+            "fault_id": 6,
+            "action": "confirm",
+        },
+    )
+
+    assert invalid_response.status_code == 422

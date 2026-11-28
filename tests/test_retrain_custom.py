@@ -587,3 +587,36 @@ def test_custom_training_excludes_timestamp_from_sensors(
 
     assert "timestamp" not in result["sensor_cols"]
     assert result["n_sensors"] == 2
+
+
+def test_custom_training_excludes_common_timestamp_columns_without_explicit_param(
+    tmp_path,
+    patch_custom_training,
+):
+    df = make_episode_data(
+        window_size=5,
+        episodes_per_class=3,
+    )
+
+    n_rows = len(df)
+    df["time"] = np.arange(n_rows, dtype=np.float64)
+    df["TS"] = np.arange(n_rows, dtype=np.int64)
+    df["DateTime"] = np.arange(n_rows, dtype=np.int64)
+    df["date"] = np.arange(n_rows, dtype=np.int64)
+    df["Epoch"] = 1_700_000_000 + np.arange(n_rows, dtype=np.int64)
+
+    csv_path = tmp_path / "with_common_time_cols.csv"
+    df.to_csv(csv_path, index=False)
+
+    result = retrain_custom.train_custom_plant_csv(
+        csv_path=csv_path,
+        plant_id="auto_timestamp_factory",
+        window_size=5,
+        artifacts_root=tmp_path / "artifacts",
+    )
+
+    for col in ("time", "TS", "DateTime", "date", "Epoch"):
+        assert col not in result["sensor_cols"]
+
+    assert result["sensor_cols"] == ["SENSOR_A", "SENSOR_B"]
+    assert result["n_sensors"] == 2
