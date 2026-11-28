@@ -157,6 +157,16 @@ def _load_custom_csv(csv_path: Path) -> pd.DataFrame:
 # SENSOR COLUMN DETECTION
 # ---------------------------------------------------------------------
 
+COMMON_TIMESTAMP_NAMES = {
+    "timestamp",
+    "time",
+    "ts",
+    "datetime",
+    "date",
+    "epoch",
+}
+
+
 def _detect_sensor_columns(
     df: pd.DataFrame,
     status_col: str,
@@ -195,6 +205,9 @@ def _detect_sensor_columns(
     for column in df.columns:
 
         if column in excluded:
+            continue
+
+        if not timestamp_col and str(column).strip().lower() in COMMON_TIMESTAMP_NAMES:
             continue
 
         if str(column).startswith("Unnamed:"):

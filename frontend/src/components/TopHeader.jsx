@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bell, Database, Menu, UploadCloud } from "lucide-react";
 import { getSeverityBadgeClass } from "../utils/formatters";
 
@@ -19,6 +19,32 @@ export function TopHeader({
   onOpenMobileMenu,
 }) {
   const [bellOpen, setBellOpen] = useState(false);
+  const bellContainerRef = useRef(null);
+  const bellButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!bellOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (bellContainerRef.current && !bellContainerRef.current.contains(event.target)) {
+        setBellOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setBellOpen(false);
+        bellButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [bellOpen]);
 
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-3.5">
@@ -79,8 +105,9 @@ export function TopHeader({
           </button>
 
           {/* Notification Bell */}
-          <div className="relative">
+          <div ref={bellContainerRef} className="relative">
             <button
+              ref={bellButtonRef}
               type="button"
               onClick={() => setBellOpen((prev) => !prev)}
               aria-label={`Confirmed alarms notification (${confirmedAlarmCount ?? 0} active)`}

@@ -90,10 +90,10 @@ export function SimulationStrip({
               </label>
               <button
                 type="button"
-                onClick={() => onPreFaultStepsChange(preFaultSteps > 0 ? 0 : 20)}
+                onClick={() => onPreFaultStepsChange(preFaultSteps > 0 ? 0 : 10)}
                 className="text-[10px] font-semibold text-[#008B96] hover:underline cursor-pointer"
               >
-                {preFaultSteps > 0 ? "Disable" : "Use 20"}
+                {preFaultSteps > 0 ? "Disable" : "Use 10"}
               </button>
             </div>
             <input

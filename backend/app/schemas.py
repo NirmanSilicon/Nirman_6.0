@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from app.config import DEFAULT_WINDOW_SIZE, FAULT_METADATA
+from app.config import DEFAULT_WINDOW_SIZE
 
 
 class HealthResponse(BaseModel):
@@ -18,6 +18,10 @@ class HealthResponse(BaseModel):
     model_loaded: bool = Field(
         ...,
         description="Whether ML artifacts and explainer are loaded",
+    )
+    simulation_ready: bool = Field(
+        default=False,
+        description="Whether unseen TEP simulation episodes are loaded",
     )
     supported_faults: int = Field(
         ...,
@@ -240,28 +244,6 @@ class FeedbackRequest(BaseModel):
     action: Literal["confirm", "reject"]
     corrected_fault_id: int | None = None
     notes: str | None = Field(default=None, max_length=500)
-
-    @model_validator(mode="after")
-    def validate_fault_ids(self) -> "FeedbackRequest":
-        """Ensure fault IDs exist in the TEP fault metadata."""
-
-        if self.fault_id not in FAULT_METADATA:
-            raise ValueError(
-                f"Unsupported fault_id: {self.fault_id}. "
-                f"Supported: {sorted(FAULT_METADATA)}"
-            )
-
-        if (
-            self.corrected_fault_id is not None
-            and self.corrected_fault_id not in FAULT_METADATA
-        ):
-            raise ValueError(
-                f"Unsupported corrected_fault_id: "
-                f"{self.corrected_fault_id}. "
-                f"Supported: {sorted(FAULT_METADATA)}"
-            )
-
-        return self
 
 
 class FeedbackResponse(BaseModel):

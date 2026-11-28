@@ -21,6 +21,7 @@ from fastapi import (
 )
 import numpy as np
 import pandas as pd
+from starlette.concurrency import run_in_threadpool
 
 from app.config import (
     DEFAULT_WINDOW_SIZE,
@@ -229,6 +230,10 @@ def health_check(request: Request) -> HealthResponse:
     )
 
     model_loaded = predictor is not None
+    episodes_by_fault = (
+        getattr(request.app.state, "test_episodes_by_fault", None) or {}
+    )
+    simulation_ready = bool(episodes_by_fault)
 
     classes = (
         list(predictor.classes)
@@ -239,6 +244,7 @@ def health_check(request: Request) -> HealthResponse:
     return HealthResponse(
         status="ok" if model_loaded else "degraded",
         model_loaded=model_loaded,
+        simulation_ready=simulation_ready,
         supported_faults=len(classes),
         fault_ids=classes,
         active_plant_id=(
@@ -578,11 +584,23 @@ def simulate_fault(
             ),
         )
 
-    episodes_by_fault: dict[int, list[pd.DataFrame]] = getattr(
-        request.app.state,
-        "test_episodes_by_fault",
-        {},
+    episodes_by_fault: dict[int, list[pd.DataFrame]] = (
+        getattr(
+            request.app.state,
+            "test_episodes_by_fault",
+            None,
+        )
+        or {}
     )
+
+    if not episodes_by_fault:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "TEP simulation dataset is not loaded on this server "
+                "(simulation_ready is false)."
+            ),
+        )
 
     natural_prefixes: dict[int, pd.DataFrame] = getattr(
         request.app.state,
@@ -822,6 +840,12 @@ def analyze_window(
         dtype=np.float32,
     )
 
+    if not np.isfinite(window_df.to_numpy(dtype=np.float64)).all():
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Sensor window contains non-finite (NaN or infinite) values.",
+        )
+
     analysis = _run_full_analysis(
         window_df=window_df,
         predictor=predictor,
@@ -995,7 +1019,8 @@ async def retrain_custom_plant(
         csv_path.write_bytes(raw_bytes)
 
         try:
-            summary = train_custom_plant_csv(
+            summary = await run_in_threadpool(
+                train_custom_plant_csv,
                 csv_path=csv_path,
                 plant_id=plant_id,
                 plant_name=plant_name,
@@ -1013,14 +1038,20 @@ async def retrain_custom_plant(
             ) from exc
 
     if activate:
-        request.app.state.predictor = PredictorService(
-            artifacts_dir=summary["artifacts_dir"]
+        request.app.state.predictor = await run_in_threadpool(
+            PredictorService,
+            artifacts_dir=summary["artifacts_dir"],
         )
+
+    response_payload = {
+        **summary,
+        "artifacts_dir": f"plants/{summary['plant_id']}",
+    }
 
     return RetrainResponse(
         status="trained",
         activated=activate,
-        **summary,
+        **response_payload,
     )
 
 
@@ -1146,6 +1177,39 @@ def record_feedback(
 ) -> FeedbackResponse:
     """Append operator diagnosis feedback to the JSONL log."""
 
+    predictor = _get_predictor(request)
+    supported_classes = set(int(c) for c in predictor.classes)
+
+    if payload.fault_id not in supported_classes:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=(
+                f"Unsupported fault_id: {payload.fault_id} for active plant "
+                f"'{predictor.plant_id}'. Supported: {sorted(supported_classes)}"
+            ),
+        )
+
+    if (
+        payload.corrected_fault_id is not None
+        and payload.corrected_fault_id not in supported_classes
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=(
+                f"Unsupported corrected_fault_id: {payload.corrected_fault_id} "
+                f"for active plant '{predictor.plant_id}'. "
+                f"Supported: {sorted(supported_classes)}"
+            ),
+        )
+
+    if predictor.plant_id == "tep" and payload.fault_id in FAULT_METADATA:
+        fault_name = FAULT_METADATA[payload.fault_id]["name"]
+    else:
+        fault_name = predictor.fault_names.get(
+            payload.fault_id,
+            "Normal" if payload.fault_id == 0 else f"Fault {payload.fault_id}",
+        )
+
     log_path = _get_feedback_log_path(request)
 
     log_path.parent.mkdir(
@@ -1158,7 +1222,7 @@ def record_feedback(
     record: dict[str, Any] = {
         "timestamp": timestamp,
         "fault_id": payload.fault_id,
-        "fault_name": FAULT_METADATA[payload.fault_id]["name"],
+        "fault_name": fault_name,
         "episode_id": payload.episode_id,
         "step_index": payload.step_index,
         "action": payload.action,
