@@ -1,0 +1,14 @@
+# Use with compose.yaml and --profile sandbox. Source edits reload both services.
+services:
+  product-sandbox:
+    environment:
+      PYTHONPATH: /app/src
+    volumes:
+      - ./src:/app/src:ro
+    command: [uvicorn, "agent_x_product.app:create_app", --factory, --host, "0.0.0.0", --port, "8000", --reload, --reload-dir, /app/src]
+  sandbox:
+    environment:
+      PYTHONPATH: /app/src
+    volumes:
+      - ./src:/app/src:ro
+    command: [uvicorn, "agent_x_sandbox.app:create_app", --factory, --host, "0.0.0.0", --port, "8000", --reload, --reload-dir, /app/src]

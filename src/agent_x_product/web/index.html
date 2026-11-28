@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AGENT-X · Operator</title>
+<style>
+:root{font:16px system-ui;color:#dce7f5;background:#101824}body{max-width:1100px;margin:3rem auto;padding:0 1.5rem}h1{letter-spacing:.12em}small,.muted{color:#a8b8cd}input,button{font:inherit;padding:.7rem;border:1px solid #52657d;border-radius:6px;background:#1b293c;color:inherit;margin:.3rem}input{max-width:100%;box-sizing:border-box}button{cursor:pointer}button:hover{border-color:#64dac4}pre{background:#192536;padding:1rem;white-space:pre-wrap;overflow-wrap:anywhere;border-radius:8px}.approval{padding:1rem;border:1px solid #52657d;border-radius:8px;margin:1rem 0}a{color:#64dac4}#message{color:#ffcf86}label{display:inline-block}nav{margin-bottom:2rem}
+</style>
+<nav>AGENT-X / OPERATOR <small>· scaffold v0.1</small></nav>
+<h1>Run evidence</h1>
+<p class="muted">Inspect evaluated actions, dispatch reservations, and simulator-observed effects. This local dashboard requires the operator token.</p>
+<form id="lookup">
+<label>Operator token<br><input id="token" type="password" required autocomplete="off"></label>
+<label>Run ID<br><input id="run" required size="36"></label>
+<button>Load run</button><button id="stop" type="button">Stop run</button>
+</form>
+<p id="message" role="status"></p>
+<div id="approvals"></div>
+<h2>Contract and timeline</h2><pre id="report">Load a run to inspect its evidence.</pre>
+<p class="muted">Seed-backed output checks and an unanchored audit hash chain are scaffold features. Live connectors, a live agent, and production identity integration remain unimplemented.</p>
+<script>
+const $=id=>document.getElementById(id);
+$('run').value=new URLSearchParams(location.search).get('run_id')||'';
+async function api(path,body){const response=await fetch(path,{method:body?'POST':'GET',headers:{'Authorization':'Bearer '+$('token').value,'Content-Type':'application/json'},...(body?{body:JSON.stringify(body)}:{})});const data=await response.json();if(!response.ok)throw new Error(data.message||'Request failed');return data;}
+async function load(){const run=await api('/v1/runs/'+encodeURIComponent($('run').value));$('report').textContent=JSON.stringify(run,null,2);$('approvals').replaceChildren();for(const approval of Object.values(run.approvals)){const box=document.createElement('section');box.className='approval';const details=document.createElement('pre');details.textContent=JSON.stringify(approval,null,2);box.append(details);if(approval.status==='PENDING'){for(const decision of ['APPROVE','REJECT']){const button=document.createElement('button');button.textContent=decision;button.onclick=()=>perform(async()=>{await api('/v1/runs/'+encodeURIComponent(run.run_id)+'/approvals/'+encodeURIComponent(approval.approval_id),{decision});await load();});box.append(button);}}$('approvals').append(box);}}
+async function perform(action){$('message').textContent='Loading…';try{await action();$('message').textContent='Evidence loaded.';}catch(error){$('message').textContent=error.message;}}
+$('lookup').onsubmit=event=>{event.preventDefault();perform(load);};
+$('stop').onclick=()=>perform(async()=>{await api('/v1/runs/'+encodeURIComponent($('run').value)+'/stop',{});await load();});
+</script>
+</html>
