@@ -6,6 +6,7 @@ Handles opening, reading, releasing, and error recovery.
 
 import cv2
 import time
+import threading
 from pathlib import Path
 from typing import Optional, Tuple
 
@@ -17,18 +18,23 @@ log = get_logger("video")
 
 class VideoSource:
     """
-    Unified video source for webcam and video files.
+    Unified video source for webcam, video files, and Smartphone Wi-Fi streams.
 
-    Handles lifecycle management, frame reading, and
-    provides source metadata (FPS, frame count, etc.).
+    For live sources ("webcam" and "stream"), spawns a background frame-grabbing
+    thread that continuously drains the OpenCV / TCP buffer and keeps only the
+    NEWEST frame, eliminating multi-second buffering lag.
     """
 
     def __init__(self):
         self._cap: Optional[cv2.VideoCapture] = None
-        self._source_type: Optional[str] = None   # "webcam" or "file"
+        self._source_type: Optional[str] = None   # "webcam", "file", or "stream"
         self._source_name: str = "—"
         self._total_frames: int = 0
         self._video_fps: float = 0.0
+        self._latest_frame = None
+        self._frame_lock = threading.Lock()
+        self._grab_stop = threading.Event()
+        self._grab_thread: Optional[threading.Thread] = None
 
     @property
     def is_opened(self) -> bool:
@@ -92,6 +98,13 @@ class VideoSource:
             self._source_name = f"Webcam {index}"
             self._total_frames = 0
             self._video_fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+            try:
+                cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+            except Exception:
+                pass
+            with self._frame_lock:
+                self._latest_frame = frame
+            self._start_grab_thread()
 
             log.info("Webcam opened successfully. Resolution: %dx%d",
                      int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
@@ -184,6 +197,13 @@ class VideoSource:
             self._total_frames = 0
             fps = cap.get(cv2.CAP_PROP_FPS)
             self._video_fps = fps if (fps and fps > 0 and fps < 120) else 25.0
+            try:
+                cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+            except Exception:
+                pass
+            with self._frame_lock:
+                self._latest_frame = frame
+            self._start_grab_thread()
 
             log.info(
                 "Network/Smartphone stream opened successfully (%dx%d).",
@@ -196,15 +216,40 @@ class VideoSource:
             log.error("Failed to open network/smartphone stream: %s", e)
             return False
 
+    def _start_grab_thread(self):
+        self._grab_stop.clear()
+        self._grab_thread = threading.Thread(target=self._grab_loop, daemon=True)
+        self._grab_thread.start()
+
+    def _grab_loop(self):
+        """Continuously drain live camera/network frames so `read()` always gets the newest frame with zero lag."""
+        while not self._grab_stop.is_set() and self._cap is not None:
+            try:
+                ret, frame = self._cap.read()
+                if ret and frame is not None and frame.size > 0:
+                    with self._frame_lock:
+                        self._latest_frame = frame
+                else:
+                    time.sleep(0.005)
+            except Exception:
+                time.sleep(0.01)
+
     def read(self) -> Tuple[bool, Optional["cv2.Mat"]]:
         """
-        Read the next frame.
+        Read the latest frame.
 
         Returns (success, frame) tuple.
-        On failure or end-of-video, returns (False, None).
+        For live sources ("webcam", "stream"), returns a copy of the freshest frame
+        drained by the background grab thread.
         """
         if not self.is_opened:
             return False, None
+
+        if self._source_type in ("webcam", "stream"):
+            with self._frame_lock:
+                if self._latest_frame is None:
+                    return False, None
+                return True, self._latest_frame.copy()
 
         try:
             ret, frame = self._cap.read()
@@ -224,6 +269,12 @@ class VideoSource:
 
     def release(self):
         """Release the current video source."""
+        self._grab_stop.set()
+        if self._grab_thread is not None and self._grab_thread.is_alive():
+            self._grab_thread.join(timeout=1.5)
+        self._grab_thread = None
+        with self._frame_lock:
+            self._latest_frame = None
         if self._cap is not None:
             try:
                 self._cap.release()

@@ -190,7 +190,7 @@ class WebStreamPublisher:
                             self.wfile.write(f"Content-Length: {len(jpg)}\r\n\r\n".encode("utf-8"))
                             self.wfile.write(jpg)
                             self.wfile.write(b"\r\n")
-                            time.sleep(0.08)
+                            time.sleep(0.035)
                     except Exception:
                         return
 
@@ -316,6 +316,12 @@ class HeadlessMLWebDaemon:
         self.fire_ok = self.fire_detector.load()
         self._stop_event = threading.Event()
         self._worker_thread: Optional[threading.Thread] = None
+        self._infer_thread: Optional[threading.Thread] = None
+        self._state_lock = threading.Lock()
+        self._latest_raw_frame = None
+        self._cached_ppe = self.EMPTY_PPE
+        self._cached_fire = self.EMPTY_FIRE
+        self._cached_status = self.safety_engine.evaluate(self.EMPTY_PPE, self.EMPTY_FIRE)
 
         self.publisher = WebStreamPublisher(
             host="127.0.0.1",
@@ -359,34 +365,87 @@ class HeadlessMLWebDaemon:
     def stop_capture(self):
         self._stop_event.set()
         if self._worker_thread and self._worker_thread.is_alive():
-            self._worker_thread.join(timeout=2.5)
+            self._worker_thread.join(timeout=2.0)
+        if self._infer_thread and self._infer_thread.is_alive():
+            self._infer_thread.join(timeout=2.0)
         self.video_source.release()
         self.publisher.set_standby(model_ready=(self.ppe_ok and self.fire_ok))
 
     def _start_loop(self):
         self._stop_event.clear()
-        self._worker_thread = threading.Thread(target=self._loop, daemon=True)
+        with self._state_lock:
+            self._latest_raw_frame = None
+            self._cached_ppe = self.EMPTY_PPE
+            self._cached_fire = self.EMPTY_FIRE
+            self._cached_status = self.safety_engine.evaluate(self.EMPTY_PPE, self.EMPTY_FIRE)
+        self._worker_thread = threading.Thread(target=self._render_loop, daemon=True)
+        self._infer_thread = threading.Thread(target=self._inference_loop, daemon=True)
         self._worker_thread.start()
+        self._infer_thread.start()
 
-    def _loop(self):
-        fps_counter = 0
-        fps_start = time.time()
-        display_fps = 15.0
-
+    def _inference_loop(self):
+        """
+        Asynchronous AI Inference Thread:
+        Runs YOLOv11 PPE + Fire/Smoke on the latest frame in the background
+        so video streaming stays smooth at ~25 FPS with zero lag!
+        """
+        infer_idx = 0
+        fire_cache = self.EMPTY_FIRE
         while not self._stop_event.is_set():
-            ret, frame = self.video_source.read()
-            if not ret or frame is None:
-                time.sleep(0.05)
+            with self._state_lock:
+                frame = self._latest_raw_frame.copy() if self._latest_raw_frame is not None else None
+
+            if frame is None:
+                time.sleep(0.02)
                 continue
 
+            infer_idx += 1
             ppe_results = self.ppe_detector.detect(frame) if self.ppe_ok else self.EMPTY_PPE
-            fire_results = self.fire_detector.detect(frame) if self.fire_ok else self.EMPTY_FIRE
+            # Run Fire/Smoke every 2nd inference cycle unless fire/smoke is active
+            if self.fire_ok and (infer_idx % 2 == 1 or fire_cache.get("fire_detected") or fire_cache.get("smoke_detected")):
+                fire_cache = self.fire_detector.detect(frame)
+            fire_results = fire_cache
             status = self.safety_engine.evaluate(ppe_results, fire_results)
 
-            self.overlay_renderer.render(frame, ppe_results, fire_results)
+            with self._state_lock:
+                self._cached_ppe = ppe_results
+                self._cached_fire = fire_results
+                self._cached_status = status
+
             self.backend_client.process_frame_results(
                 ppe_results, fire_results, status.level, status.detail, frame=frame
             )
+
+    def _render_loop(self):
+        """
+        High-FPS Zero-Lag Stream Loop (~25 FPS):
+        Reads the newest camera frame immediately, draws the latest YOLO bounding boxes,
+        and pushes to `/stream.mjpg` and `/snapshot.jpg` without waiting for CPU inference.
+        """
+        fps_counter = 0
+        fps_start = time.time()
+        display_fps = 24.0
+
+        while not self._stop_event.is_set():
+            loop_t0 = time.time()
+            ret, frame = self.video_source.read()
+            if not ret or frame is None:
+                time.sleep(0.02)
+                continue
+
+            # Normalize high-res phone streams (e.g. 1080p/4K) to 640px width for fast encoding & zero network lag
+            h, w = frame.shape[:2]
+            if w > 640:
+                scale = 640.0 / float(w)
+                frame = cv2.resize(frame, (640, int(h * scale)), interpolation=cv2.INTER_AREA)
+
+            with self._state_lock:
+                self._latest_raw_frame = frame.copy()
+                ppe_results = self._cached_ppe
+                fire_results = self._cached_fire
+                status = self._cached_status
+
+            self.overlay_renderer.render(frame, ppe_results, fire_results)
 
             fps_counter += 1
             elapsed = time.time() - fps_start
@@ -405,6 +464,11 @@ class HeadlessMLWebDaemon:
                 source_name=self.video_source.source_name,
                 model_ready=(self.ppe_ok and self.fire_ok),
             )
+
+            # Cap render loop to ~25 FPS (~0.04s per frame)
+            dt = time.time() - loop_t0
+            if dt < 0.038:
+                time.sleep(0.038 - dt)
 
 
 if __name__ == "__main__":

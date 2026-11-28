@@ -215,8 +215,10 @@ class PPEDetector:
         explicit_no_boots = [d for d in detections if d["label"] == "no_boots"]
 
         # ── Companion Dual-Detector Person Detection (from ppe_matching.py) ──
+        # Optimization: Only run companion yolo11n.pt when custom PPE model found head/helmet boxes
+        # without any person box, avoiding redundant 2nd YOLO forward pass on every frame.
         companion_persons = []
-        if self.person_model is not None:
+        if self.person_model is not None and not ppe_persons and (helmets or no_helmets):
             try:
                 p_results = self.person_model.predict(
                     source=frame,
