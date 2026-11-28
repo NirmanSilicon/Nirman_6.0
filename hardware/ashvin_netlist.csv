@@ -1,0 +1,25 @@
+Net,Pins on this net,Note
+3V3,"U3 OUT, C2 +, U5 pin 1, U6 VCC, U7 VCC, C5 +",Logic rail from the AMS1117
+5V,"J1 pin 1 via F1 and D1, U3 IN, C1 +, U4 IN, C4 +, BZ1 +, U10 OUT",Fused and reverse protected input rail
+4V0,"U4 OUT, C3 +, C7 +, U8 VCC","Modem rail, buck set to 4.0 V, 1000 uF within 30 mm"
+GND,"J1 pin 2, U3 GND, C1 -, C2 -, U4 GND, C3 -, C4 -, C5 -, U5 pins 2 and 3, U6 GND, U7 GND, U8 GND, C7 -, Q1 emitter, SW1 pin 2, SW2 pin 2, D3 cathode, U9 IN- and OUT-, BT1 -",Single ground
+SDA,"U5 GPIO21, U6 SDA","I2C, pull-ups already on the GY-521"
+SCL,"U5 GPIO22, U6 SCL",I2C clock
+IMU_INT,"U5 GPIO13, U6 INT",Motion interrupt
+GPS_TX,"U7 TX, U5 GPIO16 (RX2)",NMEA at 9600 baud
+GPS_RX,"U5 GPIO17 (TX2), U7 RX","Optional, configuration only"
+SIM_RX,"U8 TXD, U5 GPIO26",Modem output into the ESP32
+SIM_TX,"U5 GPIO27, U8 RXD",AT commands to the modem
+PWRKEY,"U5 GPIO5, U8 PWRKEY",Pulse low to switch the modem on
+RST_MODEM,"U5 GPIO23, U8 RST",Hard reset of the modem
+BUZ,"U5 GPIO4, R1 pin 1",Buzzer drive
+BUZ_Q,"R1 pin 2, Q1 base",Base current limited to about 3 mA
+LED,"U5 GPIO2, R2 pin 1",Status heartbeat
+LED_A,"R2 pin 2, D3 anode",About 5 mA at 3.3 V
+EN,"U5 EN, SW1 pin 1","Reset, pull-up is on the devkit"
+BOOT,"U5 GPIO0, SW2 pin 1",Flash mode
+VBAT,"U9 B+, BT1 +","Battery branch, optional"
+VBAT_N,"U9 B-, BT1 -","Battery branch, optional"
+VBOOST,"U9 OUT+, U10 IN","Boost input, optional"
+BZ_RET,"BZ1 -, Q1 collector, D2 anode",Buzzer return through the transistor
+D2_K,"D2 cathode, 5V",Flyback diode across the buzzer
