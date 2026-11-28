@@ -1,0 +1,36 @@
+x-service: &service
+  build: .
+  init: true
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=128m,mode=1777
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  volumes:
+    - vault:/vault
+    - ./artifacts/berka-robust-v1:/models/berka:ro
+    - ./artifacts/synthetic-india-v2:/models/synthetic:ro
+  environment: &environment
+    UQUAL_ACCOUNT_DIR: /vault
+    UQUAL_MODEL_PATH: /models/berka/model.joblib
+    UQUAL_SYNTHETIC_MODEL_PATH: /models/synthetic/model.joblib
+    UQUAL_WORKER_ENABLED: "false"
+    UQUAL_SYNC_UPLOADS: "false"
+    UQUAL_API_KEY: ${UQUAL_API_KEY:?Set a random developer API key of at least 32 characters}
+    UQUAL_CORS_ORIGINS: ${UQUAL_CORS_ORIGINS:-http://localhost:8081}
+services:
+  api:
+    <<: *service
+    ports: ["127.0.0.1:8000:8000"]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+  worker:
+    <<: *service
+    command: [python, -m, uqual.worker, --accounts-dir, /vault, --model, /models/synthetic/model.joblib]
+volumes:
+  vault:

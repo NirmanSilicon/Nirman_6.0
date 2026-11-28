@@ -1,0 +1,492 @@
+{
+  "dataset": "synthetic_india",
+  "data_summary": {
+    "generator_version": "india-simulation-v1",
+    "data_origin": "fully_synthetic",
+    "borrowers": 20000,
+    "transactions": 11083461,
+    "seed": 20261108,
+    "future_stress": 1.0,
+    "personas": {
+      "salaried": 3354,
+      "merchant": 3279,
+      "pensioner": 3331,
+      "gig_worker": 3329,
+      "student": 3373,
+      "freelancer": 3334
+    },
+    "simulated_adverse_outcomes": 2953,
+    "eligible_borrowers": 19681,
+    "target": "Simulated 3 consecutive missed hypothetical EMI payments within 6 future months",
+    "target_assumption": "Hypothetical EMI equals 15% of generator baseline monthly income; not a proposed actual loan",
+    "limitation": "Generator recovery only; not empirical Indian accuracy, actual PD, bureau score or lending approval",
+    "source_code_sha256": "8e70efeda2b4f11c154c1fee59d27ce96ee3b5d2efb67495cdd22b5943379bef",
+    "files": {
+      "transactions/part-00000.parquet": "ea7f8490f94030de7838dd1e41ddc00ea56191a149b59f04d7260c415b37f145",
+      "transactions/part-00001.parquet": "823f1f0d10b4246ff8aac930582940a6a0746f16fe5f2a7d96c9dc81bb012d20",
+      "transactions/part-00002.parquet": "838ab625949fdad99032420993d1d1cb60907eac71329a4824517b185a5b37d7",
+      "transactions/part-00003.parquet": "35ff5050ddcfbe9e4681dff43b160a8fb931f5fb607f768f2a323847dc3b4ffa",
+      "transactions/part-00004.parquet": "3ce52af8688df116f1996a7843e32393eb906f1990c3e6af85b7395745146e22",
+      "transactions/part-00005.parquet": "a87dc96ef6dce43a21494d6f9d9720726b95b041cd209b0b66c6c90a1a44d2c4",
+      "transactions/part-00006.parquet": "f5d07a6c343e96ed925b52c681cdd373050bd02d0d9177fbb5919a5ddea1ea48",
+      "transactions/part-00007.parquet": "6bc5a891ab227cb8f3c90c4d8be8f2b2ba678c4b083c222f9fece13456cd40a4",
+      "transactions/part-00008.parquet": "3f2819620cf75401901647e1f74020ac96e406c1af9888a71abc1cad68a6fef0",
+      "transactions/part-00009.parquet": "c88db46f6f4887722fcdc0a2ec3ee58defedbdf2ed6a3928a87f9a893424d5cc",
+      "transactions/part-00010.parquet": "ab8642e08f5346eca7d4709b20a74bdf41d80aed7374a30a3835c7e10732a418",
+      "transactions/part-00011.parquet": "aaec22c485ee212475d689c4a5064c3ad21ecafcc063497850d272c354a3cef8",
+      "transactions/part-00012.parquet": "27b2ae0eff23fa007c5517f3a4989c1eff262e21e01bd69faf141b79b9893671",
+      "transactions/part-00013.parquet": "ddd9d45799911c9054320efe78c5da5b901ef3d7c64d2e6829cbd8dc926521e1",
+      "transactions/part-00014.parquet": "f7e3efba472ffa8e0f7d003fbe4e869d1cee5c5cf57d7d932c80a463418a8cef",
+      "transactions/part-00015.parquet": "6c928b8f610da446821a813d16925a0139389fd948b3f4985e209702498bbe41",
+      "transactions/part-00016.parquet": "803e64c08b19b4da4f2a71a2f87ff176d7e7ea0254f644265ef8db8c178dca97",
+      "transactions/part-00017.parquet": "be4b058c1e581c175203003c5c194e2287fb45a0b4fcfea905682098a080c689",
+      "transactions/part-00018.parquet": "ba359403e8372dd0566c1bcc071988837c7911732ea450de20af296048fb238d",
+      "transactions/part-00019.parquet": "477714719bef1db286667044d22e2a8fd5e7e45c470a92733443448decbe7916",
+      "transactions/part-00020.parquet": "0c3c827e9d394c3872b58c3bd7b6994547b429cb0d32c3dc3b088fb2d9b50f20",
+      "transactions/part-00021.parquet": "249bbf628e864d0fdece84590d0e960ad19a22fe5ea4447d56ec831cbeacc8c4",
+      "transactions/part-00022.parquet": "4b591e88bbdbb7a0ec634d9233134e6046c172ec8899e3b71830f91bb5df38b7",
+      "transactions/part-00023.parquet": "e59dc83e40d714c976486f9d5138983827491dfa83f74a2df87a5c2744b2eab2",
+      "transactions/part-00024.parquet": "15ad7d99ee48a89fd110aeca4ddafbbaa90b5f8f0b63f659d7d3110511b2e9e6",
+      "transactions/part-00025.parquet": "aa971ef58c374e00a7e09eaacfec6b67af512dcb693b41725af1a46c627b3a7a",
+      "transactions/part-00026.parquet": "aceb41337cd325d002c29f46336f6306db7caf57cab0165296755a46cc3f3a2b",
+      "transactions/part-00027.parquet": "59508a7f07b3c30b8a749eb4ea80fbaf180299f91e0327529e098ff3820e3c66",
+      "transactions/part-00028.parquet": "6dd1406356077b36c0c314062bda4ff1ae53b07f40604dff107d6a8b095a2f22",
+      "transactions/part-00029.parquet": "f8b82b6cedcc1cf8835657cefab2b28cc82ce1b6e04a53cfc994a06be885c168",
+      "transactions/part-00030.parquet": "0608e376ae47f8802f45d381b1a2ce7d6621fdc5120b83bed2772bb21812e4b6",
+      "transactions/part-00031.parquet": "f80291f38861f9624b8f78f36b3691c488e0b37a33a4309817efd1e2db64f461",
+      "transactions/part-00032.parquet": "845f6a25c6a2ce13ff3fe899609c57706a96d15808630614b5b641df3bb92189",
+      "transactions/part-00033.parquet": "ea79ff34b13aeaa804da9e61109e252b4b8ad8dca0b13655289d974c8c1c4952",
+      "transactions/part-00034.parquet": "eba69234261037df329752fd7d059a28caad71eda718dc67209f8c140bf8b456",
+      "transactions/part-00035.parquet": "258bdab90673c9048b967c7697db081279c45eff7736d3426a929c58981b2289",
+      "transactions/part-00036.parquet": "f53e56bd0931694e54e69882c34d2ace6efb4d813e36f412570dad9298068b47",
+      "transactions/part-00037.parquet": "38db2f2cdf67472c819a7509ea1612c2eb4f85855277013c717e41cb90f51502",
+      "transactions/part-00038.parquet": "c64cae41fe4b1b030ea34ec00e4c0dcbb0444059e0242c857b2c87031955b1ae",
+      "transactions/part-00039.parquet": "d7501a1d3c5730f8fbac212b56810f676177d978092531bf8425ee1496fef1c6",
+      "features.parquet": "92c8bad940028269477e3d2a17b3f7361f5fb30ac767b98dcabdef2a7594cb1e",
+      "assessments.parquet": "523044fcf0ba4cbe48582c8bd1c81c4b4a6de5744ead4ab647e2dd5f6cd1bfd9",
+      "future_simulation.parquet": "cdb8fb496537853b1df3483f87cc0860c20b33360a8daed16844e526924026e0",
+      "latent_audit_DO_NOT_TRAIN.parquet": "fce4976691d4450394339b0208f7ad0e4718321f82a94530f1622cba1881a392"
+    },
+    "feature_exclusions": 319
+  },
+  "feature_version": "cashflow-monotone-v2",
+  "data_origin": "synthetic",
+  "model_name": "xgboost-0",
+  "research_only": true,
+  "indian_validation": false,
+  "split_method": "chronological, customer-disjoint",
+  "partitions": {
+    "train": {
+      "rows": 10584,
+      "positive_outcomes": 1574,
+      "start": "2022-01-01 00:00:00",
+      "end": "2024-02-01 00:00:00"
+    },
+    "validation": {
+      "rows": 2949,
+      "positive_outcomes": 440,
+      "start": "2024-03-01 00:00:00",
+      "end": "2024-09-01 00:00:00"
+    },
+    "calibration": {
+      "rows": 3016,
+      "positive_outcomes": 420,
+      "start": "2024-10-01 00:00:00",
+      "end": "2025-04-01 00:00:00"
+    },
+    "test": {
+      "rows": 3132,
+      "positive_outcomes": 468,
+      "start": "2025-05-01 00:00:00",
+      "end": "2025-12-01 00:00:00"
+    }
+  },
+  "feature_count": 10,
+  "removed_train_constant_features": [],
+  "selection_metric": "Validation ROC-AUC",
+  "threshold_policy": "Maximum validation F2, not a lending policy",
+  "test": {
+    "n": 3132,
+    "positive_outcomes": 468,
+    "positive_rate": 0.14942528735632185,
+    "roc_auc": 0.9180975847642514,
+    "pr_auc": 0.5749071834705801,
+    "ks": 0.7253984753984755,
+    "gini": 0.8361951695285028,
+    "brier": 0.08050026197807124,
+    "log_loss": 0.24336526060885652,
+    "threshold": 0.11756276403579247,
+    "precision": 0.4194470924690181,
+    "recall": 0.9401709401709402,
+    "false_positive_rate": 0.2286036036036036,
+    "confusion_matrix": {
+      "tn": 2055,
+      "fp": 609,
+      "fn": 28,
+      "tp": 440
+    },
+    "calibration_bins": [
+      {
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 2034,
+        "predicted": 0.012678563110456146,
+        "observed": 0.011799410029498525
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 210,
+        "predicted": 0.14669343966729306,
+        "observed": 0.10952380952380952
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.30000000000000004,
+        "count": 161,
+        "predicted": 0.24731889448587024,
+        "observed": 0.2919254658385093
+      },
+      {
+        "lower": 0.30000000000000004,
+        "upper": 0.4,
+        "count": 174,
+        "predicted": 0.3494739500848238,
+        "observed": 0.39080459770114945
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 209,
+        "predicted": 0.45009412530464704,
+        "observed": 0.4449760765550239
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6000000000000001,
+        "count": 124,
+        "predicted": 0.5458891119751781,
+        "observed": 0.5806451612903226
+      },
+      {
+        "lower": 0.6000000000000001,
+        "upper": 0.7000000000000001,
+        "count": 138,
+        "predicted": 0.6495857871480463,
+        "observed": 0.6594202898550725
+      },
+      {
+        "lower": 0.7000000000000001,
+        "upper": 0.8,
+        "count": 70,
+        "predicted": 0.7365140409963618,
+        "observed": 0.6142857142857143
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 12,
+        "predicted": 0.827432694079449,
+        "observed": 0.5833333333333334
+      }
+    ]
+  },
+  "test_uncalibrated": {
+    "n": 3132,
+    "positive_outcomes": 468,
+    "positive_rate": 0.14942528735632185,
+    "roc_auc": 0.9180975847642514,
+    "pr_auc": 0.5749071834705801,
+    "ks": 0.7253984753984755,
+    "gini": 0.8361951695285028,
+    "brier": 0.08110835879239471,
+    "log_loss": 0.24508401006038114,
+    "threshold": 0.5,
+    "precision": 0.6040100250626567,
+    "recall": 0.5149572649572649,
+    "false_positive_rate": 0.05930930930930931,
+    "confusion_matrix": {
+      "tn": 2506,
+      "fp": 158,
+      "fn": 227,
+      "tp": 241
+    },
+    "calibration_bins": [
+      {
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 2098,
+        "predicted": 0.010431800968945026,
+        "observed": 0.014299332697807437
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 184,
+        "predicted": 0.15012627840042114,
+        "observed": 0.14673913043478262
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.30000000000000004,
+        "count": 129,
+        "predicted": 0.24856603145599365,
+        "observed": 0.3023255813953488
+      },
+      {
+        "lower": 0.30000000000000004,
+        "upper": 0.4,
+        "count": 150,
+        "predicted": 0.34744516015052795,
+        "observed": 0.4
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 172,
+        "predicted": 0.4518425464630127,
+        "observed": 0.4127906976744186
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6000000000000001,
+        "count": 129,
+        "predicted": 0.539708137512207,
+        "observed": 0.5426356589147286
+      },
+      {
+        "lower": 0.6000000000000001,
+        "upper": 0.7000000000000001,
+        "count": 121,
+        "predicted": 0.6538780331611633,
+        "observed": 0.5867768595041323
+      },
+      {
+        "lower": 0.7000000000000001,
+        "upper": 0.8,
+        "count": 112,
+        "predicted": 0.7484003901481628,
+        "observed": 0.6875
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 35,
+        "predicted": 0.8357845544815063,
+        "observed": 0.6285714285714286
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 2,
+        "predicted": 0.9237523078918457,
+        "observed": 0.5
+      }
+    ]
+  },
+  "test_ci": {
+    "roc_auc": {
+      "lower_95": 0.9083992905720264,
+      "upper_95": 0.9284238176474708,
+      "valid_resamples": 500
+    },
+    "pr_auc": {
+      "lower_95": 0.5272357395882293,
+      "upper_95": 0.6242482186603144,
+      "valid_resamples": 500
+    },
+    "brier": {
+      "lower_95": 0.07526582082641162,
+      "upper_95": 0.08620614994642667,
+      "valid_resamples": 500
+    }
+  },
+  "majority_baseline": {
+    "n": 3132,
+    "positive_outcomes": 468,
+    "positive_rate": 0.14942528735632185,
+    "roc_auc": 0.5,
+    "pr_auc": 0.14942528735632185,
+    "ks": 0.0,
+    "gini": 0.0,
+    "brier": 0.12709787530387637,
+    "log_loss": 0.4217128837110913,
+    "threshold": 0.11756276403579247,
+    "precision": 0.14942528735632185,
+    "recall": 1.0,
+    "false_positive_rate": 1.0,
+    "confusion_matrix": {
+      "tn": 0,
+      "fp": 2664,
+      "fn": 0,
+      "tp": 468
+    },
+    "calibration_bins": [
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 3132,
+        "predicted": 0.14871504157218446,
+        "observed": 0.14942528735632185
+      }
+    ]
+  },
+  "validation": {
+    "n": 2949,
+    "positive_outcomes": 440,
+    "positive_rate": 0.14920311970159375,
+    "roc_auc": 0.9207774738215152,
+    "pr_auc": 0.6194183581457092,
+    "ks": 0.7240896409290192,
+    "gini": 0.8415549476430304,
+    "brier": 0.07841022569664269,
+    "log_loss": 0.24021865111876067,
+    "threshold": 0.11756276403579247,
+    "precision": 0.4321503131524008,
+    "recall": 0.9409090909090909,
+    "false_positive_rate": 0.21681944998007174,
+    "confusion_matrix": {
+      "tn": 1965,
+      "fp": 544,
+      "fn": 26,
+      "tp": 414
+    },
+    "calibration_bins": [
+      {
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 1948,
+        "predicted": 0.013843507250805421,
+        "observed": 0.011293634496919919
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 182,
+        "predicted": 0.14470820019103212,
+        "observed": 0.2032967032967033
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.30000000000000004,
+        "count": 160,
+        "predicted": 0.2500062622934332,
+        "observed": 0.21875
+      },
+      {
+        "lower": 0.30000000000000004,
+        "upper": 0.4,
+        "count": 141,
+        "predicted": 0.3506571601752108,
+        "observed": 0.3546099290780142
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 184,
+        "predicted": 0.4486994987409603,
+        "observed": 0.4673913043478261
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6000000000000001,
+        "count": 128,
+        "predicted": 0.5478238278610102,
+        "observed": 0.5234375
+      },
+      {
+        "lower": 0.6000000000000001,
+        "upper": 0.7000000000000001,
+        "count": 117,
+        "predicted": 0.6550370074033327,
+        "observed": 0.6752136752136753
+      },
+      {
+        "lower": 0.7000000000000001,
+        "upper": 0.8,
+        "count": 66,
+        "predicted": 0.7338021514250628,
+        "observed": 0.6818181818181818
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 19,
+        "predicted": 0.8437604694376034,
+        "observed": 0.8421052631578947
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 4,
+        "predicted": 0.9146680283363448,
+        "observed": 0.75
+      }
+    ]
+  },
+  "prediction_psi_train_to_test": 0.006884093955682816,
+  "calibration_slope": 0.8442977771850178,
+  "feature_missingness_train": {
+    "external_outflow_ratio": 0.0,
+    "mean_liquidity_ratio": 0.0,
+    "minimum_liquidity_ratio": 0.0,
+    "ending_liquidity_ratio": 0.0,
+    "negative_balance_share": 0.0,
+    "low_liquidity_share": 0.0,
+    "deficit_month_share": 0.0,
+    "low_surplus_month_share": 0.0,
+    "external_inflow_cv": 0.0,
+    "obligations_ratio": 0.0
+  },
+  "dataframe_sha256": "51d9b76dff556e88e653134c7c2c30a33faecc5e0b80a38230fc1e23cdcbabb5",
+  "config": {
+    "seed": 42,
+    "jobs": 4,
+    "trials_per_family": 4,
+    "trees": 400,
+    "bootstrap_iterations": 500,
+    "clip_quantiles": [
+      0.01,
+      0.99
+    ],
+    "families": [
+      "lightgbm",
+      "xgboost"
+    ],
+    "feature_version": "cashflow-monotone-v2",
+    "monotonic_constraints": {
+      "external_outflow_ratio": 1,
+      "mean_liquidity_ratio": -1,
+      "minimum_liquidity_ratio": -1,
+      "ending_liquidity_ratio": -1,
+      "negative_balance_share": 1,
+      "low_liquidity_share": 1,
+      "deficit_month_share": 1,
+      "low_surplus_month_share": 1,
+      "external_inflow_cv": 1,
+      "obligations_ratio": 1
+    },
+    "evaluation_role": "Synthetic development partitions; final independent-seed evaluation is separate. No real Indian validation."
+  },
+  "runtime_seconds": 3.1620776669988118,
+  "excluded_by_policy": [],
+  "evaluation_role": "Synthetic development partitions; final independent-seed evaluation is separate. No real Indian validation.",
+  "environment": {
+    "python": "3.11.6",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "pandas": "2.2.3",
+    "numpy": "2.2.6",
+    "scikit-learn": "1.6.1",
+    "lightgbm": "4.6.0",
+    "xgboost": "3.0.2",
+    "shap": "0.48.0"
+  },
+  "readiness": {
+    "approved_for_lending": false,
+    "warnings": [
+      "Trained and evaluated only on generated transactions and simulated outcomes; metrics measure generator recovery",
+      "No Indian statement-linked repayment validation or fairness approval"
+    ]
+  },
+  "artifact_sha256": "a5ed4a7ea17b1207eeea38536a617601c0f93ee044cb780a65e5e8db066eb8fe"
+}

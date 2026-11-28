@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "UQUAL",
+    "slug": "uqual-personal",
+    "version": "0.11.1",
+    "orientation": "portrait",
+    "icon": "./assets/brand/uqual-transparent.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/brand/uqual-transparent.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "android": {
+      "package": "in.uqual.personal",
+      "versionCode": 13,
+      "predictiveBackGestureEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/uqual-transparent.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/brand/uqual-transparent.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-sharing",
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ],
+      "./plugins/with-ndk.cjs",
+      "expo-router",
+      [
+        "expo-navigation-bar",
+        {
+          "enforceContrast": false,
+          "barStyle": "dark",
+          "visibility": "visible"
+        }
+      ]
+    ],
+    "scheme": "uqual",
+    "backgroundColor": "#F5F7FA"
+  }
+}

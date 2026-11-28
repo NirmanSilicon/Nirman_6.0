@@ -1,0 +1,32 @@
+{
+  "cli": {
+    "version": ">=16.0.0"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "env": {
+        "UQUAL_ALLOW_LOCAL_HTTP": "false",
+        "UQUAL_REQUIRE_PUBLIC_API": "true"
+      }
+    },
+    "cloud-preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "UQUAL_ALLOW_LOCAL_HTTP": "false",
+        "UQUAL_REQUIRE_PUBLIC_API": "true"
+      }
+    }
+  }
+}

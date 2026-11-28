@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "jobs": 4,
+  "trials_per_family": 4,
+  "trees": 400,
+  "bootstrap_iterations": 500,
+  "clip_quantiles": [0.01, 0.99],
+  "families": ["lightgbm", "xgboost"],
+  "feature_version": "cashflow-monotone-v2",
+  "monotonic_constraints": {
+    "external_outflow_ratio": 1,
+    "mean_liquidity_ratio": -1,
+    "minimum_liquidity_ratio": -1,
+    "ending_liquidity_ratio": -1,
+    "negative_balance_share": 1,
+    "low_liquidity_share": 1,
+    "deficit_month_share": 1,
+    "low_surplus_month_share": 1,
+    "external_inflow_cv": 1,
+    "obligations_ratio": 1
+  },
+  "evaluation_role": "Synthetic development partitions; final independent-seed evaluation is separate. No real Indian validation."
+}

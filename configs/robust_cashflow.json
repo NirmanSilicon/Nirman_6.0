@@ -1,0 +1,14 @@
+{
+  "seed": 42,
+  "jobs": 4,
+  "trials_per_family": 3,
+  "trees": 400,
+  "bootstrap_iterations": 500,
+  "clip_quantiles": [0.01, 0.99],
+  "excluded_features": [
+    "history_days", "transaction_count", "active_day_share", "complete_month_count",
+    "credit_activity_30d", "credit_activity_90d", "credit_activity_180d", "credit_activity_365d",
+    "unknown_transaction_share", "unknown_credit_share", "credit_counterparty_concentration"
+  ],
+  "evaluation_role": "Development comparison on a previously inspected source holdout; not new independent or Indian validation"
+}
