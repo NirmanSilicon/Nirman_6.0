@@ -1,2 +1,39 @@
+# NIRMAN 6.0 organizer files
 branchcreation.sh
+
+# Secrets and local environment
 .env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE
+.vscode/
+
+# Data and generated files
+data/uploads/*
+data/processed/*
+*.db
+*.sqlite3
+
+# Model caches and local artifacts
+.cache/
+.cache_huggingface/
+models/
+*.pt
+*.pth
+*.onnx
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
