@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+joblib
+pandas
+scikit-learn==1.6.1
+lightgbm
+pymysql>=1.1.0

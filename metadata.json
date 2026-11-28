@@ -1,0 +1,10 @@
+{
+  "name": "Remix SATARK SETU",
+  "description": "Multilingual digital fraud detection and citizen safety platform by Team CODE CRAFT to check SMS, UPI IDs, and links in Odia, Hindi, and English.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
