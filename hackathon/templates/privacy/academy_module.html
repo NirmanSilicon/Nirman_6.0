@@ -1,0 +1,54 @@
+{% extends 'privacy/base.html' %}
+{% block title %}{{ module.title }} · Privacy Academy{% endblock %}
+{% block content %}
+<section class="page-wrap academy-page academy-lesson-page">
+  <header class="academy-lesson-header">
+    <a class="text-link" href="{% url 'academy' %}">← Privacy Academy</a>
+    <span class="eyebrow" style="display:block;margin-top:18px">{{ module.minutes }} MINUTE MODULE</span>
+    <h1>{{ module.title }}</h1>
+    <p>{{ module.intro }}</p>
+  </header>
+
+  <section class="academy-learning-panel panel">
+    <div><span class="eyebrow">KEY IDEAS</span><h2>What to keep in mind</h2></div>
+    <ul class="academy-learning-list">
+      {% for point in module.learn %}<li><span aria-hidden="true">✓</span>{{ point }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  {% if previous_attempt and not quiz_result %}
+  <p class="academy-previous-result">Your last knowledge check: <strong>{{ previous_attempt.knowledge_score }}%</strong> on {{ previous_attempt.created_at|date:"M j, Y" }}.</p>
+  {% endif %}
+
+  <section class="academy-quiz-section">
+    <div class="academy-section-heading"><div><span class="eyebrow">PRACTICE WHAT YOU LEARNED</span><h2>Scenario and knowledge check</h2></div></div>
+    {% if quiz_result %}
+    <div class="academy-result panel">
+      <strong class="academy-result-score">{{ quiz_result.knowledge_score }}%</strong>
+      <div><h3>Knowledge check complete</h3><p>{{ quiz_result.correct_answers }} of {{ quiz_result.question_count }} answers correct.</p></div>
+      {% if user.is_authenticated %}<span class="academy-saved">Saved to your learning history</span>{% else %}<span class="academy-saved">Try another module anytime</span>{% endif %}
+      <p class="academy-separation">This score reflects your learning in this module. It does not update or reduce your Privacy Risk Assessment score; assessment results and knowledge are separate measures.</p>
+    </div>
+    {% endif %}
+    {% if form_error %}<p class="academy-form-error" role="alert">{{ form_error }}</p>{% endif %}
+    <form class="academy-quiz-form" method="post">
+      {% csrf_token %}
+      {% for question in module.questions %}
+      <fieldset class="academy-question panel">
+        <legend><span class="academy-question-number">{{ forloop.counter|stringformat:"02d" }}</span>{{ question.prompt }}</legend>
+        <div class="academy-choices">
+          {% for choice in question.choices %}
+          <label class="academy-choice{% if choice.selected %} selected{% endif %}">
+            <input type="radio" name="question_{{ forloop.parentloop.counter }}" value="{{ choice.value }}" {% if choice.selected %}checked{% endif %}>
+            <span class="academy-radio" aria-hidden="true"></span><span>{{ choice.label }}</span>
+          </label>
+          {% if choice.selected and quiz_result %}<p class="academy-feedback{% if not question.answered_correctly %} is-incorrect{% endif %}">{{ question.feedback }}</p>{% endif %}
+          {% endfor %}
+        </div>
+      </fieldset>
+      {% endfor %}
+      <div class="academy-quiz-actions"><p>Choose one answer for each scenario. You’ll get feedback when you submit.</p><button class="button" type="submit">{% if quiz_result %}Try the knowledge check again{% else %}Check my answers{% endif %} <span>→</span></button></div>
+    </form>
+  </section>
+</section>
+{% endblock %}

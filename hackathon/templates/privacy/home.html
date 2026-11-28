@@ -1,0 +1,131 @@
+{% extends 'privacy/base.html' %}
+{% block title %}MyPrivacyCheck — Your Digital Privacy. Your Control.{% endblock %}
+{% block initial_theme %}light{% endblock %}
+{% block page_class %}home-theme{% endblock %}
+{% block content %}
+<section class="hero home-hero page-wrap" id="home">
+  <div class="hero-copy">
+    <span class="home-eyebrow"><span class="pulse-dot"></span> PRIVATE BY DESIGN · INFORMED BY YOU</span>
+    <h1>Your Digital Privacy.<br><span class="hero-accent">Your Control.</span></h1>
+    <p class="hero-lead">Understand your digital footprint, identify privacy risks and make informed decisions about your personal information.</p>
+    <div class="hero-actions">
+      <a class="button hero-primary" href="{% if user.is_authenticated %}{% url 'assessment' %}{% else %}{% url 'register' %}{% endif %}">Start Privacy Assessment <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="hero-assurance"><span aria-hidden="true">✓</span> Self-reported assessment <i></i> No social account or device access</p>
+  </div>
+
+  <div class="hero-art">
+    <div class="earth-stage">
+      <svg class="earth-globe" viewBox="0 0 700 460" role="img" aria-labelledby="earth-title earth-description" xmlns="http://www.w3.org/2000/svg">
+        <title id="earth-title">Connected digital Earth</title>
+        <desc id="earth-description">A detailed blue Earth with continent shapes, latitude and longitude lines, and connected network nodes.</desc>
+        <defs>
+          <radialGradient id="earth-ocean" cx="38%" cy="32%" r="72%">
+            <stop offset="0" stop-color="#F1F7FC"/>
+            <stop offset=".62" stop-color="#C8E4F6"/>
+            <stop offset="1" stop-color="#8DBFE0"/>
+          </radialGradient>
+          <linearGradient id="earth-land" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#1D5F91" stop-opacity=".82"/>
+            <stop offset="1" stop-color="#2878B5" stop-opacity=".65"/>
+          </linearGradient>
+          <radialGradient id="earth-atmosphere">
+            <stop offset=".75" stop-color="#8DBFE0" stop-opacity="0"/>
+            <stop offset="1" stop-color="#8DBFE0" stop-opacity=".18"/>
+          </radialGradient>
+          <clipPath id="earth-clip"><circle cx="350" cy="220" r="166"/></clipPath>
+        </defs>
+        <ellipse cx="350" cy="221" rx="226" ry="206" fill="url(#earth-atmosphere)"/>
+        <circle cx="350" cy="220" r="166" fill="url(#earth-ocean)" stroke="#2878B5" stroke-opacity=".52" stroke-width="1.5"/>
+        <g clip-path="url(#earth-clip)">
+          <path d="m222 105 27-16 27 5 19 18-7 16 15 13-9 13-20-4-10 18-17 4-8 22-18-5-7-23-21-9 4-22-17-12 8-17 22-1 9-16Zm77 65 18 9 10 21-7 15 14 13-5 18-14 16-2 27-16 32-13-7-6-29-12-19 7-22-11-18 6-24 18-15Zm59-59 19-9 17 7 11 15-12 12-18-3-7 14-14-4-11-17 5-12Zm27 46 20-12 26 6 8 18 17 5 7 19-17 11-2 20-17 7-2 25-18 13-16-18-10-25 7-20-14-21 8-17Zm38-47 34-12 34 8 24 20-9 19-22 8-5 18-21-4-13-18-20 1-10-17-20-3-7-15Zm43 133 20-12 20 9 7 21-16 16-22-3-14-14Z" fill="url(#earth-land)" fill-opacity=".72"/>
+          <g fill="none" stroke="#2878B5" stroke-opacity=".22" stroke-width="1">
+            <ellipse cx="350" cy="220" rx="54" ry="166"/>
+            <ellipse cx="350" cy="220" rx="112" ry="166"/>
+            <path d="M184 220h332M195 165h310M195 275h310"/>
+            <ellipse cx="350" cy="220" rx="162" ry="54"/>
+            <ellipse cx="350" cy="220" rx="166" ry="112"/>
+          </g>
+          <g fill="none" stroke="#2878B5" stroke-opacity=".58" stroke-width="1.1">
+            <path d="m231 145 55 31 39-18 48 31 58-15 44 37-54 42-44-11-38 35-48-19-20-47-51-13"/>
+            <path d="m285 178 23 25-10 33 25 27m99-89-17 29 18 27-22 23"/>
+            <path d="m330 158 18 32-15 28 23 29m54-96 7 28-22 22"/>
+          </g>
+          <g fill="#FFFFFF" stroke="#1D5F91" stroke-width="1.4">
+            <circle cx="231" cy="145" r="3.5"/><circle cx="286" cy="176" r="3.5"/>
+            <circle cx="325" cy="158" r="3.5"/><circle cx="373" cy="189" r="3.5"/>
+            <circle cx="431" cy="174" r="3.5"/><circle cx="475" cy="211" r="3.5"/>
+            <circle cx="421" cy="253" r="3.5"/><circle cx="377" cy="242" r="3.5"/>
+            <circle cx="339" cy="277" r="3.5"/><circle cx="291" cy="258" r="3.5"/>
+          </g>
+        </g>
+        <circle cx="350" cy="220" r="170" fill="none" stroke="#8DBFE0" stroke-opacity=".48"/>
+        <path d="M100 222h53m394 0h53M350 23v30m0 334v30" stroke="#8DBFE0" stroke-opacity=".48" stroke-width="1"/>
+        <circle cx="101" cy="222" r="3" fill="#2878B5"/><circle cx="599" cy="222" r="3" fill="#2878B5"/>
+        <circle cx="350" cy="22" r="3" fill="#1D5F91"/><circle cx="350" cy="438" r="3" fill="#1D5F91"/>
+      </svg>
+    </div>
+    <div class="earth-caption"><span></span> A clearer view of your digital world</div>
+  </div>
+</section>
+
+<section class="home-proof page-wrap" aria-label="Assessment overview">
+  <div><strong>18</strong><span>guided questions</span></div>
+  <div><strong>3</strong><span>privacy dimensions</span></div>
+  <div><strong>0</strong><span>account connections</span></div>
+</section>
+
+<section class="section page-wrap home-features" id="features">
+  <div class="section-heading">
+    <span class="eyebrow">A CLEARER VIEW OF YOUR PRIVACY</span>
+    <h2>Understand the risks.<br><span class="gradient-text">Choose your next step.</span></h2>
+    <p>Practical tools to assess your habits, learn what matters, and make changes at your own pace.</p>
+  </div>
+  <div class="feature-grid home-feature-grid">
+    <article class="feature-card home-feature-card">
+      <span class="home-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18c4-1 3-10 8-10s4 8 8 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="8" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="4" cy="18" r="1.5" fill="currentColor"/><circle cx="20" cy="15" r="1.5" fill="currentColor"/></svg></span>
+      <span class="card-kicker">01 / DIGITAL FOOTPRINT</span><h3>Digital Footprint Assessment</h3><p>Review how public profiles, contact details, and account habits shape your online presence.</p><a href="{% if user.is_authenticated %}{% url 'assessment' %}{% else %}{% url 'register' %}{% endif %}">Assess your footprint <span>→</span></a>
+    </article>
+    <article class="feature-card home-feature-card">
+      <span class="home-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h5m-5 4h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      <span class="card-kicker">02 / DEVICE ACCESS</span><h3>App Permissions Assessment</h3><p>Check whether camera, microphone, location, and media access match the features you use.</p><a href="{% if user.is_authenticated %}{% url 'assessment' %}{% else %}{% url 'register' %}{% endif %}">Review permissions <span>→</span></a>
+    </article>
+    <article class="feature-card home-feature-card">
+      <span class="home-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19M16 5.5a3 3 0 0 1 0 5.8m1 2a4 4 0 0 1 3.5 4V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      <span class="card-kicker">03 / SOCIAL PRIVACY</span><h3>Social Media Privacy Assessment</h3><p>Review audience controls, location tags, connected apps, and account security habits.</p><a href="{% if user.is_authenticated %}{% url 'assessment' %}{% else %}{% url 'register' %}{% endif %}">Review social privacy <span>→</span></a>
+    </article>
+    <article class="feature-card home-feature-card">
+      <span class="home-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h17M8 15v-3m5 3V8m5 7V5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="m7 9 5-4 4 3 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="card-kicker">04 / UNDERSTAND</span><h3>Personalized Risk Analysis</h3><p>See a transparent score, category breakdown, and plain-language reasons behind your result.</p><a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}">See how it works <span>→</span></a>
+    </article>
+    <article class="feature-card home-feature-card">
+      <span class="home-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18.5 9.5 13l3.5 3.5L20 9.5M14.5 9.5H20V15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4v16h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span class="card-kicker">05 / TAKE ACTION</span><h3>Privacy Improvement Plan</h3><p>Turn recommendations into manageable actions and track the steps you choose to complete.</p><a href="{% if user.is_authenticated %}{% url 'progress' %}{% else %}{% url 'register' %}{% endif %}">Build your plan <span>→</span></a>
+    </article>
+  </div>
+</section>
+
+<section class="section home-how" id="how-it-works">
+  <div class="page-wrap">
+    <div class="section-heading"><span class="eyebrow">A PRACTICAL FOUR-STEP JOURNEY</span><h2>From awareness<br><span class="gradient-text">to action.</span></h2></div>
+    <div class="home-timeline">
+      <article><span class="timeline-number">01</span><h3>Assess</h3><p>Answer a short, self-reported privacy check-in.</p></article>
+      <article><span class="timeline-number">02</span><h3>Analyze</h3><p>Understand your focus areas and why they matter.</p></article>
+      <article><span class="timeline-number">03</span><h3>Learn</h3><p>Explore practical privacy guidance matched to your habits.</p></article>
+      <article><span class="timeline-number">04</span><h3>Improve</h3><p>Choose practical steps and track your progress.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band page-wrap home-cta">
+  <div><span class="eyebrow">YOUR PRIVACY, YOUR PACE</span><h2>Start with one informed choice.</h2><p>No social account or device scanning—just a clear, self-reported starting point.</p></div>
+</section>
+
+<section class="section page-wrap faq home-faq">
+  <div class="section-heading"><span class="eyebrow">GOOD TO KNOW</span><h2>Privacy, without the mystery.</h2></div>
+  <details><summary>Does MyPrivacyCheck access my accounts or device?</summary><p>No. The assessment uses only the answers you choose to provide. It does not connect to your social accounts, inspect your device, or request social media passwords.</p></details>
+  <details><summary>What does my score mean?</summary><p>It is an educational, rule-based indicator based on self-reported answers. It is not a security audit and cannot guarantee complete privacy protection.</p></details>
+  <details><summary>Can I improve my score?</summary><p>Yes. Use the personalized actions to review your habits, then retake the assessment to compare your self-reported baseline.</p></details>
+  <p class="resource-link">Want to learn more? <a href="{% url 'resources' %}">Explore privacy resources →</a></p>
+</section>
+{% endblock %}

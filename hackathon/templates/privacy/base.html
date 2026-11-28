@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-theme="{% block initial_theme %}light{% endblock %}" class="{% block page_class %}{% endblock %}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Understand your digital privacy with a guided, self-reported privacy assessment.">
+  <title>{% block title %}MyPrivacyCheck — Your Digital Privacy. Your Control.{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/professional.css' %}?v=13">
+  <script defer src="{% static 'js/app.js' %}?v=6"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 19 5.5v5.2c0 4.7-2.9 8.3-7 10.5-4.1-2.2-7-5.8-7-10.5V5.5l7-2.7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>MyPrivacyCheck<small>PERSONAL PRIVACY, MADE CLEAR</small></span></a>
+    <button class="mobile-menu" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation"><span class="menu-lines" aria-hidden="true"></span></button>
+    <nav class="main-nav" id="primary-navigation" aria-label="Main navigation">
+      <a href="{% url 'home' %}#home">Home</a><a href="{% url 'about' %}">About</a><a href="{% url 'home' %}#features">Features</a><a href="{% url 'academy' %}">Privacy Academy</a><a href="{% url 'contact' %}">Contact</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Dashboard</a><a href="{% url 'progress' %}">My progress</a>
+        <a href="{% url 'profile' %}" class="nav-user">{{ user.first_name|default:user.username }}</a>
+        <form class="nav-logout" method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="nav-link" type="submit">Log out</button></form>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a><a class="button button-small" href="{% url 'register' %}">Get Started <span>↗</span></a>
+      {% endif %}
+      <button class="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle theme">◐</button>
+    </nav>
+  </header>
+  {% if messages %}<div class="toast-stack">{% for message in messages %}<div class="toast {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="footer"><div class="footer-brand"><a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 19 5.5v5.2c0 4.7-2.9 8.3-7 10.5-4.1-2.2-7-5.8-7-10.5V5.5l7-2.7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>MyPrivacyCheck</span></a><p>Know what you share. Choose what comes next.</p></div><div class="footer-links"><a href="{% url 'resources' %}">Privacy resources</a><a href="{% url 'academy' %}">Privacy Academy</a><a href="{% url 'contact' %}">Contact</a></div><p class="copyright">© 2026 MyPrivacyCheck · A Nexora project</p></footer>
+</body>
+</html>
