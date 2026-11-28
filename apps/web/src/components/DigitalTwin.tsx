@@ -1,8 +1,16 @@
-import React, { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Text, Line } from "@react-three/drei";
+import React, { useRef, useState, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Asset, Dependency, Scenario, AssetRuntimeState, LogicalState } from "../types";
+import { Asset, Dependency, Scenario, AssetRuntimeState } from "../types";
+import { CityTerrain } from "./city/CityTerrain";
+import { CityRoads } from "./city/CityRoads";
+import { CityBuildings } from "./city/CityBuildings";
+import { CityTraffic } from "./city/CityTraffic";
+import { FloodSurface } from "./city/FloodSurface";
+import { InfrastructureLandmarks } from "./city/InfrastructureLandmarks";
+import { HeatmapLayer } from "./city/HeatmapLayer";
+import { CityHUD } from "./city/CityHUD";
 
 interface DigitalTwinProps {
   assets: Asset[];
@@ -18,218 +26,21 @@ interface DigitalTwinProps {
     telecom: boolean;
     demand: boolean;
   };
+  tick?: number;
 }
 
-function getAssetColor(state?: LogicalState): string {
-  switch (state) {
-    case "operational":
-      return "#10b981"; // green
-    case "degraded":
-      return "#f59e0b"; // amber
-    case "unavailable":
-      return "#ef4444"; // red
-    case "repairing":
-      return "#8b5cf6"; // purple
-    case "recovered":
-      return "#06b6d4"; // cyan
-    default:
-      return "#64748b"; // slate
-  }
-}
+// Camera Fly-To Animator Component
+function CameraController({ targetPos }: { targetPos: [number, number, number] | null }) {
+  const { camera } = useThree();
 
-function getDependencyColor(type: string): string {
-  switch (type) {
-    case "electricity":
-      return "#fbbf24"; // yellow
-    case "water":
-      return "#38bdf8"; // sky blue
-    case "access":
-      return "#a855f7"; // purple
-    case "communication":
-      return "#3b82f6"; // blue
-    default:
-      return "#94a3b8";
-  }
-}
-
-function AssetObject({
-  asset,
-  runtimeState,
-  isSelected,
-  onSelect,
-}: {
-  asset: Asset;
-  runtimeState?: AssetRuntimeState;
-  isSelected: boolean;
-  onSelect: () => void;
-}) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const ringRef = useRef<THREE.Mesh>(null);
-  const state = runtimeState?.logical_state || asset.logical_state;
-  const isUnavailable = state === "unavailable";
-  const isDegraded = state === "degraded";
-
-  const color = getAssetColor(state);
-
-  useFrame(({ clock }) => {
-    if (ringRef.current && (isUnavailable || isDegraded)) {
-      const t = clock.getElapsedTime();
-      const s = 1.0 + Math.sin(t * 4) * 0.2;
-      ringRef.current.scale.set(s, s, s);
+  useFrame(() => {
+    if (targetPos) {
+      const dest = new THREE.Vector3(targetPos[0], targetPos[1], targetPos[2]);
+      camera.position.lerp(dest, 0.05);
     }
   });
 
-  const posX = (asset.position.x - 45) * 1.5;
-  const posZ = (asset.position.y - 45) * 1.5;
-
-  let geoHeight = 2.0;
-  if (asset.asset_type === "hospital") geoHeight = 3.5;
-  if (asset.asset_type === "telecom_tower") geoHeight = 5.0;
-  if (asset.asset_type === "power_substation") geoHeight = 2.5;
-
-  return (
-    <group position={[posX, 0, posZ]} onClick={(e) => { e.stopPropagation(); onSelect(); }}>
-      {/* Selection Glow / Pulse */}
-      {(isSelected || isUnavailable || isDegraded) && (
-        <mesh ref={ringRef} position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[1.5, 2.0, 32]} />
-          <meshBasicMaterial
-            color={isSelected ? "#38bdf8" : color}
-            transparent
-            opacity={isSelected ? 0.9 : 0.6}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      )}
-
-      {/* Main 3D Asset Geometry */}
-      <mesh ref={meshRef} position={[0, geoHeight / 2, 0]} castShadow receiveShadow>
-        {asset.asset_type === "water_pump" ? (
-          <cylinderGeometry args={[1.0, 1.2, geoHeight, 16]} />
-        ) : asset.asset_type === "telecom_tower" ? (
-          <cylinderGeometry args={[0.2, 0.8, geoHeight, 8]} />
-        ) : asset.asset_type === "hospital" ? (
-          <boxGeometry args={[3.0, geoHeight, 3.0]} />
-        ) : (
-          <boxGeometry args={[2.0, geoHeight, 2.0]} />
-        )}
-        <meshStandardMaterial
-          color={color}
-          roughness={0.3}
-          metalness={0.7}
-          emissive={isSelected ? "#38bdf8" : color}
-          emissiveIntensity={isSelected ? 0.4 : isUnavailable ? 0.6 : 0.2}
-        />
-      </mesh>
-
-      {/* Floating 3D Label */}
-      <Text
-        position={[0, geoHeight + 1.2, 0]}
-        fontSize={1.0}
-        color={isSelected ? "#ffffff" : "#cbd5e1"}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {asset.asset_id}
-      </Text>
-    </group>
-  );
-}
-
-function DependencyLines({
-  assets,
-  dependencies,
-  activeLayers,
-}: {
-  assets: Asset[];
-  dependencies: Dependency[];
-  activeLayers: { power: boolean; water: boolean; access: boolean; telecom: boolean; demand: boolean };
-}) {
-  const assetMap = useMemo(() => new Map(assets.map(a => [a.asset_id, a])), [assets]);
-
-  const filteredDeps = useMemo(() => {
-    return dependencies.filter(dep => {
-      if (dep.dependency_type === "electricity" && !activeLayers.power) return false;
-      if (dep.dependency_type === "water" && !activeLayers.water) return false;
-      if (dep.dependency_type === "access" && !activeLayers.access) return false;
-      if (dep.dependency_type === "communication" && !activeLayers.telecom) return false;
-      return true;
-    });
-  }, [dependencies, activeLayers]);
-
-  return (
-    <group>
-      {filteredDeps.map(dep => {
-        const src = assetMap.get(dep.source_asset_id);
-        const tgt = assetMap.get(dep.target_asset_id);
-        if (!src || !tgt) return null;
-
-        const p1: [number, number, number] = [(src.position.x - 45) * 1.5, 0.4, (src.position.y - 45) * 1.5];
-        const p2: [number, number, number] = [(tgt.position.x - 45) * 1.5, 0.4, (tgt.position.y - 45) * 1.5];
-        const color = getDependencyColor(dep.dependency_type);
-
-        return (
-          <Line
-            key={dep.dependency_id}
-            points={[p1, p2]}
-            color={color}
-            lineWidth={2}
-            dashed={dep.mode === "soft"}
-            dashScale={2}
-            dashSize={1}
-            gapSize={0.5}
-            transparent
-            opacity={0.65}
-          />
-        );
-      })}
-    </group>
-  );
-}
-
-function SyntheticHazardZone({ scenario }: { scenario?: Scenario | null }) {
-  if (!scenario || !scenario.flood_sources) return null;
-
-  return (
-    <group>
-      {scenario.flood_sources.map((src, idx) => {
-        const posX = (src.center_x - 45) * 1.5;
-        const posZ = (src.center_y - 45) * 1.5;
-        const rad = src.radius * 1.5;
-
-        return (
-          <group key={idx} position={[posX, 0.05, posZ]}>
-            {/* Translucent water footprint */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]}>
-              <circleGeometry args={[rad, 32]} />
-              <meshBasicMaterial
-                color="#0284c7"
-                transparent
-                opacity={0.35 * src.peak_intensity}
-                side={THREE.DoubleSide}
-              />
-            </mesh>
-            {/* Outline */}
-            <mesh rotation={[-Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[rad - 0.2, rad, 32]} />
-              <meshBasicMaterial color="#38bdf8" transparent opacity={0.7} side={THREE.DoubleSide} />
-            </mesh>
-            {/* Mandatory Disclaimer Label from Document K / OCR */}
-            <Text
-              position={[0, 0.6, 0]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              fontSize={1.2}
-              color="#bae6fd"
-              anchorX="center"
-              anchorY="middle"
-            >
-              Synthetic hazard intensity — not flood depth.
-            </Text>
-          </group>
-        );
-      })}
-    </group>
-  );
+  return null;
 }
 
 export function DigitalTwin({
@@ -240,72 +51,151 @@ export function DigitalTwin({
   selectedAssetId,
   onSelectAsset,
   activeLayers,
+  tick = 0,
 }: DigitalTwinProps) {
-  const visibleAssets = useMemo(() => {
-    return assets.filter(a => {
-      if (a.asset_id.startsWith("D-") && !activeLayers.demand) return false;
-      if (a.asset_type === "power_substation" && !activeLayers.power) return false;
-      if (a.asset_type === "water_pump" && !activeLayers.water) return false;
-      if (a.asset_type === "telecom_tower" && !activeLayers.telecom) return false;
-      if (a.asset_type === "road_segment" && !a.asset_id.startsWith("D-") && !activeLayers.access) return false;
-      return true;
+  const [heatmapMode, setHeatmapMode] = useState<"none" | "service_loss" | "traffic_congestion" | "flood_risk">("none");
+  const [isNightMode, setIsNightMode] = useState(true);
+  const [cameraTarget, setCameraTarget] = useState<[number, number, number] | null>(null);
+
+  // Asset positions dictionary for vehicle dispatching
+  const assetPositions = useMemo(() => {
+    const map: Record<string, { x: number; y: number }> = {};
+    assets.forEach((a) => {
+      map[a.asset_id] = { x: a.position.x, y: a.position.y };
     });
-  }, [assets, activeLayers]);
+    return map;
+  }, [assets]);
+
+  // Active repairs set
+  const activeRepairs = useMemo(() => {
+    return Object.keys(runtimeStates).filter(
+      (id) => runtimeStates[id]?.logical_state === "repairing"
+    );
+  }, [runtimeStates]);
+
+  const handleFlyTo = (preset: "overview" | "hospital" | "substation" | "water" | "bridge") => {
+    switch (preset) {
+      case "overview":
+        setCameraTarget([0, 75, 85]);
+        break;
+      case "hospital":
+        // H-01 position: x=45, y=35 -> scene coords: (45-45)*1.5=0, (35-45)*1.5=-15
+        setCameraTarget([0, 22, 10]);
+        onSelectAsset("H-01");
+        break;
+      case "substation":
+        // P-01 position: x=10, y=15 -> scene coords: (10-45)*1.5=-52.5, (15-45)*1.5=-45
+        setCameraTarget([-48, 20, -30]);
+        onSelectAsset("P-01");
+        break;
+      case "water":
+        // W-03 position: x=50, y=20 -> scene coords: (50-45)*1.5=7.5, (20-45)*1.5=-37.5
+        setCameraTarget([10, 18, -25]);
+        onSelectAsset("W-03");
+        break;
+      case "bridge":
+        // R-01 Bridge Access
+        setCameraTarget([-5, 16, 22]);
+        onSelectAsset("R-01");
+        break;
+    }
+  };
 
   return (
-    <div className="relative w-full h-full bg-[#070b14] rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
-      {/* 3D Scene */}
+    <div className="relative w-full h-full bg-[#050811] rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+      {/* GIS HUD Overlay (Camera presets, Heatmap switcher, Night mode) */}
+      <CityHUD
+        heatmapMode={heatmapMode}
+        onSelectHeatmap={setHeatmapMode}
+        onFlyTo={handleFlyTo}
+        isNightMode={isNightMode}
+        onToggleNight={() => setIsNightMode(!isNightMode)}
+      />
+
+      {/* 3D Scene Canvas */}
       <Canvas
-        camera={{ position: [0, 65, 75], fov: 45 }}
+        camera={{ position: [0, 75, 85], fov: 42 }}
         onPointerMissed={() => onSelectAsset("")}
+        shadows
       >
-        <color attach="background" args={["#090d16"]} />
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[30, 60, 40]} intensity={1.2} castShadow />
-        <pointLight position={[-30, 40, -30]} intensity={0.5} />
+        <color attach="background" args={[isNightMode ? "#070b14" : "#cbd5e1"]} />
+        <fog attach="fog" args={[isNightMode ? "#070b14" : "#cbd5e1", 80, 220]} />
 
-        {/* Tactical Ground Grid */}
-        <gridHelper args={[150, 50, "#1e293b", "#0f172a"]} position={[0, 0, 0]} />
+        {/* Ambient & Directional Lighting */}
+        <ambientLight intensity={isNightMode ? 0.6 : 1.2} />
+        <directionalLight
+          position={[40, 90, 50]}
+          intensity={isNightMode ? 1.4 : 2.0}
+          castShadow
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+          shadow-camera-far={250}
+          shadow-camera-left={-80}
+          shadow-camera-right={80}
+          shadow-camera-top={80}
+          shadow-camera-bottom={-80}
+        />
+        <pointLight position={[-40, 45, -40]} color="#38bdf8" intensity={isNightMode ? 0.8 : 0.4} />
 
-        {/* Synthetic Hazard Field */}
-        <SyntheticHazardZone scenario={scenario} />
+        <CameraController targetPos={cameraTarget} />
 
-        {/* 3D Dependency Conduits */}
-        <DependencyLines
+        {/* 1. Procedural Terrain, River, Parks, and Harbors */}
+        <CityTerrain />
+
+        {/* 2. Road Network & Suspension Bridges */}
+        <CityRoads />
+
+        {/* 3. Hundreds of Extruded Procedural City Buildings (InstancedMesh) */}
+        <CityBuildings />
+
+        {/* 4. Moving Vehicular Traffic & Dispatched Repair Trucks */}
+        <CityTraffic
+          floodActive={Boolean(scenario)}
+          activeRepairs={activeRepairs}
+          assetPositions={assetPositions}
+        />
+
+        {/* 5. Animated River & Dynamic Rising Surge Flood Surface */}
+        <FloodSurface scenario={scenario} tick={tick} />
+
+        {/* 6. Embedded 34 Sector Infrastructure Landmarks */}
+        <InfrastructureLandmarks
           assets={assets}
-          dependencies={dependencies}
+          runtimeStates={runtimeStates}
+          selectedAssetId={selectedAssetId}
+          onSelectAsset={onSelectAsset}
           activeLayers={activeLayers}
         />
 
-        {/* 3D Assets */}
-        {visibleAssets.map(asset => (
-          <AssetObject
-            key={asset.asset_id}
-            asset={asset}
-            runtimeState={runtimeStates[asset.asset_id]}
-            isSelected={selectedAssetId === asset.asset_id}
-            onSelect={() => onSelectAsset(asset.asset_id)}
-          />
-        ))}
+        {/* 7. Draped Continuous Spatial Heatmap Analysis Layer */}
+        <HeatmapLayer
+          mode={heatmapMode}
+          assets={assets}
+          runtimeStates={runtimeStates}
+        />
 
         <OrbitControls
-          maxPolarAngle={Math.PI / 2.1}
-          minDistance={15}
-          maxDistance={150}
+          maxPolarAngle={Math.PI / 2.05}
+          minDistance={10}
+          maxDistance={180}
           target={[0, 0, 0]}
         />
       </Canvas>
 
-      {/* Floating Legend / Quick Controls */}
-      <div className="absolute top-4 left-4 pointer-events-none bg-slate-900/80 backdrop-blur-md px-3 py-2 rounded-lg border border-slate-700/60 text-xs flex items-center space-x-3 text-slate-300">
-        <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>Operational</span></span>
-        <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Degraded</span></span>
-        <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span><span>Unavailable</span></span>
-        <span className="flex items-center space-x-1.5"><span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span><span>Repairing</span></span>
-      </div>
-
-      <div className="absolute bottom-4 right-4 text-[10px] text-slate-500 bg-slate-950/70 px-2 py-1 rounded border border-slate-800">
-        Controls: Left Click to Rotate | Right Click to Pan | Scroll to Zoom
+      {/* Bottom Status Ticker */}
+      <div className="absolute bottom-3 left-4 pointer-events-none bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-700/60 text-[11px] font-mono flex items-center space-x-4 text-slate-300">
+        <span className="flex items-center space-x-1.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>350+ Buildings Active</span>
+        </span>
+        <span className="flex items-center space-x-1.5">
+          <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <span>Traffic Flow Live</span>
+        </span>
+        <span className="flex items-center space-x-1.5">
+          <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+          <span>River Dynamics Live</span>
+        </span>
       </div>
     </div>
   );

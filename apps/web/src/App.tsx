@@ -417,6 +417,7 @@ export function App() {
                   selectedAssetId={selectedAssetId}
                   onSelectAsset={setSelectedAssetId}
                   activeLayers={activeLayers}
+                  tick={runState.tick}
                 />
               </div>
 
