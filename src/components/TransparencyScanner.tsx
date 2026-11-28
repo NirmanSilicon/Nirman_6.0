@@ -2,9 +2,6 @@ import { useState } from "react";
 import {
   AlertTriangle,
   CheckCircle2,
-  ExternalLink,
-  Globe,
-  Loader2,
   Printer,
   Search,
   ShieldAlert,
@@ -12,7 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip as RechartsTooltip } from "recharts";
-import type { Language, RiskLevel, RiskReport, WebSource } from "../types/fairplay";
+import type { Language, RiskLevel, RiskReport } from "../types/fairplay";
 import { TRANSLATIONS } from "../data/i18n";
 import { SCANNER_PRESETS } from "../data/presets";
 import { InfoTooltip } from "./InfoTooltip";
@@ -50,10 +47,6 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(defaultPreset.id);
   const [gameTitle, setGameTitle] = useState(defaultPreset.title);
   const [policyText, setPolicyText] = useState(defaultPreset.description);
-  const [policyEditedManually, setPolicyEditedManually] = useState(false);
-  const [policyForTitle, setPolicyForTitle] = useState<string>(defaultPreset.title);
-  const [fetchedSources, setFetchedSources] = useState<WebSource[]>([]);
-  const [fetchingPolicy, setFetchingPolicy] = useState(false);
   const [report, setReport] = useState<RiskReport | null>(
     language === "hi" ? defaultPreset.reportHi : defaultPreset.reportEn
   );
@@ -68,88 +61,21 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
         : activePreset.reportEn
       : report;
 
-  const displayedSources =
-    displayedReport?.sources && displayedReport.sources.length > 0
-      ? displayedReport.sources
-      : fetchedSources;
-
-  const isSafeHttpUrl = (uri: string) => {
-    try {
-      const parsed = new URL(uri);
-      return parsed.protocol === "http:" || parsed.protocol === "https:";
-    } catch {
-      return false;
-    }
-  };
-
   const handlePresetClick = (presetId: string) => {
     const preset = SCANNER_PRESETS.find((p) => p.id === presetId);
     if (!preset) return;
     setSelectedPresetId(preset.id);
     setGameTitle(preset.title);
     setPolicyText(preset.description);
-    setPolicyEditedManually(false);
-    setPolicyForTitle(preset.title);
-    setFetchedSources([]);
     setErrorMsg(null);
     const nextReport = language === "hi" ? preset.reportHi : preset.reportEn;
     setReport(nextReport);
     onAnnouncement(`Loaded preset risk report for ${preset.title}: ${nextReport.riskLevel} risk.`);
   };
 
-  const handleFetchPolicy = async () => {
-    const trimmedTitle = gameTitle.trim();
-    if (!trimmedTitle) {
-      setErrorMsg(
-        language === "hi"
-          ? "वेब से मुद्रीकरण नीति खोजने के लिए पहले गेम का नाम दर्ज करें।"
-          : "Enter a game title first to auto-fetch its monetization policy from the web."
-      );
-      return;
-    }
-
-    setFetchingPolicy(true);
-    setErrorMsg(null);
-    setSelectedPresetId(null);
-
-    try {
-      const res = await fetch("/api/fetch-policy", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: trimmedTitle,
-          language,
-        }),
-      });
-
-      const data = (await res.json().catch(() => ({}))) as {
-        policyText?: string;
-        sources?: WebSource[];
-        error?: string;
-      };
-
-      if (!res.ok || !data.policyText) {
-        throw new Error(data.error || "Unable to fetch monetization policy from the web.");
-      }
-
-      setPolicyText(data.policyText);
-      setPolicyEditedManually(false);
-      setPolicyForTitle(trimmedTitle);
-      setFetchedSources(Array.isArray(data.sources) ? data.sources : []);
-      onAnnouncement(`Auto-generated monetization policy for ${trimmedTitle} from live web search.`);
-    } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : "Failed to search web policy.");
-    } finally {
-      setFetchingPolicy(false);
-    }
-  };
-
   const handleAnalyze = async (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmedTitle = gameTitle.trim();
-    const trimmedPolicy = policyText.trim();
-
-    if (!trimmedTitle && !trimmedPolicy) {
+    if (!gameTitle.trim() && !policyText.trim()) {
       setErrorMsg(
         language === "hi"
           ? "कृपया गेम का नाम या शॉप विवरण दर्ज करें।"
@@ -162,20 +88,14 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
     setErrorMsg(null);
     setSelectedPresetId(null);
 
-    const shouldAutoSearch =
-      Boolean(trimmedTitle) &&
-      (!trimmedPolicy ||
-        (!policyEditedManually && policyForTitle.toLowerCase() !== trimmedTitle.toLowerCase()));
-
     try {
       const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: trimmedTitle,
-          description: shouldAutoSearch ? "" : trimmedPolicy,
+          title: gameTitle.trim(),
+          description: policyText.trim(),
           language,
-          autoSearch: shouldAutoSearch,
         }),
       });
 
@@ -185,14 +105,6 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
       }
 
       const data = (await res.json()) as RiskReport;
-      if (data.fetchedPolicy) {
-        setPolicyText(data.fetchedPolicy);
-        setPolicyEditedManually(false);
-        setPolicyForTitle(trimmedTitle);
-      }
-      if (Array.isArray(data.sources) && data.sources.length > 0) {
-        setFetchedSources(data.sources);
-      }
       setReport(data);
       onAnnouncement(
         `Analysis complete for ${data.gameTitle}. Predatory risk score ${data.riskScore} out of 100, ${data.riskLevel} risk.`
@@ -284,49 +196,25 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
                 type="text"
                 value={gameTitle}
                 onChange={(e) => {
-                  const nextTitle = e.target.value;
-                  setGameTitle(nextTitle);
-                  if (selectedPresetId !== null) {
-                    setSelectedPresetId(null);
-                    setPolicyText("");
-                    setPolicyEditedManually(false);
-                  }
-                  setFetchedSources([]);
+                  setGameTitle(e.target.value);
+                  setSelectedPresetId(null);
                 }}
                 placeholder={t.gameTitlePlaceholder}
                 aria-label={t.gameTitleLabel}
                 className="w-full rounded-lg border border-slate-700 bg-[#0B1120] px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40"
               />
-              <p className="mt-1.5 text-[11px] text-slate-400">{t.policyAutoHint}</p>
             </div>
 
             <div>
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <label htmlFor="scanner-policy-text" className="block text-xs font-medium text-slate-300">
-                  {t.policyLabel}
-                </label>
-                <button
-                  type="button"
-                  onClick={handleFetchPolicy}
-                  disabled={fetchingPolicy || loading || !gameTitle.trim()}
-                  aria-label={fetchingPolicy ? t.fetchingPolicyButton : t.fetchPolicyButton}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-indigo-500/40 bg-indigo-500/10 px-2.5 py-1 text-[11px] font-semibold text-indigo-300 hover:bg-indigo-500/20 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors whitespace-nowrap shrink-0"
-                >
-                  {fetchingPolicy ? (
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
-                  ) : (
-                    <Globe className="h-3.5 w-3.5" aria-hidden="true" />
-                  )}
-                  <span>{fetchingPolicy ? t.fetchingPolicyButton : t.fetchPolicyButton}</span>
-                </button>
-              </div>
+              <label htmlFor="scanner-policy-text" className="block text-xs font-medium text-slate-300 mb-1.5">
+                {t.policyLabel}
+              </label>
               <textarea
                 id="scanner-policy-text"
                 rows={4}
                 value={policyText}
                 onChange={(e) => {
                   setPolicyText(e.target.value);
-                  setPolicyEditedManually(true);
                   setSelectedPresetId(null);
                 }}
                 placeholder={t.policyPlaceholder}
@@ -346,15 +234,11 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
 
             <button
               type="submit"
-              disabled={loading || fetchingPolicy}
+              disabled={loading}
               aria-label={loading ? t.analyzingButton : t.analyzeButton}
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 transition-colors whitespace-nowrap"
             >
-              {loading ? (
-                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-              ) : (
-                <Search className="h-4 w-4" aria-hidden="true" />
-              )}
+              <Search className="h-4 w-4" aria-hidden="true" />
               <span>{loading ? t.analyzingButton : t.analyzeButton}</span>
             </button>
           </form>
@@ -567,33 +451,6 @@ export function TransparencyScanner({ language, onAnnouncement }: TransparencySc
                   <p className="text-xs leading-relaxed text-slate-300">{displayedReport.parentAlert}</p>
                 </div>
               </div>
-
-              {/* Grounded Web Sources */}
-              {displayedSources.filter((s) => isSafeHttpUrl(s.uri)).length > 0 && (
-                <div className="border-t border-slate-800 pt-4 space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-medium text-slate-400">
-                    <Globe className="h-3.5 w-3.5 text-indigo-400 shrink-0" aria-hidden="true" />
-                    <span>{t.sourcesTitle}</span>
-                  </div>
-                  <ul className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs">
-                    {displayedSources
-                      .filter((s) => isSafeHttpUrl(s.uri))
-                      .map((src) => (
-                        <li key={src.uri}>
-                          <a
-                            href={src.uri}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-indigo-300 hover:text-indigo-200 underline underline-offset-2"
-                          >
-                            <span className="truncate max-w-[240px]">{src.title}</span>
-                            <ExternalLink className="h-3 w-3 shrink-0" aria-hidden="true" />
-                          </a>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-              )}
             </div>
           )}
         </div>
