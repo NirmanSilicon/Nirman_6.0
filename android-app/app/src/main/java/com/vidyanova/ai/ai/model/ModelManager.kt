@@ -132,11 +132,11 @@ class ModelManager(
             throw IOException("${ModelConfig.MODEL_DISPLAY_NAME} asset not found and no local model exists at ${targetFile.absolutePath}")
         }
 
-        // Check storage space (minimum 1.5 GBusable space)
-        val minRequiredBytes = 1500 * 1024 * 1024L
+        // Check storage space (minimum 500 MB usable space for ~350MB GGUF model)
+        val minRequiredBytes = 500 * 1024 * 1024L
         val usableStorage = context.filesDir.usableSpace
         if (usableStorage < minRequiredBytes) {
-            throw IOException("Kam se kam 1.5 GB storage khali karein. (Usable: ${usableStorage / (1024 * 1024)} MB)")
+            throw IOException("Kam se kam 500 MB storage khali karein. (Usable: ${usableStorage / (1024 * 1024)} MB)")
         }
 
         Log.i(TAG, "Copying model from assets/$assetName to ${targetFile.absolutePath}...")
@@ -153,7 +153,7 @@ class ModelManager(
 
             context.assets.open(assetName).use { input ->
                 FileOutputStream(tmpFile).use { output ->
-                    val buffer = ByteArray(8 * 1024 * 1024) // 8 MB buffer
+                    val buffer = ByteArray(2 * 1024 * 1024) // 2 MB buffer for low heap devices
                     var bytesCopied = 0L
                     var bytesRead: Int
 

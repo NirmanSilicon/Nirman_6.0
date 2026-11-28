@@ -63,12 +63,6 @@ class VidyaAiApplication : Application() {
             return
         }
 
-        if (totalRamMb < 2500) {
-            _setupError.value = "Is phone me RAM kam hai (${totalRamMb}MB). App chalane ke liye kam se kam 2.5 GB RAM chahiye."
-            Log.w(TAG, "Skipping model preload due to low RAM: ${totalRamMb}MB")
-            return
-        }
-
         // Schedule WorkManager Sync
         try {
             SyncWorker.schedulePeriodicSync(applicationContext)
@@ -86,11 +80,9 @@ class VidyaAiApplication : Application() {
                 }
                 _setupProgress.value = 100
                 _isSetupComplete.value = true
-
-                Log.i(TAG, "Preloading local GGUF model in background...")
-                localModelEngine.loadModel()
+                Log.i(TAG, "Model assets ready for on-demand loading.")
             } catch (e: Exception) {
-                Log.e(TAG, "Model setup/preload failed: ${e.message}", e)
+                Log.e(TAG, "Model setup failed: ${e.message}", e)
                 _setupError.value = e.message ?: "Model setup failed"
             }
         }

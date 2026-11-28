@@ -7,12 +7,16 @@ object ModelConfig {
     const val MODEL_DISPLAY_NAME = "ViyaAI Qwen 0.5B"
 
     // Inference configuration
-    const val CONTEXT_SIZE = 768
-    const val BATCH_SIZE = 128
-    const val UBATCH_SIZE = 128
+    const val CONTEXT_SIZE = 512
+    const val BATCH_SIZE = 64
+    const val UBATCH_SIZE = 64
 
     val THREAD_COUNT: Int
-        get() = if (Runtime.getRuntime().availableProcessors() <= 4) 3 else 4
+        get() {
+            val cores = Runtime.getRuntime().availableProcessors()
+            // On mobile devices, keep thread count to 2 max to ensure UI main thread remains buttery smooth
+            return if (cores <= 4) 2 else 2
+        }
 
     // Response configuration
     const val MAX_NEW_TOKENS = 160

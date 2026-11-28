@@ -31,4 +31,3 @@ powershell -ExecutionPolicy Bypass -File .\build_model.ps1 -Build
 ```
 
 Choose another quantization with `-Quant`, for example `-Quant Q5_K_M`. The script expects the configured `llama-quantize.exe` and Python dependencies to be available. The script was syntax-checked but has not yet been run to generate a quantized model.
-

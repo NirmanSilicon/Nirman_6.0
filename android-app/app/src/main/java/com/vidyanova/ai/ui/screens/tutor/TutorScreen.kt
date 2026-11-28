@@ -165,6 +165,7 @@ fun TutorScreen(
                 android.util.Log.i(TAG, "REPOSITORY_REQUEST_STARTED | RequestId: $requestId")
 
                 var streamedText = ""
+                var lastTokenUpdateMs = 0L
 
                 val result = withContext(Dispatchers.IO) {
                     tutorRepository.askTutorStream(
@@ -177,13 +178,18 @@ fun TutorScreen(
                         preferredLanguage = selectedLanguage.lowercase(),
                         onToken = { tokenPiece: String ->
                             streamedText += tokenPiece
-                            coroutineScope.launch(Dispatchers.Main) {
-                                val pendingIndex = messages.indexOfFirst { it.id == pendingMessage.id }
-                                if (pendingIndex >= 0) {
-                                    messages[pendingIndex] = pendingMessage.copy(
-                                        text = streamedText,
-                                        styleTag = selectedStyle.displayName
-                                    )
+                            val now = System.currentTimeMillis()
+                            if (now - lastTokenUpdateMs > 100L) {
+                                lastTokenUpdateMs = now
+                                val currentText = streamedText
+                                coroutineScope.launch(Dispatchers.Main) {
+                                    val pendingIndex = messages.indexOfFirst { it.id == pendingMessage.id }
+                                    if (pendingIndex >= 0) {
+                                        messages[pendingIndex] = pendingMessage.copy(
+                                            text = currentText,
+                                            styleTag = selectedStyle.displayName
+                                        )
+                                    }
                                 }
                             }
                         }
