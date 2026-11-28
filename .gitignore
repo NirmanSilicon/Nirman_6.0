@@ -1,2 +1,13 @@
 branchcreation.sh
 .env
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+models/*
+!models/README.md
+!models/metrics/
+outputs/
+*.pt
