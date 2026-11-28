@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRailStore } from '../../stores/useRailStore';
 import {
   injectTrainDelay,
@@ -12,6 +12,7 @@ import {
   applyDisruptionCauses,
   triggerLiveOvertake,
 } from '../../services/api';
+import { useEscapeKey } from '../../hooks/useDismissible';
 import {
   X,
   Zap,
@@ -44,6 +45,19 @@ const CAUSE_OPTIONS_KOLKATA = [
   { id: 'SRC_BRANCH_HOLD', label: 'Santragachi Junction Yard Throat Hold (+15m)' },
   { id: 'OHE_BRAKE_FAULT', label: 'OHE Traction Trip / Brake-Binding (+25m)' },
 ];
+
+const CORRIDOR_DEMO_TRAINS = {
+  SER_HWH_KGP: [
+    { no: '12821', name: 'Steel DN' },
+    { no: '22895', name: 'Vande Bharat DN' },
+    { no: '12822', name: 'Steel UP' },
+  ],
+  ECoR_BHC_PURI: [
+    { no: '12821', name: 'Dhauli DN' },
+    { no: '22895', name: 'Vande Bharat DN' },
+    { no: '18410', name: 'Jagannath UP' },
+  ],
+} as const;
 
 export const DemoDrawer: React.FC = () => {
   const {
@@ -83,37 +97,39 @@ export const DemoDrawer: React.FC = () => {
       .catch(() => { });
   }, [drawerOpen, selectedTrain, setTrainCauses]);
 
-  // Close drawer on Escape key
-  useEffect(() => {
-    if (!drawerOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setDrawerOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [drawerOpen, setDrawerOpen]);
+  const closeDrawer = useCallback(() => setDrawerOpen(false), [setDrawerOpen]);
+  useEscapeKey(drawerOpen, closeDrawer);
 
   if (!drawerOpen) return null;
 
-  const updateCauses = async (nextCauses: string[]) => {
+  const runDemoAction = async (action: () => Promise<void>, onError: () => void) => {
     setIsInjecting(true);
     try {
-      const res = await applyDisruptionCauses(selectedTrain, nextCauses);
-      setTrainCauses(selectedTrain, res.active_causes ?? nextCauses);
-      triggerRefresh();
-      setStatusMessage(
-        nextCauses.length > 0
-          ? `Applied ${nextCauses.length} cause(s) to Train ${selectedTrain} — total delay ${res.new_delay_mins}m.`
-          : `Cleared disruption causes for Train ${selectedTrain}.`
-      );
+      await action();
     } catch {
-      setTrainCauses(selectedTrain, nextCauses);
-      setStatusMessage(`Updated disruption causes for Train ${selectedTrain}.`);
+      onError();
     } finally {
       setIsInjecting(false);
     }
+  };
+
+  const updateCauses = async (nextCauses: string[]) => {
+    await runDemoAction(
+      async () => {
+        const res = await applyDisruptionCauses(selectedTrain, nextCauses);
+        setTrainCauses(selectedTrain, res.active_causes ?? nextCauses);
+        triggerRefresh();
+        setStatusMessage(
+          nextCauses.length > 0
+            ? `Applied ${nextCauses.length} cause(s) to Train ${selectedTrain} — total delay ${res.new_delay_mins}m.`
+            : `Cleared disruption causes for Train ${selectedTrain}.`
+        );
+      },
+      () => {
+        setTrainCauses(selectedTrain, nextCauses);
+        setStatusMessage(`Updated disruption causes for Train ${selectedTrain}.`);
+      }
+    );
   };
 
   const handleAddCause = async () => {
@@ -140,128 +156,112 @@ export const DemoDrawer: React.FC = () => {
   };
 
   const handleInjectDelay = async () => {
-    setIsInjecting(true);
     setStatusMessage(`Injecting +${injectedDelay}m delay on Train ${selectedTrain}...`);
-    try {
-      await injectTrainDelay(selectedTrain, injectedDelay);
-      triggerRefresh();
-      setStatusMessage(`Successfully injected +${injectedDelay}m delay on ${selectedTrain}! Forecast recalibrated.`);
-    } catch {
-      setStatusMessage(`Delay simulated: +${injectedDelay}m applied to active corridor.`);
-    } finally {
-      setIsInjecting(false);
-    }
+    await runDemoAction(
+      async () => {
+        await injectTrainDelay(selectedTrain, injectedDelay);
+        triggerRefresh();
+        setStatusMessage(`Successfully injected +${injectedDelay}m delay on ${selectedTrain}! Forecast recalibrated.`);
+      },
+      () => setStatusMessage(`Delay simulated: +${injectedDelay}m applied to active corridor.`)
+    );
   };
 
   const handleReset = async () => {
-    setIsInjecting(true);
     setStatusMessage('Resetting corridor to nominal dispatch...');
-    try {
-      await resetCorridor();
-      clearAllCauses();
-      setSpeed(1);
-      triggerRefresh();
-      setStatusMessage('Corridor reset to nominal dispatch.');
-    } catch {
-      setStatusMessage('Corridor state reset.');
-    } finally {
-      setIsInjecting(false);
-    }
+    await runDemoAction(
+      async () => {
+        await resetCorridor();
+        clearAllCauses();
+        setSpeed(1);
+        triggerRefresh();
+        setStatusMessage('Corridor reset to nominal dispatch.');
+      },
+      () => setStatusMessage('Corridor state reset.')
+    );
   };
 
   const handleScenario1 = async () => {
-    setIsInjecting(true);
     setInjectedDelay(isKolkata ? 24 : 28);
-    try {
-      if (isKolkata) {
-        await startDemoScenario('KOLKATA_CASCADE', speed);
-        await injectFreightShadow('DN_MCA_PKU', 20.0, 0.88);
+    await runDemoAction(
+      async () => {
+        const scenario = isKolkata ? 'KOLKATA_CASCADE' : 'DHAULI_CASCADE';
+        const freightBlock = isKolkata ? 'DN_MCA_PKU' : 'DN_CTC_BRAG';
+        await startDemoScenario(scenario, speed);
+        await injectFreightShadow(freightBlock, 20.0, 0.88);
         setSelectedTrain('12821');
         triggerRefresh();
-        setStatusMessage('Kolkata scenario active: 12821 Steel Express (+24m) at Mecheda + DN_MCA_PKU freight drag with Kona Expressway rescue.');
-      } else {
-        await startDemoScenario('DHAULI_CASCADE', speed);
-        await injectFreightShadow('DN_CTC_BRAG', 20.0, 0.88);
-        setSelectedTrain('12821');
-        triggerRefresh();
-        setStatusMessage('Scenario 1 active: 12821 Dhauli Express (+28m) + DN_CTC_BRAG Phantom Freight shadow (STR 1.85).');
-      }
-    } catch {
-      setStatusMessage('Cascade delay applied.');
-    } finally {
-      setIsInjecting(false);
-    }
+        setStatusMessage(
+          isKolkata
+            ? 'Kolkata scenario active: 12821 Steel Express (+24m) at Mecheda + DN_MCA_PKU freight drag with Kona Expressway rescue.'
+            : 'Scenario 1 active: 12821 Dhauli Express (+28m) + DN_CTC_BRAG Phantom Freight shadow (STR 1.85).'
+        );
+      },
+      () => setStatusMessage('Cascade delay applied.')
+    );
   };
 
   const handleScenarioJunction = async () => {
-    setIsInjecting(true);
     setInjectedDelay(isKolkata ? 25 : 26);
-    try {
-      if (isKolkata) {
-        await startDemoScenario('SANTRAGACHI_CASCADE', speed);
-        await injectFreightShadow('DN_SRC_ULB', 20.0, 0.88);
+    await runDemoAction(
+      async () => {
+        const scenario = isKolkata ? 'SANTRAGACHI_CASCADE' : 'KHURDA_CASCADE';
+        const freightBlock = isKolkata ? 'DN_SRC_ULB' : 'DN_KUR_PURI';
+        await startDemoScenario(scenario, speed);
+        await injectFreightShadow(freightBlock, 20.0, 0.88);
         setSelectedTrain('12821');
         triggerRefresh();
-        setStatusMessage('Santragachi Junction disruption active: 12821 Steel Express holding at SRC (7 km) + Kona Expressway cab rescue to Howrah.');
-      } else {
-        await startDemoScenario('KHURDA_CASCADE', speed);
-        await injectFreightShadow('DN_KUR_PURI', 20.0, 0.88);
-        setSelectedTrain('12821');
-        triggerRefresh();
-        setStatusMessage('Scenario active: Khurda Road Junction (KUR, 162 km) loop hold + DN_KUR_PURI freight blockade with NH-16/NH-316 road rescue.');
-      }
-    } catch {
-      setStatusMessage('Junction disruption applied.');
-    } finally {
-      setIsInjecting(false);
-    }
+        setStatusMessage(
+          isKolkata
+            ? 'Santragachi Junction disruption active: 12821 Steel Express holding at SRC (7 km) + Kona Expressway cab rescue to Howrah.'
+            : 'Scenario active: Khurda Road Junction (KUR, 162 km) loop hold + DN_KUR_PURI freight blockade with NH-16/NH-316 road rescue.'
+        );
+      },
+      () => setStatusMessage('Junction disruption applied.')
+    );
   };
 
   const handleScenario2Overtake = async () => {
-    setIsInjecting(true);
-    try {
-      const res = await triggerLiveOvertake();
-      setSelectedTrain('12821');
-      triggerRefresh();
-      const holdTarget = isKolkata ? '12821 Steel Express' : '12821 Dhauli Express';
-      setStatusMessage(
-        `Live overtake active: ${holdTarget} slowing to hold at ${res.hold_station_name} (${res.hold_station_code}) for 22895 Vande Bharat (no teleport).`
-      );
-    } catch {
-      setStatusMessage('Vande Bharat overtake scenario simulated.');
-    } finally {
-      setIsInjecting(false);
-    }
+    await runDemoAction(
+      async () => {
+        const res = await triggerLiveOvertake();
+        setSelectedTrain('12821');
+        triggerRefresh();
+        const holdTarget = isKolkata ? '12821 Steel Express' : '12821 Dhauli Express';
+        setStatusMessage(
+          `Live overtake active: ${holdTarget} slowing to hold at ${res.hold_station_name} (${res.hold_station_code}) for 22895 Vande Bharat (no teleport).`
+        );
+      },
+      () => setStatusMessage('Vande Bharat overtake scenario simulated.')
+    );
   };
 
   const handleULIPTrigger = async () => {
-    setIsInjecting(true);
     const blk = isKolkata ? 'DN_SRC_ULB' : 'DN_CTC_BRAG';
-    try {
-      await injectULIPFreight(blk);
-      triggerRefresh();
-      setStatusMessage(`Enterprise ULIP FOIS webhook applied: Confirmed Rake BOXN_COAL_CONFIRMED on ${blk}.`);
-    } catch {
-      setStatusMessage('ULIP webhook simulated.');
-    } finally {
-      setIsInjecting(false);
-    }
+    await runDemoAction(
+      async () => {
+        await injectULIPFreight(blk);
+        triggerRefresh();
+        setStatusMessage(`Enterprise ULIP FOIS webhook applied: Confirmed Rake BOXN_COAL_CONFIRMED on ${blk}.`);
+      },
+      () => setStatusMessage('ULIP webhook simulated.')
+    );
   };
 
   const handleSpawnRandomGoods = async (forSelectedOnly = false) => {
-    setIsInjecting(true);
-    try {
-      const res = await spawnRandomGoodsTrain(forSelectedOnly ? selectedTrain : undefined);
-      triggerRefresh();
-      setStatusMessage(
-        `Placed hidden goods rake ${res.rake_id} randomly on ${res.block_id} @ km ${res.chainage_km} (0m delay until train reaches it & AI predicts accuracy).`
-      );
-    } catch {
-      setStatusMessage('Failed to place random goods train.');
-    } finally {
-      setIsInjecting(false);
-    }
+    await runDemoAction(
+      async () => {
+        const res = await spawnRandomGoodsTrain(forSelectedOnly ? selectedTrain : undefined);
+        triggerRefresh();
+        setStatusMessage(
+          `Placed hidden goods rake ${res.rake_id} randomly on ${res.block_id} @ km ${res.chainage_km} (0m delay until train reaches it & AI predicts accuracy).`
+        );
+      },
+      () => setStatusMessage('Failed to place random goods train.')
+    );
   };
+
+  const demoTrains = CORRIDOR_DEMO_TRAINS[isKolkata ? 'SER_HWH_KGP' : 'ECoR_BHC_PURI'];
 
   const activeGoodsRakes = activeSnapshot.goods_rakes ?? [];
 
@@ -345,18 +345,7 @@ export const DemoDrawer: React.FC = () => {
               </span>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              {(activeCorridorId === 'SER_HWH_KGP'
-                ? [
-                    { no: '12821', name: 'Steel DN' },
-                    { no: '22895', name: 'Vande Bharat DN' },
-                    { no: '12822', name: 'Steel UP' },
-                  ]
-                : [
-                    { no: '12821', name: 'Dhauli DN' },
-                    { no: '22895', name: 'Vande Bharat DN' },
-                    { no: '18410', name: 'Jagannath UP' },
-                  ]
-              ).map((t) => (
+              {demoTrains.map((t) => (
                 <button
                   key={t.no}
                   onClick={() => {

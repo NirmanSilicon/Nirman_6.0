@@ -71,13 +71,18 @@ export function registerTrainSprites(map: MapLibreMap): void {
 
   const img = new Image();
   img.onload = () => {
-    const targetWithIcon = buildTrainBadgeImageData(true, img);
-    if (targetWithIcon && map.hasImage('train-target')) {
-      map.updateImage('train-target', targetWithIcon);
-    }
-    const otherWithIcon = buildTrainBadgeImageData(false, img);
-    if (otherWithIcon && map.hasImage('train-other')) {
-      map.updateImage('train-other', otherWithIcon);
+    try {
+      if (!map.getStyle()) return;
+      const targetWithIcon = buildTrainBadgeImageData(true, img);
+      if (targetWithIcon && map.hasImage('train-target')) {
+        map.updateImage('train-target', targetWithIcon);
+      }
+      const otherWithIcon = buildTrainBadgeImageData(false, img);
+      if (otherWithIcon && map.hasImage('train-other')) {
+        map.updateImage('train-other', otherWithIcon);
+      }
+    } catch {
+      /* Ignore updates if the map instance was removed before image load completed */
     }
   };
   img.src = '/dashboard-train-icon.png';

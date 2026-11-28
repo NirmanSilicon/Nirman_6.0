@@ -414,7 +414,7 @@ const MOCK_FORECAST_18410: ForecastResponse = {
   overtakes_count: 0,
 };
 
-export const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
+const MOCK_SNAPSHOT_SER: CorridorSnapshot = {
   corridor_id: 'SER_HWH_KGP',
   tick_utc: 1795050480,
   mode: 'DEMO_1X',
@@ -790,7 +790,7 @@ export function getMockForecast(trainNo: string, corridorId?: string): ForecastR
   return MOCK_FORECAST_12821;
 }
 
-export const MOCK_RESCUE_ONBOARD_SER: RescueEvaluationResponse = {
+const MOCK_RESCUE_ONBOARD_SER: RescueEvaluationResponse = {
   passenger_status: 'ON_BOARD',
   survival_probability_pct: 36.0,
   risk_level: 'HIGH_RISK_MISS',
@@ -836,7 +836,7 @@ export function getMockRescue(
   return corridorId === 'SER_HWH_KGP' ? MOCK_RESCUE_ONBOARD_SER : MOCK_RESCUE_ONBOARD;
 }
 
-export const MOCK_RESCUE_ONBOARD: RescueEvaluationResponse = {
+const MOCK_RESCUE_ONBOARD: RescueEvaluationResponse = {
   passenger_status: 'ON_BOARD',
   survival_probability_pct: 34.0,
   risk_level: 'HIGH_RISK_MISS',

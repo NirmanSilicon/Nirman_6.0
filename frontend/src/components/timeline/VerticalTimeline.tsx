@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRailStore } from '../../stores/useRailStore';
 import { StationRow } from './StationRow';
 import {
@@ -27,7 +27,7 @@ export const VerticalTimeline: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'journey' | 'delay'>('journey');
 
   // If a delay is selected via map interaction, switch to the delay tab
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedDelayId) {
       setActiveTab('delay');
     }
@@ -254,22 +254,28 @@ export const VerticalTimeline: React.FC = () => {
             <span className="shrink-0">EXPECTED ARRIVAL</span>
           </div>
 
-          <div className="relative rounded-xl border border-slate-200/90 bg-white p-1">
-            {/* Continuous Vertical Rail Track Line */}
-            <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-200 -translate-x-1/2 z-0" />
+          {stationTimeline.length === 0 ? (
+            <div className="rounded-xl p-5 bg-slate-50 border border-slate-200 text-center text-xs text-slate-500">
+              Station schedule is currently updating.
+            </div>
+          ) : (
+            <div className="relative rounded-xl border border-slate-200/90 bg-white p-1">
+              {/* Continuous Vertical Rail Track Line */}
+              <div className="absolute left-[19px] top-4 bottom-4 w-0.5 bg-slate-200 -translate-x-1/2 z-0" />
 
-            {stationTimeline.map((stn) => {
-              const isAtThisStation = Boolean(stn.is_halted) || currentTrain?.current_station === stn.station_code;
-              return (
-                <StationRow
-                  key={stn.station_code}
-                  station={stn}
-                  isTargetTrainHere={isAtThisStation}
-                  trainSpeed={trainSpeed}
-                />
-              );
-            })}
-          </div>
+              {stationTimeline.map((stn) => {
+                const isAtThisStation = Boolean(stn.is_halted) || currentTrain?.current_station === stn.station_code;
+                return (
+                  <StationRow
+                    key={stn.station_code}
+                    station={stn}
+                    isTargetTrainHere={isAtThisStation}
+                    trainSpeed={trainSpeed}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>

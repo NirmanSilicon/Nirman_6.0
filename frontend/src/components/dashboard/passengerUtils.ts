@@ -177,13 +177,14 @@ export function getArrivalPrediction(
   rescue?: RescueEvaluationResponse | null,
   destinationCode: string = 'BBS'
 ): ArrivalPrediction {
+  const matchingForecast = forecast?.train_no === trainNo ? forecast : null;
   const targetStop =
-    forecast?.station_timeline?.find((s) => s.station_code === destinationCode) ??
-    forecast?.station_timeline?.[forecast.station_timeline.length - 1];
+    matchingForecast?.station_timeline?.find((s) => s.station_code === destinationCode) ??
+    matchingForecast?.station_timeline?.[matchingForecast.station_timeline.length - 1];
 
-  const p10Epoch = rescue?.train_p10_eta_epoch ?? forecast?.p10_eta_epoch;
-  const p50Epoch = rescue?.train_p50_eta_epoch ?? forecast?.p50_eta_epoch;
-  const p90Epoch = rescue?.train_p90_eta_epoch ?? forecast?.p90_eta_epoch;
+  const p10Epoch = rescue?.train_p10_eta_epoch ?? matchingForecast?.p10_eta_epoch;
+  const p50Epoch = rescue?.train_p50_eta_epoch ?? matchingForecast?.p50_eta_epoch;
+  const p90Epoch = rescue?.train_p90_eta_epoch ?? matchingForecast?.p90_eta_epoch;
 
   // If dynamic forecast/rescue with quantiles is available, use station-matched ETAs
   if (p50Epoch && p10Epoch && p90Epoch) {
@@ -205,9 +206,9 @@ export function getArrivalPrediction(
       p10Time: p10,
       p50Time: p50,
       p90Time: p90,
-      p10DelayMins: Math.round(forecast?.p10_delay_mins ?? 19),
-      p50DelayMins: Math.round(forecast?.p50_delay_mins ?? 28),
-      p90DelayMins: Math.round(forecast?.p90_delay_mins ?? 37),
+      p10DelayMins: Math.round(matchingForecast?.p10_delay_mins ?? 19),
+      p50DelayMins: Math.round(matchingForecast?.p50_delay_mins ?? 28),
+      p90DelayMins: Math.round(matchingForecast?.p90_delay_mins ?? 37),
     };
   }
 
@@ -387,7 +388,7 @@ export function getDelayCauses(
         ? Math.round((matchingShadow.freight_probability ?? 0) * 100)
         : null;
       const blockGeom = isFreight && matchingShadow
-        ? getTrackSliceForBlock(matchingShadow.block_id)
+        ? getTrackSliceForBlock(matchingShadow.block_id, snapshot?.corridor_id)
         : null;
       return {
         id: `live-cause-${idx}-${c.event}`,
@@ -707,6 +708,41 @@ export function getStationRelevance(
   };
 }
 
+function resolveStopStatus(
+  stationCode: string,
+  chainageKm: number,
+  isTerminus: boolean,
+  train: CorridorSnapshot['trains'][number] | undefined,
+  trainKm: number,
+  hasLiveTrain: boolean,
+  isUp: boolean,
+  currentAssigned: boolean
+): { status: 'passed' | 'current' | 'upcoming'; isHalted: boolean; assigned: boolean } {
+  const isPassed = hasLiveTrain
+    ? isUp
+      ? chainageKm > trainKm + 0.8
+      : chainageKm < trainKm - 0.8
+    : false;
+
+  if (train?.status === 'AT_TERMINUS' && isTerminus) {
+    return { status: 'current', isHalted: true, assigned: true };
+  }
+  if (train?.current_station === stationCode) {
+    return { status: 'current', isHalted: (train?.speed_kmph ?? 0) === 0, assigned: true };
+  }
+  if (isPassed) {
+    return { status: 'passed', isHalted: false, assigned: currentAssigned };
+  }
+  if (!currentAssigned && (train?.next_station === stationCode || isTerminus)) {
+    return {
+      status: 'current',
+      isHalted: (train?.speed_kmph ?? 0) === 0 && Math.abs(chainageKm - trainKm) <= 0.8,
+      assigned: true,
+    };
+  }
+  return { status: 'upcoming', isHalted: false, assigned: currentAssigned };
+}
+
 /**
  * 6. Returns complete 9-station timetable for Section 4 (Journey details).
  */
@@ -742,30 +778,17 @@ export function getStationTimeline(
 
     return stopsToRender.map((fcStop, idx) => {
       const isTerminus = idx === lastIdx;
-      const isPassed = hasLiveTrain
-        ? isUp
-          ? fcStop.chainage_km > trainKm + 0.8
-          : fcStop.chainage_km < trainKm - 0.8
-        : false;
-
-      let status: 'passed' | 'current' | 'upcoming' = 'upcoming';
-      let isHalted = false;
-
-      if (train?.status === 'AT_TERMINUS' && isTerminus) {
-        status = 'current';
-        isHalted = true;
-        currentAssigned = true;
-      } else if (train?.current_station === fcStop.station_code) {
-        status = 'current';
-        isHalted = (train?.speed_kmph ?? 0) === 0;
-        currentAssigned = true;
-      } else if (isPassed) {
-        status = 'passed';
-      } else if (!currentAssigned && (train?.next_station === fcStop.station_code || isTerminus)) {
-        status = 'current';
-        isHalted = (train?.speed_kmph ?? 0) === 0 && Math.abs(fcStop.chainage_km - trainKm) <= 0.8;
-        currentAssigned = true;
-      }
+      const resolved = resolveStopStatus(
+        fcStop.station_code,
+        fcStop.chainage_km,
+        isTerminus,
+        train,
+        trainKm,
+        hasLiveTrain,
+        isUp,
+        currentAssigned
+      );
+      currentAssigned = resolved.assigned;
 
       const schedArr = formatEpochTo12Hour(fcStop.sched_arr_epoch);
       const schedDep = isTerminus ? '—' : formatEpochTo12Hour(fcStop.sched_dep_epoch);
@@ -783,9 +806,9 @@ export function getStationTimeline(
         delay_mins: Math.max(0, Math.round(fcStop.net_delay_mins)),
         platform: isTerminus ? 'PF (Terminus)' : idx === 0 ? 'PF (Origin)' : 'PF (Main)',
         is_junction: junctionCodes.includes(fcStop.station_code),
-        status,
+        status: resolved.status,
         is_terminus: isTerminus,
-        is_halted: isHalted,
+        is_halted: resolved.isHalted,
       };
     });
   }
@@ -799,36 +822,23 @@ export function getStationTimeline(
   let currentAssigned = false;
   return baseStations.map((stn, idx) => {
     const isTerminus = idx === lastIdx;
-    const isPassed = hasLiveTrain
-      ? isUp
-        ? stn.chainage_km > trainKm + 0.8
-        : stn.chainage_km < trainKm - 0.8
-      : false;
-
-    let status: 'passed' | 'current' | 'upcoming' = 'upcoming';
-    let isHalted = false;
-
-    if (train?.status === 'AT_TERMINUS' && isTerminus) {
-      status = 'current';
-      isHalted = true;
-      currentAssigned = true;
-    } else if (train?.current_station === stn.station_code) {
-      status = 'current';
-      isHalted = (train?.speed_kmph ?? 0) === 0;
-      currentAssigned = true;
-    } else if (isPassed) {
-      status = 'passed';
-    } else if (!currentAssigned && (train?.next_station === stn.station_code || isTerminus)) {
-      status = 'current';
-      isHalted = (train?.speed_kmph ?? 0) === 0 && Math.abs(stn.chainage_km - trainKm) <= 0.8;
-      currentAssigned = true;
-    }
+    const resolved = resolveStopStatus(
+      stn.station_code,
+      stn.chainage_km,
+      isTerminus,
+      train,
+      trainKm,
+      hasLiveTrain,
+      isUp,
+      currentAssigned
+    );
+    currentAssigned = resolved.assigned;
 
     return {
       ...stn,
-      status,
+      status: resolved.status,
       is_terminus: isTerminus,
-      is_halted: isHalted,
+      is_halted: resolved.isHalted,
     };
   });
 }

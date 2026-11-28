@@ -1,7 +1,7 @@
 import React from 'react';
 import { Boxes } from '@/components/ui/background-boxes';
 
-export const LandingBackground: React.FC = () => {
+export const LandingBackground: React.FC = React.memo(() => {
   return (
     <div
       aria-hidden="true"
@@ -27,4 +27,4 @@ export const LandingBackground: React.FC = () => {
       </div>
     </div>
   );
-};
+});

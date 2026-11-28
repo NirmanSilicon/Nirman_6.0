@@ -80,6 +80,138 @@ const TrainCardIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6 
   </svg>
 );
 
+interface StationOption {
+  code: string;
+  name: string;
+}
+
+interface StationSelectProps {
+  label: string;
+  value: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+  ecorStations: StationOption[];
+  serStations: StationOption[];
+}
+
+const StationSelect: React.FC<StationSelectProps> = ({
+  label,
+  value,
+  placeholder,
+  onChange,
+  ecorStations,
+  serStations,
+}) => (
+  <div className="relative w-full min-w-0 md:flex-1">
+    <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
+      {label}
+    </label>
+    <div className="relative">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={`w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs ${
+          value ? 'text-slate-900 font-semibold' : 'text-slate-400 font-normal'
+        }`}
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+        <optgroup label="Bhadrak – Puri (ECoR)">
+          {ecorStations.map((s) => (
+            <option key={s.code} value={s.code}>
+              {s.name} ({s.code})
+            </option>
+          ))}
+        </optgroup>
+        <optgroup label="Howrah – Kharagpur (SER)">
+          {serStations.map((s) => (
+            <option key={s.code} value={s.code}>
+              {s.name} ({s.code})
+            </option>
+          ))}
+        </optgroup>
+      </select>
+      <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
+    </div>
+  </div>
+);
+
+interface TrainResultRowProps {
+  train: AllPilotTrain;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+const TrainResultRow: React.FC<TrainResultRowProps> = ({ train, isSelected, onSelect }) => {
+  const statusBadgeClass =
+    train.statusColor === 'emerald'
+      ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+      : 'bg-amber-50 text-amber-700 border-amber-200';
+
+  const corridorBadgeClass =
+    train.corridorId === 'SER_HWH_KGP'
+      ? 'bg-amber-50 text-amber-800 border-amber-200'
+      : 'bg-indigo-50 text-indigo-800 border-indigo-200';
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`w-full text-left p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-xs ${
+        isSelected
+          ? 'border-[#0F294A]/40 bg-slate-50/90 hover:border-[#0F294A]'
+          : 'border-slate-200 bg-white hover:border-[#0F294A] hover:bg-slate-50/80'
+      }`}
+    >
+      <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 p-1.5 shadow-2xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-105">
+          <TrainCardIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+            <span className="font-mono font-bold text-sm sm:text-base text-[#0F294A] shrink-0">
+              {train.no}
+            </span>
+            <span className="text-slate-300 font-bold hidden sm:inline">•</span>
+            <span className="font-bold text-sm sm:text-base text-slate-800">{train.name}</span>
+            <span
+              className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border whitespace-nowrap shrink-0 ${corridorBadgeClass}`}
+            >
+              {train.corridorName}
+            </span>
+            <span
+              className={`hidden sm:inline-flex text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${statusBadgeClass}`}
+            >
+              {train.delayStatus}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium mt-1">
+            <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <span className="leading-snug">
+              Departs {train.departureTime} • {train.origin.replace(/ \([A-Z]+\)/g, '')} →{' '}
+              {train.destination.replace(/ \([A-Z]+\)/g, '')}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0 sm:ml-2">
+        <span
+          className={`sm:hidden text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${statusBadgeClass}`}
+        >
+          {train.delayStatus}
+        </span>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F294A]/5 group-hover:bg-[#0F294A] group-hover:text-white text-[#0F294A] text-xs font-bold transition-all duration-200 shrink-0 shadow-2xs whitespace-nowrap ml-auto sm:ml-0">
+          <span>Live ETA</span>
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+        </div>
+      </div>
+    </button>
+  );
+};
+
 export interface SearchTabRequest {
   tab: 'find' | 'track';
   nonce: number;
@@ -211,18 +343,11 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
     if (targetCorridor === activeCorridorId) return;
 
     skipNextSyncRef.current = true;
-    if (isSerStation) {
-      if (isFrom && toStation && !serStations.some((s) => s.code === toStation)) {
-        setToStation('');
-      } else if (!isFrom && fromStation && !serStations.some((s) => s.code === fromStation)) {
-        setFromStation('');
-      }
-    } else {
-      if (isFrom && toStation && !ecorStations.some((s) => s.code === toStation)) {
-        setToStation('');
-      } else if (!isFrom && fromStation && !ecorStations.some((s) => s.code === fromStation)) {
-        setFromStation('');
-      }
+    const targetStations = isSerStation ? serStations : ecorStations;
+    if (isFrom && toStation && !targetStations.some((s) => s.code === toStation)) {
+      setToStation('');
+    } else if (!isFrom && fromStation && !targetStations.some((s) => s.code === fromStation)) {
+      setFromStation('');
     }
 
     await switchCorridor(targetCorridor);
@@ -319,10 +444,15 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
     if (nextStep === 2) {
       filterTrains(fromStation, toStation);
       if (fromStation && toStation && fromStation !== toStation) {
-        const fromStn = corridorStations.find((s) => s.code === fromStation);
-        const toStn = corridorStations.find((s) => s.code === toStation);
+        const allStations = [...ecorStations, ...serStations];
+        const fromStn =
+          corridorStations.find((s) => s.code === fromStation) ??
+          allStations.find((s) => s.code === fromStation);
+        const toStn =
+          corridorStations.find((s) => s.code === toStation) ??
+          allStations.find((s) => s.code === toStation);
         saveRecent({
-          label: `${fromStn?.name} (${fromStation}) → ${toStn?.name} (${toStation})`,
+          label: `${fromStn?.name ?? fromStation} (${fromStation}) → ${toStn?.name ?? toStation} (${toStation})`,
           fromCode: fromStation,
           toCode: toStation,
         });
@@ -412,39 +542,14 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
         <Step title={t.tabFind} icon={<Search className="w-3.5 h-3.5" />}>
           <div className="space-y-4">
             <div className="flex flex-col md:flex-row md:items-end gap-2.5">
-              {/* From Station */}
-              <div className="relative w-full min-w-0 md:flex-1">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
-                  FROM
-                </label>
-                <div className="relative">
-                  <select
-                    value={fromStation}
-                    onChange={(e) => handleFromChange(e.target.value)}
-                    className={`w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs ${fromStation ? 'text-slate-900 font-semibold' : 'text-slate-400 font-normal'
-                      }`}
-                  >
-                    <option value="" disabled>
-                      {t.fromPlaceholder}
-                    </option>
-                    <optgroup label="Bhadrak – Puri (ECoR)">
-                      {ecorStations.map((s) => (
-                        <option key={s.code} value={s.code}>
-                          {s.name} ({s.code})
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Howrah – Kharagpur (SER)">
-                      {serStations.map((s) => (
-                        <option key={s.code} value={s.code}>
-                          {s.name} ({s.code})
-                        </option>
-                      ))}
-                    </optgroup>
-                  </select>
-                  <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
-                </div>
-              </div>
+              <StationSelect
+                label="FROM"
+                value={fromStation}
+                placeholder={t.fromPlaceholder}
+                onChange={handleFromChange}
+                ecorStations={ecorStations}
+                serStations={serStations}
+              />
 
               {/* Swap Stations Button */}
               <div className="shrink-0 self-center -my-1 md:my-0 md:self-auto rotate-90 md:rotate-0 md:pb-0.5">
@@ -459,39 +564,14 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
                 </button>
               </div>
 
-              {/* To Station */}
-              <div className="relative w-full min-w-0 md:flex-1">
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 pl-0.5">
-                  TO
-                </label>
-                <div className="relative">
-                  <select
-                    value={toStation}
-                    onChange={(e) => handleToChange(e.target.value)}
-                    className={`w-full appearance-none pl-3.5 pr-8 h-11 text-xs sm:text-sm border border-slate-200 rounded-xl bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#0F294A]/20 focus:border-[#0F294A] transition-all cursor-pointer truncate shadow-2xs ${toStation ? 'text-slate-900 font-semibold' : 'text-slate-400 font-normal'
-                      }`}
-                  >
-                    <option value="" disabled>
-                      {t.toPlaceholder}
-                    </option>
-                    <optgroup label="Bhadrak – Puri (ECoR)">
-                      {ecorStations.map((s) => (
-                        <option key={s.code} value={s.code}>
-                          {s.name} ({s.code})
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Howrah – Kharagpur (SER)">
-                      {serStations.map((s) => (
-                        <option key={s.code} value={s.code}>
-                          {s.name} ({s.code})
-                        </option>
-                      ))}
-                    </optgroup>
-                  </select>
-                  <ChevronDown className="w-4 h-4 text-slate-400 pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2" />
-                </div>
-              </div>
+              <StationSelect
+                label="TO"
+                value={toStation}
+                placeholder={t.toPlaceholder}
+                onChange={handleToChange}
+                ecorStations={ecorStations}
+                serStations={serStations}
+              />
             </div>
 
             {/* Recent Routes Strip */}
@@ -598,80 +678,17 @@ export const SearchCard: React.FC<SearchCardProps> = ({ requestedTab }) => {
                   </div>
                 ) : (
                   <div className="space-y-2 max-h-[260px] overflow-y-auto overflow-x-hidden pr-0.5">
-                    {displayedTrains.map((tr) => {
-                      const isSelected = selectedRouteTrain === tr.no && !trainQuery.trim();
-                      return (
-                        <button
-                          type="button"
-                          key={`${tr.no}-${tr.corridorId}`}
-                          onClick={() => {
-                            setSelectedRouteTrain(tr.no);
-                            void handleSelectTrainAndNavigate(tr.no, tr.corridorId);
-                          }}
-                          className={`w-full text-left p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 group shadow-2xs hover:shadow-xs ${isSelected
-                            ? 'border-[#0F294A]/40 bg-slate-50/90 hover:border-[#0F294A]'
-                            : 'border-slate-200 bg-white hover:border-[#0F294A] hover:bg-slate-50/80'
-                            }`}
-                        >
-                          <div className="flex items-start sm:items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center shrink-0 p-1.5 shadow-2xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-105">
-                              <TrainCardIcon className="w-6 h-6 sm:w-7 sm:h-7" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                                <span className="font-mono font-bold text-sm sm:text-base text-[#0F294A] shrink-0">
-                                  {tr.no}
-                                </span>
-                                <span className="text-slate-300 font-bold hidden sm:inline">•</span>
-                                <span className="font-bold text-sm sm:text-base text-slate-800">
-                                  {tr.name}
-                                </span>
-                                <span
-                                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border whitespace-nowrap shrink-0 ${tr.corridorId === 'SER_HWH_KGP'
-                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
-                                    : 'bg-indigo-50 text-indigo-800 border-indigo-200'
-                                    }`}
-                                >
-                                  {tr.corridorName}
-                                </span>
-                                <span
-                                  className={`hidden sm:inline-flex text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${tr.statusColor === 'emerald'
-                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                    : 'bg-amber-50 text-amber-700 border-amber-200'
-                                    }`}
-                                >
-                                  {tr.delayStatus}
-                                </span>
-                              </div>
-
-                              <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium mt-1">
-                                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                                <span className="leading-snug">
-                                  Departs {tr.departureTime} •{' '}
-                                  {tr.origin.replace(/ \([A-Z]+\)/g, '')} →{' '}
-                                  {tr.destination.replace(/ \([A-Z]+\)/g, '')}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0 sm:ml-2">
-                            <span
-                              className={`sm:hidden text-xs font-mono font-bold px-2 py-0.5 rounded-full border whitespace-nowrap ${tr.statusColor === 'emerald'
-                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                                : 'bg-amber-50 text-amber-700 border-amber-200'
-                                }`}
-                            >
-                              {tr.delayStatus}
-                            </span>
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0F294A]/5 group-hover:bg-[#0F294A] group-hover:text-white text-[#0F294A] text-xs font-bold transition-all duration-200 shrink-0 shadow-2xs whitespace-nowrap ml-auto sm:ml-0">
-                              <span>Live ETA</span>
-                              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
-                            </div>
-                          </div>
-                        </button>
-                      );
-                    })}
+                    {displayedTrains.map((tr) => (
+                      <TrainResultRow
+                        key={`${tr.no}-${tr.corridorId}`}
+                        train={tr}
+                        isSelected={selectedRouteTrain === tr.no && !trainQuery.trim()}
+                        onSelect={() => {
+                          setSelectedRouteTrain(tr.no);
+                          void handleSelectTrainAndNavigate(tr.no, tr.corridorId);
+                        }}
+                      />
+                    ))}
                   </div>
                 )}
               </div>

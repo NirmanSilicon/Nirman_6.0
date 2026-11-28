@@ -4,6 +4,7 @@ import type {
   ForecastResponse,
   RescueEvaluationResponse,
 } from '../types/corridor';
+import { switchCorridorApi } from '../services/api';
 import { MOCK_SNAPSHOT, getMockSnapshot } from '../services/mockFallback';
 
 interface ConnectionTargetState {
@@ -11,6 +12,16 @@ interface ConnectionTargetState {
   deadline_time: string;
   transfer_buffer_mins: number;
   isCustom?: boolean;
+}
+
+function getDefaultConnectionTarget(corridorId: string): ConnectionTargetState {
+  const isKolkata = corridorId === 'SER_HWH_KGP';
+  return {
+    station_code: isKolkata ? 'KGP' : 'BBS',
+    deadline_time: isKolkata ? '13:00' : '12:15',
+    transfer_buffer_mins: 15,
+    isCustom: false,
+  };
 }
 
 interface RailStore {
@@ -85,15 +96,24 @@ export const useRailStore = create<RailStore>((set, get) => ({
   setCurrentView: (view) => set({ currentView: view }),
   setLanguage: (lang) => set({ language: lang }),
   navigateToDashboardWithTrain: (trainNo) =>
-    set((state) => ({
-      currentView: 'dashboard',
-      selectedTrain: trainNo || state.selectedTrain,
-    })),
+    set((state) => {
+      const nextTrain = trainNo || state.selectedTrain;
+      const changed = nextTrain !== state.selectedTrain;
+      return {
+        currentView: 'dashboard',
+        selectedTrain: nextTrain,
+        ...(changed ? { forecast: null, rescue: null } : {}),
+      };
+    }),
   setSelectedTrain: (trainNo) =>
-    set((state) => ({
-      selectedTrain: trainNo,
-      connectionTarget: { ...state.connectionTarget, isCustom: false },
-    })),
+    set((state) => {
+      const changed = trainNo !== state.selectedTrain;
+      return {
+        selectedTrain: trainNo,
+        connectionTarget: { ...state.connectionTarget, isCustom: false },
+        ...(changed ? { forecast: null, rescue: null } : {}),
+      };
+    }),
   setPassengerStatus: (status) => set({ passengerStatus: status }),
   setDrawerOpen: (open) => set({ drawerOpen: open }),
   setCabModalOpen: (open) => set({ cabModalOpen: open }),
@@ -116,64 +136,41 @@ export const useRailStore = create<RailStore>((set, get) => ({
   clearAllCauses: () => set({ activeCausesByTrain: {} }),
   triggerRefresh: () => set((state) => ({ refreshNonce: state.refreshNonce + 1 })),
   switchCorridor: async (targetCorridorId: string) => {
-    const isKolkata = targetCorridorId === 'SER_HWH_KGP';
-    const defaultDest = isKolkata ? 'KGP' : 'BBS';
-    const defaultTrain = isKolkata ? '12821' : '12821';
-    try {
-      const res = await fetch('/api/v1/corridor/switch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          corridor_id: targetCorridorId,
-          speed_multiplier: get().activeSnapshot.speed_multiplier || 1,
-        }),
+    const currentSpeed = get().activeSnapshot.speed_multiplier || 1;
+    const currentTrain = get().selectedTrain;
+    const snap = await switchCorridorApi(targetCorridorId, currentSpeed);
+
+    if (snap) {
+      const trainExists = snap.trains.some((t) => t.train_no === currentTrain);
+      const nextTrain = trainExists ? currentTrain : snap.trains[0].train_no;
+      set({
+        activeCorridorId: targetCorridorId,
+        activeSnapshot: snap,
+        selectedTrain: nextTrain,
+        forecast: null,
+        rescue: null,
+        connectionTarget: getDefaultConnectionTarget(targetCorridorId),
+        refreshNonce: get().refreshNonce + 1,
       });
-      if (res.ok) {
-        const snap = await res.json();
-        let nextTrain = get().selectedTrain;
-        if (snap?.trains && Array.isArray(snap.trains) && snap.trains.length > 0) {
-          const trainExists = snap.trains.some((t: any) => t.train_no === nextTrain);
-          if (!trainExists) {
-            nextTrain = snap.trains[0].train_no;
-          }
-          set({
-            activeCorridorId: targetCorridorId,
-            activeSnapshot: snap,
-            selectedTrain: nextTrain,
-            connectionTarget: {
-              station_code: defaultDest,
-              deadline_time: isKolkata ? '13:00' : '12:15',
-              transfer_buffer_mins: 15,
-              isCustom: false,
-            },
-            refreshNonce: get().refreshNonce + 1,
-          });
-          return;
-        }
-      }
-    } catch (err) {
-      console.warn('Corridor switch network error:', err);
+      return;
     }
+
     // Fallback update with corridor-matched snapshot
     const fallbackSnap = getMockSnapshot(targetCorridorId);
-    const currentTrain = get().selectedTrain;
     const validTrain = fallbackSnap.trains.some((t) => t.train_no === currentTrain)
       ? currentTrain
-      : defaultTrain;
+      : '12821';
     set({
       activeCorridorId: targetCorridorId,
       activeSnapshot: {
         ...fallbackSnap,
         corridor_id: targetCorridorId,
-        speed_multiplier: get().activeSnapshot.speed_multiplier || fallbackSnap.speed_multiplier,
+        speed_multiplier: currentSpeed || fallbackSnap.speed_multiplier,
       },
       selectedTrain: validTrain,
-      connectionTarget: {
-        station_code: defaultDest,
-        deadline_time: isKolkata ? '13:00' : '12:15',
-        transfer_buffer_mins: 15,
-        isCustom: false,
-      },
+      forecast: null,
+      rescue: null,
+      connectionTarget: getDefaultConnectionTarget(targetCorridorId),
       refreshNonce: get().refreshNonce + 1,
     });
   },

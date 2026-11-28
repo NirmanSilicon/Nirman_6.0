@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRailStore } from '../../stores/useRailStore';
 import {
   Info,
@@ -16,6 +16,79 @@ import {
   formatTime12Hour,
   timeStringToMinutes,
 } from '../dashboard/passengerUtils';
+import { useOutsideDismiss } from '../../hooks/useDismissible';
+
+type QuantileOption = 'p10' | 'p50' | 'p90';
+
+const QUANTILE_OPTIONS: ReadonlyArray<{
+  value: QuantileOption;
+  label: string;
+  description: string;
+}> = [
+  { value: 'p10', label: 'P10 • Best Case', description: 'Earliest arrival if clear' },
+  { value: 'p50', label: 'P50 • Most Likely', description: 'Expected arrival' },
+  { value: 'p90', label: 'P90 • Worst Case', description: 'Latest if delays hold' },
+];
+
+interface ConnectionGuidance {
+  boxClass: string;
+  badgeClass: string;
+  badgeText: string;
+  headline: string;
+  description: string;
+  icon: 'car' | 'alert' | 'check';
+}
+
+function getConnectionGuidance(params: {
+  isConnectionTightOrMissed: boolean;
+  isOnBoard: boolean;
+  deboardStation: string;
+  highwayName: string;
+  destinationName: string;
+  selectedArrivalTime: string;
+  connectionDeadlineFormatted: string;
+}): ConnectionGuidance {
+  const {
+    isConnectionTightOrMissed,
+    isOnBoard,
+    deboardStation,
+    highwayName,
+    destinationName,
+    selectedArrivalTime,
+    connectionDeadlineFormatted,
+  } = params;
+
+  if (!isConnectionTightOrMissed) {
+    return {
+      boxClass: 'bg-emerald-50/80 border-emerald-200',
+      badgeClass: 'bg-white text-emerald-700 border-emerald-300',
+      badgeText: 'On Track',
+      headline: "Stay on the train — you're good to go",
+      description: `You'll reach ${destinationName} at ${selectedArrivalTime}, with plenty of time for your ${connectionDeadlineFormatted} train.`,
+      icon: 'check',
+    };
+  }
+
+  if (isOnBoard) {
+    return {
+      boxClass: 'bg-amber-50/80 border-amber-200',
+      badgeClass: 'bg-white text-amber-800 border-amber-300',
+      badgeText: 'Best Move',
+      headline: `Get off at ${deboardStation} & take a cab`,
+      description: `Train reaches at ${selectedArrivalTime}. A cab via ${highwayName} gets you to ${destinationName} in time for your ${connectionDeadlineFormatted} train.`,
+      icon: 'car',
+    };
+  }
+
+  return {
+    boxClass: 'bg-rose-50/80 border-rose-200',
+    badgeClass: 'bg-white text-rose-700 border-rose-300',
+    badgeText: 'Skip Train',
+    headline: "Don't board this train for your connection",
+    description: `It won't reach ${destinationName} in time for your ${connectionDeadlineFormatted} connection. Take a cab or earlier train instead.`,
+    icon: 'alert',
+  };
+}
 
 export const ArrivalConnectionCard: React.FC = () => {
   const {
@@ -34,7 +107,7 @@ export const ArrivalConnectionCard: React.FC = () => {
   const deboardStation = isKolkata ? 'Santragachi' : 'Cuttack';
   const highwayName = isKolkata ? 'Kona Expressway' : 'NH-16';
 
-  const [quantile, setQuantile] = useState<'p10' | 'p50' | 'p90'>('p50');
+  const [quantile, setQuantile] = useState<QuantileOption>('p50');
   const [quantileMenuOpen, setQuantileMenuOpen] = useState(false);
   const quantileRef = useRef<HTMLDivElement>(null);
   const [showModelInfo, setShowModelInfo] = useState(false);
@@ -45,49 +118,11 @@ export const ArrivalConnectionCard: React.FC = () => {
     setQuantile('p50');
   }, [selectedTrain]);
 
-  // Close quantile menu on outside click or Escape
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (quantileRef.current && !quantileRef.current.contains(e.target as Node)) {
-        setQuantileMenuOpen(false);
-      }
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setQuantileMenuOpen(false);
-      }
-    };
-    if (quantileMenuOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [quantileMenuOpen]);
+  const closeQuantileMenu = useCallback(() => setQuantileMenuOpen(false), []);
+  const closeModelInfo = useCallback(() => setShowModelInfo(false), []);
 
-  // Close model info tooltip on outside click or Escape
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (infoTooltipRef.current && !infoTooltipRef.current.contains(e.target as Node)) {
-        setShowModelInfo(false);
-      }
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setShowModelInfo(false);
-      }
-    };
-    if (showModelInfo) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [showModelInfo]);
+  useOutsideDismiss(quantileRef, quantileMenuOpen, closeQuantileMenu);
+  useOutsideDismiss(infoTooltipRef, showModelInfo, closeModelInfo);
 
   // 1. Train Identity (Section 7)
   const trainIdentity = getTrainIdentity(selectedTrain, activeSnapshot);
@@ -159,6 +194,19 @@ export const ArrivalConnectionCard: React.FC = () => {
     ? `${Math.round(activeTrain.speed_kmph ?? 0)} km/h · Chainage ${(activeTrain.chainage_km ?? 0).toFixed(1)} km`
     : trainIdentity.locationText;
 
+  const currentQuantile =
+    QUANTILE_OPTIONS.find((opt) => opt.value === quantile) ?? QUANTILE_OPTIONS[1];
+
+  const guidance = getConnectionGuidance({
+    isConnectionTightOrMissed,
+    isOnBoard: passengerStatus === 'ON_BOARD',
+    deboardStation,
+    highwayName,
+    destinationName: prediction.destinationName || 'destination',
+    selectedArrivalTime,
+    connectionDeadlineFormatted,
+  });
+
   return (
     <>
       {/* Mobile-only compact train status + At Station / On Board switcher card */}
@@ -228,61 +276,34 @@ export const ArrivalConnectionCard: React.FC = () => {
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/70 text-xs font-semibold text-slate-800 transition-colors cursor-pointer"
           aria-expanded={quantileMenuOpen}
         >
-          <span>
-            {quantile === 'p10' && 'P10 • Best Case'}
-            {quantile === 'p50' && 'P50 • Most Likely'}
-            {quantile === 'p90' && 'P90 • Worst Case'}
-          </span>
+          <span>{currentQuantile.label}</span>
           <ChevronDown
-            className={`w-3.5 h-3.5 text-slate-500 transition-transform ${quantileMenuOpen ? 'rotate-180' : ''
-              }`}
+            className={`w-3.5 h-3.5 text-slate-500 transition-transform ${
+              quantileMenuOpen ? 'rotate-180' : ''
+            }`}
           />
         </button>
 
         {quantileMenuOpen && (
           <div className="absolute left-0 top-full mt-1.5 z-30 w-56 rounded-xl bg-white border border-slate-200 shadow-lg p-1">
-            <button
-              type="button"
-              onClick={() => {
-                setQuantile('p10');
-                setQuantileMenuOpen(false);
-              }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors flex flex-col gap-0.5 cursor-pointer ${quantile === 'p10'
-                ? 'bg-slate-100 font-semibold text-slate-900'
-                : 'hover:bg-slate-50 text-slate-700'
+            {QUANTILE_OPTIONS.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  setQuantile(option.value);
+                  setQuantileMenuOpen(false);
+                }}
+                className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors flex flex-col gap-0.5 cursor-pointer ${
+                  quantile === option.value
+                    ? 'bg-slate-100 font-semibold text-slate-900'
+                    : 'hover:bg-slate-50 text-slate-700'
                 }`}
-            >
-              <span className="font-bold text-slate-900">P10 • Best Case</span>
-              <span className="text-xs text-slate-500">Earliest arrival if clear</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setQuantile('p50');
-                setQuantileMenuOpen(false);
-              }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors flex flex-col gap-0.5 cursor-pointer ${quantile === 'p50'
-                ? 'bg-slate-100 font-semibold text-slate-900'
-                : 'hover:bg-slate-50 text-slate-700'
-                }`}
-            >
-              <span className="font-bold text-slate-900">P50 • Most Likely</span>
-              <span className="text-xs text-slate-500">Expected arrival</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setQuantile('p90');
-                setQuantileMenuOpen(false);
-              }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors flex flex-col gap-0.5 cursor-pointer ${quantile === 'p90'
-                ? 'bg-slate-100 font-semibold text-slate-900'
-                : 'hover:bg-slate-50 text-slate-700'
-                }`}
-            >
-              <span className="font-bold text-slate-900">P90 • Worst Case</span>
-              <span className="text-xs text-slate-500">Latest if delays hold</span>
-            </button>
+              >
+                <span className="font-bold text-slate-900">{option.label}</span>
+                <span className="text-xs text-slate-500">{option.description}</span>
+              </button>
+            ))}
           </div>
         )}
       </div>
@@ -457,57 +478,33 @@ export const ArrivalConnectionCard: React.FC = () => {
 
         {/* Connection & Action Box */}
         <div
-          className={`rounded-xl p-3 sm:p-3.5 border min-h-[136px] h-auto flex flex-col justify-between transition-colors gap-2.5 ${isConnectionTightOrMissed
-            ? passengerStatus === 'ON_BOARD'
-              ? 'bg-amber-50/80 border-amber-200'
-              : 'bg-rose-50/80 border-rose-200'
-            : 'bg-emerald-50/80 border-emerald-200'
-            }`}
+          className={`rounded-xl p-3 sm:p-3.5 border min-h-[136px] h-auto flex flex-col justify-between transition-colors gap-2.5 ${guidance.boxClass}`}
         >
           {/* Top Section: Icon + Direct Command Headline + Badge & Subtext */}
           <div className="flex flex-col gap-1 min-w-0">
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
-                {isConnectionTightOrMissed ? (
-                  passengerStatus === 'ON_BOARD' ? (
-                    <Car className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                  ) : (
-                    <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                  )
-                ) : (
+                {guidance.icon === 'car' && <Car className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />}
+                {guidance.icon === 'alert' && (
+                  <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                )}
+                {guidance.icon === 'check' && (
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 )}
                 <h3 className="font-bold text-xs sm:text-[13px] text-slate-900 leading-snug">
-                  {isConnectionTightOrMissed
-                    ? passengerStatus === 'ON_BOARD'
-                      ? `Get off at ${deboardStation} & take a cab`
-                      : "Don't board this train for your connection"
-                    : "Stay on the train — you're good to go"}
+                  {guidance.headline}
                 </h3>
               </div>
 
               <span
-                className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-bold border shadow-2xs whitespace-nowrap self-start ${isConnectionTightOrMissed
-                  ? passengerStatus === 'ON_BOARD'
-                    ? 'bg-white text-amber-800 border-amber-300'
-                    : 'bg-white text-rose-700 border-rose-300'
-                  : 'bg-white text-emerald-700 border-emerald-300'
-                  }`}
+                className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-bold border shadow-2xs whitespace-nowrap self-start ${guidance.badgeClass}`}
               >
-                {isConnectionTightOrMissed
-                  ? passengerStatus === 'ON_BOARD'
-                    ? 'Best Move'
-                    : 'Skip Train'
-                  : 'On Track'}
+                {guidance.badgeText}
               </span>
             </div>
 
             <p className="text-xs sm:text-[13px] text-slate-600 font-medium leading-relaxed whitespace-normal">
-              {isConnectionTightOrMissed
-                ? passengerStatus === 'ON_BOARD'
-                  ? `Train reaches at ${selectedArrivalTime}. A cab via ${highwayName} gets you to ${prediction.destinationName || 'destination'} in time for your ${connectionDeadlineFormatted} train.`
-                  : `It won't reach ${prediction.destinationName || 'destination'} in time for your ${connectionDeadlineFormatted} connection. Take a cab or earlier train instead.`
-                : `You'll reach ${prediction.destinationName || 'destination'} at ${selectedArrivalTime}, with plenty of time for your ${connectionDeadlineFormatted} train.`}
+              {guidance.description}
             </p>
           </div>
 

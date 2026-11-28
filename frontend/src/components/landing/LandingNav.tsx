@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Globe, ChevronDown, Check, Clock, GitBranch } from 'lucide-react';
 import { useRailStore } from '../../stores/useRailStore';
+import { useOutsideDismiss } from '../../hooks/useDismissible';
 import PillNav, { type PillNavItem } from '../ui/PillNav';
 import { TRANSLATIONS, type Lang } from './translations';
 
@@ -39,26 +40,8 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onNavigateToSearch }) =>
     return () => window.clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMenuOpen(false);
-      }
-    };
-    if (menuOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [menuOpen]);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  useOutsideDismiss(menuRef, menuOpen, closeMenu);
 
   const activeLangLabel =
     LANG_OPTIONS.find((opt) => opt.code === language)?.label ?? 'English';
