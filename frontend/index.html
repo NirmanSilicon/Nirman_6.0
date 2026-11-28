@@ -197,7 +197,7 @@ function SignIn(){
 
 const ML_STREAM_BASE="http://127.0.0.1:8765";
 const API_BASE="http://127.0.0.1:5000/api";
-const CAMS=[{id:"CAM_001",name:"Live AI PPE & Fire Camera",zone:"Zone A",k:"gate",on:true,isLiveMl:true},{id:"CAM-02",name:"Exit Checkpoint",zone:"Zone B",k:"gate",on:true},{id:"CAM-03",name:"Factory Floor",zone:"Zone C",k:"floor",on:true},{id:"CAM-04",name:"Storage Aisle",zone:"Zone D",k:"shelf",on:true},{id:"CAM-05",name:"Loading Dock",zone:"Zone E",k:"dock",on:false},{id:"CAM-06",name:"Control Room",zone:"Zone F",k:"ctrl",on:true}];
+const CAMS=[{id:"CAM_001",name:"Laptop Webcam AI (PPE & Fire)",zone:"Zone A",k:"gate",on:true,isLiveMl:true},{id:"CAM_002",name:"Smartphone Wi-Fi AI Camera",zone:"Zone B",k:"gate",on:true,isLiveMl:true},{id:"CAM-03",name:"Factory Floor",zone:"Zone C",k:"floor",on:true},{id:"CAM-04",name:"Storage Aisle",zone:"Zone D",k:"shelf",on:true},{id:"CAM-05",name:"Loading Dock",zone:"Zone E",k:"dock",on:false},{id:"CAM-06",name:"Control Room",zone:"Zone F",k:"ctrl",on:true}];
 const inZone=z=>W.filter(w=>w.zone===z&&w.st!=="Absent"&&w.out==="—");
 function Scene({k,t}){
  const base=<g><rect width="160" height="58" fill="#38434a"/><polygon points="0,58 160,58 160,90 0,90" fill="#2a3036"/><path d="M80 58L20 90M80 58L140 90M80 58V90" stroke="#3d464d" strokeWidth=".5"/></g>;
@@ -214,15 +214,16 @@ function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
  useEffect(()=>{if(p||!cam.on||cam.isLiveMl)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date())},500);return()=>clearInterval(i)},[p,cam.on,cam.isLiveMl]);
  const ws=cam.on?inZone(cam.zone):[];
  const useRealMl=Boolean(cam.isLiveMl);
- const detCount=useRealMl?(mlStatus?.totalPersons??0):(cam.on?ws.length:0);
- const mlLevel=useRealMl?(mlStatus?.safetyLevel||"SAFE"):"SAFE";
- return <div className="cam" style={useRealMl&&mlLevel!=="SAFE"?{borderColor:"var(--red)",boxShadow:"0 0 0 2px var(--red)"}:{}}><div className="feed">
+ const camStat=useRealMl?(mlStatus?.cameras?.[cam.id]||mlStatus):null;
+ const detCount=useRealMl?(camStat?.totalPersons??0):(cam.on?ws.length:0);
+ const mlLevel=useRealMl?(camStat?.safetyLevel||"SAFE"):"SAFE";
+ return <div className="cam" style={useRealMl&&mlLevel!=="SAFE"&&mlLevel!=="STANDBY"?{borderColor:"var(--red)",boxShadow:"0 0 0 2px var(--red)"}:{}}><div className="feed">
  {useRealMl?(
   <img
-   key="live-mjpeg-player"
-   src={p?`${ML_STREAM_BASE}/snapshot.jpg`:`${ML_STREAM_BASE}/stream.mjpg?r=${streamRev}`}
+   key={`live-mjpeg-${cam.id}`}
+   src={p?`${ML_STREAM_BASE}/snapshot.jpg?cam=${cam.id}`:`${ML_STREAM_BASE}/stream.mjpg?cam=${cam.id}&r=${streamRev}`}
    onError={()=>{setTimeout(()=>setStreamRev(r=>r+1),1200)}}
-   alt="Live AI YOLO PPE & Fire Stream"
+   alt={`Live AI YOLO Stream ${cam.id}`}
    style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"contain",background:"#0d1114",transform:`scale(${z})`,transition:"transform .2s"}}
   />
  ):cam.on?<svg viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" style={{transform:`scale(${z})`}} role="img" aria-label={`${cam.name} camera feed`}><Scene k={cam.k} t={t}/>
@@ -230,11 +231,11 @@ function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
  return <g key={w.id}><circle cx={x} cy={y-14*s} r={3*s} fill="#cfd6dc"/><rect x={x-3.5*s} y={y-11*s} width={7*s} height={14*s} rx="1" fill="#e08a2f"/><rect x={x-6*s} y={y-19*s} width={12*s} height={23*s} fill="none" stroke={c} strokeWidth=".6"/><rect x={x-6*s} y={y-23.5*s} width={24*s} height={4.5*s} fill={c}/><text x={x-5.2*s} y={y-20*s} fontSize={3.2*s} fontWeight="700" fill="#000" fontFamily="monospace">{w.id} {late?"LATE":"OK"}</text></g>})}
  </svg>:<div className="nosig"><div>NO SIGNAL<br/><small>Camera offline. Check connection.</small></div></div>}
  <div className="scan"/>
- <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {useRealMl?`AI YOLO11n (${mlStatus?.source||"Webcam"})`:cam.name}</div>
- <div className="ov tr">{useRealMl?(<><span className="dot r blink"/>AI LIVE · {mlStatus?.fps??0} FPS</>):cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
- <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}{useRealMl?` · ${mlStatus?.safetyMessage||"Monitoring"}`:""}</div>
+ <div className="ov tl"><b>{cam.id}</b> {cam.zone} · {useRealMl?`AI YOLO11n (${camStat?.source||cam.name})`:cam.name}</div>
+ <div className="ov tr">{useRealMl?(<><span className="dot r blink"/>AI LIVE · {camStat?.fps??0} FPS</>):cam.on?(p?"PAUSED":<><span className="dot r blink"/>LIVE</>):<><span className="dot r"/>OFFLINE</>}</div>
+ <div className="ov bl">{now.toLocaleDateString("en-GB")} {now.toLocaleTimeString("en-GB")}{useRealMl?` · ${camStat?.safetyMessage||"Monitoring"}`:""}</div>
  <div className="ov br">{cam.on?`${detCount} worker${detCount===1?"":"s"} detected`:"--"}</div></div>
- <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{useRealMl?`Helmets: ${mlStatus?.helmetCount??0} OK / ${mlStatus?.noHelmetCount??0} Missing · Fire: ${mlStatus?.fireDetected?"ALERT":"None"}`:cam.name+(list&&ws.length?" · "+ws.map(w=>w.id).join(", "):"")}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/>
+ <div className="cc"><div className="sp"><b>{cam.zone}</b><br/><small style={{color:"var(--mut)"}}>{useRealMl?`Helmets: ${camStat?.helmetCount??0} OK / ${camStat?.noHelmetCount??0} Missing · Fire: ${camStat?.fireDetected?"ALERT":"None"}`:cam.name+(list&&ws.length?" · "+ws.map(w=>w.id).join(", "):"")}</small></div><span className={"dot "+(cam.on?"":"r")} title={cam.on?"Online":"Offline"}/>
  <Badge s={useRealMl?(mlLevel==="SAFE"?"Active":mlLevel==="DANGER"?"Pending":"Late"):(cam.on?"Active":"Inactive")}/>
  {cam.on&&<><button className="btn" onClick={()=>setP(!p)}>{p?"Play":"Pause"}</button><button className="btn" onClick={()=>setZ(z>=2?1:z+.5)}>Zoom {z}x</button></>}
  {!big&&<button className="btn" onClick={()=>onFull(cam)}>Full screen</button>}</div></div>}
@@ -248,8 +249,8 @@ function Live({zones}){
   }catch(_e){}finally{setCtrlBusy(false)}
  };
  const startPhoneStream=()=>{
-  const url=prompt("Enter Smartphone IP Webcam / RTSP / HTTP Stream URL:","http://10.68.3.28:8080/video");
-  if(url&&url.trim())sendControl("start_stream",{url:url.trim()});
+  const url=prompt("Enter Smartphone IP Webcam / RTSP / HTTP Stream URL for CAM_002:","http://10.68.3.28:8080/video");
+  if(url&&url.trim())sendControl("start_stream",{cam:"CAM_002",url:url.trim()});
  };
  useEffect(()=>{
   let alive=true,fails=0;
@@ -281,9 +282,10 @@ function Live({zones}){
       {mlConnected?(mlStatus?.active?`YOLO11n AI Model Live (${mlStatus.fps} FPS · ${mlStatus.source})`:"YOLO11n AI Model Connected (Standby — Click Start Live AI Webcam)"):"Python AI Model Stream Offline"}
      </span>
      {recentDet.length>0&&<span className="bd">Backend DB: {recentDet.length} recent detections synced</span>}
-     <button className="btn grn" disabled={ctrlBusy} onClick={()=>sendControl("start_webcam")}>🎥 Start Live AI Webcam</button>
-     <button className="btn" disabled={ctrlBusy} onClick={startPhoneStream}>📱 Smartphone Wi-Fi Stream</button>
-     {mlStatus?.active&&<button className="btn red" disabled={ctrlBusy} onClick={()=>sendControl("stop")}>⏹ Stop AI Camera</button>}
+     <button className="btn grn" disabled={ctrlBusy} onClick={()=>sendControl("start_dual",{url:"http://10.68.3.28:8080/video"})}>⚡ Start Dual AI (Webcam + Phone)</button>
+     <button className="btn" disabled={ctrlBusy} onClick={()=>sendControl("start_webcam",{cam:"CAM_001"})}>🎥 CAM_001 Webcam</button>
+     <button className="btn" disabled={ctrlBusy} onClick={startPhoneStream}>📱 CAM_002 Smartphone Stream</button>
+     {mlStatus?.active&&<button className="btn red" disabled={ctrlBusy} onClick={()=>sendControl("stop")}>⏹ Stop AI Cameras</button>}
     </div>
     <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
      {mlConnected&&mlStatus?`${mlStatus.safetyLevel}: ${mlStatus.safetyMessage} · Workers: ${mlStatus.totalPersons} · Helmet OK: ${mlStatus.helmetCount} · Missing Helmet: ${mlStatus.noHelmetCount} · Fire: ${mlStatus.fireDetected?"DETECTED":"None"} · Smoke: ${mlStatus.smokeDetected?"DETECTED":"None"}`:"Connecting to local YOLOv11 AI Vision Daemon on http://127.0.0.1:8765..."}

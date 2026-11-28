@@ -163,14 +163,27 @@ const seedDemoData = async () => {
       { new: true, upsert: true }
     );
 
-    // 6. Seed Registered Camera (CAM_001 in Zone A for Python ML & Smartphone Wi-Fi Stream)
+    // 6. Seed Registered Cameras (CAM_001 in Zone A for Laptop Webcam AI, CAM_002 in Zone B for Smartphone Wi-Fi Stream AI)
     await Camera.findOneAndUpdate(
       { cameraCode: 'CAM_001' },
       {
         $set: {
-          cameraName: 'Assembly Zone A Primary AI Camera',
+          cameraName: 'Assembly Zone A Laptop Webcam AI',
           zoneId: zoneA._id,
           locationDescription: 'Overlooking Assembly Station 1 Entry Gate',
+          streamType: 'RTSP',
+        },
+      },
+      { new: true, upsert: true }
+    );
+
+    await Camera.findOneAndUpdate(
+      { cameraCode: 'CAM_002' },
+      {
+        $set: {
+          cameraName: 'Warehouse Zone B Smartphone Wi-Fi AI Camera',
+          zoneId: zoneB._id,
+          locationDescription: 'Mobile Wi-Fi Camera Overlooking Warehouse Checkpoint',
           streamType: 'SMARTPHONE_WIFI',
         },
       },
