@@ -16,11 +16,6 @@ interface DetectedPattern {
   explanation: string;
 }
 
-interface WebSource {
-  title: string;
-  uri: string;
-}
-
 interface RiskAnalysisResponse {
   gameTitle: string;
   riskScore: number;
@@ -35,116 +30,6 @@ interface RiskAnalysisResponse {
   parentAlert: string;
   summary: string;
   analysisSource: "gemini" | "heuristic";
-  fetchedPolicy?: string;
-  sources?: WebSource[];
-}
-
-function getGeminiClient(): GoogleGenAI {
-  const apiKey = process.env.GEMINI_API_KEY?.trim();
-  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
-    throw new Error(
-      "GEMINI_API_KEY is not configured. Please check your API key in Settings > Secrets."
-    );
-  }
-  return new GoogleGenAI({
-    apiKey,
-    httpOptions: {
-      headers: {
-        "User-Agent": "aistudio-build",
-      },
-    },
-  });
-}
-
-function formatGeminiError(err: unknown): { status: number; message: string } {
-  const raw = err instanceof Error ? err.message : String(err);
-  if (raw.includes("GEMINI_API_KEY")) {
-    return { status: 503, message: raw };
-  }
-  if (raw.includes("RESOURCE_EXHAUSTED") || raw.includes("429")) {
-    return {
-      status: 429,
-      message:
-        "Gemini API quota limit reached. Please wait a moment or check your billing-enabled key in Settings > Secrets.",
-    };
-  }
-  if (raw.includes("API_KEY_INVALID") || raw.includes("PERMISSION_DENIED") || raw.includes("403")) {
-    return {
-      status: 403,
-      message:
-        "Gemini API key was rejected. Please verify your GEMINI_API_KEY in Settings > Secrets.",
-    };
-  }
-  return {
-    status: 502,
-    message: "Unable to search the web right now. Please try again shortly.",
-  };
-}
-
-function extractSafeWebSources(
-  groundingChunks?: Array<{ web?: { uri?: string; title?: string } }>
-): WebSource[] {
-  if (!Array.isArray(groundingChunks)) return [];
-  const seen = new Set<string>();
-  const sources: WebSource[] = [];
-
-  for (const chunk of groundingChunks) {
-    const uri = chunk?.web?.uri?.trim();
-    if (!uri || seen.has(uri)) continue;
-    try {
-      const parsed = new URL(uri);
-      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") continue;
-      seen.add(uri);
-      sources.push({
-        title: chunk?.web?.title?.trim() || parsed.hostname,
-        uri: parsed.toString(),
-      });
-    } catch {
-      continue;
-    }
-  }
-
-  return sources.slice(0, 6);
-}
-
-async function fetchMonetizationPolicyWithSearch(
-  title: string,
-  language: "en" | "hi"
-): Promise<{ policyText: string; sources: WebSource[] }> {
-  const ai = getGeminiClient();
-
-  const langInstruction =
-    language === "hi"
-      ? "Write the summary in clear, natural Hindi (Devanagari script)."
-      : "Write the summary in clear, factual plain English.";
-
-  const response = await ai.models.generateContent({
-    model: "gemini-4-hydrogen",
-    contents: `Search the web for the official monetization policy, store mechanics, and in-app purchase structure of the video game "${title}".
-Summarize in one concise plain-text paragraph (3 to 5 sentences, no markdown headings or bullet points) covering:
-- Whether it is free-to-play or a one-time paid purchase
-- Any virtual currencies, gacha banners, loot boxes, crates, or published drop rates / pity systems
-- Any battle passes, rotating limited-time shops, FOMO timers, or pay-to-win stat boosts
-- If it has zero microtransactions or cosmetic-only monetization, state that clearly.
-${langInstruction}`,
-    config: {
-      systemInstruction:
-        "You are a factual video game consumer-protection researcher. Use live Google Search results to accurately describe a game's monetization mechanics in concise plain text without markdown formatting.",
-      tools: [{ googleSearch: {} }],
-    },
-  });
-
-  const policyText = response.text?.trim();
-  if (!policyText) {
-    throw new Error("Could not generate a monetization policy for that title. Please try again.");
-  }
-
-  const chunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks as
-    | Array<{ web?: { uri?: string; title?: string } }>
-    | undefined;
-  const sources = extractSafeWebSources(chunks);
-
-  return { policyText, sources };
 }
 
 function clamp(num: number, min: number, max: number): number {
@@ -348,26 +233,51 @@ function analyzeHeuristically(
   };
 }
 
+const MODEL_COOLDOWN_MS = 15 * 60 * 1000;
+const modelCooldownUntil = new Map<string, number>();
+
+function isModelAvailable(modelName: string): boolean {
+  const until = modelCooldownUntil.get(modelName) || 0;
+  return Date.now() >= until;
+}
+
+function markModelIfRateLimited(modelName: string, err: unknown) {
+  const raw = err instanceof Error ? err.message : String(err);
+  if (raw.includes("429") || raw.includes("RESOURCE_EXHAUSTED")) {
+    modelCooldownUntil.set(modelName, Date.now() + MODEL_COOLDOWN_MS);
+  }
+}
+
 async function analyzeWithGemini(
   title: string,
   description: string,
   language: "en" | "hi"
 ): Promise<RiskAnalysisResponse> {
-  let ai: GoogleGenAI;
-  try {
-    ai = getGeminiClient();
-  } catch {
+  const apiKey = process.env.GEMINI_API_KEY?.trim();
+  if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
     return analyzeHeuristically(title, description, language);
   }
 
-  try {
+  const candidateModels = ["gemini-4-hydrogen", "gemini-3.1-flash-lite"].filter(isModelAvailable);
+  if (candidateModels.length === 0) {
+    return analyzeHeuristically(title, description, language);
+  }
 
-    const langInstruction =
-      language === "hi"
-        ? "Respond in natural, clear Hindi (Devanagari script) for all human-readable text fields (name, psychologyHook, explanation, gamerAlert, parentAlert, summary). Keep riskLevel strictly as LOW, MEDIUM, or HIGH."
-        : "Respond in plain, accessible English suitable for young gamers and non-technical parents.";
+  const ai = new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        "User-Agent": "aistudio-build",
+      },
+    },
+  });
 
-    const prompt = `Analyze the following video game and/or monetization description for predatory gambling-like mechanics and dark patterns.
+  const langInstruction =
+    language === "hi"
+      ? "Respond in natural, clear Hindi (Devanagari script) for all human-readable text fields (name, psychologyHook, explanation, gamerAlert, parentAlert, summary). Keep riskLevel strictly as LOW, MEDIUM, or HIGH."
+      : "Respond in plain, accessible English suitable for young gamers and non-technical parents.";
+
+  const prompt = `Analyze the following video game and/or monetization description for predatory gambling-like mechanics and dark patterns.
 Game Title: ${title || "Unspecified Game"}
 Monetization / Shop Details: ${description || "No description provided—infer carefully from the game title or standard industry patterns if well-known, otherwise note limited info."}
 
@@ -379,108 +289,111 @@ Evaluate:
 5. Concise gamerAlert, parentAlert, and 1-sentence summary.
 ${langInstruction}`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-4-hydrogen",
-      contents: prompt,
-      config: {
-        systemInstruction:
-          "You are FairPlay Lens, a consumer protection and behavioral game design analyst helping families distinguish skill-based gaming from gambling-like dark patterns.",
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            gameTitle: { type: Type.STRING },
-            riskScore: { type: Type.INTEGER },
-            riskLevel: { type: Type.STRING },
-            breakdown: {
-              type: Type.OBJECT,
-              properties: {
-                skillPct: { type: Type.INTEGER },
-                cosmeticPct: { type: Type.INTEGER },
-                gamblingPct: { type: Type.INTEGER },
-              },
-              required: ["skillPct", "cosmeticPct", "gamblingPct"],
-            },
-            detectedPatterns: {
-              type: Type.ARRAY,
-              items: {
+  for (const modelName of candidateModels) {
+    try {
+      const response = await ai.models.generateContent({
+        model: modelName,
+        contents: prompt,
+        config: {
+          systemInstruction:
+            "You are FairPlay Lens, a consumer protection and behavioral game design analyst helping families distinguish skill-based gaming from gambling-like dark patterns.",
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              gameTitle: { type: Type.STRING },
+              riskScore: { type: Type.INTEGER },
+              riskLevel: { type: Type.STRING },
+              breakdown: {
                 type: Type.OBJECT,
                 properties: {
-                  name: { type: Type.STRING },
-                  severity: { type: Type.STRING },
-                  psychologyHook: { type: Type.STRING },
-                  explanation: { type: Type.STRING },
+                  skillPct: { type: Type.INTEGER },
+                  cosmeticPct: { type: Type.INTEGER },
+                  gamblingPct: { type: Type.INTEGER },
                 },
-                required: ["name", "severity", "psychologyHook", "explanation"],
+                required: ["skillPct", "cosmeticPct", "gamblingPct"],
               },
+              detectedPatterns: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    name: { type: Type.STRING },
+                    severity: { type: Type.STRING },
+                    psychologyHook: { type: Type.STRING },
+                    explanation: { type: Type.STRING },
+                  },
+                  required: ["name", "severity", "psychologyHook", "explanation"],
+                },
+              },
+              gamerAlert: { type: Type.STRING },
+              parentAlert: { type: Type.STRING },
+              summary: { type: Type.STRING },
             },
-            gamerAlert: { type: Type.STRING },
-            parentAlert: { type: Type.STRING },
-            summary: { type: Type.STRING },
+            required: [
+              "gameTitle",
+              "riskScore",
+              "riskLevel",
+              "breakdown",
+              "detectedPatterns",
+              "gamerAlert",
+              "parentAlert",
+              "summary",
+            ],
           },
-          required: [
-            "gameTitle",
-            "riskScore",
-            "riskLevel",
-            "breakdown",
-            "detectedPatterns",
-            "gamerAlert",
-            "parentAlert",
-            "summary",
-          ],
         },
-      },
-    });
+      });
 
-    const rawText = response.text?.trim();
-    if (!rawText) {
-      return analyzeHeuristically(title, description, language);
+      const rawText = response.text?.trim();
+      if (!rawText) continue;
+
+      const parsed = JSON.parse(rawText) as Omit<RiskAnalysisResponse, "analysisSource">;
+      const parsedScore = Number(parsed.riskScore);
+      const riskScore = Number.isFinite(parsedScore) ? clamp(parsedScore, 0, 100) : 50;
+      const riskLevel: "LOW" | "MEDIUM" | "HIGH" =
+        parsed.riskLevel === "LOW" || parsed.riskLevel === "MEDIUM" || parsed.riskLevel === "HIGH"
+          ? parsed.riskLevel
+          : riskScore >= 65
+            ? "HIGH"
+            : riskScore >= 32
+              ? "MEDIUM"
+              : "LOW";
+
+      const s = clamp(Number(parsed.breakdown?.skillPct) || 0, 0, 100);
+      const c = clamp(Number(parsed.breakdown?.cosmeticPct) || 0, 0, 100);
+      const g = clamp(Number(parsed.breakdown?.gamblingPct) || 0, 0, 100);
+      const total = s + c + g || 100;
+      const skillPct = Math.round((s / total) * 100);
+      const cosmeticPct = Math.round((c / total) * 100);
+      const gamblingPct = Math.max(0, 100 - skillPct - cosmeticPct);
+
+      return {
+        gameTitle: parsed.gameTitle || title || "Analyzed Game",
+        riskScore,
+        riskLevel,
+        breakdown: { skillPct, cosmeticPct, gamblingPct },
+        detectedPatterns: Array.isArray(parsed.detectedPatterns)
+          ? parsed.detectedPatterns.slice(0, 5).map((p) => ({
+              name: p.name || "Detected Pattern",
+              severity:
+                p.severity === "LOW" || p.severity === "MEDIUM" || p.severity === "HIGH"
+                  ? p.severity
+                  : riskLevel,
+              psychologyHook: p.psychologyHook || "Behavioral Trigger",
+              explanation: p.explanation || "",
+            }))
+          : [],
+        gamerAlert: parsed.gamerAlert || "",
+        parentAlert: parsed.parentAlert || "",
+        summary: parsed.summary || "",
+        analysisSource: "gemini",
+      };
+    } catch (err) {
+      markModelIfRateLimited(modelName, err);
     }
-
-    const parsed = JSON.parse(rawText) as Omit<RiskAnalysisResponse, "analysisSource">;
-    const riskScore = clamp(Number(parsed.riskScore) || 50, 0, 100);
-    const riskLevel: "LOW" | "MEDIUM" | "HIGH" =
-      parsed.riskLevel === "LOW" || parsed.riskLevel === "MEDIUM" || parsed.riskLevel === "HIGH"
-        ? parsed.riskLevel
-        : riskScore >= 65
-          ? "HIGH"
-          : riskScore >= 32
-            ? "MEDIUM"
-            : "LOW";
-
-    const s = clamp(Number(parsed.breakdown?.skillPct) || 0, 0, 100);
-    const c = clamp(Number(parsed.breakdown?.cosmeticPct) || 0, 0, 100);
-    const g = clamp(Number(parsed.breakdown?.gamblingPct) || 0, 0, 100);
-    const total = s + c + g || 100;
-    const skillPct = Math.round((s / total) * 100);
-    const cosmeticPct = Math.round((c / total) * 100);
-    const gamblingPct = Math.max(0, 100 - skillPct - cosmeticPct);
-
-    return {
-      gameTitle: parsed.gameTitle || title || "Analyzed Game",
-      riskScore,
-      riskLevel,
-      breakdown: { skillPct, cosmeticPct, gamblingPct },
-      detectedPatterns: Array.isArray(parsed.detectedPatterns)
-        ? parsed.detectedPatterns.slice(0, 5).map((p) => ({
-            name: p.name || "Detected Pattern",
-            severity:
-              p.severity === "LOW" || p.severity === "MEDIUM" || p.severity === "HIGH"
-                ? p.severity
-                : riskLevel,
-            psychologyHook: p.psychologyHook || "Behavioral Trigger",
-            explanation: p.explanation || "",
-          }))
-        : [],
-      gamerAlert: parsed.gamerAlert || "",
-      parentAlert: parsed.parentAlert || "",
-      summary: parsed.summary || "",
-      analysisSource: "gemini",
-    };
-  } catch (err) {
-    console.warn("Gemini analyze fallback triggered:", err instanceof Error ? err.message : err);
-    return analyzeHeuristically(title, description, language);
   }
+
+  return analyzeHeuristically(title, description, language);
 }
 
 async function startServer() {
@@ -491,65 +404,202 @@ async function startServer() {
     res.json({ ok: true });
   });
 
-  app.post("/api/fetch-policy", async (req: Request, res: Response) => {
-    const body = req.body as { title?: unknown; language?: unknown };
-    const title = typeof body.title === "string" ? body.title.trim().slice(0, 200) : "";
-    const language: "en" | "hi" = body.language === "hi" ? "hi" : "en";
-
-    if (!title) {
-      res.status(400).json({ error: "Please enter a game title to search its monetization policy." });
-      return;
-    }
-
-    try {
-      const result = await fetchMonetizationPolicyWithSearch(title, language);
-      res.json(result);
-    } catch (err) {
-      const { status, message } = formatGeminiError(err);
-      res.status(status).json({ error: message });
-    }
-  });
-
   app.post("/api/analyze", async (req: Request, res: Response) => {
-    const body = req.body as {
-      title?: unknown;
-      description?: unknown;
-      language?: unknown;
-      autoSearch?: unknown;
-    };
-    const title = typeof body.title === "string" ? body.title.trim().slice(0, 200) : "";
-    let description =
-      typeof body.description === "string" ? body.description.trim().slice(0, 4000) : "";
+    const body = req.body as { title?: unknown; description?: unknown; language?: unknown };
+    const title = typeof body.title === "string" ? body.title.slice(0, 200) : "";
+    const description =
+      typeof body.description === "string" ? body.description.slice(0, 4000) : "";
     const language: "en" | "hi" = body.language === "hi" ? "hi" : "en";
-    const autoSearch = Boolean(body.autoSearch);
 
-    if (!title && !description) {
+    if (!title.trim() && !description.trim()) {
       res.status(400).json({ error: "Please provide a game title or monetization description." });
       return;
     }
 
-    let fetchedPolicy: string | undefined;
-    let sources: WebSource[] | undefined;
+    const result = await analyzeWithGemini(title, description, language);
+    res.json(result);
+  });
 
-    if (title && (!description || autoSearch)) {
-      try {
-        const fetched = await fetchMonetizationPolicyWithSearch(title, language);
-        description = fetched.policyText;
-        fetchedPolicy = fetched.policyText;
-        sources = fetched.sources;
-      } catch (err) {
-        const { status, message } = formatGeminiError(err);
-        res.status(status).json({ error: message });
-        return;
-      }
+  app.post("/api/chat", async (req: Request, res: Response) => {
+    const body = req.body as {
+      messages?: unknown;
+      persona?: unknown;
+      modelMode?: unknown;
+      useWebSearch?: unknown;
+      language?: unknown;
+    };
+
+    const rawMessages = Array.isArray(body.messages) ? body.messages : [];
+    const contents: Array<{ role: "user" | "model"; parts: Array<{ text: string }> }> = [];
+
+    for (const item of rawMessages.slice(-20)) {
+      if (!item || typeof item !== "object") continue;
+      const msg = item as { role?: unknown; text?: unknown };
+      const role = msg.role === "model" ? "model" : msg.role === "user" ? "user" : null;
+      const text = typeof msg.text === "string" ? msg.text.trim().slice(0, 4000) : "";
+      if (!role || !text) continue;
+      if (contents.length === 0 && role === "model") continue;
+      contents.push({ role, parts: [{ text }] });
     }
 
-    const result = await analyzeWithGemini(title, description, language);
-    res.json({
-      ...result,
-      ...(fetchedPolicy ? { fetchedPolicy } : {}),
-      ...(sources && sources.length > 0 ? { sources } : {}),
-    });
+    if (contents.length === 0 || contents[contents.length - 1].role !== "user") {
+      res.status(400).json({ error: "Please enter a message to chat with FairPlay AI." });
+      return;
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY?.trim();
+    if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
+      res.status(503).json({
+        error: "GEMINI_API_KEY is not configured. Please check Settings > Secrets.",
+      });
+      return;
+    }
+
+    const persona =
+      body.persona === "parent" || body.persona === "auditor" ? body.persona : "gamer";
+    const modelMode =
+      body.modelMode === "fast" ||
+      body.modelMode === "interactive" ||
+      body.modelMode === "deep"
+        ? body.modelMode
+        : "general";
+    const useWebSearch = Boolean(body.useWebSearch);
+    const language: "en" | "hi" = body.language === "hi" ? "hi" : "en";
+
+    const personaInstructions: Record<"gamer" | "parent" | "auditor", string> = {
+      gamer:
+        "You are the FairPlay Lens Gamer Advisor. Help players calculate real gacha/loot-box drop probabilities, expected real-money cost per rare pull, pity mechanics, and house edge, while helping them resist FOMO shop timers and distinguish fair skill-based games from pay-to-win traps.",
+      parent:
+        "You are the FairPlay Lens Parent Safety Guide. Help parents and guardians in plain, non-technical language understand virtual currencies, identify predatory loot boxes or FOMO timers, set up device payment locks, and discover healthy zero-gambling game alternatives.",
+      auditor:
+        "You are the FairPlay Lens Dark-Pattern Auditor. Provide rigorous behavioral game design and consumer-protection analysis of monetization mechanics, including variable-ratio reinforcement, near-miss animations, dual-currency obfuscation, and odds disclosure standards.",
+    };
+
+    const langInstruction =
+      language === "hi"
+        ? "Always reply in clear, natural Hindi (Devanagari script). Keep answers concise and practical."
+        : "Always reply in clear, practical English. Keep answers concise (2 to 4 short paragraphs or bullet points).";
+
+    const systemInstruction = `${personaInstructions[persona]} ${langInstruction}`;
+
+    const requestedModel = useWebSearch
+      ? "gemini-4-hydrogen"
+      : modelMode === "fast"
+        ? "gemini-3.1-flash-lite"
+        : modelMode === "interactive"
+          ? "gemini-4-neon"
+          : modelMode === "deep"
+            ? "gemini-4-carbon"
+            : "gemini-4-hydrogen";
+
+    try {
+      const ai = new GoogleGenAI({
+        apiKey,
+        httpOptions: {
+          headers: {
+            "User-Agent": "aistudio-build",
+          },
+        },
+      });
+
+      let response;
+      let actualModel = requestedModel;
+      let usedSearchGrounding = false;
+
+      if (useWebSearch && isModelAvailable("gemini-4-hydrogen:search")) {
+        try {
+          usedSearchGrounding = true;
+          actualModel = "gemini-4-hydrogen";
+          response = await ai.models.generateContent({
+            model: "gemini-4-hydrogen",
+            contents,
+            config: {
+              systemInstruction,
+              tools: [{ googleSearch: {} }],
+            },
+          });
+        } catch (err) {
+          markModelIfRateLimited("gemini-4-hydrogen:search", err);
+          usedSearchGrounding = false;
+        }
+      }
+
+      if (!response) {
+        const fallbackOrder = Array.from(
+          new Set([actualModel, "gemini-3.1-flash-lite", "gemini-4-hydrogen"])
+        ).filter(isModelAvailable);
+
+        let lastError: unknown;
+        for (const candidate of fallbackOrder.length > 0
+          ? fallbackOrder
+          : ["gemini-3.1-flash-lite"]) {
+          try {
+            actualModel = candidate;
+            response = await ai.models.generateContent({
+              model: candidate,
+              contents,
+              config: {
+                systemInstruction,
+              },
+            });
+            break;
+          } catch (err) {
+            lastError = err;
+            markModelIfRateLimited(candidate, err);
+          }
+        }
+
+        if (!response && lastError) {
+          throw lastError;
+        }
+      }
+
+      const replyText = response?.text?.trim();
+      if (!replyText) {
+        throw new Error("Empty response from Gemini.");
+      }
+
+      const rawChunks = usedSearchGrounding
+        ? (response?.candidates?.[0]?.groundingMetadata?.groundingChunks as
+            | Array<{ web?: { uri?: string; title?: string } }>
+            | undefined)
+        : undefined;
+
+      const sources: Array<{ title: string; uri: string }> = [];
+      const seen = new Set<string>();
+      if (Array.isArray(rawChunks)) {
+        for (const chunk of rawChunks) {
+          const uri = chunk?.web?.uri?.trim();
+          if (!uri || seen.has(uri)) continue;
+          try {
+            const parsed = new URL(uri);
+            if (parsed.protocol !== "http:" && parsed.protocol !== "https:") continue;
+            seen.add(uri);
+            sources.push({
+              title: chunk?.web?.title?.trim() || parsed.hostname,
+              uri: parsed.toString(),
+            });
+          } catch {
+            continue;
+          }
+        }
+      }
+
+      res.json({
+        reply: replyText,
+        sources: sources.slice(0, 6),
+        modelUsed: actualModel,
+        usedWebSearch: usedSearchGrounding,
+      });
+    } catch (err) {
+      const raw = err instanceof Error ? err.message : String(err);
+      const isQuota = raw.includes("429") || raw.includes("RESOURCE_EXHAUSTED");
+      res.status(isQuota ? 429 : 502).json({
+        error: isQuota
+          ? "Gemini API quota limit reached. Please wait a moment or check your API key in Settings > Secrets."
+          : "Unable to reach Gemini AI right now. Please try again shortly.",
+      });
+    }
   });
 
   const isProd = process.env.NODE_ENV === "production";
