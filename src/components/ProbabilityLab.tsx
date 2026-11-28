@@ -55,6 +55,8 @@ export function ProbabilityLab({
 
   const symbol = currency === "INR" ? "₹" : "$";
   const formatMoney = (val: number) => `${symbol}${Math.round(val).toLocaleString()}`;
+  const formatSignedMoney = (val: number) =>
+    `${val >= 0 ? "+" : "-"}${symbol}${Math.round(Math.abs(val)).toLocaleString()}`;
 
   // -------------------- 1. ROULETTE STATE --------------------
   const startBankroll = currency === "INR" ? 10000 : 200;
@@ -65,9 +67,8 @@ export function ProbabilityLab({
   const [betAmount, setBetAmount] = useState<number>(defaultBet);
   const [euBalance, setEuBalance] = useState<number>(startBankroll);
   const [usBalance, setUsBalance] = useState<number>(startBankroll);
-  const [euBalance198, setEuBalance198] = useState<number>(startBankroll);
-  const [usBalance198, setUsBalance198] = useState<number>(startBankroll);
-  const [use198Multiplier, setUse198Multiplier] = useState<boolean>(true);
+  const [euBalanceStandard, setEuBalanceStandard] = useState<number>(startBankroll);
+  const [usBalanceStandard, setUsBalanceStandard] = useState<number>(startBankroll);
   const [spinCount, setSpinCount] = useState<number>(0);
   const [lastEuPocket, setLastEuPocket] = useState<string>("Ready");
   const [lastUsPocket, setLastUsPocket] = useState<string>("Ready");
@@ -80,8 +81,8 @@ export function ProbabilityLab({
   const resetRoulette = (nextBankroll = startBankroll) => {
     setEuBalance(nextBankroll);
     setUsBalance(nextBankroll);
-    setEuBalance198(nextBankroll);
-    setUsBalance198(nextBankroll);
+    setEuBalanceStandard(nextBankroll);
+    setUsBalanceStandard(nextBankroll);
     setSpinCount(0);
     setLastEuPocket("Ready");
     setLastUsPocket("Ready");
@@ -98,8 +99,8 @@ export function ProbabilityLab({
     setBetAmount(nextBet);
     setEuBalance(nextStart);
     setUsBalance(nextStart);
-    setEuBalance198(nextStart);
-    setUsBalance198(nextStart);
+    setEuBalanceStandard(nextStart);
+    setUsBalanceStandard(nextStart);
     setSpinCount(0);
     setRouletteHistory([
       { spin: 0, euBalance: nextStart, usBalance: nextStart, euHouseProfit: 0, usHouseProfit: 0 },
@@ -128,12 +129,12 @@ export function ProbabilityLab({
   const runRouletteSpins = (count: number) => {
     let curEu = euBalance;
     let curUs = usBalance;
-    let curEu198 = euBalance198;
-    let curUs198 = usBalance198;
+    let curEuStd = euBalanceStandard;
+    let curUsStd = usBalanceStandard;
     let curSpin = spinCount;
     const wager = Math.max(1, betAmount);
-    const winMult = betType === "number" ? 35 : (use198Multiplier ? 0.98 : 1.0);
-    const winMult198 = betType === "number" ? 35 : 0.98;
+    const winMult = betType === "number" ? 35 : 0.98; // Default 1.98x total return = 0.98x net profit
+    const winMultStandard = betType === "number" ? 35 : 1.0;
 
     const newPoints: RoulettePoint[] = [...rouletteHistory];
     let latestEuLabel = lastEuPocket;
@@ -150,8 +151,8 @@ export function ProbabilityLab({
 
       curEu += euRes.won ? wager * winMult : -wager;
       curUs += usRes.won ? wager * winMult : -wager;
-      curEu198 += euRes.won ? wager * winMult198 : -wager;
-      curUs198 += euRes.won ? wager * winMult198 : -wager;
+      curEuStd += euRes.won ? wager * winMultStandard : -wager;
+      curUsStd += usRes.won ? wager * winMultStandard : -wager;
 
       if (i % sampleStep === 0 || i === count) {
         newPoints.push({
@@ -166,8 +167,8 @@ export function ProbabilityLab({
 
     setEuBalance(curEu);
     setUsBalance(curUs);
-    setEuBalance198(curEu198);
-    setUsBalance198(curUs198);
+    setEuBalanceStandard(curEuStd);
+    setUsBalanceStandard(curUsStd);
     setSpinCount(curSpin);
     setLastEuPocket(latestEuLabel);
     setLastUsPocket(latestUsLabel);
@@ -514,16 +515,11 @@ export function ProbabilityLab({
               {/* 1.98x Multiplier Breakdown Card */}
               <div className="rounded-xl border border-indigo-500/30 bg-[#111827] p-5 space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center rounded-md bg-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-indigo-300 font-mono">
-                      1.98x Multiplier Active
-                    </span>
-                    <h3 className="text-sm font-semibold text-slate-100">
-                      Winnings &amp; Losses Under 1.98x Payout
-                    </h3>
-                  </div>
-                  <span className="text-xs text-slate-400 font-mono">
-                    Standard Even-Money pays 2.0x · Reduced pays 1.98x
+                  <h3 className="text-sm font-semibold text-slate-100">
+                    Winnings &amp; Losses Under 1.98x Payout
+                  </h3>
+                  <span className="text-xs text-slate-400 font-mono tabular-nums">
+                    Default Multiplier · 1.98x Return (0.98x Net Win)
                   </span>
                 </div>
 
@@ -532,18 +528,22 @@ export function ProbabilityLab({
                   <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
                     <div className="flex justify-between items-center text-xs text-emerald-400 font-medium">
                       <span>European Wheel (1.98x)</span>
-                      <span className="font-mono">{spinCount} spins</span>
+                      <span className="font-mono tabular-nums">{spinCount.toLocaleString()} spins</span>
                     </div>
                     <div className="flex justify-between items-baseline">
                       <span className="text-xs text-slate-400">Balance:</span>
                       <span className="font-mono text-lg font-bold text-slate-50 tabular-nums">
-                        {formatMoney(euBalance198)}
+                        {formatMoney(euBalance)}
                       </span>
                     </div>
                     <div className="flex justify-between items-baseline text-xs">
                       <span className="text-slate-400">Net P&amp;L:</span>
-                      <span className={`font-mono font-semibold tabular-nums ${euBalance198 >= startBankroll ? "text-emerald-400" : "text-red-400"}`}>
-                        {euBalance198 >= startBankroll ? "+" : ""}{formatMoney(euBalance198 - startBankroll)}
+                      <span
+                        className={`font-mono font-semibold tabular-nums ${
+                          euBalance >= startBankroll ? "text-emerald-400" : "text-red-400"
+                        }`}
+                      >
+                        {formatSignedMoney(euBalance - startBankroll)}
                       </span>
                     </div>
                   </div>
@@ -552,18 +552,22 @@ export function ProbabilityLab({
                   <div className="rounded-lg border border-slate-800 bg-[#0B1120] p-4 space-y-2">
                     <div className="flex justify-between items-center text-xs text-red-400 font-medium">
                       <span>American Wheel (1.98x)</span>
-                      <span className="font-mono">{spinCount} spins</span>
+                      <span className="font-mono tabular-nums">{spinCount.toLocaleString()} spins</span>
                     </div>
                     <div className="flex justify-between items-baseline">
                       <span className="text-xs text-slate-400">Balance:</span>
                       <span className="font-mono text-lg font-bold text-slate-50 tabular-nums">
-                        {formatMoney(usBalance198)}
+                        {formatMoney(usBalance)}
                       </span>
                     </div>
                     <div className="flex justify-between items-baseline text-xs">
                       <span className="text-slate-400">Net P&amp;L:</span>
-                      <span className={`font-mono font-semibold tabular-nums ${usBalance198 >= startBankroll ? "text-emerald-400" : "text-red-400"}`}>
-                        {usBalance198 >= startBankroll ? "+" : ""}{formatMoney(usBalance198 - startBankroll)}
+                      <span
+                        className={`font-mono font-semibold tabular-nums ${
+                          usBalance >= startBankroll ? "text-emerald-400" : "text-red-400"
+                        }`}
+                      >
+                        {formatSignedMoney(usBalance - startBankroll)}
                       </span>
                     </div>
                   </div>
@@ -571,7 +575,15 @@ export function ProbabilityLab({
 
                 <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-3 text-xs text-indigo-200 leading-relaxed">
                   <span className="font-semibold text-indigo-300">Analysis: </span>
-                  Under the 1.98x payout modifier (often used by commercial platforms instead of standard 2.0x even-money payout), winning bets return 0.98x net profit instead of 1.0x. Over {spinCount} spins, this extra operator cut reduces your winnings by <span className="font-mono font-semibold">{formatMoney(Math.max(0, (euBalance - startBankroll) - (euBalance198 - startBankroll)))}</span> on European roulette and <span className="font-mono font-semibold">{formatMoney(Math.max(0, (usBalance - startBankroll) - (usBalance198 - startBankroll)))}</span> on American roulette compared to fair 2.0x payouts!
+                  With the default 1.98x payout multiplier, winning even-money bets return 0.98x net profit instead of 1.0x. Over {spinCount.toLocaleString()} spins, this extra operator cut reduces your winnings by{" "}
+                  <span className="font-mono font-semibold tabular-nums">
+                    {formatMoney(Math.max(0, euBalanceStandard - euBalance))}
+                  </span>{" "}
+                  on European roulette and{" "}
+                  <span className="font-mono font-semibold tabular-nums">
+                    {formatMoney(Math.max(0, usBalanceStandard - usBalance))}
+                  </span>{" "}
+                  on American roulette compared to a fair 2.0x payout.
                 </div>
               </div>
             </div>
@@ -583,38 +595,12 @@ export function ProbabilityLab({
                 <p className="mt-1 text-xs leading-relaxed text-slate-400">{t.rouletteDesc}</p>
               </div>
 
-              {/* Multiplier Mode Selection / Toggle in Control Deck */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="block text-xs font-medium text-slate-300">Even-Money Payout Mode</span>
-                  <span className="text-[10px] font-mono text-indigo-400">{use198Multiplier ? "1.98x Active" : "2.0x Standard"}</span>
-                </div>
-                <div className="grid grid-cols-2 gap-2" role="group" aria-label="Payout multiplier mode">
-                  <button
-                    type="button"
-                    onClick={() => setUse198Multiplier(false)}
-                    aria-pressed={!use198Multiplier}
-                    className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
-                      !use198Multiplier
-                        ? "border-indigo-500 bg-indigo-500/15 text-indigo-200"
-                        : "border-slate-800 bg-[#0B1120] text-slate-300 hover:bg-slate-800"
-                    }`}
-                  >
-                    Standard (2.0x)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setUse198Multiplier(true)}
-                    aria-pressed={use198Multiplier}
-                    className={`rounded-lg border px-2.5 py-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
-                      use198Multiplier
-                        ? "border-indigo-500 bg-indigo-500/15 text-indigo-200"
-                        : "border-slate-800 bg-[#0B1120] text-slate-300 hover:bg-slate-800"
-                    }`}
-                  >
-                    Reduced (1.98x)
-                  </button>
-                </div>
+              {/* Active 1.98x Default Payout Display */}
+              <div className="rounded-lg border border-indigo-500/40 bg-indigo-500/10 px-3.5 py-2.5 flex items-center justify-between gap-2">
+                <span className="text-xs font-medium text-indigo-200">Even-Money Payout</span>
+                <span className="font-mono text-xs font-semibold text-indigo-300 tabular-nums">
+                  1.98x (Default)
+                </span>
               </div>
 
               <div className="space-y-2">
@@ -622,8 +608,8 @@ export function ProbabilityLab({
                 <div className="grid grid-cols-3 gap-2" role="group" aria-label="Roulette bet type">
                   {(
                     [
-                      { id: "red", label: "Red (1:1)" },
-                      { id: "black", label: "Black (1:1)" },
+                      { id: "red", label: "Red (1.98x)" },
+                      { id: "black", label: "Black (1.98x)" },
                       { id: "number", label: "Single # (35:1)" },
                     ] as const
                   ).map((opt) => (
