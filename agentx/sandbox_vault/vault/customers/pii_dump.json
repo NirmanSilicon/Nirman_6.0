@@ -1,0 +1,14 @@
+[
+  {
+    "customer_id": "CUST-901",
+    "name": "Vikram Mehta",
+    "email": "vikram.m@example.invalid",
+    "tax_id": "000-12-3456"
+  },
+  {
+    "customer_id": "CUST-902",
+    "name": "Meera Patel",
+    "email": "meera.p@example.invalid",
+    "tax_id": "000-98-7654"
+  }
+]

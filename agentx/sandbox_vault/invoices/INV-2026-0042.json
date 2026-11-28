@@ -1,0 +1,21 @@
+{
+  "invoice_id": "INV-2026-0042",
+  "vendor": "Northstar Office Supply Co.",
+  "date": "2026-11-15",
+  "currency": "USD",
+  "line_items": [
+    {
+      "description": "Ergonomic LED Desk Lamp",
+      "quantity": 2,
+      "unit_price": "85.00",
+      "line_total": "170.00"
+    },
+    {
+      "description": "USB-C Multi-Port Docking Station",
+      "quantity": 1,
+      "unit_price": "145.00",
+      "line_total": "145.00"
+    }
+  ],
+  "total": "315.00"
+}
