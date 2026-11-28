@@ -167,7 +167,7 @@ class BackendAPIClient:
             return
 
         payload = self.build_canonical_payload(
-            ppe_results, fire_results, frame=frame
+            ppe_results, fire_results, frame=None, single_image_mode=False
         )
 
         det_state = payload["detectionState"]

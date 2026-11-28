@@ -209,17 +209,19 @@ function Scene({k,t}){
  if(k==="ctrl")s=<g>{[0,1,2,3].map(c=>[0,1].map(r=><rect key={c+"-"+r} x={12+c*36} y={8+r*24} width="32" height="20" fill="#12353a" stroke="#5b666e" strokeWidth=".6" opacity={.7+.3*Math.sin(t*2+c+r*3)}/>))}<rect x="20" y="52" width="120" height="6" fill="#222a2f"/></g>;
  return <g>{base}{s}</g>}
 function Feed({cam,cmd,big,onFull,list,mlStatus,mlConnected}){
- const [p,setP]=useState(false);const [z,setZ]=useState(1);const [t,setT]=useState(0);const [now,setNow]=useState(new Date());
+ const [p,setP]=useState(false);const [z,setZ]=useState(1);const [t,setT]=useState(0);const [now,setNow]=useState(new Date());const [streamRev,setStreamRev]=useState(0);
  useEffect(()=>{if(cmd.n)setP(cmd.val)},[cmd]);
- useEffect(()=>{if(p||!cam.on)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date())},500);return()=>clearInterval(i)},[p,cam.on]);
+ useEffect(()=>{if(p||!cam.on||cam.isLiveMl)return;const i=setInterval(()=>{setT(x=>x+.12);setNow(new Date())},500);return()=>clearInterval(i)},[p,cam.on,cam.isLiveMl]);
  const ws=cam.on?inZone(cam.zone):[];
- const useRealMl=Boolean(cam.isLiveMl&&mlConnected);
+ const useRealMl=Boolean(cam.isLiveMl);
  const detCount=useRealMl?(mlStatus?.totalPersons??0):(cam.on?ws.length:0);
  const mlLevel=useRealMl?(mlStatus?.safetyLevel||"SAFE"):"SAFE";
  return <div className="cam" style={useRealMl&&mlLevel!=="SAFE"?{borderColor:"var(--red)",boxShadow:"0 0 0 2px var(--red)"}:{}}><div className="feed">
  {useRealMl?(
   <img
-   src={p?`${ML_STREAM_BASE}/snapshot.jpg`:`${ML_STREAM_BASE}/stream.mjpg`}
+   key="live-mjpeg-player"
+   src={p?`${ML_STREAM_BASE}/snapshot.jpg`:`${ML_STREAM_BASE}/stream.mjpg?r=${streamRev}`}
+   onError={()=>{setTimeout(()=>setStreamRev(r=>r+1),1200)}}
    alt="Live AI YOLO PPE & Fire Stream"
    style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"contain",background:"#0d1114",transform:`scale(${z})`,transition:"transform .2s"}}
   />
@@ -250,12 +252,12 @@ function Live({zones}){
   if(url&&url.trim())sendControl("start_stream",{url:url.trim()});
  };
  useEffect(()=>{
-  let alive=true;
+  let alive=true,fails=0;
   const poll=async()=>{
    try{
     const r=await fetch(`${ML_STREAM_BASE}/status.json`,{cache:"no-store"});
-    if(r.ok){const j=await r.json();if(alive){setMlStatus(j);setMlConnected(true)}}else if(alive){setMlConnected(false)}
-   }catch(_e){if(alive)setMlConnected(false)}
+    if(r.ok){fails=0;const j=await r.json();if(alive){setMlStatus(j);setMlConnected(true)}}else if(alive){fails++;if(fails>=3)setMlConnected(false)}
+   }catch(_e){if(alive){fails++;if(fails>=3)setMlConnected(false)}}
    try{
     const tok=localStorage.getItem("we-token");
     if(tok){
@@ -265,7 +267,7 @@ function Live({zones}){
    }catch(_e){}
   };
   poll();
-  const id=setInterval(poll,800);
+  const id=setInterval(poll,1200);
   return()=>{alive=false;clearInterval(id)};
  },[]);
  const shown=CAMS.filter(c=>(zf==="All zones"||c.zone===zf)&&(cs==="All cameras"||c.id===cs));

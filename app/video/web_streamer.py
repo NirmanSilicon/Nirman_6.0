@@ -53,6 +53,7 @@ class WebStreamPublisher:
         self.control_callback = control_callback
         self._lock = threading.Lock()
         self._latest_jpeg: Optional[bytes] = None
+        self._frame_id: int = 0
         self._placeholder_jpeg: bytes = self._create_placeholder_jpeg()
         self._latest_status: Dict[str, Any] = {
             "active": False,
@@ -182,15 +183,20 @@ class WebStreamPublisher:
                         "multipart/x-mixed-replace; boundary=frame",
                     )
                     self.end_headers()
+                    last_frame_id = -1
                     try:
                         while True:
-                            jpg = publisher.get_jpeg()
+                            jpg, fid = publisher.get_jpeg_with_id()
+                            if fid == last_frame_id:
+                                time.sleep(0.015)
+                                continue
+                            last_frame_id = fid
                             self.wfile.write(b"--frame\r\n")
                             self.wfile.write(b"Content-Type: image/jpeg\r\n")
                             self.wfile.write(f"Content-Length: {len(jpg)}\r\n\r\n".encode("utf-8"))
                             self.wfile.write(jpg)
                             self.wfile.write(b"\r\n")
-                            time.sleep(0.035)
+                            self.wfile.flush()
                     except Exception:
                         return
 
@@ -250,6 +256,7 @@ class WebStreamPublisher:
         with self._lock:
             if jpeg_bytes is not None:
                 self._latest_jpeg = jpeg_bytes
+                self._frame_id += 1
             self._latest_status = {
                 "active": frame is not None,
                 "source": source_name,
@@ -281,6 +288,11 @@ class WebStreamPublisher:
     def get_jpeg(self) -> bytes:
         with self._lock:
             return self._latest_jpeg if self._latest_jpeg is not None else self._placeholder_jpeg
+
+    def get_jpeg_with_id(self):
+        with self._lock:
+            jpg = self._latest_jpeg if self._latest_jpeg is not None else self._placeholder_jpeg
+            return jpg, self._frame_id
 
     def get_status(self) -> Dict[str, Any]:
         with self._lock:
