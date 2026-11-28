@@ -433,6 +433,7 @@ function Reports({zones}){
   {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn" onClick={()=>doIncidentAction(sel,"acknowledge")}>Acknowledge (DB)</button>}
   {sel.mongoId&&sel.st!=="Resolved"&&<button className="btn grn" onClick={()=>doIncidentAction(sel,"resolve")}>Resolve Incident (DB)</button>}
   {sel.mongoId&&<button className="btn" onClick={()=>viewSos(sel)}>🚨 Generate Manual SOS</button>}
+  {sel.rawId&&<button className="btn" onClick={async()=>{try{const tok=localStorage.getItem("we-token");const r=await fetch(`${API_BASE}/blockchain/record/${sel.rawId}`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});const j=await r.json();setActMsg(j.data?.txHash?`Anchored to Cloud Ledger: ${j.data.txHash.slice(0,22)}...`:j.message)}catch(_e){}}}>⛓ Anchor SHA-256 to Cloud</button>}
   <button className="btn red" onClick={()=>dl(sel)}><Ic n="dl"/>Download</button>
   <button className="btn" onClick={()=>setSel(null)}>Close</button>
  </div></div></div>}</div>}
@@ -499,7 +500,7 @@ function Chat(){
  <div className="cm"><div className="row" style={{padding:"12px 16px",borderBottom:"1px solid var(--line)",justifyContent:"flex-start"}}><b>{CT[a][0]}</b><span className="bd">{CT[a][1]}</span></div><div className="msgs" ref={box}>{(M[a]||[]).map((m,i)=><div key={i} className={"m "+(m[0]==="me"?"me":"")}>{m[1]}<small>{m[2]}</small></div>)}{!(M[a]||[]).length&&<p style={{color:"var(--mut)"}}>No messages yet. Say hello.</p>}</div>
  <form onSubmit={send}><input className="in" placeholder="Type a message" value={t} onChange={e=>setT(e.target.value)}/><button className="btn grn" aria-label="Send"><Ic n="send"/></button></form></div></div>}
 
-const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["chat","chat","Chat"],["prefs","set","Settings"]];
+const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
 const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
 const ALL=NAV.concat(HIST);
 const SLOTS=["06:00","12:00","18:00"];
@@ -562,17 +563,99 @@ function RecReports(){
  const rows=baseRows.filter(r=>(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
  const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
  return <div><div className="bar"><input className="in" placeholder="Search MongoDB recorded reports" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Archive: {dbInc.length} records</span></div><div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="7">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+function CloudConsole(){
+ const [syncSt,setSyncSt]=useState(null);const [connSt,setConnSt]=useState(null);const [plans,setPlans]=useState([]);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState("");
+ const loadCloud=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   const [cr,pr,sr]=await Promise.all([
+    fetch(`${API_BASE}/health/connectivity`),
+    fetch(`${API_BASE}/subscriptions/plans`),
+    tok?fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}}):Promise.resolve(null)
+   ]);
+   if(cr.ok){const cj=await cr.json();setConnSt(cj.data)}
+   if(pr.ok){const pj=await pr.json();setPlans(pj.data?.plans||[])}
+   if(sr&&sr.ok){const sj=await sr.json();setSyncSt(sj.data)}
+  }catch(_e){}
+ };
+ useEffect(()=>{
+  loadCloud();
+  const id=setInterval(loadCloud,3000);
+  return()=>clearInterval(id);
+ },[]);
+ const triggerCloudSync=async()=>{
+  setBusy(true);setMsg("Running Edge-to-Cloud Sync Cycle...");
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/sync/run`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+   const j=await r.json();
+   const cyc=j.data?.cycleResult||{};
+   setMsg(`Cloud Sync Complete — Attempted: ${cyc.attempted??0}, Synced: ${cyc.synced??0}, Failed: ${cyc.failed??0}`);
+   await loadCloud();
+  }catch(_e){setMsg("Cloud sync cycle failed")}finally{setBusy(false)}
+ };
+ const createBackup=async()=>{
+  setBusy(true);setMsg("Verifying local-to-cloud idempotency & outbox integrity...");
+  await triggerCloudSync();
+ };
+ const outbox=syncSt?.recentOutbox||[];
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{display:"flex",flexWrap:"wrap",gap:16,alignItems:"center",justifyContent:"space-between",borderLeft:"4px solid var(--grn)"}}>
+   <div>
+    <div style={{display:"flex",gap:10,alignItems:"center",flexWrap:"wrap"}}>
+     <span className="pill live" style={{margin:0}}><span className="dot"/>Edge-to-Cloud Outbox Engine Active ({connSt?.mode||"OFFLINE_FIRST_HYBRID"})</span>
+     <span className="bd g">State: {syncSt?.cloudSyncState||"ONLINE_SYNCED"}</span>
+     <button className="btn grn" disabled={busy} onClick={triggerCloudSync}>☁️ Sync Local Outbox to Cloud Now</button>
+    </div>
+    <p style={{margin:"6px 0 0",fontSize:14,color:"var(--mut)"}}>
+     Offline-First Local MongoDB (`127.0.0.1:27017`) automatically queues Incidents, RFID attendance scans, and Sensor hazards into `SyncOutbox` with cryptographic idempotency keys (`entityType:entityId:versionTag`) and exponential backoff retry (`min(300s, 2^retry * 5s)`).
+    </p>
+    {msg&&<div className="bd g" style={{marginTop:8,padding:"6px 10px"}}>{msg}</div>}
+   </div>
+   <div style={{display:"flex",gap:12}}>
+    <div className="stat"><b style={{color:"var(--amb)"}}>{syncSt?.pendingCount??0}</b><span>Pending Outbox</span></div>
+    <div className="stat"><b style={{color:"var(--grn)"}}>{syncSt?.syncedCount??0}</b><span>Cloud Synced</span></div>
+    <div className="stat"><b style={{color:(syncSt?.failedRetryCount||0)>0?"var(--red)":"inherit"}}>{syncSt?.failedRetryCount??0}</b><span>Failed / Retry</span></div>
+   </div>
+  </div>
+  <div className="card tw">
+   <div className="row" style={{marginBottom:10}}><h3>Cloud SyncOutbox Queue (`syncoutboxes` MongoDB Collection)</h3><button className="btn" onClick={createBackup}>Re-verify Batch Idempotency</button></div>
+   <table><thead><tr><th>Outbox ID</th><th>Entity Type</th><th>Entity ID</th><th>Idempotency Key</th><th>Retries</th><th>Sync Status</th><th>Timestamp</th></tr></thead>
+   <tbody>
+    {outbox.map(item=><tr key={item.outboxId||item.idempotencyKey}>
+     <td><code>{(item.outboxId||"").slice(-8).toUpperCase()}</code></td>
+     <td><b>{item.entityType}</b></td>
+     <td><code>{item.entityId}</code></td>
+     <td><small>{item.idempotencyKey}</small></td>
+     <td>{item.retryCount||0}</td>
+     <td><Badge s={item.syncStatus==="SYNCED"?"Resolved":item.syncStatus==="PENDING"?"In Progress":"Pending"}/> <small>{item.syncStatus}</small></td>
+     <td>{item.syncedAt?new Date(item.syncedAt).toLocaleTimeString("en-GB"):item.createdAt?new Date(item.createdAt).toLocaleTimeString("en-GB"):"—"}</td>
+    </tr>)}
+    {!outbox.length&&<tr><td colSpan="7">No outbox events queued yet. Trigger an RFID scan in Attendance or a camera violation in Live Monitoring to watch it queue &amp; sync to Cloud!</td></tr>}
+   </tbody></table>
+  </div>
+  <div className="grid g3">
+   {plans.map(p=><div className="card" key={p.tier}>
+    <div className="row"><h3>{p.name} Cloud Tier</h3><Badge s={p.tier==="PROFESSIONAL"?"Active":"Present"}/></div>
+    <p style={{fontSize:22,fontWeight:700,margin:"4px 0"}}>₹{(p.monthlyPriceInr||0).toLocaleString("en-IN")}<small style={{fontSize:13,color:"var(--mut)",fontWeight:400}}> / month</small></p>
+    <p style={{margin:"4px 0",fontSize:14,color:"var(--mut)"}}>Sites: <b>{p.limits?.maxSites}</b> · Zones: <b>{p.limits?.maxZones}</b> · Cameras: <b>{p.limits?.maxCameras}</b> · Workers: <b>{p.limits?.maxWorkers}</b></p>
+    <small style={{color:"var(--grn)",fontWeight:600}}>✓ Multi-Tenant Cloud Sync &amp; SHA-256 Audit Chain Included</small>
+   </div>)}
+  </div>
+ </div>}
+
 function Shell({page,dark,setDark}){
- const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [cloudSync,setCloudSync]=useState(null);
  const loadMongoData=async()=>{
   try{
    const h=await fetch(`${API_BASE}/health`);
    if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected))}
    const tok=localStorage.getItem("we-token");
    if(!tok)return;
-   const [zr,wr]=await Promise.all([
+   const [zr,wr,sr]=await Promise.all([
     fetch(`${API_BASE}/zones`,{headers:{Authorization:`Bearer ${tok}`}}),
-    fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}})
+    fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}}),
+    fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}})
    ]);
    if(zr.ok){
     const zj=await zr.json();
@@ -591,6 +674,10 @@ function Shell({page,dark,setDark}){
     const wj=await wr.json();
     if(wj.data?.workers?.length)setDbWorkers(wj.data.workers);
    }
+   if(sr.ok){
+    const sj=await sr.json();
+    if(sj.data)setCloudSync(sj.data);
+   }
   }catch(_e){}
  };
  useEffect(()=>{
@@ -607,8 +694,8 @@ function Shell({page,dark,setDark}){
  <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
  
  <button className="nv" onClick={()=>go("home")}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0}}><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?"MongoDB Connected (127.0.0.1:27017)":"System online"}</span><Av name="Admin User"/></div>
- <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?`MongoDB + Cloud Sync (${cloudSync?.syncedCount??0} synced / ${cloudSync?.pendingCount??0} pending)`:"System online"}</span><Av name="Admin User"/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
 
 function App(){

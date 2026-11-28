@@ -4,6 +4,7 @@ const { Worker } = require('../models/Worker.model');
 const { RfidLog } = require('../models/RfidLog.model');
 const { Incident } = require('../models/Incident.model');
 const { recordAuditLog } = require('../services/audit.service');
+const { enqueueForCloudSync } = require('../services/cloudSync.service');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -89,6 +90,12 @@ const scanRfidCard = async (req, res, next) => {
         scanStatus: 'SUCCESS',
         occurredAt: scanTimestamp,
       });
+
+      enqueueForCloudSync({
+        entityType: 'RFID_LOG',
+        entityId: successLog.logId,
+        payload: successLog.toObject(),
+      }).catch(() => {});
 
       return sendSuccess(res, 200, 'Worker identified', {
         logId: successLog.logId,

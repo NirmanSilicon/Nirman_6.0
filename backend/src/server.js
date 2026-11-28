@@ -6,6 +6,10 @@ const {
   startGraceSweepTimer,
   stopGraceSweepTimer,
 } = require('./services/warningEscalation.service');
+const {
+  startCloudSyncWorker,
+  stopCloudSyncWorker,
+} = require('./services/cloudSync.service');
 const { initSocketServer } = require('./socket/socket.server');
 
 let server;
@@ -21,6 +25,7 @@ const startServer = async () => {
       `[GraceTimer] Boot recovery: ${recovery.escalated} expired warning(s) escalated, ${recovery.stillPending} still counting down`
     );
     startGraceSweepTimer(2000);
+    startCloudSyncWorker(15000);
 
     server = app.listen(port, () => {
       console.log(`[Server] SmartPPE — Warden's Eye Backend listening on port ${port} (${nodeEnv})`);
@@ -31,6 +36,7 @@ const startServer = async () => {
     const shutdown = async (signal) => {
       console.log(`\n[Server] Received ${signal}. Shutting down gracefully...`);
       stopGraceSweepTimer();
+      stopCloudSyncWorker();
       if (server) {
         server.close(async () => {
           await disconnectDB();

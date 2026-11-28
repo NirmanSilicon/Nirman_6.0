@@ -184,10 +184,15 @@ const runCloudSyncCycle = async ({ batchSize = 25, customTransport = null } = {}
 };
 
 const getCloudSyncStatusSummary = async () => {
-  const [pending, synced, failedRetry] = await Promise.all([
+  const [pending, synced, failedRetry, recentOutbox] = await Promise.all([
     SyncOutbox.countDocuments({ syncStatus: 'PENDING' }),
     SyncOutbox.countDocuments({ syncStatus: 'SYNCED' }),
     SyncOutbox.countDocuments({ syncStatus: 'FAILED_RETRY' }),
+    SyncOutbox.find({})
+      .sort({ createdAt: -1 })
+      .limit(12)
+      .select('outboxId idempotencyKey entityType entityId syncStatus retryCount syncedAt createdAt')
+      .lean(),
   ]);
 
   const cloudSyncEnabled = process.env.CLOUD_SYNC_ENABLED === 'true';
@@ -202,7 +207,27 @@ const getCloudSyncStatusSummary = async () => {
     pendingCount: pending,
     syncedCount: synced,
     failedRetryCount: failedRetry,
+    recentOutbox,
   };
+};
+
+let cloudSyncTimer = null;
+const startCloudSyncWorker = (intervalMs = 15000) => {
+  if (cloudSyncTimer) return cloudSyncTimer;
+  cloudSyncTimer = setInterval(async () => {
+    try {
+      await runCloudSyncCycle({ batchSize: 25 });
+    } catch (_e) {}
+  }, intervalMs);
+  cloudSyncTimer.unref();
+  return cloudSyncTimer;
+};
+
+const stopCloudSyncWorker = () => {
+  if (cloudSyncTimer) {
+    clearInterval(cloudSyncTimer);
+    cloudSyncTimer = null;
+  }
 };
 
 module.exports = {
@@ -210,4 +235,6 @@ module.exports = {
   applyIncomingSyncBatch,
   runCloudSyncCycle,
   getCloudSyncStatusSummary,
+  startCloudSyncWorker,
+  stopCloudSyncWorker,
 };

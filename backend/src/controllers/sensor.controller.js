@@ -10,6 +10,7 @@ const {
   buildManualSosSummary,
   dispatchCriticalEmergencyAlerts,
 } = require('../services/emergency.service');
+const { enqueueForCloudSync } = require('../services/cloudSync.service');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
 
@@ -49,6 +50,12 @@ const submitSensorEvent = async (req, res, next) => {
       alertStatus,
       occurredAt: eventTimestamp,
     });
+
+    enqueueForCloudSync({
+      entityType: 'SENSOR_EVENT',
+      entityId: sensorEvent.eventId,
+      payload: sensorEvent.toObject(),
+    }).catch(() => {});
 
     let incidentCreated = false;
     let cooldownMerged = false;

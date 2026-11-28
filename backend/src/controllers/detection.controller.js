@@ -13,6 +13,7 @@ const {
   dispatchCriticalEmergencyAlerts,
 } = require('../services/emergency.service');
 const { handleSafeComplianceRecovery } = require('../services/warningEscalation.service');
+const { enqueueForCloudSync } = require('../services/cloudSync.service');
 const { eventBus } = require('../services/eventBus');
 const { AppError } = require('../utils/AppError');
 const { sendSuccess } = require('../utils/apiResponse');
@@ -402,6 +403,13 @@ const submitDetection = async (req, res, next) => {
             graceExpiresAt: activeIncident.graceExpiresAt,
           });
         }
+
+        // Enqueue newly created incident into Cloud SyncOutbox
+        enqueueForCloudSync({
+          entityType: 'INCIDENT',
+          entityId: activeIncident.incidentId,
+          payload: activeIncident.toObject(),
+        }).catch(() => {});
       }
     }
 
