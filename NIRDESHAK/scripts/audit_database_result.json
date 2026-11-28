@@ -1,0 +1,499 @@
+{
+  "database": {
+    "name": "nirdeshak_clean_20261126",
+    "version": "PostgreSQL 18.6 on x86_64-windows, compiled by msvc-19.44.35228, 64-bit",
+    "vectorVersion": "0.8.6"
+  },
+  "schema": {
+    "tables": [
+      "standard_relationships",
+      "standards"
+    ],
+    "constraints": [
+      {
+        "constraint_name": "standard_relationships_pkey",
+        "table_name": "standard_relationships",
+        "constraint_type": "PRIMARY KEY",
+        "column_name": "id"
+      },
+      {
+        "constraint_name": "standard_relationships_source_standard_id_fkey",
+        "table_name": "standard_relationships",
+        "constraint_type": "FOREIGN KEY",
+        "column_name": "source_standard_id"
+      },
+      {
+        "constraint_name": "standard_relationships_target_standard_id_fkey",
+        "table_name": "standard_relationships",
+        "constraint_type": "FOREIGN KEY",
+        "column_name": "target_standard_id"
+      },
+      {
+        "constraint_name": "standards_canonical_id_key",
+        "table_name": "standards",
+        "constraint_type": "UNIQUE",
+        "column_name": "canonical_id"
+      },
+      {
+        "constraint_name": "standards_is_number_key",
+        "table_name": "standards",
+        "constraint_type": "UNIQUE",
+        "column_name": "is_number"
+      },
+      {
+        "constraint_name": "standards_pkey",
+        "table_name": "standards",
+        "constraint_type": "PRIMARY KEY",
+        "column_name": "id"
+      }
+    ],
+    "foreignKeys": [
+      {
+        "table_name": "standard_relationships",
+        "column_name": "source_standard_id",
+        "foreign_table_name": "standards",
+        "foreign_column_name": "id"
+      },
+      {
+        "table_name": "standard_relationships",
+        "column_name": "target_standard_id",
+        "foreign_table_name": "standards",
+        "foreign_column_name": "id"
+      }
+    ],
+    "indexes": [
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_relationships_source",
+        "indexdef": "CREATE INDEX idx_relationships_source ON public.standard_relationships USING btree (source_standard_id)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_relationships_target",
+        "indexdef": "CREATE INDEX idx_relationships_target ON public.standard_relationships USING btree (target_standard_id)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_relationships_type",
+        "indexdef": "CREATE INDEX idx_relationships_type ON public.standard_relationships USING btree (relationship_type)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_std_rel_source",
+        "indexdef": "CREATE INDEX idx_std_rel_source ON public.standard_relationships USING btree (source_standard_id)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_std_rel_target",
+        "indexdef": "CREATE INDEX idx_std_rel_target ON public.standard_relationships USING btree (target_standard_id)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "idx_std_rel_type",
+        "indexdef": "CREATE INDEX idx_std_rel_type ON public.standard_relationships USING btree (relationship_type)"
+      },
+      {
+        "tablename": "standard_relationships",
+        "indexname": "standard_relationships_pkey",
+        "indexdef": "CREATE UNIQUE INDEX standard_relationships_pkey ON public.standard_relationships USING btree (id)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "idx_standards_canonical_id",
+        "indexdef": "CREATE INDEX idx_standards_canonical_id ON public.standards USING btree (canonical_id)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "idx_standards_category",
+        "indexdef": "CREATE INDEX idx_standards_category ON public.standards USING btree (category)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "idx_standards_is_number",
+        "indexdef": "CREATE INDEX idx_standards_is_number ON public.standards USING btree (is_number)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "idx_standards_is_primary",
+        "indexdef": "CREATE INDEX idx_standards_is_primary ON public.standards USING btree (is_primary_candidate)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "idx_standards_status",
+        "indexdef": "CREATE INDEX idx_standards_status ON public.standards USING btree (status)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "standards_canonical_id_key",
+        "indexdef": "CREATE UNIQUE INDEX standards_canonical_id_key ON public.standards USING btree (canonical_id)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "standards_is_number_key",
+        "indexdef": "CREATE UNIQUE INDEX standards_is_number_key ON public.standards USING btree (is_number)"
+      },
+      {
+        "tablename": "standards",
+        "indexname": "standards_pkey",
+        "indexdef": "CREATE UNIQUE INDEX standards_pkey ON public.standards USING btree (id)"
+      }
+    ]
+  },
+  "records": [
+    {
+      "id": 1,
+      "canonical_id": "IS-2925-1984",
+      "is_number": "IS 2925:1984",
+      "title": "Specification for Industrial Safety Helmets (Second Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 4649(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 2,
+      "canonical_id": "IS-4151-2015",
+      "is_number": "IS 4151:2015",
+      "title": "Protective Helmets for Two Wheeler Riders — Specification (Fourth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 4252(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 3,
+      "canonical_id": "IS-2745-1983",
+      "is_number": "IS 2745:1983",
+      "title": "Specification for Non-Metal Helmet for Firemen and Civil Defence Personnel (First Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 4649(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 4,
+      "canonical_id": "IS-15298-Part-2-2016",
+      "is_number": "IS 15298 (Part 2):2016",
+      "title": "Personal Protective Equipment — Part 2: Safety Footwear (Second Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark) / Scheme-II (SDoC for permitted corporate buyers)",
+      "mandatory": true,
+      "gazette_no": "S.O. 3857(E) & S.O. 3417(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 5,
+      "canonical_id": "IS-1180-Part-1-2014",
+      "is_number": "IS 1180 (Part 1):2014",
+      "title": "Outdoor/Indoor Type Oil-Immersed Distribution Transformers Up to and Including 2 500 kVA, 33 kV — Specification Part 1: Mineral Oil Immersed (Fourth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 1221(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 6,
+      "canonical_id": "IS-694-2010",
+      "is_number": "IS 694:2010",
+      "title": "Polyvinyl Chloride Insulated Unsheathed and Sheathed Cables/Cords with Rigid and Flexible Conductor for Rated Voltages Up to and Including 1100 V (Fourth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 189(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 7,
+      "canonical_id": "IS-IEC-60898-1-2015",
+      "is_number": "IS/IEC 60898-1:2015",
+      "title": "Electrical Accessories — Circuit-Breakers for Overcurrent Protection for Household and Similar Installations — Part 1: Circuit-Breakers for a.c. Operation",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 189(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 8,
+      "canonical_id": "IS-IEC-62271-100-2008",
+      "is_number": "IS/IEC 62271-100:2008",
+      "title": "High-Voltage Switchgear and Controlgear — Part 100: Alternating-Current Circuit-Breakers",
+      "regulatory_class": "Class B",
+      "scheme": "Scheme-I (Voluntary ISI Mark)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 9,
+      "canonical_id": "IS-456-2000",
+      "is_number": "IS 456:2000",
+      "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)",
+      "regulatory_class": "Class C",
+      "scheme": "Non-certifiable (Code of Practice)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 10,
+      "canonical_id": "IS-1786-2008",
+      "is_number": "IS 1786:2008",
+      "title": "High Strength Deformed Steel Bars and Wires for Concrete Reinforcement — Specification (Fourth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 3716(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 11,
+      "canonical_id": "IS-269-2015",
+      "is_number": "IS 269:2015",
+      "title": "Ordinary Portland Cement — Specification (Sixth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 191(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 12,
+      "canonical_id": "IS-1489-Part-1-2015",
+      "is_number": "IS 1489 (Part 1):2015",
+      "title": "Portland Pozzolana Cement — Specification Part 1: Fly Ash Based (Third Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 191(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 13,
+      "canonical_id": "IS-12615-2018",
+      "is_number": "IS 12615:2018",
+      "title": "Line Operated Three Phase a.c. Motors (IE CODE) — Efficiency Classes and Performance Specification (Third Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 178(E) & S.O. 3207(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 14,
+      "canonical_id": "IS-1239-Part-1-2004",
+      "is_number": "IS 1239 (Part 1):2004",
+      "title": "Steel Tubes, Tubulars and Other Wrought Steel Fittings — Specification — Part 1: Steel Tubes (Sixth Revision)",
+      "regulatory_class": "Class A",
+      "scheme": "Scheme-I (ISI Mark)",
+      "mandatory": true,
+      "gazette_no": "S.O. 281(E)",
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 15,
+      "canonical_id": "IS-8034-2018",
+      "is_number": "IS 8034:2018",
+      "title": "Submersible Pumpsets — Specification (Third Revision)",
+      "regulatory_class": "Class B",
+      "scheme": "Scheme-I (Voluntary ISI Mark)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 16,
+      "canonical_id": "IS-3177-2020",
+      "is_number": "IS 3177:2020",
+      "title": "Electric Overhead Travelling Crane and Gantry Crane for all Applications — Code of Practice (Third Revision)",
+      "regulatory_class": "Class C",
+      "scheme": "Non-certifiable (Engineered Capital Equipment Code)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": true,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 17,
+      "canonical_id": "IS-383-2016",
+      "is_number": "IS 383:2016",
+      "title": "Coarse and Fine Aggregate for Concrete — Specification (Third Revision)",
+      "regulatory_class": "Class D",
+      "scheme": "Reference Standard (Referenced by IS 456:2000)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": false,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 18,
+      "canonical_id": "IS-10262-2019",
+      "is_number": "IS 10262:2019",
+      "title": "Concrete Mix Proportioning — Guidelines (Second Revision)",
+      "regulatory_class": "Class D",
+      "scheme": "Reference Standard (Referenced by Clause 9 of IS 456:2000)",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": false,
+      "embedding_dims": 3072
+    },
+    {
+      "id": 19,
+      "canonical_id": "IS-3043-2018",
+      "is_number": "IS 3043:2018",
+      "title": "Code of Practice for Earthing (Second Revision)",
+      "regulatory_class": "Class C",
+      "scheme": "Reference Code of Practice",
+      "mandatory": false,
+      "gazette_no": null,
+      "is_primary_candidate": false,
+      "embedding_dims": 3072
+    }
+  ],
+  "relationships": [
+    {
+      "id": 1,
+      "type": "predecessor_to",
+      "source": "IS 8828:1996",
+      "target": "IS/IEC 60898-1:2015",
+      "source_id": null,
+      "target_id": 7,
+      "evidence": "BIS Electrotechnical division harmonized IS 8828 with international standard IEC..."
+    },
+    {
+      "id": 2,
+      "type": "successor_to",
+      "source": "IS/IEC 60898-1:2015",
+      "target": "IS 8828:1996",
+      "source_id": 7,
+      "target_id": null,
+      "evidence": "Active canonical national standard for MCBs replacing legacy IS 8828:1996...."
+    },
+    {
+      "id": 3,
+      "type": "succeeded_by_revision",
+      "source": "IS 12615:2018",
+      "target": "IS 12615:2026",
+      "source_id": 13,
+      "target_id": null,
+      "evidence": "Fourth Revision published by BIS ETD 15 in 2026. Legal Gazette amendment from DP..."
+    },
+    {
+      "id": 4,
+      "type": "references_material_standard",
+      "source": "IS 456:2000",
+      "target": "IS 383:2016",
+      "source_id": 9,
+      "target_id": 17,
+      "evidence": "Clause 5.3 of IS 456:2000 mandates that all coarse and fine aggregates shall con..."
+    },
+    {
+      "id": 5,
+      "type": "references_design_guideline",
+      "source": "IS 456:2000",
+      "target": "IS 10262:2019",
+      "source_id": 9,
+      "target_id": 18,
+      "evidence": "Clause 9.1 of IS 456:2000 specifies IS 10262 as the approved mathematical method..."
+    },
+    {
+      "id": 6,
+      "type": "references_reinforcement_standard",
+      "source": "IS 456:2000",
+      "target": "IS 1786:2008",
+      "source_id": 9,
+      "target_id": 10,
+      "evidence": "Clause 5.6.1 of IS 456:2000 mandates high strength deformed steel bars shall con..."
+    },
+    {
+      "id": 7,
+      "type": "references_cement_standard",
+      "source": "IS 456:2000",
+      "target": "IS 269:2015",
+      "source_id": 9,
+      "target_id": 11,
+      "evidence": "Clause 5.1 of IS 456:2000 specifies Ordinary Portland Cement conforming to IS 26..."
+    },
+    {
+      "id": 8,
+      "type": "references_cement_standard",
+      "source": "IS 456:2000",
+      "target": "IS 1489 (Part 1):2015",
+      "source_id": 9,
+      "target_id": 12,
+      "evidence": "Clause 5.1 of IS 456:2000 specifies Portland Pozzolana Cement conforming to IS 1..."
+    },
+    {
+      "id": 9,
+      "type": "references_safety_code",
+      "source": "IS 1180 (Part 1):2014",
+      "target": "IS 3043:2018",
+      "source_id": 5,
+      "target_id": 19,
+      "evidence": "Distribution transformer neutral and body earthing installations must conform to..."
+    },
+    {
+      "id": 10,
+      "type": "electrical_circuit_coordination",
+      "source": "IS 694:2010",
+      "target": "IS/IEC 60898-1:2015",
+      "source_id": 6,
+      "target_id": 7,
+      "evidence": "PVC insulated cables (IS 694) are coordinated with MCBs (IS/IEC 60898-1) for ove..."
+    },
+    {
+      "id": 11,
+      "type": "related_safety_standard",
+      "source": "IS 2925:1984",
+      "target": "IS 2745:1983",
+      "source_id": 1,
+      "target_id": 3,
+      "evidence": "Both are personal protective headgear standards co-scheduled under the DPIIT Hel..."
+    },
+    {
+      "id": 12,
+      "type": "complementary_ppe",
+      "source": "IS 2925:1984",
+      "target": "IS 15298 (Part 2):2016",
+      "source_id": 1,
+      "target_id": 4,
+      "evidence": "Industrial safety helmets and safety footwear form core mandatory personal prote..."
+    },
+    {
+      "id": 13,
+      "type": "hierarchical_protection_coordination",
+      "source": "IS/IEC 60898-1:2015",
+      "target": "IS/IEC 62271-100:2008",
+      "source_id": 7,
+      "target_id": 8,
+      "evidence": "Low-voltage downstream circuit breakers (IS/IEC 60898-1) coordinate with high-vo..."
+    }
+  ],
+  "embeddings": {},
+  "rollbackDb": {
+    "accessible": true,
+    "db_name": "nirdeshak",
+    "standards_count": 7,
+    "relationships_count": 7
+  },
+  "issues": []
+}

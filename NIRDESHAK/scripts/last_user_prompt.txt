@@ -1,0 +1,480 @@
+<USER_REQUEST>
+# NIRDESHAK — UNIVERSAL TECHNICAL REQUIREMENTS EXTRACTION
+
+## PRIMARY OBJECTIVE
+
+Fix the technical requirements extraction system so that ALL product categories receive detailed, structured, product-specific technical parameters similar in completeness to the existing Industrial Safety Helmet example.
+
+Currently, Industrial Safety Helmet produces detailed requirements, whereas Safety Glasses produces almost entirely blank fields.
+
+This inconsistency must be eliminated across the entire NIRDESHAK product catalogue.
+
+The implementation must cover:
+- All 1,047 existing product families.
+- All 17 BIS Division Councils.
+- Products entered through all four existing input methods.
+- Products not explicitly present in the catalogue.
+
+THIS IS AN IMPLEMENTATION TASK.
+
+Do not merely investigate, generate a report, or propose recommendations. Inspect the existing implementation, make the necessary code changes, run tests and verify the actual application.
+
+---
+
+## 1. PRESERVE THE EXISTING APPLICATION
+
+Do not change:
+- The four existing input methods.
+- Product Description.
+- Technical Specification.
+- Tender Document (PDF).
+- Natural Language Query.
+- Existing frontend design and layout.
+- Existing navigation and workflow.
+- Existing Vanilla HTML, CSS and JavaScript architecture.
+- PostgreSQL database records.
+- Existing standards and product mappings.
+
+Do not introduce React, TypeScript or Tailwind.
+
+The requirements review page must retain its existing table-based presentation, Edit Requirements button, Copy JSON button, Back to Input button and Continue to Analysis button.
+
+You may improve how information is populated and labelled without redesigning the page.
+
+---
+
+## 2. REMOVE THE HELMET-ONLY EXTRACTION BEHAVIOUR
+
+Inspect the complete existing requirement extraction pipeline.
+
+Check:
+- requirementExtractor.js
+- Gemini extraction prompts.
+- Structured JSON responses.
+- Product classification.
+- Product catalogue matching.
+- demoProfile.js.
+- Any curated helmet presets.
+- Product-specific enrichment logic.
+- Requirements review page JavaScript.
+
+Identify exactly why the helmet produces detailed fields while other products return empty values.
+
+If the helmet currently uses a curated demonstration profile, convert the useful functionality into a reusable product-aware mechanism.
+
+Do not simply copy helmet requirements into other products.
+
+Every product must receive parameters appropriate to its actual product category and intended application.
+
+---
+
+## 3. BUILD A UNIVERSAL PRODUCT REQUIREMENT PROFILE SYSTEM
+
+Create a reusable product requirement profile architecture.
+
+Use a hierarchical approach:
+
+LEVEL 1: BIS DIVISION COUNCIL
+Identify the broad technical domain.
+
+LEVEL 2: PRODUCT CATEGORY
+Identify the relevant product class.
+
+LEVEL 3: PRODUCT FAMILY
+Identify product-specific technical characteristics.
+
+LEVEL 4: APPLICABLE INDIAN STANDARDS
+Retrieve verified technical requirements from applicable standards where available.
+
+Use these profiles to generate relevant parameters for each product.
+
+Do not create 1,047 unrelated hardcoded extraction functions.
+
+Use reusable schemas, category profiles, product-family metadata and standards-derived enrichment.
+
+Ensure every existing catalogue product can be associated with a relevant requirement profile or an explicit clarification-needed state.
+
+---
+
+## 4. POPULATE ALL TECHNICAL REQUIREMENT SECTIONS
+
+The existing requirements review page contains these sections:
+
+1. Product
+2. Category
+3. Application
+4. Technical Requirements
+5. Materials & Construction
+6. Performance Requirements
+7. Dimensions & Ratings
+8. Environmental Conditions
+9. Safety Requirements
+10. Testing Requirements
+11. Certification Requirements
+12. Important Keywords
+
+Make the extraction system populate all applicable sections.
+
+Do not leave sections empty merely because the user provided only a product name.
+
+For example, when someone enters:
+
+"Safety glasses for industries"
+
+The system should identify relevant technical parameter areas such as:
+
+TECHNICAL REQUIREMENTS
+- Lens classification and intended protection.
+- Optical characteristics.
+- Impact protection requirements.
+- Field of vision.
+- Lens and frame compatibility.
+- Intended workplace hazards.
+
+MATERIALS & CONSTRUCTION
+- Lens material.
+- Frame material.
+- Lens coatings.
+- Frame construction.
+- Nose bridge and side protection design.
+
+PERFORMANCE REQUIREMENTS
+- Impact resistance.
+- Optical performance.
+- UV protection, where applicable.
+- Resistance to workplace exposure.
+- Scratch and abrasion resistance, where applicable.
+
+DIMENSIONS & RATINGS
+- Lens dimensions.
+- Frame dimensions.
+- Coverage area.
+- Applicable product classifications and ratings.
+
+ENVIRONMENTAL CONDITIONS
+- Temperature exposure.
+- Dust exposure.
+- Chemical exposure, where applicable.
+- Moisture exposure.
+
+SAFETY REQUIREMENTS
+- Eye protection.
+- Side protection.
+- Impact protection.
+- Hazard-specific protection.
+
+TESTING REQUIREMENTS
+- Relevant optical tests.
+- Impact tests.
+- Applicable material and performance tests.
+
+CERTIFICATION REQUIREMENTS
+- Applicable BIS certification requirements, if any.
+- Applicable QCO or other statutory requirements, if verified.
+- Voluntary certification and compliance information, where relevant.
+
+IMPORTANT:
+These are examples of parameter areas, not automatically mandatory specifications.
+
+The exact parameters must be determined by product type, application and applicable standards.
+
+Apply the same level of product-specific detail to every other product category.
+
+---
+
+## 5. SEPARATE THREE SOURCES OF REQUIREMENTS
+
+This is a critical requirement.
+
+Every extracted parameter must have a traceable origin.
+
+A. USER-PROVIDED
+
+Information explicitly supplied in the original input.
+
+B. AI-SUGGESTED
+
+Relevant technical parameters identified by the system for the user to review or complete.
+
+C. VERIFIED_STANDARD_DERIVED
+
+Requirements extracted from an applicable, verified Indian Standard or official regulatory source.
+
+Store the following metadata for each parameter:
+
+- Parameter name.
+- Extracted or suggested value.
+- Source type.
+- Confidence, where meaningful.
+- User confirmation status.
+- Applicable standard number, if relevant.
+- Exact clause or source reference, if available.
+- Mandatory or voluntary classification, where established.
+
+Never present AI-generated suggestions as information supplied by the user.
+
+Never present a suggested parameter as a mandatory BIS requirement without supporting evidence.
+
+Never invent numerical values, dimensions, ratings, test limits or certification requirements.
+
+---
+
+## 6. HANDLE INCOMPLETE USER INPUT INTELLIGENTLY
+
+Example:
+
+User enters:
+"Industrial safety glasses"
+
+Instead of showing:
+
+Technical Requirements: None specified
+Materials & Construction: None specified
+Performance Requirements: None specified
+
+The system should display relevant suggested parameter areas.
+
+It should also identify missing information that could change the applicable requirements.
+
+For example:
+- Is impact protection required?
+- Is chemical splash protection required?
+- Is UV protection required?
+- Is welding protection required?
+- What type of industrial environment is involved?
+
+These should be presented as optional clarification questions.
+
+Do not force users to answer every question before continuing.
+
+If the product and application are sufficiently clear, allow them to continue with the extracted and suggested parameters.
+
+If the product is ambiguous, clearly identify the uncertainty.
+
+---
+
+## 7. SUPPORT ALL 17 BIS DIVISION COUNCILS
+
+The requirement profile system must work across:
+
+- Civil Engineering.
+- Electrotechnical.
+- Mechanical Engineering.
+- Chemical.
+- Food and Agriculture.
+- Electronics and Information Technology.
+- Metallurgical Engineering.
+- Transport Engineering.
+- Petroleum, Coal and Related Products.
+- Textiles.
+- Medical Equipment and Hospital Planning.
+- Production and General Engineering.
+- Water Resources.
+- Environment and Ecology.
+- AYUSH.
+- Service Sector.
+- Management and Systems.
+
+Use product-specific technical attributes.
+
+Examples:
+
+PPE:
+Impact resistance, protection classification, ergonomics, material and durability.
+
+Electrical:
+Rated voltage, current, insulation, temperature rise, dielectric properties and protection class.
+
+Civil:
+Material grade, dimensions, strength, durability, testing and exposure conditions.
+
+Mechanical:
+Capacity, operating speed, load, torque, construction, efficiency and operating conditions.
+
+Chemical:
+Composition, purity, concentration, physical properties, compatibility and safety.
+
+Food and Agriculture:
+Capacity, moisture content, material composition, performance, hygiene and operating conditions.
+
+Electronics:
+Input/output ratings, operating conditions, interfaces, electrical safety and electromagnetic compatibility.
+
+Textiles:
+Fibre composition, fabric construction, tensile strength, colour fastness and relevant physical properties.
+
+Medical Equipment:
+Intended use, operating parameters, safety, performance, materials and applicable regulatory requirements.
+
+Transport:
+Load capacity, operating conditions, dimensions, materials, performance and safety.
+
+Apply equivalent domain-specific intelligence to the remaining councils.
+
+Do not use the same generic technical requirements for every product.
+
+---
+
+## 8. STANDARDS-BASED ENRICHMENT
+
+Use the existing 710-standard catalogue and product-standard mappings.
+
+For a product with a verified primary standard:
+
+- Retrieve the applicable standard.
+- Identify relevant technical requirements.
+- Extract available parameters and limits.
+- Preserve standard revision information.
+- Record exact clauses wherever available.
+- Distinguish mandatory from voluntary requirements.
+
+For supporting-only products:
+
+- Clearly label requirements as supporting references.
+- Do not imply that supporting standards are the primary product standard.
+
+For candidate or unverified mappings:
+
+- Do not present their contents as confirmed requirements.
+- Show an appropriate verification warning.
+
+For products without a verified applicable standard:
+
+- Still generate relevant general technical parameter suggestions.
+- Clearly identify them as AI suggestions.
+- Do not invent a BIS standard or regulatory requirement.
+
+---
+
+## 9. IMPROVE THE REQUIREMENTS REVIEW PAGE
+
+Preserve the existing table layout.
+
+Improve its information presentation using clear source labels:
+
+[USER PROVIDED]
+[AI SUGGESTED]
+[VERIFIED INDIAN STANDARD]
+[REQUIRES CONFIRMATION]
+
+Each technical parameter should display its origin.
+
+For example:
+
+Performance Requirements
+
+- Impact resistance [AI SUGGESTED]
+- Optical classification [AI SUGGESTED]
+- Applicable test requirement [VERIFIED INDIAN STANDARD — IS number and clause]
+
+Do not make the interface unnecessarily complicated.
+
+The user must be able to edit suggested parameters and confirm or remove them using the existing Edit Requirements functionality.
+
+The Copy JSON function must include the parameter values and their source metadata.
+
+The Continue to Analysis function must preserve this structured information.
+
+Only confirmed user requirements and appropriately verified standard-derived requirements should be treated as established requirements during subsequent matching.
+
+Unconfirmed suggestions may guide discovery but must not be treated as mandatory constraints.
+
+---
+
+## 10. UNIVERSAL TESTING
+
+Test the following products individually:
+
+1. Industrial Safety Helmet.
+2. Safety Glasses.
+3. Safety Shoes.
+4. Protective Gloves.
+5. PVC Insulated Electrical Cables.
+6. Cement.
+7. Steel Reinforcement Bars.
+8. Water Pumps.
+9. Electric Motors.
+10. Medical Equipment.
+11. Agricultural Machinery.
+12. Textile Fabric.
+13. Chemical Products.
+14. Solar Panels.
+15. Transformers.
+16. Fire Safety Equipment.
+17. Water Treatment Equipment.
+18. Industrial Valves.
+19. Food Processing Machinery.
+20. Structural Steel Products.
+
+For each product, verify:
+
+- Product identification.
+- Category identification.
+- Application.
+- Technical requirements.
+- Materials and construction.
+- Performance requirements.
+- Dimensions and ratings.
+- Environmental conditions.
+- Safety requirements.
+- Testing requirements.
+- Certification requirements.
+- Important keywords.
+
+Verify that all applicable sections receive relevant content.
+
+Do not require every product to have every possible parameter. Relevance and accuracy are more important than filling every field indiscriminately.
+
+Also test all four existing input methods.
+
+Run regression and Playwright tests.
+
+---
+
+## 11. COVERAGE VALIDATION
+
+Build a validation script that checks the 1,047 existing product families.
+
+Report:
+
+- Number of product families with requirement profiles.
+- Number with product-specific parameter schemas.
+- Number with verified standards-derived parameters.
+- Number with AI-suggested technical parameters.
+- Number requiring clarification.
+- Number with incomplete or irrelevant profiles.
+
+Verify that no product family receives the same generic set of technical parameters simply because the system failed to identify its category.
+
+Create:
+
+NIRDESHAK_UNIVERSAL_REQUIREMENT_EXTRACTION_REPORT.md
+
+Include before-and-after examples, test results and profile coverage.
+
+---
+
+## FINAL SUCCESS CRITERIA
+
+1. Safety glasses must no longer produce an almost-empty requirements review.
+2. Industrial safety helmets must retain their existing detailed experience.
+3. All 1,047 catalogue product families must be supported by the universal extraction architecture.
+4. All 17 Division Councils must receive relevant product-specific requirements.
+5. Unknown products must receive sensible, clearly labelled suggestions or clarification requests.
+6. AI suggestions must never be falsely represented as official BIS requirements.
+7. All four existing input methods must continue working.
+8. Existing standards recommendations and frontend workflow must remain intact.
+
+IMPLEMENT THE CHANGES, RUN THE TESTS, FIX FAILURES AND VERIFY THE ACTUAL BROWSER EXPERIENCE.
+
+Do not stop after generating a report or identifying the problem.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-11-28T11:01:03+05:30.
+
+The user's current state is as follows:
+Active Document: d:\ME\PROJECTS\NIRDESHAK\NIRDESHAK_DATABASE_SETUP_REPORT.md (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 1
+Other open documents:
+- d:\ME\PROJECTS\NIRDESHAK\NIRDESHAK_BACKUP_VERIFICATION_REPORT.md (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

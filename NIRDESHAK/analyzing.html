@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyzing Standards | Nirdeshak</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Government Identification Strip -->
+<div class="gov-strip">
+  <div class="gov-strip__inner">
+    <span class="gov-strip__text">भारत सरकार | Government of India</span>
+    <span class="gov-strip__text gov-strip__text--right">Bureau of Indian Standards</span>
+  </div>
+</div>
+
+<!-- Main Site Header -->
+<header class="main-header">
+  <div class="main-header__inner">
+    <a href="index.html" class="main-header__brand" style="text-decoration: none; display: flex; align-items: center; gap: 16px; color: inherit;">
+      <div class="main-header__logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="46" height="46">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="#0a3161" stroke-width="2"/>
+          <circle cx="24" cy="24" r="15" fill="none" stroke="#0a3161" stroke-width="1.2"/>
+          <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#0a3161" font-family="Arial, sans-serif">N</text>
+        </svg>
+      </div>
+      <div class="main-header__titles">
+        <h1 class="main-header__title">NIRDESHAK</h1>
+        <p class="main-header__subtitle">AI-Powered Indian Standards Recommendation Portal</p>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- Step Indicator -->
+<nav class="step-indicator" aria-label="Procurement Analysis Workflow Progress">
+  <div class="step-indicator__inner">
+    <ol class="step-indicator__list">
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">1. Input</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">2. Process</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">3. Review</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--active" aria-current="step">
+        <span class="step-indicator__badge">4</span>
+        <span class="step-indicator__label">4. Analyze</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">5</span>
+        <span class="step-indicator__label">5. Results</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<main class="page-container">
+
+  <!-- Page Header Block -->
+  <div class="page-header-block" style="text-align: center;">
+    <h2 class="page-header-block__title">Analyzing Procurement Requirement</h2>
+    <p class="page-header-block__subtitle" id="analyzingQuerySubtitle">Matching requirement against the Bureau of Indian Standards repository...</p>
+  </div>
+
+  <!-- Progress Card -->
+  <div class="progress-card" role="status" aria-live="polite">
+    <div class="progress-header">
+      <h3 class="progress-header__title">Standards Intelligence Pipeline</h3>
+      <p class="progress-header__desc" id="pipelineStatusText">Executing analysis across repository standards...</p>
+    </div>
+
+    <ul class="progress-timeline" id="analysisTimeline">
+      <!-- 1. Understanding requirement -->
+      <li class="progress-step progress-step--active" id="astep-1">
+        <div class="progress-step__icon" id="astep-1-icon" aria-hidden="true">&bull;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">1. Understanding requirement</h4>
+          <p class="progress-step__desc">Evaluating extracted technical parameters and procurement criteria.</p>
+        </div>
+      </li>
+
+      <!-- 2. Generating semantic representation -->
+      <li class="progress-step progress-step--active" id="astep-2">
+        <div class="progress-step__icon" id="astep-2-icon" aria-hidden="true">&bull;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">2. Generating semantic representation</h4>
+          <p class="progress-step__desc">Synthesizing 3072-dimensional vector embedding via Gemini.</p>
+        </div>
+      </li>
+
+      <!-- 3. Searching standards -->
+      <li class="progress-step" id="astep-3">
+        <div class="progress-step__icon" id="astep-3-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">3. Searching standards</h4>
+          <p class="progress-step__desc">Cosine distance matching across Bureau of Indian Standards database.</p>
+        </div>
+      </li>
+
+      <!-- 4. Ranking relevant standards -->
+      <li class="progress-step" id="astep-4">
+        <div class="progress-step__icon" id="astep-4-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">4. Ranking relevant standards</h4>
+          <p class="progress-step__desc">Computing multi-signal weighted relevance scores.</p>
+        </div>
+      </li>
+
+      <!-- 5. Checking related standards -->
+      <li class="progress-step" id="astep-5">
+        <div class="progress-step__icon" id="astep-5-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">5. Checking related standards</h4>
+          <p class="progress-step__desc">Identifying normative references and testing method relationships.</p>
+        </div>
+      </li>
+
+      <!-- 6. Checking version and amendments -->
+      <li class="progress-step" id="astep-6">
+        <div class="progress-step__icon" id="astep-6-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">6. Checking version and amendments</h4>
+          <p class="progress-step__desc">Verifying current status, revision years, and published amendments.</p>
+        </div>
+      </li>
+
+      <!-- 7. Checking certification information -->
+      <li class="progress-step" id="astep-7">
+        <div class="progress-step__icon" id="astep-7-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">7. Checking certification information</h4>
+          <p class="progress-step__desc">Checking Quality Control Orders (QCOs) and BIS certification schemes.</p>
+        </div>
+      </li>
+
+      <!-- 8. Generating grounded explanation -->
+      <li class="progress-step" id="astep-8">
+        <div class="progress-step__icon" id="astep-8-icon" aria-hidden="true">&cir;</div>
+        <div class="progress-step__content">
+          <h4 class="progress-step__title">8. Generating grounded explanation</h4>
+          <p class="progress-step__desc">Formulating evidence-based rationale and procurement context.</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Error State Display -->
+    <div id="analysisErrorBox" class="form-error" style="display: none; margin-top: 24px;" role="alert">
+      <div style="font-weight: 700; margin-bottom: 4px;">Analysis Request Failed</div>
+      <div id="analysisErrorMessage"></div>
+      <div style="margin-top: 16px; display: flex; gap: 12px; justify-content: center;">
+        <button type="button" class="btn-primary" id="retryAnalysisBtn" style="padding: 8px 18px; font-size: 13.5px;">Retry Analysis</button>
+        <a href="requirements.html" class="btn-secondary" style="padding: 8px 18px; font-size: 13.5px; text-decoration: none;">&larr; Back to Requirements</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p class="site-footer__line">Government of India</p>
+  <p class="site-footer__line">Bureau of Indian Standards</p>
+  <p class="site-footer__tagline">Nirdeshak &ndash; Right Standards. Smarter Procurement.</p>
+</footer>
+
+<script type="module" src="analyzing.js"></script>
+</body>
+</html>

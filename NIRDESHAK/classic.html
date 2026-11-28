@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nirdeshak | Bureau of Indian Standards</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Government Identification Strip -->
+<div class="gov-strip">
+  <div class="gov-strip__inner">
+    <span class="gov-strip__text">भारत सरकार | Government of India</span>
+    <span class="gov-strip__text gov-strip__text--right">Bureau of Indian Standards</span>
+  </div>
+</div>
+
+<!-- Main Site Header -->
+<header class="main-header">
+  <div class="main-header__inner">
+    <div class="main-header__logo" aria-hidden="true">
+      <svg viewBox="0 0 48 48" width="46" height="46">
+        <circle cx="24" cy="24" r="22" fill="none" stroke="#0a3161" stroke-width="2"/>
+        <circle cx="24" cy="24" r="15" fill="none" stroke="#0a3161" stroke-width="1.2"/>
+        <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#0a3161" font-family="Arial, sans-serif">N</text>
+      </svg>
+    </div>
+    <div class="main-header__titles">
+      <h1 class="main-header__title">NIRDESHAK</h1>
+      <p class="main-header__subtitle">AI-Powered Indian Standards Recommendation Portal</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Main Content Card -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__card">
+      <h2 id="hero-heading" class="hero__heading">Nirdeshak</h2>
+      <p class="hero__subtitle">Find the Right Indian Standards for Your Procurement Requirements</p>
+      <p class="hero__description">
+        An AI-powered portal that helps identify relevant Indian Standards from procurement
+        requirements, technical specifications, tender documents, and natural-language queries.
+      </p>
+      <button type="button" class="btn-primary" id="startAnalysisBtn">
+        Start New Analysis <span aria-hidden="true">&rarr;</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Input Options -->
+  <section class="input-options" id="inputOptions" aria-labelledby="input-options-heading">
+    <h3 id="input-options-heading" class="section-heading">Select an Input Method</h3>
+
+    <div class="input-options__grid" role="tablist" aria-label="Input Method Options">
+
+      <button type="button" class="option-card" data-option="product-description" id="tab-product-description" role="tab" aria-selected="true" aria-pressed="true">
+        <span class="option-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <rect x="7" y="4" width="18" height="24" rx="1.5" fill="none" stroke="#0a3161" stroke-width="1.6"/>
+            <line x1="11" y1="10" x2="21" y2="10" stroke="#0a3161" stroke-width="1.4"/>
+            <line x1="11" y1="15" x2="21" y2="15" stroke="#0a3161" stroke-width="1.4"/>
+            <line x1="11" y1="20" x2="17" y2="20" stroke="#0a3161" stroke-width="1.4"/>
+          </svg>
+        </span>
+        <span class="option-card__title">Product Description</span>
+        <span class="option-card__text">Enter a product or procurement requirement.</span>
+      </button>
+
+      <button type="button" class="option-card" data-option="technical-specification" id="tab-technical-specification" role="tab" aria-selected="false" aria-pressed="false">
+        <span class="option-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <circle cx="16" cy="16" r="4" fill="none" stroke="#0a3161" stroke-width="1.6"/>
+            <path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"
+                  stroke="#0a3161" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="option-card__title">Technical Specification</span>
+        <span class="option-card__text">Enter detailed technical specifications.</span>
+      </button>
+
+      <button type="button" class="option-card" data-option="tender-pdf" id="tab-tender-pdf" role="tab" aria-selected="false" aria-pressed="false">
+        <span class="option-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <rect x="7" y="4" width="18" height="24" rx="1.5" fill="none" stroke="#0a3161" stroke-width="1.6"/>
+            <path d="M16 12v8M12.5 16.5L16 20l3.5-3.5" fill="none" stroke="#0a3161" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="option-card__title">Tender Document (PDF)</span>
+        <span class="option-card__text">Upload a tender document for analysis.</span>
+      </button>
+
+      <button type="button" class="option-card" data-option="natural-language-query" id="tab-natural-language-query" role="tab" aria-selected="false" aria-pressed="false">
+        <span class="option-card__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="26" height="26">
+            <path d="M6 8h20a1.5 1.5 0 0 1 1.5 1.5v10A1.5 1.5 0 0 1 26 21H14l-5 4v-4H6A1.5 1.5 0 0 1 4.5 19.5v-10A1.5 1.5 0 0 1 6 8z"
+                  fill="none" stroke="#0a3161" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="option-card__title">Natural Language Query</span>
+        <span class="option-card__text">Ask about applicable Indian Standards in natural language.</span>
+      </button>
+
+    </div>
+
+    <!-- Active Input Form Container -->
+    <div class="input-panel-section" id="inputPanelSection">
+      <div class="input-panel">
+
+        <!-- Product Description Pane -->
+        <div class="input-pane" id="pane-product-description" role="tabpanel" aria-labelledby="tab-product-description">
+          <label for="inputProductDescription" class="form-label">Product / Procurement Description <span class="form-required">*</span></label>
+          <p class="form-hint">Enter the product name, procurement title, category, or intended application.</p>
+          <textarea id="inputProductDescription" class="form-textarea" rows="5" placeholder="Enter product or procurement description (e.g., Supply of single-phase whole current electronic energy meters for residential billing)..."></textarea>
+        </div>
+
+        <!-- Technical Specification Pane -->
+        <div class="input-pane" id="pane-technical-specification" role="tabpanel" aria-labelledby="tab-technical-specification" style="display: none;">
+          <label for="inputTechnicalSpecification" class="form-label">Detailed Technical Specification <span class="form-required">*</span></label>
+          <p class="form-hint">Enter comprehensive technical requirements, parameters, material grades, tolerance limits, and testing conditions.</p>
+          <textarea id="inputTechnicalSpecification" class="form-textarea form-textarea--large" rows="10" placeholder="Enter detailed technical specifications (e.g., 11kV, 3-Phase, 50Hz indoor vacuum circuit breaker with rated short circuit breaking capacity 25kA, IP5X enclosure protection, copper busbars conforming to relevant standards)..."></textarea>
+        </div>
+
+        <!-- Tender Document (PDF) Pane -->
+        <div class="input-pane" id="pane-tender-pdf" role="tabpanel" aria-labelledby="tab-tender-pdf" style="display: none;">
+          <label for="pdfFileInput" class="form-label">Upload Tender Document (PDF) <span class="form-required">*</span></label>
+          <p class="form-hint">Select a tender document in PDF format only (.pdf). Maximum file size: 25 MB.</p>
+          
+          <div class="file-upload-wrapper">
+            <input type="file" id="pdfFileInput" class="gov-file-input" accept=".pdf,application/pdf" aria-describedby="fileConstraintText">
+            <div id="fileConstraintText" class="form-hint file-constraint-hint">Accepted format: PDF (.pdf) only</div>
+            
+            <div class="file-selected-box" id="fileSelectedBox" style="display: none;">
+              <div class="file-meta">
+                <span class="file-icon" aria-hidden="true">PDF</span>
+                <div class="file-meta__info">
+                  <div class="file-meta__name" id="selectedFileName"></div>
+                  <div class="file-meta__size" id="selectedFileSize"></div>
+                </div>
+              </div>
+              <div class="file-actions">
+                <button type="button" class="btn-danger" id="removeFileBtn" aria-label="Remove selected PDF file">Remove File</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Natural Language Query Pane -->
+        <div class="input-pane" id="pane-natural-language-query" role="tabpanel" aria-labelledby="tab-natural-language-query" style="display: none;">
+          <label for="inputNaturalLanguage" class="form-label">Natural Language Query <span class="form-required">*</span></label>
+          <p class="form-hint">Ask your question or procurement requirement regarding applicable Indian Standards in plain English.</p>
+          <textarea id="inputNaturalLanguage" class="form-textarea" rows="4" placeholder="Enter your query (e.g., Which Indian Standards are applicable for solar PV modules and inverters in government installations?)..."></textarea>
+        </div>
+
+        <!-- Inline Validation Error -->
+        <div class="form-error" id="validationError" role="alert" style="display: none;"></div>
+
+        <!-- Processing State Indicator -->
+        <div class="form-processing" id="processingStatus" role="status" style="display: none;">
+          Processing tender document...
+        </div>
+
+        <!-- Action Controls -->
+        <div class="input-actions">
+          <button type="button" class="btn-primary" id="analyseBtn">
+            Analyse
+          </button>
+          <button type="button" class="btn-secondary" id="clearBtn">
+            Clear
+          </button>
+        </div>
+
+        <!-- Confirmation & Summary Display -->
+        <div class="confirmation-card" id="submissionConfirmation" role="region" aria-live="polite" style="display: none;">
+          <div class="confirmation-header">
+            <span class="confirmation-icon" aria-hidden="true">&#10003;</span>
+            <h4 class="confirmation-title" id="confirmationTitle">Input received successfully.</h4>
+          </div>
+          <div class="confirmation-summary" id="submissionSummary">
+            <!-- Dynamic summary content inserted here -->
+          </div>
+
+          <!-- Extracted Requirements Display -->
+          <div class="requirements-section" id="extractedRequirementsSection" style="display: none;">
+            <div class="requirements-header">
+              <div class="requirements-header__title-group">
+                <h4 class="requirements-header__title">Extracted Requirements</h4>
+                <span class="requirements-header__badge">AI Extracted &bull; Step 3</span>
+              </div>
+              <div class="requirements-header__actions">
+                <button type="button" class="btn-secondary" id="editRequirementsBtn">Edit Requirements</button>
+                <button type="button" class="btn-secondary" id="copyRequirementsJsonBtn" title="Copy raw JSON">Copy JSON</button>
+              </div>
+            </div>
+
+            <!-- View Mode -->
+            <div class="requirements-view" id="requirementsViewMode">
+              <!-- Dynamically populated table -->
+            </div>
+
+            <!-- Edit Mode -->
+            <div class="requirements-edit" id="requirementsEditMode" style="display: none;">
+              <p class="form-hint" style="margin-bottom: 14px;">Review and refine the extracted requirements below. Saved changes update the active session.</p>
+              
+              <div class="edit-fields-grid">
+                <div class="edit-field">
+                  <label for="editProductName" class="form-label">Product Name</label>
+                  <input type="text" id="editProductName" class="form-input">
+                </div>
+                <div class="edit-field">
+                  <label for="editProductCategory" class="form-label">Product Category</label>
+                  <input type="text" id="editProductCategory" class="form-input">
+                </div>
+                <div class="edit-field">
+                  <label for="editApplication" class="form-label">Application</label>
+                  <input type="text" id="editApplication" class="form-input">
+                </div>
+              </div>
+
+              <div class="edit-field">
+                <label for="editTechnicalRequirements" class="form-label">Technical Requirements (one per line)</label>
+                <textarea id="editTechnicalRequirements" class="form-textarea" rows="4"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editMaterials" class="form-label">Materials &amp; Construction (one per line)</label>
+                <textarea id="editMaterials" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editPerformanceRequirements" class="form-label">Performance Requirements (one per line)</label>
+                <textarea id="editPerformanceRequirements" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editDimensions" class="form-label">Dimensions &amp; Ratings (one per line)</label>
+                <textarea id="editDimensions" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editEnvironmentalConditions" class="form-label">Environmental Conditions (one per line)</label>
+                <textarea id="editEnvironmentalConditions" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editSafetyRequirements" class="form-label">Safety Requirements (one per line)</label>
+                <textarea id="editSafetyRequirements" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editTestingRequirements" class="form-label">Testing Requirements (one per line)</label>
+                <textarea id="editTestingRequirements" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editCertificationRequirements" class="form-label">Certification Requirements (one per line)</label>
+                <textarea id="editCertificationRequirements" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="edit-field">
+                <label for="editImportantKeywords" class="form-label">Important Keywords (one per line or comma-separated)</label>
+                <textarea id="editImportantKeywords" class="form-textarea" rows="3"></textarea>
+              </div>
+
+              <div class="requirements-edit-actions">
+                <button type="button" class="btn-primary" id="saveRequirementsBtn">Save Changes</button>
+                <button type="button" class="btn-secondary" id="cancelEditRequirementsBtn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Dashboard & Recommendation UI (Step 12) -->
+  <section class="results-dashboard" id="resultsDashboard" style="display: none;" aria-labelledby="dashboardHeading">
+    <div class="results-dashboard__inner">
+      <div class="dashboard-header">
+        <div class="dashboard-header__titles">
+          <span class="dashboard-header__eyebrow">Procurement Intelligence &bull; Step 12</span>
+          <h3 id="dashboardHeading" class="dashboard-header__title">Standards Recommendation Dashboard</h3>
+          <p class="dashboard-header__subtitle">Deterministic multi-signal retrieval, version verification, and grounded AI explanation</p>
+        </div>
+        <div class="dashboard-header__actions">
+          <button type="button" class="btn-primary" id="downloadPdfReportBtn" aria-label="Download PDF Procurement Report">
+            <span class="btn-pdf-icon" aria-hidden="true">&#128196;</span>
+            <span class="btn-pdf-text" id="downloadPdfBtnText">Download PDF Report</span>
+          </button>
+          <button type="button" class="btn-secondary" id="refreshRecommendationsBtn" aria-label="Refresh Recommendations">Refresh Analysis</button>
+        </div>
+        <div id="reportStatusMessage" class="report-status-message" style="display: none;" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- Loading State Container -->
+      <div class="dashboard-loading" id="dashboardLoading" role="status" aria-live="polite" style="display: none;">
+        <div class="dashboard-loading__spinner" aria-hidden="true"></div>
+        <div class="dashboard-loading__text" id="dashboardLoadingText">Analyzing procurement requirement...</div>
+        <div class="dashboard-loading__subtext">Searching relevant Indian Standards, verifying versions and compliance...</div>
+      </div>
+
+      <!-- Error State Container -->
+      <div class="dashboard-error" id="dashboardError" role="alert" style="display: none;">
+        <div class="dashboard-error__icon" aria-hidden="true">&#9888;</div>
+        <div class="dashboard-error__content">
+          <h4 class="dashboard-error__title" id="dashboardErrorTitle">Unable to complete analysis</h4>
+          <p class="dashboard-error__message" id="dashboardErrorMessage"></p>
+        </div>
+      </div>
+
+      <!-- Empty State Container -->
+      <div class="dashboard-empty" id="dashboardEmpty" role="region" aria-label="No Results" style="display: none;">
+        <div class="dashboard-empty__icon" aria-hidden="true">&#8505;</div>
+        <h4 class="dashboard-empty__title">No matching standards were retrieved for this requirement.</h4>
+        <p class="dashboard-empty__desc">The absence of retrieved results in this development database does not establish that no applicable Indian Standard exists. Please verify the technical terminology or expand the requirement description.</p>
+      </div>
+
+      <!-- Dashboard Results Content Container -->
+      <div class="dashboard-content" id="dashboardContent" style="display: none;"></div>
+    </div>
+  </section>
+
+  <!-- Trust / Information Section -->
+  <section class="trust-section" aria-labelledby="trust-heading">
+    <h3 id="trust-heading" class="section-heading">About the Recommendations</h3>
+    <ul class="trust-list">
+      <li class="trust-list__item">
+        <span class="trust-list__mark" aria-hidden="true">&#10003;</span>
+        Indian Standards based recommendations
+      </li>
+      <li class="trust-list__item">
+        <span class="trust-list__mark" aria-hidden="true">&#10003;</span>
+        Related and normative standards
+      </li>
+      <li class="trust-list__item">
+        <span class="trust-list__mark" aria-hidden="true">&#10003;</span>
+        Version and amendment checks
+      </li>
+      <li class="trust-list__item">
+        <span class="trust-list__mark" aria-hidden="true">&#10003;</span>
+        Explainable results
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p class="site-footer__line">Government of India</p>
+  <p class="site-footer__line">Bureau of Indian Standards</p>
+  <p class="site-footer__tagline">Nirdeshak &ndash; Right Standards. Smarter Procurement.</p>
+</footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Requirements | Nirdeshak</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Government Identification Strip -->
+<div class="gov-strip">
+  <div class="gov-strip__inner">
+    <span class="gov-strip__text">भारत सरकार | Government of India</span>
+    <span class="gov-strip__text gov-strip__text--right">Bureau of Indian Standards</span>
+  </div>
+</div>
+
+<!-- Main Site Header -->
+<header class="main-header">
+  <div class="main-header__inner">
+    <a href="index.html" class="main-header__brand" style="text-decoration: none; display: flex; align-items: center; gap: 16px; color: inherit;">
+      <div class="main-header__logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="46" height="46">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="#0a3161" stroke-width="2"/>
+          <circle cx="24" cy="24" r="15" fill="none" stroke="#0a3161" stroke-width="1.2"/>
+          <text x="24" y="29" text-anchor="middle" font-size="13" font-weight="700" fill="#0a3161" font-family="Arial, sans-serif">N</text>
+        </svg>
+      </div>
+      <div class="main-header__titles">
+        <h1 class="main-header__title">NIRDESHAK</h1>
+        <p class="main-header__subtitle">AI-Powered Indian Standards Recommendation Portal</p>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- Step Indicator -->
+<nav class="step-indicator" aria-label="Procurement Analysis Workflow Progress">
+  <div class="step-indicator__inner">
+    <ol class="step-indicator__list">
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">1. Input</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--completed">
+        <span class="step-indicator__badge">&#10003;</span>
+        <span class="step-indicator__label">2. Process</span>
+      </li>
+      <li class="step-indicator__divider step-indicator__divider--completed" aria-hidden="true"></li>
+      <li class="step-indicator__item step-indicator__item--active" aria-current="step">
+        <span class="step-indicator__badge">3</span>
+        <span class="step-indicator__label">3. Review</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">4</span>
+        <span class="step-indicator__label">4. Analyze</span>
+      </li>
+      <li class="step-indicator__divider" aria-hidden="true"></li>
+      <li class="step-indicator__item">
+        <span class="step-indicator__badge">5</span>
+        <span class="step-indicator__label">5. Results</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<main class="page-container">
+
+  <!-- Page Header Block -->
+  <div class="page-header-block">
+    <a href="analysis.html" class="page-header-block__breadcrumb">&larr; Back to Input</a>
+    <h2 class="page-header-block__title">Review Extracted Requirements</h2>
+    <p class="page-header-block__subtitle">Verify the structured parameters extracted by Nirdeshak before commencing Indian Standards analysis.</p>
+  </div>
+
+  <!-- Requirements Review Card Container -->
+  <div class="requirements-section" id="extractedRequirementsSection" style="display: block;">
+    <div class="requirements-header">
+      <div class="requirements-header__title-group">
+        <h3 class="requirements-header__title" style="margin: 0;">Extracted Technical Parameters</h3>
+        <span class="requirements-header__badge">AI Extracted &bull; Step 3</span>
+      </div>
+      <div class="requirements-header__actions">
+        <button type="button" class="btn-secondary" id="editRequirementsBtn">Edit Requirements</button>
+        <button type="button" class="btn-secondary" id="copyRequirementsJsonBtn" title="Copy raw JSON">Copy JSON</button>
+      </div>
+    </div>
+
+    <!-- View Mode -->
+    <div class="requirements-view" id="requirementsViewMode">
+      <!-- Dynamically populated table -->
+    </div>
+
+    <!-- Edit Mode -->
+    <div class="requirements-edit" id="requirementsEditMode" style="display: none;">
+      <p class="form-hint" style="margin-bottom: 14px;">Review and refine the extracted requirements below. Saved changes update the active session.</p>
+      
+      <div class="edit-fields-grid">
+        <div class="edit-field">
+          <label for="editProductName" class="form-label">Product Name</label>
+          <input type="text" id="editProductName" class="form-input">
+        </div>
+        <div class="edit-field">
+          <label for="editProductCategory" class="form-label">Product Category</label>
+          <input type="text" id="editProductCategory" class="form-input">
+        </div>
+        <div class="edit-field">
+          <label for="editApplication" class="form-label">Application</label>
+          <input type="text" id="editApplication" class="form-input">
+        </div>
+      </div>
+
+      <div class="edit-field">
+        <label for="editTechnicalRequirements" class="form-label">Technical Requirements (one per line)</label>
+        <textarea id="editTechnicalRequirements" class="form-textarea" rows="4"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editMaterials" class="form-label">Materials &amp; Construction (one per line)</label>
+        <textarea id="editMaterials" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editPerformanceRequirements" class="form-label">Performance Requirements (one per line)</label>
+        <textarea id="editPerformanceRequirements" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editDimensions" class="form-label">Dimensions &amp; Ratings (one per line)</label>
+        <textarea id="editDimensions" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editEnvironmentalConditions" class="form-label">Environmental Conditions (one per line)</label>
+        <textarea id="editEnvironmentalConditions" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editSafetyRequirements" class="form-label">Safety Requirements (one per line)</label>
+        <textarea id="editSafetyRequirements" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editTestingRequirements" class="form-label">Testing Requirements (one per line)</label>
+        <textarea id="editTestingRequirements" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editCertificationRequirements" class="form-label">Certification Requirements (one per line)</label>
+        <textarea id="editCertificationRequirements" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="edit-field">
+        <label for="editImportantKeywords" class="form-label">Important Keywords (one per line or comma-separated)</label>
+        <textarea id="editImportantKeywords" class="form-textarea" rows="3"></textarea>
+      </div>
+
+      <div class="requirements-edit-actions">
+        <button type="button" class="btn-primary" id="saveRequirementsBtn">Save Changes</button>
+        <button type="button" class="btn-secondary" id="cancelEditRequirementsBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Navigation Actions -->
+  <div class="page-nav-actions">
+    <a href="analysis.html" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center;">
+      &larr; Back to Input
+    </a>
+    <button type="button" class="btn-primary" id="continueToAnalysisBtn">
+      Continue to Analysis &rarr;
+    </button>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <p class="site-footer__line">Government of India</p>
+  <p class="site-footer__line">Bureau of Indian Standards</p>
+  <p class="site-footer__tagline">Nirdeshak &ndash; Right Standards. Smarter Procurement.</p>
+</footer>
+
+<script type="module" src="requirements.js"></script>
+</body>
+</html>

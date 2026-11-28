@@ -1,0 +1,507 @@
+[
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Cement and Hydraulic Binders",
+    "description": "Cement and Hydraulic Binders under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Concrete and Concrete Materials",
+    "description": "Concrete and Concrete Materials under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Structural Steel and Reinforcement",
+    "description": "Structural Steel and Reinforcement under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Masonry Units and Blocks",
+    "description": "Masonry Units and Blocks under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Floor and Wall Finishes",
+    "description": "Floor and Wall Finishes under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Timber and Wood Products",
+    "description": "Timber and Wood Products under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Doors, Windows and Hardware",
+    "description": "Doors, Windows and Hardware under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Pipes and Plumbing Fittings",
+    "description": "Pipes and Plumbing Fittings under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Water Storage and Sanitation",
+    "description": "Water Storage and Sanitation under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Sanitary Fixtures and Fittings",
+    "description": "Sanitary Fixtures and Fittings under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Roofing and Waterproofing",
+    "description": "Roofing and Waterproofing under CIVIL"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Personal Protective Equipment",
+    "description": "Personal Protective Equipment under CIVIL"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Power and Distribution Transformers",
+    "description": "Power and Distribution Transformers under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Cables, Wires and Conductors",
+    "description": "Cables, Wires and Conductors under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Switchgear and Protection Devices",
+    "description": "Switchgear and Protection Devices under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Rotating Electrical Machinery",
+    "description": "Rotating Electrical Machinery under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Renewable Energy Systems",
+    "description": "Renewable Energy Systems under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Batteries and Energy Storage",
+    "description": "Batteries and Energy Storage under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Household and Commercial Electrical Appliances",
+    "description": "Household and Commercial Electrical Appliances under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Lamps and Lighting Equipment",
+    "description": "Lamps and Lighting Equipment under ELECTRO"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Earthing and Lightning Protection",
+    "description": "Earthing and Lightning Protection under ELECTRO"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Pumps and Pumping Equipment",
+    "description": "Pumps and Pumping Equipment under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Valves and Piping Specialties",
+    "description": "Valves and Piping Specialties under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Compressors and Vacuum Pumps",
+    "description": "Compressors and Vacuum Pumps under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Lifting and Material Handling Equipment",
+    "description": "Lifting and Material Handling Equipment under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Pressure Vessels and Gas Cylinders",
+    "description": "Pressure Vessels and Gas Cylinders under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Refrigeration and Air Conditioning",
+    "description": "Refrigeration and Air Conditioning under MECH"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Machine Elements and Mechanical Drives",
+    "description": "Machine Elements and Mechanical Drives under MECH"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Fertilizers and Agrochemicals",
+    "description": "Fertilizers and Agrochemicals under CHEM"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Soaps, Detergents and Surfactants",
+    "description": "Soaps, Detergents and Surfactants under CHEM"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Industrial Inorganic Chemicals",
+    "description": "Industrial Inorganic Chemicals under CHEM"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Paints, Varnishes and Pigments",
+    "description": "Paints, Varnishes and Pigments under CHEM"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Polymers and Plastics",
+    "description": "Polymers and Plastics under CHEM"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Information Technology Equipment",
+    "description": "Information Technology Equipment under ELEC_IT"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Telecommunication and Consumer Electronics",
+    "description": "Telecommunication and Consumer Electronics under ELEC_IT"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Computer Peripherals and Displays",
+    "description": "Computer Peripherals and Displays under ELEC_IT"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Power Adapters and Chargers",
+    "description": "Power Adapters and Chargers under ELEC_IT"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Security and Surveillance Systems",
+    "description": "Security and Surveillance Systems under ELEC_IT"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Food Grains and Cereals",
+    "description": "Food Grains and Cereals under FOOD_AGRI"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Beverages and Drinking Water",
+    "description": "Beverages and Drinking Water under FOOD_AGRI"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Edible Oils and Fats",
+    "description": "Edible Oils and Fats under FOOD_AGRI"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Agricultural Machinery and Equipment",
+    "description": "Agricultural Machinery and Equipment under FOOD_AGRI"
+  },
+  {
+    "sector_code": "MED_HOSP",
+    "category_name": "Medical Consumables and Disposables",
+    "description": "Medical Consumables and Disposables under MED_HOSP"
+  },
+  {
+    "sector_code": "MED_HOSP",
+    "category_name": "Hospital Furniture and Architecture",
+    "description": "Hospital Furniture and Architecture under MED_HOSP"
+  },
+  {
+    "sector_code": "MED_HOSP",
+    "category_name": "Diagnostic and Therapeutic Medical Devices",
+    "description": "Diagnostic and Therapeutic Medical Devices under MED_HOSP"
+  },
+  {
+    "sector_code": "METALLURGY",
+    "category_name": "Steel Plates, Sheets and Strips",
+    "description": "Steel Plates, Sheets and Strips under METALLURGY"
+  },
+  {
+    "sector_code": "METALLURGY",
+    "category_name": "Copper and Copper Alloys",
+    "description": "Copper and Copper Alloys under METALLURGY"
+  },
+  {
+    "sector_code": "METALLURGY",
+    "category_name": "Aluminium and Light Alloys",
+    "description": "Aluminium and Light Alloys under METALLURGY"
+  },
+  {
+    "sector_code": "PETRO_COAL",
+    "category_name": "Liquid Fuels",
+    "description": "Liquid Fuels under PETRO_COAL"
+  },
+  {
+    "sector_code": "PETRO_COAL",
+    "category_name": "Lubricants and Greases",
+    "description": "Lubricants and Greases under PETRO_COAL"
+  },
+  {
+    "sector_code": "PETRO_COAL",
+    "category_name": "Cosmetics and Toiletries",
+    "description": "Cosmetics and Toiletries under PETRO_COAL"
+  },
+  {
+    "sector_code": "TEXTILE",
+    "category_name": "Yarn and Threads",
+    "description": "Yarn and Threads under TEXTILE"
+  },
+  {
+    "sector_code": "TEXTILE",
+    "category_name": "Technical Textiles",
+    "description": "Technical Textiles under TEXTILE"
+  },
+  {
+    "sector_code": "TEXTILE",
+    "category_name": "Protective and Occupational Clothing",
+    "description": "Protective and Occupational Clothing under TEXTILE"
+  },
+  {
+    "sector_code": "TRANSPORT",
+    "category_name": "Automotive Safety Equipment",
+    "description": "Automotive Safety Equipment under TRANSPORT"
+  },
+  {
+    "sector_code": "TRANSPORT",
+    "category_name": "Automotive Tyres and Tubes",
+    "description": "Automotive Tyres and Tubes under TRANSPORT"
+  },
+  {
+    "sector_code": "TRANSPORT",
+    "category_name": "Automotive Components",
+    "description": "Automotive Components under TRANSPORT"
+  },
+  {
+    "sector_code": "WATER",
+    "category_name": "Irrigation Equipment and Systems",
+    "description": "Irrigation Equipment and Systems under WATER"
+  },
+  {
+    "sector_code": "WATER",
+    "category_name": "Water Measurement and Distribution",
+    "description": "Water Measurement and Distribution under WATER"
+  },
+  {
+    "sector_code": "AYUSH",
+    "category_name": "Herbal Raw Materials and Extracts",
+    "description": "Herbal Raw Materials and Extracts under AYUSH"
+  },
+  {
+    "sector_code": "AYUSH",
+    "category_name": "Classical Ayurvedic Formulations",
+    "description": "Classical Ayurvedic Formulations under AYUSH"
+  },
+  {
+    "sector_code": "ENV_ECO",
+    "category_name": "Air Quality Monitoring Equipment",
+    "description": "Air Quality Monitoring Equipment under ENV_ECO"
+  },
+  {
+    "sector_code": "ENV_ECO",
+    "category_name": "Waste Management and Biodegradable Products",
+    "description": "Waste Management and Biodegradable Products under ENV_ECO"
+  },
+  {
+    "sector_code": "PROD_GEN",
+    "category_name": "Fasteners and Hardware",
+    "description": "Fasteners and Hardware under PROD_GEN"
+  },
+  {
+    "sector_code": "PROD_GEN",
+    "category_name": "Engineering Metrology and Gauging",
+    "description": "Engineering Metrology and Gauging under PROD_GEN"
+  },
+  {
+    "sector_code": "SERVICE",
+    "category_name": "Financial and Banking Services",
+    "description": "Financial and Banking Services under SERVICE"
+  },
+  {
+    "sector_code": "SERVICE",
+    "category_name": "Tourism and Hospitality Services",
+    "description": "Tourism and Hospitality Services under SERVICE"
+  },
+  {
+    "sector_code": "MGMT_SYS",
+    "category_name": "Management Systems Certification",
+    "description": "Management Systems Certification under MGMT_SYS"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Road and Pavement Materials",
+    "description": "Road and Pavement Materials under CIVIL"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Electrical Installation Materials",
+    "description": "Electrical Installation Materials under ELECTRO"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Thermal and Fluid Plant",
+    "description": "Thermal and Fluid Plant under MECH"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Industrial Chemicals",
+    "description": "Industrial Chemicals under CHEM"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Consumer Electronics and IT",
+    "description": "Consumer Electronics and IT under ELEC_IT"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Dairy and Animal Products",
+    "description": "Dairy and Animal Products under FOOD_AGRI"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Spices and Condiments",
+    "description": "Spices and Condiments under FOOD_AGRI"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Agricultural Machinery",
+    "description": "Agricultural Machinery under FOOD_AGRI"
+  },
+  {
+    "sector_code": "MED_HOSP",
+    "category_name": "Surgical and Medical Devices",
+    "description": "Surgical and Medical Devices under MED_HOSP"
+  },
+  {
+    "sector_code": "MTD",
+    "category_name": "Ferrous and Non-Ferrous Metals",
+    "description": "Ferrous and Non-Ferrous Metals under MTD"
+  },
+  {
+    "sector_code": "PETRO_COAL",
+    "category_name": "Petrochemicals and Rubber",
+    "description": "Petrochemicals and Rubber under PETRO_COAL"
+  },
+  {
+    "sector_code": "PROD_GEN",
+    "category_name": "Machine Tools and Cutting Tools",
+    "description": "Machine Tools and Cutting Tools under PROD_GEN"
+  },
+  {
+    "sector_code": "TEXTILE",
+    "category_name": "Fabrics and Apparel",
+    "description": "Fabrics and Apparel under TEXTILE"
+  },
+  {
+    "sector_code": "WATER",
+    "category_name": "Canal and Dam Equipment",
+    "description": "Canal and Dam Equipment under WATER"
+  },
+  {
+    "sector_code": "AYUSH",
+    "category_name": "Herbal Preparations",
+    "description": "Herbal Preparations under AYUSH"
+  },
+  {
+    "sector_code": "ENV_ECO",
+    "category_name": "Pollution Control and Monitoring",
+    "description": "Pollution Control and Monitoring under ENV_ECO"
+  },
+  {
+    "sector_code": "MGMT_SYS",
+    "category_name": "Management Systems",
+    "description": "Management Systems under MGMT_SYS"
+  },
+  {
+    "sector_code": "SERVICE",
+    "category_name": "Professional and Public Services",
+    "description": "Professional and Public Services under SERVICE"
+  },
+  {
+    "sector_code": "CIVIL",
+    "category_name": "Waterproofing and Sealants",
+    "description": "Waterproofing and Sealants under CIVIL"
+  },
+  {
+    "sector_code": "ELECTRO",
+    "category_name": "Power Electronics and Renewables",
+    "description": "Power Electronics and Renewables under ELECTRO"
+  },
+  {
+    "sector_code": "MECH",
+    "category_name": "Material Handling and Thermal",
+    "description": "Material Handling and Thermal under MECH"
+  },
+  {
+    "sector_code": "CHEM",
+    "category_name": "Pesticides and Water Chemicals",
+    "description": "Pesticides and Water Chemicals under CHEM"
+  },
+  {
+    "sector_code": "ELEC_IT",
+    "category_name": "Communication and Automation",
+    "description": "Communication and Automation under ELEC_IT"
+  },
+  {
+    "sector_code": "FOOD_AGRI",
+    "category_name": "Processed Food and Machinery",
+    "description": "Processed Food and Machinery under FOOD_AGRI"
+  },
+  {
+    "sector_code": "MED_HOSP",
+    "category_name": "Respiratory and Sterilization",
+    "description": "Respiratory and Sterilization under MED_HOSP"
+  },
+  {
+    "sector_code": "MTD",
+    "category_name": "Specialty Steels and Coated Sheets",
+    "description": "Specialty Steels and Coated Sheets under MTD"
+  },
+  {
+    "sector_code": "PETRO_COAL",
+    "category_name": "Specialty Petroleum and Wax",
+    "description": "Specialty Petroleum and Wax under PETRO_COAL"
+  },
+  {
+    "sector_code": "PROD_GEN",
+    "category_name": "Precision Tooling and Fasteners",
+    "description": "Precision Tooling and Fasteners under PROD_GEN"
+  },
+  {
+    "sector_code": "TEXTILE",
+    "category_name": "Technical and Industrial Textiles",
+    "description": "Technical and Industrial Textiles under TEXTILE"
+  },
+  {
+    "sector_code": "TRANSPORT",
+    "category_name": "Automotive Electrical and Railway",
+    "description": "Automotive Electrical and Railway under TRANSPORT"
+  },
+  {
+    "sector_code": "WATER",
+    "category_name": "Irrigation and Hydrology",
+    "description": "Irrigation and Hydrology under WATER"
+  },
+  {
+    "sector_code": "AYUSH",
+    "category_name": "Medicinal Plants and Traditional Medicine",
+    "description": "Medicinal Plants and Traditional Medicine under AYUSH"
+  },
+  {
+    "sector_code": "ENV_ECO",
+    "category_name": "Waste Treatment and Monitoring",
+    "description": "Waste Treatment and Monitoring under ENV_ECO"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "qco_code": "QCO-SO-189E-2003",
+    "qco_name": "Electrical Wires, Cables, Appliances and Protection Devices and Accessories (Quality Control) Order, 2003",
+    "gazette_no": "S.O. 189(E)",
+    "gazette_date": "2003-02-17",
+    "effective_date": "2003-08-17",
+    "issuing_ministry": "Ministry of Commerce and Industry (DIPP / DPIIT)",
+    "statutory_basis": "Section 14 of Bureau of Indian Standards Act, 1986",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Mandates IS 694 (Serial 20) and predecessor IS 8828 (Serial 10) effective 17 August 2003."
+  },
+  {
+    "qco_code": "QCO-SO-4252E-2020",
+    "qco_name": "Helmet for riders of Two Wheeler Motor Vehicles (Quality Control) Order, 2020",
+    "gazette_no": "S.O. 4252(E)",
+    "gazette_date": "2020-11-26",
+    "effective_date": "2021-06-01",
+    "issuing_ministry": "Ministry of Road Transport and Highways (MoRTH)",
+    "statutory_basis": "Sections 16(1), 16(2) and 25(3) of Bureau of Indian Standards Act, 2016",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Mandates protective helmets for two-wheeler motor vehicles (IS 4151:2015)."
+  },
+  {
+    "qco_code": "QCO-SO-4649E-2023",
+    "qco_name": "Personal Protective Equipment (Quality Control) Order, 2023",
+    "gazette_no": "S.O. 4649(E)",
+    "gazette_date": "2023-10-23",
+    "effective_date": "2024-04-23",
+    "issuing_ministry": "Ministry of Commerce and Industry (DPIIT)",
+    "statutory_basis": "Section 16 of Bureau of Indian Standards Act, 2016",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Mandates industrial safety helmets (IS 2925:1984) and civil defence helmets (IS 2745:1983)."
+  },
+  {
+    "qco_code": "QCO-SO-3716E-2024",
+    "qco_name": "Steel and Steel Products (Quality Control) Order, 2024",
+    "gazette_no": "S.O. 3716(E)",
+    "gazette_date": "2024-08-29",
+    "effective_date": "2024-08-29",
+    "issuing_ministry": "Ministry of Steel",
+    "statutory_basis": "Section 16 of Bureau of Indian Standards Act, 2016",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Consolidates mandatory certification for TMT bars (IS 1786), structural steels (IS 2062), and cold reduced sheets (IS 513)."
+  },
+  {
+    "qco_code": "QCO-SO-280E-2020",
+    "qco_name": "Cables (Quality Control) Order, 2020",
+    "gazette_no": "S.O. 280(E)",
+    "gazette_date": "2020-01-21",
+    "effective_date": "2020-07-21",
+    "issuing_ministry": "Ministry of Commerce and Industry (DPIIT)",
+    "statutory_basis": "Section 16 of Bureau of Indian Standards Act, 2016",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Mandates XLPE cables (IS 7098 Part 1) and other heavy duty cables. Excludes IS 694."
+  },
+  {
+    "qco_code": "QCO-SO-2357E-2012",
+    "qco_name": "Electronics and Information Technology Goods (Requirements for Compulsory Registration) Order, 2012",
+    "gazette_no": "S.O. 2357(E)",
+    "gazette_date": "2012-10-03",
+    "effective_date": "2013-07-03",
+    "issuing_ministry": "Ministry of Electronics and Information Technology (MeitY)",
+    "statutory_basis": "Bureau of Indian Standards Act & CRO",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.crsbis.in/",
+    "notes": "Mandates Scheme-II registration for laptops, computers, monitors, adapters under IS 13252."
+  },
+  {
+    "qco_code": "QCO-SO-981E-2024",
+    "qco_name": "Pipes and Fittings (Quality Control) Order, 2024",
+    "gazette_no": "S.O. 981(E)",
+    "gazette_date": "2024-02-28",
+    "effective_date": "2024-08-28",
+    "issuing_ministry": "Ministry of Commerce and Industry (DPIIT)",
+    "statutory_basis": "Section 16 of Bureau of Indian Standards Act, 2016",
+    "status": "ENACTED",
+    "official_evidence_url": "https://www.services.bis.gov.in/",
+    "notes": "Mandates CPVC pipes (IS 15778), uPVC water pipes (IS 4985), and irrigation laterals (IS 12786)."
+  }
+]

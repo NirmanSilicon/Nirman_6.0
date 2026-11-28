@@ -1,0 +1,876 @@
+{
+  "totalQueries": 85,
+  "matchedCount": 79,
+  "accuracy": "92.9",
+  "councilHits": {
+    "AYD": 5,
+    "CHD": 5,
+    "CED": 5,
+    "LITD": 5,
+    "ETD": 5,
+    "EED": 3,
+    "FAD": 5,
+    "MSD": 5,
+    "MED": 5,
+    "MHD": 5,
+    "MTD": 5,
+    "PCD": 3,
+    "PGD": 4,
+    "SSD": 5,
+    "TXD": 5,
+    "TED": 5,
+    "WRD": 4
+  },
+  "details": [
+    {
+      "index": 1,
+      "council": "AYD",
+      "query": "Ashwagandha standardized root powder extract",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 17824:2022 - Ayurvedic Raw Material — Ashwagandha (Withania somnifera) Ro",
+      "topFamily": "Ashwagandha Extract and Root Powder (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 2,
+      "council": "AYD",
+      "query": "Triphala churna digestive formulation",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 17827:2022 - Ayurvedic Raw Material — Amla (Phyllanthus emblica) Fruit — ",
+      "topFamily": "Triphala Churna (Digestive Formulation) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 3,
+      "council": "AYD",
+      "query": "Classical Chyawanprash avaleha",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 17829:2022 - Ayurvedic Polyherbal Formulation — Chyawanprash — Specificat",
+      "topFamily": "Chyawanprash Avaleha (Ayurvedic Polyherbal Formulation) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 4,
+      "council": "AYD",
+      "query": "Brahmi memory and cognitive herbal extract",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 16503:2017 - Ayush — Good Agricultural and Collection Practices (GACP) fo",
+      "topFamily": "Brahmi Syrup for Memory Enhancement (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 5,
+      "council": "AYD",
+      "query": "Cold pressed pure neem oil for dermatology",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 16503:2017 - Ayush — Good Agricultural and Collection Practices (GACP) fo",
+      "topFamily": "Cold Pressed Neem Kernel Oil and Formulations (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 6,
+      "council": "CHD",
+      "query": "Caustic soda flakes for industrial scouring",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 252:2013 - Caustic Soda, Pure and Technical — Specification (Fifth Revi",
+      "topFamily": "Caustic Soda (Sodium Hydroxide) — Flakes and Lye (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 7,
+      "council": "CHD",
+      "query": "Stable bleaching powder for municipal water disinfection",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 283:1976 - Specification for Liquid Chlorine, Technical (Second Revisio",
+      "topFamily": "Stable Bleaching Powder (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 8,
+      "council": "CHD",
+      "query": "Technical sulfuric acid 98% commercial grade",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 266:1993 - Sulphuric Acid — Specification (Third Revision)",
+      "topFamily": "Phosphoric Acid Technical and Food Grade (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 9,
+      "council": "CHD",
+      "query": "Synthetic detergent washing powder",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4955:2020 - Household Laundry Detergent Powders — Specification (Fourth ",
+      "topFamily": "Synthetic Detergent Powder (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 10,
+      "council": "CHD",
+      "query": "Grade 1 toilet soap with 76% TFM",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2888:2021 - Toilet Soap — Specification (Third Revision)",
+      "topFamily": "Toilet Soap Grade 1 (TFM 76%) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 11,
+      "council": "CED",
+      "query": "Ordinary Portland Cement 53 grade",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 269:2015 - Ordinary Portland Cement — Specification (Sixth Revision)",
+      "topFamily": "Ordinary Portland Cement (OPC) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 12,
+      "council": "CED",
+      "query": "Portland Pozzolana Cement fly ash based",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1489 (Part 1):2015 - Portland Pozzolana Cement — Specification Part 1: Fly Ash Ba",
+      "topFamily": "Portland Pozzolana Cement (PPC) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 13,
+      "council": "CED",
+      "query": "Ready mixed concrete RMC batching",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4926:2003 - Ready-Mixed Concrete — Code of Practice (Second Revision)",
+      "topFamily": "Ready-Mixed Concrete (RMC) (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 14,
+      "council": "CED",
+      "query": "Vitrified polished porcelain floor tiles",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 15622:2017 - Pressed Ceramic Tiles — Specification (First Revision)",
+      "topFamily": "Fully Vitrified Polished Porcelain Floor Tiles (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 15,
+      "council": "CED",
+      "query": "Precast concrete paving blocks for footpaths",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 15658:2006 - Precast Concrete Blocks for Paving — Specification",
+      "topFamily": "Precast Concrete Paver Blocks (Interlocking Pavers) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 16,
+      "council": "LITD",
+      "query": "Laptop personal computer system with power adapter",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13252 (Part 1):2010 - Information Technology Equipment — Safety — Part 1: General ",
+      "topFamily": "Laptop Personal Computer Systems (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 17,
+      "council": "LITD",
+      "query": "Smart LED television display monitor",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 616:2017 - Audio, Video and Similar Electronic Apparatus — Safety Requi",
+      "topFamily": "Visual Display Units (LED/LCD Computer Monitors) (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 18,
+      "council": "LITD",
+      "query": "Rechargeable lithium ion battery pack for electronic devices",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 16046 (Part 2):2018 - Secondary Cells and Batteries Containing Alkaline or Other N",
+      "topFamily": "Lithium Nickel Manganese Cobalt (NMC) Battery Packs (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 19,
+      "council": "LITD",
+      "query": "Desktop laser printer and scanner",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 616:2017 - Audio, Video and Similar Electronic Apparatus — Safety Requi",
+      "topFamily": "Single-Function Laser Printers (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 20,
+      "council": "LITD",
+      "query": "Biometric optical fingerprint scanner terminal",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13252 (Part 1):2010 - Information Technology Equipment — Safety — Part 1: General ",
+      "topFamily": "Biometric Optical Fingerprint Readers (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 21,
+      "council": "ETD",
+      "query": "Distribution transformer 11kV step down",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1180 (Part 1):2014 - Outdoor/Indoor Type Oil-Immersed Distribution Transformers U",
+      "topFamily": "Oil-Immersed Distribution Transformers 11kV/433V (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 22,
+      "council": "ETD",
+      "query": "Low voltage XLPE power cables 1.1kV",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 7098 (Part 1):1988 - Crosslinked Polyethylene Insulated Thermoplastic Sheathed Ca",
+      "topFamily": "Low Voltage XLPE Power Cables 1.1kV (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 23,
+      "council": "ETD",
+      "query": "Miniature circuit breaker 10kA for domestic protection",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/IEC 60898-1:2015 - Electrical Accessories — Circuit-Breakers for Overcurrent Pr",
+      "topFamily": "Miniature Circuit Breakers (MCB) 10kA (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 24,
+      "council": "ETD",
+      "query": "Residual current circuit breaker 30mA earth leakage",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 12640 (Part 1):2016 - Residual Current Operated Circuit-Breakers Without Integral ",
+      "topFamily": "Residual Current Circuit Breakers (RCCB) 30mA (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 25,
+      "council": "ETD",
+      "query": "Energy efficient 3-phase induction motor IE3",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 12615:2018 - Line Operated Three Phase a.c. Motors (IE CODE) — Efficiency",
+      "topFamily": "Three-Phase Energy Efficient Induction Motors (IE2/IE3/IE4) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 26,
+      "council": "EED",
+      "query": "High volume air sampler for PM2.5 and PM10 particulate monitoring",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 5182 (Part 23):2006 - Methods for Measurement of Air Pollution — Part 23: Respirab",
+      "topFamily": "High Volume Air Samplers for PM2.5 and PM10 (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 27,
+      "council": "EED",
+      "query": "Biodegradable starch based compostable carry bags",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 17088:2021 - Plastics — Organic Recycling — Specifications for Compostabl",
+      "topFamily": "Biodegradable Starch-Based Carry Bags (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 28,
+      "council": "EED",
+      "query": "Precision sound level meter for noise pollution audit",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Precision Type 1 Sound Level Meters (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 29,
+      "council": "EED",
+      "query": "Continuous ambient air quality monitoring system",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 5182 (Part 24):2019 - Methods for Measurement of Air Pollution: Part 24 Particulat",
+      "topFamily": "Continuous Ambient Air Quality Monitoring Stations (CAAQMS) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 30,
+      "council": "EED",
+      "query": "Industrial reverse osmosis desalination membranes",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Industrial Reverse Osmosis (RO) Desalination Membranes (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 31,
+      "council": "FAD",
+      "query": "Fortified whole wheat chakki atta",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1155:1968 - Wheat Atta — Specification (Second Revision)",
+      "topFamily": "Fortified Wheat Flour (Chakki Atta + Iron & Folic Acid) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 32,
+      "council": "FAD",
+      "query": "Processed cereal based weaning foods for infants",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 11536:2014 - Processed Cereal-Based Complementary Foods for Infants — Spe",
+      "topFamily": "Processed Mozzarella and Cheddar Cheese Blocks (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 33,
+      "council": "FAD",
+      "query": "Infant milk substitute baby formula powder",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1165:2002 - Milk Powder — Specification (Fourth Revision)",
+      "topFamily": "Spray-Dried Skimmed Milk Powder (SMP) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 34,
+      "council": "FAD",
+      "query": "Packaged natural mineral water in bottles",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13428:2005 - Packaged Natural Mineral Water — Specification (Second Revis",
+      "topFamily": "Packaged Natural Mineral Water in Glass Bottles (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 35,
+      "council": "FAD",
+      "query": "Spray dried skimmed milk powder",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1165:2002 - Milk Powder — Specification (Fourth Revision)",
+      "topFamily": "Spray-Dried Skimmed Milk Powder (SMP) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 36,
+      "council": "MSD",
+      "query": "Quality management system ISO 9001 certification framework",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 9001:2015 - Quality Management Systems — Requirements (Fifth Revision)",
+      "topFamily": "Quality Management System ISO 9001 Auditing Framework (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 37,
+      "council": "MSD",
+      "query": "Environmental management system ISO 14001 auditing",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 14001:2015 - Environmental Management Systems — Requirements with Guidanc",
+      "topFamily": "Environmental Management System ISO 14001 Auditing Framework (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 38,
+      "council": "MSD",
+      "query": "Occupational health and safety ISO 45001",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 45001:2018 - Occupational Health and Safety Management Systems — Requirem",
+      "topFamily": "Occupational Health and Safety Management Systems (IS/ISO 45001) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 39,
+      "council": "MSD",
+      "query": "Energy management system ISO 50001",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 50001:2018 - Energy Management Systems — Requirements with Guidance for U",
+      "topFamily": "Energy Management System ISO 50001 Framework (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 40,
+      "council": "MSD",
+      "query": "Information security management ISO/IEC 27001 ISMS",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO/IEC 27001:2022 - Information Security, Cybersecurity and Privacy Protection —",
+      "topFamily": "Information Security Management ISO/IEC 27001 Framework (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 41,
+      "council": "MED",
+      "query": "Submersible pumpset for deep tube well borewell",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 8034:2018 - Submersible Pumpsets — Specification (Third Revision)",
+      "topFamily": "Submersible Borewell Pumpsets for Clean Water (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 42,
+      "council": "MED",
+      "query": "Unitary room window air conditioner",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 659:1964 - Safety Code for Air Conditioning (Revised)",
+      "topFamily": "Room Air Conditioners — Split and Window Type (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 43,
+      "council": "MED",
+      "query": "Split air conditioner with inverter cooling",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 659:1964 - Safety Code for Air Conditioning (Revised)",
+      "topFamily": "Room Air Conditioners — Split and Window Type (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 44,
+      "council": "MED",
+      "query": "Sluice valve for municipal water supply pipelines",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 14846:2000 - Sluice Valves for Water Works Purposes (50 to 1200 mm Size) ",
+      "topFamily": "Air Release and Vacuum Relief Valves for Water Mains (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 45,
+      "council": "MED",
+      "query": "Electric wire rope hoist for material handling",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 3938:1983 - Specification for Electric Wire Rope Hoists (Second Revision",
+      "topFamily": "Electric Wire Rope Hoists for Cranes (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 46,
+      "council": "MHD",
+      "query": "Sterile single-use plastic hypodermic syringe",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 10258:2002 - Sterile Hypodermic Syringes for Single Use — Specification (",
+      "topFamily": "Sterile Single-Use Hypodermic Syringes (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 47,
+      "council": "MHD",
+      "query": "Single use sterile rubber surgical operating gloves",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4148:1989 - Surgical Rubber Gloves — Specification (Second Revision)",
+      "topFamily": "Sterile Disposable Surgical Rubber Gloves (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 48,
+      "council": "MHD",
+      "query": "Clinical electronic digital thermometer",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 14682:2004 - Clinical Electrical Thermometers with Maximum Device — Speci",
+      "topFamily": "Digital Electronic Thermometers (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 49,
+      "council": "MHD",
+      "query": "Multi parameter bedside patient vital signs monitor",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13450 (Part 1):2018 - Medical Electrical Equipment: Part 1 General Requirements fo",
+      "topFamily": "Multi-Parameter Bedside Patient Monitors (12-Inch) (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 50,
+      "council": "MHD",
+      "query": "Hospital ICU mechanical ventilator life support",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13450 (Part 1):2018 - Medical Electrical Equipment: Part 1 General Requirements fo",
+      "topFamily": "ICU Mechanical Ventilators (Invasive & Non-Invasive) (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 51,
+      "council": "MTD",
+      "query": "Structural steel plates and sections Fe 410",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2062:2011 - Hot Rolled Medium and High Tensile Structural Steel — Specif",
+      "topFamily": "Structural Steel Sections (Beams, Columns, Channels, Angles) (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 52,
+      "council": "MTD",
+      "query": "High strength deformed TMT rebars Fe 500D",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1786:2008 - High Strength Deformed Steel Bars and Wires for Concrete Rei",
+      "topFamily": "High Strength Deformed Steel Bars (TMT Rebars) (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 53,
+      "council": "MTD",
+      "query": "Cold rolled non-oriented electrical steel CRNO",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 6911:2017 - Stainless Steel Plate, Sheet and Strip — Specification (Seco",
+      "topFamily": "Cold Rolled Non-Grain Oriented Steel (CRNO) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 54,
+      "council": "MTD",
+      "query": "Electrolytic tough pitch copper busbars ETP",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2553 (Part 2):2019 - Safety Glass — Specification — Part 2: For Road Transport (T",
+      "topFamily": "Electrolytic Tough Pitch (ETP) Copper Busbars (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 55,
+      "council": "MTD",
+      "query": "Special high grade zinc ingots for galvanizing",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 191:2007 - Copper — Specification (Fifth Revision)",
+      "topFamily": "Special High Grade (SHG) Zinc Ingots 99.995% (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 56,
+      "council": "PCD",
+      "query": "Motor gasoline BS-VI petrol fuel",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2796:2017 - Motor Gasoline — Specification (Fifth Revision)",
+      "topFamily": "Motor Gasoline (Petrol BS-VI) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 57,
+      "council": "PCD",
+      "query": "High speed diesel BS-VI commercial fuel",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1460:2017 - Automotive Diesel Fuel — Specification (Sixth Revision)",
+      "topFamily": "Automotive Diesel Fuel (High Speed Diesel BS-VI) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 58,
+      "council": "PCD",
+      "query": "Synthetic multigrade engine oil SAE 5W-30",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13656:2019 - Internal Combustion Engine Crankcase Oils (Diesel and Gasoli",
+      "topFamily": "Synthetic Automotive Engine Oil SAE 5W-30 (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 59,
+      "council": "PCD",
+      "query": "Lithium complex extreme pressure grease EP-2",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Lithium Complex Extreme Pressure Grease EP-2 (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 60,
+      "council": "PCD",
+      "query": "Fully refined white paraffin wax slab",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Fully Refined Paraffin Wax (Slab Form) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 61,
+      "council": "PGD",
+      "query": "High tensile hexagonal bolts grade 8.8",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1367 (Part 1):2014 - Fasteners — Technical Supply Conditions: Part 1 General Requ",
+      "topFamily": "High Tensile Hexagonal Head Bolts Grade 8.8 / 10.9 (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 62,
+      "council": "PGD",
+      "query": "High tensile heavy hex nuts grade 8",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1367 (Part 1):2014 - Fasteners — Technical Supply Conditions: Part 1 General Requ",
+      "topFamily": "High Tensile Heavy Hex Nuts Grade 8 / 10 (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 63,
+      "council": "PGD",
+      "query": "Digital vernier caliper precision measuring tool",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 3651 (Part 1):1982 - Vernier Callipers — Part 1: Vernier Callipers Reading to 0.1",
+      "topFamily": "Engineering Vernier Callipers and Digital Callipers (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 64,
+      "council": "PGD",
+      "query": "Solid carbide 4-flute end mill cutter",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Solid Carbide End Mills 4-Flute TiAlN Coated (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 65,
+      "council": "PGD",
+      "query": "Shielded metal arc welding electrodes E6013",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 1367 (Part 1):2014 - Fasteners — Technical Supply Conditions: Part 1 General Requ",
+      "topFamily": "Mild Steel Shielded Metal Arc Welding Electrodes E6013 (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 66,
+      "council": "SSD",
+      "query": "Scheduled commercial retail banking branch operations",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 9001:2015 - Quality Management Systems — Requirements (Fifth Revision)",
+      "topFamily": "Scheduled Commercial Retail Banking Branch Services (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 67,
+      "council": "SSD",
+      "query": "Digital mobile payment gateway transactions",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 9001:2015 - Quality Management Systems — Requirements (Fifth Revision)",
+      "topFamily": "Digital Mobile Banking and Payment Gateway Systems (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 68,
+      "council": "SSD",
+      "query": "Public municipal grievance redressal Sevottam citizen charter",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 15700:2018 - Quality Management Systems — Requirements for Service Delive",
+      "topFamily": "Public Municipal Grievance Redressal and Citizen Delivery (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 69,
+      "council": "SSD",
+      "query": "Hospitality services in heritage resort hotel",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 9001:2015 - Quality Management Systems — Requirements (Fifth Revision)",
+      "topFamily": "Heritage Tourism Hotel and Resort Hospitality Services (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 70,
+      "council": "SSD",
+      "query": "Professional chartered accountancy statutory audit services",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS/ISO 9001:2015 - Quality Management Systems — Requirements (Fifth Revision)",
+      "topFamily": "Professional Chartered Accountancy Statutory Audit Services (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 71,
+      "council": "TXD",
+      "query": "High density polyethylene woven sacks for packaging foodgrains",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 14887:2014 - High Density Polyethylene (HDPE) / Polypropylene (PP) Woven ",
+      "topFamily": "High Density Polyethylene (HDPE Granules) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 72,
+      "council": "TXD",
+      "query": "Polypropylene woven sacks for packing cement",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 12419:1988 - Woven Sacks for Packing Cement — Specification",
+      "topFamily": "Non-Woven Polypropylene Geotextiles for Civil Engineering (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 73,
+      "council": "TXD",
+      "query": "Protective clothing for industrial workers exposed to heat",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2925:1984 - Specification for Industrial Safety Helmets (Second Revision",
+      "topFamily": "Shell and Tube Industrial Heat Exchangers (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 74,
+      "council": "TXD",
+      "query": "Medical textiles surgical 3-ply face mask",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4148:1989 - Surgical Rubber Gloves — Specification (Second Revision)",
+      "topFamily": "Medical Surgical Drapes and Gowns (SMS Nonwoven) (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 75,
+      "council": "TXD",
+      "query": "Needle punched nonwoven geotextile felts",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 16391:2015 - High-Visibility Warning Clothes — Specification",
+      "topFamily": "Non-Woven Needle Punched Geotextile Felts (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 76,
+      "council": "TED",
+      "query": "Protective helmet for two-wheeler motorcycle riders",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4151:2015 - Protective Helmets for Two Wheeler Riders — Specification (F",
+      "topFamily": "Protective Helmets for Two-Wheeler Motor Vehicles (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 77,
+      "council": "TED",
+      "query": "Automotive safety glass windshield for passenger car",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 2553 (Part 2):2019 - Safety Glass — Specification — Part 2: For Road Transport (T",
+      "topFamily": "Safety Glass for Road Vehicles (Laminated Windscreens & Toughened Glass) (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 78,
+      "council": "TED",
+      "query": "Pneumatic tyres for two and three wheeled motor vehicles",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 4151:2015 - Protective Helmets for Two Wheeler Riders — Specification (F",
+      "topFamily": "Protective Helmets for Two-Wheeler Motor Vehicles (VERIFIED_PRIMARY)",
+      "mandatoryQco": true
+    },
+    {
+      "index": 79,
+      "council": "TED",
+      "query": "Automotive hydraulic brake hose assembly",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 14283:1995 - Automotive Vehicles — Hydraulic Brake Hose Assemblies for Us",
+      "topFamily": "Hydraulic Brake Hose Assemblies (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 80,
+      "council": "TED",
+      "query": "Automotive waterproof electric signaling horn",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 10258:2002 - Sterile Hypodermic Syringes for Single Use — Specification (",
+      "topFamily": "Automotive Waterproof Electronic High-Tone Horns (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 81,
+      "council": "WRD",
+      "query": "Drip irrigation inline cylindrical emitters 16mm",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 13488:2008 - Irrigation Equipment — Emitters and Emitting Pipes — Specifi",
+      "topFamily": "Drip Irrigation Cylindrical Inline Emitters 16mm (VERIFIED_PRIMARY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 82,
+      "council": "WRD",
+      "query": "Micro sprinkler assemblies 360 degree rotor",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 12785:1994 - Irrigation Equipment — Strainer-Type Filters — Specification",
+      "topFamily": "Micro Sprinkler Assemblies 360-Degree Rotor (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 83,
+      "council": "WRD",
+      "query": "Vertical lift fabricated steel canal sluice gates",
+      "hasMatch": false,
+      "count": 0,
+      "topStandard": "None",
+      "topFamily": "Vertical Lift Fabricated Steel Canal Sluice Gates (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 84,
+      "council": "WRD",
+      "query": "Precast concrete interlocking canal lining slabs",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 516 (Part 1/Sec 1):2021 - Hardened Concrete — Methods of Test: Part 1 Testing of Stren",
+      "topFamily": "Precast Concrete Interlocking Canal Lining Slabs (SUPPORTING_REFERENCES_ONLY)",
+      "mandatoryQco": false
+    },
+    {
+      "index": 85,
+      "council": "WRD",
+      "query": "Full bore electromagnetic water transmission flow meter",
+      "hasMatch": true,
+      "count": 3,
+      "topStandard": "IS 6784:1996 - Method for Performance Testing of Water Meters (Mechanical) ",
+      "topFamily": "Full Bore Electromagnetic Water Transmission Meters (DISCOVERED_CATALOGUE_ONLY)",
+      "mandatoryQco": false
+    }
+  ]
+}

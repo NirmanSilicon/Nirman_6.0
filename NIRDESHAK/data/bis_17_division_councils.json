@@ -1,0 +1,121 @@
+[
+  {
+    "council_number": 1,
+    "sector_code": "AYUSH",
+    "name": "AYUSH",
+    "division_council_code": "AYD",
+    "description": "Formulation of Indian Standards in the field of Ayurveda, Yoga & Naturopathy, Unani, Siddha, Sowa-Rigpa and Homoeopathy, including raw materials, finished herbal products, processing methods, and clinical equipment."
+  },
+  {
+    "council_number": 2,
+    "sector_code": "CHEM",
+    "name": "Chemical",
+    "division_council_code": "CHD",
+    "description": "Standardization in the field of chemicals, chemical engineering, industrial chemicals, fertilizers, pesticides, paints, pigments, detergents, cosmetics, plastics, rubber, laboratory reagents, and treated chemical products."
+  },
+  {
+    "council_number": 3,
+    "sector_code": "CIVIL",
+    "name": "Civil Engineering",
+    "division_council_code": "CED",
+    "description": "Standardization in the field of civil engineering including building construction materials, cement, concrete, structural steel, timber, pipes, sanitary fittings, doors, windows, waterproofing, foundation engineering, and National Building Code."
+  },
+  {
+    "council_number": 4,
+    "sector_code": "ELEC_IT",
+    "name": "Electronics and Information Technology",
+    "division_council_code": "LITD",
+    "description": "Standardization in the field of electronics, telecommunications, IT, computer hardware, displays, peripherals, audio/video equipment, semiconductors, optical electronics, IoT, AI, cybersecurity, and smart manufacturing."
+  },
+  {
+    "council_number": 5,
+    "sector_code": "ELECTRO",
+    "name": "Electrotechnical",
+    "division_council_code": "ETD",
+    "description": "Standardization in the field of electrical power generation, transmission, distribution, electrical machinery, transformers, cables, switchgear, protection devices, household electrical appliances, solar PV, batteries, and earthing."
+  },
+  {
+    "council_number": 6,
+    "sector_code": "ENV_ECO",
+    "name": "Environment and Ecology",
+    "division_council_code": "EED",
+    "description": "Standardization in environmental protection, environmental monitoring, pollution control equipment, air and water quality sampling, eco-labelling (ECO Mark), solid and electronic waste management, and greenhouse gas accounting."
+  },
+  {
+    "council_number": 7,
+    "sector_code": "FOOD_AGRI",
+    "name": "Food and Agriculture",
+    "division_council_code": "FAD",
+    "description": "Standardization in agricultural machinery, tractors, food processing, grains, cereals, pulses, dairy products, edible oils, spices, food additives, packaging materials for food, animal feed, and post-harvest technology."
+  },
+  {
+    "council_number": 8,
+    "sector_code": "MGMT_SYS",
+    "name": "Management and Systems",
+    "division_council_code": "MSD",
+    "description": "Standardization in management systems including Quality Management (IS/ISO 9001), Environmental Management (IS/ISO 14001), Occupational Health & Safety (IS/ISO 45001), Energy Management (IS/ISO 50001), Information Security, and Social Responsibility."
+  },
+  {
+    "council_number": 9,
+    "sector_code": "MECH",
+    "name": "Mechanical Engineering",
+    "division_council_code": "MED",
+    "description": "Standardization in industrial machinery, pumps, compressors, valves, cranes, hoisting equipment, pressure vessels, boilers, refrigeration, air conditioning, bearings, internal combustion engines, and mechanical engineering plant."
+  },
+  {
+    "council_number": 10,
+    "sector_code": "MED_HOSP",
+    "name": "Medical Equipment and Hospital Planning",
+    "division_council_code": "MHD",
+    "description": "Standardization in surgical instruments, medical devices, diagnostic equipment, electro-medical equipment, patient monitoring devices, hospital furniture, implants, prosthetics, syringes, surgical gloves, and healthcare infrastructure."
+  },
+  {
+    "council_number": 11,
+    "sector_code": "METALLURGY",
+    "name": "Metallurgical Engineering",
+    "division_council_code": "MTD",
+    "description": "Standardization in ferrous and non-ferrous metals, steel rebars, structural steels, pig iron, cast iron, copper, aluminium, zinc, lead, alloys, metal sheets, pipes, welding consumables, foundry products, and heat treatment."
+  },
+  {
+    "council_number": 12,
+    "sector_code": "PETRO_COAL",
+    "name": "Petroleum, Coal and Related Products",
+    "division_council_code": "PCD",
+    "description": "Standardization in petroleum fuels (petrol, diesel, aviation turbine fuel), lubricants, greases, LPG, CNG, natural gas, coal, coke, petrochemical products, synthetic rubber, polymers, cosmetics, toys, and sports equipment."
+  },
+  {
+    "council_number": 13,
+    "sector_code": "PROD_GEN",
+    "name": "Production and General Engineering",
+    "division_council_code": "PGD",
+    "description": "Standardization in machine tools, manufacturing equipment, industrial cutting tools, hand tools, abrasives, engineering metrology, dimensional gauging, fasteners (bolts, nuts, screws), robotics, automation, and general workshop equipment."
+  },
+  {
+    "council_number": 14,
+    "sector_code": "SERVICE",
+    "name": "Service Sector",
+    "division_council_code": "SSD",
+    "description": "Standardization in services including banking, financial services, education, tourism, hospitality, healthcare services, logistics, transport services, e-commerce, customer care, and IT-enabled services."
+  },
+  {
+    "council_number": 15,
+    "sector_code": "TEXTILE",
+    "name": "Textiles",
+    "division_council_code": "TXD",
+    "description": "Standardization in natural fibres (cotton, jute, wool, silk), synthetic fibres, yarn, fabrics, garments, technical textiles, geotextiles, medical textiles, protective clothing, industrial filter fabrics, and textile machinery."
+  },
+  {
+    "council_number": 16,
+    "sector_code": "TRANSPORT",
+    "name": "Transport Engineering",
+    "division_council_code": "TED",
+    "description": "Standardization in road vehicles, automotive components, two-wheelers, passenger cars, commercial vehicles, tyres, tubes, braking systems, safety helmets, automotive lighting, electric vehicles, railway rolling stock, signalling, and maritime transport."
+  },
+  {
+    "council_number": 17,
+    "sector_code": "WATER",
+    "name": "Water Resources",
+    "division_council_code": "WRD",
+    "description": "Standardization in water resource development, irrigation equipment, canal structures, dam instrumentation, water distribution systems, flow measurement, hydrology, groundwater recharge, water storage tanks, and flood management."
+  }
+]

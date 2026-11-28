@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "standardId": 3,
+  "is_number": "IS 2925:1984",
+  "title": "Specification for Industrial Safety Helmets",
+  "versionStatus": {
+    "statusCategory": "current",
+    "statusValue": "active",
+    "hasAmendments": true,
+    "amendmentInfo": [
+      "Amendment No. 1",
+      "Amendment No. 2",
+      "Amendment No. 3",
+      "Amendment No. 4",
+      "Amendment No. 5",
+      "Amendment No. 6",
+      "Amendment No. 7",
+      "Amendment No. 8"
+    ],
+    "isSuperseded": false,
+    "supersededBy": null,
+    "supersedes": "IS 2925:1975",
+    "version": "IS 2925:1984 (Reaffirmed 2020)",
+    "publicationYear": 1984,
+    "summary": "Database status indicates this standard is active, with amendment information available."
+  }
+}

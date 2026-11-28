@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "standardId": 3,
+  "is_number": "IS 2925:1984",
+  "title": "Specification for Industrial Safety Helmets",
+  "certification": {
+    "hasCertificationInfo": true,
+    "scheme": "BIS Scheme-I / Standard Mark (ISI Licensing)",
+    "schemeDetected": true,
+    "requirementExplicit": false,
+    "requirementValue": null,
+    "details": {
+      "scheme": "BIS Scheme-I / Standard Mark (ISI Licensing)",
+      "qcoOrder": "Helmet for Police Force, Civil Defence and Personal Protection (Quality Control) Order, 2023",
+      "requirementValue": "Mandatory BIS Standard Mark under S.O. 4649(E)",
+      "gazetteNotification": "S.O. 4649(E)",
+      "requirementExplicit": true,
+      "hasCertificationInfo": true,
+      "regulatoryRequirement": "Covered goods/articles shall conform to IS 2925:1984 and bear the Standard Mark under a BIS licence."
+    },
+    "source": "BIS Product Manual for IS 2925:1984; S.O. 4649(E)",
+    "dataContext": "official_record"
+  }
+}
