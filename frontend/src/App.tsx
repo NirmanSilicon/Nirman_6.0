@@ -16,14 +16,18 @@ import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { TelemetryFragment } from './types';
 import { TELEMETRY_FRAGMENTS } from './data/incidentData';
 import { CaelisPage } from './pages/Caelis/CaelisPage';
+import { MissionLabPage } from './pages/MissionLab/MissionLabPage';
+import { CausalReconstructionPage } from './pages/Reconstruction/CausalReconstructionPage';
+import { EvidenceTracePage } from './pages/EvidenceTrace/EvidenceTracePage';
+import { IncidentReportPage } from './pages/IncidentReport/IncidentReportPage';
 import { SyntheticMissionData } from './types/caelis';
 import { AnalysisProvider, useAnalysis } from './context/AnalysisContext';
 
 function AppContent() {
-  const { backendConnected, checkBackendHealth } = useAnalysis();
+  const { backendConnected, backendHealth, checkBackendHealth, isBackendChecking, analysis, status } = useAnalysis();
   const { smoothScrollTo } = useSmoothScroll();
   const [isPreloading, setIsPreloading] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<'home' | 'telemetry'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'caelis' | 'mission-lab' | 'reconstruction' | 'evidence-trace' | 'incident-report'>('home');
   const [activeSyntheticData, setActiveSyntheticData] = useState<SyntheticMissionData | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     try {
@@ -68,6 +72,7 @@ function AppContent() {
     const sections = ['incident', 'trace', 'evidence', 'origin', 'fix', 'case-closed'];
     
     const observer = new IntersectionObserver((entries) => {
+      // Find the most visible intersecting section
       let mostVisible = null;
       let maxRatio = 0;
       
@@ -82,8 +87,8 @@ function AppContent() {
         setActiveSection(mostVisible);
       }
     }, {
-      rootMargin: '-20% 0px -50% 0px',
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0]
+      rootMargin: '-20% 0px -50% 0px', // Adjusted to trigger roughly near the upper-middle of viewport
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1.0] // Granular thresholds to track the most visible
     });
 
     sections.forEach(id => {
@@ -95,38 +100,54 @@ function AppContent() {
   }, []);
 
   const handleNavigate = (sectionId: string) => {
-    // If Telemetry tab or any analysis sub-route requested
-    if (
-      sectionId === 'telemetry' || 
-      sectionId === 'caelis' || 
-      sectionId === 'mission-lab' || 
-      sectionId === 'reconstruction' || 
-      sectionId === 'evidence-trace' || 
-      sectionId === 'incident-report'
-    ) {
-      setCurrentPage('telemetry');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    
-    if (sectionId === 'home' || sectionId === 'top') {
-      if (currentPage !== 'home') {
-        setCurrentPage('home');
-      }
+    if (sectionId === 'origin') {
+      setCurrentPage('caelis');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
+    if (sectionId === 'mission-lab' || sectionId === 'trace') {
+      setCurrentPage('mission-lab');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (sectionId === 'evidence' || sectionId === 'reconstruction') {
+      setCurrentPage('reconstruction');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (sectionId === 'evidence-trace') {
+      setCurrentPage('evidence-trace');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (sectionId === 'incident-report' || sectionId === 'report' || sectionId === 'case-closed') {
+      setCurrentPage('incident-report');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    
     if (currentPage !== 'home') {
       setCurrentPage('home');
       // Give React time to render home before scrolling
       setTimeout(() => {
+        if (sectionId === 'top') {
+          smoothScrollTo(0, 0);
+          return;
+        }
         const element = document.getElementById(sectionId);
         if (element) smoothScrollTo(element, -65);
       }, 50);
       return;
     }
 
+    if (sectionId === 'top') {
+      smoothScrollTo(0, 0);
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       smoothScrollTo(element, -65);
@@ -141,7 +162,7 @@ function AppContent() {
   return (
     <div className={`min-h-screen relative transition-colors duration-500 selection:bg-[#DC143C] selection:text-[#FAF6EE] ${theme === 'dark' ? 'dark bg-[#080B11] text-[#FAF6EE]' : 'bg-[#F0EAD6] text-[#1A1A1A]'}`}>
       
-      {/* Incident Dossier Loading Screen */}
+      {/* Incident Dossier Loading Screen (runs on initial load, respects once-per-session) */}
       {isPreloading && (
         <Preloader 
           theme={theme} 
@@ -152,15 +173,28 @@ function AppContent() {
       {/* Global Heavy Grunge Scratched Film Grain & Noise Overlay */}
       <div className="grunge-overlay pointer-events-none"></div>
 
-      {/* Reactive Twinkling Stars, Earths & Orbiting Satellites */}
+
+      {/* Reactive Twinkling Stars, Earths & Orbiting Satellites with Close-Pass Sparks (Satellites active on Home page only) */}
       <TwinklingStarfield theme={theme} showSatellites={currentPage === 'home'} />
 
-      {/* Sticky Navigation Header with 2 Tabs: HOME & TELEMETRY ANALYSIS */}
+      {/* Sticky Case Navigation Header */}
       <Navbar
         theme={theme}
         onToggleTheme={handleToggleTheme}
         showThemeToggle={currentPage === 'home'}
-        activeSection={currentPage === 'telemetry' ? 'telemetry' : activeSection}
+        activeSection={
+          currentPage === 'caelis' 
+            ? 'origin' 
+            : currentPage === 'mission-lab' 
+              ? 'trace' 
+              : currentPage === 'reconstruction'
+                ? 'evidence'
+                : currentPage === 'evidence-trace'
+                  ? 'evidence-trace'
+                  : currentPage === 'incident-report'
+                    ? 'incident-report'
+                    : activeSection
+        }
         onNavigate={handleNavigate}
         onOpenDossier={() => {
           setSelectedFragment(TELEMETRY_FRAGMENTS[0]);
@@ -170,33 +204,129 @@ function AppContent() {
         onToggleJitter={() => setJitterEnabled(!jitterEnabled)}
       />
 
-      {/* Global Sovereign / Backend Connectivity Banner */}
-      {!backendConnected && (
+      {/* Global Sovereign / Deployment Mode Connectivity Strip */}
+      {backendConnected && backendHealth ? (
+        <div className={`border-b px-4 py-1.5 text-xs font-mono flex items-center justify-between z-40 relative transition-colors ${
+          backendHealth.mode === 'SOVEREIGN'
+            ? 'bg-[#141A14] border-emerald-800/60 text-emerald-300'
+            : 'bg-[#101726] border-sky-800/60 text-sky-300'
+        }`}>
+          <div className="flex items-center space-x-2.5">
+            <span className={`w-2 h-2 rounded-full inline-block animate-pulse ${
+              backendHealth.mode === 'SOVEREIGN' ? 'bg-emerald-400' : 'bg-sky-400'
+            }`} />
+            <span>
+              <strong>{backendHealth.mode === 'SOVEREIGN' ? 'SOVEREIGN AIR-GAPPED MODE:' : 'CLOUD DEMO MODE:'}</strong>{' '}
+              Backend Active · {backendHealth.database.type.toUpperCase()} · AI {backendHealth.ai_engine.version} Online (Zero Egress Enforced)
+            </span>
+          </div>
+          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-black/40 border border-current">
+            PORT 8000 LIVE
+          </span>
+        </div>
+      ) : (
         <div className="bg-amber-950/80 border-b border-amber-500/40 text-amber-200 px-4 py-1.5 text-xs font-mono flex items-center justify-between z-40 relative">
           <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />
+            <span className={`w-2 h-2 rounded-full bg-amber-400 inline-block ${isBackendChecking ? 'animate-ping' : ''}`} />
             <span>
-              <strong>Sovereign Mode:</strong> Backend offline or air-gapped. Running with verified local reference model.
+              <strong>Air-Gapped Standby:</strong> {isBackendChecking ? 'Connecting to backend API on port 8000...' : 'Backend offline. Operating with verified local reference model.'}
             </span>
           </div>
           <button
             onClick={() => checkBackendHealth()}
-            className="px-2 py-0.5 rounded bg-amber-900/60 hover:bg-amber-800 text-amber-100 border border-amber-600/50 text-[11px] cursor-pointer"
+            disabled={isBackendChecking}
+            className="px-2.5 py-0.5 rounded bg-amber-900/60 hover:bg-amber-800 disabled:opacity-50 text-amber-100 border border-amber-600/50 text-[11px] cursor-pointer transition-colors flex items-center gap-1.5"
+            title="Ping backend /api/health/ endpoint"
           >
-            Retry Connection
+            {isBackendChecking ? (
+              <>
+                <svg className="animate-spin h-3 w-3 text-amber-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Connecting...</span>
+              </>
+            ) : (
+              'Retry Connection'
+            )}
           </button>
         </div>
       )}
 
-      {currentPage === 'telemetry' ? (
+      {currentPage === 'caelis' ? (
         <CaelisPage 
-          onBack={() => {
-            setCurrentPage('home');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }} 
+          onBack={() => setCurrentPage('home')} 
           theme={theme}
           onNavigateToSection={(sec) => handleNavigate(sec)}
           activeSyntheticData={activeSyntheticData}
+          onOpenMissionLab={() => {
+            setCurrentPage('mission-lab');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenReconstruction={() => {
+            setCurrentPage('reconstruction');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+      ) : currentPage === 'mission-lab' ? (
+        <MissionLabPage 
+          onBack={() => setCurrentPage('home')}
+          theme={theme}
+          onOpenAnalysis={(scenarioId, syntheticData) => {
+            if (syntheticData) {
+              setActiveSyntheticData(syntheticData);
+            }
+            setCurrentPage('caelis');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        />
+      ) : currentPage === 'reconstruction' ? (
+        <CausalReconstructionPage
+          onBack={() => setCurrentPage('home')}
+          onOpenCaelis={() => {
+            setCurrentPage('caelis');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenMissionLab={() => {
+            setCurrentPage('mission-lab');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenEvidenceTrace={() => {
+            setCurrentPage('evidence-trace');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onNavigateToSection={(sec) => handleNavigate(sec)}
+          theme={theme}
+        />
+      ) : currentPage === 'evidence-trace' ? (
+        <EvidenceTracePage
+          onBack={() => setCurrentPage('home')}
+          onOpenReconstruction={() => {
+            setCurrentPage('reconstruction');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenCaelis={() => {
+            setCurrentPage('caelis');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          theme={theme}
+        />
+      ) : currentPage === 'incident-report' ? (
+        <IncidentReportPage
+          onBack={() => setCurrentPage('home')}
+          onOpenEvidenceTrace={() => {
+            setCurrentPage('evidence-trace');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenReconstruction={() => {
+            setCurrentPage('reconstruction');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onOpenCaelis={() => {
+            setCurrentPage('caelis');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          theme={theme}
         />
       ) : (
         <>
@@ -213,7 +343,7 @@ function AppContent() {
               setSelectedFragment(TELEMETRY_FRAGMENTS[0]);
               setIsDossierOpen(true);
             }}
-            onOpenMissionLab={() => setCurrentPage('telemetry')}
+            onOpenMissionLab={() => setCurrentPage('mission-lab')}
             jitterEnabled={jitterEnabled}
           />
 
@@ -228,27 +358,27 @@ function AppContent() {
           <TraceSection
             onSelectFragment={handleOpenFragmentInspector}
             onProceedToEvidence={() => handleNavigate('evidence')}
-            onOpenMissionLab={() => setCurrentPage('telemetry')}
+            onOpenMissionLab={() => setCurrentPage('mission-lab')}
             jitterEnabled={jitterEnabled}
           />
 
           {/* Section 3: The Evidence (Every Thread Has A Reason.) */}
           <EvidenceSection
             onProceedToOrigin={() => handleNavigate('origin')}
-            onOpenCaelis={() => setCurrentPage('telemetry')}
-            onOpenMissionLab={() => setCurrentPage('telemetry')}
+            onOpenCaelis={() => setCurrentPage('caelis')}
+            onOpenMissionLab={() => setCurrentPage('mission-lab')}
             onOpenReconstruction={() => {
-              setCurrentPage('telemetry');
+              setCurrentPage('reconstruction');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onOpenEvidenceTrace={() => {
-              setCurrentPage('telemetry');
+              setCurrentPage('evidence-trace');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             jitterEnabled={jitterEnabled}
           />
 
-          {/* Section 4: The Origin */}
+          {/* Section 4: The Origin (The Origin Was Never The Alarm. "ROOT CAUSE FOUND") */}
           <OriginSection
             onSelectFragment={handleOpenFragmentInspector}
             onProceedToFix={() => handleNavigate('fix')}
@@ -260,7 +390,7 @@ function AppContent() {
             onSelectFragment={handleOpenFragmentInspector}
             onProceedToCaseClosed={() => handleNavigate('case-closed')}
             onOpenCaelis={() => {
-              setCurrentPage('telemetry');
+              setCurrentPage('caelis');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             jitterEnabled={jitterEnabled}
@@ -275,7 +405,7 @@ function AppContent() {
           {/* Section 6: Case Closed */}
           <CaseClosedSection
             onOpenMissionLab={() => {
-              setCurrentPage('telemetry');
+              setCurrentPage('mission-lab');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onOpenDossier={() => {
@@ -283,7 +413,7 @@ function AppContent() {
               setIsDossierOpen(true);
             }}
             onOpenIncidentReport={() => {
-              setCurrentPage('telemetry');
+              setCurrentPage('incident-report');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onScrollToTop={() => smoothScrollTo(0, 0)}
@@ -293,8 +423,8 @@ function AppContent() {
           {/* Site Footer */}
           <Footer
             onNavigateSection={handleNavigate}
-            onOpenPage={() => {
-              setCurrentPage('telemetry');
+            onOpenPage={(page) => {
+              setCurrentPage(page as any);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             onScrollToTop={() => smoothScrollTo(0, 0)}
@@ -319,3 +449,4 @@ export default function App() {
     </AnalysisProvider>
   );
 }
+

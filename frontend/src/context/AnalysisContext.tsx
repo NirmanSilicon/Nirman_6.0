@@ -23,6 +23,7 @@ import {
   SimulationMetadata,
   SimulationRecord,
   SimulationGenerateParams,
+  HealthStatusResponse,
 } from '../services/backendApi';
 
 export type AnalysisStatus =
@@ -55,6 +56,7 @@ export interface AnalysisContextValue {
   status: AnalysisStatus;
   error: string | null;
   backendConnected: boolean;
+  backendHealth: HealthStatusResponse | null;
   isBackendChecking: boolean;
   lastUpdated: string | null;
   nextBestEvidence: NextBestEvidence | null;
@@ -96,6 +98,7 @@ export const AnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [status, setStatus] = useState<AnalysisStatus>('IDLE');
   const [error, setError] = useState<string | null>(null);
   const [backendConnected, setBackendConnected] = useState<boolean>(false);
+  const [backendHealth, setBackendHealth] = useState<HealthStatusResponse | null>(null);
   const [isBackendChecking, setIsBackendChecking] = useState<boolean>(true);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
   const [nextBestEvidence, setNextBestEvidence] = useState<NextBestEvidence | null>(null);
@@ -115,11 +118,39 @@ export const AnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const checkBackendHealth = useCallback(async (): Promise<boolean> => {
     setIsBackendChecking(true);
     try {
-      const isHealthy = await backendApi.healthCheck();
-      setBackendConnected(isHealthy);
-      return isHealthy;
+      const details = await backendApi.fetchHealthDetails();
+      if (details && (details.status === 'healthy' || details.service === 'axyra_caelis_platform')) {
+        setBackendConnected(true);
+        setBackendHealth(details);
+        setIsReferenceModel(false);
+        setError(null);
+
+        // Dynamically fetch scenarios from live backend
+        try {
+          const scenarios = await backendApi.fetchScenarios();
+          if (scenarios && scenarios.length > 0) {
+            setAvailableScenarios(
+              scenarios.map((s) => ({
+                key: s.key || s.id || 'unknown',
+                name: s.name,
+                description: s.description || '',
+                craft_class: s.craft_class,
+                incident_id: s.incident_id,
+              }))
+            );
+          }
+        } catch {
+          // ignore scenario lookup error
+        }
+
+        return true;
+      }
+      setBackendConnected(false);
+      setBackendHealth(null);
+      return false;
     } catch {
       setBackendConnected(false);
+      setBackendHealth(null);
       return false;
     } finally {
       setIsBackendChecking(false);
@@ -411,6 +442,7 @@ export const AnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       status,
       error,
       backendConnected,
+      backendHealth,
       isBackendChecking,
       lastUpdated,
       nextBestEvidence,
@@ -441,6 +473,7 @@ export const AnalysisProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       status,
       error,
       backendConnected,
+      backendHealth,
       isBackendChecking,
       lastUpdated,
       nextBestEvidence,

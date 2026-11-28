@@ -159,7 +159,7 @@ export const CaelisResult: React.FC<CaelisResultProps> = ({
               <div className="flex items-center gap-2">
                 <FileText className="w-4 h-4 text-[#DC143C]" />
                 <h3 className="font-headline font-black text-xl text-[#1A1A1A] tracking-tight">
-                  CEALIS AI ASSESSMENT
+                  CAELIS AI ASSESSMENT
                 </h3>
               </div>
               

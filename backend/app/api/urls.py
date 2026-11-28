@@ -31,8 +31,10 @@ urlpatterns = [
     # Canonical Simulation Dataset & Ingestion APIs (Sections 2, 7, 8, 9, 10)
     path('simulations/generate/', views.simulations_collection_api, name='simulation-generate'),
     path('simulations/upload/', views.simulation_upload_api, name='simulation-upload'),
-    # Hardware-in-the-loop capture. Backend-only: no frontend changes required.
+    # Hardware-in-the-loop capture & real-time telemetry streaming
     path('hardware/esp32/capture/', views.esp32_capture_api, name='esp32-capture'),
+    path('hardware/esp32/live/', views.esp32_live_api, name='esp32-live'),
+    path('hardware/esp32/command/', views.esp32_command_api, name='esp32-command'),
     path('simulations/<str:simulation_id>/telemetry/', views.simulation_telemetry_api, name='simulation-telemetry'),
     path('simulations/<str:simulation_id>/events/', views.simulation_events_api, name='simulation-events'),
     path('simulations/<str:simulation_id>/analyze/', views.simulation_analyze_api, name='simulation-analyze'),

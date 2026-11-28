@@ -46,14 +46,26 @@ export interface FeatureExplanation {
   description: string;
 }
 
-const metaEnv = (typeof import.meta !== 'undefined' && (import.meta as any).env) || {};
+function resolveApiBaseUrl(): string {
+  const metaEnv = (typeof import.meta !== 'undefined' && (import.meta as any).env) || {};
+  const rawApiUrl = metaEnv.VITE_API_URL;
+  if (rawApiUrl && typeof rawApiUrl === 'string' && rawApiUrl.trim()) {
+    const trimmed = rawApiUrl.trim();
+    return trimmed.endsWith('/api') ? trimmed : `${trimmed.replace(/\/$/, '')}/api`;
+  }
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    if (window.location.port === '8000') {
+      return `${window.location.origin}/api`;
+    }
+    return 'http://127.0.0.1:8000/api';
+  }
+  if (typeof window !== 'undefined' && window.location.origin) {
+    return `${window.location.origin}/api`;
+  }
+  return 'http://127.0.0.1:8000/api';
+}
 
-const rawApiUrl = metaEnv.VITE_API_URL;
-const API_BASE_URL = rawApiUrl
-  ? (rawApiUrl.endsWith('/api') ? rawApiUrl : `${rawApiUrl.replace(/\/$/, '')}/api`)
-  : (typeof window !== 'undefined' && window.location.origin
-      ? `${window.location.origin}/api`
-      : 'http://127.0.0.1:8000/api');
+const API_BASE_URL = resolveApiBaseUrl();
 
 export type { ConfidenceTier, PatternStatus };
 
@@ -311,7 +323,7 @@ export async function listIncidents(): Promise<IncidentSummary[]> {
 // ----------------------------------------------------------------------------
 export async function fetchCanonicalAnalysis(
   incidentId = 'inc_001',
-  scorerType: 'learned' | 'legacy' | 'baseline' = 'learned',
+  scorerType: 'learned' | 'legacy' = 'learned',
   operatingMode = 'nominal'
 ): Promise<CanonicalAnalysisResponse> {
   const res = await safeFetch(`/incidents/${incidentId}/analyze/`, {
@@ -797,13 +809,60 @@ export function getOfflineReferenceAnalysis(incidentId = 'inc_001'): CanonicalAn
 // ----------------------------------------------------------------------------
 // Health Check
 // ----------------------------------------------------------------------------
-export async function healthCheck(): Promise<boolean> {
-  try {
-    const res = await safeFetch('/health/');
-    return res.ok;
-  } catch {
-    return false;
+export interface HealthStatusResponse {
+  status: string;
+  service: string;
+  version: string;
+  mode: 'SOVEREIGN' | 'CLOUD';
+  sovereign_mode: boolean;
+  database: {
+    type: string;
+    status: string;
+    path: string;
+  };
+  ai_engine: {
+    status: string;
+    version: string;
+    model_type: string;
+  };
+  egress_policy: string;
+  timestamp: string;
+}
+
+export async function fetchHealthDetails(): Promise<HealthStatusResponse | null> {
+  const candidateUrls = [
+    API_BASE_URL.endsWith('/api') ? `${API_BASE_URL}/health/` : `${API_BASE_URL}/api/health/`,
+    'http://127.0.0.1:8000/api/health/',
+    '/api/health/'
+  ];
+  const uniqueUrls = Array.from(new Set(candidateUrls));
+
+  for (const candidateUrl of uniqueUrls) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const res = await fetch(candidateUrl, {
+        headers: { Accept: 'application/json' },
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      if (!res.ok) continue;
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) continue;
+      const data = await res.json();
+      if (data && (data.status === 'healthy' || data.service === 'axyra_caelis_platform')) {
+        return data as HealthStatusResponse;
+      }
+    } catch {
+      // Continue to next candidate URL
+    }
   }
+  return null;
+}
+
+export async function healthCheck(): Promise<boolean> {
+  const details = await fetchHealthDetails();
+  return details !== null && (details.status === 'healthy' || details.service === 'axyra_caelis_platform');
 }
 
 // ----------------------------------------------------------------------------
@@ -893,6 +952,7 @@ export interface SimulationMetadata {
   simulation_id: string;
   scenario_id: string;
   name: string;
+  scenario_name?: string;
   description: string;
   random_seed: number;
   status: string;
@@ -1033,10 +1093,253 @@ export async function uploadSimulationTelemetry(
 }
 
 // ----------------------------------------------------------------------------
+// 12. Zero-Knowledge & Blockchain Anchoring Layer (Tasks A - D)
+// ----------------------------------------------------------------------------
+
+export interface ZkProofRaw {
+  pi_a?: string[];
+  pi_b?: string[][];
+  pi_c?: string[];
+  protocol?: string;
+  [key: string]: any;
+}
+
+export interface ZkWeights {
+  w_temporal: number;
+  w_dependency: number;
+  w_intermediate: number;
+}
+
+export interface ZkProofBundle {
+  edge_id?: string;
+  commitment: string;
+  proof: ZkProofRaw;
+  public_signals: string[];
+  scaling_factor: number;
+  generated_at: string;
+  verdict_confirmed: boolean;
+  threshold: number;
+  weights?: ZkWeights;
+  is_fallback: boolean;
+  proof_type: 'simulation_fallback' | 'groth16_snark' | string;
+  proof_label: string;
+  privacy_statement?: string;
+}
+
+export interface ZkGenerateProofResponse {
+  status: string;
+  incident_id: string;
+  edge_id?: string;
+  commitment: string;
+  verdict_confirmed: boolean;
+  threshold: number;
+  weights?: ZkWeights;
+  is_fallback: boolean;
+  proof_type: 'simulation_fallback' | 'groth16_snark' | string;
+  proof_label: string;
+  privacy_statement?: string;
+  zk_proof: ZkProofBundle;
+  message?: string;
+}
+
+export interface ZkVerifyProofResponse {
+  valid: boolean;
+  verdict_confirmed: boolean;
+  public_signals: string[];
+  is_fallback?: boolean;
+  proof_type?: string;
+  proof_label?: string;
+  message: string;
+}
+
+export interface AnchorIncidentResponse {
+  incident_id: string;
+  sha256_signature: string;
+  anchored: boolean;
+  tx_hash: string;
+  timestamp: number;
+  contract_address?: string | null;
+}
+
+export interface AnchorStatusResponse {
+  incident_id: string;
+  sha256_signature: string;
+  anchored: boolean;
+  timestamp: number;
+  chain_tx_hash?: string | null;
+  contract_address?: string | null;
+}
+
+export async function generateZkProof(
+  incidentId: string = 'inc_001'
+): Promise<ZkGenerateProofResponse> {
+  const res = await safeFetch(`/incidents/${incidentId}/zk-proof/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(
+      err.error || err.message || `Failed to generate Zero-Knowledge proof (HTTP ${res.status})`,
+      res.status,
+      `/incidents/${incidentId}/zk-proof/`,
+      err
+    );
+  }
+  return await res.json();
+}
+
+export async function verifyZkProof(
+  incidentId: string = 'inc_001',
+  proofData?: { proof?: any; public_signals?: string[] }
+): Promise<ZkVerifyProofResponse> {
+  const res = await safeFetch(`/incidents/${incidentId}/zk-verify/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: proofData ? JSON.stringify(proofData) : JSON.stringify({}),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(
+      err.error || err.message || `Failed to verify Zero-Knowledge proof (HTTP ${res.status})`,
+      res.status,
+      `/incidents/${incidentId}/zk-verify/`,
+      err
+    );
+  }
+  return await res.json();
+}
+
+export async function anchorIncidentOnChain(
+  incidentId: string = 'inc_001'
+): Promise<AnchorIncidentResponse> {
+  const res = await safeFetch(`/incidents/${incidentId}/anchor/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(
+      err.error || `Failed to anchor incident on chain (HTTP ${res.status})`,
+      res.status,
+      `/incidents/${incidentId}/anchor/`,
+      err
+    );
+  }
+  return await res.json();
+}
+
+export async function fetchAnchorStatus(
+  incidentId: string = 'inc_001'
+): Promise<AnchorStatusResponse> {
+  const res = await safeFetch(`/incidents/${incidentId}/anchor-status/`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(
+      err.error || `Failed to fetch anchor status (HTTP ${res.status})`,
+      res.status,
+      `/incidents/${incidentId}/anchor-status/`,
+      err
+    );
+  }
+  return await res.json();
+}
+
+// ----------------------------------------------------------------------------
+// ESP32 Live Telemetry & TinyML Edge Station
+// ----------------------------------------------------------------------------
+export interface Esp32LiveResponse {
+  connected: boolean;
+  port: string;
+  source: string;
+  packet_count: number;
+  active_scenario: string;
+  timestamp: string;
+  frame: {
+    timestamp_ms: number;
+    scenario: string;
+    anomaly: number;
+    sensor_health: {
+      bmp280: boolean;
+      mpu6050: boolean;
+      ina219: boolean;
+      ds18b20: boolean;
+    };
+    raw: {
+      bmp_temp_c: number | null;
+      pressure_hpa: number | null;
+      voltage_v: number | null;
+      current_ma: number | null;
+      power_mw: number | null;
+      probe_temp_c: number | null;
+      acc_x: number | null;
+      acc_y: number | null;
+      acc_z: number | null;
+      gyro_x: number | null;
+      gyro_y: number | null;
+      gyro_z: number | null;
+    };
+    simulated: {
+      bmp_temp_c: number | null;
+      pressure_hpa: number | null;
+      voltage_v: number | null;
+      current_ma: number | null;
+      power_mw: number | null;
+      probe_temp_c: number | null;
+      acc_x: number | null;
+      acc_y: number | null;
+      acc_z: number | null;
+      gyro_x: number | null;
+      gyro_y: number | null;
+      gyro_z: number | null;
+    };
+    edge_ai: {
+      raw: {
+        model: string;
+        advisory_only: boolean;
+        overall_status: string;
+        channels: Record<string, { ready: boolean; score: number | null; status: string }>;
+      };
+      simulated: {
+        model: string;
+        advisory_only: boolean;
+        overall_status: string;
+        channels: Record<string, { ready: boolean; score: number | null; status: string }>;
+      };
+    };
+  };
+}
+
+export async function fetchEsp32LiveTelemetry(): Promise<Esp32LiveResponse> {
+  const url = `${resolveApiBaseUrl()}/hardware/esp32/live/`;
+  const res = await fetchWithTimeout(url, { method: 'GET' }, 3000);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(err.error || 'Failed to fetch ESP32 live telemetry', res.status, '/hardware/esp32/live/', err);
+  }
+  return await res.json();
+}
+
+export async function sendEsp32ScenarioCommand(command: string): Promise<{ success: boolean; scenario: string; command_key: string }> {
+  const url = `${resolveApiBaseUrl()}/hardware/esp32/command/`;
+  const res = await fetchWithTimeout(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ command }),
+  }, 3000);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new ApiError(err.error || 'Failed to dispatch scenario command to ESP32', res.status, '/hardware/esp32/command/', err);
+  }
+  return await res.json();
+}
+
+// ----------------------------------------------------------------------------
 // Unified Singleton Export
 // ----------------------------------------------------------------------------
 export const backendApi = {
   healthCheck,
+  fetchHealthDetails,
   fetchScenarios,
   fetchScenarioByKey,
   generateIncident,
@@ -1059,6 +1362,12 @@ export const backendApi = {
   analyzeSimulation,
   validateSimulation,
   uploadSimulationTelemetry,
+  generateZkProof,
+  verifyZkProof,
+  anchorIncidentOnChain,
+  fetchAnchorStatus,
+  fetchEsp32LiveTelemetry,
+  sendEsp32ScenarioCommand,
   getCanonicalDemoAnalysis: getOfflineReferenceAnalysis,
   getOfflineReferenceAnalysis
 };

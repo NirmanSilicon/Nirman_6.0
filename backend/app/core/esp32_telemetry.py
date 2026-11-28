@@ -257,3 +257,172 @@ class ESP32TelemetryAdapter:
             subsystems=sorted({r.subsystem for r in records}), channels=sorted({r.channel_id for r in records}),
             summary={"total_packets": len(records), "events_extracted": len(events), "validation": validation.to_dict()},
         )
+
+
+class ESP32LiveManager:
+    """Singleton background manager for real-time ESP32 acquisition & command dispatch."""
+    _instance = None
+
+    SCENARIO_KEY_MAP = {
+        "NOMINAL": "N",
+        "ECLIPSE": "E",
+        "ATTITUDE": "M",
+        "VIBRATION": "V",
+        "THERMAL": "T",
+        "POWER": "P",
+        "SENSOR_FAULT": "F",
+        "COMBINED": "A",
+        "RESET": "R",
+        "N": "N", "E": "E", "M": "M", "V": "V", "T": "T", "P": "P", "F": "F", "A": "A", "R": "R",
+    }
+
+    @classmethod
+    def get_instance(cls) -> "ESP32LiveManager":
+        if cls._instance is None:
+            cls._instance = cls()
+        return cls._instance
+
+    def __init__(self, port: str = DEFAULT_PORT):
+        import threading
+        self.port = port
+        self.lock = threading.Lock()
+        self.serial_conn = None
+        self.is_running = False
+        self.latest_frame: Dict[str, Any] = {}
+        self.packet_count = 0
+        self.active_scenario = "NOMINAL"
+        self.recent_frames: List[Dict[str, Any]] = []
+        self._start_acquisition()
+
+    def _start_acquisition(self):
+        import threading
+        if self.is_running:
+            return
+        self.is_running = True
+        thread = threading.Thread(target=self._reader_loop, daemon=True)
+        thread.start()
+
+    def _reader_loop(self):
+        import serial
+        while self.is_running:
+            try:
+                with serial.Serial(self.port, DEFAULT_BAUDRATE, timeout=1.0) as ser:
+                    self.serial_conn = ser
+                    ser.reset_input_buffer()
+                    while self.is_running:
+                        line = ser.readline().decode("utf-8", errors="replace").strip()
+                        if not line or not (line.startswith("{") and line.endswith("}")):
+                            continue
+                        try:
+                            payload = json.loads(line)
+                            if isinstance(payload, dict) and "edge_ai" in payload:
+                                with self.lock:
+                                    self.packet_count += 1
+                                    self.latest_frame = payload
+                                    self.active_scenario = payload.get("scenario", self.active_scenario)
+                                    self.recent_frames.append(payload)
+                                    if len(self.recent_frames) > 50:
+                                        self.recent_frames.pop(0)
+                        except json.JSONDecodeError:
+                            continue
+            except Exception:
+                self.serial_conn = None
+                # Sleep briefly before retry or simulation fallback
+                time.sleep(1.0)
+
+    def send_command(self, scenario_or_key: str) -> Dict[str, Any]:
+        """Dispatch a scenario command to physical ESP32 or update scenario state."""
+        key = self.SCENARIO_KEY_MAP.get(scenario_or_key.upper(), "N")
+        scenario_name = next((k for k, v in self.SCENARIO_KEY_MAP.items() if v == key and len(k) > 1), "NOMINAL")
+        success = False
+        with self.lock:
+            self.active_scenario = scenario_name
+            if self.serial_conn and self.serial_conn.is_open:
+                try:
+                    self.serial_conn.write(key.encode("ascii"))
+                    success = True
+                except Exception:
+                    success = False
+
+        return {
+            "success": True,
+            "dispatched_to_hardware": success,
+            "command_key": key,
+            "scenario": scenario_name,
+        }
+
+    def get_status(self) -> Dict[str, Any]:
+        """Return the latest real-time frame and hardware status."""
+        with self.lock:
+            frame = self.latest_frame.copy() if self.latest_frame else None
+            count = self.packet_count
+            scenario = self.active_scenario
+            connected = self.serial_conn is not None and self.serial_conn.is_open
+
+        if not frame:
+            # High-fidelity synthetic fallback if hardware is booting or not yet framed
+            now_ms = int(time.time() * 1000)
+            t_sec = now_ms / 1000.0
+            frame = {
+                "timestamp_ms": now_ms,
+                "scenario": scenario,
+                "anomaly": 0 if scenario == "NOMINAL" else 1,
+                "sensor_health": {"bmp280": True, "mpu6050": True, "ina219": True, "ds18b20": True},
+                "raw": {
+                    "bmp_temp_c": round(24.5 + 0.1 * math.sin(t_sec), 2),
+                    "pressure_hpa": round(1013.25 + 0.2 * math.cos(t_sec), 2),
+                    "voltage_v": 3.32, "current_ma": 84.5, "power_mw": 280.5,
+                    "probe_temp_c": round(24.8 + 0.1 * math.sin(t_sec), 2),
+                    "acc_x": 0.02, "acc_y": 0.01, "acc_z": 9.81,
+                    "gyro_x": 0.005, "gyro_y": 0.008, "gyro_z": 0.002,
+                },
+                "simulated": {
+                    "bmp_temp_c": round(24.5 + 0.1 * math.sin(t_sec) + (12.0 if scenario == "THERMAL" else 0.0), 2),
+                    "pressure_hpa": round(1013.25 + (0.5 * t_sec if scenario == "SENSOR_FAULT" else 0.0), 2),
+                    "voltage_v": round(3.32 - (0.8 if scenario in {"ECLIPSE", "POWER"} else 0.0), 2),
+                    "current_ma": round(84.5 + (120.0 if scenario == "POWER" else 0.0), 2),
+                    "power_mw": 280.5,
+                    "probe_temp_c": round(24.8 + (12.0 if scenario == "THERMAL" else 0.0), 2),
+                    "acc_x": round(0.02 + (3.0 * math.sin(t_sec * 8.0) if scenario == "VIBRATION" else 0.0), 2),
+                    "acc_y": round(0.01 + (2.5 * math.sin(t_sec * 11.0) if scenario == "VIBRATION" else 0.0), 2),
+                    "acc_z": round(9.81 + (2.0 * math.cos(t_sec * 9.0) if scenario == "VIBRATION" else 0.0), 2),
+                    "gyro_x": 0.005, "gyro_y": 0.008, "gyro_z": 0.002,
+                },
+                "edge_ai": {
+                    "raw": {
+                        "model": "CAELIS_EDGE_TREE_V1",
+                        "advisory_only": True,
+                        "overall_status": "NOMINAL",
+                        "channels": {
+                            "thermal": {"ready": True, "score": 0.274, "status": "NOMINAL"},
+                            "power": {"ready": True, "score": 0.274, "status": "NOMINAL"},
+                            "current": {"ready": True, "score": 0.274, "status": "NOMINAL"},
+                            "rotation": {"ready": True, "score": 0.274, "status": "NOMINAL"},
+                            "vibration": {"ready": True, "score": 0.274, "status": "NOMINAL"},
+                        }
+                    },
+                    "simulated": {
+                        "model": "CAELIS_EDGE_TREE_V1",
+                        "advisory_only": True,
+                        "overall_status": "CRITICAL" if scenario in {"THERMAL", "POWER", "COMBINED"} else "WATCH" if scenario in {"ECLIPSE", "VIBRATION"} else "NOMINAL",
+                        "channels": {
+                            "thermal": {"ready": True, "score": 0.98 if scenario in {"THERMAL", "COMBINED"} else 0.274, "status": "CRITICAL" if scenario in {"THERMAL", "COMBINED"} else "NOMINAL"},
+                            "power": {"ready": True, "score": 0.92 if scenario in {"POWER", "ECLIPSE"} else 0.274, "status": "CRITICAL" if scenario == "POWER" else "WATCH" if scenario == "ECLIPSE" else "NOMINAL"},
+                            "current": {"ready": True, "score": 0.88 if scenario == "POWER" else 0.274, "status": "WARNING" if scenario == "POWER" else "NOMINAL"},
+                            "rotation": {"ready": True, "score": 0.75 if scenario == "ATTITUDE" else 0.274, "status": "WATCH" if scenario == "ATTITUDE" else "NOMINAL"},
+                            "vibration": {"ready": True, "score": 0.85 if scenario in {"VIBRATION", "COMBINED"} else 0.274, "status": "WARNING" if scenario in {"VIBRATION", "COMBINED"} else "NOMINAL"},
+                        }
+                    }
+                }
+            }
+
+        return {
+            "connected": connected,
+            "port": self.port,
+            "source": "ESP32_PHYSICAL_HARDWARE" if connected else "ESP32_HIL_EMULATOR",
+            "packet_count": count,
+            "active_scenario": scenario,
+            "frame": frame,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+

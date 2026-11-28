@@ -1158,6 +1158,26 @@ def esp32_capture_api(request):
     }, status=status.HTTP_201_CREATED)
 
 
+@api_view(['GET', 'POST'])
+def esp32_live_api(request):
+    """Real-time streaming telemetry and TinyML edge bank results from ESP32."""
+    from app.core.esp32_telemetry import ESP32LiveManager
+    manager = ESP32LiveManager.get_instance()
+    status_data = manager.get_status()
+    return Response(status_data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def esp32_command_api(request):
+    """Send scenario circumstance commands to the physical ESP32 or simulation bridge."""
+    from app.core.esp32_telemetry import ESP32LiveManager
+    manager = ESP32LiveManager.get_instance()
+    command = str(request.data.get("command", request.data.get("scenario", "NOMINAL")))
+    result = manager.send_command(command)
+    return Response(result, status=status.HTTP_200_OK)
+
+
+
 # =============================================================================
 # ENGINEER FEEDBACK — ACTIVE LEARNING DATA FLYWHEEL
 # =============================================================================
