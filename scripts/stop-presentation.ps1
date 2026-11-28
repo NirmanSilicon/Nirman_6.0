@@ -7,6 +7,6 @@ foreach ($record in @(Get-Content -LiteralPath $processFile -Raw | ConvertFrom-J
     if (-not $managedProcess) { continue }
     $isFrontend = $record.name -eq 'frontend' -and $managedProcess.Name -eq 'node.exe' -and $managedProcess.CommandLine -match 'next.*start.*13080'
     $isBackend = $record.name -in @('product','sandbox','evaluation') -and $managedProcess.Name -match '^python' -and $managedProcess.CommandLine -match ('scripts/service.py\s+' + [regex]::Escape($record.name))
-    if ($isFrontend -or $isBackend) { Stop-Process -Id $record.id; Write-Output ("Stopped Agent-X " + $record.name) }
+    if ($isFrontend -or $isBackend) { $taskProcess=[System.Diagnostics.Process]::GetProcessById([int]$record.id); $taskProcess.Kill(); $taskProcess.WaitForExit(5000) | Out-Null; Write-Output ("Stopped Agent-X " + $record.name) }
 }
 Write-Output 'Only recorded Agent-X processes were targeted. Separately launched evaluation processes keep running.'

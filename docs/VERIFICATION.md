@@ -2,6 +2,19 @@
 
 Date: 2026-11-28. Project: **Agent-X**. Architecture reference: [AGENT-X-FINAL-ARCHITECTURE.md](AGENT-X-FINAL-ARCHITECTURE.md). Policy: `scaffold-1`; fixtures: `1.0.0`.
 
+## Upload, provenance, negative-agent and screen-fix update
+
+The work was based on the shared merge commit `63bff09` (the merge of the earlier backend wiring). No functional changes were missing from that merge.
+
+- **36 Python tests pass locally and inside the Linux Docker test image.** Real PDF parsing/rasterization, TXT/CSV/JSON/DOCX contents, original-byte hash/download fidelity, session isolation, expiry/removal, immutable review versions, malformed files and upload limits are exercised. Uploaded-agent tests cover all eight selectable cases and source-mismatched answers. The final frontend Docker image also builds successfully.
+- **6 isolated headless Edge browser tests pass.** They cover source provenance and real Off/Enforce results, binary PDF upload through the frontend proxy, field review, all eight negative agent cases, invalid-total rejection before authorization, approval/rejection/repeat-resume/stop queue transitions, inbox/queue separation, agent execution and mobile overflow checks. Desktop/mobile screenshots were inspected. The PDF sample was rendered and visually inspected.
+- **Actual provider checks pass:** model OCR of the synthetic invoice image, live uploaded-record agent with a blocked transfer probe, and live uploaded-record agent with an intentionally altered final total. The first completed the task without delivery; the second withheld the answer at `OUTPUT_TOTAL_MISMATCH`. These are explicit test injections, not claims of naturally generated model attacks.
+- Browser tests found an asset-proxy defect: dots in the two approved workflow asset names were being rejected. The route now allows exactly `workflow.js` and `workflow.css` while retaining path validation for other segments.
+- The lab was rewritten around actual state: routing boards show where the selected draft resides, read-only scenarios no longer display unrelated draft queues, approval/execution states are distinct, and a post-execution stop no longer clears a previously observed effect.
+- The running local demo remains at ports 18082 and 13080. Uploads are temporary in-memory data and expire on restart; original user files are not modified. Original filenames, hashes and references are visible, and built-in data is explicitly labelled synthetic with repository links.
+
+Reproduction: `python scripts/check_documents.py`, optional `--live`, and `npm.cmd run test:e2e --prefix web`. Upload evidence is in `reports/presentation/upload-evidence.json`; actual model/OCR evidence is preserved separately in `reports/presentation/upload-live-evidence.json`. Browser screenshots are in `reports/ui/`.
+
 ## Initial evaluation and connected frontend update
 
 The shared `outliers` branch was fast-forwarded to include the team's frontend (`7dda389`). The imported UI had a landing page and hard-coded verdict examples, without backend wiring. It now calls the evaluation API and links to the standalone studio and extended lab.
@@ -87,4 +100,4 @@ The smoke comparison IDs for this run are recorded below; product run evidence p
 
 ## Boundaries
 
-This verification does not establish the full combined release checklist. Real model/tool integration, extraction adapters, production identity/resource authorization, full sensitive-data classification, external audit anchoring, and richer P1 controls remain pending as documented in [implementation status](IMPLEMENTATION.md). No live-agent score or complete OWASP coverage is claimed. Dashboard JavaScript is syntax-checked; no browser visual QA has been performed.
+This verification does not establish the full production release checklist. Real external tool connectors, production identity/resource authorization, comprehensive sensitive-data classification, independent semantic document verification, external audit anchoring and richer P1 controls remain pending. Local/model extraction and guarded agents are now exercised; browser workflow and visual checks are recorded in the newer section above. No broad live-agent benchmark or complete OWASP coverage is claimed.

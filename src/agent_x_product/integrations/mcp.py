@@ -11,9 +11,10 @@ from agent_x_product.core.policy import ARGUMENT_TYPES
 
 
 class MCPToolProxy:
-    def __init__(self, dispatch: Callable, tools: list[str]):
+    def __init__(self, dispatch: Callable, tools: list[str], schemas: dict | None = None):
         self.dispatch = dispatch
         self.tools = tools
+        self.schemas = schemas or {}
 
     def handle(self, request: dict) -> dict | None:
         request_id = request.get("id")
@@ -28,8 +29,8 @@ class MCPToolProxy:
                       "serverInfo": {"name": "agent-x-guarded-proxy", "version": "0.2.0"}}
         elif method == "tools/list":
             result = {"tools": [{"name": name, "description": f"Guarded local fixture tool: {name}",
-                                 "inputSchema": ARGUMENT_TYPES[name].model_json_schema()}
-                                for name in self.tools if name in ARGUMENT_TYPES]}
+                                 "inputSchema": self.schemas[name] if name in self.schemas else ARGUMENT_TYPES[name].model_json_schema()}
+                                for name in self.tools if name in self.schemas or name in ARGUMENT_TYPES]}
         elif method == "tools/call":
             params = request.get("params", {})
             name, arguments = params.get("name"), params.get("arguments", {})

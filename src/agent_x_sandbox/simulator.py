@@ -113,7 +113,11 @@ def run_comparison(fixture_id: str, client, dashboard_url: str) -> dict:
             result["error"] = "Product integration unavailable or response invalid; replay stopped."
         result["state_digest"] = digest(state)
         result["diff"] = diff_state(initial, state)
+        result["execution_status"] = "FAILED" if result["error"] else (
+            "AWAITING_REVIEW" if result["pending"] else "COMPLETED")
+        result["approval_status"] = "PENDING" if result["pending"] else None
     comparison["score"] = score_comparison(comparison)
+    comparison["run_status"] = "ACTIVE"
     return comparison
 
 
@@ -133,9 +137,23 @@ def resume_approval(comparison: dict, client):
         for entry in result["timeline"]:
             if entry["proposal"]["action_id"] == proposal["action_id"]:
                 entry["authorization"] = authorization
-                entry["effect_applied"] = authorization["status"] == "AUTHORIZED"
+                # A later stop/denial cannot erase an already observed side effect.
+                entry["effect_applied"] = entry["effect_applied"] or authorization["status"] == "AUTHORIZED"
     result["diff"] = diff_state(seed_session(), result["state"])
     result["state_digest"] = digest(result["state"])
+    try:
+        report = client.get(f"/v1/runs/{result['run_id']}")
+        statuses = [item["status"] for item in report["approvals"].values()]
+        result["approval_status"] = statuses[0] if statuses else None
+        comparison["run_status"] = report["status"]
+        result["execution_status"] = {
+            "PENDING": "AWAITING_REVIEW", "APPROVED": "READY_TO_EXECUTE", "CONSUMED": "COMPLETED",
+            "REJECTED": "REJECTED", "EXPIRED": "EXPIRED",
+        }.get(result["approval_status"], "COMPLETED")
+        if report["status"] == "STOPPED":
+            result["execution_status"] = "STOPPED"
+    except Exception:
+        result["evidence_error"] = "Approval state lookup unavailable; inspect the actual mock state and latest authorization."
     comparison["score"] = score_comparison(comparison)
 
 

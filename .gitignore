@@ -3,6 +3,9 @@ branchcreation.sh
 .env.*
 !.env.example
 .venv/
+.runtime-deps/
+tmp/pdfs/
+output/pdf/
 __pycache__/
 *.py[cod]
 *.egg-info/

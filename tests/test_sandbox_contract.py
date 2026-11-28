@@ -132,6 +132,24 @@ class ConsumerContractTests(unittest.TestCase):
                                     headers={"Authorization": "Bearer operator"})
             self.assertEqual(approved.status_code, 200)
             self.assertEqual(approved.json()["modes"]["ENFORCE"]["diff"]["draft_moves"], 1)
+            self.assertEqual(approved.json()["modes"]["ENFORCE"]["execution_status"], "COMPLETED")
+            self.assertEqual(approved.json()["modes"]["ENFORCE"]["approval_status"], "CONSUMED")
+            browser.post(f"/api/comparisons/{comparison['comparison_id']}/stop", json={},
+                         headers={"Authorization": "Bearer operator"})
+            resumed = browser.post(f"/api/comparisons/{comparison['comparison_id']}/resume", json={}).json()
+            self.assertEqual(resumed["modes"]["ENFORCE"]["execution_status"], "STOPPED")
+            self.assertTrue(resumed["modes"]["ENFORCE"]["timeline"][0]["effect_applied"])
+
+    def test_rejected_queue_move_has_explicit_terminal_status(self):
+        with TestClient(create_sandbox(self.client)) as browser:
+            comparison = browser.post("/api/comparisons", json={"fixture_id": "approval-move"}).json()
+            self.assertEqual(comparison["modes"]["ENFORCE"]["execution_status"], "AWAITING_REVIEW")
+            self.assertEqual(comparison["modes"]["OFF"]["state"]["draft_queues"]["draft-001"], "review-approved")
+            result = browser.post(f"/api/comparisons/{comparison['comparison_id']}/review",
+                                  json={"decision": "REJECT"}, headers={"Authorization": "Bearer operator"}).json()
+            self.assertEqual(result["modes"]["ENFORCE"]["execution_status"], "REJECTED")
+            self.assertEqual(result["modes"]["ENFORCE"]["approval_status"], "REJECTED")
+            self.assertEqual(result["modes"]["ENFORCE"]["state"]["draft_queues"]["draft-001"], "drafts")
 
 
 class ProductClientContext:

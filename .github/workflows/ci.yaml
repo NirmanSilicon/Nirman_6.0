@@ -24,6 +24,18 @@ jobs:
           docker compose --profile presentation up --build --wait
           python scripts/smoke.py
           python scripts/check_presentation.py
+          python scripts/check_documents.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Browser workflow tests
+        working-directory: web
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          npm run test:e2e
       - name: Container logs
         if: failure()
         run: docker compose --profile presentation logs --no-color

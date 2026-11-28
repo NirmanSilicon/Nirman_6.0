@@ -1,5 +1,8 @@
 .git
 .venv
+.runtime-deps
+tmp
+output
 .env
 .env.*
 !.env.example
