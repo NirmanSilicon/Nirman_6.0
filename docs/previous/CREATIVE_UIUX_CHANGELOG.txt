@@ -1,0 +1,9 @@
+SANGAM UI/UX CHANGELOG — NIGHTSHIFT DARK REDESIGN
+
+- Replaced the previous pastel/light design direction with a consistent dark interface.
+- Introduced a deep navy foundation with luminous teal, warm amber and coral accents.
+- Reworked the landing-page relay graphic into a compact, structured three-column layout; removed the old cable illustration, pastel glass card and decorative orb.
+- Added subtle motion to the central relay node, ambient orbit and page entrance; respects prefers-reduced-motion.
+- Restyled top navigation and Dashboard dropdown, landing content, cards, dashboard tabs, communication panels, profile settings, form controls and footer.
+- Tuned responsive layout for narrow screens.
+- Preserved the existing application JavaScript and feature markup.

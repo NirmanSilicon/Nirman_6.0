@@ -1,0 +1,18 @@
+# MediaPipe Holistic (legacy Solutions API), vendored
+
+Copied unmodified from npm package `@mediapipe/holistic@0.5.1675471629`, licence **Apache-2.0** (declared in its `package.json`). Full licence text: `../../LICENSE-APACHE-2.0.txt`.
+
+Only the files the Sign Language Camera's pretrained-model path needs are kept, to save space: the solution script, the WASM binaries (both SIMD and non-SIMD, since which one a browser can use is detected at load time), the packed solution assets, and two of the three pose-landmark model variants.
+
+> **Update:** `pose_landmark_heavy.tflite` (26.4 MB) **is now vendored** and `assets/sign.js` uses `modelComplexity: 2` for the word models. It came from the official npm tarball of this exact release (`@mediapipe/holistic@0.5.1675471629`, SHA-512 verified against the registry's published integrity value; the other four files compared byte-identical). Measured on real INCLUDE videos it beats the full model (82.4% vs 77.1% top-1 at about 10 fps) at 1.5x the per-frame cost; see `docs/ISL_RECOGNITION_AUDIT.md`. The text below describes the situation *before* that measurement.
+
+## Pose-landmark complexity: lite / full / heavy
+
+MediaPipe Holistic ships three pose-landmark models, picked by `modelComplexity` (0 = lite, 1 = full, 2 = heavy) - more accurate and slower in that order. `assets/sign.js`'s `HolisticExtractor` (used only for the pretrained ISL/ASL path) previously forced `modelComplexity: 0` (lite) unconditionally, with no `full`/`heavy` files even vendored to make another choice possible. That was a real mismatch: the ISL/ASL manifests record that OpenHands' own published evaluation of these checkpoints (see `docs/SIGN_LANGUAGE_MODEL_EVALUATION.md`) used Holistic's **heavy** pose model, not lite, so inference-time pose extraction and training/evaluation-time pose extraction were using different models' outputs as if they were the same distribution.
+
+As of this phase:
+- `pose_landmark_full.tflite` **is now vendored** and `HolisticExtractor` uses `modelComplexity: 1` (full) by default - MediaPipe's own library default, and a genuine accuracy improvement over lite.
+- `pose_landmark_heavy.tflite` is **deliberately not vendored**, and `modelComplexity: 2` is **not** used, even though it would be the closer match to OpenHands' published evaluation. Reason: heavy is substantially slower per frame than full, and this is a real-time webcam feature; SANGAM has no real camera or real device in its development/test environment to measure whether heavy's latency is acceptable on ordinary consumer webcam hardware (a regression there could make the feature unusable rather than just less accurate). Shipping an unmeasured latency regression is a worse failure mode than the already-documented pose-model mismatch. Both files come from the same exact package version (`@mediapipe/holistic@0.5.1675471629`), so adding `pose_landmark_heavy.tflite` here and changing `modelComplexity` to `2` in `assets/sign.js`'s `HolisticExtractor.prototype.load` is a two-line change for anyone who can benchmark it on real hardware first.
+- This is a genuine, still-unresolved gap between SANGAM's inference-time pose extractor and the checkpoints' training/evaluation-time one. Full is closer to heavy than lite was, but it is not identical, and SANGAM has not measured how much (if any) prediction-accuracy difference remains. See `docs/SIGN_LANGUAGE_MODEL_EVALUATION.md`.
+
+Runs pose, face and hand landmark detection locally in the browser (wasm / WebGL). MediaPipe Holistic produces landmarks only - it does not recognise signs. The pretrained ISL/ASL models in `vendor/sign-models/` do that, from the landmarks this library extracts. See `assets/sign-model.js` and `docs/SIGN_LANGUAGE_MODEL_EVALUATION.md`.

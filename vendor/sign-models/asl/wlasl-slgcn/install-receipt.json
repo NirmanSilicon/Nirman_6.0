@@ -1,0 +1,23 @@
+{
+  "installed": "2026-11-26T20:19:28.400Z",
+  "modelId": "asl-wlasl2000-slgcn-openhands-v1",
+  "weightsSha256": "433a36734780e4f5aea844f2e86e959249f53c98a1685b2918bd525a0f3fcee5",
+  "weightsBytes": 16540336,
+  "tensors": 286,
+  "parameters": 4135084,
+  "classes": 2000,
+  "excludedLabels": [],
+  "sourceFiles": [
+    {
+      "name": "wlasl_metadata.zip",
+      "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/wlasl_metadata.zip",
+      "sha256": "4828ae6b9a630a0169feabc6ab14668e40ea95d477b842b37175e4bd8a16932a"
+    },
+    {
+      "name": "wlasl_slgcn.zip",
+      "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/wlasl_slgcn.zip",
+      "sha256": "b37b8412d2577e30956fb8deb939091d493cad80c2936f8770b0f1cb9714eaf7"
+    }
+  ],
+  "installerVersion": 1
+}

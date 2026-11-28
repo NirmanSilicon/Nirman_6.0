@@ -1,0 +1,26 @@
+SANGAM UI/UX UPDATE
+Team: Kernel Panic
+
+What changed
+- Refined the existing visual system while preserving the SANGAM palette and identity.
+- Improved the landing-page depth, navigation feedback and card/button interactions.
+- Kept the horizontal navigation and Dashboard dropdown; no permanent left sidebar was added.
+- Improved the Dashboard heading and added a prominent start-conversation workspace.
+- Added a clearly labelled three-step example relay so visitors understand the two-way communication concept.
+- Preserved the existing feature tabs and all original feature panels.
+- Added responsive refinements for the dashboard, sticky tabs and action buttons.
+- Added subtle panel transitions and hover/press feedback.
+- Preserved reduced-motion support and improved Escape-key handling for navigation.
+- Added a skip-to-main-content link and clearer focus treatment.
+
+Run locally
+1. Extract the ZIP.
+2. Open a terminal in the sangam-web folder.
+3. Run: python -m http.server 8080
+4. Visit: http://localhost:8080
+
+Important scope notes
+- This is a static prototype. Speech recognition depends on browser support.
+- OCR is English-only in the included build.
+- Spoken output depends on browser/device speech synthesis.
+- Sign-language translation and external Braille hardware are planned, not implemented.

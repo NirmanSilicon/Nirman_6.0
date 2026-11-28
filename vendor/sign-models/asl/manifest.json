@@ -1,0 +1,112 @@
+{
+  "id": "asl-wlasl2000-slgcn-openhands-v1",
+  "name": "American Sign Language, isolated words (WLASL2000, SL-GCN, AI4Bharat OpenHands)",
+  "language": "American Sign Language",
+  "languageCode": "ase",
+  "version": "checkpoints_v1 (OpenHands release, 2021)",
+  "modelDir": "wlasl-slgcn",
+  "source": {
+    "repository": "https://github.com/AI4Bharat/OpenHands",
+    "documentation": "https://openhands.ai4bharat.org/en/latest/instructions/models.html",
+    "paper": "Selvaraj et al., OpenHands, ACL 2022. https://arxiv.org/abs/2110.05877",
+    "files": [
+      {
+        "role": "metadata",
+        "name": "wlasl_metadata.zip",
+        "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/wlasl_metadata.zip",
+        "bytes": 1739306,
+        "sha256": "4828ae6b9a630a0169feabc6ab14668e40ea95d477b842b37175e4bd8a16932a"
+      },
+      {
+        "role": "checkpoint",
+        "name": "wlasl_slgcn.zip",
+        "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/wlasl_slgcn.zip",
+        "bytes": 45297001,
+        "sha256": "b37b8412d2577e30956fb8deb939091d493cad80c2936f8770b0f1cb9714eaf7"
+      }
+    ],
+    "checkpointEntry": "wlasl/sl_gcn/epoch=169-step=75819.ckpt",
+    "configEntry": "wlasl/sl_gcn/config.yaml",
+    "labels": {
+      "file": "wlasl_metadata.zip",
+      "entry": "splits/asl2000.json",
+      "method": "sorted gloss names (OpenHands WLASLDataset.read_glosses)"
+    },
+    "subsets": {
+      "wlasl100": {
+        "file": "wlasl_metadata.zip",
+        "entry": "splits/asl100.json",
+        "description": "The 100 glosses of the WLASL100 split. Restricting the choice to these is a SANGAM option; its accuracy has not been measured."
+      }
+    },
+    "excludeLabels": []
+  },
+  "licence": {
+    "code": "Apache-2.0 (AI4Bharat OpenHands)",
+    "dataset": "WLASL is released under the Computational Use of Data Agreement (C-UDA 1.0) for academic and computational use only; the WLASL page states: No commercial usage is allowed. https://dxli94.github.io/WLASL/",
+    "weights": "Trained on WLASL. Because of the dataset's non-commercial terms SANGAM does NOT bundle these weights. The installer downloads them from the official AI4Bharat release only after the person running it accepts the WLASL terms (--accept-wlasl-terms).",
+    "redistribution": "download-only",
+    "attribution": "WLASL: Li, Rodriguez, Yu, Li, WACV 2020. Model: AI4Bharat OpenHands (Selvaraj et al., ACL 2022)."
+  },
+  "dataset": {
+    "name": "WLASL2000",
+    "signs": 2000,
+    "signers": "100+ signers, videos collected from the web",
+    "recorded": "mixed sources and resolutions"
+  },
+  "evaluation": {
+    "publishedByAuthors": "Top-1 accuracy 30.6% on the WLASL2000 test split (OpenHands paper, Table 2, SL-GCN). Low: most single predictions over 2000 signs are wrong.",
+    "measuredBySangam": "None on real signing. SANGAM verified only that its JavaScript inference equals PyTorch on the released weights.",
+    "doNotQuoteAsSangamAccuracy": true
+  },
+  "architecture": "openhands-sl-gcn",
+  "architectureDescription": "SL-GCN: Decoupled spatial graph convolution + 9-frame temporal convolution, spatial/temporal/channel attention, 10 blocks (64-64-64-64-128-128-128-256-256-256 channels, stride 2 at blocks 5 and 8), global average pooling, linear classifier. Source: AI4Bharat OpenHands openhands/models/encoder/graph/decoupled_gcn.py and decoder/fc.py (Apache-2.0).",
+  "input": "One isolated sign: T frames x 27 keypoints x (x, y), from MediaPipe Holistic (75 points = 33 body + 21 left hand + 21 right hand, undetected parts = 0), PoseSelect preset mediapipe_holistic_minimal_27, CenterAndScaleNormalize on the shoulders at clip level.",
+  "output": "One logit per vocabulary entry; SANGAM applies softmax and its own acceptance thresholds.",
+  "preprocessing": {
+    "keypointPreset": "mediapipe_holistic_minimal_27",
+    "holisticLayout": "33 pose + 21 left hand + 21 right hand",
+    "selectedIndices": [
+      0,
+      2,
+      5,
+      11,
+      12,
+      13,
+      14,
+      33,
+      37,
+      38,
+      41,
+      42,
+      45,
+      46,
+      49,
+      50,
+      53,
+      54,
+      58,
+      59,
+      62,
+      63,
+      66,
+      67,
+      70,
+      71,
+      74
+    ],
+    "channels": [
+      "x",
+      "y"
+    ],
+    "normalisation": "centre = mean shoulder midpoint over the clip; scale = 1 / mean shoulder distance over the clip",
+    "targetFps": 25,
+    "temporalResampling": "nearest frame by timestamp",
+    "referenceAspect": null
+  },
+  "granularity": "isolated word/gloss (one sign per clip). Not fingerspelling. Not continuous signing. Not sentence translation.",
+  "notes": [
+    "Never used for ISL. ISL and ASL are different languages; the two models have separate vocabularies and are never mixed.",
+    "Contains YES, NO, HELP, HELLO, THANK YOU among its 2000 glosses."
+  ]
+}

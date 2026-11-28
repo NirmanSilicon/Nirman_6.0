@@ -1,0 +1,5320 @@
+{
+ "summary": {
+  "mode": "seasons_c1_live10__linear",
+  "videos": 85,
+  "skipped": 0,
+  "by_split": {
+   "train": {
+    "whole_clip": {
+     "videos": 67,
+     "usable": 67,
+     "top1_accuracy_pct": 77.6,
+     "loose": {
+      "typed_correct_pct": 76.1,
+      "typed_wrong_pct": 17.9,
+      "rejected_pct": 6,
+      "precision_of_typed_pct": 81
+     }
+    },
+    "app_segment": {
+     "videos": 67,
+     "usable": 65,
+     "top1_accuracy_pct": 76.9,
+     "loose": {
+      "typed_correct_pct": 73.8,
+      "typed_wrong_pct": 20,
+      "rejected_pct": 6.2,
+      "precision_of_typed_pct": 78.7
+     }
+    }
+   },
+   "test": {
+    "whole_clip": {
+     "videos": 18,
+     "usable": 18,
+     "top1_accuracy_pct": 72.2,
+     "loose": {
+      "typed_correct_pct": 72.2,
+      "typed_wrong_pct": 27.8,
+      "rejected_pct": 0,
+      "precision_of_typed_pct": 72.2
+     }
+    },
+    "app_segment": {
+     "videos": 18,
+     "usable": 18,
+     "top1_accuracy_pct": 77.8,
+     "loose": {
+      "typed_correct_pct": 72.2,
+      "typed_wrong_pct": 16.7,
+      "rejected_pct": 11.1,
+      "precision_of_typed_pct": 81.3
+     }
+    }
+   },
+   "all": {
+    "whole_clip": {
+     "videos": 85,
+     "usable": 85,
+     "top1_accuracy_pct": 76.5,
+     "loose": {
+      "typed_correct_pct": 75.3,
+      "typed_wrong_pct": 20,
+      "rejected_pct": 4.7,
+      "precision_of_typed_pct": 79
+     }
+    },
+    "app_segment": {
+     "videos": 85,
+     "usable": 83,
+     "top1_accuracy_pct": 77.1,
+     "loose": {
+      "typed_correct_pct": 73.5,
+      "typed_wrong_pct": 19.3,
+      "rejected_pct": 7.2,
+      "precision_of_typed_pct": 79.2
+     }
+    }
+   }
+  },
+  "negatives": {
+   "reversed": {
+    "clips": 83,
+    "loose": {
+     "typed_a_word_pct": 90.4
+    }
+   },
+   "scrambled": {
+    "clips": 83,
+    "loose": {
+     "typed_a_word_pct": 81.9
+    }
+   }
+  },
+  "per_class_test": {
+   "65. Season": "3/3",
+   "Ex. Monsoon": "3/3",
+   "61. Summer": "3/3",
+   "64. Fall": "1/3",
+   "63. Winter": "1/3",
+   "62. Spring": "3/3"
+  },
+  "confusions_test": {
+   "63. Winter -> Attack": 1,
+   "64. Fall -> Pleased": 2,
+   "63. Winter -> Truck": 1
+  }
+ },
+ "rows": [
+  {
+   "id": "008106f9a3fe",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 20,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.989,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.989
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 168,
+       "p": 0.508,
+       "label": null
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.508
+    }
+   }
+  },
+  {
+   "id": "14ab09ee8bf8",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 22,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.766,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.766
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 62,
+       "p": 0.651,
+       "label": "shallow"
+      }
+     },
+     "top1": 62,
+     "top1_p": 0.651
+    }
+   }
+  },
+  {
+   "id": "257505809eb4",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 25,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.997,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.997
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.991,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.991
+    }
+   }
+  },
+  {
+   "id": "3a7f84314342",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 27,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.998,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.998
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 181,
+       "p": 0.351,
+       "label": null
+      }
+     },
+     "top1": 181,
+     "top1_p": 0.351
+    }
+   }
+  },
+  {
+   "id": "4d975f33bce1",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 14,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 247,
+       "p": 0.927,
+       "label": "Soldier"
+      }
+     },
+     "top1": 247,
+     "top1_p": 0.927
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 23,
+       "p": 0.587,
+       "label": "trainticket"
+      }
+     },
+     "top1": 23,
+     "top1_p": 0.587
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 27,
+       "p": 0.99,
+       "label": "City"
+      }
+     },
+     "top1": 27,
+     "top1_p": 0.99
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 247,
+       "p": 0.89,
+       "label": "Soldier"
+      }
+     },
+     "top1": 247,
+     "top1_p": 0.89
+    }
+   }
+  },
+  {
+   "id": "64be893b098a",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 38,
+   "seg_frames": 38,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.96,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.96
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    }
+   }
+  },
+  {
+   "id": "74ad8276fb24",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 234,
+       "p": 0.657,
+       "label": "Patient"
+      }
+     },
+     "top1": 234,
+     "top1_p": 0.657
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 234,
+       "p": 0.657,
+       "label": "Patient"
+      }
+     },
+     "top1": 234,
+     "top1_p": 0.657
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.972,
+       "label": "Mouse"
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.972
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.998,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.998
+    }
+   }
+  },
+  {
+   "id": "8844f337ea43",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 22,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.654,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.654
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.915,
+       "label": "they"
+      }
+     },
+     "top1": 123,
+     "top1_p": 0.915
+    }
+   }
+  },
+  {
+   "id": "93e18c02a9d9",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.996,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.996
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.996,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.996
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 135,
+       "p": 0.774,
+       "label": "Yellow"
+      }
+     },
+     "top1": 135,
+     "top1_p": 0.774
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.305,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.305
+    }
+   }
+  },
+  {
+   "id": "aa04d00da3e3",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 29,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.965,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.965
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 128,
+       "p": 0.941,
+       "label": "Howareyou"
+      }
+     },
+     "top1": 128,
+     "top1_p": 0.941
+    }
+   }
+  },
+  {
+   "id": "b728aab9c444",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 43,
+   "seg_frames": 37,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.997,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.997
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.823,
+       "label": "Author"
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.823
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 173,
+       "p": 0.501,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.501
+    }
+   }
+  },
+  {
+   "id": "c3fec877481a",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 17,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.982,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.982
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.846,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.846
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 255,
+       "p": 0.978,
+       "label": "Reporter"
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.978
+    }
+   }
+  },
+  {
+   "id": "e25de300c376",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 43,
+   "seg_frames": 38,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.985,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.985
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "ead7b1343552",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 38,
+   "seg_frames": 34,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.961,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.961
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.999,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "f433231a3e9d",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.992,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.992
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.816,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.816
+    }
+   }
+  },
+  {
+   "id": "01a87eb26e63",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 13,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 1,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.991,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.991
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 12,
+       "p": 0.512,
+       "label": null
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.512
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 69,
+       "p": 0.434,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.434
+    }
+   }
+  },
+  {
+   "id": "14b89b60d490",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 25,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.99,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.99
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.986,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.986
+    }
+   }
+  },
+  {
+   "id": "2584bedcf9db",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 15,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.999,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.988,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.988
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.813,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.813
+    }
+   }
+  },
+  {
+   "id": "3ea1edc51cfa",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.986,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.986
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.998,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.998
+    }
+   }
+  },
+  {
+   "id": "4def4ba91488",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 18,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.948,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.948
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.948,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.948
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 80,
+       "p": 0.493,
+       "label": "dead"
+      }
+     },
+     "top1": 80,
+     "top1_p": 0.493
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.677,
+       "label": "Mouse"
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.677
+    }
+   }
+  },
+  {
+   "id": "67a4ca0d107c",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 19,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.72,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.72
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.417,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.417
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.8,
+       "label": "Animal"
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.8
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.999,
+       "label": "Author"
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.999
+    }
+   }
+  },
+  {
+   "id": "79288c0df374",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 21,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.804,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.804
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.875,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.875
+    }
+   }
+  },
+  {
+   "id": "89701d514c9a",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.99,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.99
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.99,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.99
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.907,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.907
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.764,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.764
+    }
+   }
+  },
+  {
+   "id": "9aca72ae344f",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 29,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.958,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.958
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 117,
+       "p": 0.943,
+       "label": "we"
+      }
+     },
+     "top1": 117,
+     "top1_p": 0.943
+    }
+   }
+  },
+  {
+   "id": "aa753fa420b6",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 16,
+   "seg_frames": 13,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.987,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.987
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.73,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.73
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.666,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.666
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.907,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.907
+    }
+   }
+  },
+  {
+   "id": "b795289e8141",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 15,
+   "seg_frames": 15,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.999,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.999
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.999,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 231,
+       "p": 0.764,
+       "label": "fast"
+      }
+     },
+     "top1": 231,
+     "top1_p": 0.764
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.797,
+       "label": "I"
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.797
+    }
+   }
+  },
+  {
+   "id": "c656ffce71b9",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 20,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.993,
+       "label": "School"
+      }
+     },
+     "top1": 48,
+     "top1_p": 0.993
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 93,
+       "p": 0.881,
+       "label": "Page"
+      }
+     },
+     "top1": 93,
+     "top1_p": 0.881
+    }
+   }
+  },
+  {
+   "id": "e2e72cef06e3",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 30,
+   "seg_frames": 25,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.99,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.99
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 255,
+       "p": 0.509,
+       "label": null
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.509
+    }
+   }
+  },
+  {
+   "id": "ec377bad5bd2",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 19,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.827,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.827
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.827,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.827
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.936,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.936
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.957,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.957
+    }
+   }
+  },
+  {
+   "id": "0242074168ab",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 22,
+   "seg_frames": 17,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 48,
+       "p": 0.999,
+       "label": "School"
+      }
+     },
+     "top1": 48,
+     "top1_p": 0.999
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 93,
+       "p": 0.795,
+       "label": "Page"
+      }
+     },
+     "top1": 93,
+     "top1_p": 0.795
+    }
+   }
+  },
+  {
+   "id": "1d4105d49463",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 173,
+       "p": 0.426,
+       "label": null
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.426
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 251,
+       "p": 0.468,
+       "label": null
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.468
+    }
+   }
+  },
+  {
+   "id": "2a398658baaf",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 23,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.986,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.986
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.986,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.986
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.981,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.981
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.451,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.451
+    }
+   }
+  },
+  {
+   "id": "41d379cdc123",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 32,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.734,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.734
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.926,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.926
+    }
+   }
+  },
+  {
+   "id": "4ef28b7dec99",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 16,
+   "seg_frames": 11,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.801,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.801
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.973,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.973
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.98,
+       "label": "Window"
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.98
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.994,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.994
+    }
+   }
+  },
+  {
+   "id": "6a1fc43a273c",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 18,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.902,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.902
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.582,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.582
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.601,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.601
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 261,
+       "p": 0.52,
+       "label": null
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.52
+    }
+   }
+  },
+  {
+   "id": "79a50a5cde78",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 18,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.977,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.977
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 12,
+       "p": 0.578,
+       "label": "Attack"
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.578
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.939,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.939
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 12,
+       "p": 0.829,
+       "label": "Attack"
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.829
+    }
+   }
+  },
+  {
+   "id": "8a99fdb7b0fc",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 41,
+   "seg_frames": 36,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.992,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.992
+    }
+   }
+  },
+  {
+   "id": "a50e57aa0ae2",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 32,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.988,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.988
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 97,
+       "p": 0.74,
+       "label": "Bird"
+      }
+     },
+     "top1": 97,
+     "top1_p": 0.74
+    }
+   }
+  },
+  {
+   "id": "ab3f57e7971b",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 23,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.699,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.699
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.769,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.769
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.749,
+       "label": "Animal"
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.749
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 97,
+       "p": 0.467,
+       "label": null
+      }
+     },
+     "top1": 97,
+     "top1_p": 0.467
+    }
+   }
+  },
+  {
+   "id": "b91a540458f8",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 21,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.908,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.908
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.945,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.945
+    }
+   }
+  },
+  {
+   "id": "c7e12852bcbd",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 22,
+   "seg_frames": 17,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.515,
+       "label": "Mouse"
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.515
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.723,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.723
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 161,
+       "p": 0.448,
+       "label": null
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.448
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.899,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.899
+    }
+   }
+  },
+  {
+   "id": "e4d9aa24fc54",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 15,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.989,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.989
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.712,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.712
+    }
+   }
+  },
+  {
+   "id": "ec91c6f33864",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 42,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.994,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.994
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.994,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.994
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 69,
+       "p": 0.53,
+       "label": null
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.53
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.982,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.982
+    }
+   }
+  },
+  {
+   "id": "08a1a3fb81a6",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.998,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.912,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.912
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 33,
+       "p": 1,
+       "label": "Cat"
+      }
+     },
+     "top1": 33,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.987,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.987
+    }
+   }
+  },
+  {
+   "id": "1ef2647916c0",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 26,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.995,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.995
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.996,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.996
+    }
+   }
+  },
+  {
+   "id": "2d8f29a6bb39",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 13,
+   "seg_frames": 13,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 236,
+       "p": 0.506,
+       "label": null
+      }
+     },
+     "top1": 236,
+     "top1_p": 0.506
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 236,
+       "p": 0.506,
+       "label": null
+      }
+     },
+     "top1": 236,
+     "top1_p": 0.506
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 231,
+       "p": 0.986,
+       "label": "fast"
+      }
+     },
+     "top1": 231,
+     "top1_p": 0.986
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 187,
+       "p": 0.377,
+       "label": null
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.377
+    }
+   }
+  },
+  {
+   "id": "4869e12ed577",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 9,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 10,
+       "p": 0.701,
+       "label": "Truck"
+      }
+     },
+     "top1": 10,
+     "top1_p": 0.701
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 17,
+       "p": 0.468,
+       "label": "thin"
+      }
+     },
+     "top1": 17,
+     "top1_p": 0.468
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 82,
+       "p": 0.964,
+       "label": "Pen"
+      }
+     },
+     "top1": 82,
+     "top1_p": 0.964
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.951,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.951
+    }
+   }
+  },
+  {
+   "id": "5ebb3d9fd29c",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.998,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 12,
+       "p": 0.504,
+       "label": null
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.504
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 12,
+       "p": 0.589,
+       "label": "Attack"
+      }
+     },
+     "top1": 12,
+     "top1_p": 0.589
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.992,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.992
+    }
+   }
+  },
+  {
+   "id": "6aaefee5df3e",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.998,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.998,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.998
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.997,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.997
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.431,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.431
+    }
+   }
+  },
+  {
+   "id": "7c7103cd8ad4",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.988,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.988
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 6,
+       "p": 0.372,
+       "label": null
+      }
+     },
+     "top1": 6,
+     "top1_p": 0.372
+    }
+   }
+  },
+  {
+   "id": "8ba090a0c2be",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 18,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 71,
+       "p": 0.209,
+       "label": null
+      }
+     },
+     "top1": 71,
+     "top1_p": 0.209
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.915,
+       "label": "I"
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.915
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.822,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.822
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.998,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.998
+    }
+   }
+  },
+  {
+   "id": "a72eccb1b228",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 14,
+   "seg_frames": 14,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.97,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.97
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 187,
+       "p": 0.97,
+       "label": "Thursday"
+      }
+     },
+     "top1": 187,
+     "top1_p": 0.97
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 39,
+       "p": 0.572,
+       "label": "Sign"
+      }
+     },
+     "top1": 39,
+     "top1_p": 0.572
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 123,
+       "p": 0.903,
+       "label": "they"
+      }
+     },
+     "top1": 123,
+     "top1_p": 0.903
+    }
+   }
+  },
+  {
+   "id": "b148cb99d5bd",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 14,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.996,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.996
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.72,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.72
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.966,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.966
+    }
+   }
+  },
+  {
+   "id": "bb096ba5362c",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.939,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.939
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.939,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.939
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.874,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.874
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.761,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.761
+    }
+   }
+  },
+  {
+   "id": "ce3365d7884a",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.773,
+       "label": "Pleased"
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.773
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.773,
+       "label": "Pleased"
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.773
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 100,
+       "p": 0.607,
+       "label": "I"
+      }
+     },
+     "top1": 100,
+     "top1_p": 0.607
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 120,
+       "p": 0.849,
+       "label": "you (plural)"
+      }
+     },
+     "top1": 120,
+     "top1_p": 0.849
+    }
+   }
+  },
+  {
+   "id": "e79eac6503be",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 30,
+   "seg_frames": 25,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.907,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.907
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.97,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.97
+    }
+   }
+  },
+  {
+   "id": "ed5af9947dc7",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 17,
+   "seg_frames": 12,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 170,
+       "p": 0.47,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.47
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 170,
+       "p": 0.517,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.517
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 103,
+       "p": 0.445,
+       "label": null
+      }
+     },
+     "top1": 103,
+     "top1_p": 0.445
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 74,
+       "p": 0.461,
+       "label": null
+      }
+     },
+     "top1": 74,
+     "top1_p": 0.461
+    }
+   }
+  },
+  {
+   "id": "1014b5173db1",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 31,
+   "seg_frames": 19,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.999,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.999
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.98,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.98
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 260,
+       "p": 0.997,
+       "label": "healthy"
+      }
+     },
+     "top1": 260,
+     "top1_p": 0.997
+    }
+   }
+  },
+  {
+   "id": "1fc814bdfaf9",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 24,
+   "seg_frames": 19,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.708,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.708
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.976,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.976
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.717,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.717
+    }
+   }
+  },
+  {
+   "id": "2e0d30091fbc",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 25,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 0.989,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.989
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.938,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.938
+    }
+   }
+  },
+  {
+   "id": "4b3840c923cf",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 19,
+   "seg_frames": 15,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.709,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.709
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 170,
+       "p": 0.293,
+       "label": null
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.293
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.995,
+       "label": "Animal"
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.995
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.867,
+       "label": "tight"
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.867
+    }
+   }
+  },
+  {
+   "id": "631b6b412389",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 20,
+   "seg_frames": 20,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 5,
+       "p": 0.362,
+       "label": null
+      }
+     },
+     "top1": 5,
+     "top1_p": 0.362
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 259,
+       "p": 0.369,
+       "label": null
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.369
+    }
+   }
+  },
+  {
+   "id": "71682cd65ee8",
+   "label": "61. Summer",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.983,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.983
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 0.983,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 0.983
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 135,
+       "p": 0.689,
+       "label": "Yellow"
+      }
+     },
+     "top1": 135,
+     "top1_p": 0.689
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 259,
+       "p": 0.982,
+       "label": "Job"
+      }
+     },
+     "top1": 259,
+     "top1_p": 0.982
+    }
+   }
+  },
+  {
+   "id": "8424fdc1aca5",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 30,
+   "seg_frames": 22,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.996,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.996
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.952,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.952
+    }
+   }
+  },
+  {
+   "id": "8e2e1c47b57e",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 0,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.997,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.997
+    },
+    "app_segment": {
+     "error": "too few frames"
+    },
+    "reversed": {
+     "error": "too few frames"
+    },
+    "scrambled": {
+     "error": "too few frames"
+    }
+   }
+  },
+  {
+   "id": "a8cdc9d13cb1",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 27,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.48,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.48
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 260,
+       "p": 0.981,
+       "label": "healthy"
+      }
+     },
+     "top1": 260,
+     "top1_p": 0.981
+    }
+   }
+  },
+  {
+   "id": "b302a9e1e081",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 46,
+   "seg_frames": 23,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.674,
+       "label": "Animal"
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.674
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.959,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.959
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.657,
+       "label": "Window"
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.657
+    }
+   }
+  },
+  {
+   "id": "c064f49dbc37",
+   "label": "61. Summer",
+   "split": "train",
+   "frames": 25,
+   "seg_frames": 24,
+   "truth": 166,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 166,
+       "p": 1,
+       "label": "Summer"
+      }
+     },
+     "top1": 166,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 5,
+       "p": 1,
+       "label": "Plane"
+      }
+     },
+     "top1": 5,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 181,
+       "p": 0.615,
+       "label": "Grandfather"
+      }
+     },
+     "top1": 181,
+     "top1_p": 0.615
+    }
+   }
+  },
+  {
+   "id": "d1f14bac333a",
+   "label": "65. Season",
+   "split": "test",
+   "frames": 43,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.998,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.998
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.992,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.992
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.991,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.991
+    }
+   }
+  },
+  {
+   "id": "e8913f5fff4d",
+   "label": "62. Spring",
+   "split": "test",
+   "frames": 24,
+   "seg_frames": 21,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.793,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.793
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.986,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.986
+    }
+   }
+  },
+  {
+   "id": "f1b0d10b5e93",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 40,
+   "seg_frames": 37,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 0.875,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 0.875
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.816,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.816
+    }
+   }
+  },
+  {
+   "id": "1367fbf2e04b",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 21,
+   "seg_frames": 0,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 3,
+       "p": 0.75,
+       "label": "Energy"
+      }
+     },
+     "top1": 3,
+     "top1_p": 0.75
+    },
+    "app_segment": {
+     "error": "too few frames"
+    },
+    "reversed": {
+     "error": "too few frames"
+    },
+    "scrambled": {
+     "error": "too few frames"
+    }
+   }
+  },
+  {
+   "id": "2172aa7edcab",
+   "label": "64. Fall",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 26,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.984,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.984
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.984,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.984
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 171,
+       "p": 0.939,
+       "label": "Fall"
+      }
+     },
+     "top1": 171,
+     "top1_p": 0.939
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 91,
+       "p": 0.619,
+       "label": "Hat"
+      }
+     },
+     "top1": 91,
+     "top1_p": 0.619
+    }
+   }
+  },
+  {
+   "id": "32e5351c7876",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 36,
+   "seg_frames": 35,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.617,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.617
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 251,
+       "p": 0.733,
+       "label": "Author"
+      }
+     },
+     "top1": 251,
+     "top1_p": 0.733
+    }
+   }
+  },
+  {
+   "id": "4d972748b10e",
+   "label": "63. Winter",
+   "split": "test",
+   "frames": 25,
+   "seg_frames": 20,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 235,
+       "p": 0.699,
+       "label": "cold"
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.699
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 10,
+       "p": 0.344,
+       "label": null
+      }
+     },
+     "top1": 10,
+     "top1_p": 0.344
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 208,
+       "p": 0.971,
+       "label": "Animal"
+      }
+     },
+     "top1": 208,
+     "top1_p": 0.971
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.853,
+       "label": "tight"
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.853
+    }
+   }
+  },
+  {
+   "id": "6438ef8e13f4",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 28,
+   "seg_frames": 28,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 225,
+       "p": 0.7,
+       "label": "smalllittle"
+      }
+     },
+     "top1": 225,
+     "top1_p": 0.7
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.843,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.843
+    }
+   }
+  },
+  {
+   "id": "719dace90067",
+   "label": "65. Season",
+   "split": "train",
+   "frames": 44,
+   "seg_frames": 33,
+   "truth": 173,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 1,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.976,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.976
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 173,
+       "p": 0.974,
+       "label": "Season"
+      }
+     },
+     "top1": 173,
+     "top1_p": 0.974
+    }
+   }
+  },
+  {
+   "id": "84934c0b9d75",
+   "label": "64. Fall",
+   "split": "test",
+   "frames": 19,
+   "seg_frames": 14,
+   "truth": 171,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 161,
+       "p": 0.959,
+       "label": "Mouse"
+      }
+     },
+     "top1": 161,
+     "top1_p": 0.959
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.798,
+       "label": "Pleased"
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.798
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 153,
+       "p": 0.634,
+       "label": "Pleased"
+      }
+     },
+     "top1": 153,
+     "top1_p": 0.634
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 114,
+       "p": 0.993,
+       "label": "it"
+      }
+     },
+     "top1": 114,
+     "top1_p": 0.993
+    }
+   }
+  },
+  {
+   "id": "8ff5883e3f12",
+   "label": "62. Spring",
+   "split": "train",
+   "frames": 34,
+   "seg_frames": 22,
+   "truth": 168,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 1,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 168,
+       "p": 0.997,
+       "label": "Spring"
+      }
+     },
+     "top1": 168,
+     "top1_p": 0.997
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 1,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 69,
+       "p": 1,
+       "label": "Bedroom"
+      }
+     },
+     "top1": 69,
+     "top1_p": 1
+    }
+   }
+  },
+  {
+   "id": "a9e9c9cb7e35",
+   "label": "Ex. Monsoon",
+   "split": "test",
+   "frames": 16,
+   "seg_frames": 11,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.776,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.776
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 140,
+       "p": 0.994,
+       "label": "Lamp"
+      }
+     },
+     "top1": 140,
+     "top1_p": 0.994
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 255,
+       "p": 0.345,
+       "label": null
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.345
+    }
+   }
+  },
+  {
+   "id": "b71f16f55d0e",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 23,
+   "seg_frames": 18,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.996,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.996
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 0.68,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 0.68
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 132,
+       "p": 1,
+       "label": "Cow"
+      }
+     },
+     "top1": 132,
+     "top1_p": 1
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.977,
+       "label": "Window"
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.977
+    }
+   }
+  },
+  {
+   "id": "c1724fdc62b2",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 15,
+   "seg_frames": 12,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.583,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.583
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 0.478,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 0.478
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 61,
+       "p": 0.47,
+       "label": null
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.47
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 61,
+       "p": 0.923,
+       "label": "Window"
+      }
+     },
+     "top1": 61,
+     "top1_p": 0.923
+    }
+   }
+  },
+  {
+   "id": "d83f3db85759",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 26,
+   "seg_frames": 21,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "ambiguous",
+       "reason": null,
+       "top": 235,
+       "p": 0.54,
+       "label": null
+      }
+     },
+     "top1": 235,
+     "top1_p": 0.54
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 218,
+       "p": 0.509,
+       "label": "Player"
+      }
+     },
+     "top1": 218,
+     "top1_p": 0.509
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 0,
+       "p": 0.664,
+       "label": "Dog"
+      }
+     },
+     "top1": 0,
+     "top1_p": 0.664
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 41,
+       "p": 0.846,
+       "label": "tight"
+      }
+     },
+     "top1": 41,
+     "top1_p": 0.846
+    }
+   }
+  },
+  {
+   "id": "e8f03176735e",
+   "label": "63. Winter",
+   "split": "train",
+   "frames": 18,
+   "seg_frames": 14,
+   "truth": 170,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.994,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.994
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.828,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.828
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.597,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.597
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 170,
+       "p": 0.955,
+       "label": "Winter"
+      }
+     },
+     "top1": 170,
+     "top1_p": 0.955
+    }
+   }
+  },
+  {
+   "id": "f294962a3ba6",
+   "label": "Ex. Monsoon",
+   "split": "train",
+   "frames": 16,
+   "seg_frames": 13,
+   "truth": 261,
+   "variants": {
+    "whole_clip": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "app_segment": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 261,
+       "p": 1,
+       "label": "Monsoon"
+      }
+     },
+     "top1": 261,
+     "top1_p": 1
+    },
+    "reversed": {
+     "per": {
+      "loose": {
+       "state": "unknown",
+       "reason": null,
+       "top": 68,
+       "p": 0.286,
+       "label": null
+      }
+     },
+     "top1": 68,
+     "top1_p": 0.286
+    },
+    "scrambled": {
+     "per": {
+      "loose": {
+       "state": "match",
+       "reason": null,
+       "top": 255,
+       "p": 0.848,
+       "label": "Reporter"
+      }
+     },
+     "top1": 255,
+     "top1_p": 0.848
+    }
+   }
+  }
+ ]
+}

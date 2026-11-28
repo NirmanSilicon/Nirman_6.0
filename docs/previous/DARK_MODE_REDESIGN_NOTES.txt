@@ -1,0 +1,25 @@
+SANGAM NIGHTSHIFT — DARK UI REDESIGN
+
+What changed
+- Replaced the mixed light/dark visual language with a cohesive deep-navy interface and high-contrast teal, amber and coral accents.
+- Rebuilt the landing-page communication relay as a compact three-column constellation layout. The previous pastel glass card, cable diagram and floating yellow orb treatment are removed.
+- Added restrained entrance, hover, orbital and central-node motion, with reduced-motion support.
+- Restyled navigation, dropdown, landing sections, impact cards, dashboard tabs, feature cards, profile controls, panels, inputs and footer for dark mode.
+- Improved small-screen sizing for the redesigned relay and cards.
+
+Functionality preserved
+- Existing HTML structure and application JavaScript were retained.
+- Existing speech recognition, text-to-speech, OCR, phrase board, access profile, Braille preview and vibration code paths were not intentionally changed.
+- Browser-dependent capabilities remain browser-dependent; no new unsupported capability is claimed.
+
+Checks performed
+- JavaScript syntax check: passed (node --check).
+- CSS brace balance: passed.
+- HTML UTF-8 metadata and document read check: passed.
+- Browser screenshot capture was attempted but the headless browser process did not complete in this environment. Do not treat this package as fully browser-verified.
+
+Run locally
+1. Extract the ZIP.
+2. Open a terminal in the sangam-web folder.
+3. Run: python -m http.server 8000
+4. Visit: http://localhost:8000

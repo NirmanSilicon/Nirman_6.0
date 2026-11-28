@@ -1,0 +1,25 @@
+{
+  "installed": "2026-11-24T20:00:18.093Z",
+  "modelId": "isl-include-slgcn-openhands-v1",
+  "weightsSha256": "af7b7ec5eaa8e42bf7e9da62244305208619a120a567d41e0ef69a4101b7c9e7",
+  "weightsBytes": 14754700,
+  "tensors": 286,
+  "parameters": 3688675,
+  "classes": 263,
+  "excludedLabels": [
+    "Second(Number)"
+  ],
+  "sourceFiles": [
+    {
+      "name": "include_metadata.zip",
+      "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/include_metadata.zip",
+      "sha256": "f4d229aaf56cc85266feb9d8526407513382113294dbe75fc3772f881d0fc6e3"
+    },
+    {
+      "name": "include_slgcn.zip",
+      "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/include_slgcn.zip",
+      "sha256": "0aa8eb27091dff71e5ae721a648a7410abb827c495731d3da43c55f195757a52"
+    }
+  ],
+  "installerVersion": 1
+}

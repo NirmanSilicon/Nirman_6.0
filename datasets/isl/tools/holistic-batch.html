@@ -1,0 +1,62 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ISL keypoint extraction (evaluation helper)</title>
+<style>body{font:14px system-ui;margin:16px;background:#0b1224;color:#e8ecff}pre{white-space:pre-wrap}</style>
+<h3>ISL keypoint extraction through the app's own MediaPipe Holistic build</h3>
+<p>Query: <code>?category=Seasons&amp;complexity=1&amp;fps=live10&amp;mode=seasons_c1_live10</code>. Reads frames the preparation script wrote, runs Holistic exactly as <code>assets/sign.js</code> does, and saves 75-point keypoints per frame.</p>
+<pre id="log">starting…</pre>
+<script src="/vendor/mediapipe/holistic/holistic.js"></script>
+<script>
+"use strict";
+// Same layout as assets/sign.js toHolisticPoints(): 75 points = 33 body + 21 left hand + 21 right hand, (x,y), undetected = 0.
+function toHolisticPoints(r) {
+  var out = new Float32Array(150), i, o;
+  var body = r.poseLandmarks || []; for (i = 0; i < 33; i++) if (body[i]) { out[i * 2] = body[i].x; out[i * 2 + 1] = body[i].y; }
+  var lh = r.leftHandLandmarks || []; for (i = 0; i < 21; i++) { o = (33 + i) * 2; if (lh[i]) { out[o] = lh[i].x; out[o + 1] = lh[i].y; } }
+  var rh = r.rightHandLandmarks || []; for (i = 0; i < 21; i++) { o = (54 + i) * 2; if (rh[i]) { out[o] = rh[i].x; out[o + 1] = rh[i].y; } }
+  return out;
+}
+var q = new URLSearchParams(location.search), CAT = q.get("category") || "Seasons", COMPLEXITY = +(q.get("complexity") || 1), FPS = q.get("fps") || "live10";
+var MODE = q.get("mode") || (CAT.toLowerCase() + "_c" + COMPLEXITY + "_" + FPS), LIMIT = +(q.get("limit") || 0), SPLIT = q.get("split") || "";
+var logEl = document.getElementById("log"); window.__status = { mode: MODE, done: 0, total: 0, finished: false, err: null, msPerFrame: 0, frames: 0 };
+function log(m) { logEl.textContent = m + "\n" + logEl.textContent.slice(0, 4000); }
+function parseCsv(t) { var L = t.trim().split(/\r?\n/), H = L[0].split(","); return L.slice(1).map(function (l) { var c = l.split(","), o = {}; H.forEach(function (h, i) { o[h] = c[i]; }); return o; }); }
+// Video labels can contain commas? INCLUDE labels do not, but fail loudly rather than mis-read a row.
+(async function () {
+  try {
+    var manifest = parseCsv(await (await fetch("/datasets/isl/reports/manifest_" + CAT + ".csv")).text());
+    if (SPLIT) manifest = manifest.filter(function (m) { return m.split === SPLIT; });
+    if (LIMIT) manifest = manifest.slice(0, LIMIT);
+    var already = new Set(await (await fetch("/done?mode=" + MODE)).json());
+    var todo = manifest.filter(function (m) { return !already.has(m.id); });
+    window.__status.total = manifest.length; window.__status.done = manifest.length - todo.length;
+    var latest = null;
+    var h = new Holistic({ locateFile: function (f) { return "/vendor/mediapipe/holistic/" + f; } });
+    // identical options to HolisticExtractor in assets/sign.js, except modelComplexity which is the experiment variable
+    h.setOptions({ modelComplexity: COMPLEXITY, smoothLandmarks: true, refineFaceLandmarks: false, enableSegmentation: false, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5, selfieMode: false });
+    h.onResults(function (r) { latest = r; });
+    await h.initialize();
+    log("Holistic ready (complexity " + COMPLEXITY + "); " + todo.length + " videos to do");
+    var tAll = performance.now(), nFrames = 0;
+    for (var v = 0; v < todo.length; v++) {
+      var m = todo[v], meta = await (await fetch("/frames/" + m.id + "/frames.json")).json();
+      var idx = [], last = -1e9;
+      for (var i = 0; i < meta.n; i++) { if (FPS === "full" || meta.t_ms[i] - last >= 100 - 1e-6) { idx.push(i); last = meta.t_ms[i]; } }   // "live10": about what the webcam path delivers
+      try { h.reset(); } catch (e) {}
+      var frames = [];
+      for (var k = 0; k < idx.length; k++) {
+        var fi = idx[k], blob = await (await fetch("/frames/" + m.id + "/" + String(fi).padStart(6, "0") + ".jpg")).blob();
+        var bmp = await createImageBitmap(blob); latest = null;
+        await h.send({ image: bmp }); bmp.close();
+        var p = latest ? toHolisticPoints(latest) : new Float32Array(150);
+        frames.push({ t: meta.t_ms[fi], p: Array.prototype.map.call(p, function (x) { return Math.round(x * 1e5) / 1e5; }) });
+        nFrames++;
+      }
+      await fetch("/save?mode=" + MODE + "&id=" + m.id, { method: "POST", body: JSON.stringify({ id: m.id, label: m.label, split: m.split, video_path: m.video_path, complexity: COMPLEXITY, fps: FPS, src_fps: meta.fps, frames: frames }) });
+      window.__status.done++; window.__status.frames = nFrames; window.__status.msPerFrame = Math.round((performance.now() - tAll) / nFrames);
+      log((window.__status.done) + "/" + window.__status.total + "  " + m.label + "  (" + frames.length + " frames, " + window.__status.msPerFrame + " ms/frame avg)");
+    }
+    window.__status.finished = true; log("FINISHED " + MODE);
+  } catch (e) { window.__status.err = String(e && e.message || e); log("ERROR " + window.__status.err); }
+})();
+</script>

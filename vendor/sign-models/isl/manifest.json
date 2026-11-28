@@ -1,0 +1,110 @@
+{
+  "id": "isl-include-slgcn-openhands-v1",
+  "name": "Indian Sign Language, isolated words (INCLUDE, SL-GCN, AI4Bharat OpenHands)",
+  "language": "Indian Sign Language",
+  "languageCode": "ins",
+  "version": "checkpoints_v1 (OpenHands release, 2021)",
+  "modelDir": "include-slgcn",
+  "source": {
+    "repository": "https://github.com/AI4Bharat/OpenHands",
+    "documentation": "https://openhands.ai4bharat.org/en/latest/instructions/models.html",
+    "paper": "Selvaraj et al., OpenHands: Making Sign Language Recognition Accessible with Pose-based Pretrained Models across Languages, ACL 2022. https://arxiv.org/abs/2110.05877",
+    "files": [
+      {
+        "role": "metadata",
+        "name": "include_metadata.zip",
+        "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/include_metadata.zip",
+        "bytes": 47041,
+        "sha256": "f4d229aaf56cc85266feb9d8526407513382113294dbe75fc3772f881d0fc6e3"
+      },
+      {
+        "role": "checkpoint",
+        "name": "include_slgcn.zip",
+        "url": "https://github.com/AI4Bharat/OpenHands/releases/download/checkpoints_v1/include_slgcn.zip",
+        "bytes": 40608718,
+        "sha256": "0aa8eb27091dff71e5ae721a648a7410abb827c495731d3da43c55f195757a52"
+      }
+    ],
+    "checkpointEntry": "include/sl_gcn/epoch=112-step=12203.ckpt",
+    "configEntry": "include/sl_gcn/config.yaml",
+    "labels": {
+      "file": "include_metadata.zip",
+      "entry": "Train_Test_Split/train_include.csv",
+      "method": "sorted unique values of the Word column (OpenHands INCLUDEDataset.read_glosses)"
+    },
+    "excludeLabels": [
+      "Second(Number)"
+    ],
+    "excludeReason": "OpenHands skipped every training video of this class (\"WARNING: Skipping ... Second (Number)\"), so its output is untrained and is never offered."
+  },
+  "licence": {
+    "code": "Apache-2.0 (AI4Bharat OpenHands; SANGAM's JavaScript port is a derivative of decoupled_gcn.py, fc.py and pose_transforms.py)",
+    "dataset": "INCLUDE is published under Creative Commons Attribution 4.0 International (CC BY 4.0): https://zenodo.org/records/4010759 and https://huggingface.co/datasets/ai4bharat/INCLUDE. Attribution required. The dataset card asks users not to infringe the privacy or dignity of the signers.",
+    "weights": "AI4Bharat publishes the checkpoint as a release asset of the Apache-2.0 OpenHands repository and does not attach a separate licence to it. SANGAM treats it as covered by the repository licence and the CC BY 4.0 dataset licence, gives attribution in NOTICE.md, and keeps an installer that re-derives the bundled file from the official release and checks it byte for byte.",
+    "redistribution": "bundled",
+    "attribution": "INCLUDE dataset: Sridhar, Ganesan, Kumar, Khapra, ACM Multimedia 2020. Model: AI4Bharat OpenHands (Selvaraj et al., ACL 2022)."
+  },
+  "dataset": {
+    "name": "INCLUDE",
+    "signs": 263,
+    "videos": "4,292 (3,475 train / 817 test)",
+    "signers": "Deaf students of St. Louis School for the Deaf, Adyar, Chennai",
+    "recorded": "1920x1080",
+    "regionalNote": "Recorded in Chennai; does not represent every regional variety of ISL (dataset card)."
+  },
+  "evaluation": {
+    "publishedByAuthors": "Top-1 accuracy 93.5% on the INCLUDE test split (OpenHands paper, Table 2, SL-GCN, pose extracted with MediaPipe Holistic heavy model).",
+    "measuredBySangam": "None on real signing. SANGAM has not been able to obtain labelled test videos (the INCLUDE videos are hosted on Zenodo, which this build environment could not reach) and no signer has tested it. SANGAM verified only that its JavaScript inference equals PyTorch on the released weights.",
+    "doNotQuoteAsSangamAccuracy": true
+  },
+  "architecture": "openhands-sl-gcn",
+  "architectureDescription": "SL-GCN: Decoupled spatial graph convolution + 9-frame temporal convolution, spatial/temporal/channel attention, 10 blocks (64-64-64-64-128-128-128-256-256-256 channels, stride 2 at blocks 5 and 8), global average pooling, linear classifier. Source: AI4Bharat OpenHands openhands/models/encoder/graph/decoupled_gcn.py and decoder/fc.py (Apache-2.0).",
+  "input": "One isolated sign: T frames x 27 keypoints x (x, y), from MediaPipe Holistic (75 points = 33 body + 21 left hand + 21 right hand, undetected parts = 0), PoseSelect preset mediapipe_holistic_minimal_27, CenterAndScaleNormalize on the shoulders at clip level.",
+  "output": "One logit per vocabulary entry; SANGAM applies softmax and its own acceptance thresholds.",
+  "preprocessing": {
+    "keypointPreset": "mediapipe_holistic_minimal_27",
+    "holisticLayout": "33 pose + 21 left hand + 21 right hand",
+    "selectedIndices": [
+      0,
+      2,
+      5,
+      11,
+      12,
+      13,
+      14,
+      33,
+      37,
+      38,
+      41,
+      42,
+      45,
+      46,
+      49,
+      50,
+      53,
+      54,
+      58,
+      59,
+      62,
+      63,
+      66,
+      67,
+      70,
+      71,
+      74
+    ],
+    "channels": [
+      "x",
+      "y"
+    ],
+    "normalisation": "centre = mean shoulder midpoint over the clip; scale = 1 / mean shoulder distance over the clip",
+    "targetFps": 25,
+    "temporalResampling": "nearest frame by timestamp",
+    "referenceAspect": 1.7777777777777777
+  },
+  "granularity": "isolated word/gloss (one sign per clip). Not fingerspelling. Not continuous signing. Not sentence translation.",
+  "notes": [
+    "The vocabulary does not contain YES or NO; it does contain Hello, Thank you, Good Morning, I, you, good, bad and 255 more.",
+    "Trained on signers facing a fixed camera with their upper body in view. Performance with phone cameras, other regions' ISL and other signers is unknown."
+  ]
+}
