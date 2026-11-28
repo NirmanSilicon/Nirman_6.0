@@ -23,6 +23,14 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
+# Large datasets, artifacts, and local feedback logs
+*.txt
+!synaptix.txt
+!backend/requirements.txt
+*.parquet
+artifacts/
+data/feedback.jsonl
+
 # IDE
 .vscode/
 .idea/
