@@ -24,10 +24,10 @@ const registerSchema = z
 const loginSchema = z
   .object({
     email: z
-      .string({ required_error: 'Email is required' })
+      .string({ required_error: 'User ID or Email is required' })
       .trim()
       .toLowerCase()
-      .email('Please provide a valid email address'),
+      .min(2, 'Please provide a valid User ID or Email address'),
     password: z
       .string({ required_error: 'Password is required' })
       .min(1, 'Password is required'),

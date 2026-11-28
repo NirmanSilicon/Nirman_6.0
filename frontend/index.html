@@ -159,8 +159,8 @@ function Home(){
 const EyeLogo=({w=64})=><svg viewBox="0 0 120 64" width={w} aria-hidden="true"><path d="M4 34C24 8 96 8 116 34C96 58 24 58 4 34Z" fill="none" stroke="var(--tx)" strokeWidth="5" strokeLinejoin="round"/><circle cx="60" cy="33" r="17" fill="var(--red)"/><g stroke="#fff" strokeWidth="2" opacity=".85">{[0,60,120].map(a=><line key={a} x1="60" y1="18" x2="60" y2="48" transform={`rotate(${a} 60 33)`}/>)}</g><circle cx="60" cy="33" r="6" fill="#14181c"/></svg>;
 const PwEye=({off})=><svg className="i" viewBox="0 0 24 24" style={{width:20,height:20}} aria-hidden="true"><path d="M2 12c3-5.5 6.5-7 10-7s7 1.5 10 7c-3 5.5-6.5 7-10 7S5 17.5 2 12z"/><circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none"/>{off&&<path d="M4 4l16 16" strokeWidth="2.4"/>}</svg>;
 function SignIn(){
- const [show,setShow]=useState(false);const [u,setU]=useState("admin@smartppe.local");const [p,setP]=useState("AdminPassword123!");const [role,setRole]=useState("Super Admin");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
- const pickRole=r=>{setRole(r);if(r==="Super Admin"){setU("admin@smartppe.local");setP("AdminPassword123!")}else if(r==="Admin"){setU("supervisor.a@smartppe.local");setP("SupervisorPassword123!")}else{setU("worker1@smartppe.local");setP("WorkerPassword123!")}};
+ const [show,setShow]=useState(false);const [u,setU]=useState("admin@smartppe.local");const [p,setP]=useState("AdminPassword123!");const [role,setRole]=useState("Higher Authority");const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
+ const pickRole=r=>{setRole(r);if(r==="Higher Authority"){setU("admin@smartppe.local");setP("AdminPassword123!")}else{setU("supervisor.a@smartppe.local");setP("SupervisorPassword123!")}};
  const doLogin=async e=>{
   e.preventDefault();setErr("");setLoading(true);
   try{
@@ -185,15 +185,15 @@ function SignIn(){
  <div className="lg-s"><span style={{borderBottom:"3px solid var(--red)"}}>Safety Today… A Better Tomorrow…</span></div></div>
  <div className="lg-r"><form className="lg-card" onSubmit={doLogin}>
  <div style={{display:"grid",justifyItems:"center",gap:4}}><EyeLogo/><div className="brand" style={{fontSize:26}}>WARDEN’S <span style={{color:"var(--red)",marginLeft:6}}>EYE</span></div><small style={{color:"var(--mut)"}}>Secure • Monitor • Ensure</small></div>
- <h2 style={{fontSize:32}}>Welcome Back!</h2><p style={{margin:0,color:"var(--mut)"}}>Sign in to continue to your dashboard</p>
+ <h2 style={{fontSize:32}}>Welcome Back!</h2><p style={{margin:0,color:"var(--mut)"}}>Sign in as Higher Authority or Supervisor</p>
  {err&&<div style={{background:"var(--rl)",color:"var(--red)",padding:"8px 12px",borderRadius:8,fontSize:14,fontWeight:600}}>{err}</div>}
- <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder="Email Address" value={u} onChange={e=>setU(e.target.value)} aria-label="Email address" required/></div>
+ <div className="lg-in"><span className="i"><Ic n="mail"/></span><input className="in" placeholder="Authority / Supervisor ID or Email" value={u} onChange={e=>setU(e.target.value)} aria-label="User ID or Email" required/></div>
  <div className="lg-in pw"><span className="i"><Ic n="lock"/></span><input className="in" type={show?"text":"password"} placeholder="Password" value={p} onChange={e=>setP(e.target.value)} aria-label="Password" required/><button type="button" aria-label="Show or hide password" onClick={()=>setShow(!show)}><PwEye off={!show}/></button></div>
- <div className="row"><label style={{display:"flex",gap:8,alignItems:"center"}}><input type="checkbox"/>Remember Me</label><a href="#signin" onClick={e=>{e.preventDefault();alert("Contact your Organisation Administrator to reset credentials.")}} style={{color:"var(--red)",fontWeight:600}}>Forgot Password?</a></div>
- <button className="btn red" style={{height:48,fontSize:17}} disabled={loading}>{loading?"Signing In...":"Sign In"} <Ic n="arrow"/></button>
- <div className="lg-or">quick role credentials</div>
- <div className="lg-roles">{[["Super Admin","crown"],["Admin","shieldck"],["Employee","user"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>pickRole(r[0])}><Ic n={r[1]}/>{r[0]}</button>)}</div>
- <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · A Safer Workplace. A Smarter Tomorrow.</small></form></div></div>}
+ <div className="row"><label style={{display:"flex",gap:8,alignItems:"center"}}><input type="checkbox"/>Remember Me</label><a href="#signin" onClick={e=>{e.preventDefault();alert("Contact Higher Authority to create or reset your Supervisor ID & Password.")}} style={{color:"var(--red)",fontWeight:600}}>Forgot Password?</a></div>
+ <button className="btn red" style={{height:48,fontSize:17}} disabled={loading}>{loading?"Signing In...":`Sign In as ${role}`} <Ic n="arrow"/></button>
+ <div className="lg-or">select access role</div>
+ <div className="lg-roles" style={{gridTemplateColumns:"1fr 1fr"}}>{[["Higher Authority","crown"],["Supervisor","shieldck"]].map(r=><button type="button" key={r[0]} className={"btn "+(role===r[0]?"on":"")} onClick={()=>pickRole(r[0])}><Ic n={r[1]}/>{r[0]}</button>)}</div>
+ <small style={{color:"var(--mut)"}}><a href="#home" style={{color:"inherit"}}>Back to home</a> · Higher Authority can create Supervisor IDs &amp; Passwords inside the dashboard.</small></form></div></div>}
 
 const ML_STREAM_BASE="http://127.0.0.1:8765";
 const API_BASE="http://127.0.0.1:5000/api";
@@ -500,7 +500,7 @@ function Chat(){
  <div className="cm"><div className="row" style={{padding:"12px 16px",borderBottom:"1px solid var(--line)",justifyContent:"flex-start"}}><b>{CT[a][0]}</b><span className="bd">{CT[a][1]}</span></div><div className="msgs" ref={box}>{(M[a]||[]).map((m,i)=><div key={i} className={"m "+(m[0]==="me"?"me":"")}>{m[1]}<small>{m[2]}</small></div>)}{!(M[a]||[]).length&&<p style={{color:"var(--mut)"}}>No messages yet. Say hello.</p>}</div>
  <form onSubmit={send}><input className="in" placeholder="Type a message" value={t} onChange={e=>setT(e.target.value)}/><button className="btn grn" aria-label="Send"><Ic n="send"/></button></form></div></div>}
 
-const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
+const NAV=[["live","live","Live Monitoring"],["attendance","att","Attendance System"],["reports","rep","Reports"],["zones","zone","Zone Management"],["supervisors","users","Supervisor Access"],["cloud","dash","Cloud Integration"],["chat","chat","Chat"],["prefs","set","Settings"]];
 const HIST=[["rec-videos","video","Recorded Videos"],["rec-attendance","cal","Recorded Attendance"],["rec-reports","rep","Recorded Reports"]];
 const ALL=NAV.concat(HIST);
 const SLOTS=["06:00","12:00","18:00"];
@@ -579,6 +579,118 @@ function RecReports(){
  return <div><div className="bar"><input className="in" placeholder="Search MongoDB Atlas recorded incident history" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Atlas Incident Archive: {dbInc.length} records</span></div>
  {verifyMsg&&<div className="card" style={{marginBottom:12,borderLeft:"4px solid var(--grn)",padding:"10px 14px"}}><b>{verifyMsg}</b></div>}
  <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>SHA-256 Hash</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><code>{r.hash||"Verified"}</code></td><td><Badge s={r.st}/></td><td>{r.mongoId&&<button className="btn" onClick={()=>verifyHash(r)}>Verify Hash</button>} <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+function SupervisorsPage({zones,curUser}){
+ const isHigherAuthority=!curUser||curUser.role==="ADMINISTRATOR";
+ const [sups,setSups]=useState([]);const [name,setName]=useState("");const [loginId,setLoginId]=useState("");const [pass,setPass]=useState("");const [selZone,setSelZone]=useState("");
+ const [msg,setMsg]=useState("");const [err,setErr]=useState("");const [busy,setBusy]=useState(false);const [editSup,setEditSup]=useState(null);const [newPass,setNewPass]=useState("");
+ const loadSups=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(!tok)return;
+   const r=await fetch(`${API_BASE}/admin/supervisors`,{headers:{Authorization:`Bearer ${tok}`}});
+   if(r.ok){
+    const j=await r.json();
+    if(j.data?.supervisors)setSups(j.data.supervisors);
+   }
+  }catch(_e){}
+ };
+ useEffect(()=>{loadSups()},[]);
+ const createSup=async e=>{
+  e.preventDefault();setMsg("");setErr("");setBusy(true);
+  try{
+   const tok=localStorage.getItem("we-token");
+   const zoneIds=selZone?[selZone]:[];
+   const r=await fetch(`${API_BASE}/admin/supervisors`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({name:name.trim(),email:loginId.trim().toLowerCase(),password:pass,status:"ACTIVE",zoneIds})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setMsg(`✓ Supervisor Created in MongoDB Atlas! Login ID: ${loginId.trim().toLowerCase()} | Password: ${pass}`);
+    setName("");setLoginId("");setPass("");setSelZone("");
+    await loadSups();
+   }else{
+    setErr(j.message||"Failed to create supervisor");
+   }
+  }catch(_e){setErr("Network error creating supervisor")}finally{setBusy(false)}
+ };
+ const resetPass=async e=>{
+  e.preventDefault();if(!editSup||!newPass)return;setMsg("");setErr("");
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/admin/supervisors/${editSup.userId||editSup._id}`,{
+    method:"PUT",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({password:newPass,status:"ACTIVE"})
+   });
+   const j=await r.json();
+   if(r.ok){
+    setMsg(`✓ Password updated for ${editSup.email} in MongoDB Atlas!`);
+    setEditSup(null);setNewPass("");await loadSups();
+   }else{setErr(j.message||"Could not update password")}
+  }catch(_e){setErr("Error updating password")}
+ };
+ const assignZoneToSup=async(supId,zoneMongoId)=>{
+  if(!zoneMongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const r=await fetch(`${API_BASE}/admin/zones/${zoneMongoId}/assign-supervisor`,{
+    method:"POST",
+    headers:{"Content-Type":"application/json",Authorization:`Bearer ${tok}`},
+    body:JSON.stringify({supervisorId:supId})
+   });
+   if(r.ok){setMsg("✓ Zone assigned to Supervisor in MongoDB Atlas");await loadSups()}
+  }catch(_e){}
+ };
+ const removeSup=async sup=>{
+  if(!confirm(`Deactivate / Remove Supervisor ${sup.name} (${sup.email})?`))return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   await fetch(`${API_BASE}/admin/supervisors/${sup.userId||sup._id}`,{method:"DELETE",headers:{Authorization:`Bearer ${tok}`}});
+   await loadSups();
+  }catch(_e){}
+ };
+ if(!isHigherAuthority){
+  return <div className="card" style={{borderLeft:"4px solid var(--amb)"}}>
+   <h3>Higher Authority Access Required</h3>
+   <p style={{color:"var(--mut)",margin:"6px 0 12px"}}>You are currently signed in as a <b>Supervisor ({curUser?.email})</b>. Only <b>Higher Authority</b> can create or modify Supervisor IDs and Passwords.</p>
+   <button className="btn red" onClick={()=>go("signin")}>Switch to Higher Authority Account</button>
+  </div>;
+ }
+ return <div className="grid" style={{gap:16}}>
+  <div className="card" style={{borderLeft:"4px solid var(--red)"}}>
+   <div className="row"><h3>Higher Authority — Create Supervisor ID &amp; Password (MongoDB Atlas)</h3><span className="bd g">Role: Higher Authority</span></div>
+   <p style={{margin:"4px 0 12px",fontSize:14,color:"var(--mut)"}}>Create a new Supervisor Login ID (e.g. <code>sup01@smartppe.local</code> or <code>sup_zone_b</code>) and Password. The Supervisor can immediately sign in on the Sign-In page using these credentials.</p>
+   {msg&&<div className="bd g" style={{padding:"8px 12px",marginBottom:10,fontSize:14}}>{msg}</div>}
+   {err&&<div className="bd r" style={{padding:"8px 12px",marginBottom:10,fontSize:14}}>{err}</div>}
+   <form onSubmit={createSup} className="grid g4" style={{alignItems:"end"}}>
+    <label>Supervisor Full Name<input className="in" placeholder="e.g. Bikash Pattnaik" value={name} onChange={e=>setName(e.target.value)} required/></label>
+    <label>Supervisor Login ID / Email<input className="in" placeholder="e.g. sup.bikash@smartppe.local" value={loginId} onChange={e=>setLoginId(e.target.value)} required/></label>
+    <label>Set Password (min 6 chars)<input className="in" type="text" placeholder="e.g. Sup@2026!" value={pass} onChange={e=>setPass(e.target.value)} minLength={6} required/></label>
+    <label>Initial Workplace Zone<select className="in" value={selZone} onChange={e=>setSelZone(e.target.value)}><option value="">Select zone (optional)…</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name} ({z.code})</option>)}</select></label>
+    <div style={{gridColumn:"1 / -1",display:"flex",justifyContent:"flex-end"}}><button className="btn red" disabled={busy}><Ic n="plus"/>{busy?"Creating in MongoDB Atlas...":"Create Supervisor ID & Password"}</button></div>
+   </form>
+  </div>
+  <div className="card tw">
+   <div className="row" style={{marginBottom:10}}><h3>Registered Supervisors in MongoDB Atlas ({sups.length})</h3><button className="btn" onClick={loadSups}>Refresh List</button></div>
+   <table><thead><tr><th>Supervisor Name</th><th>Supervisor Login ID / Email</th><th>Role</th><th>Assigned Zones</th><th>Assign Zone</th><th>Status</th><th>Actions</th></tr></thead>
+   <tbody>
+    {sups.map(s=><tr key={s.userId||s._id}>
+     <td><b>{s.name}</b></td>
+     <td><code>{s.email}</code></td>
+     <td><span className="bd">SUPERVISOR</span></td>
+     <td>{(s.assignedZones&&s.assignedZones.length)?s.assignedZones.map(z=>z.zoneName||z.zoneCode).join(", "):"No zone assigned"}</td>
+     <td><select className="in" style={{height:34,fontSize:13}} value="" onChange={e=>assignZoneToSup(s.userId||s._id,e.target.value)}><option value="">+ Assign zone…</option>{zones.filter(z=>z.mongoId&&z.on).map(z=><option key={z.mongoId} value={z.mongoId}>{z.name}</option>)}</select></td>
+     <td><Badge s={s.status==="ACTIVE"?"Active":"Inactive"}/></td>
+     <td><button className="btn" onClick={()=>{setEditSup(s);setNewPass("")}}>Reset Password</button> <button className="btn" onClick={()=>removeSup(s)}><Ic n="trash"/></button></td>
+    </tr>)}
+    {!sups.length&&<tr><td colSpan="7">No supervisors found. Use the form above to create a Supervisor ID and Password.</td></tr>}
+   </tbody></table>
+  </div>
+  {editSup&&<div className="modal" onClick={()=>setEditSup(null)}><form className="card" onSubmit={resetPass} onClick={e=>e.stopPropagation()}><div className="row"><h3>Reset Password for {editSup.name}</h3><button type="button" className="btn" onClick={()=>setEditSup(null)}><Ic n="x"/></button></div><p style={{margin:0,color:"var(--mut)"}}>Supervisor ID: <code>{editSup.email}</code></p><label>New Password (min 6 chars)<input className="in" type="text" placeholder="Enter new password" value={newPass} onChange={e=>setNewPass(e.target.value)} minLength={6} required autoFocus/></label><button className="btn red">Update Supervisor Password in MongoDB</button></form></div>}
+ </div>}
+
 function CloudConsole(){
  const [syncSt,setSyncSt]=useState(null);const [connSt,setConnSt]=useState(null);const [plans,setPlans]=useState([]);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState("");
  const loadCloud=async()=>{
@@ -719,13 +831,14 @@ function Shell({page,dark,setDark}){
  const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
  const nav=h=>{go(h);setOpen(false)};
  const isAtlas=dbInfo?.databaseMode==="MONGODB_ATLAS_CLOUD"||(dbInfo?.databaseHost&&String(dbInfo.databaseHost).includes("mongodb.net"));
+ const roleLabel=curUser?.role==="ADMINISTRATOR"?"Higher Authority":curUser?.role==="SUPERVISOR"?"Supervisor":(curUser?.role||"Higher Authority");
  return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
  {NAV.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={()=>setHist(!hist)} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(NAV[NAV.length-1])}
  <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
  
  <button className="nv" onClick={doLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud Connected (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB Connected (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Authenticated Role">{curUser?`${curUser.name} (${curUser.role})`:"Admin User"}</span><Av name={curUser?.name||"Admin User"}/></div>
- <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud Connected (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB Connected (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch between Higher Authority & Supervisor">{curUser?`${curUser.name} (${roleLabel})`:"Higher Authority"}</span><Av name={curUser?.name||"Higher Authority"}/></div>
+ <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="supervisors"&&<SupervisorsPage zones={zones} curUser={curUser}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
 
 function App(){
