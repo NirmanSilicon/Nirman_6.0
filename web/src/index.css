@@ -1,0 +1,43 @@
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/devanagari-400.css";
+@import "@fontsource/poppins/devanagari-600.css";
+@import "@fontsource/poppins/devanagari-700.css";
+@import "@fontsource/rajdhani/latin-600.css";
+@import "@fontsource/rajdhani/latin-700.css";
+@import "tailwindcss";
+
+/* Palette taken from the Ouroboros pitch deck */
+@theme {
+  --color-ink: #0e0d0c;
+  --color-ink2: #1c1a18;
+  --color-cream: #fbe8da;
+  --color-paper: #fff7f0;
+  --color-line: #f0d2bd;
+  --color-ember: #b8470f;
+  --color-orange: #f26a1b;
+  --color-amber: #f5a623;
+  --color-mute: #7a6b60;
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-display: "Rajdhani", "Poppins", sans-serif;
+}
+
+html, body, #root { height: 100%; }
+body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-tap-highlight-color: transparent; }
+h1, h2, .display { font-family: var(--font-display); font-weight: 700; letter-spacing: .01em; }
+.eyebrow { font-family: var(--font-display); font-weight: 600; font-size: .75rem; letter-spacing: .28em; text-transform: uppercase; color: var(--color-ember); }
+.btn { @apply rounded-full px-5 py-3 text-sm font-semibold transition active:scale-95 disabled:opacity-50; }
+.btn-primary { @apply bg-ink text-cream hover:bg-ink2; }
+.btn-accent { @apply bg-orange text-white; }
+.btn-ghost { @apply bg-transparent border border-ink/30 text-ink hover:bg-cream; }
+.card { @apply rounded-2xl border border-line bg-white p-4; }
+.card-dark { @apply rounded-2xl border border-orange/60 bg-ink text-cream p-4; }
+.dot-grid { background-image: radial-gradient(rgba(242,106,27,.18) 1px, transparent 1px); background-size: 18px 18px; }
+
+@keyframes pop { from { opacity: 0; transform: translateY(-8px) scale(.9); } to { opacity: 1; transform: none; } }
+.toast-in { animation: pop .25s ease-out; }
+@keyframes orbit { to { transform: rotate(360deg); } }
+.orbit { animation: orbit 30s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .orbit, .toast-in { animation: none; } }
+.leaflet-container { font-family: var(--font-sans); }
