@@ -216,13 +216,6 @@ The localization scope includes:
 - English
 - Hindi
 - Odia
-- Marathi
-- Tamil
-- Telugu
-- Kannada
-- Punjabi
-- Gujarati
-- Malayalam
 
 The interface is intended to maintain consistent translations across navigation, forms, labels, validation, and user-facing messages. Language completeness should be checked in the deployed build whenever new interface content is added.
 
@@ -242,7 +235,6 @@ The current prototype work includes:
 - A split-screen login layout with hospital branding and a mother-and-child visual direction.
 - A hospital-specific authentication flow rather than exposing Mother, Health Worker, or Supervisor login options on the hospital login screen.
 - A role-aware hospital application structure.
-- Eleven existing dashboard views/modules retained in the prototype.
 - Hospital dashboard overview and operational navigation.
 - An emergency-alert interface and supporting frontend integration work.
 - Shared Firebase project and named Firestore database configuration.
@@ -302,14 +294,6 @@ The diagram shows the intended shared-data architecture. The dashed connection r
 
 ### Shared Firebase environment
 
-Both applications are associated with the following Firebase project and named database:
-
-| Setting | Value |
-|---|---|
-| Firebase project ID | `outr-janmasaathi` |
-| Firestore database ID | `ai-studio-janmasaathi-8e8b2a1f-7b17-42e6-bc8e-284c5c28d2df` |
-| Canonical emergency alert collection | `emergencyAlerts` |
-
 The applications must use this exact named Firestore database. They must not silently fall back to a `(default)` database or create a separate database for the Hospital Dashboard.
 
 ## 8. Technology stack
@@ -344,21 +328,6 @@ The following technologies form the current project stack and implementation dir
 
 The Firebase project is shared, while each application maintains its own interface and role-specific workflows.
 
-### Configuration
-
-Use local environment configuration or the project's existing secure configuration process. A typical Vite environment file may look like this (the variable names must match the actual application configuration):
-
-```dotenv
-VITE_FIREBASE_API_KEY=your_firebase_web_api_key
-VITE_FIREBASE_AUTH_DOMAIN=outr-janmasaathi.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=outr-janmasaathi
-VITE_FIREBASE_STORAGE_BUCKET=outr-janmasaathi.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
-VITE_FIRESTORE_DATABASE_ID=ai-studio-janmasaathi-8e8b2a1f-7b17-42e6-bc8e-284c5c28d2df
-```
-
-Keep real environment files out of version control. A Firebase web API key is client configuration, not an Admin credential; it should still be appropriately restricted. **Never place Firebase Admin service-account private keys, private encryption keys, or server secrets in frontend code or a public repository.**
 
 ### Important Firebase notes
 
