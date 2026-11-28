@@ -138,6 +138,9 @@ public final class HomeActivity extends Activity {
         secondRow.addView(quickAction(3, "Settings", "Navigation setup", () -> open(SettingsActivity.class)), fourthTile);
         root.addView(secondRow);
 
+        AppUi.gap(root, 11);
+        root.addView(AppUi.button(this, "Workforce roster & attendance", false, () -> open(WorkforceActivity.class)));
+
         AppUi.gap(root, 15);
         LinearLayout tripFooter = AppUi.row(this);
         tripFooter.setPadding(AppUi.dp(this, 2), 0, AppUi.dp(this, 2), 0);
