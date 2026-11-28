@@ -166,7 +166,7 @@ export interface AllPilotTrain extends PilotTrain {
   corridorName: string;
 }
 
-export const ALL_PILOT_TRAINS: AllPilotTrain[] = [
+const ALL_PILOT_TRAINS: AllPilotTrain[] = [
   ...ECOR_PILOT_TRAINS.map((t) => ({ ...t, corridorId: 'ECoR_BHC_PURI', corridorName: 'ECoR • Odisha' })),
   ...SER_PILOT_TRAINS.map((t) => ({ ...t, corridorId: 'SER_HWH_KGP', corridorName: 'SER • Kolkata' })),
 ];

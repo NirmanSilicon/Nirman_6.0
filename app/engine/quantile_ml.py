@@ -77,15 +77,9 @@ class QuantileMLEngine:
             except (OSError, json.JSONDecodeError, ValueError) as e:
                 logger.warning("Could not read cqr_calibration.json: %s", e)
 
-        # Check for upgraded lgbm_p*.txt or fallback to p*.txt
-        if (target_dir / "lgbm_p10.txt").exists():
-            p10_path = target_dir / "lgbm_p10.txt"
-            p50_path = target_dir / "lgbm_p50.txt"
-            p90_path = target_dir / "lgbm_p90.txt"
-        else:
-            p10_path = target_dir / "p10.txt"
-            p50_path = target_dir / "p50.txt"
-            p90_path = target_dir / "p90.txt"
+        p10_path = target_dir / "lgbm_p10.txt"
+        p50_path = target_dir / "lgbm_p50.txt"
+        p90_path = target_dir / "lgbm_p90.txt"
 
         if not (p10_path.exists() and p50_path.exists() and p90_path.exists()):
             logger.warning("Quantile models not found at %s. Using analytical spread fallback.", target_dir)
@@ -109,9 +103,8 @@ class QuantileMLEngine:
     def _prepare_row_and_base(
         cls,
         features: QuantileFeatureVector,
-        num_expected: int,
     ) -> tuple[list[float], float, float]:
-        """Normalizes QuantileFeatureVector aliases into a model row, p50_base, and rem_km."""
+        """Normalizes QuantileFeatureVector aliases into a 12-feature model row, p50_base, and rem_km."""
         overtake_hold = (
             features.sim_overtake_hold_mins
             if features.sim_overtake_hold_mins is not None
@@ -160,36 +153,21 @@ class QuantileMLEngine:
             )
         )
 
-        if num_expected == 12:
-            feat_dict = {
-                "current_delay_mins": features.current_delay_mins,
-                "sim_freight_penalty_mins": features.sim_freight_penalty_mins,
-                "sim_overtake_hold_mins": overtake_hold,
-                "sim_overtake_count": overtake_count,
-                "usable_slack_mins": features.usable_slack_mins,
-                "freight_shadow_prob": freight_prob,
-                "remaining_distance_km": rem_km,
-                "remaining_commercial_halts": rem_halts,
-                "train_priority_rank": features.train_priority_rank,
-                "rain_mm_hr": features.rain_mm_hr,
-                "is_peak_hour": is_peak,
-                "downstream_junction_load": junc_load,
-            }
-            row = [float(feat_dict.get(k, 0.0)) for k in cls._features]
-        else:
-            row = [
-                float(features.current_delay_mins),
-                float(p50_base),
-                float(freight_prob),
-                float(overtake_count),
-                float(overtake_hold),
-                float(rem_km),
-                float(rem_halts),
-                float(features.usable_slack_mins),
-                float(features.rain_mm_hr),
-                float(features.hour_of_day),
-                float(features.junction_congestion_idx or 0.0),
-            ]
+        feat_dict = {
+            "current_delay_mins": features.current_delay_mins,
+            "sim_freight_penalty_mins": features.sim_freight_penalty_mins,
+            "sim_overtake_hold_mins": overtake_hold,
+            "sim_overtake_count": overtake_count,
+            "usable_slack_mins": features.usable_slack_mins,
+            "freight_shadow_prob": freight_prob,
+            "remaining_distance_km": rem_km,
+            "remaining_commercial_halts": rem_halts,
+            "train_priority_rank": features.train_priority_rank,
+            "rain_mm_hr": features.rain_mm_hr,
+            "is_peak_hour": is_peak,
+            "downstream_junction_load": junc_load,
+        }
+        row = [float(feat_dict.get(k, 0.0)) for k in cls._features]
         return row, float(p50_base), float(rem_km)
 
     @staticmethod
@@ -267,11 +245,10 @@ class QuantileMLEngine:
 
         models_loaded = cls.load_models()
         has_models = bool(models_loaded and cls._p10_model and cls._p50_model and cls._p90_model)
-        num_expected = cls._p50_model.num_feature() if has_models and cls._p50_model else 12
-        q_cqr = cls._q_cqr if (has_models and num_expected == 12) else 0.0
+        q_cqr = cls._q_cqr if has_models else 0.0
 
         prepared = [
-            (*cls._prepare_row_and_base(feat, num_expected), feat)
+            (*cls._prepare_row_and_base(feat), feat)
             for feat, _ in items
         ]
         rows = [p[0] for p in prepared]
