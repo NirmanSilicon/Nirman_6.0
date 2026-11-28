@@ -34,7 +34,11 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     # Database
-    database_url: str = "postgresql+asyncpg://parksmart:CHANGE_ME@db:5432/parksmart"
+    db_mode: str = "local"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/parksmart"
+    database_url_remote: str = ""
+    demo_mode: bool = False
+    demo_videos: str = "../data"
 
     # Auth
     jwt_secret: str = "CHANGE_ME_MIN_32_CHARS_LONG_SECRET_KEY"

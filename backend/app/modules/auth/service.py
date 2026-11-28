@@ -78,7 +78,7 @@ async def register(db: AsyncSession, body: RegisterRequest) -> UserOut:
                 name=body.business_name,
                 registration_no=None,
                 created_by=user.id,
-                status="approved",
+                status="pending" if not get_settings().demo_mode else "approved",
             )
             await biz_repo.add_member(
                 db,

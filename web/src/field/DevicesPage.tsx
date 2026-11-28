@@ -12,6 +12,7 @@ import type {
 } from "../api/types";
 import { useLiveStream } from "../realtime/useLiveStream";
 import { DataBadge, dataProvenance } from "../components/DataBadge";
+import { DemoVideosPanel } from "../components/DemoVideosPanel";
 
 export default function DevicesPage(): JSX.Element {
   const [searchParams] = useSearchParams();
@@ -329,6 +330,7 @@ export default function DevicesPage(): JSX.Element {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+      <DemoVideosPanel />
       {/* Top Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
         <div>

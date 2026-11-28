@@ -53,16 +53,40 @@ function RootRoute(): JSX.Element | null {
 
 // --- Role-based Home Path Helper ---
 export function getHomePath(roles: ReadonlySet<Role>): string {
-  if (roles.has("field_operator")) {
-    return "/field/devices";
-  }
   if (roles.has("municipal_admin") || roles.has("system_admin")) {
     return "/municipal/overview";
+  }
+  if (roles.has("field_operator")) {
+    return "/field/devices";
   }
   if (roles.has("business_operator")) {
     return "/business/bookings";
   }
   return "/login";
+}
+
+class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+  override render() {
+    if (this.state.error) {
+      return (
+        <div style={{ padding: "2rem", backgroundColor: "#fef2f2", color: "#991b1b", borderRadius: "8px", margin: "1rem" }}>
+          <h3>Something went wrong</h3>
+          <p>{this.state.error.message}</p>
+          <button type="button" onClick={() => this.setState({ error: null })} style={{ padding: "0.4rem 0.8rem" }}>
+            Retry
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 // --- Layout with Role-based Navigation & Simulated Data Banner ---
@@ -75,8 +99,26 @@ function Layout(): JSX.Element {
   const isField = roles.has("field_operator") || roles.has("municipal_admin") || roles.has("system_admin");
   const isBusiness = roles.has("business_operator");
 
+  const isDemoMode = import.meta.env.VITE_DEMO_MODE === "true";
+
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      {isDemoMode && (
+        <div
+          role="status"
+          style={{
+            backgroundColor: "#0284c7",
+            color: "#ffffff",
+            padding: "4px 16px",
+            textAlign: "center",
+            fontWeight: 700,
+            fontSize: "0.75rem",
+            letterSpacing: "0.08em",
+          }}
+        >
+          DEMO MODE — Synthetic demo environment
+        </div>
+      )}
       {/* Persistent Simulated Data Banner */}
       {simulatedCount > 0 && (
         <div
@@ -197,7 +239,9 @@ function Layout(): JSX.Element {
         </aside>
 
         <main style={{ flex: 1, padding: "1.5rem", backgroundColor: "#ffffff", overflowY: "auto" }}>
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </main>
       </div>
     </div>
@@ -300,9 +344,18 @@ function LoginPage(): JSX.Element {
     }
   };
 
-  const handleDemoLogin = (demoEmail: string) => {
+  const handleDemoLogin = async (demoEmail: string, demoPass: string) => {
     setEmail(demoEmail);
+    setPassword(demoPass);
+    setPending(true);
     setErrorMessage(null);
+    try {
+      await login(demoEmail, demoPass);
+    } catch (err) {
+      setErrorMessage(describeApiError(err));
+    } finally {
+      setPending(false);
+    }
   };
 
   return (
@@ -453,30 +506,24 @@ function LoginPage(): JSX.Element {
                   One-Click Demo Login (Dev/Mock Mode):
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                  <button
-                    type="button"
-                    disabled={pending}
-                    onClick={() => handleDemoLogin("municipal@parksmart.local")}
-                    style={{ textAlign: "left" }}
-                  >
-                    👤 Municipal Admin
-                  </button>
-                  <button
-                    type="button"
-                    disabled={pending}
-                    onClick={() => handleDemoLogin("field@parksmart.local")}
-                    style={{ textAlign: "left" }}
-                  >
-                    🔧 Field Operator
-                  </button>
-                  <button
-                    type="button"
-                    disabled={pending}
-                    onClick={() => handleDemoLogin("trader@parksmart.local")}
-                    style={{ textAlign: "left" }}
-                  >
-                    🏢 Business Operator
-                  </button>
+                  {[
+                    { label: "Login as Admin", email: import.meta.env.VITE_DEMO_ADMIN_EMAIL, pass: import.meta.env.VITE_DEMO_ADMIN_PASSWORD },
+                    { label: "Login as Municipal", email: import.meta.env.VITE_DEMO_MUNICIPAL_EMAIL, pass: import.meta.env.VITE_DEMO_MUNICIPAL_PASSWORD },
+                    { label: "Login as Business", email: import.meta.env.VITE_DEMO_BUSINESS_EMAIL, pass: import.meta.env.VITE_DEMO_BUSINESS_PASSWORD },
+                    { label: "Login as Driver", email: import.meta.env.VITE_DEMO_DRIVER_EMAIL, pass: import.meta.env.VITE_DEMO_DRIVER_PASSWORD },
+                  ]
+                    .filter((a) => Boolean(a.email && a.pass))
+                    .map((acc) => (
+                      <button
+                        key={acc.label}
+                        type="button"
+                        disabled={pending}
+                        onClick={() => void handleDemoLogin(acc.email, acc.pass)}
+                        style={{ textAlign: "left" }}
+                      >
+                        {acc.label}
+                      </button>
+                    ))}
                 </div>
               </div>
             )}

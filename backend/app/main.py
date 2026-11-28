@@ -200,6 +200,13 @@ def create_app() -> FastAPI:
     except (ImportError, RuntimeError, AttributeError, ValueError, OSError) as exc:
         logger.debug("Crowd router not mounted: %s", exc)
 
+    try:
+        from app.modules.media.router import router as media_router
+        if media_router and getattr(media_router, "routes", None):
+            app.include_router(media_router, prefix="/api/v1/media", tags=["media"])
+    except (ImportError, RuntimeError, AttributeError, ValueError, OSError) as exc:
+        logger.debug("Media router not mounted: %s", exc)
+
     return app
 
 

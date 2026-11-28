@@ -38,22 +38,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
   useEffect(() => {
     let mounted = true;
     async function bootstrap() {
-      if (import.meta.env.DEV) {
-        if (mounted) {
-          setUser({
-            id: "demo-admin",
-            email: "admin@parksmart.demo",
-            full_name: "Demo Admin",
-            phone: null,
-            status: "approved",
-            roles: ["system_admin", "municipal_admin"],
-            created_at: new Date().toISOString(),
-          });
-          setRoles(new Set<Role>(["system_admin", "municipal_admin"]));
-          setStatus("authenticated");
-        }
-        return;
-      }
       tokenStore.load();
       if (tokenStore.refresh) {
         const refreshed = await refreshTokens();
