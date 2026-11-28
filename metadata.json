@@ -1,0 +1,6 @@
+{
+  "name": "FairPlay Lens",
+  "description": "Decoding the Line Between Gaming and Gambling by Team ByteStorm — AI dark-pattern scanner, probability house-edge simulators, selective RNG shield demo, and parental hub.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
