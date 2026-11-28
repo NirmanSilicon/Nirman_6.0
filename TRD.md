@@ -1,33 +1,24 @@
-# TRD.md — Technical Requirements Document (`algoryxz`)
+# TRD.md — Technical Requirements Document (`algoryxz` — DocuReady for NIRMAN 6.0)
 
-**Status:** `PROPOSED` (Baseline Audit Verified; Technical Stack Pending Team ADR-001)
+**Status:** `PROPOSED` (Aligned with ADR-001; `algoryxz` currently contains `.gitignore` & `algoryxz.txt` only)
 
 ---
 
-## 1. Existing System Architecture (`VERIFIED`)
-- **Current `algoryxz` branch (`06c65b4`):** Contains `.gitignore` (`branchcreation.sh`, `.env`) and `algoryxz.txt`.
-- **Implemented application code:** None yet (`0` source files, `0` test files, `0` dependency manifests).
-- **Organizer infrastructure (`upstream/main` `dc26fa7`):** `.github/PULL_REQUEST_TEMPLATE.md`, `CONTRIBUTING.md`, `README.md`, `docs/submission-timeline.md`, `teams/README.md`.
+## 1. Existing vs. Proposed Implementation (`VERIFIED` vs. `PROPOSED`)
+- **`VERIFIED` on `algoryxz` (`06c65b4`):** `.gitignore`, `algoryxz.txt`.
+- **`PROPOSED` for NIRMAN 6.0 implementation branches (`feature/<member>-<topic>`):**
+  - **Desktop Shell:** Electron + TypeScript (`contextIsolation: true`, `sandbox: true`, `nodeIntegration: false`, `validateIpcSender`).
+  - **Renderer UI:** React + TypeScript + Vite + PDF.js (`DocumentNav`, `EvidenceViewer` with bbox overlay, `FindingPanel`, replacement flow).
+  - **Backend Sidecar:** Python stdio NDJSON protocol (`health`, `audit_packet`, `replace_document`, `shutdown`) packaged via PyInstaller (`docuready_sidecar.exe`) + bundled Tesseract OCR (`eng`, `hin`, `ori`).
+  - **Windows Packaging:** Electron Forge (`MakerSquirrel` `.exe` installer + `MakerZIP` portable `.zip`).
 
-## 2. Proposed Architecture & Stack (`PROPOSED` — `REQUIRES HUMAN APPROVAL`)
-*(No stack is assumed or fabricated. The team must record its chosen stack in `DECISIONS.md` ADR-001 before implementation.)*
-- **Technology Stack:** `[OPEN QUESTION]` (e.g., Frontend, Backend/API, AI/ML or Data layer, Storage).
-- **Application Structure (`PROPOSED`):**
-  - `src/` or `apps/` — application source
-  - `tests/` — automated tests
-  - `docs/` — architecture, governance, and `docs/agent-prompts/`
-  - `.env.example` — placeholder environment variables only
-
-## 3. Interfaces, Data Models, Storage & Pipeline (`PROPOSED`)
-- **APIs & Interfaces:** To be specified in `TRD.md` once ADR-001 locks the backend/frontend boundary.
-- **Data Models & Storage:** To be specified per chosen stack; no PII or real credentials stored in Git.
-- **Error Handling & Logging:** Structured error responses without leaking stack traces, secrets, or local filesystem paths.
-
-## 4. Security Model (`VERIFIED` Rules + `PROPOSED` Controls)
-- `.gitignore` excludes `.env` and `branchcreation.sh` (`VERIFIED`).
-- Input validation, CORS/CSP (if web), and secret-free commits (`PROJECT_RULES.md` §8).
-
-## 5. Testing, Deployment & Performance (`PROPOSED`)
-- **Testing Strategy:** Defined in `TESTING_STRATEGY.md` (unit, integration, smoke, and `git diff --check`).
-- **Deployment Architecture:** Must run reproducibly from a clean clone on a judge/organizer machine (or documented hosted preview URL if applicable).
-- **Integration Dependencies & Risks:** Tight 28–29 Nov IST timeline requires locking ADR-001 and API contracts before parallel member branches diverge.
+## 2. Reusable Concepts vs. Independent NIRMAN Deliverables (`PROPOSED`)
+- **Reusable Concepts (from validated DocuReady architecture):**
+  - Context-isolated Electron preload bridge + ephemeral `os.tmpdir()` packet staging.
+  - Versioned NDJSON stdio sidecar protocol with sanitized error payloads.
+  - 9-feature confidence calibration (`VERIFIED` / `PROVISIONAL` / `UNCERTAIN`) and conservative abstention (`DecisionSafetyLayer`).
+  - PII redaction on exported reports and logs.
+- **Independent NIRMAN Deliverables (must be built & verified in `Nirman_6.0`):**
+  - Independent `src/` + `apps/desktop/` + `sidecar/` + `tests/` suites and acceptance evidence.
+  - Repeatable synthetic demonstration dataset (`demo_packet/`) and step-by-step judge demonstration script.
+  - Clean-machine Windows validation report and dependency/licensing disclosures (including PyMuPDF AGPLv3 disclosure if bundled).

@@ -1,39 +1,39 @@
-# PRD.md — Product Requirements Document (`algoryxz`)
+# PRD.md — Product Requirements Document (`algoryxz` — DocuReady for NIRMAN 6.0)
 
-**Status:** `PROPOSED` (Kickoff Template — awaiting team problem-statement & feature freeze)
-**Repository Baseline (`VERIFIED`):** `algoryxz` at `06c65b4` contains only `.gitignore` and `algoryxz.txt` (no application code or problem statement committed yet).
+**Status:** `PROPOSED` (Updated per ADR-001 selecting DocuReady; pending PR merge into `algoryxz`)
+**Repository Baseline (`VERIFIED`):** `algoryxz` (`06c65b4`) currently has `.gitignore` and `algoryxz.txt` only; application modules below are `PROPOSED` for incremental PRs into `algoryxz`.
 
 ---
 
-## 1. Verified Constraints & Competition Schedule (`VERIFIED` from `upstream/main`)
-- **Event:** NIRMAN 6.0 — HACKNATION 2026 (28–29 November 2026, IST)
-- **Milestones (`docs/submission-timeline.md`):**
-  1. **First Progress Submission:** 28 November 2026, **9:00 PM IST**
-  2. **Second Progress Submission:** 29 November 2026, **3:00 AM IST**
-  3. **Final Submission:** 29 November 2026, **6:00 AM IST**
-- **Submission Rule:** Push to `origin/algoryxz` and maintain PR targeting `NirmanSilicon/Nirman_6.0:algoryxz` (never `main`).
+## 1. Competition Schedule (`VERIFIED` from `upstream/main:docs/submission-timeline.md`)
+- **First Progress Submission:** 28 November 2026, **9:00 PM IST**
+- **Second Progress Submission:** 29 November 2026, **3:00 AM IST**
+- **Final Submission:** 29 November 2026, **6:00 AM IST**
+- **Target PR:** `Smarak-padhi/Nirman_6.0:algoryxz` → `NirmanSilicon/Nirman_6.0:algoryxz` (never `main`).
 
-## 2. Problem Statement (`OPEN QUESTION` / `REQUIRES HUMAN APPROVAL`)
-- `[OPEN QUESTION]` Team `algoryxz` has not yet recorded its selected problem statement, target domain, or user persona in the repository.
-- `[PROPOSED]` Once selected by Team Leader Smarak Padhi, document:
-  - **Target Users & Pain Points:** *(to be filled from verified team problem statement — do not fabricate user research)*
-  - **Proposed Solution & Objectives:** *(1–3 measurable goals deliverable by 6:00 AM IST, 29 Nov 2026)*
+## 2. Problem Statement & Target Users (`PROPOSED`)
+- **Problem:** Scholarship and welfare applicants frequently face application rejection or delays due to missing documents, unreadable scans, expired certificates, and cross-document clerical mismatches (names, dates, IDs, income/bank details) discovered only *after* portal submission.
+- **Target Users:**
+  1. **Primary:** Scholarship/public-benefit applicants preparing multi-document PDF/image packets on a Windows desktop.
+  2. **Secondary:** Assisted-service / CSC operators pre-checking applicant packets locally without uploading sensitive PII to cloud services.
+- **Product Boundary:** DocuReady is an **applicant-side pre-flight readiness assistant**, not a government portal, fraud/authenticity detector, or eligibility predictor.
 
-## 3. Scope & Out-of-Scope (`PROPOSED`)
-- **In-Scope (Hackathon MVP):** Core end-to-end vertical slice demonstrable at 9:00 PM (initial), 3:00 AM (integrated), and 6:00 AM (final).
-- **Out-of-Scope:** Unverified external integrations, production-scale multi-region infra, or features not verifiable before 6:00 AM IST.
+## 3. Minimum Complete, Demonstrable Scope (`PROPOSED`)
+Core vertical slice for judge demonstration:
+> **Guided Packet Intake (Scheme Slots) → Local Document Extraction (Vector + OCR) → Evidence Review (Source Page + BBox) → Discrepancy / Uncertainty Findings → Single-Document Replacement & Re-Audit → Redacted Report Export**
+
+### Out-of-Scope
+- Cloud OCR or cloud document storage
+- DigiLocker, WhatsApp, or live government portal APIs
+- Automatic fraud/authenticity verdicts or AI eligibility predictions
+- Mobile/Flutter apps
 
 ## 4. Functional & Non-Functional Requirements (`PROPOSED`)
-- **FR-01..FR-0N:** *(To be populated per selected problem statement after team kickoff decision.)*
-- **NFR-01 (Security):** Zero committed secrets/credentials; `.env` excluded.
-- **NFR-02 (Reproducibility):** Clear setup/run instructions and reproducible test/demo steps for organizers.
-- **NFR-03 (Reliability):** Graceful error handling on invalid inputs and missing configuration.
-
-## 5. User Journeys, Acceptance Criteria & Success Metrics (`PROPOSED`)
-- **Core User Journey:** *(To be defined once problem statement is locked.)*
-- **Acceptance Criteria:**
-  - Every claimed feature exists in committed source code on `algoryxz`.
-  - Smoke/unit tests and lint/diff checks pass prior to each submission milestone (9:00 PM, 3:00 AM, 6:00 AM IST).
-- **Risks & Open Questions:**
-  1. Finalize problem statement and tech stack (`DECISIONS.md` ADR-001).
-  2. Assign module ownership across team members before 9:00 PM IST milestone.
+- **FR-01:** Select a scheme/pack (e.g., scholarship/welfare slot checklist) and stage PDF/PNG/JPEG documents in an isolated ephemeral workspace.
+- **FR-02:** Extract key fields locally (vector text + Tesseract OCR for English/Indic scripts) with source page & bounding-box provenance.
+- **FR-03:** Normalize values (dates, Indic digits, amounts, IDs) and run deterministic completeness, freshness, and cross-document consistency checks.
+- **FR-04:** Display explainable findings (`PASS`, `WARN`, `REVIEW`, `FAIL`, `MISSING`) with conservative abstention (`REVIEW`) on low confidence.
+- **FR-05:** Replace a defective document in-place and re-audit without re-uploading the full packet.
+- **FR-06:** Export a PII-redacted Markdown/JSON summary report.
+- **NFR-01 (Privacy/Security):** Local-only processing, ephemeral temp workspace cleanup, zero committed secrets.
+- **NFR-02 (Windows Deliverable):** Packaged Windows executable (`DocuReady-Setup.exe` / portable `.zip`) verified on a clean Windows machine with a repeatable demo dataset and judge demo script.

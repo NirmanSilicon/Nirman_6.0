@@ -1,22 +1,22 @@
 # PROJECT_STATUS.md — Live Status Tracker (`algoryxz`)
 
 **Last Updated:** 28 November 2026 (IST)
-**Current `algoryxz` Commit (`VERIFIED`):** `06c65b4` (`origin/algoryxz` == `upstream/algoryxz`, `0` ahead / `0` behind)
+**Current `algoryxz` Commit (`VERIFIED`):** `06c65b4` (`origin/algoryxz` == `upstream/algoryxz`)
 **Working Governance Branch (`VERIFIED`):** `docs/governance-and-kickoff-baseline`
 
 ---
 
 ## 1. Completed Work (`VERIFIED`)
-- Cloned `Smarak-padhi/Nirman_6.0` into `C:\Users\smara\Desktop\NIRMAN_6.0`.
-- Configured `origin` (`Smarak-padhi/Nirman_6.0.git`) and `upstream` (`NirmanSilicon/Nirman_6.0.git`).
-- Audited `algoryxz` (`06c65b4`: `.gitignore`, `algoryxz.txt`) and `upstream/main` (`dc26fa7`: organizer docs & timeline).
-- Authored project governance, PRD/TRD/architecture templates, workflow, testing strategy, decision log, and `docs/agent-prompts/` library.
+- Cloned `Smarak-padhi/Nirman_6.0` into `C:\Users\smara\Desktop\NIRMAN_6.0`; configured `origin` and `upstream`.
+- Created governance baseline, `PROJECT_RULES.md`, `DEVELOPMENT_WORKFLOW.md`, `TESTING_STRATEGY.md`, `AGENT_INSTRUCTIONS.md`, and 11 `docs/agent-prompts/*.md`.
+- Updated **ADR-001 (`DECISIONS.md`)**, `PRD.md`, `TRD.md`, and `ARCHITECTURE.md` to select **DocuReady** as the NIRMAN 6.0 competition project.
 
-## 2. Work In Progress / Next Milestones
-- **Team-leader review:** Merge `docs/governance-and-kickoff-baseline` into `origin/algoryxz`.
-- **ADR-001:** Lock problem statement, tech stack, and teammate task split.
-- **Submission Deadlines (IST):** 9:00 PM (28 Nov), 3:00 AM (29 Nov), 6:00 AM (29 Nov).
+## 2. Immediate Next Milestones
+- **Before 9:00 PM IST (First Progress Submission):** Merge governance PR into `origin/algoryxz`, scaffold Python core + sidecar + desktop shell on individual `feature/*` branches, and push initial working milestone to `origin/algoryxz`.
+- **Before 3:00 AM IST (Second Progress Submission):** Complete end-to-end audit + evidence viewer + replacement + redacted export.
+- **Before 6:00 AM IST (Final Submission):** Package Windows `.exe`/`.zip`, run clean-machine Windows validation, prepare judge demo dataset/script, and open final PR to `NirmanSilicon/Nirman_6.0:algoryxz`.
 
-## 3. Blockers & Outstanding Decisions
-- `OPEN`: Problem statement and tech stack not yet committed (`PRD.md`, `TRD.md`, `DECISIONS.md`).
-- `NOTE`: `algoryxz` (`06c65b4`) is branched from `6ae4323` (`initial creation`), 3 commits behind `upstream/main` (`dc26fa7`) which holds organizer docs (`README.md`, `CONTRIBUTING.md`, `docs/submission-timeline.md`). Do not merge `upstream/main` into `algoryxz` unless organizers instruct or team leader approves.
+## 3. Blockers & Disclosures
+- **Application code:** `0` implementation files on `algoryxz` yet (ready for Track A feature branches after governance PR review).
+- **Windows executable & clean-machine test:** Not yet built or tested on a clean Windows machine.
+- **Licensing disclosure:** Any PyMuPDF (`AGPLv3`) bundling must be disclosed in `THIRD_PARTY_LICENSES.md` / judge notes.

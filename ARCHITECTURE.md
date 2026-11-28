@@ -1,30 +1,28 @@
-# ARCHITECTURE.md — System Architecture (`algoryxz`)
+# ARCHITECTURE.md — System Architecture (`algoryxz` — DocuReady for NIRMAN 6.0)
 
-**Baseline Verification (`VERIFIED`):** As of commit `06c65b4` on `algoryxz`, the branch contains only `.gitignore` and `algoryxz.txt`. No application components exist yet.
+**Baseline (`VERIFIED`):** `algoryxz` (`06c65b4`) contains only `.gitignore` and `algoryxz.txt`. The application topology below is **`PROPOSED`** per ADR-001.
 
 ---
 
-## 1. Current Repository & Collaboration Topology (`VERIFIED`)
+## 1. Proposed NIRMAN Application Architecture (`PROPOSED`)
 
 ```mermaid
 flowchart TD
-    Upstream["NirmanSilicon/Nirman_6.0\n(upstream/main & upstream/algoryxz)"]
-    Fork["Smarak-padhi/Nirman_6.0\n(origin/algoryxz)"]
-    Local["Local Clone: C:/Users/smara/Desktop/NIRMAN_6.0\n(branch: docs/governance-and-kickoff-baseline -> algoryxz)"]
-    Members["Teammate Feature Branches\n(feature/member-name-feature)"]
+    subgraph Desktop["Electron Desktop App (Windows x64) [PROPOSED]"]
+        UI["React + PDF.js Renderer\n(Intake, EvidenceViewer, Findings, Replace)"]
+        Preload["Context-Isolated Preload Bridge"]
+        Main["Electron Main + IPC + Ephemeral Workspace"]
+        SidecarMgr["Sidecar Process Manager"]
+    end
 
-    Members -->|"PRs reviewed by Smarak Padhi"| Fork
-    Local -->|"PR after validation"| Fork
-    Fork -->|"Final PR: algoryxz -> upstream/algoryxz\n(NEVER main)"| Upstream
+    subgraph Engine["Python Sidecar (PyInstaller + Tesseract) [PROPOSED]"]
+        RPC["NDJSON stdio Protocol\n(health, audit_packet, replace_document, shutdown)"]
+        Ingest["Vector + Local OCR Extraction"]
+        Norm["Normalizers & Confidence Calibration"]
+        Rules["Deterministic Slot & Cross-Doc Rules"]
+        Redact["PII Redaction & Report Export"]
+    end
+
+    UI <--> Preload <--> Main <--> SidecarMgr <--> RPC
+    RPC --> Ingest --> Norm --> Rules --> Redact
 ```
-
-## 2. Target Application Architecture (`PROPOSED` — Placeholder Until ADR-001)
-*(Do not treat this placeholder as implemented code.)*
-
-```mermaid
-flowchart LR
-    Client["Client / UI\n[PROPOSED]"] <-->|"REST / IPC / RPC\n[PROPOSED]"| Service["Backend / Core Logic\n[PROPOSED]"]
-    Service <-->|"Read/Write\n[PROPOSED]"| Store["Data / Model Layer\n[PROPOSED]"]
-```
-
-Once ADR-001 is approved in `DECISIONS.md`, update this diagram with exact verified modules, protocols, and file paths.
