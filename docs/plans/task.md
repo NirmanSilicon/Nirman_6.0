@@ -75,6 +75,7 @@
 | **071** | Live System Deployment | Task 39.1: Multi-Tier Docker Deployment & Database Re-Seeding | Completed | Launched Docker containers (railpulse-api, railpulse-postgis, railpulse-redis), re-seeded multi-corridor PostGIS database, verified HTTP 200 health, passed all 7 live smoke test stages, and validated 1.5s WebSocket corridor stream |
 | **072** | Multi-Corridor Config & Kolkata Activation | Task 40.1: Default Corridor Env Binding & Kolkata Switch Verification | Completed | Bound LocalTopologyFallback and CorridorStateStore default corridor to settings.CORRIDOR_NAME, verified SER_HWH_KGP active state, and passed all 62 pytest tests |
 | **073** | Multi-Corridor UI & Switcher Fix | Task 41.1: Landing & Dashboard Corridor Switcher, Universal Search & Remote Push | Completed | Added corridor toggle in LandingNav and SearchCard banner, enabled universal cross-corridor train search, fixed TopHeader dashboard toggle with safe store switchCorridor action, rebuilt production dist, and pushed to wicked_hecers-rohit |
+| **074** | Repository Branch Cleanup | Task 42.1: Purge Extraneous Remote & Local Branches | Completed | Verified branch list, retained exclusively main, wicked_heckers, and wicked_hecers-rohit, deleted 78 unwanted remote branches on GitHub origin, pruned local tracking refs, established local main branch tracking, and verified clean repository state |
 
 
 
