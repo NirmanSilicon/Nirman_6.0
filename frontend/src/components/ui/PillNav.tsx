@@ -122,6 +122,7 @@ export interface PillNavItem {
 
 export interface PillNavProps {
   logo?: string | ReactNode;
+  logoLabel?: string;
   logoAlt?: string;
   logoHref?: string;
   onLogoClick?: (event: MouseEvent<HTMLElement>) => void;
@@ -197,6 +198,7 @@ interface PillNavEngine {
 
 const PillNav = ({
   logo,
+  logoLabel,
   logoAlt = 'Logo',
   logoHref = '#',
   onLogoClick,
@@ -604,9 +606,10 @@ const PillNav = ({
       const pad = readVar(root, '--pn-pad');
       const gap = readVar(root, '--pn-gap');
       const inner = readVar(root, '--pn-inner');
+      const logoWidth = logoRef.current?.offsetWidth || height;
       const need = joined
         ? pad * 2 + (hasLogo ? inner + 2 : 0) + listWidth
-        : (hasLogo ? height + gap : 0) + listWidth + pad * 2;
+        : (hasLogo ? logoWidth + gap : 0) + listWidth + pad * 2;
       const next = need > available + 0.5;
       if (introRef.current && next !== collapsed) pendingRef.current = next;
       setCollapsed(next);
@@ -616,7 +619,7 @@ const PillNav = ({
     if (root.parentElement) observer.observe(root.parentElement);
     observer.observe(measureEl);
     return () => observer.disconnect();
-  }, [collapse, collapsed, joined, hasLogo, size]);
+  }, [collapse, collapsed, joined, hasLogo, logoLabel, size]);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -808,7 +811,11 @@ const PillNav = ({
       aria-label={ariaLabel}
     >
       {logo && (
-        <span ref={logoRef} className={[LOGO, joined ? '' : SURFACE].filter(Boolean).join(' ')}>
+        <span
+          ref={logoRef}
+          className={[LOGO, joined ? '' : SURFACE].filter(Boolean).join(' ')}
+          data-labelled={logoLabel && !joined ? '' : undefined}
+        >
           <Tag
             href={logoHref}
             className={LOGO_LINK}
@@ -819,6 +826,7 @@ const PillNav = ({
             <span ref={markRef} className={MARK}>
               {typeof logo === 'string' ? <img src={logo} alt="" draggable={false} /> : logo}
             </span>
+            {logoLabel && !joined && <span className="pill-nav__brand">{logoLabel}</span>}
           </Tag>
           {!joined && <span className={RIM} />}
         </span>
