@@ -54,6 +54,7 @@ from app.services.features import (
     extract_window_features_batch,
 )
 from app.services.tep_loader import (
+    _resolve_data_path,
     load_tep_parquet,
     split_episodes,
 )
@@ -106,11 +107,13 @@ class BenchmarkResult:
 def validate_dataset():
     """Verify that the processed dataset exists."""
 
-    if not Path(PARQUET_PATH).exists():
+    try:
+        _resolve_data_path(PARQUET_PATH)
+    except FileNotFoundError as exc:
         raise FileNotFoundError(
             f"Processed dataset not found:\n{PARQUET_PATH}\n\n"
             "Run scripts/prepare_data.py first."
-        )
+        ) from exc
 
 
 def validate_artifacts():
