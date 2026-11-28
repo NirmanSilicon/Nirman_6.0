@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashvin · Hospital Log</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/sim/vendor/leaflet.css" />
+  <link rel="stylesheet" href="/dossier/style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <polygon points="12,3 22,20 2,20" fill="#2563eb" />
+            <polygon points="12,9.5 16.5,17.5 7.5,17.5" fill="#ffffff" />
+          </svg>
+          <span class="brand-word">Ashvin</span>
+        </div>
+        <span class="topbar-divider" aria-hidden="true"></span>
+        <div>
+          <h1>Hospital Log</h1>
+          <p class="subtitle">Trauma and Accident Case #AS-7426</p>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <span id="record-counter" class="record-counter">Record 1 of 6</span>
+        <span id="status-pill" class="pill waiting">Waiting for incident</span>
+        <button type="button" class="bell-btn" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 01-3.46 0" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="record-wrap" class="record-wrap muted">
+      <div class="grid">
+        <section class="card">
+          <h2>Victim Details</h2>
+          <div class="profile-row">
+            <div class="avatar" aria-label="Victim photo placeholder">
+              <svg viewBox="0 0 48 48" width="38" height="38">
+                <circle cx="24" cy="18" r="8" fill="#8a94a3" />
+                <path d="M10 40c0-7.7 6.3-12 14-12s14 4.3 14 12" fill="#8a94a3" />
+              </svg>
+            </div>
+            <div>
+              <div id="victim-name" class="victim-name"></div>
+              <div id="victim-age" class="victim-meta"></div>
+            </div>
+          </div>
+          <dl class="kv two-col-split">
+            <div><dt>Gender</dt><dd id="victim-gender"></dd></div>
+            <div><dt>Blood Group</dt><dd id="victim-blood"></dd></div>
+            <div><dt>Known Allergies</dt><dd id="victim-allergies"></dd></div>
+            <div><dt>Medical Conditions</dt><dd id="victim-conditions"></dd></div>
+          </dl>
+        </section>
+
+        <section class="card">
+          <h2>Vehicle Details</h2>
+          <div class="profile-row">
+            <div class="vehicle-thumb" aria-label="Vehicle image placeholder">
+              <svg id="vehicle-glyph" viewBox="0 0 96 56" width="76" height="44" aria-hidden="true">
+                <path d="M14 33l8-11c1.4-2 3.7-3 6.2-3h29.5c2.7 0 5.2 1.2 6.8 3.3l7.5 9.7h8c2.8 0 5 2.2 5 5v4.5c0 1.4-1.1 2.5-2.5 2.5H77a7 7 0 01-14 0H33a7 7 0 01-14 0h-6.5c-1.4 0-2.5-1.1-2.5-2.5V37c0-2.2 1.8-4 4-4z" fill="currentColor" stroke="#475569" stroke-width="1.2" />
+                <path d="M26 22h17v8H20.5zM46 22h14.5l5.5 8H46z" fill="#cbd5e1" opacity="0.8" />
+                <circle cx="26" cy="43" r="5" fill="#0f172a" />
+                <circle cx="26" cy="43" r="2" fill="#cbd5e1" />
+                <circle cx="70" cy="43" r="5" fill="#0f172a" />
+                <circle cx="70" cy="43" r="2" fill="#cbd5e1" />
+              </svg>
+            </div>
+            <div>
+              <div id="vehicle-model" class="vehicle-model"></div>
+              <div id="vehicle-reg" class="vehicle-reg"></div>
+            </div>
+            <span id="vehicle-status" class="status-tag ml-auto"></span>
+          </div>
+          <dl class="kv two-col-split">
+            <div><dt>Model Year</dt><dd id="vehicle-year"></dd></div>
+            <div><dt>Colour</dt><dd id="vehicle-colour"></dd></div>
+            <div><dt>Fuel Type</dt><dd id="vehicle-fuel"></dd></div>
+            <div><dt>VIN</dt><dd id="vehicle-vin" class="mono"></dd></div>
+          </dl>
+        </section>
+
+        <section class="card" id="incident-map">
+          <h2>Incident Summary</h2>
+          <div class="map-box">
+            <div id="dossier-map" class="mini-map"></div>
+            <button id="map-expand-btn" type="button" class="map-expand-btn" aria-label="Recenter map">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 2h4v4M14 2l-4.5 4.5M6 14H2v-4M2 14l4.5-4.5" />
+              </svg>
+            </button>
+          </div>
+          <dl class="kv three-col-split">
+            <div><dt>Time</dt><dd id="inc-time"></dd></div>
+            <div><dt>Location</dt><dd id="inc-location"></dd></div>
+            <div><dt>Type</dt><dd id="inc-type"></dd></div>
+          </dl>
+        </section>
+
+        <section class="card">
+          <h2>Medical Information</h2>
+          <div class="med-layout">
+            <div class="med-lists">
+              <div>
+                <div class="list-label">Injuries</div>
+                <ul id="med-injuries" class="bullet-list blue-dots"></ul>
+              </div>
+              <div class="cond-row">
+                <span class="list-label">Current Condition</span>
+                <span id="med-condition" class="chip amber"></span>
+              </div>
+              <div>
+                <div class="list-label">Treatment Given</div>
+                <ul id="med-treatment" class="bullet-list grey-dots"></ul>
+              </div>
+            </div>
+            <div class="body-diagram" aria-label="Anatomical injury diagram">
+              <svg viewBox="0 0 160 220" width="100%" height="100%" aria-hidden="true">
+                <defs>
+                  <radialGradient id="injGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.95" />
+                    <stop offset="55%" stop-color="#ef4444" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+                <!-- Head & neck -->
+                <circle cx="80" cy="34" r="19" fill="rgba(56,189,248,0.14)" stroke="#38bdf8" stroke-width="1.4" />
+                <path d="M72 52v12h16V52" fill="none" stroke="#38bdf8" stroke-width="1.3" />
+                <!-- Shoulders & torso -->
+                <path d="M44 74c6-8 20-11 36-11s30 3 36 11l-7 66H51l-7-66z" fill="rgba(56,189,248,0.12)" stroke="#38bdf8" stroke-width="1.4" />
+                <!-- Rib lines -->
+                <path d="M62 84c12 4 24 4 36 0M60 96c13 4 27 4 40 0M62 108c12 3 24 3 36 0M80 70v64" fill="none" stroke="rgba(125,211,252,0.45)" stroke-width="1.1" />
+                <!-- Arms -->
+                <path d="M44 74L28 134l11 3 12-46M116 74l16 60-11 3-12-46" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1.3" stroke-linejoin="round" />
+                <!-- Pelvis & upper legs -->
+                <path d="M51 140l-4 76h25l8-52 8 52h25l-4-76" fill="rgba(56,189,248,0.1)" stroke="#38bdf8" stroke-width="1.3" stroke-linejoin="round" />
+                <!-- Injury markers (no numbers) -->
+                <circle cx="80" cy="26" r="11" fill="url(#injGlow)" />
+                <circle cx="80" cy="26" r="3.2" fill="#ef4444" />
+                <circle cx="52" cy="79" r="14" fill="url(#injGlow)" />
+                <circle cx="52" cy="79" r="3.8" fill="#ef4444" />
+                <circle cx="38" cy="126" r="11" fill="url(#injGlow)" />
+                <circle cx="38" cy="126" r="3" fill="#ef4444" />
+                <circle cx="122" cy="130" r="10" fill="url(#injGlow)" />
+                <circle cx="122" cy="130" r="2.8" fill="#ef4444" />
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Emergency Contact</h2>
+          <div class="contact-box">
+            <div>
+              <div id="contact-name" class="contact-name"></div>
+              <div id="contact-relation" class="contact-relation"></div>
+              <div class="phone-row">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="#12b76a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3.5 2.5h2.2l1 2.7-1.4 1.1a8 8 0 004.4 4.4l1.1-1.4 2.7 1v2.2a1.5 1.5 0 01-1.5 1.5C6.8 14 2 9.2 2 4a1.5 1.5 0 011.5-1.5z" />
+                </svg>
+                <span id="contact-phone" class="phone-val"></span>
+              </div>
+            </div>
+            <a id="contact-call" class="call-btn" href="#">
+              <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M3.5 2.5h2.2l1 2.7-1.4 1.1a8 8 0 004.4 4.4l1.1-1.4 2.7 1v2.2a1.5 1.5 0 01-1.5 1.5C6.8 14 2 9.2 2 4a1.5 1.5 0 011.5-1.5z" />
+              </svg>
+              <span>Call</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Incident Timeline</h2>
+          <ol id="timeline" class="timeline">
+            <li class="empty">Awaiting live stream events&hellip;</li>
+          </ol>
+        </section>
+
+        <section class="card card-full">
+          <h2>Additional Notes</h2>
+          <p id="notes-text" class="notes-body"></p>
+          <div class="notes-footer">
+            <span id="notes-officer"></span>
+            <span id="notes-time" class="mono"></span>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="page-footer">sample record</footer>
+  </div>
+
+  <script src="/sim/vendor/leaflet.js"></script>
+  <script src="/dossier/app.js"></script>
+</body>
+</html>

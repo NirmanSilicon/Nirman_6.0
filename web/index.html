@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ashvin event bus test</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Ashvin event bus</h1>
+    <div class="status"><span id="dot" class="dot"></span><span id="conn">connecting</span></div>
+  </header>
+
+  <section class="panel">
+    <div class="row">
+      <div>
+        <div class="label">Last event</div>
+        <div id="last" class="value">none</div>
+      </div>
+      <div>
+        <div class="label">Alert</div>
+        <div id="alert" class="badge">idle</div>
+      </div>
+      <div>
+        <div class="label">Countdown</div>
+        <div id="count" class="value mono">5.0</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="label">Stream</div>
+    <ol id="feed" class="feed"></ol>
+  </section>
+
+  <script src="/app.js"></script>
+</body>
+</html>
