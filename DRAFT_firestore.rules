@@ -1,0 +1,73 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net: Default deny all unmatched paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidSavedScan(data) {
+      return data.keys().hasAll(['ownerId', 'gameTitle', 'riskScore', 'riskLevel', 'summary', 'createdAt'])
+        && data.keys().hasOnly(['ownerId', 'gameTitle', 'riskScore', 'riskLevel', 'summary', 'createdAt'])
+        && data.ownerId is string
+        && data.ownerId.size() >= 1
+        && data.ownerId.size() <= 128
+        && data.ownerId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.ownerId == request.auth.uid
+        && data.gameTitle is string
+        && data.gameTitle.size() >= 1
+        && data.gameTitle.size() <= 120
+        && data.riskScore is int
+        && data.riskScore >= 0
+        && data.riskScore <= 100
+        && data.riskLevel is string
+        && data.riskLevel.size() >= 3
+        && data.riskLevel.size() <= 10
+        && (data.riskLevel == 'LOW' || data.riskLevel == 'MEDIUM' || data.riskLevel == 'HIGH')
+        && data.summary is string
+        && data.summary.size() >= 1
+        && data.summary.size() <= 600
+        && data.createdAt is timestamp;
+    }
+
+    match /savedScans/{scanId} {
+      allow get: if isSignedIn() && isValidId(scanId) && existing().ownerId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.ownerId == request.auth.uid;
+      allow create: if isVerifiedUser()
+        && isValidId(scanId)
+        && isValidSavedScan(incoming())
+        && incoming().createdAt == request.time;
+      allow update: if isVerifiedUser()
+        && isValidId(scanId)
+        && isValidSavedScan(incoming())
+        && existing().ownerId == request.auth.uid
+        && incoming().ownerId == existing().ownerId
+        && incoming().createdAt == existing().createdAt
+        && incoming().diff(existing()).affectedKeys().hasOnly(['summary']);
+      allow delete: if isVerifiedUser()
+        && isValidId(scanId)
+        && existing().ownerId == request.auth.uid;
+    }
+  }
+}
