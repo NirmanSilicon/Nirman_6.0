@@ -1,12 +1,25 @@
 /**
- * SAARTHI — Presentation & Simulation Reactive Engine
- * Architectural, zero-dependency, pure JS.
+ * SAARTHI — Evaluation Simulator & 3D FMCW Simulation Engine
+ * Zero external dependencies, paper-and-ink Canvas 2D rendering.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const PALETTE = {
+    paper: '#f6f4ee',
+    surface: '#fbfaf6',
+    paperSurface: '#efeadd',
+    ink: '#1f2a30',
+    inkSoft: '#434f56',
+    faint: '#6f787e',
+    rule: '#c9cdc8',
+    said: '#1a7f4b',
+    unsure: '#b27800',
+    lost: '#b3261e',
+    belief: '#2c5d8a',
+  };
 
   // =========================================================================
-  // 1. Navigation & Presentation Timer
+  // 1. Navigation & Presentation Timer (5:00 Round 2 Target)
   // =========================================================================
   const navTabs = document.querySelectorAll('.nav-tab');
   const modules = document.querySelectorAll('.module-container');
@@ -14,37 +27,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function switchTab(tabId) {
     navTabs.forEach((tab, idx) => {
-      if (tab.dataset.tab === tabId) {
-        tab.classList.add('active');
-        currentTabIndex = idx;
-      } else {
-        tab.classList.remove('active');
-      }
+      const isMatch = tab.dataset.tab === tabId;
+      tab.classList.toggle('active', isMatch);
+      if (isMatch) currentTabIndex = idx;
     });
 
-    modules.forEach(mod => {
-      if (mod.id === tabId) {
-        mod.classList.add('active');
-      } else {
-        mod.classList.remove('active');
-      }
+    modules.forEach((mod) => {
+      mod.classList.toggle('active', mod.id === tabId);
     });
 
-    if (tabId === 'module-3') {
-      renderTable();
+    if (tabId === 'module-3') renderTable();
+    if (tabId === 'module-6') {
+      renderFmcwScene();
+      renderFmcwSpectrum();
     }
   }
 
-  navTabs.forEach(tab => {
+  navTabs.forEach((tab) => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
 
-  // Keyboard navigation [1-5] and Arrows
   document.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    if (e.key >= '1' && e.key <= '5') {
-      const idx = parseInt(e.key) - 1;
-      const tab = navTabs[idx];
+    if (e.key >= '1' && e.key <= '6') {
+      const tab = navTabs[parseInt(e.key, 10) - 1];
       if (tab) switchTab(tab.dataset.tab);
     } else if (e.key === 'ArrowRight' && currentTabIndex < navTabs.length - 1) {
       switchTab(navTabs[currentTabIndex + 1].dataset.tab);
@@ -53,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Pitch Timer (6:00 Target)
   const timerBadge = document.getElementById('presentationTimer');
   const btnTimerToggle = document.getElementById('btnTimerToggle');
   const btnTimerReset = document.getElementById('btnTimerReset');
@@ -63,14 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateTimerDisplay() {
     const mins = Math.floor(elapsedSeconds / 60).toString().padStart(2, '0');
     const secs = (elapsedSeconds % 60).toString().padStart(2, '0');
-    timerBadge.textContent = `${mins}:${secs} / 06:00`;
-
-    if (elapsedSeconds > 360 && elapsedSeconds <= 420) {
-      timerBadge.style.color = 'var(--accent-warm)';
-    } else if (elapsedSeconds > 420) {
-      timerBadge.style.color = 'var(--accent-ruby)';
+    timerBadge.textContent = `${mins}:${secs} / 05:00`;
+    if (elapsedSeconds > 300 && elapsedSeconds <= 345) {
+      timerBadge.style.color = PALETTE.unsure;
+    } else if (elapsedSeconds > 345) {
+      timerBadge.style.color = PALETTE.lost;
     } else {
-      timerBadge.style.color = 'var(--text-primary)';
+      timerBadge.style.color = PALETTE.ink;
     }
   }
 
@@ -98,13 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
     btnTimerToggle.textContent = 'Start Pitch';
   });
 
-
   // =========================================================================
-  // 2. Module 3: Two-Map Sally-Anne Simulation (Table Canvas)
+  // 2. Module 3: Two-Map Sally-Anne Simulation (Paper & Ink Canvas)
   // =========================================================================
   const canvas = document.getElementById('tableCanvas');
   const ctx = canvas.getContext('2d');
-
   const speechBadge = document.getElementById('speechBadge');
   const divergenceBadge = document.getElementById('divergenceStatusBadge');
   const ledgerInfo = document.getElementById('ledgerInfo');
@@ -114,88 +116,81 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnReachNewSpot = document.getElementById('btnReachNewSpot');
   const btnResetTable = document.getElementById('btnResetTable');
 
-  // Origin at user chest: center bottom
-  const origin = { x: 400, y: 460 };
+  const origin = { x: 400, y: 440 };
+  let activeAnim = null;
 
-  // Objects on table
-  let tableObjects = [
+  const tableObjects = [
     {
       id: 'bottle',
       name: 'Water Bottle',
-      color: '#4f8ecc',
-      world: { x: 550, y: 270 }, // on your right initial
-      belief: { x: 550, y: 270 },
-      radius: 18,
-      isDragging: false
+      color: PALETTE.belief,
+      world: { x: 550, y: 255 },
+      belief: { x: 550, y: 255 },
+      radius: 17,
     },
     {
       id: 'mug',
       name: 'Coffee Mug',
-      color: '#d97736',
-      world: { x: 480, y: 340 }, // slightly to your right
-      belief: { x: 480, y: 340 },
-      radius: 16,
-      isDragging: false
+      color: PALETTE.unsure,
+      world: { x: 480, y: 325 },
+      belief: { x: 480, y: 325 },
+      radius: 15,
     },
     {
       id: 'laptop',
       name: 'Laptop (Anchor)',
-      color: '#626b7d',
-      world: { x: 400, y: 220 }, // in front of you
-      belief: { x: 400, y: 220 },
-      width: 100,
-      height: 60,
-      isDragging: false
-    }
+      color: PALETTE.inkSoft,
+      world: { x: 400, y: 205 },
+      belief: { x: 400, y: 205 },
+      width: 104,
+      height: 58,
+    },
   ];
 
-  let hand = {
-    x: 400,
-    y: 430,
-    targetX: 400,
-    targetY: 430,
-    isMoving: false,
-    freeze: false,
-    rayAngle: -Math.PI / 2
-  };
+  const hand = { x: 400, y: 410, freeze: false };
 
   function updateLedger() {
-    const bottle = tableObjects.find(o => o.id === 'bottle');
-    const mug = tableObjects.find(o => o.id === 'mug');
-    const distSq = Math.hypot(bottle.world.x - bottle.belief.x, bottle.world.y - bottle.belief.y);
-    const hasDiverged = distSq > 40;
+    const bottle = tableObjects.find((o) => o.id === 'bottle');
+    const dist = Math.hypot(bottle.world.x - bottle.belief.x, bottle.world.y - bottle.belief.y);
+    const diverged = dist > 35;
 
-    let html = `<div><strong>Water Bottle:</strong> `;
-    if (hasDiverged) {
-      html += `World (on your left, left of laptop) vs Belief (on your right) <span style="color: var(--accent-warm);">[DIVERGENCE DETECTED]</span></div>`;
-      divergenceBadge.textContent = 'State: Divergence Detected (Sally–Anne Engine Active)';
-      divergenceBadge.style.color = 'var(--accent-warm)';
+    let html = '<div><strong>Bottle:</strong> ';
+    if (diverged) {
+      html += `World (left of laptop) vs Belief (right) <span style="color: ${PALETTE.lost}; font-weight:700;">[MOVED]</span></div>`;
+      divergenceBadge.textContent = 'State: Divergence Detected (World != Belief)';
+      divergenceBadge.style.color = PALETTE.lost;
+      divergenceBadge.style.borderColor = PALETTE.lost;
     } else {
-      html += `World (on your right) · Beliefs Agree</div>`;
+      html += 'World == Belief (on your right)</div>';
       divergenceBadge.textContent = 'State: Synchronized (Beliefs Agree)';
-      divergenceBadge.style.color = 'var(--accent-emerald)';
+      divergenceBadge.style.color = PALETTE.said;
+      divergenceBadge.style.borderColor = PALETTE.said;
     }
-
-    html += `<div><strong>Coffee Mug:</strong> slightly to your right · Beliefs Agree</div>`;
-    html += `<div><strong>Laptop:</strong> in front of you · Stationary Landmark Anchor</div>`;
+    html += '<div><strong>Cup:</strong> slightly right · Beliefs Agree</div>';
+    html += '<div><strong>Laptop:</strong> in front of you · Landmark</div>';
     ledgerInfo.innerHTML = html;
   }
 
-  function setSpeechState(isSpeaking, text = '') {
-    if (isSpeaking) {
-      speechBadge.className = 'speech-dialogue-badge speaking';
-      speechBadge.innerHTML = `&ldquo;${text}&rdquo;<span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">Spoken proactively because physical reality diverged from belief.</span>`;
+  function setSpeechState(mode, text = '') {
+    if (mode === 'alert') {
+      speechBadge.className = 'speech-dialogue-badge alert';
+      speechBadge.innerHTML = `&ldquo;${text}&rdquo;<span style="font-size:11px; color:${PALETTE.inkSoft}; margin-top:3px; display:block;">Spoken once: World diverged from Belief.</span>`;
+    } else if (mode === 'said') {
+      speechBadge.className = 'speech-dialogue-badge said-ok';
+      speechBadge.innerHTML = `&ldquo;${text}&rdquo;<span style="font-size:11px; color:${PALETTE.inkSoft}; margin-top:3px; display:block;">Target reached — Belief synced with World.</span>`;
     } else {
       speechBadge.className = 'speech-dialogue-badge silent';
-      speechBadge.innerHTML = `[PROACTIVELY SILENT]<span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">Reality matches user belief. No unnecessary chatter.</span>`;
+      speechBadge.innerHTML = `[PROACTIVELY SILENT]<span style="font-size:11px; color:${PALETTE.faint}; margin-top:3px; display:block;">Reality matches user belief. Zero audio clutter.</span>`;
     }
   }
 
   function renderTable() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = PALETTE.surface;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Grid & Distance Arcs
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    // Subtle paper gridlines
+    ctx.strokeStyle = 'rgba(201, 205, 200, 0.45)';
     ctx.lineWidth = 1;
     for (let x = 0; x < canvas.width; x += 40) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
@@ -204,143 +199,147 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
 
-    // Reach Arcs from user chest
-    // Green Arc: <0.50m (r = 240px)
+    // Reach Arcs
     ctx.beginPath();
-    ctx.arc(origin.x, origin.y, 230, Math.PI, 2 * Math.PI);
-    ctx.strokeStyle = 'rgba(46, 160, 67, 0.3)';
+    ctx.arc(origin.x, origin.y, 225, Math.PI, 2 * Math.PI);
+    ctx.strokeStyle = 'rgba(26, 127, 75, 0.45)';
     ctx.lineWidth = 1.5;
-    ctx.setLineDash([4, 4]);
+    ctx.setLineDash([5, 4]);
     ctx.stroke();
 
-    // Amber Arc: <0.75m (r = 350px)
     ctx.beginPath();
-    ctx.arc(origin.x, origin.y, 350, Math.PI, 2 * Math.PI);
-    ctx.strokeStyle = 'rgba(217, 119, 54, 0.25)';
+    ctx.arc(origin.x, origin.y, 335, Math.PI, 2 * Math.PI);
+    ctx.strokeStyle = 'rgba(178, 120, 0, 0.4)';
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Direction Rays: Left, Slightly Left, In Front, Slightly Right, Right
-    const rayAngles = [
-      { h: 'Left', a: Math.PI },
-      { h: 'Left', a: (5 * Math.PI) / 6 },
-      { h: 'Slight L', a: (4 * Math.PI) / 6 },
-      { h: 'In Front', a: Math.PI / 2 },
-      { h: 'Slight R', a: Math.PI / 3 },
-      { h: 'Right', a: Math.PI / 6 },
-      { h: 'Right', a: 0 }
+    // Plain D24 direction rays
+    const rays = [
+      { label: 'Left', a: (5 * Math.PI) / 6 },
+      { label: 'Slight L', a: (4 * Math.PI) / 6 },
+      { label: 'In Front', a: Math.PI / 2 },
+      { label: 'Slight R', a: Math.PI / 3 },
+      { label: 'Right', a: Math.PI / 6 },
     ];
-
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-    ctx.fillStyle = '#626b7d';
-    ctx.font = '10px JetBrains Mono';
-    rayAngles.forEach(r => {
-      const rayX = origin.x - 390 * Math.cos(r.a);
-      const rayY = origin.y - 390 * Math.sin(r.a);
-      ctx.beginPath();
-      ctx.moveTo(origin.x, origin.y);
-      ctx.lineTo(rayX, rayY);
-      ctx.stroke();
-
-      const labelX = origin.x - 410 * Math.cos(r.a);
-      const labelY = origin.y - 410 * Math.sin(r.a);
-      ctx.fillText(r.h, labelX - 8, labelY + 4);
+    ctx.strokeStyle = 'rgba(31, 42, 48, 0.12)';
+    ctx.fillStyle = PALETTE.faint;
+    ctx.font = '600 10.5px Consolas, monospace';
+    rays.forEach((r) => {
+      const rx = origin.x - 365 * Math.cos(r.a);
+      const ry = origin.y - 365 * Math.sin(r.a);
+      ctx.beginPath(); ctx.moveTo(origin.x, origin.y); ctx.lineTo(rx, ry); ctx.stroke();
+      ctx.fillText(r.label, origin.x - 385 * Math.cos(r.a) - 22, origin.y - 385 * Math.sin(r.a) + 4);
     });
 
-    // User Position (Chest marker)
-    ctx.fillStyle = '#9aa2b1';
+    // User chest marker
+    ctx.fillStyle = PALETTE.ink;
     ctx.beginPath();
     ctx.arc(origin.x, origin.y, 14, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.fillStyle = '#0d0f14';
-    ctx.font = 'bold 9px JetBrains Mono';
+    ctx.fillStyle = PALETTE.paper;
+    ctx.font = 'bold 9.5px Consolas, monospace';
     ctx.fillText('YOU', origin.x - 10, origin.y + 3);
 
-    // 2. Render Objects
-    tableObjects.forEach(obj => {
+    // Table Objects + Belief Ghosts + Divergence Tether
+    tableObjects.forEach((obj) => {
       if (obj.width) {
-        // Laptop
-        ctx.fillStyle = obj.color;
+        ctx.fillStyle = PALETTE.paperSurface;
         ctx.fillRect(obj.world.x - obj.width / 2, obj.world.y - obj.height / 2, obj.width, obj.height);
-        ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+        ctx.strokeStyle = PALETTE.ink;
+        ctx.lineWidth = 1.5;
         ctx.strokeRect(obj.world.x - obj.width / 2, obj.world.y - obj.height / 2, obj.width, obj.height);
-        ctx.fillStyle = '#f0f3f8';
-        ctx.font = '11px Inter';
-        ctx.fillText(obj.name, obj.world.x - 38, obj.world.y + 4);
+        ctx.fillStyle = PALETTE.ink;
+        ctx.font = '600 11px Inter, sans-serif';
+        ctx.fillText(obj.name, obj.world.x - 42, obj.world.y + 4);
       } else {
-        // Check divergence between belief and world
         const dist = Math.hypot(obj.world.x - obj.belief.x, obj.world.y - obj.belief.y);
-        
-        // Draw Belief Ghost (Dotted Circle) if diverged
         if (dist > 30) {
+          // Red divergence tether
           ctx.beginPath();
-          ctx.arc(obj.belief.x, obj.belief.y, obj.radius, 0, 2 * Math.PI);
-          ctx.strokeStyle = 'rgba(217, 119, 54, 0.6)';
-          ctx.setLineDash([3, 3]);
+          ctx.moveTo(obj.belief.x, obj.belief.y);
+          ctx.lineTo(obj.world.x, obj.world.y);
+          ctx.strokeStyle = PALETTE.lost;
+          ctx.lineWidth = 2;
+          ctx.setLineDash([6, 4]);
           ctx.stroke();
           ctx.setLineDash([]);
-          ctx.fillStyle = 'rgba(217, 119, 54, 0.15)';
+
+          // Midpoint MOVED pill
+          const mx = (obj.belief.x + obj.world.x) / 2;
+          const my = (obj.belief.y + obj.world.y) / 2;
+          ctx.fillStyle = PALETTE.surface;
+          ctx.fillRect(mx - 24, my - 9, 48, 16);
+          ctx.strokeStyle = PALETTE.lost;
+          ctx.lineWidth = 1;
+          ctx.strokeRect(mx - 24, my - 9, 48, 16);
+          ctx.fillStyle = PALETTE.lost;
+          ctx.font = 'bold 9.5px Consolas, monospace';
+          ctx.fillText('MOVED', mx - 16, my + 2);
+
+          // Belief ghost circle
+          ctx.beginPath();
+          ctx.arc(obj.belief.x, obj.belief.y, obj.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = 'rgba(44, 93, 138, 0.12)';
           ctx.fill();
-          ctx.fillStyle = 'var(--accent-warm)';
-          ctx.font = '10px JetBrains Mono';
-          ctx.fillText(`Believed [${obj.name}]`, obj.belief.x - 45, obj.belief.y - obj.radius - 6);
+          ctx.strokeStyle = PALETTE.belief;
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 3]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.fillStyle = PALETTE.belief;
+          ctx.font = '600 10.5px Consolas, monospace';
+          ctx.fillText(`Believed ${obj.name}`, obj.belief.x - 48, obj.belief.y - obj.radius - 7);
         }
 
-        // Draw Physical World Object
+        // Physical World Object
         ctx.beginPath();
         ctx.arc(obj.world.x, obj.world.y, obj.radius, 0, 2 * Math.PI);
         ctx.fillStyle = obj.color;
         ctx.fill();
-        ctx.strokeStyle = '#fff';
+        ctx.strokeStyle = PALETTE.ink;
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
-        ctx.fillStyle = '#f0f3f8';
-        ctx.font = '11px Inter';
+        ctx.fillStyle = PALETTE.ink;
+        ctx.font = '600 11.5px Inter, sans-serif';
         ctx.fillText(obj.name, obj.world.x - 32, obj.world.y + obj.radius + 15);
       }
     });
 
-    // 3. Render Virtual Hand & Raycast
+    // Virtual Hand & Raycast
     ctx.save();
     ctx.translate(hand.x, hand.y);
-
-    // Hand palm
-    ctx.beginPath();
-    ctx.arc(0, 0, 12, 0, 2 * Math.PI);
-    ctx.fillStyle = hand.freeze ? '#e5534b' : '#2ea043';
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.stroke();
-
-    // Index Raycast
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(0, -45);
-    ctx.strokeStyle = hand.freeze ? 'rgba(229, 83, 75, 0.8)' : 'rgba(46, 160, 67, 0.8)';
+    ctx.lineTo(0, -42);
+    ctx.strokeStyle = hand.freeze ? PALETTE.lost : PALETTE.said;
     ctx.lineWidth = 3;
     ctx.stroke();
 
-    if (hand.freeze) {
-      ctx.fillStyle = '#e5534b';
-      ctx.font = 'bold 11px JetBrains Mono';
-      ctx.fillText('HALT: EMPTY SPOT', -50, -55);
-    }
+    ctx.beginPath();
+    ctx.arc(0, 0, 11, 0, 2 * Math.PI);
+    ctx.fillStyle = hand.freeze ? PALETTE.lost : PALETTE.said;
+    ctx.fill();
+    ctx.strokeStyle = PALETTE.ink;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
 
+    if (hand.freeze) {
+      ctx.fillStyle = PALETTE.lost;
+      ctx.font = 'bold 11px Consolas, monospace';
+      ctx.fillText('HALT: EMPTY SPOT', -50, -50);
+    }
     ctx.restore();
   }
 
-  // Interactivity: Dragging objects
   let draggedObject = null;
 
   canvas.addEventListener('mousedown', (e) => {
     const rect = canvas.getBoundingClientRect();
     const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
     const my = (e.clientY - rect.top) * (canvas.height / rect.height);
-
-    tableObjects.forEach(obj => {
-      const dist = Math.hypot(mx - obj.world.x, my - obj.world.y);
-      if (dist < (obj.radius || 30)) {
+    tableObjects.forEach((obj) => {
+      if (Math.hypot(mx - obj.world.x, my - obj.world.y) < (obj.radius || 38)) {
         draggedObject = obj;
       }
     });
@@ -349,8 +348,8 @@ document.addEventListener('DOMContentLoaded', () => {
   canvas.addEventListener('mousemove', (e) => {
     if (!draggedObject) return;
     const rect = canvas.getBoundingClientRect();
-    draggedObject.world.x = (e.clientX - rect.left) * (canvas.width / rect.width);
-    draggedObject.world.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    draggedObject.world.x = Math.max(40, Math.min(canvas.width - 40, (e.clientX - rect.left) * (canvas.width / rect.width)));
+    draggedObject.world.y = Math.max(40, Math.min(canvas.height - 40, (e.clientY - rect.top) * (canvas.height / rect.height)));
     updateLedger();
     renderTable();
   });
@@ -363,126 +362,539 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Action Button 1: Partner Moves Water Bottle
+  function stopAnim() {
+    if (activeAnim) {
+      clearInterval(activeAnim);
+      activeAnim = null;
+    }
+  }
+
   btnMoveBottle.addEventListener('click', () => {
-    const bottle = tableObjects.find(o => o.id === 'bottle');
-    bottle.world.x = 260; // Moved on your left (left of laptop)
-    bottle.world.y = 230;
-    // Notice: bottle.belief stays at 550, 270!
-    hand.x = 400; hand.y = 430; hand.freeze = false;
+    stopAnim();
+    const bottle = tableObjects.find((o) => o.id === 'bottle');
+    bottle.world.x = 265;
+    bottle.world.y = 225;
+    hand.x = 400;
+    hand.y = 410;
+    hand.freeze = false;
     updateLedger();
     renderTable();
-
-    // PROACTIVE SILENCE: SAARTHI says nothing yet!
-    setSpeechState(false);
+    setSpeechState('alert', 'Heads up, your bottle was moved. It is now on your left, left of the laptop.');
   });
 
-  // Action Button 2: User reaches for Old Spot (Sally-Anne Divergence Alert)
   btnReachOldSpot.addEventListener('click', () => {
-    const bottle = tableObjects.find(o => o.id === 'bottle');
+    stopAnim();
+    const bottle = tableObjects.find((o) => o.id === 'bottle');
+    hand.x = 400;
+    hand.y = 410;
     hand.freeze = false;
-
-    // Animate hand reaching toward belief position (550, 270)
     let step = 0;
-    const startX = hand.x, startY = hand.y;
-    const targetX = bottle.belief.x;
-    const targetY = bottle.belief.y;
-
-    const anim = setInterval(() => {
+    const startX = hand.x;
+    const startY = hand.y;
+    activeAnim = setInterval(() => {
       step += 0.05;
-      hand.x = startX + (targetX - startX) * step;
-      hand.y = startY + (targetY - startY) * step;
-
-      // When reaching within 140px of old spot, Sally-Anne divergence intercepts!
-      const distToOldSpot = Math.hypot(hand.x - targetX, hand.y - targetY);
-      if (distToOldSpot < 130) {
-        clearInterval(anim);
+      hand.x = startX + (bottle.belief.x - startX) * step;
+      hand.y = startY + (bottle.belief.y - startY) * step;
+      if (Math.hypot(hand.x - bottle.belief.x, hand.y - bottle.belief.y) < 115) {
+        stopAnim();
         hand.freeze = true;
         renderTable();
-        setSpeechState(true, 'Heads up, your water bottle moved; it\'s now on your left, left of your laptop.');
+        setSpeechState('alert', 'Heads up, your bottle moved; it is now on your left, left of the laptop.');
       } else {
         renderTable();
       }
     }, 30);
   });
 
-  // Action Button 3: Guide hand to real bottle
   btnReachNewSpot.addEventListener('click', () => {
-    const bottle = tableObjects.find(o => o.id === 'bottle');
+    stopAnim();
+    const bottle = tableObjects.find((o) => o.id === 'bottle');
+    hand.x = 400;
+    hand.y = 410;
     hand.freeze = false;
     let step = 0;
-    const startX = hand.x, startY = hand.y;
-    const targetX = bottle.world.x;
-    const targetY = bottle.world.y;
-
-    const anim = setInterval(() => {
-      step += 0.04;
-      hand.x = startX + (targetX - startX) * step;
-      hand.y = startY + (targetY - startY) * step;
-
-      if (step >= 0.85) {
-        clearInterval(anim);
-        // User reaches real bottle; belief synchronizes!
+    const startX = hand.x;
+    const startY = hand.y;
+    activeAnim = setInterval(() => {
+      step += 0.045;
+      hand.x = startX + (bottle.world.x - startX) * step;
+      hand.y = startY + (bottle.world.y - startY) * step;
+      if (step >= 0.88) {
+        stopAnim();
         bottle.belief.x = bottle.world.x;
         bottle.belief.y = bottle.world.y;
         updateLedger();
         renderTable();
-        setSpeechState(true, 'You\'re touching it. Water bottle reached on your left.');
+        setSpeechState('said', 'You are touching it. Water bottle reached.');
       } else {
         renderTable();
       }
     }, 30);
   });
 
-  // Reset Table
   btnResetTable.addEventListener('click', () => {
-    const bottle = tableObjects.find(o => o.id === 'bottle');
-    bottle.world = { x: 550, y: 270 };
-    bottle.belief = { x: 550, y: 270 };
-    hand.x = 400; hand.y = 430; hand.freeze = false;
+    stopAnim();
+    const bottle = tableObjects.find((o) => o.id === 'bottle');
+    bottle.world = { x: 550, y: 255 };
+    bottle.belief = { x: 550, y: 255 };
+    hand.x = 400;
+    hand.y = 410;
+    hand.freeze = false;
     updateLedger();
     renderTable();
-    setSpeechState(false);
+    setSpeechState('silent');
   });
 
-
   // =========================================================================
-  // 3. Module 4: System 2 Flash Pulse Interactivity
+  // 3. Module 4: System 2 Flash Pulse Sequence
   // =========================================================================
   const btnPulseFlash = document.getElementById('btnPulseFlash');
   const highlightReal = document.getElementById('highlightRealApple');
   const glassGlare = document.getElementById('glassGlare');
 
   btnPulseFlash.addEventListener('click', () => {
-    btnPulseFlash.textContent = 'Pulsing Flashlight...';
+    btnPulseFlash.textContent = 'Pulsing Torch...';
     btnPulseFlash.disabled = true;
-
-    // Simulate 3 exposure-locked pulses
     let pulseCount = 0;
     const pulseTimer = setInterval(() => {
       pulseCount++;
-      // Flash ON
       highlightReal.style.opacity = '1.0';
-      highlightReal.style.transform = 'scale(1.2)';
-      glassGlare.style.opacity = '0.7';
-
+      glassGlare.style.opacity = '0.85';
       setTimeout(() => {
-        // Flash OFF
-        highlightReal.style.opacity = '0.5';
-        highlightReal.style.transform = 'scale(1.0)';
-        glassGlare.style.opacity = '0.15';
+        highlightReal.style.opacity = '0.25';
+        glassGlare.style.opacity = '0.10';
       }, 150);
-
       if (pulseCount >= 3) {
         clearInterval(pulseTimer);
+        highlightReal.style.opacity = '0';
+        glassGlare.style.opacity = '0';
         btnPulseFlash.textContent = 'Trigger Flash Pulse Sequence';
         btnPulseFlash.disabled = false;
       }
     }, 350);
   });
 
-  // Initial draw
+  // =========================================================================
+  // 4. Module 6: 3D Interactive FMCW Glass Probe Simulation (SIMULATED - D63)
+  // =========================================================================
+  const fmcwCanvas = document.getElementById('fmcwCanvas');
+  const fmcwCtx = fmcwCanvas.getContext('2d');
+  const specCanvas = document.getElementById('fmcwSpectrum');
+  const specCtx = specCanvas.getContext('2d');
+
+  const btnRgbCheck = document.getElementById('btnRgbCheck');
+  const btnFmcwChirp = document.getElementById('btnFmcwChirp');
+  const rngGlassDist = document.getElementById('rngGlassDist');
+  const rngGlassAngle = document.getElementById('rngGlassAngle');
+  const lblGlassDist = document.getElementById('lblGlassDist');
+  const lblGlassAngle = document.getElementById('lblGlassAngle');
+  const btnModeIdeal = document.getElementById('btnModeIdeal');
+  const btnModeVivo = document.getElementById('btnModeVivo');
+  const fmcwSpeechBadge = document.getElementById('fmcwSpeechBadge');
+  const fmcwModeBadge = document.getElementById('fmcwModeBadge');
+  const fmcwAngleBadge = document.getElementById('fmcwAngleBadge');
+  const fmcwMetrics = document.getElementById('fmcwMetrics');
+
+  const fmcw = {
+    distCm: 32,
+    angleDeg: 18,
+    yawDeg: 0,
+    hardwareMode: 'ideal', // 'ideal' | 'vivo'
+    rgbMissed: false,
+    sweeping: false,
+    wavePhase: 0,
+    echoDetected: false,
+    animId: null,
+  };
+
+  function bearingWords(deg) {
+    if (Math.abs(deg) <= 12) return 'In Front';
+    if (deg < -25) return 'On Left';
+    if (deg < -12) return 'Slightly Left';
+    if (deg > 25) return 'On Right';
+    return 'Slightly Right';
+  }
+
+  function reachZoneWords(cm) {
+    if (cm <= 50) return 'within reach';
+    return 'just beyond reach';
+  }
+
+  // 3D perspective projection from table space (x right, y height, z depth in cm)
+  function project3D(xCm, yCm, zCm) {
+    const camY = 34;
+    const camZ = -32;
+    const dz = Math.max(18, zCm - camZ);
+    const scale = 520 / dz;
+    return {
+      x: 400 + xCm * scale,
+      y: 80 + (camY - yCm) * scale * 0.62,
+      scale,
+    };
+  }
+
+  function updateFmcwLabels() {
+    const dir = bearingWords(fmcw.angleDeg);
+    const sign = fmcw.angleDeg > 0 ? '+' : '';
+    lblGlassDist.textContent = `${(fmcw.distCm / 100).toFixed(2)} m`;
+    lblGlassAngle.textContent = `${sign}${fmcw.angleDeg}° (${dir})`;
+    fmcwAngleBadge.textContent = `Yaw: ${Math.round(fmcw.yawDeg)}° · Glass: ${(fmcw.distCm / 100).toFixed(2)} m`;
+    fmcwModeBadge.textContent = fmcw.hardwareMode === 'ideal'
+      ? 'Ideal Ultrasonic (UNPROCESSED = true)'
+      : 'Vivo V21e Reality (D63: UNPROCESSED = false)';
+
+    const snr = fmcw.hardwareMode === 'ideal' ? '+18.4 dB' : '12.9–17.2 dB (masked)';
+    const residual = fmcw.hardwareMode === 'ideal' ? '1.8% floor' : '25.4% HAL drift (D63)';
+    const echo = fmcw.hardwareMode === 'ideal' ? '2.4% glass echo (CLEAR)' : '2.4% < 25.4% noise (REJECTED)';
+    fmcwMetrics.innerHTML = `
+      <div><strong>Band:</strong> 18–20 kHz FMCW · 48 kHz</div>
+      <div><strong>Loopback SNR:</strong> ${snr}</div>
+      <div><strong>Empty-Table Drift:</strong> ${residual}</div>
+      <div><strong>Glass Signal:</strong> ${echo}</div>
+    `;
+  }
+
+  function setFmcwSpeech(kind, line, sub) {
+    fmcwSpeechBadge.className = `speech-dialogue-badge ${kind}`;
+    fmcwSpeechBadge.innerHTML = `&ldquo;${line}&rdquo;<span style="font-size:11px; color:${PALETTE.inkSoft}; margin-top:3px; display:block;">${sub}</span>`;
+  }
+
+  function renderFmcwScene() {
+    const c = fmcwCtx;
+    c.clearRect(0, 0, fmcwCanvas.width, fmcwCanvas.height);
+    c.fillStyle = PALETTE.surface;
+    c.fillRect(0, 0, fmcwCanvas.width, fmcwCanvas.height);
+
+    // 1. 3D Perspective Tabletop Quad
+    const tl = project3D(-48, 0, 75);
+    const tr = project3D(48, 0, 75);
+    const br = project3D(48, 0, 8);
+    const bl = project3D(-48, 0, 8);
+
+    c.beginPath();
+    c.moveTo(tl.x, tl.y); c.lineTo(tr.x, tr.y); c.lineTo(br.x, br.y); c.lineTo(bl.x, bl.y);
+    c.closePath();
+    c.fillStyle = PALETTE.paper;
+    c.fill();
+    c.strokeStyle = PALETTE.ink;
+    c.lineWidth = 1.5;
+    c.stroke();
+
+    // Depth gridlines on 3D table
+    c.strokeStyle = 'rgba(201, 205, 200, 0.7)';
+    c.lineWidth = 1;
+    for (let z = 15; z <= 70; z += 15) {
+      const p1 = project3D(-48, 0, z);
+      const p2 = project3D(48, 0, z);
+      c.beginPath(); c.moveTo(p1.x, p1.y); c.lineTo(p2.x, p2.y); c.stroke();
+      c.fillStyle = PALETTE.faint;
+      c.font = '10px Consolas, monospace';
+      c.fillText(`${z}cm`, p2.x + 6, p2.y + 3);
+    }
+    for (let x = -36; x <= 36; x += 18) {
+      const p1 = project3D(x, 0, 8);
+      const p2 = project3D(x, 0, 75);
+      c.beginPath(); c.moveTo(p1.x, p1.y); c.lineTo(p2.x, p2.y); c.stroke();
+    }
+
+    // 2. Opaque Reference Mug on left (RGB detects fine)
+    const mugBase = project3D(-22, 0, 44);
+    const mugTop = project3D(-22, 10, 44);
+    c.fillStyle = PALETTE.paperSurface;
+    c.strokeStyle = PALETTE.ink;
+    c.lineWidth = 1.4;
+    c.fillRect(mugBase.x - 16, mugTop.y, 32, mugBase.y - mugTop.y);
+    c.strokeRect(mugBase.x - 16, mugTop.y, 32, mugBase.y - mugTop.y);
+    c.fillStyle = PALETTE.inkSoft;
+    c.font = '600 10.5px Consolas, monospace';
+    c.fillText('Opaque Mug (RGB OK)', mugBase.x - 52, mugTop.y - 8);
+
+    // 3. Phone Emitter / Camera FOV Cone along Gyro Yaw
+    const radYaw = (fmcw.yawDeg * Math.PI) / 180;
+    const phonePos = project3D(0, 3, 6);
+    const coneLen = 68;
+    const leftRay = project3D(Math.sin(radYaw - 0.34) * coneLen, 0, Math.cos(radYaw - 0.34) * coneLen);
+    const rightRay = project3D(Math.sin(radYaw + 0.34) * coneLen, 0, Math.cos(radYaw + 0.34) * coneLen);
+
+    c.beginPath();
+    c.moveTo(phonePos.x, phonePos.y);
+    c.lineTo(leftRay.x, leftRay.y);
+    c.lineTo(rightRay.x, rightRay.y);
+    c.closePath();
+    c.fillStyle = 'rgba(44, 93, 138, 0.09)';
+    c.fill();
+    c.strokeStyle = 'rgba(44, 93, 138, 0.42)';
+    c.setLineDash([4, 4]);
+    c.stroke();
+    c.setLineDash([]);
+
+    // 4. Transparent Glass Cylinder (3D Wireframe + Rim Ellipses)
+    const radGlass = (fmcw.angleDeg * Math.PI) / 180;
+    const gx = Math.sin(radGlass) * fmcw.distCm;
+    const gz = Math.cos(radGlass) * fmcw.distCm;
+    const gBase = project3D(gx, 0, gz);
+    const gTop = project3D(gx, 14, gz);
+    const rX = Math.max(12, 18 * gBase.scale * 0.14);
+    const rY = rX * 0.34;
+
+    // Translucent glass fill
+    c.fillStyle = 'rgba(44, 93, 138, 0.11)';
+    c.fillRect(gBase.x - rX, gTop.y, rX * 2, gBase.y - gTop.y);
+
+    // Glass walls & specular highlight
+    c.strokeStyle = PALETTE.belief;
+    c.lineWidth = 1.6;
+    c.beginPath();
+    c.moveTo(gBase.x - rX, gBase.y); c.lineTo(gTop.x - rX, gTop.y);
+    c.moveTo(gBase.x + rX, gBase.y); c.lineTo(gTop.x + rX, gTop.y);
+    c.stroke();
+
+    c.beginPath();
+    c.ellipse(gBase.x, gBase.y, rX, rY, 0, 0, 2 * Math.PI);
+    c.stroke();
+
+    c.beginPath();
+    c.ellipse(gTop.x, gTop.y, rX, rY, 0, 0, 2 * Math.PI);
+    c.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    c.fill();
+    c.stroke();
+
+    // Label above glass
+    if (fmcw.rgbMissed) {
+      c.strokeStyle = PALETTE.lost;
+      c.setLineDash([4, 3]);
+      c.strokeRect(gTop.x - rX - 10, gTop.y - 10, (rX + 10) * 2, gBase.y - gTop.y + 18);
+      c.setLineDash([]);
+      c.fillStyle = PALETTE.lost;
+      c.font = 'bold 11px Consolas, monospace';
+      c.fillText('RGB: 0% CONFIDENCE (INVISIBLE)', gTop.x - 86, gTop.y - 18);
+    } else if (fmcw.echoDetected) {
+      const boxCol = fmcw.hardwareMode === 'ideal' ? PALETTE.said : PALETTE.lost;
+      c.strokeStyle = boxCol;
+      c.lineWidth = 2;
+      c.strokeRect(gTop.x - rX - 8, gTop.y - 8, (rX + 8) * 2, gBase.y - gTop.y + 14);
+      c.fillStyle = boxCol;
+      c.font = 'bold 11px Consolas, monospace';
+      const tag = fmcw.hardwareMode === 'ideal'
+        ? `ECHO LOCKED: ${(fmcw.distCm / 100).toFixed(2)} m`
+        : 'MASKED BY 25.4% HAL DRIFT';
+      c.fillText(tag, gTop.x - 66, gTop.y - 16);
+    } else {
+      c.fillStyle = PALETTE.belief;
+      c.font = '600 11px Consolas, monospace';
+      c.fillText('Clear Glass (No RGB Box)', gTop.x - 72, gTop.y - 16);
+    }
+
+    // 5. Outgoing 18-20 kHz FMCW Chirp Waves & Returning Echo (Projected on 3D Table Plane)
+    const activeWave = fmcw.sweeping || fmcw.echoDetected;
+    const waveCount = activeWave ? 3 : 1;
+    for (let i = 0; i < waveCount; i++) {
+      const t = activeWave ? ((fmcw.wavePhase + i * 0.33) % 1) : 0.45;
+      const wDist = 12 + t * (fmcw.distCm + 16);
+      c.beginPath();
+      for (let step = 0; step <= 18; step++) {
+        const a = radYaw - 0.34 + (step / 18) * 0.68;
+        const wp = project3D(Math.sin(a) * wDist, 2, 6 + Math.cos(a) * wDist);
+        if (step === 0) c.moveTo(wp.x, wp.y);
+        else c.lineTo(wp.x, wp.y);
+      }
+      c.strokeStyle = activeWave
+        ? `rgba(44, 93, 138, ${Math.max(0.15, 0.85 - t * 0.65)})`
+        : 'rgba(44, 93, 138, 0.25)';
+      c.lineWidth = activeWave ? 2.2 : 1.2;
+      c.stroke();
+
+      if (activeWave) {
+        const hitDiff = Math.abs(fmcw.yawDeg - fmcw.angleDeg);
+        if (hitDiff < 20 || fmcw.echoDetected) {
+          const echoR = ((fmcw.wavePhase + i * 0.33) % 1) * 18 + 6;
+          c.beginPath();
+          for (let step = 0; step <= 14; step++) {
+            const a = radGlass + Math.PI - 0.8 + (step / 14) * 1.6;
+            const ep = project3D(gx + Math.sin(a) * echoR, 4, gz + Math.cos(a) * echoR);
+            if (step === 0) c.moveTo(ep.x, ep.y);
+            else c.lineTo(ep.x, ep.y);
+          }
+          c.strokeStyle = fmcw.hardwareMode === 'ideal' ? PALETTE.said : PALETTE.lost;
+          c.lineWidth = 2;
+          c.stroke();
+        }
+      }
+    }
+
+    // 6. Phone / Emitter Unit at bottom foreground
+    c.fillStyle = PALETTE.ink;
+    c.fillRect(phonePos.x - 36, phonePos.y - 10, 72, 22);
+    c.strokeStyle = PALETTE.paper;
+    c.lineWidth = 1;
+    c.strokeRect(phonePos.x - 32, phonePos.y - 7, 64, 16);
+    c.fillStyle = PALETTE.paper;
+    c.font = 'bold 9.5px Consolas, monospace';
+    c.fillText('FMCW + IMU', phonePos.x - 28, phonePos.y + 4);
+  }
+
+  function renderFmcwSpectrum() {
+    const s = specCtx;
+    const w = specCanvas.width;
+    const h = specCanvas.height;
+    s.clearRect(0, 0, w, h);
+    s.fillStyle = PALETTE.paper;
+    s.fillRect(0, 0, w, h);
+
+    // Axes & threshold line
+    s.strokeStyle = PALETTE.rule;
+    s.lineWidth = 1;
+    const baseY = h - 22;
+    s.beginPath(); s.moveTo(26, baseY); s.lineTo(w - 10, baseY); s.stroke();
+
+    // Detection threshold
+    const threshY = baseY - 36;
+    s.strokeStyle = PALETTE.unsure;
+    s.setLineDash([4, 3]);
+    s.beginPath(); s.moveTo(26, threshY); s.lineTo(w - 10, threshY); s.stroke();
+    s.setLineDash([]);
+    s.fillStyle = PALETTE.unsure;
+    s.font = '9.5px Consolas, monospace';
+    s.fillText('Threshold', w - 62, threshY - 4);
+
+    // Distance labels 10..70 cm
+    s.fillStyle = PALETTE.faint;
+    [15, 30, 45, 60].forEach((cm) => {
+      const px = 26 + ((cm - 10) / 60) * (w - 40);
+      s.fillText(`${cm}cm`, px - 10, h - 7);
+    });
+
+    // Draw differential FFT curve
+    const peakX = 26 + ((fmcw.distCm - 10) / 60) * (w - 40);
+    s.beginPath();
+    for (let x = 26; x <= w - 10; x += 3) {
+      const d = Math.abs(x - peakX);
+      const glassPeak = 52 * Math.exp(-(d * d) / 110);
+      const noiseAmp = fmcw.hardwareMode === 'ideal'
+        ? 4 + 2.5 * Math.sin(x * 0.45)
+        : 28 + 18 * Math.sin(x * 0.27) + 12 * Math.cos(x * 0.63);
+      const mag = Math.min(baseY - 12, noiseAmp + glassPeak * (fmcw.hardwareMode === 'ideal' ? 1 : 0.35));
+      const y = baseY - mag;
+      if (x === 26) s.moveTo(x, y);
+      else s.lineTo(x, y);
+    }
+    s.strokeStyle = fmcw.hardwareMode === 'ideal' ? PALETTE.said : PALETTE.lost;
+    s.lineWidth = 2;
+    s.stroke();
+
+    s.fillStyle = PALETTE.ink;
+    s.font = 'bold 10px Consolas, monospace';
+    s.fillText(
+      fmcw.hardwareMode === 'ideal'
+        ? `Peak @ ${fmcw.distCm} cm (+18.4 dB)`
+        : 'D63 Vivo V21e: 25.4% Stationary Residual',
+      30,
+      14
+    );
+  }
+
+  btnRgbCheck.addEventListener('click', () => {
+    if (fmcw.animId) { cancelAnimationFrame(fmcw.animId); fmcw.animId = null; }
+    fmcw.sweeping = false;
+    fmcw.echoDetected = false;
+    fmcw.rgbMissed = true;
+    fmcw.yawDeg = fmcw.angleDeg;
+    updateFmcwLabels();
+    renderFmcwScene();
+    renderFmcwSpectrum();
+    setFmcwSpeech(
+      'alert',
+      'RGB camera sees only the mug — transparent glass is 0% confidence.',
+      'Why pure RGB vision fails on clear glassware.'
+    );
+  });
+
+  btnFmcwChirp.addEventListener('click', () => {
+    if (fmcw.animId) cancelAnimationFrame(fmcw.animId);
+    fmcw.rgbMissed = false;
+    fmcw.echoDetected = false;
+    fmcw.sweeping = true;
+    fmcw.yawDeg = -28;
+    let frame = 0;
+
+    function tick() {
+      frame++;
+      fmcw.wavePhase = (fmcw.wavePhase + 0.03) % 1;
+      fmcw.yawDeg = -28 + (frame / 75) * 56;
+      updateFmcwLabels();
+      renderFmcwScene();
+
+      if (frame < 75) {
+        fmcw.animId = requestAnimationFrame(tick);
+      } else {
+        fmcw.sweeping = false;
+        fmcw.echoDetected = true;
+        fmcw.yawDeg = fmcw.angleDeg;
+        updateFmcwLabels();
+        renderFmcwScene();
+        renderFmcwSpectrum();
+
+        if (fmcw.hardwareMode === 'ideal') {
+          const dir = bearingWords(fmcw.angleDeg).toLowerCase();
+          const zone = reachZoneWords(fmcw.distCm);
+          setFmcwSpeech(
+            'said-ok',
+            `Obstacle ${zone}, ${dir}.`,
+            `SIMULATED: 18–20 kHz echo peak at ${fmcw.distCm} cm.`
+          );
+        } else {
+          setFmcwSpeech(
+            'alert',
+            'Acoustic probe suppressed: 25.4% HAL drift exceeds 1–3% glass echo (D63).',
+            'Honest hardware finding on Vivo V21e — discarded from APK.'
+          );
+        }
+      }
+    }
+    fmcw.animId = requestAnimationFrame(tick);
+  });
+
+  rngGlassDist.addEventListener('input', (e) => {
+    fmcw.distCm = parseInt(e.target.value, 10);
+    updateFmcwLabels();
+    renderFmcwScene();
+    renderFmcwSpectrum();
+  });
+
+  rngGlassAngle.addEventListener('input', (e) => {
+    fmcw.angleDeg = parseInt(e.target.value, 10);
+    updateFmcwLabels();
+    renderFmcwScene();
+    renderFmcwSpectrum();
+  });
+
+  btnModeIdeal.addEventListener('click', () => {
+    fmcw.hardwareMode = 'ideal';
+    btnModeIdeal.classList.add('active-mode');
+    btnModeVivo.classList.remove('active-mode');
+    updateFmcwLabels();
+    renderFmcwScene();
+    renderFmcwSpectrum();
+  });
+
+  btnModeVivo.addEventListener('click', () => {
+    fmcw.hardwareMode = 'vivo';
+    btnModeVivo.classList.add('active-mode');
+    btnModeIdeal.classList.remove('active-mode');
+    updateFmcwLabels();
+    renderFmcwScene();
+    renderFmcwSpectrum();
+  });
+
+  // Initial render (and support #module-N hash links)
   updateLedger();
   renderTable();
+  updateFmcwLabels();
+  renderFmcwScene();
+  renderFmcwSpectrum();
 
+  const initialHash = window.location.hash.replace('#', '');
+  if (initialHash && document.getElementById(initialHash)) {
+    switchTab(initialHash);
+  }
 });

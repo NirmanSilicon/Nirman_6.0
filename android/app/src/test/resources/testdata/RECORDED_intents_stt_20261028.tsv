@@ -1,0 +1,42 @@
+# RECORDED: real transcripts from the team's speech test on the Vivo (tools/results/phase1_bench_stt_20261028_210310.json).
+# expected<TAB>model<TAB>noisy<TAB>transcript. Labels are the intent of the phrase the speaker was asked to say.
+Brief	tiny.en	False	What is around me?
+Brief	base.en	False	What is around me?
+Find:bottle	tiny.en	False	Where is my bottle?
+Find:bottle	base.en	False	Where is my bottle?
+WhoIsOn:RIGHT	tiny.en	False	Who is on my right?
+WhoIsOn:RIGHT	base.en	False	Who is on my right
+Find:cup	tiny.en	False	Find the cup
+Find:cup	base.en	False	Find the cup.
+People	tiny.en	False	How many people are here?
+People	base.en	False	How many people are here?
+IsMine	tiny.en	False	Is this my watch?
+IsMine	base.en	False	Is this my watch?
+Brief	tiny.en	False	What is in front of me?
+Brief	base.en	False	What is in front of me?
+Repeat	tiny.en	False	repeat that
+Repeat	base.en	False	Repeat that.
+Stop	tiny.en	False	Stop.
+Stop	base.en	False	stop
+Find:cup	tiny.en	False	Where did my maggoore?
+Find:cup	base.en	False	Where did my mug go?
+IsReal	tiny.en	False	Is the paleo?
+IsReal	base.en	False	Is the apple real?
+Guide:bottle	tiny.en	False	Guide my hand to the bottle.
+Guide:bottle	base.en	False	guide my hand to the bottle
+Brief	tiny.en	True	What is around me?
+Brief	base.en	True	What is around me?
+Find:cell phone	tiny.en	True	Where is my phone?
+Find:cell phone	base.en	True	Where is my phone?
+WhoIsOn:LEFT	tiny.en	True	Who is on my left?
+WhoIsOn:LEFT	base.en	True	Who is on my left?
+Find:book	tiny.en	True	Find the book.
+Find:book	base.en	True	Find the book
+IsMine	tiny.en	True	Is this my watch?
+IsMine	base.en	True	Is this my watch?
+Repeat	tiny.en	True	Save that a game
+Repeat	base.en	True	Say that again.
+Find:laptop	tiny.en	True	Where is the laptop?
+Find:laptop	base.en	True	Where is the laptop?
+WhatChanged	tiny.en	True	like changed on the table.
+WhatChanged	base.en	True	What changed on the table?

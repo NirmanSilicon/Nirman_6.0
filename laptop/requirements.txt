@@ -1,0 +1,14 @@
+# Laptop side (Python 3.11, laptop/.venv). Install: laptop\.venv\Scripts\python -m pip install -r laptop/requirements.txt
+# Licences in THIRD_PARTY.md. Pinned to the versions verified on the team laptop.
+
+# Phase 0 benchmarks (deliberate-tier models)
+openvino==2026.4.1
+huggingface_hub==2.3.0
+tokenizers==0.23.3
+numpy==2.4.6
+pillow==13.0.0
+
+# Phase 1 link and blueprint
+fastapi==0.162.0
+uvicorn==0.54.0
+websockets==17.3

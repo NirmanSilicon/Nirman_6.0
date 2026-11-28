@@ -1,0 +1,11 @@
+# RECORDED: transcripts from the team's real-or-picture test on the Vivo, 31 Oct (tools/results/phase4_step3_teamtest_20261031.jsonl).
+# expected<TAB>model<TAB>noisy<TAB>transcript. The speaker asked "is this a real apple" each time, then "guide my hand to the cup".
+# Left out: "Is this aerialized?", "Is this area left?", "Is this area lappin?" (what was said is not certain).
+IsReal	base.en	False	Is this aerial apple?
+IsReal	base.en	False	Is this a real apple?
+IsReal	base.en	False	Is this aerial apple?
+IsReal	base.en	False	Is this a real apple?
+IsReal	base.en	False	Is this aerial apple?
+IsReal	base.en	False	Is this aerial apple?
+Guide:cup	base.en	False	guide my hand to the cup
+Guide:cup	base.en	False	guide my hand to the cup
