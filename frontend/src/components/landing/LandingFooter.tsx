@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { X, CheckCircle2 } from 'lucide-react';
+import { useEscapeKey } from '../../hooks/useDismissible';
 
 interface LandingFooterProps {
   onNavigateToSearch?: (tab: 'find' | 'track') => void;
@@ -7,22 +8,35 @@ interface LandingFooterProps {
 
 type ActiveModal = 'forecasts' | 'faq' | 'feedback' | null;
 
+const ModalHeader: React.FC<{ title: string; subtitle: string; onClose: () => void }> = ({
+  title,
+  subtitle,
+  onClose,
+}) => (
+  <div className="flex items-start justify-between gap-3">
+    <div>
+      <h4 className="text-base font-bold text-slate-900">{title}</h4>
+      <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>
+    </div>
+    <button
+      type="button"
+      onClick={onClose}
+      className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+      aria-label="Close modal"
+    >
+      <X className="w-4 h-4" />
+    </button>
+  </div>
+);
+
 export const LandingFooter: React.FC<LandingFooterProps> = ({ onNavigateToSearch }) => {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null);
   const [feedbackTrainNo, setFeedbackTrainNo] = useState('');
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (!activeModal) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setActiveModal(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeModal]);
+  const closeModal = useCallback(() => setActiveModal(null), []);
+  useEscapeKey(Boolean(activeModal), closeModal);
 
   const handleOpenFeedback = () => {
     setFeedbackTrainNo('');
@@ -160,22 +174,11 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onNavigateToSearch
           >
             {activeModal === 'forecasts' && (
               <>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="text-base font-bold text-slate-900">How Forecasts Work</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Plain-language guide to arrival windows
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModal(null)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-                    aria-label="Close modal"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
+                <ModalHeader
+                  title="How Forecasts Work"
+                  subtitle="Plain-language guide to arrival windows"
+                  onClose={closeModal}
+                />
 
                 <div className="space-y-3 text-sm text-slate-600 leading-relaxed">
                   <div className="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200/80">
@@ -213,22 +216,11 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onNavigateToSearch
 
             {activeModal === 'faq' && (
               <>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="text-base font-bold text-slate-900">Passenger FAQ</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Common questions about corridor tracking
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModal(null)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-                    aria-label="Close modal"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
+                <ModalHeader
+                  title="Passenger FAQ"
+                  subtitle="Common questions about corridor tracking"
+                  onClose={closeModal}
+                />
 
                 <div className="space-y-4 text-sm">
                   <div>
@@ -269,24 +261,11 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onNavigateToSearch
 
             {activeModal === 'feedback' && (
               <>
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="text-base font-bold text-slate-900">
-                      Report an Issue / Feedback
-                    </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      Let us know about a delay discrepancy or UI issue
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModal(null)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
-                    aria-label="Close modal"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
+                <ModalHeader
+                  title="Report an Issue / Feedback"
+                  subtitle="Let us know about a delay discrepancy or UI issue"
+                  onClose={closeModal}
+                />
 
                 {feedbackSubmitted ? (
                   <div className="py-6 text-center space-y-2.5">

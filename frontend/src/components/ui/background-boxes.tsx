@@ -1,9 +1,36 @@
 "use client";
 import React from "react";
-import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export const BoxesCore = ({
+const ROW_INDICES = Array.from({ length: 150 }, (_, idx) => idx);
+const COL_INDICES = Array.from({ length: 100 }, (_, idx) => idx);
+const BOX_COLORS = [
+  "#93c5fd",
+  "#f9a8d4",
+  "#86efac",
+  "#fde047",
+  "#fca5a5",
+  "#d8b4fe",
+  "#93c5fd",
+  "#a5b4fc",
+  "#c4b5fd",
+];
+
+function getRandomColor(): string {
+  return BOX_COLORS[Math.floor(Math.random() * BOX_COLORS.length)];
+}
+
+const handleCellEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.currentTarget.style.transitionDuration = "0ms";
+  e.currentTarget.style.backgroundColor = getRandomColor();
+};
+
+const handleCellLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.currentTarget.style.transitionDuration = "2000ms";
+  e.currentTarget.style.backgroundColor = "";
+};
+
+const BoxesCore = ({
   className,
   variant = "dark",
   ...rest
@@ -11,26 +38,10 @@ export const BoxesCore = ({
   className?: string;
   variant?: "dark" | "light";
 }) => {
-  const rows = new Array(150).fill(1);
-  const cols = new Array(100).fill(1);
   const borderClass =
     variant === "light" ? "border-slate-400/35" : "border-slate-700";
   const plusClass =
     variant === "light" ? "text-slate-400/45" : "text-slate-700";
-  const colors = [
-    "#93c5fd",
-    "#f9a8d4",
-    "#86efac",
-    "#fde047",
-    "#fca5a5",
-    "#d8b4fe",
-    "#93c5fd",
-    "#a5b4fc",
-    "#c4b5fd",
-  ];
-  const getRandomColor = () => {
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
 
   return (
     <div
@@ -43,22 +54,20 @@ export const BoxesCore = ({
       )}
       {...rest}
     >
-      {rows.map((_, i) => (
-        <motion.div
-          key={`row` + i}
+      {ROW_INDICES.map((i) => (
+        <div
+          key={`row${i}`}
           className={cn("relative h-8 w-16 border-l", borderClass)}
         >
-          {cols.map((_, j) => (
-            <motion.div
-              whileHover={{
-                backgroundColor: `${getRandomColor()}`,
-                transition: { duration: 0 },
-              }}
-              animate={{
-                transition: { duration: 2 },
-              }}
-              key={`col` + j}
-              className={cn("relative h-8 w-16 border-t border-r", borderClass)}
+          {COL_INDICES.map((j) => (
+            <div
+              key={`col${j}`}
+              onMouseEnter={handleCellEnter}
+              onMouseLeave={handleCellLeave}
+              className={cn(
+                "relative h-8 w-16 border-t border-r transition-colors duration-[2000ms]",
+                borderClass,
+              )}
             >
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg
@@ -79,9 +88,9 @@ export const BoxesCore = ({
                   />
                 </svg>
               ) : null}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       ))}
     </div>
   );

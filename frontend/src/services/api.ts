@@ -7,76 +7,11 @@ import { getMockForecast, getMockRescue } from './mockFallback';
 
 const API_BASE = '/api/v1';
 
-export async function fetchCorridorState(): Promise<CorridorSnapshot | null> {
-  try {
-    const res = await fetch(`${API_BASE}/corridor/state`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (data && Array.isArray(data.trains)) {
-      return data as CorridorSnapshot;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
-
-export async function fetchCorridorConfig(): Promise<{
+interface CorridorConfig {
   mapbox_access_token?: string | null;
   corridor_name: string;
   corridor_start_km: number;
   corridor_end_km: number;
-}> {
-  try {
-    const res = await fetch(`${API_BASE}/corridor/config`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.warn('Corridor config fetch failed', err);
-    return {
-      corridor_name: 'ECoR_BHC_PURI',
-      corridor_start_km: 0.0,
-      corridor_end_km: 206.0,
-    };
-  }
-}
-
-export async function fetchForecast(
-  trainNo: string,
-  corridorId?: string,
-): Promise<ForecastResponse> {
-  try {
-    const res = await fetch(`${API_BASE}/trains/${trainNo}/forecast`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.warn(`Forecast fetch for ${trainNo} failed, using mock data`, err);
-    return getMockForecast(trainNo, corridorId);
-  }
-}
-
-export async function evaluateRescue(
-  payload: {
-    train_no: string;
-    destination_code: string;
-    connection_deadline_utc: number;
-    transfer_buffer_mins: number;
-    passenger_status: 'PRE_BOARDING' | 'ON_BOARD';
-  },
-  corridorId?: string,
-): Promise<RescueEvaluationResponse> {
-  try {
-    const res = await fetch(`${API_BASE}/rescue/evaluate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    console.warn('Rescue evaluation failed, using fallback', err);
-    return getMockRescue(payload.passenger_status, corridorId);
-  }
 }
 
 interface ApiResponseStatus {
@@ -112,117 +47,192 @@ interface LiveOvertakeResponse {
   vande_km: number;
 }
 
-export async function injectTrainDelay(trainNo: string, addedDelayMins: number): Promise<ApiResponseStatus> {
-  const res = await fetch(`${API_BASE}/demo/inject-delay`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ train_no: trainNo, added_delay_mins: addedDelayMins }),
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+interface SpawnRandomGoodsResponse {
+  status: string;
+  rake_id: string;
+  block_id: string;
+  chainage_km: number;
 }
 
-export async function startDemoScenario(name = 'DHAULI_CASCADE', speed = 1): Promise<ApiResponseStatus> {
-  const res = await fetch(`${API_BASE}/demo/scenario/start`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ scenario_name: name, speed_multiplier: speed }),
-  });
+async function requestJson<T>(
+  path: string,
+  init?: RequestInit
+): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`, init);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+  return (await res.json()) as T;
 }
 
-export async function setSpeedMultiplier(multiplier: number): Promise<ApiResponseStatus> {
-  const res = await fetch(`${API_BASE}/demo/speed`, {
+function postJson<T>(
+  path: string,
+  body?: unknown,
+  extraHeaders?: Record<string, string>
+): Promise<T> {
+  return requestJson<T>(path, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ speed_multiplier: multiplier }),
+    headers: {
+      ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+      ...extraHeaders,
+    },
+    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
 }
 
-export async function injectFreightShadow(
+let configCachePromise: Promise<CorridorConfig> | null = null;
+
+export async function fetchCorridorState(): Promise<CorridorSnapshot | null> {
+  try {
+    const data = await requestJson<CorridorSnapshot>('/corridor/state');
+    if (data && Array.isArray(data.trains)) {
+      return data;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+export async function fetchCorridorConfig(): Promise<CorridorConfig> {
+  if (!configCachePromise) {
+    configCachePromise = requestJson<CorridorConfig>('/corridor/config').catch((err) => {
+      configCachePromise = null;
+      console.warn('Corridor config fetch failed', err);
+      return {
+        corridor_name: 'ECoR_BHC_PURI',
+        corridor_start_km: 0.0,
+        corridor_end_km: 206.0,
+      };
+    });
+  }
+  return configCachePromise;
+}
+
+export async function switchCorridorApi(
+  corridorId: string,
+  speedMultiplier: number
+): Promise<CorridorSnapshot | null> {
+  try {
+    const snap = await postJson<CorridorSnapshot>('/corridor/switch', {
+      corridor_id: corridorId,
+      speed_multiplier: speedMultiplier,
+    });
+    return snap && Array.isArray(snap.trains) && snap.trains.length > 0 ? snap : null;
+  } catch (err) {
+    console.warn('Corridor switch network error:', err);
+    return null;
+  }
+}
+
+export async function fetchForecast(
+  trainNo: string,
+  corridorId?: string,
+): Promise<ForecastResponse> {
+  try {
+    return await requestJson<ForecastResponse>(`/trains/${encodeURIComponent(trainNo)}/forecast`);
+  } catch (err) {
+    console.warn(`Forecast fetch for ${trainNo} failed, using mock data`, err);
+    return getMockForecast(trainNo, corridorId);
+  }
+}
+
+export async function evaluateRescue(
+  payload: {
+    train_no: string;
+    destination_code: string;
+    connection_deadline_utc: number;
+    transfer_buffer_mins: number;
+    passenger_status: 'PRE_BOARDING' | 'ON_BOARD';
+  },
+  corridorId?: string,
+): Promise<RescueEvaluationResponse> {
+  try {
+    return await postJson<RescueEvaluationResponse>('/rescue/evaluate', payload);
+  } catch (err) {
+    console.warn('Rescue evaluation failed, using fallback', err);
+    return getMockRescue(payload.passenger_status, corridorId);
+  }
+}
+
+export function injectTrainDelay(trainNo: string, addedDelayMins: number): Promise<ApiResponseStatus> {
+  return postJson<ApiResponseStatus>('/demo/inject-delay', {
+    train_no: trainNo,
+    added_delay_mins: addedDelayMins,
+  });
+}
+
+export function startDemoScenario(name = 'DHAULI_CASCADE', speed = 1): Promise<ApiResponseStatus> {
+  return postJson<ApiResponseStatus>('/demo/scenario/start', {
+    scenario_name: name,
+    speed_multiplier: speed,
+  });
+}
+
+export function setSpeedMultiplier(multiplier: number): Promise<ApiResponseStatus> {
+  return postJson<ApiResponseStatus>('/demo/speed', {
+    speed_multiplier: multiplier,
+  });
+}
+
+export function injectFreightShadow(
   blockId = 'DN_CTC_BRAG',
   penaltyMins = 20.0,
   confidence = 0.88
 ): Promise<ApiResponseStatus> {
-  const res = await fetch(`${API_BASE}/demo/inject-freight`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ block_id: blockId, penalty_mins: penaltyMins, confidence }),
+  return postJson<ApiResponseStatus>('/demo/inject-freight', {
+    block_id: blockId,
+    penalty_mins: penaltyMins,
+    confidence,
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
 }
 
-export async function spawnRandomGoodsTrain(
+export function spawnRandomGoodsTrain(
   targetTrainNo?: string,
   blockId?: string
-): Promise<any> {
-  const res = await fetch(`${API_BASE}/demo/random-freight`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      target_train_no: targetTrainNo ?? null,
-      block_id: blockId ?? null,
-    }),
+): Promise<SpawnRandomGoodsResponse> {
+  return postJson<SpawnRandomGoodsResponse>('/demo/random-freight', {
+    target_train_no: targetTrainNo ?? null,
+    block_id: blockId ?? null,
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
 }
 
-export async function resetCorridor(): Promise<any> {
-  const res = await fetch(`${API_BASE}/demo/reset`, {
-    method: 'POST',
+export function resetCorridor(): Promise<ApiResponseStatus> {
+  return postJson<ApiResponseStatus>('/demo/reset');
+}
+
+export function fetchDisruptionCauses(trainNo: string): Promise<DisruptionCausesResponse> {
+  return requestJson<DisruptionCausesResponse>(
+    `/demo/causes?train_no=${encodeURIComponent(trainNo)}`
+  );
+}
+
+export function applyDisruptionCauses(
+  trainNo: string,
+  causes: string[]
+): Promise<ApplyCausesResponse> {
+  return postJson<ApplyCausesResponse>('/demo/apply-causes', {
+    train_no: trainNo,
+    causes,
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
 }
 
-export async function fetchDisruptionCauses(trainNo: string): Promise<DisruptionCausesResponse> {
-  const res = await fetch(`${API_BASE}/demo/causes?train_no=${encodeURIComponent(trainNo)}`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+export function triggerLiveOvertake(): Promise<LiveOvertakeResponse> {
+  return postJson<LiveOvertakeResponse>('/demo/trigger-overtake');
 }
 
-export async function applyDisruptionCauses(trainNo: string, causes: string[]): Promise<ApplyCausesResponse> {
-  const res = await fetch(`${API_BASE}/demo/apply-causes`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ train_no: trainNo, causes }),
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
-}
-
-export async function triggerLiveOvertake(): Promise<LiveOvertakeResponse> {
-  const res = await fetch(`${API_BASE}/demo/trigger-overtake`, {
-    method: 'POST',
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
-}
-
-export async function injectULIPFreight(
+export function injectULIPFreight(
   blockId: string = 'DN_CTC_BRAG',
   rakeId: string = 'BOXN_COAL_CONFIRMED'
 ): Promise<ApiResponseStatus> {
-  const res = await fetch(`${API_BASE}/webhooks/ulip-fois`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-ULIP-API-Key': 'railpulse-enterprise-ulip-key',
-    },
-    body: JSON.stringify({
+  return postJson<ApiResponseStatus>(
+    '/webhooks/ulip-fois',
+    {
       rake_id: rakeId,
       block_id: blockId,
       direction: 'DN',
       speed_kmph: 28.0,
       cargo_type: 'COAL',
-    }),
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+    },
+    { 'X-ULIP-API-Key': 'railpulse-enterprise-ulip-key' }
+  );
 }
 

@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef, Suspense, lazy } from 'react';
+import React, { useEffect, useState, useRef, useCallback, Suspense, lazy } from 'react';
 import { useRailStore } from './stores/useRailStore';
+import { useEscapeKey } from './hooks/useDismissible';
 import { wsClient } from './services/wsClient';
 import { fetchForecast, evaluateRescue, fetchCorridorConfig, fetchCorridorState } from './services/api';
 import { TopHeader } from './components/layout/TopHeader';
@@ -41,28 +42,20 @@ export const App: React.FC = () => {
   const [mobileMapOpen, setMobileMapOpen] = useState(false);
   const lastAutoDeadlineRef = useRef<string | null>(null);
   const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth >= 768 : true
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 768px)').matches : true
   );
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    const handleChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    setIsDesktop(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   // Close full-screen mobile map on Escape key
-  useEffect(() => {
-    if (!mobileMapOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMobileMapOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mobileMapOpen]);
+  const closeMobileMap = useCallback(() => setMobileMapOpen(false), []);
+  useEscapeKey(mobileMapOpen, closeMobileMap);
 
   const monitoredTrain = activeSnapshot.trains?.find((t) => t.train_no === selectedTrain);
   const simBucket = Math.floor((activeSnapshot.tick_utc || 0) / 30);
@@ -97,8 +90,9 @@ export const App: React.FC = () => {
 
   const customDeadlineDep = connectionTarget?.isCustom ? connectionTarget.deadline_time : null;
 
-  // Fetch forecast and rescue whenever train, boarding status, connection target, or demo state changes
+  // Fetch forecast and rescue when dashboard is active and train, status, target, or demo state changes
   useEffect(() => {
+    if (currentView !== 'dashboard') return;
     let isMounted = true;
 
     const loadForecastAndRescue = async () => {
@@ -165,6 +159,7 @@ export const App: React.FC = () => {
       isMounted = false;
     };
   }, [
+    currentView,
     selectedTrain,
     activeCorridorId,
     passengerStatus,
@@ -187,7 +182,7 @@ export const App: React.FC = () => {
 
   // Screen 2: Real-Time Corridor Analytics & Digital Twin Dashboard (Locked Viewport, Internal Sidebar Scroll)
   return (
-    <div className="h-screen overflow-hidden bg-[#FAF9F6] text-[#0F172A] flex flex-col font-sans">
+    <div className="h-screen supports-[height:100dvh]:h-dvh overflow-hidden bg-[#FAF9F6] text-[#0F172A] flex flex-col font-sans">
       {/* Top Application Header (Fixed 56px Bar) */}
       <TopHeader />
 
