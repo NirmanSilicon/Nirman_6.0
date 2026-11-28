@@ -33,7 +33,7 @@ const receiveSyncBatch = async (req, res, next) => {
 
 const triggerSyncCycle = async (req, res, next) => {
   try {
-    const cycleResult = await runCloudSyncCycle();
+    const cycleResult = await runCloudSyncCycle({ forceRetry: true });
     const status = await getCloudSyncStatusSummary();
     return sendSuccess(res, 200, 'Cloud sync cycle executed', {
       cycleResult,

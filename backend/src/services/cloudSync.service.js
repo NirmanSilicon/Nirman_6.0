@@ -48,12 +48,23 @@ const applyIncomingSyncBatch = async (items = []) => {
   let duplicatesIgnored = 0;
 
   for (const item of items) {
-    const { idempotencyKey, entityType, payload = {} } = item;
+    const { idempotencyKey, entityType, entityId, payload: rawPayload = {} } = item;
     if (!idempotencyKey || !entityType) continue;
+    const { _id: rawMongoId, __v, ...payload } = rawPayload || {};
 
     if (entityType === 'INCIDENT') {
-      const existing = await Incident.findOne({ idempotencyKey });
+      const existing = await Incident.findOne({
+        $or: [
+          { idempotencyKey },
+          ...(rawMongoId ? [{ _id: rawMongoId }] : []),
+          ...(entityId ? [{ _id: entityId }] : []),
+        ],
+      });
       if (existing) {
+        if (!existing.idempotencyKey) {
+          existing.idempotencyKey = idempotencyKey;
+          await existing.save();
+        }
         duplicatesIgnored += 1;
         continue;
       }
@@ -121,12 +132,15 @@ const applyIncomingSyncBatch = async (items = []) => {
  * - On failure: increments `retryCount`, records `lastError`, and sets exponential backoff
  *   (`nextRetryAt = now + min(300s, 2^retryCount * 5s)`).
  */
-const runCloudSyncCycle = async ({ batchSize = 25, customTransport = null } = {}) => {
+const runCloudSyncCycle = async ({ batchSize = 25, customTransport = null, forceRetry = false } = {}) => {
   const now = new Date();
-  const pendingItems = await SyncOutbox.find({
+  const query = {
     syncStatus: { $in: ['PENDING', 'FAILED_RETRY'] },
-    nextRetryAt: { $lte: now },
-  })
+  };
+  if (!forceRetry) {
+    query.nextRetryAt = { $lte: now };
+  }
+  const pendingItems = await SyncOutbox.find(query)
     .sort({ createdAt: 1 })
     .limit(batchSize);
 
