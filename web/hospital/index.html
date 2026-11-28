@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashvin · receiving end</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/sim/vendor/leaflet.css" />
+  <link rel="stylesheet" href="/hospital/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Ashvin &middot; receiving end</h1>
+    <div class="status">
+      <span id="dot" class="dot"></span>
+      <span id="conn">connecting</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="grid">
+      <article id="incident-card" class="card incident-card">
+        <div class="card-top">
+          <span class="kicker">Incoming incident</span>
+          <span id="incident-id" class="mono id-pill">waiting</span>
+        </div>
+
+        <h2 id="headline" class="headline">Waiting for incident</h2>
+
+        <div id="countdown-box" class="countdown-box" hidden>
+          <div class="countdown-row">
+            <span class="countdown-label">Calling the registered user</span>
+            <span id="countdown-sec" class="mono countdown-sec">5.0 s</span>
+          </div>
+          <div class="bar-track">
+            <div id="countdown-bar" class="bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-label">Peak G <span class="sim-tag">simulated</span></div>
+            <div id="peak-g" class="metric-value mono">&mdash;</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Speed <span class="sim-tag">simulated</span></div>
+            <div id="speed-range" class="metric-value mono">&mdash;</div>
+          </div>
+          <div class="metric metric-wide">
+            <div class="metric-label">Coordinates</div>
+            <div id="coords" class="metric-value mono">&mdash;</div>
+          </div>
+        </div>
+      </article>
+
+      <section class="card map-card" aria-label="Incident location map">
+        <div class="card-top">
+          <span class="kicker">Incident location</span>
+          <span id="pin-status" class="mono id-pill">no pin</span>
+        </div>
+        <div id="map" class="map"></div>
+      </section>
+    </section>
+
+    <section class="card notices-card">
+      <div class="card-top">
+        <span class="kicker">Dispatch &amp; pre-arrival notices</span>
+        <span id="notice-count" class="mono id-pill">0</span>
+      </div>
+      <ul id="notices" class="notices">
+        <li class="empty">No notices yet.</li>
+      </ul>
+    </section>
+
+    <section id="citizen-card" class="card citizen-card" hidden>
+      <div class="card-top">
+        <span class="kicker">Citizen report</span>
+        <span id="citizen-id" class="mono id-pill">&mdash;</span>
+      </div>
+      <div class="citizen-body">
+        <div class="citizen-fields">
+          <div class="metric">
+            <div class="metric-label">Accident type</div>
+            <div id="citizen-type" class="metric-value">&mdash;</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Zone</div>
+            <div id="citizen-zone" class="metric-value">&mdash;</div>
+          </div>
+          <div class="metric metric-wide">
+            <div class="metric-label">Photo URL</div>
+            <div id="citizen-photo-url" class="metric-value mono">&mdash;</div>
+          </div>
+        </div>
+        <div class="photo-box">
+          <img id="citizen-img" alt="Citizen report photo" hidden />
+          <div id="citizen-placeholder" class="photo-placeholder">No photo file on server</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/sim/vendor/leaflet.js"></script>
+  <script src="/hospital/app.js"></script>
+</body>
+</html>

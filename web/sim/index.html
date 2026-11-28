@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashvin simulation — Bhubaneswar</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/sim/vendor/leaflet.css" />
+  <link rel="stylesheet" href="/sim/sim.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Ashvin scenario simulator</h1>
+      <span class="sub">Bhubaneswar &middot; simulated incident stream</span>
+    </div>
+    <div class="top-meta">
+      <button id="full-incident-btn" type="button" class="primary-btn">Run full incident</button>
+      <a href="/" target="_blank" rel="noopener">Open stream view /</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="map-wrap" aria-label="Bhubaneswar scenario map">
+      <div id="map"></div>
+    </section>
+
+    <aside id="panel" class="panel" tabindex="-1" aria-label="Scenario controls" hidden>
+      <div class="panel-head">
+        <div>
+          <div id="scenario-kicker" class="kicker">Scenario</div>
+          <h2 id="scenario-title">Select a marker</h2>
+        </div>
+      </div>
+
+      <div id="mode-section" class="section">
+        <div class="label">Mode</div>
+        <div id="mode-list" class="modes" role="group" aria-label="Scenario modes"></div>
+      </div>
+
+      <div class="actions">
+        <button id="start-btn" type="button" class="start-btn">Start</button>
+        <div class="alert-wrap">
+          <span class="label inline">Alert</span>
+          <span id="sim-alert" class="badge">idle</span>
+        </div>
+      </div>
+
+      <div id="run-meta" class="run-meta mono"></div>
+
+      <div id="scene-wrap" class="scene-wrap" hidden>
+        <div class="scene-bar">
+          <span class="label inline">3D simulation</span>
+          <button id="scene-close" type="button" class="scene-close-btn">Close</button>
+        </div>
+        <div id="scene-host" class="scene-host"></div>
+      </div>
+
+      <div class="section log-section">
+        <div class="label">Sent events</div>
+        <ol id="sim-log" class="sim-log"></ol>
+      </div>
+
+      <button id="close-panel" type="button" class="close-btn" aria-label="Close panel">&times;</button>
+    </aside>
+  </main>
+
+  <script src="/sim/vendor/leaflet.js"></script>
+  <script type="module" src="/sim/sim.js"></script>
+</body>
+</html>

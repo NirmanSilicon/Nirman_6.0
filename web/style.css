@@ -1,0 +1,129 @@
+:root {
+  --ink: #1f2a44;
+  --body: #1a1a1a;
+  --grey: #6b7280;
+  --rule: #d9dee6;
+  --bg: #f7f8fa;
+  --high: #b42318;
+  --low: #067647;
+  --pending: #b54708;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--body);
+  font: 14px/1.5 Arial, Helvetica, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--grey);
+  display: inline-block;
+}
+
+.dot.on { background: var(--low); }
+.dot.off { background: var(--high); }
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+
+.label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--grey);
+  margin-bottom: 6px;
+}
+
+.value {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.mono {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #eef1f5;
+  color: var(--grey);
+}
+
+.badge.high { background: #fee4e2; color: var(--high); }
+.badge.low { background: #dcfae6; color: var(--low); }
+.badge.pending { background: #fef0c7; color: var(--pending); }
+.badge.none { background: #fef0c7; color: var(--pending); }
+
+.feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.feed li {
+  display: grid;
+  grid-template-columns: 60px 210px 90px 90px 1fr;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eef1f5;
+  font-size: 12px;
+  align-items: baseline;
+}
+
+.feed .seq { color: var(--grey); }
+.feed .type { font-weight: bold; color: var(--ink); }
+.feed .src { color: var(--grey); }
+.feed .time { color: var(--grey); }
+.feed .data {
+  color: var(--body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

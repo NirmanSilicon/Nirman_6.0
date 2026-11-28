@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ashvin · Emergency response</title>
+  <link rel="manifest" href="/family/manifest.webmanifest" />
+  <meta name="theme-color" content="#059669" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="/family/icon-192.png" />
+  <link rel="icon" href="/family/icon-192.png" />
+  <link rel="stylesheet" href="/sim/vendor/leaflet.css" />
+  <link rel="stylesheet" href="/family/style.css" />
+</head>
+<body>
+  <div class="phone-shell">
+    <header class="app-header">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+          <path d="M12 2L4 5.5v6.2c0 5 3.4 9.6 8 10.8 4.6-1.2 8-5.8 8-10.8V5.5L12 2z" fill="#059669" />
+          <path d="M12 7l-3.6 9h2l.8-2.1h1.6l.8 2.1h2L12 7zm-.3 5.2l.3-1 .3 1h-.6z" fill="#fff" />
+        </svg>
+        <div>
+          <div class="wordmark">Ashvin</div>
+          <div class="sub">Emergency response</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span id="alerts-on-pill" class="alerts-on" hidden>Alerts on</span>
+        <button type="button" class="gear-btn" aria-label="Settings">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v.09a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="alert-banner" class="alert-banner" hidden>
+      <div id="banner-text" class="banner-text">Ambulance dispatched to your vehicle</div>
+      <button id="silence-btn" type="button" class="silence-btn">Silence</button>
+    </div>
+
+    <main class="content">
+      <button id="enable-alerts-btn" type="button" class="enable-btn">Enable alerts</button>
+
+      <section id="status-card" class="status-card">
+        <span id="status-dot" class="status-dot"></span>
+        <div>
+          <div id="status-title" class="status-title">Vehicle Connected</div>
+          <div id="status-sub" class="status-sub">All systems normal</div>
+        </div>
+      </section>
+
+      <section class="map-wrap">
+        <div id="family-map" class="family-map"></div>
+        <button id="locate-btn" type="button" class="locate-btn" aria-label="Center map on vehicle">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+            <circle cx="12" cy="12" r="7" />
+          </svg>
+        </button>
+      </section>
+
+      <section class="sheet">
+        <h2>Nearby emergency support</h2>
+        <ul class="support-list">
+          <li><span>Hospital</span><span class="dist">2.4 km <span class="chev">&rsaquo;</span></span></li>
+          <li><span>Police Station</span><span class="dist">1.8 km <span class="chev">&rsaquo;</span></span></li>
+          <li><span>Pharmacy</span><span class="dist">0.9 km <span class="chev">&rsaquo;</span></span></li>
+        </ul>
+      </section>
+
+      <div class="call-row">
+        <a href="tel:112" class="call-btn">Call 112</a>
+        <a href="tel:108" class="call-btn">Call 108</a>
+      </div>
+
+      <button id="report-btn" type="button" class="report-btn">Report Incident</button>
+    </main>
+
+    <nav class="tabbar" aria-label="App tabs">
+      <button type="button" class="tab active">Map</button>
+      <button type="button" class="tab">Report</button>
+      <button type="button" class="tab">Activity</button>
+      <button type="button" class="tab">Profile</button>
+    </nav>
+  </div>
+
+  <script src="/sim/vendor/leaflet.js"></script>
+  <script src="/family/app.js"></script>
+</body>
+</html>

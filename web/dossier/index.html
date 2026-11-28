@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashvin · Hospital Log</title>
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="/sim/vendor/leaflet.css" />
+  <link rel="stylesheet" href="/dossier/style.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail" aria-label="Primary navigation">
+      <div class="wordmark">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M12 2L4 5.5v6.2c0 5 3.4 9.6 8 10.8 4.6-1.2 8-5.8 8-10.8V5.5L12 2z" fill="#059669" />
+          <path d="M12 7l-3.6 9h2l.8-2.1h1.6l.8 2.1h2L12 7zm-.3 5.2l.3-1 .3 1h-.6z" fill="#fff" />
+        </svg>
+        <span>Ashvin</span>
+      </div>
+
+      <nav class="nav">
+        <a href="#hospital-log" class="nav-item active">Hospital Log</a>
+        <a href="#incident-map" class="nav-item">Incident Map</a>
+        <a href="#reports" class="nav-item">Reports</a>
+        <a href="#analytics" class="nav-item">Analytics</a>
+        <a href="#settings" class="nav-item">Settings</a>
+      </nav>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div>
+          <h1>Hospital Log</h1>
+          <p class="subtitle">Medical and Vehicle Details, Accident Case #AS-7426</p>
+        </div>
+        <div class="topbar-right">
+          <span id="status-pill" class="pill waiting">Waiting for incident</span>
+          <button type="button" class="bell-btn" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 01-3.46 0" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div id="record-wrap" class="record-wrap muted">
+        <div class="grid">
+          <section class="card">
+            <h2>Victim Details</h2>
+            <div class="profile-row">
+              <div class="avatar" aria-label="Victim photo placeholder">
+                <svg viewBox="0 0 48 48" width="44" height="44">
+                  <circle cx="24" cy="18" r="8" fill="#94a3b8" />
+                  <path d="M10 40c0-7.7 6.3-12 14-12s14 4.3 14 12" fill="#94a3b8" />
+                </svg>
+              </div>
+              <div>
+                <div id="victim-name" class="big-name"></div>
+                <span id="victim-age" class="chip"></span>
+              </div>
+            </div>
+            <dl class="kv">
+              <div><dt>Gender</dt><dd id="victim-gender"></dd></div>
+              <div><dt>Blood Group</dt><dd id="victim-blood"></dd></div>
+              <div><dt>Known Allergies</dt><dd id="victim-allergies"></dd></div>
+              <div><dt>Medical Conditions</dt><dd id="victim-conditions"></dd></div>
+            </dl>
+          </section>
+
+          <section class="card">
+            <h2>Vehicle Details</h2>
+            <div class="profile-row">
+              <div class="vehicle-thumb" aria-label="Vehicle image placeholder">
+                <svg viewBox="0 0 64 36" width="56" height="32">
+                  <rect x="6" y="14" width="52" height="12" rx="4" fill="#334155" />
+                  <path d="M16 14l6-8h20l6 8z" fill="#475569" />
+                  <circle cx="18" cy="27" r="5" fill="#0f172a" />
+                  <circle cx="46" cy="27" r="5" fill="#0f172a" />
+                </svg>
+              </div>
+              <div>
+                <div id="vehicle-model" class="big-name"></div>
+                <div id="vehicle-reg" class="mono sub-val"></div>
+              </div>
+              <span id="vehicle-status" class="chip green ml-auto"></span>
+            </div>
+            <dl class="kv">
+              <div><dt>Model Year</dt><dd id="vehicle-year"></dd></div>
+              <div><dt>Colour</dt><dd id="vehicle-colour"></dd></div>
+              <div><dt>Fuel Type</dt><dd id="vehicle-fuel"></dd></div>
+              <div><dt>VIN</dt><dd id="vehicle-vin" class="mono"></dd></div>
+            </dl>
+          </section>
+
+          <section class="card" id="incident-map">
+            <h2>Incident Summary</h2>
+            <div id="dossier-map" class="mini-map"></div>
+            <dl class="kv compact">
+              <div><dt>Time</dt><dd id="inc-time" class="mono"></dd></div>
+              <div><dt>Location</dt><dd id="inc-location"></dd></div>
+              <div><dt>Type</dt><dd id="inc-type"></dd></div>
+            </dl>
+          </section>
+
+          <section class="card">
+            <h2>Medical Information</h2>
+            <div class="med-layout">
+              <div class="body-diagram" aria-label="Body diagram placeholder">
+                <svg viewBox="0 0 80 140" width="76" height="132">
+                  <circle cx="40" cy="18" r="10" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                  <circle cx="43" cy="14" r="3.5" fill="#ef4444" opacity="0.7" />
+                  <rect x="26" y="32" width="28" height="48" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                  <circle cx="53" cy="40" r="6" fill="#ef4444" opacity="0.7" />
+                  <rect x="14" y="34" width="10" height="40" rx="5" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                  <rect x="56" y="34" width="10" height="40" rx="5" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                  <rect x="27" y="82" width="11" height="48" rx="5" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                  <rect x="42" y="82" width="11" height="48" rx="5" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5" />
+                </svg>
+              </div>
+              <div class="med-lists">
+                <div>
+                  <div class="list-label">Injuries</div>
+                  <ul id="med-injuries" class="bullet-list"></ul>
+                </div>
+                <div class="cond-row">
+                  <span class="list-label">Current Condition</span>
+                  <span id="med-condition" class="chip amber"></span>
+                </div>
+                <div>
+                  <div class="list-label">Treatment Given</div>
+                  <ul id="med-treatment" class="bullet-list"></ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Emergency Contact</h2>
+            <div class="contact-box">
+              <div>
+                <div id="contact-name" class="big-name"></div>
+                <div id="contact-relation" class="sub-val"></div>
+                <div id="contact-phone" class="mono phone-val"></div>
+              </div>
+              <a id="contact-call" class="call-btn" href="#">Call</a>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Incident Timeline</h2>
+            <ol id="timeline" class="timeline">
+              <li class="empty">Awaiting live stream events&hellip;</li>
+            </ol>
+          </section>
+
+          <section class="card card-full">
+            <h2>Additional Notes</h2>
+            <p id="notes-text" class="notes-body"></p>
+            <div class="notes-footer">
+              <span id="notes-officer"></span>
+              <span id="notes-time" class="mono"></span>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <footer class="page-footer">sample record</footer>
+    </div>
+  </div>
+
+  <script src="/sim/vendor/leaflet.js"></script>
+  <script src="/dossier/app.js"></script>
+</body>
+</html>

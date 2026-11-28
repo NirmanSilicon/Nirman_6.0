@@ -1,0 +1,21 @@
+{
+  "name": "Ashvin Emergency Response",
+  "short_name": "Ashvin",
+  "start_url": "/family/",
+  "scope": "/family/",
+  "display": "standalone",
+  "background_color": "#f0fdf4",
+  "theme_color": "#059669",
+  "icons": [
+    {
+      "src": "/family/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/family/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
