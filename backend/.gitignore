@@ -1,0 +1,30 @@
+# Virtual Environment (NEVER commit this)
+venv/
+env/
+ENV/
+.venv/
+
+# Environment Variables & Secrets
+.env
+.env.local
+
+# Python Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local SQLite Database & Data files
+*.sqlite3
+*.db
+db.sqlite3
+
+# Logs & Debug Outputs
+*.log
+simulation/incident_log.csv
+baseline_log.csv
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp

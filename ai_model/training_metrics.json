@@ -1,0 +1,307 @@
+{
+  "pipeline_version": "3.1-stacking-comparison",
+  "training_date": "2026-09-02 12:41:46 UTC",
+  "generalisation_fix": "per_dataset_zscore_normalization",
+  "datasets": {
+    "OPSSAT-AD": {
+      "rows": 2123,
+      "anomaly_count": 434,
+      "nominal_count": 1689,
+      "anomaly_rate": 0.2044
+    },
+    "CuCD-ID": {
+      "rows": 25000,
+      "anomaly_count": 20000,
+      "nominal_count": 5000,
+      "anomaly_rate": 0.8
+    },
+    "Micius": {
+      "rows": 11250,
+      "anomaly_count": 2250,
+      "nominal_count": 9000,
+      "anomaly_rate": 0.2
+    },
+    "SMAP-MSL": {
+      "rows": 82,
+      "anomaly_count": 60,
+      "nominal_count": 22,
+      "anomaly_rate": 0.7317
+    },
+    "PCoE-Battery": {
+      "rows": 2767,
+      "anomaly_count": 1829,
+      "nominal_count": 938,
+      "anomaly_rate": 0.661
+    }
+  },
+  "harmonized_total_rows": 41222,
+  "feature_schema": [
+    "feat_mean",
+    "feat_std",
+    "feat_min",
+    "feat_max",
+    "feat_range",
+    "feat_rate_of_change",
+    "feat_skewness"
+  ],
+  "model_architecture": {
+    "base_learners": [
+      {
+        "name": "RandomForestClassifier",
+        "role": "bagging",
+        "params": {
+          "n_estimators": 250,
+          "max_depth": 10,
+          "min_samples_leaf": 2,
+          "class_weight": "balanced"
+        }
+      },
+      {
+        "name": "GradientBoostingClassifier",
+        "role": "boosting",
+        "params": {
+          "n_estimators": 250,
+          "learning_rate": 0.05,
+          "max_depth": 5,
+          "subsample": 0.8
+        }
+      },
+      {
+        "name": "ExtraTreesClassifier",
+        "role": "extreme_randomization",
+        "params": {
+          "n_estimators": 250,
+          "max_depth": 10,
+          "min_samples_leaf": 2,
+          "class_weight": "balanced"
+        }
+      }
+    ],
+    "baseline_ensemble_method": "VotingClassifier(voting='soft', 3 learners: RF+GB+ET)",
+    "stacking_ensemble_method": "StackingClassifier(final_estimator=LogisticRegression, 5-fold cv, predict_proba)",
+    "meta_coefficients": {
+      "rf": 7.61167,
+      "gb": 5.9528,
+      "et": -2.99582,
+      "intercept": -3.9584
+    },
+    "preprocessing": "Per-dataset Z-score + StandardScaler (fit on train, applied to train+test)"
+  },
+  "train_test_split": {
+    "method": "stratified_random_split",
+    "test_size": 0.2,
+    "random_state": 42,
+    "train_rows": 32977,
+    "test_rows": 8245
+  },
+  "standard_split_metrics": {
+    "accuracy": 0.9636,
+    "precision": 0.9949,
+    "recall": 0.9438,
+    "f1": 0.9687,
+    "roc_auc": 0.9957
+  },
+  "stacking_metrics": {
+    "accuracy": 0.9732,
+    "precision": 0.9827,
+    "recall": 0.9721,
+    "f1": 0.9774,
+    "roc_auc": 0.997
+  },
+  "comparison": {
+    "accuracy_delta": 0.0096,
+    "f1_delta": 0.0087,
+    "roc_auc_delta": 0.0013,
+    "precision_delta": -0.0122,
+    "recall_delta": 0.0283
+  },
+  "confusion_matrix": {
+    "soft_voting": {
+      "labels": [
+        "nominal(0)",
+        "anomaly(1)"
+      ],
+      "matrix": [
+        [
+          3306,
+          24
+        ],
+        [
+          276,
+          4639
+        ]
+      ],
+      "TN": 3306,
+      "FP": 24,
+      "FN": 276,
+      "TP": 4639
+    },
+    "stacking": {
+      "labels": [
+        "nominal(0)",
+        "anomaly(1)"
+      ],
+      "matrix": [
+        [
+          3246,
+          84
+        ],
+        [
+          137,
+          4778
+        ]
+      ],
+      "TN": 3246,
+      "FP": 84,
+      "FN": 137,
+      "TP": 4778
+    }
+  },
+  "drift_governance": {
+    "psi_score": null,
+    "gate_decision": null
+  },
+  "base_learner_metrics": {
+    "random_forest": {
+      "accuracy": 0.9634,
+      "precision": 0.9961,
+      "recall": 0.9422,
+      "f1": 0.9684,
+      "roc_auc": 0.9968
+    },
+    "gradient_boosting": {
+      "accuracy": 0.9697,
+      "precision": 0.9879,
+      "recall": 0.9609,
+      "f1": 0.9742,
+      "roc_auc": 0.9967
+    },
+    "extra_trees": {
+      "accuracy": 0.9212,
+      "precision": 0.9605,
+      "recall": 0.905,
+      "f1": 0.9319,
+      "roc_auc": 0.9696
+    }
+  },
+  "feature_importances": {
+    "random_forest": {
+      "feat_rate_of_change": 0.29638,
+      "feat_min": 0.12688,
+      "feat_std": 0.12032,
+      "feat_skewness": 0.11905,
+      "feat_range": 0.11862,
+      "feat_mean": 0.11463,
+      "feat_max": 0.10411
+    },
+    "gradient_boosting": {
+      "feat_rate_of_change": 0.44419,
+      "feat_min": 0.33182,
+      "feat_mean": 0.06193,
+      "feat_skewness": 0.05914,
+      "feat_std": 0.04553,
+      "feat_max": 0.0379,
+      "feat_range": 0.01949
+    },
+    "extra_trees": {
+      "feat_rate_of_change": 0.26343,
+      "feat_range": 0.14159,
+      "feat_skewness": 0.13588,
+      "feat_std": 0.13055,
+      "feat_min": 0.12811,
+      "feat_mean": 0.11562,
+      "feat_max": 0.08481
+    },
+    "ensemble_mean": {
+      "feat_rate_of_change": 0.33467,
+      "feat_min": 0.1956,
+      "feat_skewness": 0.10469,
+      "feat_std": 0.0988,
+      "feat_mean": 0.09739,
+      "feat_range": 0.09323,
+      "feat_max": 0.07561
+    }
+  },
+  "cross_dataset_holdout": [
+    {
+      "held_out_dataset": "OPSSAT-AD",
+      "train_datasets": [
+        "CuCD-ID",
+        "Micius",
+        "SMAP-MSL",
+        "PCoE-Battery"
+      ],
+      "train_rows": 39099,
+      "test_rows": 2123,
+      "accuracy": 0.7829,
+      "precision": 0.44,
+      "recall": 0.2281,
+      "f1": 0.3005,
+      "roc_auc": 0.6464
+    },
+    {
+      "held_out_dataset": "CuCD-ID",
+      "train_datasets": [
+        "OPSSAT-AD",
+        "Micius",
+        "SMAP-MSL",
+        "PCoE-Battery"
+      ],
+      "train_rows": 16222,
+      "test_rows": 25000,
+      "accuracy": 0.3576,
+      "precision": 1.0,
+      "recall": 0.197,
+      "f1": 0.3292,
+      "roc_auc": 0.4755
+    },
+    {
+      "held_out_dataset": "Micius",
+      "train_datasets": [
+        "OPSSAT-AD",
+        "CuCD-ID",
+        "SMAP-MSL",
+        "PCoE-Battery"
+      ],
+      "train_rows": 29972,
+      "test_rows": 11250,
+      "accuracy": 0.5826,
+      "precision": 0.2869,
+      "recall": 0.732,
+      "f1": 0.4123,
+      "roc_auc": 0.6662
+    },
+    {
+      "held_out_dataset": "SMAP-MSL",
+      "train_datasets": [
+        "OPSSAT-AD",
+        "CuCD-ID",
+        "Micius",
+        "PCoE-Battery"
+      ],
+      "train_rows": 41140,
+      "test_rows": 82,
+      "accuracy": 0.3902,
+      "precision": 0.9167,
+      "recall": 0.1833,
+      "f1": 0.3056,
+      "roc_auc": 0.703
+    },
+    {
+      "held_out_dataset": "PCoE-Battery",
+      "train_datasets": [
+        "OPSSAT-AD",
+        "CuCD-ID",
+        "Micius",
+        "SMAP-MSL"
+      ],
+      "train_rows": 38455,
+      "test_rows": 2767,
+      "accuracy": 0.3459,
+      "precision": 0.5353,
+      "recall": 0.0787,
+      "f1": 0.1373,
+      "roc_auc": 0.654
+    }
+  ]
+}
