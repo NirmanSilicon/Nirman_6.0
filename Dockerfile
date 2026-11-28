@@ -2,7 +2,7 @@
 FROM node:22-slim AS web
 WORKDIR /web
 COPY web/package.json web/package-lock.json ./
-RUN npm ci
+RUN npm ci --no-audit --no-fund --fetch-retries=5 --fetch-retry-maxtimeout=60000
 COPY web/ ./
 RUN npm run build
 

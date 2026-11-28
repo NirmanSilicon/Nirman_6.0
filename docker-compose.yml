@@ -20,9 +20,9 @@ services:
   inference:
     build:
       context: ./inference
-      args: { INSTALL_ML: "${INSTALL_ML:-0}" }
+      args: { INSTALL_ML: "${INSTALL_ML:-1}" }
     environment:
-      INFERENCE_MODE: ${INFERENCE_MODE:-mock}
+      INFERENCE_MODE: ${INFERENCE_MODE:-auto}
       MODELS_DIR: /models
     volumes: ["./models:/models:ro"]
 
