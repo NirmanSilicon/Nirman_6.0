@@ -93,6 +93,13 @@ def healthz():
     return {"ok": True, "mode": MODE}
 
 
+@app.get("/info")
+def info():
+    present = {f: os.path.exists(os.path.join(MODELS_DIR, f)) for f in ("detector.pt", "board_classifier.pt", "classes.json")}
+    return {"mode": MODE, "board_type": BOARD_TYPE, "weights": present, "ready": MODE == "mock" or present["detector.pt"],
+            "classes": ["RAM_IC", "IC", "CAPACITOR", "RESISTOR", "CONNECTOR", "CRYSTAL"]}
+
+
 @app.post("/predict")
 def predict(image: UploadFile = File(...)):
     raw = image.file.read()

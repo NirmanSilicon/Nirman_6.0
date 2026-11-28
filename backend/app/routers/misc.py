@@ -17,10 +17,10 @@ router = APIRouter(prefix="/v1")
 @router.get("/recyclers", tags=["recyclers"])
 def recyclers(
     lat: float = Query(..., ge=-90, le=90), lng: float = Query(..., ge=-180, le=180),
-    radius: float = Query(100, gt=0, le=2000, description="km"),
+    radius: float = Query(100, gt=0, le=5000, description="km"),
     accepts: str | None = Query(None, description="e.g. RAM, PCB, motherboard"),
     state: str | None = Query(None, description="e.g. Odisha"),
-    limit: int = Query(10, ge=1, le=50), db: Session = Depends(get_db),
+    limit: int = Query(10, ge=1, le=1000), db: Session = Depends(get_db),
 ):
     """Nearest authorised recyclers (PostGIS). If none inside `radius`, returns the nearest few with `expanded=true`."""
     here = cast(func.ST_SetSRID(func.ST_MakePoint(lng, lat), 4326), Geography)

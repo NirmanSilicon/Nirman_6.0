@@ -10,7 +10,7 @@ from sqlalchemy import text
 
 from .config import get_settings
 from .db import SessionLocal, engine, init_db
-from .routers import misc, scan
+from .routers import journey, misc, scan
 from .seed import seed
 from .services import storage
 
@@ -32,6 +32,7 @@ app = FastAPI(title="Ouroboros API", version="1.0.0", lifespan=lifespan,
 app.add_middleware(CORSMiddleware, allow_origins=get_settings().cors_list, allow_methods=["*"], allow_headers=["*"])
 app.include_router(scan.router)
 app.include_router(misc.router)
+app.include_router(journey.router)
 
 
 @app.get("/healthz", tags=["meta"])

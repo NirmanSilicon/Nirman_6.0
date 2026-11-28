@@ -69,3 +69,13 @@ def test_quality_flags():
     assert "too_dark" in q["issues"] and "blurry" in q["issues"]
     noisy = Image.fromarray(np.random.randint(0, 255, (400, 400, 3), dtype=np.uint8))
     assert quality.check(noisy, s)["ok"]
+
+
+def test_gamify_levels_and_rules():
+    from app.services import gamify
+    assert gamify.LEVELS[0][0] == 0
+    assert {r["id"] for r in gamify.RULES} >= {"scan", "dropoff"}
+    assert gamify._streak(set()) == 0
+    from datetime import date, timedelta
+    t = date(2026, 11, 28)
+    assert gamify._streak({t, t - timedelta(days=1), t - timedelta(days=2)}) == 3
