@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Icon from "./Icon";
 import { useTranslation } from "react-i18next";
 import { Logo } from "./ui";
 
@@ -15,7 +16,7 @@ export default function Onboarding({ onDone }: { onDone: () => void }) {
       </div>
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-6 p-6">
         <div className="mx-auto flex h-44 w-44 items-center justify-center rounded-full border-2 border-orange/70">
-          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-amber text-5xl text-ink">{i === 0 ? "📷" : i === 1 ? "₹" : "📍"}</div>
+          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-amber text-5xl text-ink"><Icon name={i === 0 ? "camera" : i === 1 ? "rupee" : "pin"} size={48} /></div>
         </div>
         <div className="text-center">
           <p className="eyebrow !text-orange">{i + 1} / 3</p>

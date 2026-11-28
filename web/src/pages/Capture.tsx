@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Icon from "../components/Icon";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import * as api from "../lib/api";
@@ -76,7 +77,7 @@ export default function Capture() {
         </div>
         <p className="absolute top-3 w-full text-center text-sm font-semibold text-white drop-shadow">{t("scan.hint")}</p>
         {hint && <span className={`absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full px-3 py-1 text-sm font-bold ${hint.ok ? "bg-orange text-white" : "bg-amber text-ink"}`}>
-          {hint.ok ? `✓ ${t("scan.good")}` : t(`scan.${hint.issues[0]}`)}</span>}
+          {hint.ok ? t("scan.good") : t(`scan.${hint.issues[0]}`)}</span>}
         {(busy || msg) && <div className="absolute inset-0 flex items-center justify-center bg-black/60 p-8 text-center text-lg font-semibold text-white" onClick={() => !busy && setMsg("")}>{msg}</div>}
       </div>
       <div className="bg-ink2 p-3 text-cream">
@@ -85,7 +86,7 @@ export default function Capture() {
           {t("scan.consent")}
         </label>
         <div className="flex items-center justify-around">
-          <button className="btn btn-ghost !bg-ink !text-cream !border-cream/30" onClick={() => file.current?.click()} disabled={busy}>🖼 {t("scan.gallery")}</button>
+          <button className="btn btn-ghost !bg-ink !text-cream !border-cream/30" onClick={() => file.current?.click()} disabled={busy}><Icon name="image" className="mr-1.5 -mt-0.5" />{t("scan.gallery")}</button>
           <button aria-label={t("scan.shutter")} onClick={snap} disabled={busy || !cam}
             className="h-20 w-20 rounded-full border-4 border-cream bg-orange active:scale-90 disabled:opacity-40" />
           <span className="w-24" />
@@ -95,7 +96,7 @@ export default function Capture() {
       {review && (
         <div className="absolute inset-0 flex items-end bg-black/70">
           <div className="w-full rounded-t-3xl bg-white p-5 text-zinc-900">
-            <h2 className="text-lg font-bold">⚠ {t("scan.poor")}</h2>
+            <h2 className="text-lg font-bold"><Icon name="alert" className="mr-1.5 -mt-1 text-orange" />{t("scan.poor")}</h2>
             <ul className="my-2 list-disc pl-5 text-sm">{review.issues.map((i) => <li key={i}>{t(`scan.${i}`)}</li>)}</ul>
             <div className="mt-3 flex gap-3">
               <button className="btn btn-primary flex-1" onClick={() => setReview(null)}>{t("scan.retake")}</button>

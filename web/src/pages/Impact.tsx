@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import Icon from "../components/Icon";
 import Ring from "../components/Ring";
 import { inr } from "../components/ui";
 import { useImpact } from "../lib/impact";
@@ -31,7 +32,7 @@ export default function Impact() {
       <section><p className="eyebrow mb-2">{t("impact.badges")}</p>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-5">{i.badges.map((b) => (
           <div key={b.id} className={`card text-center ${b.earned ? "border-orange" : "opacity-50"}`}>
-            <span className="text-3xl">{b.earned ? "🏅" : "🔒"}</span><p className="display mt-1 text-lg">{b.title}</p><p className="text-xs text-mute">{b.desc}</p></div>))}</div></section>
+            <Icon name={b.earned ? "medal" : "lock"} size={30} className="text-orange" /><p className="display mt-1 text-lg">{b.title}</p><p className="text-xs text-mute">{b.desc}</p></div>))}</div></section>
 
       <section><p className="eyebrow mb-2">{t("impact.rules")}</p><p className="mb-2 text-sm text-mute">{t("impact.rulesNote")}</p>
         <div className="card divide-y divide-line !p-0">{i.rules.map((r) => (

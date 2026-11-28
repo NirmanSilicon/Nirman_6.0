@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import Icon from "../components/Icon";
 import { Link } from "react-router-dom";
 import Nearby from "../components/Nearby";
 import Ring from "../components/Ring";
@@ -26,7 +27,7 @@ export default function Home() {
         <p className="eyebrow !text-orange">{t("home.eyebrow")}</p>
         <h1 className="mt-2 max-w-md text-4xl md:text-6xl">{t("home.title")}</h1>
         <p className="mt-2 max-w-md text-cream/75">{t("home.lead")}</p>
-        <Link to="/scan" className="btn btn-accent mt-5 inline-block !px-8 !py-4 text-base">◉ {t("home.cta")}</Link>
+        <Link to="/scan" className="btn btn-accent mt-5 inline-block !px-8 !py-4 text-base"><Icon name="scan" className="mr-2 -mt-0.5" size={20} />{t("home.cta")}</Link>
       </section>
 
       <section className="grid gap-4 md:grid-cols-[1fr_auto] md:items-stretch">
@@ -35,7 +36,7 @@ export default function Home() {
           <ol className="mt-3 flex items-start justify-between">
             {steps.map((st, i) => (
               <li key={st.k} className="flex flex-1 flex-col items-center text-center">
-                <span className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-orange font-bold ${st.done ? "bg-orange text-white" : "text-orange"}`}>{st.done ? "✓" : i + 1}</span>
+                <span className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-orange font-bold ${st.done ? "bg-orange text-white" : "text-orange"}`}>{st.done ? <Icon name="check" size={22} /> : i + 1}</span>
                 <span className="display mt-1 text-sm uppercase">{t(`home.step.${st.k}`)}</span>
                 <span className="text-xs text-mute">{st.n} {t(`home.unit.${st.k}`)}</span>
               </li>))}
@@ -47,7 +48,7 @@ export default function Home() {
             <Ring progress={imp.level.progress} label={String(imp.points)} sub="pts" />
             <div><p className="eyebrow">{t("home.level")}</p><p className="display text-2xl">{imp.level.name}</p>
               <p className="text-xs text-mute">{imp.level.next_at ? t("home.toNext", { n: imp.level.next_at - imp.points }) : t("home.maxLevel")}</p>
-              {(s?.streak_days ?? 0) > 1 && <p className="mt-1 text-xs font-semibold text-ember">🔥 {s!.streak_days} {t("home.days")}</p>}</div>
+              {(s?.streak_days ?? 0) > 1 && <p className="mt-1 text-xs font-semibold text-ember"><Icon name="flame" size={13} className="-mt-0.5 mr-1" />{s!.streak_days} {t("home.days")}</p>}</div>
           </Link>)}
       </section>
 

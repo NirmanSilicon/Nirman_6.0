@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as store from "../lib/store";
+import Icon from "./Icon";
 import Toasts from "./Toasts";
 
 /** Round rating dots, like the deck's route-scoring table (dots + label: colour-blind safe). */
@@ -32,8 +33,8 @@ export function LangToggle() {
 }
 
 const NAV = [
-  { to: "/", key: "home", icon: "⌂", end: true }, { to: "/map", key: "map", icon: "⌖" }, { to: "/scan", key: "scan", icon: "◉", fab: true },
-  { to: "/impact", key: "impact", icon: "★" }, { to: "/about", key: "about", icon: "ⓘ" },
+  { to: "/", key: "home", icon: "home", end: true }, { to: "/map", key: "map", icon: "map" }, { to: "/scan", key: "scan", icon: "scan", fab: true },
+  { to: "/impact", key: "impact", icon: "impact" }, { to: "/about", key: "about", icon: "info" },
 ];
 
 export function Layout() {
@@ -57,9 +58,9 @@ export function Layout() {
           <NavLink to="/"><Logo /></NavLink>
           <nav className="hidden items-center gap-1 md:flex">{NAV.map((n) => <NavLink key={n.to} to={n.to} end={n.end} className={desk}>{t(`nav.${n.key}`)}</NavLink>)}</nav>
           <div className="flex items-center gap-2">
-            {(!online || q > 0) && <span className="rounded-full bg-amber px-2 py-0.5 text-xs font-bold text-ink">{online ? `${q} ↑` : `Offline${q ? ` · ${q}` : ""}`}</span>}
+            {(!online || q > 0) && <span className="rounded-full bg-amber px-2 py-0.5 text-xs font-bold text-ink">{online ? `${q} queued` : `Offline${q ? ` · ${q}` : ""}`}</span>}
             <LangToggle />
-            <NavLink to="/profile" aria-label="Profile" className="flex h-8 w-8 items-center justify-center rounded-full border border-cream/40 text-sm">☺</NavLink>
+            <NavLink to="/profile" aria-label="Profile" className="flex h-8 w-8 items-center justify-center rounded-full border border-cream/40 text-sm"><Icon name="user" size={16} /></NavLink>
           </div>
         </div>
       </header>
@@ -67,8 +68,8 @@ export function Layout() {
       <nav className="flex items-end bg-ink pb-[env(safe-area-inset-bottom)] md:hidden">
         {NAV.map((n) => n.fab
           ? <NavLink key={n.to} to={n.to} aria-label={t("nav.scan")} className="-mt-5 flex flex-1 flex-col items-center gap-0.5 pb-2 text-[11px] font-semibold text-cream">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange text-2xl text-white shadow-lg ring-4 ring-ink">◉</span>{t("nav.scan")}</NavLink>
-          : <NavLink key={n.to} to={n.to} end={n.end} className={mobile}><span className="text-lg leading-none">{n.icon}</span>{t(`nav.${n.key}`)}</NavLink>)}
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange text-white shadow-lg ring-4 ring-ink"><Icon name="scan" size={28} /></span>{t("nav.scan")}</NavLink>
+          : <NavLink key={n.to} to={n.to} end={n.end} className={mobile}><Icon name={n.icon} size={22} />{t(`nav.${n.key}`)}</NavLink>)}
       </nav>
     </div>
   );

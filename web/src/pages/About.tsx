@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import Icon from "../components/Icon";
 import { useTranslation } from "react-i18next";
 import { inr, Pipeline } from "../components/ui";
 import * as api from "../lib/api";
@@ -34,7 +35,7 @@ function Model() {
                 <p className="display text-lg uppercase text-orange">{t(`bm.actor.${k}.t`)}</p><p className="mt-1 text-sm opacity-80">{t(`bm.actor.${k}.d`)}</p>
                 <p className="mt-2 text-xs font-semibold">{t(`bm.actor.${k}.pays`)}</p>
               </div>
-              {i < 3 && <span className="absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 text-orange md:-right-3 md:bottom-auto md:left-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0">▶</span>}
+              {i < 3 && <span className="absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 text-orange md:-right-3 md:bottom-auto md:left-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0"><Icon name="arrow" size={16} /></span>}
             </div>))}
         </div>
       </section>
@@ -86,7 +87,7 @@ function Under() {
           <p className="mt-2 flex items-center gap-2"><span className={`h-3 w-3 rounded-full ${inf?.reachable ? "bg-orange" : "bg-ink/30"}`} />
             <b>{inf?.reachable ? `${t("under.service")}: ${inf.mode}` : t("under.down")}</b></p>
           {inf?.mode === "mock" && <p className="mt-1 text-sm text-mute">{t("under.mockNote")}</p>}
-          <ul className="mt-3 space-y-1 text-sm">{rows.map(([f, ok]) => <li key={String(f)}><span className={ok ? "text-ember" : "text-mute"}>{ok ? "✓" : "○"}</span> models/{f}</li>)}</ul>
+          <ul className="mt-3 space-y-1 text-sm">{rows.map(([f, ok]) => <li key={String(f)}>models/{f}: <span className={ok ? "font-semibold text-ember" : "text-mute"}>{ok ? "present" : "not added"}</span></li>)}</ul>
         </div>
         <div className="card">
           <p className="eyebrow">{t("under.plug")}</p>
@@ -95,7 +96,7 @@ function Under() {
         </div>
       </section>
       <section className="card"><p className="eyebrow">{t("under.registry")}</p><p className="mt-1 text-sm text-mute">{t("under.registryText")}</p>
-        <a className="mt-2 inline-block text-sm font-semibold text-ember" href="/v1/docs" onClick={(e) => { e.preventDefault(); window.open("/docs", "_blank"); }}>API docs ↗</a></section>
+        <a className="mt-2 inline-block text-sm font-semibold text-ember" href="/v1/docs" onClick={(e) => { e.preventDefault(); window.open("/docs", "_blank"); }}>API docs </a></section>
       <Prices embedded />
     </div>
   );

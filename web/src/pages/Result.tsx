@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import Icon from "../components/Icon";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import BBoxOverlay from "../components/BBoxOverlay";
@@ -73,7 +74,7 @@ export default function Result() {
                 <div className="card-dark">
                   <p className="eyebrow !text-orange">#1 · {t(`routes.${top.route}`)}</p>
                   <p className="mt-1 text-lg font-semibold leading-snug">{top.reason[lang]}</p>
-                  {top.authorised_only && <p className="mt-2 text-sm text-cream/70">🛡 {t("result.authorisedOnly")}. {t("result.unsafe")}</p>}
+                  {top.authorised_only && <p className="mt-2 text-sm text-cream/70"><Icon name="shield" size={15} className="mr-1 -mt-0.5" />{t("result.authorisedOnly")}. {t("result.unsafe")}</p>}
                 </div>
                 <ul className="space-y-2">
                   {routes.map((rt, i) => (
@@ -87,7 +88,7 @@ export default function Result() {
                       </div>
                     </li>))}
                 </ul>
-                <p className="text-xs text-mute">● {t("crit.moreBetter")}</p>
+                <p className="text-xs text-mute">{t("crit.moreBetter")}</p>
               </section>
             </>
           )}
@@ -111,7 +112,7 @@ export default function Result() {
               <thead><tr className="text-left text-mute"><th className="font-semibold">{t("result.components")}</th><th>{t("result.count")}</th><th>{t("result.conf")}</th></tr></thead>
               <tbody>{r.components.map((c) => (
                 <tr key={c.class} className="border-t border-line">
-                  <td className="py-1.5">{cls(c.class)}{c.reusable && <span className="ml-1 text-xs text-ember">♻ {t("result.reusable")}</span>}</td>
+                  <td className="py-1.5">{cls(c.class)}{c.reusable && <span className="ml-1 text-xs text-ember">{t("result.reusable")}</span>}</td>
                   <td>{c.count}</td><td>{Math.round(c.avg_conf * 100)}%</td></tr>))}</tbody>
             </table>)}
           {r.trace && (
@@ -129,7 +130,7 @@ export default function Result() {
             <button className="btn btn-primary flex-1" onClick={share}>{t("result.share")}</button>
             <a className="btn btn-ghost flex-1 text-center" href={api.reportUrl(r.scan_id, "pdf")} target="_blank" rel="noreferrer">PDF</a>
             <a className="btn btn-ghost flex-1 text-center" href={api.recordUrl(r.scan_id)} target="_blank" rel="noreferrer" title={t("result.recordHint")}>EPR/DPP</a>
-            <button className="btn btn-ghost" onClick={remove} aria-label={t("result.delete")}>🗑</button>
+            <button className="btn btn-ghost" onClick={remove} aria-label={t("result.delete")}><Icon name="trash" /></button>
           </div>
         </section>
       </div>

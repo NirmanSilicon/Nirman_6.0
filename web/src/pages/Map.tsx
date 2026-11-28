@@ -1,4 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import Icon from "../components/Icon";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { RecyclerCard } from "../components/Nearby";
@@ -59,9 +60,9 @@ export default function MapPage() {
           <MapView items={items} selectedId={sel} savedIds={saved} visitedIds={visited} center={center} user={pos} fitKey={fitKey} onSelect={select} />
         </Suspense>
         <div className="absolute left-3 top-3 z-[500] flex gap-2 md:hidden">
-          <button className="rounded-full bg-ink px-4 py-2 text-xs font-semibold text-cream shadow" onClick={() => setOpen(true)}>☰ {items.length} {t("map.stores")}</button>
+          <button className="rounded-full bg-ink px-4 py-2 text-xs font-semibold text-cream shadow" onClick={() => setOpen(true)}><Icon name="list" size={14} className="mr-1.5 -mt-0.5" />{items.length} {t("map.stores")}</button>
         </div>
-        <button onClick={locate} className="absolute right-3 top-3 z-[500] rounded-full bg-white px-3 py-2 text-xs font-semibold shadow">📍 {pos ? t("map.recenter") : t("result.useLocation")}</button>
+        <button onClick={locate} className="absolute right-3 top-3 z-[500] rounded-full bg-white px-3 py-2 text-xs font-semibold shadow"><Icon name="locate" size={14} className="mr-1.5 -mt-0.5" />{pos ? t("map.recenter") : t("result.useLocation")}</button>
         <div className="absolute bottom-3 left-3 z-[500] hidden gap-3 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold shadow sm:flex">
           <span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-full border-2 border-orange bg-ink" />{t("map.legend.listed")}</span>
           <span><i className="mr-1 inline-block h-2.5 w-2.5 rounded-full bg-amber" />{t("map.legend.saved")}</span>
@@ -79,7 +80,7 @@ export default function MapPage() {
               <option value="">{t("map.allStates")}</option>{states.map((s) => <option key={s}>{s}</option>)}</select>
             {(["all", "saved"] as const).map((k) => (
               <button key={k} onClick={() => setTab(k)} className={`rounded-full px-3 py-2 text-xs font-semibold ${tab === k ? "bg-ink text-cream" : "border border-ink/20 bg-white"}`}>
-                {k === "all" ? t("map.all") : `★ ${saved.length}`}</button>))}
+                {k === "all" ? t("map.all") : <span className="inline-flex items-center gap-1"><Icon name="star" size={13} fill />{saved.length}</span>}</button>))}
           </div>
           <p className="text-xs text-mute">{items.length} {t("map.stores")} · {t("rec.note")}</p>
         </div>
@@ -90,7 +91,7 @@ export default function MapPage() {
           {items.filter((r) => r.id !== sel).slice(0, 80).map((r) => (
             <button key={r.id} onClick={() => select(r.id)} className="card block w-full text-left !p-3">
               <div className="flex justify-between gap-2"><b className="text-sm">{r.name}</b><span className="whitespace-nowrap text-xs font-semibold text-ember">{r.distance_km} km</span></div>
-              <p className="truncate text-xs text-mute">{r.city || r.address} · {r.state}{saved.includes(r.id) ? " · ★" : ""}{visited.includes(r.id) ? " · ✓" : ""}</p>
+              <p className="truncate text-xs text-mute">{r.city || r.address} · {r.state}{saved.includes(r.id) ? " · Saved" : ""}{visited.includes(r.id) ? " · Handed over" : ""}</p>
             </button>))}
           {!items.length && <p className="p-4 text-center text-mute">{t("result.noRecyclers")}</p>}
         </div>
