@@ -198,6 +198,27 @@ def test_lifespan_starts_gracefully_without_parquet(tmp_path, monkeypatch):
     assert "simulation" in sim_response.json()["detail"].lower()
 
 
+def test_lifespan_starts_degraded_without_model_artifacts(monkeypatch):
+    from app import main
+
+    def fake_missing_predictor(*args, **kwargs):
+        raise FileNotFoundError("Missing xgb_model.json")
+
+    monkeypatch.setattr(main, "PredictorService", fake_missing_predictor)
+
+    application = main.create_app()
+
+    with TestClient(application) as test_client:
+        health_response = test_client.get("/api/v1/health")
+        faults_response = test_client.get("/api/v1/faults")
+
+    assert health_response.status_code == 200
+    health_data = health_response.json()
+    assert health_data["status"] == "degraded"
+    assert health_data["model_loaded"] is False
+    assert faults_response.status_code == 200
+
+
 # ---------------------------------------------------------------------
 # Fault catalog endpoint
 # ---------------------------------------------------------------------
@@ -627,6 +648,118 @@ def test_retrain_returns_relative_artifacts_dir(
     assert data["status"] == "trained"
     assert data["activated"] is True
     assert data["artifacts_dir"] == "plants/custom_unit"
+
+
+def test_retrain_sanitizes_filename_path_traversal(client, monkeypatch, tmp_path):
+    from app import routes
+
+    written_paths = []
+
+    def fake_train_custom(csv_path, **kwargs):
+        written_paths.append(Path(csv_path))
+        return {
+            "plant_id": "safe_plant",
+            "plant_name": "Safe Plant",
+            "n_sensors": 2,
+            "sensor_cols": ["A", "B"],
+            "classes": [0, 1],
+            "train_windows": 4,
+            "validation_windows": 2,
+            "test_windows": 2,
+            "sample_accuracy": 1.0,
+            "sample_macro_f1": 1.0,
+            "train_time_sec": 0.1,
+            "artifacts_dir": str(tmp_path / "safe_plant"),
+        }
+
+    monkeypatch.setattr(routes, "train_custom_plant_csv", fake_train_custom)
+    monkeypatch.setattr(
+        routes, "PredictorService", lambda artifacts_dir: FakePredictor()
+    )
+
+    response = client.post(
+        "/api/v1/plants/retrain",
+        data={"plant_id": "safe_plant", "activate": "false"},
+        files={
+            "file": (
+                "../../../../evil.csv",
+                b"STATUS,A,B\n0,1,2\n1,3,4\n",
+                "text/csv",
+            )
+        },
+    )
+
+    assert response.status_code == 201
+    assert len(written_paths) == 1
+    assert written_paths[0].name == "evil.csv"
+    assert ".." not in str(written_paths[0])
+
+
+def test_retrain_rejects_oversized_csv(client, monkeypatch):
+    from app import routes
+
+    monkeypatch.setattr(routes, "MAX_RETRAIN_CSV_BYTES", 30)
+
+    response = client.post(
+        "/api/v1/plants/retrain",
+        data={"plant_id": "large_plant"},
+        files={
+            "file": (
+                "oversized.csv",
+                b"STATUS,A,B\n0,1,2\n1,3,4\n" * 5,
+                "text/csv",
+            )
+        },
+    )
+
+    assert response.status_code == 413
+    assert "maximum supported size" in response.json()["detail"].lower()
+
+
+def test_retrain_supports_string_normal_label(client, monkeypatch, tmp_path):
+    from app import routes
+
+    passed_normal_labels = []
+
+    def fake_train_custom(normal_label, **kwargs):
+        passed_normal_labels.append(normal_label)
+        return {
+            "plant_id": "str_plant",
+            "plant_name": "Str Plant",
+            "n_sensors": 2,
+            "sensor_cols": ["A", "B"],
+            "classes": [0, 1],
+            "train_windows": 4,
+            "validation_windows": 2,
+            "test_windows": 2,
+            "sample_accuracy": 1.0,
+            "sample_macro_f1": 1.0,
+            "train_time_sec": 0.1,
+            "artifacts_dir": str(tmp_path / "str_plant"),
+        }
+
+    monkeypatch.setattr(routes, "train_custom_plant_csv", fake_train_custom)
+    monkeypatch.setattr(
+        routes, "PredictorService", lambda artifacts_dir: FakePredictor()
+    )
+
+    # 1. Non-numeric string normal label
+    res1 = client.post(
+        "/api/v1/plants/retrain",
+        data={"plant_id": "str_plant", "normal_label": "NORMAL", "activate": "false"},
+        files={"file": ("p.csv", b"STATUS,A,B\nNORMAL,1,2\nFAULT,3,4\n", "text/csv")},
+    )
+    assert res1.status_code == 201
+    assert passed_normal_labels[-1] == "NORMAL"
+
+    # 2. Integer normal label as string "0" -> parsed to int 0
+    res2 = client.post(
+        "/api/v1/plants/retrain",
+        data={"plant_id": "str_plant", "normal_label": "0", "activate": "false"},
+        files={"file": ("p.csv", b"STATUS,A,B\n0,1,2\n1,3,4\n", "text/csv")},
+    )
+    assert res2.status_code == 201
+    assert passed_normal_labels[-1] == 0
 
 
 # ---------------------------------------------------------------------

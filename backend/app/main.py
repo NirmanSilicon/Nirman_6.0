@@ -23,7 +23,14 @@ logger = logging.getLogger(__name__)
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Preload ML artifacts, TreeSHAP explainer, and unseen test episodes at startup."""
 
-    predictor = PredictorService()
+    predictor: PredictorService | None = None
+    try:
+        predictor = PredictorService()
+    except FileNotFoundError as exc:
+        logger.warning(
+            "PredictorService artifacts not found (%s); starting in degraded mode.",
+            exc,
+        )
 
     test_df: pd.DataFrame | None = None
     test_episodes_by_fault: dict[int, list[pd.DataFrame]] = defaultdict(list)

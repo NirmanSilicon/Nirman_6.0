@@ -134,12 +134,13 @@ export function simulateFault(faultId, params = {}) {
 }
 
 /** 4. POST /api/v1/analyze */
-export function analyzeWindow(windowRows) {
+export function analyzeWindow(windowRows, options = {}) {
   return requestJson("/api/v1/analyze", {
     method: "POST",
     body: JSON.stringify({
       window: windowRows,
     }),
+    signal: options.signal,
   });
 }
 
@@ -173,7 +174,7 @@ export function getPlants() {
 }
 
 /** 8. POST /api/v1/plants/retrain */
-export function retrainPlant(formValues) {
+export function retrainPlant(formValues, options = {}) {
   const formData = new FormData();
 
   formData.append("file", formValues.file);
@@ -214,6 +215,7 @@ export function retrainPlant(formValues) {
   return requestJson("/api/v1/plants/retrain", {
     method: "POST",
     body: formData,
+    signal: options.signal,
   });
 }
 

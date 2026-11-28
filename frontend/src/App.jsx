@@ -584,6 +584,7 @@ export default function App() {
             <RecommendationsView
               result={sim.result}
               faults={faults}
+              activePlant={activePlant}
               loading={sim.loading}
               onRunSimulation={sim.runNow}
               onFeedbackRecorded={() => {

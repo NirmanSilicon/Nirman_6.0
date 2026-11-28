@@ -66,6 +66,10 @@ router = APIRouter(tags=["AlarmSense API v1"])
 MAX_ALARM_LOG_BYTES = 25 * 1024 * 1024
 
 
+# Upload size limit for custom plant training datasets (25 MB).
+MAX_RETRAIN_CSV_BYTES: int = 25 * 1024 * 1024
+
+
 def _get_predictor(request: Request) -> PredictorService:
     """Retrieve preloaded PredictorService from application state."""
     predictor: PredictorService | None = getattr(
@@ -999,7 +1003,7 @@ async def retrain_custom_plant(
     plant_name: str | None = Form(default=None),
     status_col: str = Form(default="STATUS"),
     timestamp_col: str | None = Form(default=None),
-    normal_label: int = Form(default=0),
+    normal_label: str = Form(default="0"),
     window_size: int = Form(default=DEFAULT_WINDOW_SIZE),
     activate: bool = Form(default=True),
 ) -> RetrainResponse:
@@ -1007,7 +1011,15 @@ async def retrain_custom_plant(
 
     plants_root = _get_plants_artifacts_root(request)
 
-    raw_bytes = await file.read()
+    try:
+        raw_bytes = await file.read(MAX_RETRAIN_CSV_BYTES + 1)
+        if len(raw_bytes) > MAX_RETRAIN_CSV_BYTES:
+            raise HTTPException(
+                status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+                detail="Uploaded CSV exceeds maximum supported size of 25MB.",
+            )
+    finally:
+        await file.close()
 
     if not raw_bytes:
         raise HTTPException(
@@ -1015,10 +1027,18 @@ async def retrain_custom_plant(
             detail="Uploaded CSV file is empty.",
         )
 
+    parsed_normal_label: int | str
+    try:
+        parsed_normal_label = int(normal_label)
+    except ValueError:
+        parsed_normal_label = normal_label
+
+    safe_filename = (
+        Path((file.filename or "").replace("\\", "/")).name or "upload.csv"
+    )
+
     with tempfile.TemporaryDirectory() as tmpdir:
-        csv_path = Path(tmpdir) / (
-            file.filename or "upload.csv"
-        )
+        csv_path = Path(tmpdir) / safe_filename
 
         csv_path.write_bytes(raw_bytes)
 
@@ -1030,7 +1050,7 @@ async def retrain_custom_plant(
                 plant_name=plant_name,
                 status_col=status_col,
                 timestamp_col=timestamp_col,
-                normal_label=normal_label,
+                normal_label=parsed_normal_label,
                 window_size=window_size,
                 artifacts_root=plants_root,
             )

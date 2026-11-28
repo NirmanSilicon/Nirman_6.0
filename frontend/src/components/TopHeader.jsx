@@ -23,6 +23,7 @@ export function TopHeader({
 }) {
   const [bellOpen, setBellOpen] = useState(false);
   const bellRef = useRef(null);
+  const bellButtonRef = useRef(null);
 
   const safePlants = Array.isArray(plants) ? plants : [];
   const safeAlarms = Array.isArray(priorityAlarms) ? priorityAlarms : [];
@@ -46,6 +47,7 @@ export function TopHeader({
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setBellOpen(false);
+        bellButtonRef.current?.focus();
       }
     };
 
@@ -135,6 +137,7 @@ export function TopHeader({
           {/* Alarm Notifications */}
           <div className="relative" ref={bellRef}>
             <button
+              ref={bellButtonRef}
               type="button"
               onClick={() => setBellOpen((prev) => !prev)}
               aria-label={`Confirmed alarms: ${alarmCount} active`}

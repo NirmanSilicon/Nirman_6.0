@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CheckCircle2,
   Download,
@@ -217,6 +217,16 @@ export function DataUploadView({
   const [analyzeError, setAnalyzeError] = useState(null);
   const [analyzeResult, setAnalyzeResult] = useState(null);
 
+  const retrainAbortRef = useRef(null);
+  const analyzeAbortRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      retrainAbortRef.current?.abort();
+      analyzeAbortRef.current?.abort();
+    };
+  }, []);
+
   // --------------------------------------------------
   // FILE DOWNLOAD HELPER
   // --------------------------------------------------
@@ -327,19 +337,26 @@ export function DataUploadView({
       return;
     }
 
+    retrainAbortRef.current?.abort();
+    const controller = new AbortController();
+    retrainAbortRef.current = controller;
+
     setRetraining(true);
 
     try {
-      const response = await retrainPlant({
-        file,
-        plant_id: cleanedPlantId,
-        plant_name: cleanedPlantName || undefined,
-        status_col: cleanedStatusCol,
-        timestamp_col: timestampCol.trim() || undefined,
-        normal_label: parsedNormalLabel,
-        window_size: parsedWindowSize,
-        activate,
-      });
+      const response = await retrainPlant(
+        {
+          file,
+          plant_id: cleanedPlantId,
+          plant_name: cleanedPlantName || undefined,
+          status_col: cleanedStatusCol,
+          timestamp_col: timestampCol.trim() || undefined,
+          normal_label: parsedNormalLabel,
+          window_size: parsedWindowSize,
+          activate,
+        },
+        { signal: controller.signal }
+      );
 
       setRetrainResult(response);
 
@@ -347,11 +364,14 @@ export function DataUploadView({
         onPlantRetrained(response);
       }
     } catch (error) {
+      if (controller.signal.aborted) return;
       setRetrainError(
         error?.message || "Failed to train custom plant model."
       );
     } finally {
-      setRetraining(false);
+      if (!controller.signal.aborted) {
+        setRetraining(false);
+      }
     }
   };
 
@@ -448,10 +468,16 @@ export function DataUploadView({
       return;
     }
 
+    analyzeAbortRef.current?.abort();
+    const controller = new AbortController();
+    analyzeAbortRef.current = controller;
+
     setAnalyzing(true);
 
     try {
-      const response = await analyzeWindow(rows);
+      const response = await analyzeWindow(rows, {
+        signal: controller.signal,
+      });
 
       if (!response || typeof response !== "object") {
         throw new Error("The API returned an invalid analysis response.");
@@ -473,11 +499,14 @@ export function DataUploadView({
         );
       }
     } catch (error) {
+      if (controller.signal.aborted) return;
       setAnalyzeError(
         error?.message || "Analysis request failed."
       );
     } finally {
-      setAnalyzing(false);
+      if (!controller.signal.aborted) {
+        setAnalyzing(false);
+      }
     }
   };
 
@@ -544,16 +573,17 @@ export function DataUploadView({
 
           <div>
 
-            <label
-              htmlFor="csv-upload-input"
+            <p
+              id="csv-upload-label"
               className="block text-xs font-semibold text-[#0F172A] mb-1.5"
             >
               Labeled Telemetry CSV File
-            </label>
+            </p>
 
             <label
               htmlFor="csv-upload-input"
-              className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 hover:border-[#00A8B5] rounded-2xl bg-[#F4F8FB]/60 p-5 cursor-pointer transition-colors"
+              aria-labelledby="csv-upload-label"
+              className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 hover:border-[#00A8B5] focus-within:border-[#00A8B5] focus-within:ring-2 focus-within:ring-[#00A8B5]/30 rounded-2xl bg-[#F4F8FB]/60 p-5 cursor-pointer transition-colors"
             >
 
               <FileSpreadsheet className="w-7 h-7 text-[#00A8B5] mb-2" />
