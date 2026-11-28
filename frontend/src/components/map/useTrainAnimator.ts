@@ -23,7 +23,15 @@ interface AnimatedTrainState {
   status?: string | null;
 }
 
-export function useTrainAnimator(mapRef: React.RefObject<MapLibreMap | null>) {
+export interface UseTrainAnimatorOptions {
+  isTrackingRef?: React.RefObject<boolean>;
+  isFlyingRef?: React.RefObject<boolean>;
+}
+
+export function useTrainAnimator(
+  mapRef: React.RefObject<MapLibreMap | null>,
+  options?: UseTrainAnimatorOptions
+) {
   const trainStateMap = useRef<Map<string, AnimatedTrainState>>(new Map());
   const animFrameId = useRef<number | null>(null);
   const needsRenderRef = useRef<boolean>(true);
@@ -207,6 +215,7 @@ export function useTrainAnimator(mapRef: React.RefObject<MapLibreMap | null>) {
 
         if (hasActiveMotion || selectedTrainChanged || !isSettled || needsRenderRef.current) {
           const features = [];
+          let targetCoords: [number, number] | null = null;
 
           for (const [_, state] of trainStateMap.current) {
             if (prefersReducedMotion) {
@@ -222,6 +231,10 @@ export function useTrainAnimator(mapRef: React.RefObject<MapLibreMap | null>) {
             }
 
             const [renderLon, renderLat] = snapPointToTrack(state.currentLon, state.currentLat);
+
+            if (state.trainNo === selectedTrain) {
+              targetCoords = [renderLon, renderLat];
+            }
 
             features.push({
               type: 'Feature' as const,
@@ -246,6 +259,21 @@ export function useTrainAnimator(mapRef: React.RefObject<MapLibreMap | null>) {
             type: 'FeatureCollection',
             features,
           });
+
+          // Continuously lock the camera frame to the monitored train at 60 FPS
+          const activeMapView = useRailStore.getState().activeMapView;
+          const isTracking = options?.isTrackingRef?.current ?? true;
+          const isFlying = options?.isFlyingRef?.current ?? false;
+
+          if (
+            activeMapView === 'my_train' &&
+            isTracking &&
+            !isFlying &&
+            targetCoords &&
+            map
+          ) {
+            map.jumpTo({ center: targetCoords });
+          }
 
           lastRenderedSelectedTrain = selectedTrain;
           isSettled = !hasActiveMotion;

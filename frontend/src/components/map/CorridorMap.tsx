@@ -118,8 +118,12 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
   const activeTrackCoords = isKolkata ? SMOOTH_HWH_KGP_TRACK_COORDS : SMOOTH_TRACK_COORDS;
   const totalKm = isKolkata ? 115.0 : 206.0;
 
-  // Synchronize 60 FPS GPU vector animator
-  useTrainAnimator(mapRef);
+  // Active tracking flag - true when camera should follow the monitored train
+  const isTrackingTrainRef = useRef<boolean>(true);
+  const isFlyingRef = useRef<boolean>(false);
+
+  // Synchronize 60 FPS GPU vector animator with continuous camera frame tracking
+  useTrainAnimator(mapRef, { isTrackingRef: isTrackingTrainRef, isFlyingRef });
 
   // Authoritative current train from store
   const currentTrain = useMemo(() => {
@@ -130,9 +134,6 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
   }, [activeSnapshot.trains, selectedTrain]);
 
   const trainKm = currentTrain?.chainage_km ?? (isKolkata ? 58.0 : 115.0);
-
-  // Active tracking flag - true when camera should follow the monitored train
-  const isTrackingTrainRef = useRef<boolean>(true);
 
   // Live coordinates of the monitored train snapped to active corridor tracks
   const getSelectedTrainCoords = useCallback((): [number, number] => {
@@ -339,6 +340,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
       } else if (view === 'my_train') {
         setSelectedDelayId(null);
         isTrackingTrainRef.current = true;
+        isFlyingRef.current = true;
         const coords = getSelectedTrainCoords();
         map.flyTo({
           center: coords,
@@ -347,9 +349,13 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           curve: 1.2,
           duration: 800,
         });
+        map.once('moveend', () => {
+          isFlyingRef.current = false;
+        });
       } else {
         setSelectedDelayId(null);
         isTrackingTrainRef.current = false;
+        isFlyingRef.current = false;
         map.fitBounds(preset.bounds, { padding: preset.padding, duration: preset.duration });
       }
     },
@@ -777,6 +783,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
       } else if (activeMapView === 'my_train') {
         setSelectedDelayId(null);
         isTrackingTrainRef.current = true;
+        isFlyingRef.current = true;
         const coords = getSelectedTrainCoords();
         map.flyTo({
           center: coords,
@@ -785,26 +792,16 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
           curve: 1.2,
           duration: 800,
         });
+        map.once('moveend', () => {
+          isFlyingRef.current = false;
+        });
       } else {
         isTrackingTrainRef.current = false;
+        isFlyingRef.current = false;
         map.fitBounds(preset.bounds, { padding: preset.padding, duration: preset.duration });
       }
     }
   }, [activeMapView, isKolkata, rescueDeboardCode, getSelectedTrainCoords, setSelectedDelayId]);
-
-  // Live continuous camera tracking when "My Train" mode is active and train moves
-  useEffect(() => {
-    if (activeMapView !== 'my_train' || !isTrackingTrainRef.current) return;
-    const map = mapRef.current;
-    if (!map || !map.isStyleLoaded()) return;
-
-    const coords = getSelectedTrainCoords();
-    map.easeTo({
-      center: coords,
-      duration: 1200,
-      easing: (t) => t,
-    });
-  }, [currentTrain?.lat, currentTrain?.lon, currentTrain?.chainage_km, activeMapView, getSelectedTrainCoords]);
 
   // Re-center on train when selectedTrain changes while in "My Train" mode
   useEffect(() => {
@@ -812,6 +809,7 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
     isTrackingTrainRef.current = true;
+    isFlyingRef.current = true;
     const coords = getSelectedTrainCoords();
     map.flyTo({
       center: coords,
@@ -819,6 +817,9 @@ export const CorridorMap: React.FC<CorridorMapProps> = ({ isModal = false }) => 
       speed: 1.4,
       curve: 1.2,
       duration: 700,
+    });
+    map.once('moveend', () => {
+      isFlyingRef.current = false;
     });
   }, [selectedTrain, activeMapView, getSelectedTrainCoords]);
 
