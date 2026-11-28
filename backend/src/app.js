@@ -5,7 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const { getEnv } = require('./config/env');
-const { getIsConnected } = require('./config/db');
+const { getIsConnected, getActiveDbMode, getDbHost } = require('./config/db');
 const { sendSuccess } = require('./utils/apiResponse');
 const { notFoundHandler, errorHandler } = require('./middleware/error.middleware');
 
@@ -88,6 +88,8 @@ app.get('/api/health', (_req, res) => {
   return sendSuccess(res, 200, 'SmartPPE - Warden\'s Eye Backend API is operational', {
     status: 'UP',
     databaseConnected: getIsConnected(),
+    databaseMode: getActiveDbMode(),
+    databaseHost: getDbHost(),
     timestamp: new Date().toISOString(),
   });
 });
@@ -101,6 +103,8 @@ app.get('/api/health/connectivity', async (_req, res, next) => {
     ]);
     return sendSuccess(res, 200, 'Connectivity and offline autonomy status retrieved', {
       lanMode: 'ACTIVE',
+      mode: getActiveDbMode(),
+      databaseHost: getDbHost(),
       databaseConnected: getIsConnected(),
       onlineDevices,
       onlineCameras,

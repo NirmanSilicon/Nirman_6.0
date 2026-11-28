@@ -532,24 +532,27 @@ function RecAttend(){
  return <div className="grid" style={{gap:16}}><div className="bar"><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>From<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(from)} onChange={pick(setFrom)}/></label><label style={{display:"inline-flex",gap:10,alignItems:"center"}}>To<input type="date" className="in" style={{width:"auto"}} max={iso(TODAY)} value={iso(to)} onChange={pick(setTo)}/></label><button className="btn" onClick={csv}><Ic n="dl"/>Download CSV</button></div>
  <div className="card tw"><table><thead><tr><th>Date</th><th>Total workers</th><th>Present</th><th>Late</th><th>Absent</th><th>Attendance</th></tr></thead><tbody>{rows.map(r=><tr key={r.d.getTime()}><td>{r.d.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}</td><td>{r.n}</td><td><Badge s="Present"/> {r.p}</td><td><Badge s="Late"/> {r.l}</td><td><Badge s="Absent"/> {r.a}</td><td>{Math.round((r.n-r.a)/r.n*100)}%</td></tr>)}</tbody></table></div></div>}
 function RecReports(){
- const [q,setQ]=useState("");const [dbInc,setDbInc]=useState([]);
+ const [q,setQ]=useState("");const [dbInc,setDbInc]=useState([]);const [verifyMsg,setVerifyMsg]=useState("");
  useEffect(()=>{
   let alive=true;
   const load=async()=>{
    try{
     const tok=localStorage.getItem("we-token");
     if(!tok)return;
-    const r=await fetch(`${API_BASE}/incidents?limit=50`,{headers:{Authorization:`Bearer ${tok}`}});
+    const r=await fetch(`${API_BASE}/incidents?limit=60`,{headers:{Authorization:`Bearer ${tok}`}});
     if(r.ok){
      const j=await r.json();
      if(alive&&j.data&&Array.isArray(j.data.incidents)){
       const mapped=j.data.incidents.map(inc=>({
        id:inc.incidentId?`INC-${inc.incidentId.slice(-5).toUpperCase()}`:"INC-DB",
+       mongoId:inc._id,
+       rawId:inc.incidentId,
        w:inc.workerId?.name||"Unidentified Worker",
        zone:inc.zoneId?.zoneName||"Zone A",
-       d:`[${inc.incidentType}] ${inc.description}`,
+       d:`[${inc.incidentType} · ${inc.severity}] ${inc.description}`,
        t:inc.createdAt?new Date(inc.createdAt).toLocaleString("en-GB"):"Recorded",
-       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":"In Progress"
+       st:inc.status==="RESOLVED"||inc.status==="SELF_RESOLVED_IN_GRACE"?"Resolved":inc.status==="WARNING_GRACE_PERIOD"||inc.status==="UNDER_REVIEW"?"In Progress":"Pending",
+       hash:inc.recordHash?inc.recordHash.slice(0,12)+"...":"—"
       }));
       setDbInc(mapped);
      }
@@ -557,12 +560,25 @@ function RecReports(){
    }catch(_e){}
   };
   load();
-  return()=>{alive=false};
+  const id=setInterval(load,4000);
+  return()=>{alive=false;clearInterval(id)};
  },[]);
+ const verifyHash=async(r)=>{
+  if(!r.mongoId)return;
+  try{
+   const tok=localStorage.getItem("we-token");
+   const res=await fetch(`${API_BASE}/incidents/${r.mongoId}/verify-integrity`,{headers:{Authorization:`Bearer ${tok}`}});
+   const j=await res.json();
+   const v=j.data||{};
+   setVerifyMsg(`${r.id} SHA-256 Hash Integrity: ${v.integrityValid?"✓ VALID (Tamper-Free)":"✗ TAMPERED"} · RecordHash: ${(v.storedHash||"").slice(0,20)}...`);
+  }catch(_e){}
+ };
  const baseRows=dbInc.length?[...dbInc,...RP]:RP;
  const rows=baseRows.filter(r=>(r.w+r.id+r.d+r.zone).toLowerCase().includes(q.toLowerCase()));
  const dl=r=>{const a=document.createElement("a");a.href="data:text/plain,"+encodeURIComponent(Object.values(r).join("\n"));a.download=r.id+".txt";a.click()};
- return <div><div className="bar"><input className="in" placeholder="Search MongoDB recorded reports" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Archive: {dbInc.length} records</span></div><div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td>{r.id}</td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><Badge s={r.st}/></td><td><button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="7">No past reports match your search.</td></tr>}</tbody></table></div></div>}
+ return <div><div className="bar"><input className="in" placeholder="Search MongoDB Atlas recorded incident history" value={q} onChange={e=>setQ(e.target.value)}/><span className="bd g">MongoDB Atlas Incident Archive: {dbInc.length} records</span></div>
+ {verifyMsg&&<div className="card" style={{marginBottom:12,borderLeft:"4px solid var(--grn)",padding:"10px 14px"}}><b>{verifyMsg}</b></div>}
+ <div className="card tw"><table><thead><tr><th>Report</th><th>Worker</th><th>Zone</th><th>Description</th><th>Date and time</th><th>SHA-256 Hash</th><th>Status</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><b>{r.id}</b></td><td>{r.w}</td><td>{r.zone}</td><td style={{maxWidth:260,overflow:"hidden",textOverflow:"ellipsis"}}>{r.d}</td><td>{r.t}</td><td><code>{r.hash||"Verified"}</code></td><td><Badge s={r.st}/></td><td>{r.mongoId&&<button className="btn" onClick={()=>verifyHash(r)}>Verify Hash</button>} <button className="btn" aria-label="Download" onClick={()=>dl(r)}><Ic n="dl"/></button></td></tr>)}{!rows.length&&<tr><td colSpan="8">No past reports match your search.</td></tr>}</tbody></table></div></div>}
 function CloudConsole(){
  const [syncSt,setSyncSt]=useState(null);const [connSt,setConnSt]=useState(null);const [plans,setPlans]=useState([]);const [busy,setBusy]=useState(false);const [msg,setMsg]=useState("");
  const loadCloud=async()=>{
@@ -645,18 +661,23 @@ function CloudConsole(){
  </div>}
 
 function Shell({page,dark,setDark}){
- const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [cloudSync,setCloudSync]=useState(null);
+ const [pin,setPin]=useState(false);const [hov,setHov]=useState(false);const ex=pin||hov;const [open,setOpen]=useState(false);const [zones,setZones]=useState(Z0);const [dbWorkers,setDbWorkers]=useState([]);const [dbOnline,setDbOnline]=useState(false);const [dbInfo,setDbInfo]=useState(null);const [cloudSync,setCloudSync]=useState(null);const [curUser,setCurUser]=useState(()=>{try{return JSON.parse(localStorage.getItem("we-user")||"null")}catch(_e){return null}});
  const loadMongoData=async()=>{
   try{
    const h=await fetch(`${API_BASE}/health`);
-   if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected))}
+   if(h.ok){const hj=await h.json();setDbOnline(Boolean(hj.data?.databaseConnected));setDbInfo(hj.data)}
    const tok=localStorage.getItem("we-token");
    if(!tok)return;
-   const [zr,wr,sr]=await Promise.all([
+   const [mr,zr,wr,sr]=await Promise.all([
+    fetch(`${API_BASE}/auth/me`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/zones`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/workers`,{headers:{Authorization:`Bearer ${tok}`}}),
     fetch(`${API_BASE}/sync/status`,{headers:{Authorization:`Bearer ${tok}`}})
    ]);
+   if(mr.ok){
+    const mj=await mr.json();
+    if(mj.data?.user){setCurUser(mj.data.user);try{localStorage.setItem("we-user",JSON.stringify(mj.data.user))}catch(_e){}}
+   }
    if(zr.ok){
     const zj=await zr.json();
     if(zj.data?.zones?.length){
@@ -685,16 +706,25 @@ function Shell({page,dark,setDark}){
   const id=setInterval(loadMongoData,5000);
   return()=>clearInterval(id);
  },[]);
+ const doLogout=async()=>{
+  try{
+   const tok=localStorage.getItem("we-token");
+   if(tok)await fetch(`${API_BASE}/auth/logout`,{method:"POST",headers:{Authorization:`Bearer ${tok}`}});
+  }catch(_e){}
+  try{localStorage.removeItem("we-token");localStorage.removeItem("we-user")}catch(_e){}
+  go("signin");
+ };
  const [hist,setHist]=useState(()=>HIST.some(h=>h[0]===page));const isH=HIST.some(h=>h[0]===page);
  const title=ALL.find(n=>n[0]===page)[2];
  const it=([h,i,l],sub)=><button key={h} className={"nv "+(sub?"sub ":"")+(page===h?"on":"")} onClick={()=>nav(h)} title={l}><Ic n={i}/><span className="t">{l}</span></button>;
  const nav=h=>{go(h);setOpen(false)};
+ const isAtlas=dbInfo?.databaseMode==="MONGODB_ATLAS_CLOUD"||(dbInfo?.databaseHost&&String(dbInfo.databaseHost).includes("mongodb.net"));
  return <div className="shell"><aside className={"side-nav "+(ex?"":"col ")+(open?"open ":"")+(hov&&!pin?"hov":"")} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>setHov(false)}><div className="brand"><Logo/></div>
  {NAV.slice(0,-1).map(x=>it(x))}<button className={"nv "+(isH?"on":"")} onClick={()=>setHist(!hist)} title="History"><Ic n="clock"/><span className="t">History</span><span className="t" style={{marginLeft:"auto"}}><span style={{display:"inline-flex",transform:hist?"rotate(180deg)":"none"}}><Ic n="down"/></span></span></button>{hist&&HIST.map(x=>it(x,true))}{it(NAV[NAV.length-1])}
  <div style={{flex:1}}/><button className="nv" onClick={()=>setDark(!dark)}><Ic n={dark?"sun":"moon"}/><span className="t">{dark?"Light mode":"Dark mode"}</span></button>
  
- <button className="nv" onClick={()=>go("home")}><Ic n="out"/><span className="t">Logout</span></button></aside>
- <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?`MongoDB + Cloud Sync (${cloudSync?.syncedCount??0} synced / ${cloudSync?.pendingCount??0} pending)`:"System online"}</span><Av name="Admin User"/></div>
+ <button className="nv" onClick={doLogout}><Ic n="out"/><span className="t">Logout</span></button></aside>
+ <div className={"main-c "+(pin?"":"col")}><div className="top"><button className="btn burger" aria-label="Toggle navigation" onClick={()=>innerWidth<=700?setOpen(!open):setPin(!pin)}><Ic n="menu"/></button><h1>{title}</h1><span className="pill live" style={{margin:0,cursor:"pointer"}} onClick={()=>go("cloud")} title="Click to open Cloud Integration Console"><span className={"dot "+(dbOnline?"":"r")}/>{dbOnline?(isAtlas?`MongoDB Atlas Cloud Connected (${cloudSync?.syncedCount??0} synced)`:`Local MongoDB Connected (${cloudSync?.syncedCount??0} synced)`):"System online"}</span><span className="bd" style={{cursor:"pointer"}} onClick={()=>go("signin")} title="Switch Authenticated Role">{curUser?`${curUser.name} (${curUser.role})`:"Admin User"}</span><Av name={curUser?.name||"Admin User"}/></div>
  <div className="page">{page==="live"&&<Live zones={zones}/>}{page==="attendance"&&<Attend dbWorkers={dbWorkers}/>}{page==="reports"&&<Reports zones={zones}/>}{page==="zones"&&<Zones zones={zones} setZones={setZones} dbWorkers={dbWorkers} reloadDb={loadMongoData}/>}{page==="cloud"&&<CloudConsole/>}{page==="chat"&&<Chat/>}{page==="rec-videos"&&<RecVideos/>}{page==="rec-attendance"&&<RecAttend/>}{page==="rec-reports"&&<RecReports/>}
  {page==="prefs"&&<div className="card" style={{maxWidth:520}}><h3>Appearance</h3><p style={{margin:"8px 0 14px"}}>Your theme applies to every page.</p><div className="tabs"><button className={!dark?"on":""} onClick={()=>setDark(false)}>Light</button><button className={dark?"on":""} onClick={()=>setDark(true)}>Dark</button></div></div>}</div></div></div>}
 
