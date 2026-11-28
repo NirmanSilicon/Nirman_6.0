@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "SavedScan": {
+      "title": "SavedScan",
+      "description": "A user-saved game monetization risk scan report stored per authenticated user.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the user who saved the scan.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "gameTitle": {
+          "type": "string",
+          "description": "The title of the scanned video game.",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "riskScore": {
+          "type": "number",
+          "description": "Predatory risk score from 0 to 100."
+        },
+        "riskLevel": {
+          "type": "string",
+          "description": "Risk classification tier.",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "minLength": 3,
+          "maxLength": 10
+        },
+        "summary": {
+          "type": "string",
+          "description": "Concise summary of the game's monetization risk.",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the scan was saved."
+        }
+      },
+      "required": [
+        "ownerId",
+        "gameTitle",
+        "riskScore",
+        "riskLevel",
+        "summary",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/savedScans/{scanId}": {
+      "schema": {
+        "$ref": "#/entities/SavedScan"
+      },
+      "description": "User-saved game risk scan reports isolated by ownerId."
+    }
+  }
+}
