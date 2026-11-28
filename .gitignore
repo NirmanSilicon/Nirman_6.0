@@ -1,2 +1,40 @@
-branchcreation.sh
+# Dependencies
+node_modules/
+
+# Android generated files
+**/build/
+**/.gradle/
+**/.cxx/
+local.properties
+**/local.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Environment secrets
 .env
+.env.*
+
+# Gradle distribution copied locally
+/gradle-8.9/
+
+# Logs
+*.log
+
+# Python generated files
+__pycache__/
+*.pyc
+
+ai-model/models/merged/vidyanova-qwen-0.5b/model.safetensors
+ai-model/models/quantized/tutor-model-f16.gguf
+ai-model/models/quantized/tutor-model.gguf
+android-app/app/src/main/assets/tutor-model.gguf
+**/local.properties
+**/build/
+**/.gradle/
+**/.cxx/
+**/node_modules/
+gradle-8.9/
+vidyanova-crash-*.txt
