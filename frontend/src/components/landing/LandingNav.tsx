@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Globe, ChevronDown, Check, Clock } from 'lucide-react';
+import { Globe, ChevronDown, Check, Clock, GitBranch } from 'lucide-react';
 import { useRailStore } from '../../stores/useRailStore';
 import { TRANSLATIONS, type Lang } from './translations';
 
@@ -21,7 +21,7 @@ function formatCurrentTimeIST(date: Date): string {
 }
 
 export const LandingNav: React.FC = () => {
-  const { language, setLanguage } = useRailStore();
+  const { language, setLanguage, activeCorridorId, switchCorridor } = useRailStore();
   const t = TRANSLATIONS[language].nav;
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -75,6 +75,26 @@ export const LandingNav: React.FC = () => {
 
         {/* Right-Aligned Controls: Live IST Clock + Language Dropdown */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+          {/* Interactive Corridor Switcher */}
+          <button
+            type="button"
+            onClick={() => switchCorridor(activeCorridorId === 'SER_HWH_KGP' ? 'ECoR_BHC_PURI' : 'SER_HWH_KGP')}
+            className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border text-xs sm:text-[13px] font-mono font-bold shadow-2xs cursor-pointer transition-all hover:opacity-90 shrink-0 ${
+              activeCorridorId === 'SER_HWH_KGP'
+                ? 'bg-amber-50 text-amber-900 border-amber-300'
+                : 'bg-indigo-50 text-indigo-900 border-indigo-200'
+            }`}
+            title="Click to toggle corridor: ECoR (Bhadrak–Puri) vs SER (Howrah–Kharagpur)"
+          >
+            <GitBranch className="w-3.5 h-3.5 shrink-0 opacity-75" />
+            <span className="hidden sm:inline">
+              {activeCorridorId === 'SER_HWH_KGP' ? 'SER • Kolkata (HWH–KGP)' : 'ECoR • Odisha (BHC–PURI)'}
+            </span>
+            <span className="sm:hidden">
+              {activeCorridorId === 'SER_HWH_KGP' ? 'SER • Kolkata' : 'ECoR • Odisha'}
+            </span>
+          </button>
+
           {/* Live IST Clock (hidden on mobile, visible sm+) */}
           <div
             className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0F294A] text-white border border-slate-700/80 shadow-2xs select-none"

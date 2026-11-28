@@ -3,6 +3,7 @@ import copy
 import time
 from typing import Any
 
+from app.config import settings
 from app.models.schemas import FreightInferenceResult, TrainKinematicState
 
 
@@ -32,7 +33,11 @@ class CorridorStateStore:
         self._injected_freights: dict[str, float] = {}
         self._goods_rakes: list[dict[str, Any]] = []
         self._last_tick_epoch: int = int(time.time())
-        self._active_corridor_id: str = "ECoR_BHC_PURI"
+        self._active_corridor_id: str = (
+            settings.CORRIDOR_NAME
+            if hasattr(settings, "CORRIDOR_NAME") and settings.CORRIDOR_NAME in ("ECoR_BHC_PURI", "SER_HWH_KGP")
+            else "ECoR_BHC_PURI"
+        )
 
     async def get_active_corridor(self) -> str:
         async with self._lock:

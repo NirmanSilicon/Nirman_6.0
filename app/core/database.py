@@ -74,7 +74,11 @@ class LocalTopologyFallback:
 
     _cached_data: dict[str, Any] | None = None
     _cached_by_corridor: dict[str, dict[str, Any]] = {}
-    _active_corridor_id: str = "ECoR_BHC_PURI"
+    _active_corridor_id: str = (
+        settings.CORRIDOR_NAME
+        if hasattr(settings, "CORRIDOR_NAME") and settings.CORRIDOR_NAME in AVAILABLE_CORRIDORS
+        else "ECoR_BHC_PURI"
+    )
 
     @classmethod
     def list_corridors(cls) -> list[dict[str, Any]]:

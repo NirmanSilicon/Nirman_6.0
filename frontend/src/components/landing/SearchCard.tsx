@@ -6,6 +6,7 @@ import {
   Info,
   ChevronDown,
   X,
+  GitBranch,
 } from 'lucide-react';
 import { useRailStore } from '../../stores/useRailStore';
 import { TRANSLATIONS } from './translations';
@@ -13,6 +14,7 @@ import {
   getStationsForCorridor,
   getTrainsForCorridor,
   getDefaultRecentForCorridor,
+  getAllPilotTrains,
   type PilotTrain,
   type RecentItem,
 } from './searchConstants';
@@ -81,8 +83,7 @@ export const SearchCard: React.FC = () => {
     navigateToDashboardWithTrain,
     setSelectedTrain,
     activeCorridorId,
-    updateSnapshot,
-    triggerRefresh,
+    switchCorridor,
   } = useRailStore();
   const t = TRANSLATIONS[language].search;
   const skipNextSyncRef = useRef(false);
@@ -92,6 +93,7 @@ export const SearchCard: React.FC = () => {
   const serStations = useMemo(() => getStationsForCorridor('SER_HWH_KGP'), []);
   const corridorStations = useMemo(() => getStationsForCorridor(activeCorridorId), [activeCorridorId]);
   const allCorridorTrains = useMemo(() => getTrainsForCorridor(activeCorridorId), [activeCorridorId]);
+  const allAvailableTrains = useMemo(() => getAllPilotTrains(), []);
 
   const [activeTab, setActiveTab] = useState<'find' | 'track'>('find');
   const [fromStation, setFromStation] = useState(() => (isKolkata ? 'HWH' : 'BHC'));
@@ -227,20 +229,7 @@ export const SearchCard: React.FC = () => {
       }
     }
 
-    try {
-      const res = await fetch('/api/v1/corridor/switch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ corridor_id: targetCorridor, speed_multiplier: 1 }),
-      });
-      if (res.ok) {
-        const snap = await res.json();
-        if (snap?.trains) updateSnapshot(snap);
-        triggerRefresh();
-      }
-    } catch {
-      /* ignore network errors */
-    }
+    await switchCorridor(targetCorridor);
   };
 
   const handleFromChange = (newFrom: string) => {
@@ -277,8 +266,11 @@ export const SearchCard: React.FC = () => {
     }
   };
 
-  const handleSelectTrainAndNavigate = (trainNo: string) => {
+  const handleSelectTrainAndNavigate = async (trainNo: string, targetCorridorId?: string) => {
     setShowFindPopover(false);
+    if (targetCorridorId && targetCorridorId !== activeCorridorId) {
+      await switchCorridor(targetCorridorId);
+    }
     setSelectedTrain(trainNo);
     navigateToDashboardWithTrain(trainNo);
   };
@@ -287,15 +279,15 @@ export const SearchCard: React.FC = () => {
     const q = trainQuery.trim();
     if (!q) return;
 
-    // Search against all corridor trains (exact no first, then exact name, then partial match)
+    // Search against all available trains across both corridors
     const qLower = q.toLowerCase();
-    const exactNoMatch = allCorridorTrains.find((t) => t.no === q);
-    const exactNameMatch = allCorridorTrains.find(
+    const exactNoMatch = allAvailableTrains.find((t) => t.no === q);
+    const exactNameMatch = allAvailableTrains.find(
       (t) => t.name.toLowerCase() === qLower
     );
     const partialMatch =
       q.length >= 2
-        ? allCorridorTrains.find(
+        ? allAvailableTrains.find(
             (t) =>
               t.no.includes(q) ||
               t.name.toLowerCase().includes(qLower) ||
@@ -307,7 +299,7 @@ export const SearchCard: React.FC = () => {
 
     if (match) {
       setUnmatchedNotice(null);
-      handleSelectTrainAndNavigate(match.no);
+      void handleSelectTrainAndNavigate(match.no, match.corridorId);
     } else {
       setUnmatchedNotice(q);
       setShowAutocomplete(false);
@@ -331,24 +323,58 @@ export const SearchCard: React.FC = () => {
     }
   };
 
-  // Autocomplete suggestions based on query
+  // Autocomplete suggestions based on query across both corridors
   const autocompleteSuggestions = useMemo(() => {
     const q = trainQuery.trim().toLowerCase();
-    if (!q) return allCorridorTrains;
-    return allCorridorTrains.filter(
+    if (!q) return allAvailableTrains;
+    return allAvailableTrains.filter(
       (t) =>
         t.no.toLowerCase().includes(q) ||
-        t.name.toLowerCase().includes(q)
+        t.name.toLowerCase().includes(q) ||
+        t.origin.toLowerCase().includes(q) ||
+        t.destination.toLowerCase().includes(q)
     );
-  }, [allCorridorTrains, trainQuery]);
+  }, [allAvailableTrains, trainQuery]);
 
   const searchDisabled = !fromStation || !toStation || fromStation === toStation;
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4">
       <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-visible relative">
+        {/* Dedicated Corridor Selector Banner */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-slate-50/90 border-b border-slate-200 text-xs rounded-t-2xl">
+          <div className="flex items-center gap-1.5 font-bold text-slate-700 tracking-wider">
+            <GitBranch className="w-4 h-4 text-[#0F294A]" />
+            <span className="uppercase text-[11px] text-slate-500">Pilot Corridor:</span>
+          </div>
+          <div className="flex items-center gap-1 bg-slate-200/80 p-0.5 rounded-lg w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => void switchCorridor('ECoR_BHC_PURI')}
+              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-md font-mono text-xs font-bold transition-all cursor-pointer ${
+                !isKolkata
+                  ? 'bg-white text-indigo-950 shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              ECoR • Odisha (BHC–PURI)
+            </button>
+            <button
+              type="button"
+              onClick={() => void switchCorridor('SER_HWH_KGP')}
+              className={`flex-1 sm:flex-none px-3 py-1.5 rounded-md font-mono text-xs font-bold transition-all cursor-pointer ${
+                isKolkata
+                  ? 'bg-white text-amber-950 shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              SER • Kolkata (HWH–KGP)
+            </button>
+          </div>
+        </div>
+
         {/* Tab Switcher - Clean, starts immediately without top banner */}
-        <div className="flex border-b border-slate-200 rounded-t-2xl overflow-hidden">
+        <div className="flex border-b border-slate-200 overflow-hidden">
           {(['find', 'track'] as const).map((tab) => (
             <button
               key={tab}
@@ -643,10 +669,10 @@ export const SearchCard: React.FC = () => {
                       </div>
                       {autocompleteSuggestions.map((t) => (
                         <div
-                          key={t.no}
+                          key={t.no + t.corridorId}
                           onClick={() => {
                             setShowAutocomplete(false);
-                            handleSelectTrainAndNavigate(t.no);
+                            void handleSelectTrainAndNavigate(t.no, t.corridorId);
                           }}
                           className="px-3 sm:px-3.5 py-2.5 hover:bg-slate-50 cursor-pointer flex items-center justify-between gap-2 border-b border-slate-50 last:border-0 group"
                         >
@@ -661,6 +687,13 @@ export const SearchCard: React.FC = () => {
                                 </span>
                                 <span className="font-semibold text-slate-800 text-xs sm:text-sm truncate">
                                   {t.name}
+                                </span>
+                                <span className={`text-[10px] font-mono font-bold px-1.5 py-0.2 rounded border ${
+                                  t.corridorId === 'SER_HWH_KGP'
+                                    ? 'bg-amber-50 text-amber-800 border-amber-200'
+                                    : 'bg-indigo-50 text-indigo-800 border-indigo-200'
+                                }`}>
+                                  {t.corridorName}
                                 </span>
                               </div>
                               <p className="text-[11px] sm:text-xs text-slate-500 truncate">

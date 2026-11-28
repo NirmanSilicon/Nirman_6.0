@@ -59,3 +59,7 @@ mobile/node_modules/
 .vite/
 !frontend/dist/
 !frontend/dist/**
+
+# Local Findings & History Ledger
+FINDINGS.md
+task.md

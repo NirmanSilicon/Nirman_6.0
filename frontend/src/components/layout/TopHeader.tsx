@@ -23,30 +23,17 @@ export const TopHeader: React.FC = () => {
     activeCorridorId,
     activeSnapshot,
     updateSnapshot,
-    triggerRefresh,
     passengerStatus,
     setPassengerStatus,
     drawerOpen,
     setDrawerOpen,
     setCurrentView,
+    switchCorridor,
   } = useRailStore();
 
-  const handleCorridorToggle = async () => {
+  const handleCorridorToggle = () => {
     const nextId = activeCorridorId === 'SER_HWH_KGP' ? 'ECoR_BHC_PURI' : 'SER_HWH_KGP';
-    try {
-      const res = await fetch('/api/v1/corridor/switch', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ corridor_id: nextId, speed_multiplier: activeSnapshot.speed_multiplier || 1 }),
-      });
-      if (res.ok) {
-        const snap = await res.json();
-        if (snap?.trains) updateSnapshot(snap);
-        triggerRefresh();
-      }
-    } catch {
-      /* ignore network errors */
-    }
+    void switchCorridor(nextId);
   };
 
   const trainIdentity = getTrainIdentity(selectedTrain, activeSnapshot);
@@ -129,20 +116,23 @@ export const TopHeader: React.FC = () => {
           </span>
         </button>
 
-        {/* Interactive Corridor Switcher (visible sm+) */}
+        {/* Interactive Corridor Switcher (visible on all screens) */}
         <button
           type="button"
           onClick={handleCorridorToggle}
-          title="Click to switch corridor (ECoR Bhadrak–Puri / SER Howrah–Kharagpur)"
-          className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono font-bold shadow-2xs cursor-pointer transition-opacity hover:opacity-85 shrink-0 ${
+          title="Click to switch corridor: ECoR (Bhadrak–Puri) vs SER (Howrah–Kharagpur)"
+          className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg border text-xs font-mono font-bold shadow-2xs cursor-pointer transition-all hover:opacity-85 shrink-0 ${
             activeCorridorId === 'SER_HWH_KGP'
               ? 'bg-amber-50 text-amber-900 border-amber-300'
               : 'bg-indigo-50 text-indigo-900 border-indigo-200'
           }`}
         >
           <GitBranch className="w-3.5 h-3.5 shrink-0 opacity-75" />
-          <span className="tabular-nums whitespace-nowrap">
+          <span className="tabular-nums whitespace-nowrap hidden sm:inline">
             {activeCorridorId === 'SER_HWH_KGP' ? 'SER • HWH–KGP' : 'ECoR • BHC–PURI'}
+          </span>
+          <span className="tabular-nums whitespace-nowrap sm:hidden">
+            {activeCorridorId === 'SER_HWH_KGP' ? 'SER' : 'ECoR'}
           </span>
         </button>
       </div>

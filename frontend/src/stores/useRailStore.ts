@@ -54,6 +54,7 @@ interface RailStore {
   setTrainCauses: (trainNo: string, causes: string[]) => void;
   clearAllCauses: () => void;
   triggerRefresh: () => void;
+  switchCorridor: (corridorId: string) => Promise<void>;
 }
 
 export const useRailStore = create<RailStore>((set, get) => ({
@@ -114,4 +115,56 @@ export const useRailStore = create<RailStore>((set, get) => ({
     })),
   clearAllCauses: () => set({ activeCausesByTrain: {} }),
   triggerRefresh: () => set((state) => ({ refreshNonce: state.refreshNonce + 1 })),
+  switchCorridor: async (targetCorridorId: string) => {
+    const isKolkata = targetCorridorId === 'SER_HWH_KGP';
+    const defaultDest = isKolkata ? 'KGP' : 'BBS';
+    const defaultTrain = isKolkata ? '12821' : '12821';
+    try {
+      const res = await fetch('/api/v1/corridor/switch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          corridor_id: targetCorridorId,
+          speed_multiplier: get().activeSnapshot.speed_multiplier || 1,
+        }),
+      });
+      if (res.ok) {
+        const snap = await res.json();
+        let nextTrain = get().selectedTrain;
+        if (snap?.trains && Array.isArray(snap.trains) && snap.trains.length > 0) {
+          const trainExists = snap.trains.some((t: any) => t.train_no === nextTrain);
+          if (!trainExists) {
+            nextTrain = snap.trains[0].train_no;
+          }
+          set({
+            activeCorridorId: targetCorridorId,
+            activeSnapshot: snap,
+            selectedTrain: nextTrain,
+            connectionTarget: {
+              station_code: defaultDest,
+              deadline_time: isKolkata ? '13:00' : '12:15',
+              transfer_buffer_mins: 15,
+              isCustom: false,
+            },
+            refreshNonce: get().refreshNonce + 1,
+          });
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Corridor switch network error:', err);
+    }
+    // Fallback update
+    set({
+      activeCorridorId: targetCorridorId,
+      selectedTrain: defaultTrain,
+      connectionTarget: {
+        station_code: defaultDest,
+        deadline_time: isKolkata ? '13:00' : '12:15',
+        transfer_buffer_mins: 15,
+        isCustom: false,
+      },
+      refreshNonce: get().refreshNonce + 1,
+    });
+  },
 }));

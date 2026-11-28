@@ -28,6 +28,7 @@ export const App: React.FC = () => {
   const {
     currentView,
     selectedTrain,
+    activeCorridorId,
     activeSnapshot,
     passengerStatus,
     connectionTarget,
@@ -161,6 +162,7 @@ export const App: React.FC = () => {
     };
   }, [
     selectedTrain,
+    activeCorridorId,
     passengerStatus,
     connectionTarget?.station_code,
     customDeadlineDep,

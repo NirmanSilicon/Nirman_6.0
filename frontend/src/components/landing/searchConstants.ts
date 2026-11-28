@@ -160,3 +160,17 @@ export function getTrainsForCorridor(corridorId?: string): PilotTrain[] {
 export function getDefaultRecentForCorridor(corridorId?: string): RecentItem[] {
   return corridorId === 'SER_HWH_KGP' ? SER_DEFAULT_RECENT : ECOR_DEFAULT_RECENT;
 }
+
+export interface AllPilotTrain extends PilotTrain {
+  corridorId: string;
+  corridorName: string;
+}
+
+export const ALL_PILOT_TRAINS: AllPilotTrain[] = [
+  ...ECOR_PILOT_TRAINS.map((t) => ({ ...t, corridorId: 'ECoR_BHC_PURI', corridorName: 'ECoR • Odisha' })),
+  ...SER_PILOT_TRAINS.map((t) => ({ ...t, corridorId: 'SER_HWH_KGP', corridorName: 'SER • Kolkata' })),
+];
+
+export function getAllPilotTrains(): AllPilotTrain[] {
+  return ALL_PILOT_TRAINS;
+}
