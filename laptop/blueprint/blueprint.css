@@ -1,0 +1,218 @@
+/* Architect's plan: paper, fine ink lines, colour only where it carries meaning (PRD 5.11, 11). */
+:root {
+  --paper: #f6f4ee;
+  --paper-surface: #efeadd;
+  --ink: #1f2a30;
+  --faint: #6f787e;
+  --rule: #c9cdc8;
+  --said: #1a7f4b;
+  --unsure: #b27800;
+  --lost: #b3261e;
+  --belief: #2c5d8a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 15px/1.4 "Segoe UI", system-ui, sans-serif;
+}
+header {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+  padding: 12px 24px; border-bottom: 1px solid var(--ink);
+}
+header .brand { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+header .header-meta { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 20px; letter-spacing: 0.18em; font-weight: 600; }
+h1 span { font-weight: 300; letter-spacing: 0.05em; color: var(--faint); }
+.pill { font-size: 13px; padding: 2px 10px; border: 1px solid var(--faint); border-radius: 2px; }
+.pill.ok { border-color: var(--said); color: var(--said); font-weight: 600; }
+.pill.lost { border-color: var(--lost); color: var(--lost); font-weight: 600; }
+.rates { font: 13px/1.4 Consolas, monospace; color: var(--faint); }
+
+/* Cognitive Economy Counter (Header) */
+.economy {
+  display: flex; align-items: stretch; border: 1px solid var(--ink); background: #fbfaf6; border-radius: 2px;
+}
+.econ-stat {
+  display: flex; flex-direction: column; padding: 4px 14px; border-right: 1px solid var(--rule); min-width: 118px;
+}
+.econ-stat:last-child { border-right: none; }
+.econ-num {
+  font: 700 20px/1.1 Consolas, monospace; color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.econ-stat.econ-spoken .econ-num { color: var(--said); }
+.econ-lbl {
+  font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-top: 2px;
+}
+
+main {
+  display: grid; gap: 0; padding: 0;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+}
+.panel { padding: 14px 24px 18px; border-bottom: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+.panel.plan { grid-row: span 3; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.panel-head h2 { margin: 0; }
+h2 { margin: 0 0 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+h2 small { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--faint); margin-left: 8px; }
+.stage-status { font: 600 12px Consolas, monospace; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; }
+.stage-status.alert { color: var(--lost); }
+svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--faint); margin-top: 8px; }
+.legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border: 2px solid; }
+.legend .said { border-color: var(--said); background: rgba(26,127,75,0.16); border-radius: 50%; }
+.legend .unsure { border-color: var(--unsure); border-style: dashed; border-radius: 50%; }
+.legend .youmark { border-color: var(--ink); border-radius: 50%; }
+.legend .away { border-color: var(--faint); border-style: dotted; border-radius: 50%; }
+.legend .notseen { border-color: var(--lost); border-style: dotted; border-radius: 50%; }
+.legend .view { border-color: var(--belief); background: rgba(44,93,138,0.08); }
+.legend .tip { border-color: var(--ink); border-radius: 50%; background: var(--ink); }
+.legend .belief { border-color: var(--belief); border-style: dashed; transform: rotate(45deg); width: 9px; height: 9px; }
+.legend .tether { border: none; border-top: 2px dashed var(--lost); height: 0; width: 14px; vertical-align: 4px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 500; color: var(--faint); border-bottom: 1px solid var(--ink); padding: 2px 6px; }
+td { padding: 3px 6px; border-bottom: 1px solid var(--rule); }
+td.num { font-family: Consolas, monospace; }
+tr.said td.label { color: var(--said); font-weight: 600; }
+tr.unsure td.label { color: var(--unsure); }
+td.why { color: var(--faint); font-size: 13px; }
+.empty { color: var(--faint); font-style: italic; margin: 0; }
+.brief { font-size: 19px; margin: 0 0 6px; }
+.meta { font: 13px Consolas, monospace; color: var(--faint); }
+ul.left { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--faint); }
+
+/* Signal-vs-Noise Decision Log */
+.filter-group { display: inline-flex; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); }
+.filter-btn {
+  border: none; background: transparent; color: var(--faint);
+  font: 600 11px/1 "Segoe UI", system-ui, sans-serif; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 5px 10px; cursor: pointer;
+}
+.filter-btn.active { background: var(--ink); color: var(--paper); }
+ol#timeline { margin: 0; padding-left: 0; list-style: none; font-size: 14px; max-height: 300px; overflow: auto; }
+ol#timeline li {
+  padding: 6px 8px 6px 10px; border-bottom: 1px solid var(--rule); border-left: 3px solid transparent;
+}
+ol#timeline li.noise { color: var(--faint); font-size: 12.5px; opacity: 0.72; padding: 3px 8px 3px 10px; }
+ol#timeline li.signal { background: #fbfaf6; }
+ol#timeline li.sig-alert { border-left-color: var(--lost); }
+ol#timeline li.sig-alert .log-main { color: var(--lost); font-weight: 600; }
+ol#timeline li.sig-torch, ol#timeline li.sig-s2 { border-left-color: var(--unsure); }
+ol#timeline li.sig-brief { border-left-color: var(--said); }
+ol#timeline li.sig-diary, ol#timeline li.sig-guide, ol#timeline li.sig-online, ol#timeline li.sig-personal { border-left-color: var(--belief); }
+ol#timeline li.sig-sos { border-left-color: var(--lost); background: #fdf4f3; }
+ol#timeline .log-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+ol#timeline .when { font: 11.5px Consolas, monospace; color: var(--faint); }
+ol#timeline .badge {
+  font: 700 10px/1.2 Consolas, monospace; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 1px 5px; border: 1px solid var(--rule); border-radius: 2px; color: var(--ink);
+}
+ol#timeline li.sig-alert .badge, ol#timeline li.sig-sos .badge { border-color: var(--lost); color: var(--lost); }
+ol#timeline li.sig-brief .badge { border-color: var(--said); color: var(--said); }
+ol#timeline li.sig-torch .badge, ol#timeline li.sig-s2 .badge { border-color: var(--unsure); color: var(--unsure); }
+ol#timeline li.sig-diary .badge, ol#timeline li.sig-guide .badge, ol#timeline li.sig-online .badge, ol#timeline li.sig-personal .badge { border-color: var(--belief); color: var(--belief); }
+ol#timeline li.noise .badge { border-color: var(--rule); color: var(--faint); font-weight: 500; }
+ol#timeline .log-why { font: 12px/1.35 Consolas, monospace; color: var(--faint); margin-top: 2px; }
+ol#timeline .lost { color: var(--lost); }
+
+footer { padding: 10px 24px; font-size: 12px; color: var(--faint); }
+
+/* 2.5D Perspective Tabletop Stage */
+.table-slab { fill: var(--paper-surface); stroke: var(--ink); stroke-width: 1.5; }
+.table-rim { fill: #dfdacb; stroke: var(--ink); stroke-width: 1.4; }
+.grid { stroke: #d8d4c6; stroke-width: 1; fill: none; }
+.sector-line { stroke: #c5c1b2; stroke-width: 1.1; stroke-dasharray: 4 4; }
+.edge { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+.zone { fill: var(--faint); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.zone-dir { fill: var(--ink); font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.reach { stroke: #8f969c; stroke-width: 1.4; fill: none; stroke-dasharray: 4 4; }
+.reach-lbl { fill: var(--faint); font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+.view { fill: rgba(44,93,138,0.07); stroke: var(--belief); stroke-width: 1.2; stroke-dasharray: 5 3; }
+
+.obj circle { stroke-width: 2.5; }
+.obj .shadow { fill: rgba(31,42,48,0.12); stroke: none; }
+.obj.said circle.marker { stroke: var(--said); fill: #e7f4ed; }
+.obj.unsure circle.marker { stroke: var(--unsure); fill: #fbf5e6; stroke-dasharray: 4 2; }
+.obj.person rect { fill: #fbfaf6; stroke-width: 2; }
+.obj.said.person rect { stroke: var(--said); }
+.obj.unsure.person rect { stroke: var(--unsure); }
+.obj.out_of_view circle.marker, .obj.out_of_view .obj-name, .obj.out_of_view .obj-sub { opacity: 0.58; }
+.obj.out_of_view circle.marker { stroke-dasharray: 3 3; }
+.obj.not_seen circle.marker, .obj.not_seen rect { stroke: var(--lost); fill: #fdf3f2; stroke-dasharray: 3 2; }
+.obj.not_seen text { fill: var(--lost); }
+.obj-pill { fill: #fbfaf6; stroke: var(--rule); stroke-width: 1; }
+.obj.said .obj-pill { stroke: rgba(26,127,75,0.45); }
+.obj.not_seen .obj-pill { stroke: rgba(179,38,30,0.45); }
+.obj text.obj-name { font-size: 14px; font-weight: 700; fill: var(--ink); }
+.obj text.obj-sub { font-size: 11.5px; font-family: Consolas, monospace; fill: var(--faint); }
+.obj.unsure text.obj-name { fill: var(--unsure); }
+.obj.not_seen text.obj-name { fill: var(--lost); }
+
+.you circle { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
+.you text { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; fill: var(--ink); }
+
+.tip-ring { fill: none; stroke: var(--ink); stroke-width: 1.8; }
+.tip { fill: var(--ink); }
+.tip-label { font-size: 11.5px; font-weight: 600; fill: var(--ink); }
+.stage-guide { stroke: var(--belief); stroke-width: 2.6; stroke-dasharray: 6 3; fill: none; }
+.stage-guide.correction { stroke: var(--lost); }
+
+@media (max-width: 1000px) { main { grid-template-columns: 1fr; } .panel.plan { grid-row: auto; } }
+
+/* Eyes panel */
+.raw { stroke: var(--faint); stroke-width: 0.8; fill: none; opacity: 0.5; }
+.bone { stroke: var(--ink); stroke-width: 1.4; }
+.handlabel { font-size: 11px; fill: var(--ink); }
+#eyes { max-width: 320px; }
+#eyes .obj rect { fill: none; }
+#eyes .obj.said rect { stroke: var(--said); stroke-width: 1.8; }
+#eyes .obj.unsure rect { stroke: var(--unsure); stroke-width: 1.2; stroke-dasharray: 4 2; }
+#eyes .obj text { font-size: 11px; }
+tr.out_of_view td { color: var(--faint); }
+tr.not_seen td.label { color: var(--lost); }
+
+/* Phase 3: belief map */
+.belief rect { fill: rgba(44,93,138,0.08); stroke: var(--belief); stroke-width: 2; stroke-dasharray: 4 3; }
+.belief.moved_pending rect, .belief.not_seen rect, .belief.lost rect { stroke: var(--lost); fill: rgba(179,38,30,0.08); }
+.belief.hidden rect { stroke-dasharray: 2 2; }
+.belief-tag { font-size: 11px; font-weight: 700; fill: var(--belief); paint-order: stroke; stroke: var(--paper-surface); stroke-width: 3px; }
+.belief.moved_pending .belief-tag, .belief.not_seen .belief-tag, .belief.lost .belief-tag { fill: var(--lost); }
+.divergence { stroke: var(--lost); stroke-width: 2.4; stroke-dasharray: 6 4; }
+.div-pill { fill: #fdf4f3; stroke: var(--lost); stroke-width: 1.2; }
+.div-text { font: 700 10.5px Consolas, monospace; fill: var(--lost); }
+tr.belief-moved_pending td, tr.belief-not_seen td, tr.belief-lost td { color: var(--lost); }
+tr.belief-hidden td.label { font-style: italic; }
+
+/* Phase 3: guidance */
+.guide { stroke: var(--belief); stroke-width: 2.4; stroke-dasharray: 6 3; }
+.guide.correction { stroke: var(--lost); }
+ol.actions { margin: 6px 0 0; padding-left: 0; list-style: none; font-size: 14px; max-height: 200px; overflow: auto; }
+ol.actions li { padding: 2px 0; border-bottom: 1px solid var(--rule); }
+ol.actions .when { font: 12px Consolas, monospace; color: var(--faint); margin-right: 8px; }
+ol.actions .alert { color: var(--lost); font-weight: 600; }
+
+/* Phase 4: System 2 */
+.s2obj { padding: 6px 0 8px; border-bottom: 1px solid var(--rule); }
+.s2head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+.s2head .label { font-weight: 600; }
+.verdict { font: 600 12px Consolas, monospace; letter-spacing: 0.08em; }
+.verdict.real { color: var(--said); fill: var(--said); }
+.verdict.picture { color: var(--lost); fill: var(--lost); }
+.verdict.unsure { color: var(--unsure); fill: var(--unsure); }
+svg.s2bar { width: 100%; max-width: 420px; margin: 4px 0; }
+.bound { stroke: var(--ink); stroke-width: 1; }
+.llr { stroke-width: 2; fill: var(--paper); }
+.llr.real { stroke: var(--said); fill: var(--said); }
+.llr.picture { stroke: var(--lost); fill: var(--lost); }
+.llr.unsure { stroke: var(--unsure); }
+ul.cues { margin: 2px 0 0; padding-left: 0; list-style: none; font: 12px/1.5 Consolas, monospace; color: var(--faint); }
+#eyes .verdict { font-size: 11px; }
+ul.cues li.uncounted { text-decoration: line-through; opacity: 0.7; }
+
+/* Phase 4.5: theory of mind */
+.tomrow { display: grid; grid-template-columns: 7em 1fr 1.2fr; gap: 2px 12px; padding: 5px 0; border-bottom: 1px solid var(--rule); font-size: 14px; }
+.tomrow .who { font-weight: 600; grid-row: span 2; }
+.tomrow .decision { grid-column: 2 / span 2; color: var(--faint); }
+.tomrow.false .decision, .tomrow.false .who { color: var(--lost); font-weight: 600; }
+.tomrow.watch .decision { color: var(--unsure); }
+.tomlast { margin-top: 8px; padding: 6px 8px; border-left: 3px solid var(--lost); font-size: 13px; }

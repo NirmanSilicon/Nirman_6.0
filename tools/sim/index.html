@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAARTHI — Architectural Presentation & Interactive Simulation</title>
+  <link rel="stylesheet" href="sim.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation & Presentation Stopwatch Bar -->
+  <header class="top-bar">
+    <div class="brand-section">
+      <div class="brand-mark">SAARTHI</div>
+      <div class="brand-title">Interactive Architectural Evaluation Simulator</div>
+    </div>
+
+    <nav class="nav-tabs" id="navTabs">
+      <button class="nav-tab active" data-tab="module-1">
+        <span class="tab-num">01</span> The Problem & Blueprint
+      </button>
+      <button class="nav-tab" data-tab="module-2">
+        <span class="tab-num">02</span> Capabilities & Feasibility
+      </button>
+      <button class="nav-tab" data-tab="module-3">
+        <span class="tab-num">03</span> Two-Map Divergence (Sally-Anne)
+      </button>
+      <button class="nav-tab" data-tab="module-4">
+        <span class="tab-num">04</span> System 2 (The Torch Test)
+      </button>
+      <button class="nav-tab" data-tab="module-5">
+        <span class="tab-num">05</span> Architecture & Resilience
+      </button>
+    </nav>
+
+    <div class="timer-section">
+      <span class="timer-badge" id="presentationTimer">00:00 / 06:00</span>
+      <button class="btn-ctrl" id="btnTimerToggle">Start Pitch</button>
+      <button class="btn-ctrl" id="btnTimerReset">Reset</button>
+    </div>
+  </header>
+
+  <!-- Main Presentation Content Area -->
+  <main class="content-area">
+
+    <!-- ========================================================== -->
+    <!-- MODULE 1: THE PROBLEM & THE BLUEPRINT OF THE SOLUTION      -->
+    <!-- ========================================================== -->
+    <section class="module-container active" id="module-1">
+      <div class="module-header">
+        <div class="module-eyebrow">Module 01 · Problem Deconstruction & Solution Blueprint</div>
+        <h1 class="module-title">The Spatial Blind Spot & What An Ideal Solution Requires</h1>
+        <p class="module-subtitle">Why traditional canes and current vision AI fail to serve visually impaired individuals in personal daily spaces.</p>
+      </div>
+
+      <!-- Current Flaws Grid -->
+      <div class="card-grid">
+        <div class="info-card flaw">
+          <span class="card-tag tag-flaw">Fundamental Flaw 01</span>
+          <h3 class="card-heading">Smart Canes Stop at the Floor</h3>
+          <p class="card-text">
+            White canes and ultrasonic smart canes navigate <strong>macro-pathways</strong> (0–15 cm ground obstacles: curbs, steps, walls).
+            They offer <strong>zero awareness at desk or dining height</strong>, where blind individuals spend their working and social lives eating, working, and interacting.
+          </p>
+        </div>
+
+        <div class="info-card flaw">
+          <span class="card-tag tag-flaw">Fundamental Flaw 02</span>
+          <h3 class="card-heading">Generic AI is a Noisy Firehose</h3>
+          <p class="card-text">
+            Standard assistive apps (Seeing AI, Lookout, YOLO+TTS) blast 10 bounding boxes per second into headphones:
+            <em>"Bottle 82%, Cup 74%, Chair, Table, Laptop..."</em>.
+            Hearing is a blind person's primary spatial sense; <strong>a noisy AI effectively blinds their hearing</strong>.
+          </p>
+        </div>
+
+        <div class="info-card flaw">
+          <span class="card-tag tag-flaw">Fundamental Flaw 03</span>
+          <h3 class="card-heading">Zero Memory & Screen Hallucinations</h3>
+          <p class="card-text">
+            Standard models possess <strong>zero temporal memory</strong>: if a coworker moves a water bottle, the app doesn't know the user believes it's still on their right.
+            Moreover, raw neural networks are easily fooled, classifying a flat iPad photo of an apple as a real object with >95% confidence.
+          </p>
+        </div>
+      </div>
+
+      <!-- What the Solution MUST Have -->
+      <div class="card-grid" style="margin-top: 12px;">
+        <div class="info-card need">
+          <span class="card-tag tag-need">Requirement 01</span>
+          <h3 class="card-heading">Proactive Silence (Theory of Mind)</h3>
+          <p class="card-text">
+            The system must maintain two concurrent mental models: <strong>Physical Reality</strong> vs <strong>User Belief</strong>.
+            It must remain completely silent by default, speaking <strong>only when reality diverges from belief</strong>.
+          </p>
+        </div>
+
+        <div class="info-card need">
+          <span class="card-tag tag-need">Requirement 02</span>
+          <h3 class="card-heading">System 2 Physical Anti-Spoof</h3>
+          <p class="card-text">
+            Vision cannot rely solely on 2D pixels. It requires active optical physics (exposure-locked flash pulses) to analyze surface normal curvature and reject flat screen photos before hands reach for them.
+          </p>
+        </div>
+
+        <div class="info-card need">
+          <span class="card-tag tag-need">Requirement 03</span>
+          <h3 class="card-heading">Closed-Loop Motor Guidance</h3>
+          <p class="card-text">
+            High-speed GPU hand tracking (<50ms latency) to steer reaches toward targets using gentle spatial cues, and immediately freeze reaching hands mid-air if heading toward a moved or spilled item.
+          </p>
+        </div>
+      </div>
+
+      <!-- The Grand Reveal of SAARTHI -->
+      <div class="reveal-banner">
+        <div class="reveal-kicker">The Solution Architecture</div>
+        <h2 class="reveal-headline">Introducing SAARTHI</h2>
+        <p class="reveal-summary">
+          A personal-space cognitive companion for blind and low-vision individuals seated at desks, dining tables, and workstations.
+          Moving beyond passive object detection to an active, ambient cognitive charioteer.
+        </p>
+        <div class="reveal-specs">
+          <span class="spec-pill">100% Offline Edge (MediaTek Dimensity 700)</span>
+          <span class="spec-pill">Zero Cloud Latency</span>
+          <span class="spec-pill">Sally–Anne Divergence Engine</span>
+          <span class="spec-pill">Sub-50ms Motor Guidance</span>
+          <span class="spec-pill">Zero Mocks / Real Hardware Tests</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MODULE 2: CAPABILITIES & TECHNICAL FEASIBILITY MATRIX      -->
+    <!-- ========================================================== -->
+    <section class="module-container" id="module-2">
+      <div class="module-header">
+        <div class="module-eyebrow">Module 02 · System Capabilities & Technical Feasibility</div>
+        <h1 class="module-title">Complete Capabilities & Technical Realization Matrix</h1>
+        <p class="module-subtitle">A direct mapping between user-facing capabilities and our rigorous, offline edge engineering implementation.</p>
+      </div>
+
+      <div class="matrix-container">
+        
+        <!-- Row 1 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">Two-Map Sally–Anne Divergence</div>
+            <div class="feature-badge">Proactive Silence</div>
+          </div>
+          <div class="solves-col">
+            Eliminates sensory overload. Speaks only when an object moves or vanishes without the user's awareness.
+          </div>
+          <div class="tech-col">
+            <strong>IMU Gravity Fusion + Camera2 Table Raycasting</strong> calculates 3D ground plane coordinates without ARCore. Maintains <code>WorldMap</code> vs <code>BeliefMap</code>; state diff triggers alert only on divergence.
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">Predictive Hand Motor Guidance</div>
+            <div class="feature-badge">Sub-50ms Closed Loop</div>
+          </div>
+          <div class="solves-col">
+            Prevents clumsy fumbling, accidental spills, and reaching into hot/moved items. Halts hand mid-air if spot is empty.
+          </div>
+          <div class="tech-col">
+            <strong>MediaPipe Hand Landmarker (GPU, 21 3D landmarks)</strong> at >20 fps. Calculates fingertip velocity vector $V_{\text{hand}}$ projected forward 0.4s. Triggers emergency audio freeze cue if vector targets empty spot.
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">Point-and-Ask ("What's This?")</div>
+            <div class="feature-badge">Natural Inquiry</div>
+          </div>
+          <div class="solves-col">
+            User touches or points at an unfamiliar item on the counter and asks what it is, without holding up the phone.
+          </div>
+          <div class="tech-col">
+            <strong>Index Finger Raycast Geometry</strong>: Vector from MCP knuckle through TIP projected onto table plane. Intersects 3D bounding cones of segmented table entities to resolve identity instantly.
+          </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">Personal Object Identification</div>
+            <div class="feature-badge">Few-Shot Embedding</div>
+          </div>
+          <div class="solves-col">
+            Recognizes the user's specific watch or mug from 2–3 visually similar objects after a 3-second voice enrolment.
+          </div>
+          <div class="tech-col">
+            <strong>MobileNetV3 Image Embedder (1024-dim vector)</strong> on hand-held crop. Evaluates cosine distance margin against enrolled exemplar cluster. 100% on-device, zero cloud dependency.
+          </div>
+        </div>
+
+        <!-- Row 5 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">System 2 Physical Anti-Spoof</div>
+            <div class="feature-badge">The Torch Test</div>
+          </div>
+          <div class="solves-col">
+            Prevents reaching for flat iPad photos or printed product pictures that fool conventional neural networks.
+          </div>
+          <div class="tech-col">
+            <strong>Exposure-Locked LED Flash Pulses</strong> + <strong>Wald's SPRT (Sequential Probability Ratio Test)</strong>. Measures surface normal curvature gradient $\nabla^2(\Delta I)$ vs flat glass glare ($A=+4.6, B=-4.6$).
+          </div>
+        </div>
+
+        <!-- Row 6 -->
+        <div class="matrix-row">
+          <div class="feature-col">
+            <div class="feature-name">Safety SOS & Autonomous Fall Alert</div>
+            <div class="feature-badge">Emergency Protection</div>
+          </div>
+          <div class="solves-col">
+            Protects users living alone. Automatically summons emergency help with GPS if a sudden hard fall occurs.
+          </div>
+          <div class="tech-col">
+            <strong>Tri-Axial Accelerometer FSM</strong>: Detects free-fall ($<0.3g$) $\to$ impact spike ($>3.0g$) $\to$ stillness ($>10s$). Triggers 15s loud audio countdown $\to$ automated background SMS with GPS.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MODULE 3: THE SALLY-ANNE DIVERGENCE ENGINE (TWO MAPS)      -->
+    <!-- ========================================================== -->
+    <section class="module-container" id="module-3">
+      <div class="module-header">
+        <div class="module-eyebrow">Module 03 · Theory of Mind Simulator</div>
+        <h1 class="module-title">The Sally–Anne Divergence Engine (Two-Map Simulation)</h1>
+        <p class="module-subtitle">Interact with the tabletop workspace. Observe how SAARTHI enforces Proactive Silence until reality diverges from belief.</p>
+      </div>
+
+      <div class="sim-workbench">
+        <!-- Canvas View -->
+        <div class="canvas-panel">
+          <div class="canvas-header">
+            <div class="canvas-title">
+              <span>Top-Down Tabletop Coordinate Plane</span>
+              <span class="canvas-badge">Scale: 1m x 0.8m</span>
+            </div>
+            <div class="canvas-badge" id="divergenceStatusBadge">State: Synchronized (Beliefs Agree)</div>
+          </div>
+
+          <canvas id="tableCanvas" width="800" height="480"></canvas>
+          <div style="margin-top: 8px; font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); display: flex; justify-content: space-between;">
+            <span>Interactive: Drag objects or hand to test spatial divergence.</span>
+            <span>Green Arc: Within Reach (&lt;0.5m) · Amber Arc: Reach Limit (&lt;0.75m)</span>
+          </div>
+        </div>
+
+        <!-- Sidebar / Interactive Controls & Speech Badge -->
+        <div class="sim-sidebar">
+          
+          <div class="status-box">
+            <div class="status-box-title">Audio Output Dialogue (Speech Badge)</div>
+            <div class="speech-dialogue-badge silent" id="speechBadge">
+              [PROACTIVELY SILENT]
+              <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">Reality matches user belief. No unnecessary noise generated.</span>
+            </div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-title">Interactive Scenario Triggers</div>
+            <div class="sim-controls-panel">
+              <button class="sim-btn" id="btnMoveBottle">
+                <span>1. Move Water Bottle</span>
+                <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.6;">(Right &rarr; Left)</span>
+              </button>
+              <button class="sim-btn" id="btnReachOldSpot">
+                <span>2. User Reaches for Old Spot</span>
+                <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.6;">(Fingertip Ray)</span>
+              </button>
+              <button class="sim-btn" id="btnReachNewSpot">
+                <span>3. Guide Hand to Real Bottle</span>
+                <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.6;">(Motor Guidance)</span>
+              </button>
+              <button class="sim-btn" id="btnResetTable">
+                <span>Reset Simulation</span>
+                <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.6;">&circlearrowright;</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="status-box">
+            <div class="status-box-title">Spatial Memory Ledger</div>
+            <div style="font-family: var(--font-mono); font-size: 11.5px; line-height: 1.6; color: var(--text-secondary);" id="ledgerInfo">
+              <div><strong>Water Bottle:</strong> World (0.35m, on your left) vs Belief (0.35m, on your right) <span style="color: var(--accent-warm);">[DIVERGENCE]</span></div>
+              <div><strong>Coffee Mug:</strong> 0.28m, slightly right · Beliefs Agree</div>
+              <div><strong>Laptop:</strong> 0.45m, in front of you · Anchor Landmark</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MODULE 4: SYSTEM 2 PHYSICAL VERIFICATION (THE TORCH TEST)  -->
+    <!-- ========================================================== -->
+    <section class="module-container" id="module-4">
+      <div class="module-header">
+        <div class="module-eyebrow">Module 04 · Physical Verification</div>
+        <h1 class="module-title">System 2: The Torch Test (Physics vs Deep Learning)</h1>
+        <p class="module-subtitle">How exposure-locked LED flash pulses and Wald's SPRT eliminate screen photo spoofing.</p>
+      </div>
+
+      <div class="torch-workbench">
+        
+        <!-- Left: Real 3D Solid Object -->
+        <div class="torch-comparison-card">
+          <div class="torch-header">
+            <div class="object-label">Case A: Real Physical Apple</div>
+            <span class="verdict-tag real" id="verdictReal">Verified: Physical 3D Solid</span>
+          </div>
+
+          <div class="torch-viz-area">
+            <!-- Photographic capture of real apple -->
+            <img src="real_apple_display.jpg" alt="Real 3D Apple Capture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" id="imgRealApple">
+            <div style="position: absolute; inset: 0; background: radial-gradient(circle at 45% 40%, rgba(255,255,255,0.4) 0%, transparent 60%); opacity: 0; transition: opacity 0.2s ease;" id="highlightRealApple"></div>
+          </div>
+
+          <div class="torch-metrics">
+            <div class="metric-pill">
+              <div class="k">Surface Curvature ||&nabla;²I||</div>
+              <div class="v" style="color: var(--accent-emerald);">0.614 (High 3D Curvature)</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">Wald SPRT Log-Likelihood</div>
+              <div class="v" style="color: var(--accent-emerald);">Sn = +4.91 (&gt; +4.6)</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">Raw YOLO Confidence</div>
+              <div class="v">96.8% "apple"</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">System 2 Final Decision</div>
+              <div class="v" style="color: var(--accent-emerald);">REAL OBJECT (Safe Reach)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 2D Screen Spoof -->
+        <div class="torch-comparison-card">
+          <div class="torch-header">
+            <div class="object-label">Case B: Screen Apple Image</div>
+            <span class="verdict-tag spoof" id="verdictSpoof">Rejected: Flat Screen Spoof</span>
+          </div>
+
+          <div class="torch-viz-area">
+            <!-- Photographic capture of screen apple -->
+            <img src="screen_apple_display.jpg" alt="Screen Apple Capture" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" id="imgScreenApple">
+            <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, transparent 70%); opacity: 0; transition: opacity 0.2s ease;" id="glassGlare"></div>
+          </div>
+
+          <div class="torch-metrics">
+            <div class="metric-pill">
+              <div class="k">Surface Curvature ||&nabla;²I||</div>
+              <div class="v" style="color: var(--accent-ruby);">0.130 (Flat Glass Plane)</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">Wald SPRT Log-Likelihood</div>
+              <div class="v" style="color: var(--accent-ruby);">Sn = -5.11 (&lt; -4.6)</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">Raw YOLO Confidence</div>
+              <div class="v">97.4% "apple" (Fooled!)</div>
+            </div>
+            <div class="metric-pill">
+              <div class="k">System 2 Final Decision</div>
+              <div class="v" style="color: var(--accent-ruby);">REJECTED SPOOF</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Heatmap Proof Container -->
+        <div class="heatmap-proof-container">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 style="font-size: 15px; font-weight: 600;">Computed Physical Reflectance & SPRT Analysis</h3>
+              <p style="font-size: 12.5px; color: var(--text-secondary); margin-top: 2px;">
+                Generated directly from user-supplied photographic captures (<code>Real_Apple.jpg</code> vs <code>Image_Apple.jpg</code>) via Laplacian curvature &amp; Wald's SPRT.
+              </p>
+            </div>
+            <button class="btn-ctrl" id="btnPulseFlash">Trigger Flash Pulse Sequence</button>
+          </div>
+          <img src="system2_heatmap_proof.png" alt="System 2 Optical Curvature Heatmap" class="heatmap-img">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- MODULE 5: EVENT-DRIVEN ARCHITECTURE & RESILIENCE           -->
+    <!-- ========================================================== -->
+    <section class="module-container" id="module-5">
+      <div class="module-header">
+        <div class="module-eyebrow">Module 05 · Architecture & Edge Resilience</div>
+        <h1 class="module-title">Event-Driven Architecture & Real-World Resilience</h1>
+        <p class="module-subtitle">How raw sensors, state estimators, cognitive engines, and thermal governors execute reliably on edge hardware.</p>
+      </div>
+
+      <div class="arch-grid">
+        
+        <!-- Pipeline Architecture Flow -->
+        <div class="arch-flow-card">
+          <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 16px;">The 4-Stage Event-Driven Pipeline</h3>
+
+          <div class="pipeline-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <div class="step-name">Raw Sensor Ingestion (Zero-Garbage Buffer)</div>
+              <div class="step-desc">Camera2 (20 prepared fps, recycled native bitmaps) + Android Fused Gravity Vector (TYPE_GRAVITY) + Gyroscope.</div>
+            </div>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <div class="step-name">Perceptual & Spatial State Estimators</div>
+              <div class="step-desc">EfficientDet-Lite0 object detection + Table Geometry Raycasting (metres &amp; plain directions: left / right / in front) + MediaPipe GPU Hand Landmarker (21 3D landmarks).</div>
+            </div>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <div class="step-name">Cognitive & Physical Arbitration</div>
+              <div class="step-desc">Sally–Anne Divergence Engine (World vs Belief state diff) + System 2 Wald SPRT Flash Reflection Validator + Index Pointing Raycaster.</div>
+            </div>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <div class="step-name">Actuation & Sensory Delivery</div>
+              <div class="step-desc">Minimal Prepared Audio Clips (Sherpa-ONNX Whisper) + Sub-50ms Haptic Guidance Pulses + Autonomous Emergency SOS Dispatcher.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-World Engineering Resilience -->
+        <div class="resilience-card">
+          
+          <!-- Thermal Governor -->
+          <div class="resilience-box">
+            <div class="resilience-title">
+              <span>Dynamic Thermal Workload Governor</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-emerald);" id="governorStatus">NOMINAL (41°C)</span>
+            </div>
+            <p class="resilience-text">
+              Mobile NPUs heat up under continuous 30fps computer vision. Our governor actively modulates workload to sustain &lt;45°C:
+            </p>
+            <div class="governor-meter">
+              <div class="governor-bar" id="governorBar"></div>
+            </div>
+            <div style="font-size: 11.5px; font-family: var(--font-mono); color: var(--text-secondary); margin-top: 6px;">
+              <div>&bull; Frame Stride: 20 fps (Zero-GC bitmap recycling)</div>
+              <div>&bull; Idle Hand Throttling: 2 fps when hand away for 5s &rarr; 10+ fps during reach</div>
+              <div>&bull; Battery &amp; Headroom Step-Down: Throttles background models, preserves speech accuracy</div>
+            </div>
+          </div>
+
+          <!-- Fall SOS State Machine -->
+          <div class="resilience-box">
+            <div class="resilience-title">
+              <span>Safety SOS Fall State Machine</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-warm);">AUTONOMOUS</span>
+            </div>
+            <p class="resilience-text">
+              Tri-axial accelerometer continuously samples at 50Hz:
+            </p>
+            <div style="font-size: 11.5px; font-family: var(--font-mono); color: var(--text-secondary); margin-top: 6px; line-height: 1.6;">
+              <code>Free-fall (&lt;0.3g) &rarr; Impact (&gt;3g) &rarr; Stillness (&gt;10s) &rarr; 15s Audio Countdown &rarr; SMS with GPS</code>
+            </div>
+          </div>
+
+          <!-- Edge Target Specs -->
+          <div class="resilience-box">
+            <div class="resilience-title">Target Edge Verification Specs</div>
+            <div style="font-size: 11.5px; font-family: var(--font-mono); color: var(--text-secondary); line-height: 1.6;">
+              <div>&bull; Hardware: MediaTek Dimensity 700 / 8GB RAM (Vivo V21e)</div>
+              <div>&bull; Cloud Dependency: 0% (Zero APIs, 100% On-Device)</div>
+              <div>&bull; Latency: Sub-50ms Haptics / 6.0 runs/s Detector</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Presentation Bottom Status Bar -->
+  <footer class="bottom-bar">
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <span><strong>SAARTHI Project</strong> · Evaluation Session</span>
+      <span>Target Presentation Time: <strong>5 to 7 Minutes</strong></span>
+    </div>
+    <div>
+      <span style="font-family: var(--font-mono);">Use [1 - 5] keys or navigation tabs to advance</span>
+    </div>
+  </footer>
+
+  <script src="sim.js"></script>
+</body>
+</html>

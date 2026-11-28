@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Saarthi Mind View</title>
+<link rel="stylesheet" href="/static/blueprint.css">
+</head>
+<body>
+<header class="hud-header">
+  <div class="brand">
+    <h1>SAARTHI <span>mind view</span></h1>
+    <div id="link" class="pill">waiting for the laptop link…</div>
+  </div>
+  <div id="economy" class="economy" aria-label="Cognitive Economy">
+    <div class="econ-stat"><span class="econ-num" id="econ-frames">0</span><span class="econ-lbl">Frames Observed</span></div>
+    <div class="econ-stat"><span class="econ-num" id="econ-suppressed">0</span><span class="econ-lbl">Proactively Suppressed</span></div>
+    <div class="econ-stat econ-spoken"><span class="econ-num" id="econ-spoken">0</span><span class="econ-lbl">Decisions Spoken</span></div>
+  </div>
+  <div class="header-meta">
+    <div id="rates" class="rates"></div>
+    <a href="/telemetry" class="rates">insights →</a>
+  </div>
+</header>
+
+<main>
+  <section class="panel plan">
+    <div class="panel-head">
+      <h2>Spatial Tabletop <small>2.5D perspective · plain D24 directions · world vs belief</small></h2>
+      <span id="stage-status" class="stage-status">waiting for phone</span>
+    </div>
+    <svg id="plan" viewBox="0 0 900 500" aria-label="2.5D perspective plan of the table"></svg>
+    <div class="legend">
+      <span><i class="said"></i>world (sure)</span>
+      <span><i class="unsure"></i>world (unsure)</span>
+      <span><i class="away"></i>remembered</span>
+      <span><i class="notseen"></i>missing</span>
+      <span><i class="belief"></i>user belief</span>
+      <span><i class="tether"></i>divergence</span>
+      <span><i class="view"></i>camera FOV</span>
+      <span><i class="tip"></i>fingertip</span>
+    </div>
+    <p id="geom" class="meta"></p>
+  </section>
+
+  <section class="panel tom">
+    <h2>Theory of mind <small>what the user believes vs what is true · the Sally–Anne test, live</small></h2>
+    <div id="tom"></div>
+    <div id="tom-last"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Decision Log <small>why Saarthi spoke or stayed silent</small></h2>
+      <div class="filter-group" role="group" aria-label="Timeline filter">
+        <button id="filter-all" class="filter-btn active" type="button">All Stream</button>
+        <button id="filter-decisions" class="filter-btn" type="button">Decisions Only</button>
+      </div>
+    </div>
+    <ol id="timeline"></ol>
+  </section>
+
+  <section class="panel">
+    <h2>Eyes <small>System 1: raw detector guesses (faint), tracks, hands · camera view</small></h2>
+    <svg id="eyes" viewBox="0 0 300 400" aria-label="Camera view"></svg>
+  </section>
+
+  <section class="panel">
+    <h2>System 2 <small>real or picture · the detector proposes, the evidence decides</small></h2>
+    <div id="s2"></div>
+    <p id="s2-plane" class="meta"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Last brief</h2>
+    <p id="brief-text" class="brief">No brief yet. Tap the phone.</p>
+    <div id="brief-meta" class="meta"></div>
+    <ul id="brief-left" class="left"></ul>
+  </section>
+
+  <section class="panel">
+    <h2>World map <small>one row per object or person</small></h2>
+    <table id="world"><thead><tr><th>#</th><th>object</th><th>where</th><th>state</th><th>said?</th><th>why not</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>Belief map <small>what the user was told, and whether the table still agrees</small></h2>
+    <table id="belief"><thead><tr><th>#</th><th>object</th><th>standing</th><th>evidence</th><th>why</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>Actions <small>guidance events: one stream for voice, vibration, wristbands and HUD</small></h2>
+    <p id="bias" class="meta">reach bias: no guided reaches yet</p>
+    <ol id="actions" class="actions"></ol>
+  </section>
+</main>
+
+<footer>Live data from the phone over USB (feed v1). Every element traces to a feed message; nothing is simulated.
+  Positions come from the phone alone: its tilt and turn (IMU) and the camera's height above the table.
+  <span id="render"></span></footer>
+<script src="/static/blueprint.js"></script>
+</body>
+</html>
