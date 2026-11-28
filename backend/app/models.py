@@ -71,6 +71,8 @@ class PriceTable(Base):
     price_high: Mapped[float] = mapped_column(Float)
     reuse_prob_low: Mapped[float | None] = mapped_column(Float, nullable=True)
     reuse_prob_high: Mapped[float | None] = mapped_column(Float, nullable=True)
+    presence_count_low: Mapped[float | None] = mapped_column(Float, nullable=True)
+    presence_count_high: Mapped[float | None] = mapped_column(Float, nullable=True)
     source: Mapped[str] = mapped_column(Text)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 

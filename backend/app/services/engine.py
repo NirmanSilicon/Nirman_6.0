@@ -19,20 +19,24 @@ def r2(x: float) -> float:
 
 
 def group_components(dets: list[dict], prices: dict[str, dict], min_conf: float, reuse_min_conf: float) -> list[dict]:
-    g: dict[str, list[float]] = defaultdict(list)
+    """Detections -> per-class components. Presence-only detections (`count_unknown`) get an assumed count range."""
+    g: dict[str, list[dict]] = defaultdict(list)
     for d in dets:
         if d["confidence"] >= min_conf:
-            g[d["class"]].append(d["confidence"])
+            g[d["class"]].append(d)
     out = []
     for cls in CLASSES:
         if cls not in g:
             continue
-        confs = g[cls]
+        items = g[cls]
+        confs = [d["confidence"] for d in items]
         p = prices.get(f"reuse:{cls}")
         potentially = bool(p and (p["reuse_prob_high"] or 0) > 0)
+        unknown = any(d.get("count_unknown") for d in items)
+        rng = [1, max(1, int(p["presence_count_high"]))] if unknown and p else [len(items), len(items)]
         out.append({
             "class": cls,
-            "count": len(confs),
+            "count": rng[0], "count_range": rng, "count_unknown": unknown,
             "avg_conf": round(sum(confs) / len(confs), 3),
             "reusable": potentially,
             "reusable_confident": potentially and sum(1 for c in confs if c >= reuse_min_conf),
@@ -47,11 +51,12 @@ def reuse_value(components: list[dict], prices: dict[str, dict]) -> tuple[float,
         p = prices.get(f"reuse:{c['class']}")
         if not p or not c["reusable"]:
             continue
-        s_lo = c["count"] * p["price_low"] * p["reuse_prob_low"]
-        s_hi = c["count"] * p["price_high"] * p["reuse_prob_high"]
+        n_lo, n_hi = c["count_range"]
+        s_lo = n_lo * p["price_low"] * p["reuse_prob_low"]
+        s_hi = n_hi * p["price_high"] * p["reuse_prob_high"]
         lo, hi = lo + s_lo, hi + s_hi
         trace.append({
-            "class": c["class"], "count": c["count"],
+            "class": c["class"], "count": c["count"], "count_range": c["count_range"],
             "price": [p["price_low"], p["price_high"]], "unit": p["unit"],
             "reuse_prob": [p["reuse_prob_low"], p["reuse_prob_high"]],
             "subtotal": [r2(s_lo), r2(s_hi)], "source": p["source"],
@@ -148,7 +153,10 @@ def reason(route: str, components: list[dict], value: dict) -> dict[str, str]:
     lead = max(reusable, key=lambda c: c["reusable_confident"], default=None)
     en_n, hi_n = names.get(lead["class"], ("parts", "पुर्ज़े")) if lead else ("parts", "पुर्ज़े")
     rng = f"₹{lo}–{hi}"
-    n = lead["reusable_confident"] if lead else 0
+    n = 0
+    if lead:
+        lo_n, hi_n = lead["count_range"]
+        n = f"{lo_n}-{hi_n}" if lead["count_unknown"] and hi_n > lo_n else lead["reusable_confident"]
     if route == "Reuse":
         return {"en": f"Sell to a refurbisher: {n} potentially reusable {en_n}, worth about {rng}.",
                 "hi": f"रिफर्बिशर को बेचें: {n} संभावित पुन: उपयोग योग्य {hi_n}, लगभग {rng}।"}

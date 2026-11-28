@@ -22,15 +22,24 @@ def seed(db: Session, force: bool = False) -> None:
     def empty(model) -> bool:
         return db.scalar(select(model.id if hasattr(model, "id") else model.route).limit(1)) is None
 
-    if force or empty(m.MaterialTable):
-        db.query(m.MaterialTable).delete()
-        db.add_all(m.MaterialTable(board_type=b, metal=me, grams_low=lo, grams_high=hi, source=s)
-                   for b, me, lo, hi, s in d.MATERIALS)
-    if force or empty(m.PriceTable):
-        db.query(m.PriceTable).delete()
-        db.add_all(m.PriceTable(item=i, unit=u, price_low=lo, price_high=hi, reuse_prob_low=pl,
-                                reuse_prob_high=ph, source=s, updated_at=ts)
-                   for i, u, lo, hi, pl, ph, s in d.PRICES)
+    # Materials and prices are upserted on every start: backend/app/seed/data.py is the source of truth.
+    have = {(r.board_type, r.metal): r for r in db.query(m.MaterialTable)}
+    for b, me, lo, hi, src in d.MATERIALS:
+        r = have.get((b, me)) or m.MaterialTable(board_type=b, metal=me)
+        r.grams_low, r.grams_high, r.source = lo, hi, src
+        db.add(r)
+    have_p = {r.item: r for r in db.query(m.PriceTable)}
+    for i, u, lo, hi, pl, ph, src in d.PRICES:
+        r = have_p.get(i)
+        if r is None:
+            r = m.PriceTable(item=i, updated_at=ts)
+        elif force or (r.price_low, r.price_high, r.source) != (lo, hi, src):
+            r.updated_at = ts
+        r.unit, r.price_low, r.price_high, r.reuse_prob_low, r.reuse_prob_high, r.source = u, lo, hi, pl, ph, src
+        cls = i.split(":", 1)[1] if i.startswith("reuse:") else None
+        if cls in d.PRESENCE_COUNTS:
+            r.presence_count_low, r.presence_count_high = d.PRESENCE_COUNTS[cls]
+        db.add(r)
     if force or empty(m.RouteParam):
         db.query(m.RouteParam).delete()
         db.add_all(m.RouteParam(route=r, reuse_factor=rf, metal_recovery=mr, cost_low=cl, cost_high=ch, source=s)

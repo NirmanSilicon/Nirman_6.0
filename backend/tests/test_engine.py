@@ -79,3 +79,16 @@ def test_gamify_levels_and_rules():
     from datetime import date, timedelta
     t = date(2026, 11, 28)
     assert gamify._streak({t, t - timedelta(days=1), t - timedelta(days=2)}) == 3
+
+
+def test_presence_only_uses_count_ranges():
+    t = tables()
+    for k, (lo, hi) in {"reuse:IC": (1, 8), "reuse:CAPACITOR": (1, 30)}.items():
+        t["prices"][k]["presence_count_low"], t["prices"][k]["presence_count_high"] = lo, hi
+    ds = [{"class": "IC", "confidence": 0.8, "bbox": [0, 0, 0, 0], "count_unknown": True},
+          {"class": "CAPACITOR", "confidence": 0.9, "bbox": [0, 0, 0, 0], "count_unknown": True}]
+    ev = engine.evaluate(ds, d.BOARD_TYPE, t, 0.35, 0.6)
+    ic = next(c for c in ev["components"] if c["class"] == "IC")
+    assert ic["count_unknown"] and ic["count_range"] == [1, 8]
+    lo, hi = ev["trace"]["reuse"][0]["subtotal"]
+    assert lo < hi  # wide range because the count is unknown

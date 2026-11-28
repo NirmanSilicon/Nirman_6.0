@@ -7,6 +7,7 @@ from ..seed.data import PRESET_WEIGHTS
 def load(db: Session) -> dict:
     prices = {p.item: {"price_low": p.price_low, "price_high": p.price_high, "unit": p.unit, "source": p.source,
                        "reuse_prob_low": p.reuse_prob_low or 0.0, "reuse_prob_high": p.reuse_prob_high or 0.0,
+                       "presence_count_low": p.presence_count_low or 1, "presence_count_high": p.presence_count_high or 1,
                        "updated_at": p.updated_at} for p in db.query(m.PriceTable)}
     materials: dict[str, list] = {}
     for r in db.query(m.MaterialTable):

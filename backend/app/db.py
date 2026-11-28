@@ -31,6 +31,9 @@ def init_db(retries: int = 30) -> None:
                 raise
             time.sleep(2)
     Base.metadata.create_all(engine)
+    with engine.begin() as conn:
+        for col in ("presence_count_low", "presence_count_high"):
+            conn.execute(text(f"ALTER TABLE price_table ADD COLUMN IF NOT EXISTS {col} double precision"))
     with engine.begin() as conn:  # lightweight migration for databases created before these columns existed
         for col, typ in [("capacity_mta", "double precision"), ("geocode_level", "varchar(12)"), ("list_date", "varchar(10)"),
                          ("source_url", "text"), ("validity_note", "text")]:

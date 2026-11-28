@@ -10,7 +10,13 @@ BOARD_TYPE = "DDR4_RAM"
 PLACEHOLDER = "MVP placeholder estimate; validate with recycler assay/quote"
 
 # Estimated grams of metal per board (low, high)
+GENERIC = "GENERIC_PCB"   # boards recognised by the presence classifier (type unknown beyond "a PCB")
 MATERIALS = [
+    (GENERIC, "Au", 0.002, 0.02, f"Small-PCB estimate; board type unknown; {PLACEHOLDER}"),
+    (GENERIC, "Ag", 0.01, 0.1, f"Small-PCB estimate; {PLACEHOLDER}"),
+    (GENERIC, "Cu", 4.0, 20.0, f"Small-PCB laminate copper estimate (waste PCBs ~30-50% metal, Springer); {PLACEHOLDER}"),
+    (GENERIC, "Pd", 0.0005, 0.005, f"Small-PCB estimate; {PLACEHOLDER}"),
+    (GENERIC, "Sn", 1.0, 4.0, f"Small-PCB solder estimate; {PLACEHOLDER}"),
     (BOARD_TYPE, "Au", 0.005, 0.015, f"Gold-finger plating estimate; {PLACEHOLDER}"),
     (BOARD_TYPE, "Ag", 0.02, 0.06, f"Solder/contacts estimate; {PLACEHOLDER}"),
     (BOARD_TYPE, "Cu", 6.0, 10.0, f"Laminate copper estimate (waste PCBs ~30-50% metal, Springer); {PLACEHOLDER}"),
@@ -34,6 +40,9 @@ PRICES = [
 ]
 
 # route, reuse_factor (share of reuse value realised), metal_recovery (share of metal value), cost_low, cost_high (INR/board)
+# Presence-only models give no counts: assumed (min, max) count per class when a class is present. Placeholder heuristics.
+PRESENCE_COUNTS = {"RAM_IC": (1, 8), "IC": (1, 8), "CONNECTOR": (1, 4), "CAPACITOR": (1, 30), "RESISTOR": (1, 30), "CRYSTAL": (1, 2)}
+
 ROUTE_PARAMS = [
     ("Reuse", 1.0, 0.0, 0, 0, f"Board sold intact to a refurbisher; no processing; {PLACEHOLDER}"),
     ("Desolder", 0.9, 0.45, 10, 20, f"Labour for harvesting; stripped board then goes to an authorised recycler; {PLACEHOLDER}"),

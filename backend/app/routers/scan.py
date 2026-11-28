@@ -84,6 +84,7 @@ def create_scan(
                        "breakdown": top["breakdown"], "route": top["route"]}
         ev["recommendation"], ev["recommendation_i18n"] = top["reason"]["en"], top["reason"]
 
+    real_dets = [d for d in inf["detections"] if d["confidence"] >= s.det_min_conf and not d.get("count_unknown")]
     scan_id = "scn_" + secrets.token_hex(5)
     created = m.now()
     stored = bool(consent)
@@ -93,7 +94,8 @@ def create_scan(
         "quality": q, "model": inf["model"],
         "components": ev["components"],
         "detections": [{"class": d["class"], "confidence": round(d["confidence"], 3), "bbox": d["bbox"],
-                        "ocr_text": d["ocr_text"]} for d in inf["detections"] if d["confidence"] >= s.det_min_conf],
+                        "ocr_text": d["ocr_text"]} for d in real_dets],
+        "presence": inf["presence"],
         "value": ev["value"], "preset": preset, "routes": routes, "routes_by_preset": ev["routes_by_preset"],
         "recommendation": ev["recommendation"], "recommendation_i18n": ev["recommendation_i18n"],
         "trace": ev["trace"], "prices_as_of": tb["as_of"].isoformat() if tb["as_of"] else None,
@@ -114,7 +116,7 @@ def create_scan(
         top_route=ev["top_route"], lat=lat, lng=lng, consent_image=stored, result=result, created_at=created,
         detections=[m.Detection(cls=d["class"], confidence=d["confidence"], bbox=d["bbox"], ocr_text=d["ocr_text"],
                                 reusable_flag=comp_by_cls.get(d["class"], False))
-                    for d in inf["detections"] if d["confidence"] >= s.det_min_conf],
+                    for d in real_dets],
     ))
     db.commit()
     return result

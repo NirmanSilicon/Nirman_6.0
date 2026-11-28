@@ -5,6 +5,10 @@ import httpx
 from ..config import Settings
 from .engine import CLASSES
 
+# Presence-model class -> product taxonomy (classes with no mapping are shown but not valued).
+PRESENCE_MAP = {"ic": "IC", "bga": "IC", "connector": "CONNECTOR", "capacitor": "CAPACITOR", "electrolytic capacitor": "CAPACITOR",
+                "capacitor jumper": "CAPACITOR", "resistor": "RESISTOR", "resistor jumper": "RESISTOR", "resistor network": "RESISTOR", "clock": "CRYSTAL"}
+
 
 class InferenceError(Exception):
     pass
@@ -23,7 +27,15 @@ def predict(jpeg: bytes, s: Settings) -> dict:
          "ocr_text": d.get("ocr_text")}
         for d in data.get("detections", []) if d.get("class") in CLASSES and len(d.get("bbox", [])) == 4
     ]
-    return {"board": data["board"], "detections": dets, "model": data.get("model", {})}
+    presence = data.get("presence") or []
+    mapped: dict[str, float] = {}
+    for pr in presence:
+        cls = PRESENCE_MAP.get(pr["class"])
+        if cls:
+            mapped[cls] = max(mapped.get(cls, 0.0), float(pr["confidence"]))
+    # one count-unknown pseudo-detection per mapped class: the model says "present", not "how many/where"
+    dets += [{"class": c, "confidence": v, "bbox": [0.0, 0.0, 0.0, 0.0], "ocr_text": None, "count_unknown": True} for c, v in mapped.items()]
+    return {"board": data["board"], "detections": dets, "presence": presence, "model": data.get("model", {})}
 
 
 def healthy(s: Settings) -> bool:
