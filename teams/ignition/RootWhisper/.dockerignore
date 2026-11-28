@@ -1,0 +1,28 @@
+# Git and IDE
+.git
+.gitignore
+.vscode
+.idea
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Node & Frontend
+node_modules
+dist
+frontend/node_modules
+frontend/dist
+
+# Tests and Scratch
+tests
+scratch
+.pytest_cache
+
+# Secrets and Local Environment
+*.env
+backend/.env
+frontend/.env
+*.key
+*.pem
+

@@ -1,0 +1,38 @@
+# RootWhisper Render Infrastructure-as-Code Blueprint
+# Configured for Render Free Web Service + Neon PostgreSQL Database
+# Frontend is hosted on GitHub Pages: https://ayesha-hackathon.github.io/RootWhisper
+services:
+  # --------------------------------------------------------------------------
+  # FastAPI Python Backend Web Service (Render Free Tier)
+  # --------------------------------------------------------------------------
+  - type: web
+    name: rootwhisper-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.2
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: ROOTWHISPER_JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_BASE_URL
+        value: "https://ayesha-hackathon.github.io/RootWhisper"
+      - key: EMAIL_PROVIDER
+        value: GMAIL_API
+      - key: GMAIL_CLIENT_ID
+        sync: false
+      - key: GMAIL_CLIENT_SECRET
+        sync: false
+      - key: GMAIL_REFRESH_TOKEN
+        sync: false
+      - key: GMAIL_SENDER_EMAIL
+        value: rootwhisper184@gmail.com
+      - key: CORS_ORIGINS
+        value: "https://ayesha-hackathon.github.io,http://localhost:3000"
