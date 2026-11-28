@@ -1,0 +1,33 @@
+<section class="page-component diagnostic-component">
+  <div class="page-intro"><div><h2>Diagnostic Insights</h2><p>A clear explanation of what was flagged, why it was flagged and what evidence needs review.</p></div><div class="page-action-group"><label class="engine-picker-label">ENGINE<select id="diagnosticEngine" class="select-control"></select></label><button class="btn btn-secondary" id="exportDiagnosticBtn">⇩ Export finding</button></div></div>
+
+
+  <article class="panel fd001-replay-panel">
+    <div class="panel-heading">
+      <div><div class="section-kicker">PHASE 3 · FD001 ANOMALY MODEL</div><h3>Validated historical engine replay</h3><p>Run the saved Phase 3 detector against an actual FD001 training-engine trajectory. The selected engine and returned assessment are displayed from the same API response.</p></div>
+      <span class="model-tag" id="fd001ModelStatus">Checking model…</span>
+    </div>
+    <div class="fd001-replay-controls">
+      <label>FD001 ENGINE<select id="fd001ReplayEngine" class="select-control"><option value="1">Engine 001</option></select></label>
+      <label class="fd001-cycle-control">END CYCLE <strong id="fd001ReplayCycleValue">26</strong><input id="fd001ReplayCycle" type="range" min="26" max="300" value="26"></label>
+      <button class="btn btn-primary" id="fd001ReplayRun" type="button">Run FD001 anomaly analysis</button>
+    </div>
+    <div class="fd001-replay-result" id="fd001ReplayResult" aria-live="polite">
+      <div class="fd001-replay-placeholder">Choose an engine and run analysis to view the model's scores, triggered checks and affected sensors.</div>
+    </div>
+    <p class="telemetry-disclaimer">This is historical replay of simulated FD001 trajectories. A no-alert result is not proof of a healthy engine; a triggered check is not a confirmed physical fault.</p>
+  </article>
+
+  <article class="diagnostic-window" aria-live="polite">
+    <div class="diagnostic-window-header"><div><span class="diagnostic-eyebrow">ENGINE HEALTH FINDING</span><h3 id="findingTitle">Persistent multi-sensor deviation</h3><p id="findingSubtitle">Engine AS-004 · Current cycle 211</p></div><span id="findingStatus" class="finding-status monitor">● MONITOR</span></div>
+    <div class="diagnostic-problem"><div class="problem-icon" id="problemIcon">!</div><div><span class="block-label">WHAT IS THE PROBLEM?</span><h4 id="problemStatement">Several simulated sensor channels show a sustained deviation from their expected pattern.</h4><p id="problemDescription">This is a potential degradation pattern that needs investigation. The available demo evidence does not confirm a physical component failure.</p></div></div>
+    <div class="diagnostic-section"><div class="section-heading"><div><h4>Why was this engine flagged?</h4><p>The indicators below are the reasons behind the current demo finding.</p></div></div><div class="reason-list" id="reasonList"></div></div>
+    <div class="diagnostic-evidence-grid">
+      <div class="evidence-tile"><span>ANOMALY SCORE</span><strong id="evidenceAnomaly">0.82</strong><small>Illustrative demo score · higher means more unusual</small></div>
+      <div class="evidence-tile"><span>PREDICTED RUL</span><strong id="evidenceRul">42 <small>cycles</small></strong><small>Illustrative estimate, not a failure countdown</small></div>
+      <div class="evidence-tile"><span>ENGINE STATUS</span><strong id="evidenceStatus">Monitor</strong><small>Current local demo classification</small></div>
+    </div>
+    <div class="diagnostic-section problem-next-steps"><div class="section-heading"><div><h4>What should be reviewed next?</h4><p>Use these checks to understand the finding; they are not maintenance instructions.</p></div></div><ol id="nextChecks"></ol></div>
+    <div class="diagnostic-footer"><span><strong>Important:</strong> This is an illustrative software finding. It does not identify a confirmed root cause or determine whether an aircraft is safe to operate.</span><div class="diagnostic-actions"><button class="btn btn-secondary" id="viewSensorEvidenceBtn">View sensor evidence</button><button class="btn btn-secondary" id="viewEngineProfileBtn">View engine profile</button><button class="btn btn-primary" id="acknowledgeFindingBtn">Acknowledge finding</button></div></div>
+  </article>
+</section>

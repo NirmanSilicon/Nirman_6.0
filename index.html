@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f3f8fd" />
+  <title>AEROSENTRY | Engine Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem('aerosentry-theme');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute('content', savedTheme === 'dark' ? '#101a27' : '#f3f8fd');
+      } catch (_) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-workspace-label">
+        <span class="workspace-label-icon">✈</span>
+        <span><strong>FLEET OPERATIONS</strong><small>Engine monitoring workspace</small></span>
+      </div>
+      <nav class="nav-list" aria-label="Fleet Operations navigation">
+        <button class="nav-item active" data-page="overview"><span class="nav-icon">▦</span><span>Overview</span></button>
+        <button class="nav-item" data-page="engine-assets"><span class="nav-icon">✈</span><span>Engine Assets</span></button>
+        <button class="nav-item" data-page="sensor-analytics"><span class="nav-icon">⌁</span><span>Sensor Analytics</span></button>
+        <button class="nav-item" data-page="telemetry"><span class="nav-icon">◉</span><span>TELESENTRY</span></button>
+        <button class="nav-item" data-page="rul-predictions"><span class="nav-icon">◷</span><span>RUL Predictions</span></button>
+        <button class="nav-item" data-page="alert-centre"><span class="nav-icon">⚑</span><span>Alert Centre</span><span class="nav-count" id="navAlertCount">3</span></button>
+        <button class="nav-item" data-page="diagnostic-insights"><span class="nav-icon">✧</span><span>Diagnostic Insights</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-api-card"><span class="api-status-dot"></span><div><strong>LOCAL DEMO MODE</strong><small>FastAPI not connected</small></div></div>
+        <button class="nav-item settings-nav-item" data-page="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+        <div class="sidebar-profile"><span class="sidebar-avatar">FO</span><span><strong>Flight Operations</strong><small>Demo operator</small></span></div>
+      </div>
+    </aside>
+
+    <header class="global-header">
+      <div class="header-brand">
+        <span class="brand-mark"><span class="brand-wing"></span></span>
+        <span class="brand-copy"><strong>AERO<span>SENTRY</span></strong><small>ENGINE INTELLIGENCE</small></span>
+      </div>
+      <div class="header-divider"></div>
+      <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+      <div class="product-title"><span class="product-symbol">◉</span><strong>Fleet Operations</strong></div>
+      <div class="header-spacer"></div>
+      <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search engine ID..." aria-label="Search engine ID" /></label>
+      <div class="api-status-pill is-disconnected" id="apiStatusPill" title="Open dataset and API settings" role="button" tabindex="0" aria-label="Open backend connection settings"><span class="api-status-dot"></span><span id="apiStatusText">API NOT CONNECTED</span></div>
+      <button class="header-theme-toggle" id="themeToggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false"><span id="themeToggleIcon" aria-hidden="true">☾</span></button>
+      <button class="header-icon-button" id="topAlertBtn" type="button" title="Open alert centre" aria-label="Open alert centre">♧<span class="notification-dot"></span></button>
+      <button class="header-help" id="helpBtn" type="button" title="About this demo" aria-label="About this demo">?</button>
+      <button class="profile-pill" id="profileInfo" type="button" title="Demo operator profile">FO</button>
+    </header>
+
+    <main class="main-content">
+      <div class="topbar">
+        <div><div class="eyebrow">AEROSENTRY / <span id="breadcrumb">OVERVIEW</span></div><h1 id="pageTitle">Fleet Performance Overview</h1></div>
+        <div class="topbar-actions"><div class="live-indicator"><span class="pulse-dot"></span> DEMO SIMULATION <span id="liveClock">--:--:--</span></div></div>
+      </div>
+      <div id="componentMount" aria-live="polite"></div>
+      <footer class="footer"><span>© 2026 AEROSENTRY · ENGINE HEALTH INTELLIGENCE</span><span>Prototype interface · Not for operational aviation use</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="helpModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <button class="modal-close" id="closeHelp" aria-label="Close">×</button>
+      <div class="modal-icon">✧</div><h2 id="helpTitle">About this AEROSENTRY demo</h2>
+      <p>The fleet dashboard currently uses illustrative demo readings. Settings can connect to the local FastAPI dataset service to load, validate and preprocess NASA FD001. Live aircraft telemetry and trained ML inference are not connected yet.</p>
+      <button class="btn btn-primary full-width" id="understandBtn">Understood</button>
+    </div>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
