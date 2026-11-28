@@ -144,11 +144,11 @@ def build_routes(values, ratings, eligible, reasons, weights) -> list[dict]:
 def reason(route: str, components: list[dict], value: dict) -> dict[str, str]:
     lo, hi = value["low"], value["high"]
     reusable = [c for c in components if c["reusable_confident"]]
-    n = sum(c["reusable_confident"] for c in reusable)
     names = {"RAM_IC": ("RAM chips", "RAM चिप"), "IC": ("ICs", "IC"), "CONNECTOR": ("connectors", "कनेक्टर")}
     lead = max(reusable, key=lambda c: c["reusable_confident"], default=None)
     en_n, hi_n = names.get(lead["class"], ("parts", "पुर्ज़े")) if lead else ("parts", "पुर्ज़े")
     rng = f"₹{lo}–{hi}"
+    n = lead["reusable_confident"] if lead else 0
     if route == "Reuse":
         return {"en": f"Sell to a refurbisher: {n} potentially reusable {en_n}, worth about {rng}.",
                 "hi": f"रिफर्बिशर को बेचें: {n} संभावित पुन: उपयोग योग्य {hi_n}, लगभग {rng}।"}
