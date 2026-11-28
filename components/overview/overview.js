@@ -1,0 +1,44 @@
+let chart;
+export function mount(root, api) {
+  const data = api.getData();
+  const $ = (id) => root.querySelector(`#${id}`);
+  const chartTheme = () => { const css=getComputedStyle(document.documentElement); return {text:css.getPropertyValue('--chart-text').trim()||'#8299aa',grid:css.getPropertyValue('--chart-grid').trim()||'#edf2f6'}; };
+  const render = () => {
+    const engines = data.engines;
+    const active = data.alerts.filter((a) => a.state !== 'resolved');
+    const healthy = engines.filter((e) => e.status === 'Healthy').length;
+    const monitor = engines.filter((e) => e.status === 'Monitor').length;
+    const review = engines.filter((e) => e.status === 'Review').length;
+    const average = Math.round(engines.reduce((sum, e) => sum + e.rul, 0) / engines.length);
+    $('todayLabel').textContent = new Date().toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric', year:'numeric'}).toUpperCase() + ' · DEMO FLEET SNAPSHOT';
+    $('engineCount').textContent = String(engines.length).padStart(2, '0');
+    $('fleetSize').textContent = String(engines.length).padStart(2, '0');
+    $('healthyCount').textContent = String(healthy).padStart(2, '0');
+    $('healthyPercent').textContent = `${(healthy / engines.length * 100).toFixed(1)}% of fleet`;
+    $('activeAlertCount').textContent = String(active.length).padStart(2, '0');
+    $('avgRul').textContent = average;
+    $('healthyLegend').textContent = String(healthy).padStart(2, '0');
+    $('monitorLegend').textContent = String(monitor).padStart(2, '0');
+    $('reviewLegend').textContent = String(review).padStart(2, '0');
+    $('fleetDonut').style.background = `conic-gradient(#4ab99a 0 ${healthy/engines.length*100}%, #edbd65 ${healthy/engines.length*100}% ${(healthy+monitor)/engines.length*100}%, #e67e83 ${(healthy+monitor)/engines.length*100}% 100%)`;
+    $('recentActivity').innerHTML = engines.filter(e => e.status !== 'Healthy').slice(0,3).map(e => `<div class="activity-item"><span class="activity-symbol">${e.status === 'Review' ? '!' : '⌁'}</span><div><strong>${e.id} · ${e.status}</strong><small>${e.rul} predicted cycles remaining</small></div><span class="activity-time">Demo</span></div>`).join('') || '<p class="empty-state">No engine activity to show.</p>';
+    $('engineAssetCards').innerHTML = engines.map(e => {const state=e.status.toLowerCase();return `<button type="button" class="engine-asset-card status-${state}" data-engine="${e.id}"><div class="asset-card-head"><div><strong>${e.id}</strong><div class="asset-card-type">TURBOFAN ASSET</div></div><span class="asset-card-status ${state}">${e.status}</span></div><div class="asset-card-stats"><div><span>PREDICTED RUL</span><strong>${e.rul}</strong><small> cycles</small></div><div><span>ANOMALY SCORE</span><strong>${e.anomaly.toFixed(2)}</strong><small> / 1.00</small></div></div><div class="asset-card-foot"><span>Cycle <b>${e.cycle}</b></span><b>Inspect ↗</b></div></button>`;}).join('');
+    $('priorityAlerts').innerHTML = active.slice(0,3).map(a => `<div class="priority-item"><span class="alert-mark ${a.severity==='high'?'red':''}">${a.severity==='high'?'!':'⌁'}</span><div><strong>${a.engine} · ${a.title}</strong><small>${a.description}</small></div><span class="status-pill ${a.severity==='high'?'review-pill':'monitor-pill'}">${a.state==='open'?'Open':'Reviewed'}</span></div>`).join('') || '<p class="empty-state">No active alerts.</p>';
+    const finding = engines.find(e => e.id === 'AS-004') || engines.find(e => e.status !== 'Healthy') || engines[0];
+    $('overviewInsightTitle').textContent = finding.status === 'Healthy' ? 'No significant deviation in demo profile' : finding.note;
+    $('overviewInsightText').textContent = `${finding.id} · ${finding.rul} illustrative predicted cycles remaining. Open Diagnostic Insights to review the evidence.`;
+    const filtered = engines.filter(e => $('rulRange').value === 'all' || e.status !== 'Healthy');
+    if (chart) chart.destroy();
+    const palette=chartTheme();
+    if (window.Chart) chart = new Chart($('rulChart'), {type:'bar',data:{labels:filtered.map(e=>e.id),datasets:[{label:'Predicted RUL',data:filtered.map(e=>e.rul),backgroundColor:filtered.map(e=>e.status==='Healthy'?'#8ec8f1':e.status==='Review'?'#e78d91':'#edc477'),borderRadius:5,borderSkipped:false},{type:'line',label:'Review threshold',data:filtered.map(()=>20),borderColor:'#dca64e',borderDash:[5,5],pointRadius:0,borderWidth:1.5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:palette.text}},y:{beginAtZero:true,grid:{color:palette.grid},ticks:{color:palette.text}}}}});
+  };
+  render();
+  const onThemeChange=()=>render();document.addEventListener('aerosentry:themechange',onThemeChange);
+  $('runAnalysisBtn').addEventListener('click', async (event) => { const button=event.currentTarget;button.disabled=true;button.textContent='Analyzing…';await new Promise(resolve=>setTimeout(resolve,650));api.runDemoAnalysis();render();button.disabled=false;button.textContent='▶ Run fleet analysis';api.toast('Demo fleet metrics refreshed. Use Diagnostic Insights for FD001 anomaly-model replay.'); });
+  $('exportBtn').addEventListener('click', () => api.exportFleet());
+  $('rulRange').addEventListener('change', render);
+  $('dismissNotice').addEventListener('click', () => $('demoNotice').remove());
+  $('engineAssetCards').addEventListener('click', event => { const card=event.target.closest('[data-engine]');if(card){api.setSelectedEngine(card.dataset.engine);api.navigate('engine-assets');} });
+  root.querySelectorAll('[data-goto]').forEach(button=>button.addEventListener('click',()=>api.navigate(button.dataset.goto)));
+  return () => { document.removeEventListener('aerosentry:themechange',onThemeChange); if(chart) chart.destroy(); };
+}

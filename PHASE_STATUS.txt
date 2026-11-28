@@ -1,0 +1,22 @@
+AEROSENTRY INTEGRATED PHASE STATUS
+
+Fleet Operations / TELESENTRY dashboard: INTEGRATED; demo values remain clearly distinguished from model-backed values.
+
+Phase 3 - FD001 anomaly detection: IMPLEMENTATION COMPLETE; SYNTHETIC BENCHMARK AND API/UI VERIFICATION PASS.
+  - 17 candidate inputs; Isolation Forest + LOF + combined detector.
+  - 70/15/15 engine-level train/calibration/test split.
+  - Synthetic benchmark: sample precision 88.6%, recall 38.9%, F1 54.1%, FPR 4.5%; event recall 45/45.
+  - Note: 110/180 injected faulty samples were missed; event recall means one or more rows were flagged per event.
+
+Phase 4 - N-CMAPSS DS05 integration: SOFTWARE IMPLEMENTATION COMPLETE; REAL DS05 DATA EXECUTION PENDING.
+  - Nested-archive DS05 extraction helper, generic HDF5 inspector, chunked flight preprocessor, FastAPI routes and dashboard controls included.
+  - Synthetic HDF5 tests pass.
+  - DS05 HDF5 extraction on the user computer is confirmed; strict sign-off still requires actual HDF5 inspection and dev/test flight tables.
+
+Verification at package-build time:
+  - Backend/API tests: 12 passed.
+  - Phase 4 HDF5 fixture tests: 6 passed.
+  - Phase 3 verification: PASS.
+  - JavaScript syntax checks: PASS.
+
+See README.md and PROJECT_ROADMAP.md for commands, scope and acceptance criteria.

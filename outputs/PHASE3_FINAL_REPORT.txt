@@ -1,0 +1,34 @@
+AEROSENTRY PHASE 3 — FINAL REPRODUCIBLE SYNTHETIC BENCHMARK
+Dataset: NASA C-MAPSS FD001 (simulated turbofan degradation)
+Engine split: 70 train / 15 calibration / 15 final test; no engine appears in more than one split.
+Candidate input features: 17
+Validation-calibrated thresholds (99.2nd percentile): {'lof_score': 1.2745683625084419, 'spike_z': 4.850023430121475, 'stuck_score': 2.3162558390814465}
+
+SELECTED COMBINED DETECTOR — SAMPLE-LEVEL METRICS
+{
+  "precision": 0.8860759493670886,
+  "recall": 0.3888888888888889,
+  "f1": 0.5405405405405406,
+  "accuracy": 0.6851851851851852,
+  "tn": 189,
+  "fp": 9,
+  "fn": 110,
+  "tp": 70,
+  "false_positive_rate": 0.045454545454545456
+}
+
+EVENT-LEVEL RECALL: 45/45 = 100.0%
+spike: 15/15 events detected (100.0%)
+drift: 15/15 events detected (100.0%)
+stuck_at: 15/15 events detected (100.0%)
+
+MODEL COMPARISON (same synthetic test rows)
+Isolation Forest: precision=0.636, recall=0.039, F1=0.073, FPR=0.020
+LOF: precision=0.962, recall=0.278, F1=0.431, FPR=0.010
+Selected combined detector: precision=0.886, recall=0.389, F1=0.541, FPR=0.045
+
+LIMITATIONS
+1. Synthetic fault injections are not naturally labelled NASA faults.
+2. Event recall means at least one sample in each injected event interval was flagged.
+3. This benchmark does not prove real-world aircraft fault detection.
+4. FD001 is one simulated operating condition and one degradation mode (HPC).

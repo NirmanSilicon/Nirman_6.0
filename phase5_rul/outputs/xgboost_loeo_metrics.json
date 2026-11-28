@@ -1,0 +1,104 @@
+{
+    "validation_method": "Leave-One-Engine-Out",
+    "model": "XGBoost",
+    "target": "rul_mean",
+    "predictor_count": 72,
+    "engine_results": [
+        {
+            "validation_engine": 1,
+            "training_engines": [
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "training_flights": 411,
+            "validation_flights": 80,
+            "MAE": 11.958427860215306,
+            "RMSE": 15.835523482864202,
+            "R2": 0.5297443901053098
+        },
+        {
+            "validation_engine": 2,
+            "training_engines": [
+                1,
+                3,
+                4,
+                5,
+                6
+            ],
+            "training_flights": 411,
+            "validation_flights": 80,
+            "MAE": 12.57271620631218,
+            "RMSE": 16.89195650903116,
+            "R2": 0.464907276693858
+        },
+        {
+            "validation_engine": 3,
+            "training_engines": [
+                1,
+                2,
+                4,
+                5,
+                6
+            ],
+            "training_flights": 426,
+            "validation_flights": 65,
+            "MAE": 11.861014386323783,
+            "RMSE": 15.060063844091731,
+            "R2": 0.3556661278746619
+        },
+        {
+            "validation_engine": 4,
+            "training_engines": [
+                1,
+                2,
+                3,
+                5,
+                6
+            ],
+            "training_flights": 392,
+            "validation_flights": 99,
+            "MAE": 8.584141321856567,
+            "RMSE": 12.199490070820591,
+            "R2": 0.8177621738921834
+        },
+        {
+            "validation_engine": 5,
+            "training_engines": [
+                1,
+                2,
+                3,
+                4,
+                6
+            ],
+            "training_flights": 391,
+            "validation_flights": 100,
+            "MAE": 9.008448108434678,
+            "RMSE": 11.558523389598982,
+            "R2": 0.8396646109236043
+        },
+        {
+            "validation_engine": 6,
+            "training_engines": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "training_flights": 424,
+            "validation_flights": 67,
+            "MAE": 13.903206117117582,
+            "RMSE": 16.89992365218737,
+            "R2": 0.23634379826266838
+        }
+    ],
+    "mean_MAE": 11.31465900004335,
+    "std_MAE": 1.9048430439482409,
+    "mean_RMSE": 14.740913491432337,
+    "std_RMSE": 2.128175223120738,
+    "mean_R2": 0.5406813962920477,
+    "std_R2": 0.2231882906030893
+}

@@ -1,0 +1,46 @@
+{
+  "dataset": "NASA N-CMAPSS DS05",
+  "evidence_type": "user-provided initial HDF5 metadata inspection output",
+  "file_reported": "N-CMAPSS_DS05.h5",
+  "reported_file_size_gib": 2.42,
+  "root_keys": [
+    "A_dev", "A_test", "A_var", "T_dev", "T_test", "T_var",
+    "W_dev", "W_test", "W_var", "X_s_dev", "X_s_test", "X_s_var",
+    "X_v_dev", "X_v_test", "X_v_var", "Y_dev", "Y_test"
+  ],
+  "dev_rows": 4350606,
+  "test_rows": 2562046,
+  "array_shapes": {
+    "A_dev": [4350606, 4],
+    "A_test": [2562046, 4],
+    "T_dev": [4350606, 10],
+    "T_test": [2562046, 10],
+    "W_dev": [4350606, 4],
+    "W_test": [2562046, 4],
+    "X_s_dev": [4350606, 14],
+    "X_s_test": [2562046, 14],
+    "X_v_dev": [4350606, 14],
+    "X_v_test": [2562046, 14],
+    "Y_dev": [4350606, 1],
+    "Y_test": [2562046, 1]
+  },
+  "variable_names": {
+    "A_var": ["unit", "cycle", "Fc", "hs"],
+    "W_var": ["alt", "Mach", "TRA", "T2"],
+    "X_s_var": ["T24", "T30", "T48", "T50", "P15", "P2", "P21", "P24", "Ps30", "P40", "P50", "Nf", "Nc", "Wf"],
+    "X_v_var": ["T40", "P30", "P45", "W21", "W22", "W25", "W31", "W32", "W48", "W50", "SmFan", "SmLPC", "SmHPC", "phi"],
+    "T_var": ["fan_eff_mod", "fan_flow_mod", "LPC_eff_mod", "LPC_flow_mod", "HPC_eff_mod", "HPC_flow_mod", "HPT_eff_mod", "HPT_flow_mod", "LPT_eff_mod", "LPT_flow_mod"]
+  },
+  "initial_inspection_limitations": [
+    "This metadata output confirms the HDF5 file opens and the listed arrays/shapes/names were displayed.",
+    "It does not itself validate every value for NaN/Inf.",
+    "It does not report the unique engine IDs contained in A_dev/A_test.",
+    "It does not prove full chunked preprocessing has succeeded."
+  ],
+  "planned_default_predictor_channels": {
+    "W": 4,
+    "X_s": 14,
+    "total": 18,
+    "excluded": ["X_v", "T", "A metadata", "Y RUL target"]
+  }
+}

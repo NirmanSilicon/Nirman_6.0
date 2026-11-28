@@ -1,0 +1,22 @@
+{
+    "validation_method": "Leave-One-Engine-Out",
+    "selection_metric": "Mean MAE",
+    "target": "rul_mean",
+    "predictor_count": 72,
+    "configurations_tested": 36,
+    "best_configuration": {
+        "max_depth": 5,
+        "learning_rate": 0.03,
+        "n_estimators": 600,
+        "subsample": 0.85,
+        "colsample_bytree": 0.85,
+        "reg_lambda": 2.0,
+        "random_state": 42
+    },
+    "best_mean_MAE": 11.104655948375935,
+    "best_std_MAE": 2.341998789293142,
+    "best_mean_RMSE": 14.53521962377112,
+    "best_std_RMSE": 2.689296846319343,
+    "best_mean_R2": 0.5408796013372004,
+    "best_std_R2": 0.24342100044262116
+}
