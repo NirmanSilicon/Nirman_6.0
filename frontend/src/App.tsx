@@ -103,11 +103,12 @@ export const App: React.FC = () => {
 
     const loadForecastAndRescue = async () => {
       try {
-        const fc = await fetchForecast(selectedTrain);
+        const fc = await fetchForecast(selectedTrain, activeCorridorId);
         if (!isMounted) return;
         setForecast(fc);
 
-        const preferredCode = connectionTarget?.station_code || 'BBS';
+        const defaultDest = activeCorridorId === 'SER_HWH_KGP' ? 'KGP' : 'BBS';
+        const preferredCode = connectionTarget?.station_code || defaultDest;
         const targetStop =
           fc.station_timeline?.find((s) => s.station_code === preferredCode) ??
           fc.station_timeline?.[fc.station_timeline.length - 1];
@@ -142,13 +143,16 @@ export const App: React.FC = () => {
           const targetMinutes = timeStringToMinutes(connectionTarget?.deadline_time || '12:15') ?? 735;
           deadlineEpoch = simMidnightIst + targetMinutes * 60;
         }
-        const res = await evaluateRescue({
-          train_no: selectedTrain,
-          destination_code: destCode,
-          connection_deadline_utc: deadlineEpoch,
-          transfer_buffer_mins: bufferMins,
-          passenger_status: passengerStatus,
-        });
+        const res = await evaluateRescue(
+          {
+            train_no: selectedTrain,
+            destination_code: destCode,
+            connection_deadline_utc: deadlineEpoch,
+            transfer_buffer_mins: bufferMins,
+            passenger_status: passengerStatus,
+          },
+          activeCorridorId,
+        );
         if (isMounted) setRescue(res);
       } catch (err) {
         console.warn('Forecast/Rescue fetch error:', err);

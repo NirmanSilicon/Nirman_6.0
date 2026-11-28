@@ -3,7 +3,7 @@ import type {
   ForecastResponse,
   RescueEvaluationResponse,
 } from '../types/corridor';
-import { MOCK_RESCUE_ONBOARD, getMockForecast } from './mockFallback';
+import { getMockForecast, getMockRescue } from './mockFallback';
 
 const API_BASE = '/api/v1';
 
@@ -41,24 +41,30 @@ export async function fetchCorridorConfig(): Promise<{
   }
 }
 
-export async function fetchForecast(trainNo: string): Promise<ForecastResponse> {
+export async function fetchForecast(
+  trainNo: string,
+  corridorId?: string,
+): Promise<ForecastResponse> {
   try {
     const res = await fetch(`${API_BASE}/trains/${trainNo}/forecast`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
     console.warn(`Forecast fetch for ${trainNo} failed, using mock data`, err);
-    return getMockForecast(trainNo);
+    return getMockForecast(trainNo, corridorId);
   }
 }
 
-export async function evaluateRescue(payload: {
-  train_no: string;
-  destination_code: string;
-  connection_deadline_utc: number;
-  transfer_buffer_mins: number;
-  passenger_status: 'PRE_BOARDING' | 'ON_BOARD';
-}): Promise<RescueEvaluationResponse> {
+export async function evaluateRescue(
+  payload: {
+    train_no: string;
+    destination_code: string;
+    connection_deadline_utc: number;
+    transfer_buffer_mins: number;
+    passenger_status: 'PRE_BOARDING' | 'ON_BOARD';
+  },
+  corridorId?: string,
+): Promise<RescueEvaluationResponse> {
   try {
     const res = await fetch(`${API_BASE}/rescue/evaluate`, {
       method: 'POST',
@@ -69,18 +75,7 @@ export async function evaluateRescue(payload: {
     return await res.json();
   } catch (err) {
     console.warn('Rescue evaluation failed, using fallback', err);
-    if (payload.passenger_status === 'PRE_BOARDING') {
-      return {
-        passenger_status: 'PRE_BOARDING',
-        survival_probability_pct: 18.0,
-        risk_level: 'HIGH_RISK_MISS',
-        safe_boarding_lock: true,
-        boarding_advisory: 'Report to your boarding station as per official schedule. Delayed trains can recover slack.',
-        bailout_recommended: false,
-        disclaimer: "Deboarding remains passenger's voluntary decision.",
-      };
-    }
-    return MOCK_RESCUE_ONBOARD;
+    return getMockRescue(payload.passenger_status, corridorId);
   }
 }
 
