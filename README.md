@@ -23,7 +23,6 @@ hardware/
   kicad/          KiCad 8 project (open ferrosphile.kicad_pro)
   fabrication/    Gerbers zip + BOM
   docs/           schematic PDF/SVG/PNG, PCB previews, layout PDF
-  scripts/        scripts that generated the KiCad project
 ```
 
 Pin map, ordering settings, assembly steps and coil details: [hardware/README.md](hardware/README.md)
