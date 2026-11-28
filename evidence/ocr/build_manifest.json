@@ -1,0 +1,72 @@
+{
+  "image_tag": "docuready-lane-b-ocr:5.5.5",
+  "image_id": "sha256:775712a9a78110bc55439b3c7b874a2b0fd30e92f6f21f0f41152608df978f33",
+  "platform": "linux/amd64",
+  "base_image": "python:3.12-slim-bookworm@sha256:1475c4f5b6bcb7d35e57661d6f5d7429ec4041275633c15f2b49350ac898276d",
+  "tesseract_source": {
+    "repo": "https://github.com/tesseract-ocr/tesseract.git",
+    "tag": "5.5.5",
+    "tag_object_sha": "9a4ea5129422277b3bf316e2c29bd57544981aae",
+    "commit_sha": "4292f6890aa86ef64eba32090358f40f69dd6d28",
+    "tag_signature_verified": true,
+    "tag_signer": "Stefan Weil <sw@weilnetz.de>"
+  },
+  "tessdata_fast": {
+    "repo": "https://github.com/tesseract-ocr/tessdata_fast",
+    "commit_sha": "87416418657359cb625c412a48b6e1d6d41c29bd",
+    "models": {
+      "eng": {
+        "git_blob_sha1": "bbef4675053b5b468cdb477053e28b1c698ba08e",
+        "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+        "size_bytes": 4113088
+      },
+      "hin": {
+        "git_blob_sha1": "a8f0aaec09378115b12a2c6287c57695d082aea2",
+        "sha256": "4c73ffc59d497c186b19d1e90f5d721d678ea6b2e277b719bee4e2af12271825",
+        "size_bytes": 1122751
+      },
+      "ori": {
+        "git_blob_sha1": "ae0f9ed13d5c9ad4a4de57c7266c434b83a9f583",
+        "sha256": "36f3135e61d501a3acfad41f5fe60b8e791274fff4c5375c969fdcca980cdbac",
+        "size_bytes": 1480066
+      }
+    }
+  },
+  "build_context_sha256": {
+    "Dockerfile": "72be737b5c9480b5ec0b0a3bf024f007bb6dd7f083e47be3b99999990f84dde0",
+    "tessdata/eng.traineddata": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+    "tessdata/hin.traineddata": "4c73ffc59d497c186b19d1e90f5d721d678ea6b2e277b719bee4e2af12271825",
+    "tessdata/ori.traineddata": "36f3135e61d501a3acfad41f5fe60b8e791274fff4c5375c969fdcca980cdbac"
+  },
+  "runtime_security_profile": {
+    "user": "evaluator (uid=10001, gid=10001)",
+    "network": "none",
+    "read_only_rootfs": true,
+    "tmpfs": "/tmp:rw,noexec,nosuid,size=64m",
+    "cap_drop": [
+      "ALL"
+    ],
+    "security_opt": [
+      "no-new-privileges:true"
+    ],
+    "seccomp": "default_docker_seccomp",
+    "cpus": "2",
+    "memory": "2g",
+    "pids_limit": 128,
+    "oem": 1
+  },
+  "python_pins": {
+    "pytesseract": "0.3.13",
+    "pydantic": "2.14.3",
+    "pillow": "13.0.0",
+    "pymupdf": "2.1",
+    "PyYAML": "6.0.4"
+  },
+  "prebuild_model_acquisition": {
+    "script": "evidence/ocr/build/fetch_tessdata.py",
+    "sha256": "99a4580f5420c3c38393a4e9d50a51ed8409d2d6f0a5b6613906a6ae5e46b9db",
+    "size_bytes": 6586,
+    "incorporated_in_existing_image": false,
+    "note": "Added post-build for clean-checkout tessdata reconstruction; existing image sha256:775712a9a78110bc55439b3c7b874a2b0fd30e92f6f21f0f41152608df978f33 was built from identical verified tessdata bytes."
+  }
+}

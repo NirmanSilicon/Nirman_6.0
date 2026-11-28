@@ -3,3 +3,4 @@ branchcreation.sh
 __pycache__/
 *.py[cod]
 evidence/**/*.pdf
+evidence/ocr/build/tessdata/*.traineddata

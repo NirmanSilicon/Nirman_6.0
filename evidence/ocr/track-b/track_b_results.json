@@ -1,0 +1,1084 @@
+{
+  "source_commit": "0e14a6ed4452c1e562da2df11df7e4f528045074",
+  "source_status": "candidate_snapshot_only",
+  "container_tesseract_bin": "/usr/local/bin/tesseract",
+  "pymupdf_version": "2.1",
+  "adv_scanned_no_tesseract_classification": "ordinary_ocr_path_sample (INCOME_CERT rasterized PDF; not a negative control)",
+  "counts": {
+    "genuine_ocr_evaluated": 2,
+    "native_bypass_controls": 32,
+    "excluded_malformed": 1
+  },
+  "genuine_ocr_results": [
+    {
+      "rel_path": "corpus/adversarial/ADV_SCANNED_NO_TESSERACT.pdf",
+      "sha256": "3da845871f05894f14e7b5d6078f033d65fcefc2850e36235a79e6d35aab2233",
+      "category": "genuine_ocr",
+      "expected_type": "INCOME_CERT",
+      "detected_type": "INCOME_CERT",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "LOCAL_OCR",
+          "evidence_state": "OCR_EXTRACTED",
+          "confidence": 0.865
+        },
+        "annual_income": {
+          "raw_value": "120000",
+          "normalized_value": "120000.0",
+          "extraction_method": "LOCAL_OCR",
+          "evidence_state": "OCR_EXTRACTED",
+          "confidence": 0.9
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_DEGRADED_IMG.pdf",
+      "sha256": "cfd8aab0042c423e605b45d65142c966e56978cf8d2d66ff16ea8fd9a180dfe2",
+      "category": "genuine_ocr",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "SYNTHETIC DEGRADED IMAGE TEST",
+          "normalized_value": "SYNTHETIC DEGRADED IMAGE TEST",
+          "extraction_method": "LOCAL_OCR",
+          "evidence_state": "AMBIGUOUS",
+          "confidence": 0.912
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "LOCAL_OCR",
+          "evidence_state": "OCR_EXTRACTED",
+          "confidence": 0.8
+        }
+      }
+    }
+  ],
+  "native_bypass_control_results": [
+    {
+      "rel_path": "corpus/adversarial/ADV_MISMATCH_PASSBOOK.pdf",
+      "sha256": "2d738d278696b5458f8e0bd4d6dc3e0328bccbf34d3ae48da1500f51641a62be",
+      "category": "native_text",
+      "expected_type": "BANK_PASSBOOK",
+      "detected_type": "BANK_PASSBOOK",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Priyadarshini Mohanty",
+          "normalized_value": "PRIYADARSHINI MOHANTY",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "00001234567890",
+          "normalized_value": "00001234567890",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "ifsc": {
+          "raw_value": "SBIN0000123",
+          "normalized_value": "SBIN0000123",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/adversarial/ADV_SUB_UNDERAGE_AADHAAR.pdf",
+      "sha256": "b8e8b4d3add177bae0596678797e84d400148b5709ef8bceff1472c0223ed83f",
+      "category": "native_text",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "10/08/2006",
+          "normalized_value": "2006-08-10",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "AMBIGUOUS",
+          "confidence": 1.0
+        },
+        "gender": {
+          "raw_value": "FEMALE",
+          "normalized_value": "FEMALE",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "aadhaar_no": {
+          "raw_value": "XXXX XXXX 9012",
+          "normalized_value": "XXXXXXXX9012",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_AADHAAR_MASKED.pdf",
+      "sha256": "805f547b9b15d7aa6bb90d215079401cc0e36c3c4e6af99f0af4435a0e3538f9",
+      "category": "native_text",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "gender": {
+          "raw_value": "FEMALE",
+          "normalized_value": "FEMALE",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "aadhaar_no": {
+          "raw_value": "XXXX XXXX 9012",
+          "normalized_value": "XXXXXXXX9012",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_APPLICATION_FORM.pdf",
+      "sha256": "fe28131e75632d2f658a943bd3033e4e6ccb151f83b5ba46b776c85259b307fd",
+      "category": "native_text",
+      "expected_type": "APPLICATION_FORM",
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Ramesh Das",
+          "normalized_value": "RAMESH DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "caste_category": {
+          "raw_value": "OBC",
+          "normalized_value": "OBC",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "annual_income": {
+          "raw_value": "120000",
+          "normalized_value": "120000.0",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "income_cert_no": {
+          "raw_value": "SYN/INC/2024/0001",
+          "normalized_value": "SYN/INC/2024/0001",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "caste_cert_no": {
+          "raw_value": "SYN/CST/2024/0002",
+          "normalized_value": "SYN/CST/2024/0002",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "residence_cert_no": {
+          "raw_value": "SYN/RES/2024/0003",
+          "normalized_value": "SYN/RES/2024/0003",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "00001234567890",
+          "normalized_value": "00001234567890",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "ifsc": {
+          "raw_value": "SBIN0000123",
+          "normalized_value": "SBIN0000123",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_BANK_PASSBOOK.pdf",
+      "sha256": "d8c8246ca866a0d0f14430fa7f9ecdeafd5916840429d3fdf044b0d29502d3e3",
+      "category": "native_text",
+      "expected_type": "BANK_PASSBOOK",
+      "detected_type": "BANK_PASSBOOK",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "00001234567890",
+          "normalized_value": "00001234567890",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "ifsc": {
+          "raw_value": "SBIN0000123",
+          "normalized_value": "SBIN0000123",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dbt_seeded": {
+          "raw_value": "ACTIVE",
+          "normalized_value": "True",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_CASTE_CERT.pdf",
+      "sha256": "32bd6f0effb214fbe82ac2436e81a8213c505bac9e6b5d8aedf6b5ee85d4e6bf",
+      "category": "native_text",
+      "expected_type": "CASTE_CERT",
+      "detected_type": "CASTE_CERT",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Ramesh Das",
+          "normalized_value": "RAMESH DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "caste_category": {
+          "raw_value": "OBC",
+          "normalized_value": "OBC",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "sub_caste": {
+          "raw_value": "Teli",
+          "normalized_value": "TELI",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "certificate_no": {
+          "raw_value": "SYN/CST/2024/0002",
+          "normalized_value": "SYN/CST/2024/0002",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "issue_date": {
+          "raw_value": "12/02/2024",
+          "normalized_value": "2024-02-12",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "AMBIGUOUS",
+          "confidence": 1.0
+        },
+        "state": {
+          "raw_value": "ODISHA",
+          "normalized_value": "ODISHA",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_INCOME_CERT.pdf",
+      "sha256": "b4cefa554feb1d6a1f2ac6a4efe65f202064986439dc8733b760dad74269f115",
+      "category": "native_text",
+      "expected_type": "INCOME_CERT",
+      "detected_type": "INCOME_CERT",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Ramesh Das",
+          "normalized_value": "RAMESH DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "annual_income": {
+          "raw_value": "Rs. 1,20,000",
+          "normalized_value": "120000.0",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "issue_date": {
+          "raw_value": "10/02/2024",
+          "normalized_value": "2024-02-10",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "AMBIGUOUS",
+          "confidence": 1.0
+        },
+        "certificate_no": {
+          "raw_value": "SYN/INC/2024/0001",
+          "normalized_value": "SYN/INC/2024/0001",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "state": {
+          "raw_value": "ODISHA",
+          "normalized_value": "ODISHA",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_MARKSHEET.pdf",
+      "sha256": "f19c36389d5dd1be2ad1575e00d34638429d4de3c1f82006171347cca60093c3",
+      "category": "native_text",
+      "expected_type": "MARKSHEET",
+      "detected_type": "MARKSHEET",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Ramesh Das",
+          "normalized_value": "RAMESH DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "roll_no": {
+          "raw_value": "SYN2024001",
+          "normalized_value": "SYN2024001",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "percentage": {
+          "raw_value": "78.5",
+          "normalized_value": "78.5",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/supported/SUP_RESIDENCE_CERT.pdf",
+      "sha256": "59c56d042c0a0129d5c5237e742dee3786db03d9a155a02d7d5fe858ca5263c4",
+      "category": "native_text",
+      "expected_type": "RESIDENCE_CERT",
+      "detected_type": "RESIDENCE_CERT",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Ramesh Das",
+          "normalized_value": "RAMESH DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "state": {
+          "raw_value": "Odisha",
+          "normalized_value": "ODISHA",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "certificate_no": {
+          "raw_value": "SYN/RES/2024/0003",
+          "normalized_value": "SYN/RES/2024/0003",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "issue_date": {
+          "raw_value": "15/02/2024",
+          "normalized_value": "2024-02-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_BANK_STATEMENT.pdf",
+      "sha256": "ae9445a0e6a19d73bf05cc111b37a300aeafde53e5bec7d13855e8766db6e5ff",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {}
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_BIRTH_CERT.pdf",
+      "sha256": "a4638f464a72c5f957b9de12295a2361170865732da801dd7520462073d45d5c",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_DRIVING_LICENCE.pdf",
+      "sha256": "03e0dc492bc1b0ea3a60bafa241d5a30c6e21fe6dde4148457d25b938a509979",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_PAN.pdf",
+      "sha256": "278eb7d2e2e2773ba9f07e8e40eab778cb28c50d4dd059491215b1d64041ac7f",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "Card",
+          "normalized_value": "Card",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "LOW_CONFIDENCE",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_PASSPORT.pdf",
+      "sha256": "41cf97842ccb87ba9084f4189f013f4d2fbe6ab6a7c1885c193cb06ed38b24dd",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_RATION_CARD.pdf",
+      "sha256": "1a4069732fb4cfa6d3169f51461ba1d36d22814c17d8e9dcd40dace2fcd03ecc",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {}
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_SLC.pdf",
+      "sha256": "41072ba0934cddb3aab4074f2db02fa67889c6a53b2b43a2faf346b13f47853a",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "15/05/1990",
+          "normalized_value": "1990-05-15",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "income_cert_no": {
+          "raw_value": "SYN-SLC-01",
+          "normalized_value": "SYNSLC01",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_UTILITY_BILL.pdf",
+      "sha256": "ffe843b7396edc0b5d90de15c1573dc33a2a6ac787d78e8024c8375cf6f592c4",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "corpus/unsupported/UNSUP_VOTER_ID.pdf",
+      "sha256": "7fda6b74e14c4d77354a8612881049270958c0429feae374d35e01367c36f977",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Ananya Das",
+          "normalized_value": "ANANYA DAS",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_CLASS10.pdf",
+      "sha256": "e6d0e2a754d1ea6f09e79a60631367e4e0d8e687cb1d644622a85bcca8acb30a",
+      "category": "native_text",
+      "expected_type": "MARKSHEET",
+      "detected_type": "MARKSHEET",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Harihar Swain",
+          "normalized_value": "HARIHAR SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "roll_no": {
+          "raw_value": "SYN10-2008-01",
+          "normalized_value": "SYN10-2008-01",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "percentage": {
+          "raw_value": "82.4",
+          "normalized_value": "82.4",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_CLASS12.pdf",
+      "sha256": "b5bf7dbdb083298f0e2cd9ef3e298d40808049b5f8147b1d5ad73c71b2efa11c",
+      "category": "native_text",
+      "expected_type": "MARKSHEET",
+      "detected_type": "MARKSHEET",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "father_name": {
+          "raw_value": "Harihar Swain",
+          "normalized_value": "HARIHAR SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "roll_no": {
+          "raw_value": "SYN12-2010-01",
+          "normalized_value": "SYN12-2010-01",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "percentage": {
+          "raw_value": "79.0",
+          "normalized_value": "79.0",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/EDU_UNIV_SGPA.pdf",
+      "sha256": "0c2cd55a8e80b85c31cb5303fa98e5adbc7c34831cdb2df33cc8fb19c3ead8a2",
+      "category": "native_text",
+      "expected_type": "MARKSHEET",
+      "detected_type": "MARKSHEET",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "roll_no": {
+          "raw_value": "SYNUNI-2013-01",
+          "normalized_value": "SYNUNI-2013-01",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/edu_fin/FIN_BANK_STATEMENT.pdf",
+      "sha256": "16399c3e992a21002704d99ab5d9b4d86a82ef37e2d37d0329165279910eda34",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_FRONT_BACK.pdf",
+      "sha256": "11678c8369478908ce6265c63a326413cad595c88b661243e0bec2081fbcbc1f",
+      "category": "native_text",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "gender": {
+          "raw_value": "FEMALE",
+          "normalized_value": "FEMALE",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "aadhaar_no": {
+          "raw_value": "XXXX XXXX 4321",
+          "normalized_value": "XXXXXXXX4321",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_ISO_UNDERAGE.pdf",
+      "sha256": "f6c0e76ba979675c78c7d116c28ea1808124e71960995425c54be51bbec82b32",
+      "category": "native_text",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "2006-08-10",
+          "normalized_value": "2006-08-10",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "gender": {
+          "raw_value": "FEMALE",
+          "normalized_value": "FEMALE",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "aadhaar_no": {
+          "raw_value": "XXXX XXXX 4321",
+          "normalized_value": "XXXXXXXX4321",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_AADHAAR_MISSING_DOB.pdf",
+      "sha256": "0f50dfff7f745a0b82a981adf2d37837a58f0690087bc72474ffee29c2741347",
+      "category": "native_text",
+      "expected_type": "AADHAAR",
+      "detected_type": "AADHAAR",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "gender": {
+          "raw_value": "FEMALE",
+          "normalized_value": "FEMALE",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "aadhaar_no": {
+          "raw_value": "XXXX XXXX 4321",
+          "normalized_value": "XXXXXXXX4321",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_CONTRA_PASSBOOK.pdf",
+      "sha256": "96ad50a1f90aa345fc69db294d583308dded86d4dfc97ebe5d4e225a08140a03",
+      "category": "native_text",
+      "expected_type": "BANK_PASSBOOK",
+      "detected_type": "BANK_PASSBOOK",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Sunita Rout",
+          "normalized_value": "SUNITA ROUT",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "00009876543210",
+          "normalized_value": "00009876543210",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "ifsc": {
+          "raw_value": "SBIN0000456",
+          "normalized_value": "SBIN0000456",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_DL_SYN.pdf",
+      "sha256": "f166bbacddf9e08a45982a9693e7604d02ace08a979fff6b9c24ad27116c7ba0",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_MATCH_PASSBOOK.pdf",
+      "sha256": "3ec2ca239f153732b586b8fcd5baf8e13bbc93694b2ec3a339c446f7e5deb485",
+      "category": "native_text",
+      "expected_type": "BANK_PASSBOOK",
+      "detected_type": "BANK_PASSBOOK",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "00009876543210",
+          "normalized_value": "00009876543210",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "ifsc": {
+          "raw_value": "SBIN0000456",
+          "normalized_value": "SBIN0000456",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_PAN_SYN.pdf",
+      "sha256": "8afc4172e72722e0b1a80bb7f4aeb1b23d2c231ae0474cb8e252fff73aced691",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "account_no": {
+          "raw_value": "Card",
+          "normalized_value": "Card",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "LOW_CONFIDENCE",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_PASSPORT_SYN.pdf",
+      "sha256": "95ccfc83aee904a2315c95ff11a876098654b0db5ae24e43301a5c315502d45d",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        },
+        "dob": {
+          "raw_value": "22/08/1992",
+          "normalized_value": "1992-08-22",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_RATION_SYN.pdf",
+      "sha256": "96f9bc3599569d9f6acace8fcfb689db4cf8ddd3de7bf0a67ce4ca7ecce901a1",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {}
+    },
+    {
+      "rel_path": "phase4_7/identity/ID_VOTER_SYN.pdf",
+      "sha256": "e18169f3ef87bc1e81f2c6307e81eb9ff5959cbf54de1e519617a919f72dfd61",
+      "category": "native_text",
+      "expected_type": null,
+      "detected_type": "APPLICATION_FORM",
+      "doc_status": "VALID",
+      "fields": {
+        "applicant_name": {
+          "raw_value": "Kavita Swain",
+          "normalized_value": "KAVITA SWAIN",
+          "extraction_method": "NATIVE_VECTOR",
+          "evidence_state": "VERIFIED_TEXT",
+          "confidence": 1.0
+        }
+      }
+    }
+  ],
+  "excluded_malformed_files": [
+    "corpus/adversarial/ADV_MALFORMED.pdf"
+  ]
+}
