@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-x-workspace"
+version = "0.1.0"
+description = "AGENT-X product and deterministic sandbox scaffold"
+requires-python = ">=3.13"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+agent_x_shared = ["fixtures/*.json"]
+agent_x_product = ["web/*.html", "storage/migrations/*.sql"]
+agent_x_sandbox = ["web/*.html"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

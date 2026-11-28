@@ -1,2 +1,16 @@
 branchcreation.sh
 .env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+data/
+reports/
+.coverage
+htmlcov/
