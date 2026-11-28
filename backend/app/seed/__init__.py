@@ -5,7 +5,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 from geoalchemy2 import WKTElement
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from .. import models as m
@@ -49,7 +49,10 @@ def seed(db: Session, force: bool = False) -> None:
         db.add_all(m.RouteRule(route=r, criterion=c, weight=d.DEFAULT_WEIGHTS[c], rating=rt, formula_ref=f)
                    for r, c, rt, f in d.ROUTE_RATINGS)
     sample_only = db.scalar(select(m.Recycler.id).where(~m.Recycler.cpcb_reg_no.like("SAMPLE-%")).limit(1)) is None
-    if force or sample_only:  # replace placeholder rows with the real CPCB-list dataset
+    with open(CSV, newline="", encoding="utf-8") as f:
+        wanted = sum(1 for r in csv.DictReader(f) if r.get("lat") and r.get("lng"))
+    have_n = db.scalar(select(func.count()).select_from(m.Recycler)) or 0
+    if force or sample_only or have_n != wanted:  # keep the table in sync with the CPCB-list dataset
         load_recyclers_csv(db, CSV)
     db.commit()
 
@@ -76,11 +79,3 @@ def load_recyclers_csv(db: Session, path: Path) -> int:
             n += 1
     return n
 
-
-if __name__ == "__main__":
-    from ..db import SessionLocal, init_db
-
-    init_db()
-    with SessionLocal() as s:
-        seed(s, force="--force" in sys.argv)
-    print("seeded")
