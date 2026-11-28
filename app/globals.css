@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FFF6F2;
+  --foreground: #1A2433;
+  --deep-blue: #3B62AB;
+  --dawn-green: #DAE9C6;
+  --soft-dawn: #FFF6F2;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 60-30-10 High Contrast Color Palette styling */
+.bg-soft-dawn {
+  background-color: #FFF6F2;
+}
+
+.bg-dawn-green {
+  background-color: #DAE9C6;
+}
+
+.text-deep-blue {
+  color: #3B62AB;
+}
+
+.bg-deep-blue {
+  background-color: #3B62AB;
+}
+
+.border-dawn-green {
+  border-color: #DAE9C6;
+}
+
+.border-deep-blue {
+  border-color: #3B62AB;
+}
