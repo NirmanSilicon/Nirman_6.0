@@ -13,7 +13,7 @@ import {
   PairedMonteCarloResult,
 } from "./types";
 
-const API_BASE = "http://localhost:8000/api/v1";
+const API_BASE = "/api/v1";
 
 export async function fetchProjects(): Promise<any[]> {
   const res = await fetch(`${API_BASE}/projects`);
