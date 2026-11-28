@@ -1,0 +1,279 @@
+{
+  "metadata": {
+    "timestamp_utc": "2026-11-08T10:09:23.068697+00:00",
+    "source_db": "D:\\PROJECTS\\ROOTWHISPER\\data\\rootwhisper.db",
+    "backup_db": "D:\\PROJECTS\\ROOTWHISPER\\data\\backups\\rootwhisper_backup_20261108_100923.db",
+    "integrity_status": "ok",
+    "total_tables": 6
+  },
+  "tables": {
+    "devices": {
+      "column_names": [
+        "device_id",
+        "plant_name",
+        "species",
+        "description",
+        "soil_dry_adc",
+        "soil_wet_adc",
+        "provisional_soil_dry_threshold_pct",
+        "provisional_temp_residual_threshold_c",
+        "persistence_window_size",
+        "is_online",
+        "last_seen",
+        "created_at"
+      ],
+      "row_count": 3,
+      "records": [
+        {
+          "device_id": "TULSI_01",
+          "plant_name": "Tulsi (Holy Basil)",
+          "species": "Ocimum tenuiflorum",
+          "description": "Individual specimen baseline. Note: N=1 does not establish species-level behavior.",
+          "soil_dry_adc": 3200,
+          "soil_wet_adc": 1400,
+          "provisional_soil_dry_threshold_pct": 35.0,
+          "provisional_temp_residual_threshold_c": 2.0,
+          "persistence_window_size": 5,
+          "is_online": 0,
+          "last_seen": null,
+          "created_at": "2026-11-07 02:32:20.198471"
+        },
+        {
+          "device_id": "HIBISCUS_01",
+          "plant_name": "Hibiscus",
+          "species": "Hibiscus rosa-sinensis",
+          "description": "Individual specimen baseline. Note: N=1 does not establish species-level behavior.",
+          "soil_dry_adc": 3150,
+          "soil_wet_adc": 1380,
+          "provisional_soil_dry_threshold_pct": 40.0,
+          "provisional_temp_residual_threshold_c": 1.0,
+          "persistence_window_size": 5,
+          "is_online": 0,
+          "last_seen": null,
+          "created_at": "2026-11-07 02:32:20.198471"
+        },
+        {
+          "device_id": "MONEYPLANT_01",
+          "plant_name": "Money Plant (Devil's Ivy)",
+          "species": "Epipremnum aureum",
+          "description": "Individual specimen baseline. Note: N=1 does not establish species-level behavior.",
+          "soil_dry_adc": 3250,
+          "soil_wet_adc": 1420,
+          "provisional_soil_dry_threshold_pct": 30.0,
+          "provisional_temp_residual_threshold_c": 1.0,
+          "persistence_window_size": 5,
+          "is_online": 0,
+          "last_seen": null,
+          "created_at": "2026-11-07 02:32:20.198471"
+        }
+      ]
+    },
+    "password_reset_tokens": {
+      "column_names": [
+        "id",
+        "user_id",
+        "token_hash",
+        "expires_at",
+        "used",
+        "created_at"
+      ],
+      "row_count": 12,
+      "records": [
+        {
+          "id": 4,
+          "user_id": 21,
+          "token_hash": "aae58c9c3e92e8a5c33aa2a3493f111a15af97bcac78a615fbe2d0515b3fce7d",
+          "expires_at": "2026-11-08 07:25:57.812771",
+          "used": 1,
+          "created_at": "2026-11-08 07:10:57.812771"
+        },
+        {
+          "id": 5,
+          "user_id": 21,
+          "token_hash": "83c1a598a9421ff644b80d501d9c55bf98cbaafea27673ac3c4114a0d8c53b1a",
+          "expires_at": "2026-11-08 08:53:06.097289",
+          "used": 1,
+          "created_at": "2026-11-08 08:23:06.098346"
+        },
+        {
+          "id": 6,
+          "user_id": 27,
+          "token_hash": "85b04b056d50d7adc86f6018ba95701a8edc03088ba85a8dea92e752ec133a6d",
+          "expires_at": "2026-11-08 08:55:13.656164+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 08:25:13.657322+00:00"
+        },
+        {
+          "id": 7,
+          "user_id": 21,
+          "token_hash": "35d0382caeca10603a2e0b682c3ae5941dabd83d7fd96c29becf0d43f5d83008",
+          "expires_at": "2026-11-08 09:02:21.972127",
+          "used": 1,
+          "created_at": "2026-11-08 08:32:21.976079"
+        },
+        {
+          "id": 8,
+          "user_id": 21,
+          "token_hash": "8399b635e8a84eea168cbc2f96c4d62d49a1a2ae639aea1ac035d4ae6b1b3121",
+          "expires_at": "2026-11-08 09:03:06.058671",
+          "used": 1,
+          "created_at": "2026-11-08 08:33:06.060670"
+        },
+        {
+          "id": 9,
+          "user_id": 21,
+          "token_hash": "f173d0e4b4ee4b5f8d9f2295dcec1db443119fa004f6ebaa0af519de50ff06f9",
+          "expires_at": "2026-11-08 09:31:02.114175",
+          "used": 1,
+          "created_at": "2026-11-08 09:01:02.117204"
+        },
+        {
+          "id": 10,
+          "user_id": 21,
+          "token_hash": "da0393c1d7c2d24d8e5fce171ca7f67f55d280ab0163880ef869e23412da0e0b",
+          "expires_at": "2026-11-08 09:33:00.548768+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 09:03:00.548768+00:00"
+        },
+        {
+          "id": 11,
+          "user_id": 21,
+          "token_hash": "0992cfe594fe0c883b14ae1953eee25d039c7e7da216a89219bfd63fe0426ad2",
+          "expires_at": "2026-11-08 09:33:43.546496+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 09:03:43.546496+00:00"
+        },
+        {
+          "id": 12,
+          "user_id": 27,
+          "token_hash": "489ec71f5e910c8a6d2bca663ef85c6f4ffc14923ac675ce4d5318e0e3587e46",
+          "expires_at": "2026-11-08 09:34:54.796756+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 09:04:54.799886+00:00"
+        },
+        {
+          "id": 13,
+          "user_id": 27,
+          "token_hash": "16daf7ebbc67905d5b49a3e491cb2b1788b7a83fcc3505af9977862c4d92e7d6",
+          "expires_at": "2026-11-08 09:51:03.893380+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 09:21:03.895852+00:00"
+        },
+        {
+          "id": 14,
+          "user_id": 27,
+          "token_hash": "2eca4e9325c7bc7036d088e6cb82818514dd3b3995c0f71af7c9fd550ed74198",
+          "expires_at": "2026-11-08 10:29:55.508674+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 09:59:55.510497+00:00"
+        },
+        {
+          "id": 15,
+          "user_id": 27,
+          "token_hash": "5004ae494db43a6145222133a6b6700cad95c3ec4cc03eda64870a298ce95058",
+          "expires_at": "2026-11-08 10:32:00.188653+00:00",
+          "used": 1,
+          "created_at": "2026-11-08 10:02:00.189753+00:00"
+        }
+      ]
+    },
+    "plant_models": {
+      "column_names": [
+        "id",
+        "device_id",
+        "trained_at",
+        "n_samples",
+        "r2_score",
+        "mae_score",
+        "model_path",
+        "features_list",
+        "is_active",
+        "notes",
+        "validation_approach",
+        "n_train",
+        "n_test",
+        "adaptive_threshold_c",
+        "residual_std_c",
+        "residual_mean_c",
+        "data_provenance",
+        "scientific_limitations"
+      ],
+      "row_count": 0,
+      "records": []
+    },
+    "screening_results": {
+      "column_names": [
+        "id",
+        "telemetry_id",
+        "device_id",
+        "timestamp",
+        "expected_leaf_temp_c",
+        "residual_c",
+        "residual_threshold_c",
+        "elevated_count_in_window",
+        "window_size",
+        "thermal_status",
+        "soil_status",
+        "screening_output",
+        "confidence_score",
+        "scientific_reason",
+        "is_simulated",
+        "consecutive_elevated_count",
+        "soil_moisture_trend",
+        "soil_moisture_slope",
+        "evidence_sufficiency"
+      ],
+      "row_count": 0,
+      "records": []
+    },
+    "telemetry_readings": {
+      "column_names": [
+        "id",
+        "device_id",
+        "timestamp",
+        "soil_moisture_raw",
+        "soil_moisture_pct",
+        "leaf_temp_c",
+        "ambient_temp_c",
+        "ambient_humidity_pct",
+        "light_lux",
+        "vpd_kpa",
+        "delta_t_c",
+        "wifi_rssi",
+        "mlx_connected",
+        "aht_connected",
+        "bh1750_connected",
+        "soil_sensor_valid",
+        "uptime_seconds",
+        "quality_status",
+        "quality_issues",
+        "is_simulated"
+      ],
+      "row_count": 0,
+      "records": []
+    },
+    "users": {
+      "column_names": [
+        "id",
+        "email",
+        "full_name",
+        "hashed_password",
+        "is_active",
+        "created_at",
+        "last_login"
+      ],
+      "row_count": 1,
+      "records": [
+        {
+          "id": 21,
+          "email": "patnaik.ayesha9@gmail.com",
+          "full_name": "Ayesha",
+          "hashed_password": "$argon2id$v=19$m=65536,t=2,p=1$8Fm3MVEHdMe0qD/BVJdMBg$hAnlZrnzM9h49VqY9FFjtk6iMtMP3GL32OfHAsa16YM",
+          "is_active": 1,
+          "created_at": "2026-11-08 07:01:35.075906",
+          "last_login": "2026-11-08 09:03:50.365302"
+        }
+      ]
+    }
+  }
+}
