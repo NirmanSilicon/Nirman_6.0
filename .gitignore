@@ -1,2 +1,5 @@
 branchcreation.sh
 .env
+__pycache__/
+*.py[cod]
+evidence/**/*.pdf
