@@ -1,0 +1,409 @@
+import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import { useData } from '../../context/DataContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+export const MotherJourneyScreen: React.FC = () => {
+  const { user } = useAuth();
+  const { mothers, healthUpdates, companionMemories, deleteCompanionMemory, isLoading, dbError } = useData();
+  const { language, t, formatName, formatNumber, localize } = useLanguage();
+  const activeMotherId =
+    user?.role === 'mother' ? user.mcpId || user.id || 'MCP-2026-0894' : 'MCP-2026-0894';
+  const mother = mothers.find((m) => m.id === activeMotherId) || null;
+  const motherMemories = mother ? companionMemories.filter((m) => m.motherId === mother.id) : [];
+  const [selectedRecord, setSelectedRecord] = useState<string | null>(null);
+  const [previewDoc, setPreviewDoc] = useState<{
+    title: string;
+    provider: string;
+    date: string;
+    summary: string;
+    vitals: string[];
+  } | null>(null);
+
+  if (!mother) {
+    return (
+      <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/40 text-center space-y-2">
+        <p className="font-serif text-base text-primary">
+          {isLoading ? localize('Loading maternal journey...') : localize('Maternal record unavailable')}
+        </p>
+        {dbError && <p className="text-xs text-error">{dbError}</p>}
+      </div>
+    );
+  }
+
+  const timelineEvents = [
+    {
+      id: 'EVT-01',
+      date: formatNumber('12 Nov 2026'),
+      title: t('anc3CheckupTitle'),
+      subtitle: t('anc3CheckupSubtitle'),
+      provider: `${formatName(mother.assignedWorkerName)} (${t('roleWorker')})`,
+      status: t('statusScheduled'),
+      statusType: 'upcoming',
+      details: t('anc3CheckupDetails'),
+    },
+    ...healthUpdates.filter((u) => u.motherId === mother.id).map((u) => ({
+      id: u.healthUpdateId,
+      date: formatNumber(u.submittedAt.split('·')[0].trim()),
+      title: u.reviewStatus === 'reviewed' ? t('updateReviewedTitle') : t('selfReportedCheckinTitle'),
+      subtitle: localize(u.observations, u.translations?.observations),
+      provider: u.reviewedBy ? formatName(u.reviewedBy) : `${t('statusPending')} (${t('roleWorker')})`,
+      status: u.reviewStatus === 'reviewed' ? t('statusReviewed') : t('statusPending'),
+      statusType: u.reviewStatus === 'reviewed' ? 'completed' : 'pending',
+      details: localize(u.reviewNotes || u.notes, u.translations?.reviewNotes || u.translations?.notes),
+    })),
+    {
+      id: 'EVT-04',
+      date: formatNumber('17 Sep 2026'),
+      title: t('anc2CheckupTitle'),
+      subtitle: t('anc2CheckupSubtitle'),
+      provider: `Dr. Sharma / ${formatName(mother.assignedWorkerName)}`,
+      status: t('statusCompleted'),
+      statusType: 'completed',
+      details: t('anc2CheckupDetails'),
+    },
+    {
+      id: 'EVT-05',
+      date: formatNumber('16 Jul 2026'),
+      title: t('anc1CheckupTitle'),
+      subtitle: t('anc3CheckupSubtitle'),
+      provider: `${formatName(mother.assignedWorkerName)} (${t('roleWorker')})`,
+      status: t('statusCompleted'),
+      statusType: 'completed',
+      details: t('anc1CheckupDetails'),
+    },
+    {
+      id: 'EVT-06',
+      date: formatNumber('15 Jun 2026'),
+      title: t('regMcpIssuedTitle'),
+      subtitle: t('anc3CheckupSubtitle'),
+      provider: `${formatName(mother.assignedWorkerName)} (${t('roleWorker')})`,
+      status: t('statusCompleted'),
+      statusType: 'completed',
+      details: t('regMcpIssuedDetails'),
+    },
+  ];
+
+  return (
+    <div className="flex flex-col w-full space-y-space-xl pb-6">
+      {/* 1. Header Greeting */}
+      <section className="flex flex-col pt-space-xs">
+        <h1 className="font-serif text-2xl text-primary font-normal tracking-tight">
+          {t('navJourney')}
+        </h1>
+        <p className="font-sans text-sm text-secondary mt-1">
+          {t('motherJourneySubtitle')}
+        </p>
+      </section>
+
+      {/* 2. Gestation Hero Card */}
+      <section className="bg-surface-container rounded-xl p-space-lg border border-outline-variant/40 shadow-sm flex flex-col space-y-space-md">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="font-sans text-xs uppercase tracking-wider text-secondary">
+              {t('currentGestation')}
+            </span>
+            <div className="flex items-baseline gap-space-xs mt-0.5">
+              <span className="font-serif text-xl font-bold text-primary">
+                {t('weekLabel', { num: mother.gestationalAgeWeeks })}
+              </span>
+              <span className="font-sans text-xs text-tertiary">
+                ({t('dayOf280', { current: mother.gestationalAgeDays, total: 280 })})
+              </span>
+            </div>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-primary-container">
+            <span
+              className="material-symbols-outlined text-[22px]"
+              style={{ fontVariationSettings: '"FILL" 1' }}
+            >
+              favorite
+            </span>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="space-y-1.5">
+          <div className="w-full bg-surface-variant h-2.5 rounded-full overflow-hidden">
+            <div
+              className="bg-primary-container h-full rounded-full transition-all duration-500"
+              style={{ width: `${(mother.gestationalAgeDays / 280) * 100}%` }}
+            ></div>
+          </div>
+          <div className="flex justify-between items-center text-secondary font-sans text-xs">
+            <span>{t('weekLabel', { num: 1 })}</span>
+            <span className="font-bold text-primary">{t('weekLabel', { num: mother.gestationalAgeWeeks })}</span>
+            <span>{t('weekLabel', { num: 40 })}</span>
+          </div>
+        </div>
+
+        {/* 2 Metadata Chips */}
+        <div className="grid grid-cols-2 gap-space-sm pt-space-xs">
+          <div className="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 flex flex-col">
+            <span className="font-sans text-[11px] text-secondary">{t('eddLabel')}</span>
+            <span className="font-sans text-xs font-bold text-on-surface mt-0.5">{formatNumber(mother.edd)}</span>
+          </div>
+          <div className="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 flex flex-col">
+            <span className="font-sans text-[11px] text-secondary">{t('yourHealthWorker')}</span>
+            <span className="font-sans text-xs font-bold text-on-surface mt-0.5">{formatName(mother.assignedWorkerName)}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Maternal Milestones Timeline */}
+      <section className="flex flex-col space-y-space-sm">
+        <div className="flex items-center justify-between px-space-xs">
+          <div>
+            <h2 className="font-serif text-lg font-bold text-primary">{t('milestonesTitle')}</h2>
+            <p className="font-sans text-xs text-secondary">{t('milestonesSubtitle')}</p>
+          </div>
+        </div>
+
+        <div className="relative pl-6 space-y-space-md before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-outline-variant/60">
+          {timelineEvents.map((evt) => (
+            <div key={evt.id} className="relative group">
+              {/* Timeline marker node */}
+              <div
+                className={`absolute -left-6 top-1.5 w-5 h-5 rounded-full flex items-center justify-center text-white text-[11px] ${
+                  evt.statusType === 'upcoming'
+                    ? 'bg-primary-container ring-4 ring-secondary-container'
+                    : evt.statusType === 'completed'
+                    ? 'bg-secondary'
+                    : 'bg-outline-variant text-on-surface'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[13px]">
+                  {evt.statusType === 'upcoming' ? 'event' : evt.statusType === 'completed' ? 'check' : 'edit_note'}
+                </span>
+              </div>
+
+              {/* Event Card */}
+              <div className="bg-surface-container rounded-xl p-space-md border border-outline-variant/40 shadow-sm flex flex-col space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                      evt.statusType === 'upcoming'
+                        ? 'bg-secondary-container text-on-secondary-container'
+                        : evt.statusType === 'completed'
+                        ? 'bg-surface-variant text-on-surface-variant'
+                        : 'bg-surface-container-high text-secondary'
+                    }`}
+                  >
+                    {evt.status}
+                  </span>
+                  <span className="font-sans text-xs text-secondary">{evt.date}</span>
+                </div>
+
+                <h3 className="font-sans text-sm font-bold text-on-surface">
+                  {evt.title}
+                </h3>
+                <p className="font-sans text-xs text-tertiary">
+                  {evt.subtitle}
+                </p>
+
+                {evt.details && (
+                  <p className="font-sans text-[11px] text-secondary mt-1 bg-surface-container-lowest p-2 rounded border border-outline-variant/30">
+                    {evt.details}
+                  </p>
+                )}
+
+                <div className="pt-1 flex items-center justify-between text-[11px] text-secondary">
+                  <span>{evt.provider}</span>
+                  <button
+                    onClick={() => setSelectedRecord(selectedRecord === evt.id ? null : evt.id)}
+                    className="text-primary-container font-semibold hover:underline flex items-center gap-0.5 cursor-pointer"
+                  >
+                    <span>{selectedRecord === evt.id ? t('close') : t('viewDetails')}</span>
+                    <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Consented Saved JanmaSaathi Guidance Notes (Separate from Clinical Records) */}
+      {motherMemories.length > 0 && (
+        <section className="flex flex-col space-y-space-sm pt-2">
+          <div>
+            <h2 className="font-serif text-lg font-bold text-primary">
+              {language === 'or'
+                ? 'ସାଇତା ହୋଇଥିବା ଜନ୍ମସାଥୀ ପରାମର୍ଶ'
+                : language === 'hi'
+                ? 'सहेजे गए जन्मसाथी मार्गदर्शन नोट्स'
+                : 'Saved JanmaSaathi Guidance Notes'}
+            </h2>
+            <p className="font-sans text-xs text-secondary">
+              {language === 'or'
+                ? 'ଆପଣଙ୍କ ସମ୍ମତିରେ ସାଇତା ହୋଇଥିବା ବ୍ୟକ୍ତିଗତ ସାରାଂଶ (ଡାକ୍ତରୀ ରିପୋର୍ଟ ନୁହେଁ)'
+                : language === 'hi'
+                ? 'आपकी सहमति से सहेजे गए व्यक्तिगत सारांश (यह कोई डॉक्टर रिपोर्ट नहीं है)'
+                : 'Personal summaries saved with your consent (not a clinical record)'}
+            </p>
+          </div>
+
+          <div className="space-y-space-sm">
+            {motherMemories.map((mem) => (
+              <div
+                key={mem.id}
+                className="bg-surface-container rounded-xl p-space-md border border-outline-variant/40 shadow-sm space-y-1.5"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-sans text-sm font-bold text-on-surface leading-snug">
+                    {mem.title}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => deleteCompanionMemory(mem.id)}
+                    className="text-xs font-semibold text-primary-container hover:underline shrink-0 cursor-pointer"
+                  >
+                    {language === 'or' ? 'ହଟାନ୍ତୁ' : language === 'hi' ? 'हटाएं' : 'Remove'}
+                  </button>
+                </div>
+                <p className="font-sans text-xs text-on-surface/85 leading-relaxed">
+                  {mem.summary}
+                </p>
+                <div className="text-[11px] text-secondary flex items-center gap-1.5">
+                  <span>{formatNumber(mem.savedAt)}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{t('weekLabel', { num: mem.gestationalWeek })}</span>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    {language === 'or'
+                      ? 'ବ୍ୟକ୍ତିଗତ ଟିପ୍ପଣୀ'
+                      : language === 'hi'
+                      ? 'व्यक्तिगत नोट'
+                      : 'Personal Guidance'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 5. Recorded Health Assessments Clinical Documents */}
+      <section className="flex flex-col space-y-space-sm pt-2">
+        <h2 className="font-serif text-lg font-bold text-primary">{t('recordedAssessments')}</h2>
+        <p className="font-sans text-xs text-secondary -mt-1">{t('recordedAssessmentsSubtitle')}</p>
+
+        <div className="space-y-space-sm">
+          <div className="bg-surface-container rounded-xl p-space-md border border-outline-variant/40 shadow-sm flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary-container border border-outline-variant/40">
+                <span className="material-symbols-outlined text-[22px]">description</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-sans text-xs font-bold text-on-surface">{t('anc2DocTitle')}</span>
+                <span className="font-sans text-[11px] text-secondary">17 Sep 2026 · Dr. Sharma</span>
+              </div>
+            </div>
+            <button
+              onClick={() =>
+                setPreviewDoc({
+                  title: t('anc2DocTitle'),
+                  provider: `Dr. Sharma · Rampur PHC`,
+                  date: '17 September 2026',
+                  summary: t('anc2DocSummary'),
+                  vitals: [
+                    'Blood Pressure: 116/74 mmHg (Normal)',
+                    'Fetal Heart Rate: 140 bpm (Healthy)',
+                    'Fundal Height: 20 cm (Consistent)',
+                    'Maternal Weight: 54.5 kg (+2.5 kg from baseline)',
+                    'IFA Supplementation: 60 tablets dispensed, fully compliant',
+                  ],
+                })
+              }
+              className="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary text-xs font-semibold hover:opacity-95 cursor-pointer"
+            >
+              {t('openRecord')}
+            </button>
+          </div>
+
+          <div className="bg-surface-container rounded-xl p-space-md border border-outline-variant/40 shadow-sm flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary-container border border-outline-variant/40">
+                <span className="material-symbols-outlined text-[22px]">lab_profile</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-sans text-xs font-bold text-on-surface">{t('labReportTitle')}</span>
+                <span className="font-sans text-[11px] text-secondary">16 Jul 2026 · Rampur PHC</span>
+              </div>
+            </div>
+            <button
+              onClick={() =>
+                setPreviewDoc({
+                  title: t('labReportTitle'),
+                  provider: 'Rampur Primary Health Centre Lab',
+                  date: '16 July 2026',
+                  summary: t('labReportSummary'),
+                  vitals: [
+                    'Haemoglobin (Hb): 11.8 g/dL (Normal adult pregnancy baseline)',
+                    'Blood Group & Rh: B Positive (Rh +ve)',
+                    'Random Blood Sugar: 5.4 mmol/L (97.3 mg/dL - Normal)',
+                    'Urine Albumin: Nil (Negative)',
+                    'Urine Sugar: Nil (Negative)',
+                    'HIV / VDRL / HBsAg: Non-reactive (Screened negative)',
+                  ],
+                })
+              }
+              className="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary text-xs font-semibold hover:opacity-95 cursor-pointer"
+            >
+              {t('openRecord')}
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Clinical Document Preview Modal */}
+      {previewDoc && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-surface rounded-2xl max-h-[90vh] overflow-y-auto p-space-lg border border-outline-variant shadow-2xl flex flex-col space-y-4">
+            <div className="flex items-start justify-between pb-3 border-b border-outline-variant/40">
+              <div className="flex flex-col">
+                <span className="font-sans text-[11px] uppercase tracking-wider text-secondary font-semibold">{t('officialClinicalRecord')}</span>
+                <h3 className="font-serif text-lg font-bold text-primary">{previewDoc.title}</h3>
+                <span className="font-sans text-xs text-secondary mt-0.5">{previewDoc.provider} · {previewDoc.date}</span>
+              </div>
+              <button
+                onClick={() => setPreviewDoc(null)}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <span className="material-symbols-outlined text-[20px]">close</span>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <div className="p-3 rounded-lg bg-surface-container text-xs text-on-surface leading-relaxed">
+                {previewDoc.summary}
+              </div>
+
+              <div className="flex flex-col space-y-1.5">
+                <span className="font-sans text-xs font-bold text-on-surface">{t('vitalSigns')}:</span>
+                <div className="space-y-1">
+                  {previewDoc.vitals.map((v, idx) => (
+                    <div key={idx} className="p-2 rounded-md bg-surface-container-low border border-outline-variant/30 text-xs font-sans text-on-surface flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[16px] text-primary-container">check</span>
+                      <span>{v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 border-t border-outline-variant/40 flex justify-end">
+              <button
+                onClick={() => setPreviewDoc(null)}
+                className="px-4 py-2 rounded-lg bg-primary-container text-on-primary text-xs font-semibold hover:opacity-95 cursor-pointer"
+              >
+                {t('close')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

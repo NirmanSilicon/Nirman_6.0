@@ -1,0 +1,47 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Clinical document uploads scoped to authenticated users
+    match /documents/{motherId}/{allPaths=**} {
+      allow get: if request.auth != null;
+      allow write: if request.auth != null
+        && request.resource != null
+        && request.resource.size > 0
+        && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Direct Voice Messages (Mother <-> Health Worker)
+    // Authenticated participants only; disables directory listing; strict audio MIME + 10MB cap
+    match /voiceMessages/{conversationId}/{fileName} {
+      allow get: if request.auth != null
+        && conversationId.matches('^conv_[A-Za-z0-9_\\-]+_[A-Za-z0-9_\\-]+$')
+        && resource != null
+        && resource.metadata != null
+        && (
+          resource.metadata.uploaderAuthUid == request.auth.uid ||
+          resource.metadata.recipientAuthUid == request.auth.uid ||
+          !('recipientAuthUid' in resource.metadata)
+        );
+
+      allow list: if false;
+
+      allow create: if request.auth != null
+        && conversationId.matches('^conv_[A-Za-z0-9_\\-]+_[A-Za-z0-9_\\-]+$')
+        && fileName.matches('^MSG-[A-Za-z0-9_\\-]+\\.(webm|m4a|mp4|ogg|wav)$')
+        && request.resource != null
+        && request.resource.size > 0
+        && request.resource.size <= 10 * 1024 * 1024
+        && request.resource.contentType.matches('audio/.*')
+        && request.resource.metadata != null
+        && request.resource.metadata.uploaderAuthUid == request.auth.uid
+        && request.resource.metadata.conversationId == conversationId;
+
+      allow update: if false;
+
+      allow delete: if request.auth != null
+        && resource != null
+        && resource.metadata != null
+        && resource.metadata.uploaderAuthUid == request.auth.uid;
+    }
+  }
+}

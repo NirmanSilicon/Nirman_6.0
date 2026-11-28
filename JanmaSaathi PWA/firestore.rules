@@ -1,0 +1,851 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // =====================================================
+    // IDENTITY, ROLE & FACILITY HELPER PRIMITIVES
+    // =====================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function hasUserDoc() {
+      return isAuthenticated() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function getUserDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Canonicalize legacy hospital role strings ('hospital', 'facility') -> 'hospital_staff'
+    function normalizeRole(rawRole) {
+      return rawRole in ['hospital_staff', 'hospital', 'facility'] ? 'hospital_staff' : rawRole;
+    }
+
+    function getUserRole() {
+      return isAuthenticated()
+        ? (('role' in request.auth.token && request.auth.token.role is string)
+            ? normalizeRole(request.auth.token.role)
+            : (hasUserDoc() && ('role' in getUserDoc()) && getUserDoc().role is string
+                ? normalizeRole(getUserDoc().role)
+                : null))
+        : null;
+    }
+
+    function isMother() {
+      return getUserRole() == 'mother';
+    }
+
+    function isWorker() {
+      return getUserRole() == 'worker';
+    }
+
+    function isSupervisor() {
+      return getUserRole() == 'supervisor';
+    }
+
+    function isHospitalStaff() {
+      return getUserRole() == 'hospital_staff';
+    }
+
+    function getStaffId() {
+      return isAuthenticated()
+        ? (('staffId' in request.auth.token && request.auth.token.staffId is string && request.auth.token.staffId.size() > 0)
+            ? request.auth.token.staffId
+            : (hasUserDoc() && ('staffId' in getUserDoc()) && getUserDoc().staffId is string && getUserDoc().staffId.size() > 0
+                ? getUserDoc().staffId
+                : null))
+        : null;
+    }
+
+    function getMotherId() {
+      return isAuthenticated()
+        ? (('motherId' in request.auth.token && request.auth.token.motherId is string && request.auth.token.motherId.size() > 0)
+            ? request.auth.token.motherId
+            : (hasUserDoc() && ('motherId' in getUserDoc()) && getUserDoc().motherId is string && getUserDoc().motherId.size() > 0
+                ? getUserDoc().motherId
+                : null))
+        : null;
+    }
+
+    function getHospitalId() {
+      return isAuthenticated()
+        ? (('hospitalId' in request.auth.token && request.auth.token.hospitalId is string && request.auth.token.hospitalId.size() > 0)
+            ? request.auth.token.hospitalId
+            : (hasUserDoc() && ('hospitalId' in getUserDoc()) && getUserDoc().hospitalId is string && getUserDoc().hospitalId.size() > 0
+                ? getUserDoc().hospitalId
+                : null))
+        : null;
+    }
+
+    function hasAssignedHospital() {
+      return isHospitalStaff() && getHospitalId() != null;
+    }
+
+    function matchesFacilityField(data, hospitalId) {
+      return (('hospitalId' in data) && data.hospitalId == hospitalId) ||
+        (('targetHospitalId' in data) && data.targetHospitalId == hospitalId) ||
+        (('assignedHospitalId' in data) && data.assignedHospitalId == hospitalId) ||
+        (('facilityId' in data) && data.facilityId == hospitalId);
+    }
+
+    function isFacilityRecord(data) {
+      return hasAssignedHospital() && matchesFacilityField(data, getHospitalId());
+    }
+
+    function isAuthorizedHospitalId(hospitalId) {
+      return hospitalId is string && hospitalId.size() > 0 && hospitalId.size() <= 128 &&
+        hospitalId in ['HOSP-RAMPUR-PHC', 'HOSP-PIPILI-CHC', 'HOSP-KHORDHA-DH', 'OD-KH-DH-001'];
+    }
+
+    // 0. Connectivity probe document (single non-PII probe doc only)
+    match /test/{docId} {
+      allow get: if docId == 'connection';
+      allow list, write: if false;
+    }
+
+    // 1. Users collection & canonical user-scoped FCM token subcollection
+    function isValidUserPayload(userId, data) {
+      return data.uid == userId &&
+        data.role is string &&
+        data.role in ['mother', 'worker', 'supervisor', 'hospital_staff', 'hospital', 'facility'] &&
+        (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 160)) &&
+        (!('email' in data) || data.email == null || (data.email is string && data.email.size() <= 256)) &&
+        (!('staffId' in data) || data.staffId == null || (data.staffId is string && data.staffId.size() <= 128)) &&
+        (!('motherId' in data) || data.motherId == null || (data.motherId is string && data.motherId.size() <= 128)) &&
+        (!('hospitalId' in data) || data.hospitalId == null || (data.hospitalId is string && data.hospitalId.size() <= 128)) &&
+        (!('district' in data) || data.district == null || (data.district is string && data.district.size() <= 160));
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isSupervisor());
+
+      allow create: if isValidId(userId) &&
+        isAuthenticated() &&
+        request.auth.uid == userId &&
+        isValidUserPayload(userId, request.resource.data) && (
+          (('role' in request.auth.token) &&
+           request.auth.token.role is string &&
+           normalizeRole(request.resource.data.role) == normalizeRole(request.auth.token.role) &&
+           (!('hospitalId' in request.resource.data) || request.resource.data.hospitalId == null ||
+            (('hospitalId' in request.auth.token) && request.resource.data.hospitalId == request.auth.token.hospitalId))) ||
+          (request.resource.data.role == 'mother' &&
+           (!('staffId' in request.resource.data) || request.resource.data.staffId == null) &&
+           (!('hospitalId' in request.resource.data) || request.resource.data.hospitalId == null))
+        );
+
+      allow update: if isValidId(userId) &&
+        isAuthenticated() &&
+        request.auth.uid == userId &&
+        isValidUserPayload(userId, request.resource.data) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'uid', 'role', 'staffId', 'motherId', 'hospitalId', 'district', 'createdAt'
+        ]);
+
+      allow delete: if false;
+
+      // Canonical user-scoped FCM token registry: /users/{userId}/fcmTokens/{tokenId}
+      match /fcmTokens/{tokenId} {
+        allow get, list: if isAuthenticated() && (request.auth.uid == userId || isSupervisor());
+
+        allow create, update: if isAuthenticated() &&
+          request.auth.uid == userId &&
+          isValidFcmTokenDoc(tokenId, request.resource.data) &&
+          request.resource.data.uid == request.auth.uid &&
+          isAuthorizedFcmTokenOwner(request.resource.data);
+
+        allow delete: if isAuthenticated() && request.auth.uid == userId;
+      }
+    }
+
+    // 2. Mothers collection
+    function isValidMotherCreate(motherId, data) {
+      return data.id == motherId &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 160 &&
+        data.mcpCardNumber is string && data.mcpCardNumber.size() > 0 && data.mcpCardNumber.size() <= 128 &&
+        data.assignedWorkerId is string && data.assignedWorkerId.size() <= 128 &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId)) &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId)) &&
+        (!('assignedHospitalId' in data) || data.assignedHospitalId == null || isAuthorizedHospitalId(data.assignedHospitalId));
+    }
+
+    match /mothers/{motherId} {
+      allow read: if isAuthenticated() && (
+        (isMother() && (resource.data.authUid == request.auth.uid || resource.data.id == getMotherId())) ||
+        (isWorker() && resource.data.assignedWorkerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data)
+      );
+
+      allow create: if isValidId(motherId) &&
+        isAuthenticated() &&
+        isValidMotherCreate(motherId, request.resource.data) && (
+          (isWorker() && request.resource.data.assignedWorkerId == getStaffId()) ||
+          isSupervisor()
+        );
+
+      allow update: if isValidId(motherId) && isAuthenticated() && (
+        (isWorker() &&
+         resource.data.assignedWorkerId == getStaffId() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'gestationalAgeWeeks', 'gestationalAgeDays', 'trimester', 'lastVisitDate',
+           'lastVisitSummary', 'riskCategory', 'updatedAt', 'lmpDate', 'edd', 'isSynthetic',
+           'flaggedForLmpCorrection', 'clinicalReviewNote',
+           'hospitalId', 'targetHospitalId', 'assignedHospitalId'
+         ]) &&
+         (!('hospitalId' in request.resource.data) || request.resource.data.hospitalId == null || isAuthorizedHospitalId(request.resource.data.hospitalId)) &&
+         (!('targetHospitalId' in request.resource.data) || request.resource.data.targetHospitalId == null || isAuthorizedHospitalId(request.resource.data.targetHospitalId)) &&
+         (!('riskCategory' in request.resource.data) || request.resource.data.riskCategory in ['low', 'medium', 'high', 'pending']) &&
+         (!('clinicalReviewNote' in request.resource.data) || request.resource.data.clinicalReviewNote == null || (request.resource.data.clinicalReviewNote is string && request.resource.data.clinicalReviewNote.size() <= 1000)) &&
+         (!('lastVisitSummary' in request.resource.data) || request.resource.data.lastVisitSummary == null || (request.resource.data.lastVisitSummary is string && request.resource.data.lastVisitSummary.size() <= 1000))) ||
+        (isSupervisor() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'assignedWorkerId', 'assignedWorkerName', 'village', 'hamlet',
+           'hospitalId', 'targetHospitalId', 'assignedHospitalId', 'updatedAt', 'isSynthetic'
+         ]) &&
+         (!('hospitalId' in request.resource.data) || request.resource.data.hospitalId == null || isAuthorizedHospitalId(request.resource.data.hospitalId)) &&
+         (!('targetHospitalId' in request.resource.data) || request.resource.data.targetHospitalId == null || isAuthorizedHospitalId(request.resource.data.targetHospitalId))) ||
+        (isMother() &&
+         resource.data.authUid == null &&
+         request.resource.data.authUid == request.auth.uid &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'authUid', 'updatedAt'
+         ]))
+      );
+
+      allow delete: if false;
+    }
+
+    // 3. Health Workers collection
+    match /healthWorkers/{workerId} {
+      allow read: if isAuthenticated();
+      allow create, delete: if false;
+      allow update: if isValidId(workerId) && isAuthenticated() && (
+        (isWorker() && getStaffId() == workerId &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['phone', 'updatedAt'])) ||
+        (isSupervisor() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'status', 'assignedSubCentre', 'assignedVillages', 'assignedHamlets', 'activeMothersCount', 'updatedAt'
+         ]))
+      );
+    }
+
+    // 4. Supervisors collection
+    match /supervisors/{supervisorId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+
+    // 5. Assignments collection
+    match /assignments/{assignmentId} {
+      allow read: if isAuthenticated() && (
+        isSupervisor() ||
+        (isWorker() && resource.data.assignedWorkerId == getStaffId())
+      );
+      allow create, update: if isValidId(assignmentId) &&
+        isAuthenticated() &&
+        isSupervisor() &&
+        request.resource.data.id == assignmentId;
+      allow delete: if false;
+    }
+
+    // 6. Assessments collection
+    function isValidAssessmentCreate(assessmentId, data) {
+      return data.id == assessmentId &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.workerId is string && data.workerId.size() > 0 && data.workerId.size() <= 128 &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId)) &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId));
+    }
+
+    match /assessments/{assessmentId} {
+      allow get: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (hasAssignedHospital() && ('motherId' in resource.data) &&
+         exists(/databases/$(database)/documents/mothers/$(resource.data.motherId)) &&
+         matchesFacilityField(get(/databases/$(database)/documents/mothers/$(resource.data.motherId)).data, getHospitalId()))
+      );
+
+      allow list: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data)
+      );
+
+      allow create: if isValidId(assessmentId) &&
+        isAuthenticated() &&
+        isValidAssessmentCreate(assessmentId, request.resource.data) &&
+        isWorker() &&
+        request.resource.data.workerId == getStaffId();
+
+      allow update: if isValidId(assessmentId) &&
+        isAuthenticated() &&
+        isSupervisor() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'supervisorReviewStatus', 'supervisorNotes', 'reviewedBy', 'reviewedAt', 'updatedAt'
+        ]) &&
+        (!('supervisorReviewStatus' in request.resource.data) || request.resource.data.supervisorReviewStatus in ['pending', 'signed_off', 'clarification_requested']) &&
+        (!('supervisorNotes' in request.resource.data) || request.resource.data.supervisorNotes == null || (request.resource.data.supervisorNotes is string && request.resource.data.supervisorNotes.size() <= 2000));
+
+      allow delete: if false;
+    }
+
+    // 7. Health Updates collection
+    function isValidHealthUpdateCreate(updateId, data) {
+      return data.healthUpdateId == updateId &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.observations is string && data.observations.size() <= 2000 &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId)) &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId));
+    }
+
+    match /healthUpdates/{updateId} {
+      allow get: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.assignedHealthWorkerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (hasAssignedHospital() && ('motherId' in resource.data) &&
+         exists(/databases/$(database)/documents/mothers/$(resource.data.motherId)) &&
+         matchesFacilityField(get(/databases/$(database)/documents/mothers/$(resource.data.motherId)).data, getHospitalId()))
+      );
+
+      allow list: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.assignedHealthWorkerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data)
+      );
+
+      allow create: if isValidId(updateId) &&
+        isAuthenticated() &&
+        isValidHealthUpdateCreate(updateId, request.resource.data) &&
+        isMother() &&
+        request.resource.data.motherId == getMotherId();
+
+      allow update: if isValidId(updateId) &&
+        isAuthenticated() &&
+        isWorker() &&
+        resource.data.assignedHealthWorkerId == getStaffId() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'reviewStatus', 'reviewedBy', 'reviewedAt', 'reviewNotes', 'updatedAt'
+        ]) &&
+        (!('reviewStatus' in request.resource.data) || request.resource.data.reviewStatus in ['pending', 'reviewed']) &&
+        (!('reviewNotes' in request.resource.data) || request.resource.data.reviewNotes == null || (request.resource.data.reviewNotes is string && request.resource.data.reviewNotes.size() <= 2000));
+
+      allow delete: if false;
+    }
+
+    // 8. Referrals collection
+    function isValidReferralCreate(referralId, data) {
+      return data.id == referralId &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.workerId is string && data.workerId.size() > 0 && data.workerId.size() <= 128 &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId)) &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId));
+    }
+
+    match /referrals/{referralId} {
+      allow get: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (hasAssignedHospital() &&
+         exists(/databases/$(database)/documents/hospitals/$(getHospitalId())) && (
+           (('referredToFacility' in resource.data) && resource.data.referredToFacility == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name) ||
+           (('targetFacility' in resource.data) && resource.data.targetFacility == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name)
+         ))
+      );
+
+      allow list: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data)
+      );
+
+      allow create: if isValidId(referralId) &&
+        isAuthenticated() &&
+        isValidReferralCreate(referralId, request.resource.data) &&
+        isWorker() &&
+        request.resource.data.workerId == getStaffId();
+
+      allow update: if isValidId(referralId) &&
+        isAuthenticated() &&
+        (!('status' in request.resource.data) || request.resource.data.status in [
+          'initiated', 'acknowledged', 'in_transit', 'arrived', 'completed', 'clarification_requested',
+          'Pending Triage', 'Ambulance Dispatched', 'Facility Admitted', 'Resolved'
+        ]) &&
+        (!('supervisorRemarks' in request.resource.data) || request.resource.data.supervisorRemarks == null || (request.resource.data.supervisorRemarks is string && request.resource.data.supervisorRemarks.size() <= 2000)) &&
+        (!('hospitalRemarks' in request.resource.data) || request.resource.data.hospitalRemarks == null || (request.resource.data.hospitalRemarks is string && request.resource.data.hospitalRemarks.size() <= 2000)) &&
+        (!('hospitalNotes' in request.resource.data) || request.resource.data.hospitalNotes == null || (request.resource.data.hospitalNotes is string && request.resource.data.hospitalNotes.size() <= 2000)) &&
+        (!('transportArranged' in request.resource.data) || request.resource.data.transportArranged is bool) && (
+        (isSupervisor() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'status', 'supervisorRemarks', 'updatedAt'
+         ])) ||
+        (isWorker() && resource.data.workerId == getStaffId() &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'transportArranged', 'accompaniedByWorker', 'status', 'updatedAt'
+         ])) ||
+        ((isFacilityRecord(resource.data) ||
+          (hasAssignedHospital() &&
+           exists(/databases/$(database)/documents/hospitals/$(getHospitalId())) && (
+             (('referredToFacility' in resource.data) && resource.data.referredToFacility == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name) ||
+             (('targetFacility' in resource.data) && resource.data.targetFacility == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name)
+           ))) &&
+         request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+           'status', 'hospitalRemarks', 'hospitalNotes', 'acknowledgedBy', 'acknowledgedAt', 'transportArranged', 'updatedAt'
+         ]))
+      );
+
+      allow delete: if false;
+    }
+
+    // 9. Reports collection
+    function isValidReportPayload(reportId, data) {
+      return data.id == reportId &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.type is string && data.type.size() > 0 && data.type.size() <= 64 &&
+        data.status is string && data.status.size() > 0 && data.status.size() <= 64 &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId)) &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId));
+    }
+
+    match /reports/{reportId} {
+      allow read: if isAuthenticated() && (
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (isWorker() && ('workerId' in resource.data) && resource.data.workerId == getStaffId())
+      );
+
+      allow create: if isValidId(reportId) &&
+        isAuthenticated() &&
+        isValidReportPayload(reportId, request.resource.data) && (
+          isSupervisor() ||
+          isFacilityRecord(request.resource.data)
+        );
+
+      allow update: if isValidId(reportId) &&
+        isAuthenticated() &&
+        isValidReportPayload(reportId, request.resource.data) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'id', 'hospitalId', 'targetHospitalId', 'assignedHospitalId', 'facilityId', 'generatedBy', 'createdAt'
+        ]) && (
+          isSupervisor() ||
+          isFacilityRecord(resource.data)
+        );
+
+      allow delete: if false;
+    }
+
+    // 10. Direct Messages collection
+    function isValidDirectMessagePayload(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+        data.senderId is string && data.senderId.size() > 0 && data.senderId.size() <= 128 &&
+        data.senderRole in ['mother', 'worker'] &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.workerId is string && data.workerId.size() > 0 && data.workerId.size() <= 128 &&
+        (
+          (data.senderRole == 'mother' && data.senderId == data.motherId) ||
+          (data.senderRole == 'worker' && data.senderId == data.workerId)
+        ) &&
+        data.text is string && data.text.size() <= 4000 &&
+        (!('type' in data) || data.type in ['text', 'audio']) &&
+        (!('uploadStatus' in data) || data.uploadStatus in ['pending_upload', 'uploaded', 'failed']) &&
+        (!('sentAtMs' in data) || data.sentAtMs is number) &&
+        (!('conversationId' in data) || (
+          data.conversationId is string &&
+          data.conversationId.size() <= 180 &&
+          data.conversationId == ('conv_' + data.motherId + '_' + data.workerId)
+        )) &&
+        (
+          !('type' in data) || data.type != 'audio' || (
+            (!('senderAuthUid' in data) || data.senderAuthUid == request.auth.uid) &&
+            data.audioStoragePath is string &&
+            data.audioStoragePath.size() > 0 &&
+            data.audioStoragePath.size() <= 500 &&
+            data.audioStoragePath.matches('^voiceMessages/conv_[A-Za-z0-9_\\-]+_[A-Za-z0-9_\\-]+/MSG-[A-Za-z0-9_\\-]+\\.(webm|m4a|mp4|ogg|wav)$') &&
+            data.audioStoragePath.split('/')[1] == ('conv_' + data.motherId + '_' + data.workerId) &&
+            data.audioMimeType is string &&
+            data.audioMimeType.matches('^audio/.*') &&
+            data.audioDuration is number &&
+            data.audioDuration > 0 &&
+            data.audioDuration <= 600 &&
+            data.audioFileSize is number &&
+            data.audioFileSize > 0 &&
+            data.audioFileSize <= 10485760 &&
+            (!('audioDownloadUrl' in data) || (data.audioDownloadUrl is string && !data.audioDownloadUrl.matches('^data:.*')))
+          )
+        );
+    }
+
+    match /messages/{messageId} {
+      allow read: if isAuthenticated() && (
+        resource.data.senderId == request.auth.uid ||
+        resource.data.recipientId == request.auth.uid ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        isSupervisor()
+      );
+
+      allow create: if isValidId(messageId) &&
+        isAuthenticated() &&
+        isValidDirectMessagePayload(request.resource.data) && (
+          (isMother() && request.resource.data.motherId == getMotherId()) ||
+          (isWorker() && request.resource.data.workerId == getStaffId())
+        );
+
+      allow update: if isValidId(messageId) &&
+        isAuthenticated() && (
+          (isMother() && resource.data.motherId == getMotherId()) ||
+          (isWorker() && resource.data.workerId == getStaffId())
+        ) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read', 'delivered', 'updatedAt']) &&
+        request.resource.data.read is bool;
+
+      allow delete: if false;
+    }
+
+    // 11. Appointments collection
+    function isValidAppointmentPayload(appointmentId, data) {
+      return data.id == appointmentId &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.date is string && data.date.size() > 0 && data.date.size() <= 128 &&
+        data.time is string && data.time.size() > 0 && data.time.size() <= 64 &&
+        data.status is string && data.status in ['scheduled', 'confirmed', 'rescheduled', 'completed', 'cancelled'] &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId)) &&
+        (!('targetHospitalId' in data) || data.targetHospitalId == null || isAuthorizedHospitalId(data.targetHospitalId));
+    }
+
+    match /appointments/{appointmentId} {
+      allow get: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (hasAssignedHospital() &&
+         exists(/databases/$(database)/documents/hospitals/$(getHospitalId())) && (
+           (('facility' in resource.data) && resource.data.facility == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name) ||
+           (('location' in resource.data) && resource.data.location == get(/databases/$(database)/documents/hospitals/$(getHospitalId())).data.name)
+         ))
+      );
+
+      allow list: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.workerId == getStaffId()) ||
+        isSupervisor() ||
+        isFacilityRecord(resource.data)
+      );
+
+      allow create: if isValidId(appointmentId) &&
+        isAuthenticated() &&
+        isValidAppointmentPayload(appointmentId, request.resource.data) && (
+          isSupervisor() ||
+          (isWorker() && request.resource.data.workerId == getStaffId()) ||
+          isFacilityRecord(request.resource.data)
+        );
+
+      allow update: if isValidId(appointmentId) &&
+        isAuthenticated() &&
+        isValidAppointmentPayload(appointmentId, request.resource.data) &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'id', 'motherId', 'hospitalId', 'targetHospitalId', 'assignedHospitalId', 'facilityId', 'createdAt'
+        ]) && (
+          isSupervisor() ||
+          (isWorker() && resource.data.workerId == getStaffId()) ||
+          isFacilityRecord(resource.data)
+        );
+
+      allow delete: if false;
+    }
+
+    // 12. Audit Logs collection (Append-only)
+    function isValidAuditLogPayload(logId, data) {
+      return data.id == logId &&
+        data.action is string && data.action.size() > 0 && data.action.size() <= 128 &&
+        data.actorId is string && data.actorId.size() > 0 && data.actorId.size() <= 128 &&
+        data.actorRole is string && data.actorRole.size() > 0 && data.actorRole.size() <= 64 &&
+        data.targetResource is string && data.targetResource.size() > 0 && data.targetResource.size() <= 128 &&
+        data.targetId is string && data.targetId.size() > 0 && data.targetId.size() <= 128 &&
+        (!('hospitalId' in data) || data.hospitalId == null || isAuthorizedHospitalId(data.hospitalId));
+    }
+
+    match /auditLogs/{logId} {
+      allow read: if isAuthenticated() && (
+        isSupervisor() ||
+        isFacilityRecord(resource.data) ||
+        (('actorUid' in resource.data) && resource.data.actorUid == request.auth.uid)
+      );
+
+      allow create: if isValidId(logId) &&
+        isAuthenticated() &&
+        isValidAuditLogPayload(logId, request.resource.data) &&
+        (!('actorUid' in request.resource.data) || request.resource.data.actorUid == request.auth.uid) &&
+        (!isHospitalStaff() || isFacilityRecord(request.resource.data));
+
+      allow update, delete: if false;
+    }
+
+    // 13. Companion Memories collection (Consented AI guidance summaries owned by Mother; never accessible to Hospital)
+    function isValidCompanionMemoryId(id) {
+      return isValidId(id);
+    }
+
+    function isValidCompanionMemory(data) {
+      return data.keys().hasAll([
+          'id', 'motherId', 'title', 'summary', 'topic', 'language', 'consentedByMother', 'isClinicalRecord'
+        ]) &&
+        data.keys().hasOnly([
+          'id', 'motherId', 'authUid', 'title', 'summary', 'topic', 'language',
+          'gestationalWeek', 'consentedByMother', 'consentedAt', 'savedAt',
+          'sourceType', 'isClinicalRecord', 'createdAt', 'updatedAt'
+        ]) &&
+        data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 160 &&
+        data.summary is string && data.summary.size() > 0 && data.summary.size() <= 2000 &&
+        data.topic in ['nutrition', 'baby_growth', 'symptoms', 'appointments', 'postpartum', 'general'] &&
+        data.language in ['en', 'hi', 'or'] &&
+        data.consentedByMother == true &&
+        data.isClinicalRecord == false;
+    }
+
+    match /companionMemories/{memoryId} {
+      allow read: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        isSupervisor()
+      );
+
+      allow create: if isValidCompanionMemoryId(memoryId) &&
+        isAuthenticated() &&
+        isValidCompanionMemory(request.resource.data) &&
+        isMother() &&
+        request.resource.data.motherId == getMotherId() &&
+        request.resource.data.authUid == request.auth.uid;
+
+      allow update: if false;
+
+      allow delete: if isValidCompanionMemoryId(memoryId) &&
+        isAuthenticated() &&
+        isMother() &&
+        resource.data.motherId == getMotherId();
+    }
+
+    // 14. Hospitals directory collection
+    function isValidHospitalPayload(hospitalId, data) {
+      return data.id == hospitalId &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 200 &&
+        data.facilityType in ['PHC', 'CHC', 'District Hospital'];
+    }
+
+    match /hospitals/{hospitalId} {
+      allow read: if isAuthenticated();
+
+      allow create: if isValidId(hospitalId) &&
+        isAuthenticated() &&
+        isSupervisor() &&
+        isValidHospitalPayload(hospitalId, request.resource.data);
+
+      allow update: if isValidId(hospitalId) &&
+        isAuthenticated() &&
+        isValidHospitalPayload(hospitalId, request.resource.data) && (
+          isSupervisor() ||
+          (hasAssignedHospital() &&
+           hospitalId == getHospitalId() &&
+           !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+             'id', 'facilityType', 'block', 'district', 'createdAt'
+           ]) &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             'name', 'contactPhone', 'acceptsEmergency', 'translations', 'updatedAt'
+           ]))
+        );
+
+      allow delete: if false;
+    }
+
+    // 15. Shared Emergency Alerts collection (Mother <-> Health Worker <-> Supervisor <-> Hospital Dashboard)
+    function isValidEmergencyAlertId(id) {
+      return isValidId(id);
+    }
+
+    function isValidEmergencyAlertStatus(status) {
+      return status in [
+        'new',
+        'pending_acknowledgement',
+        'acknowledged',
+        'in_progress',
+        'action_taken',
+        'referred',
+        'escalated',
+        'resolved',
+        'closed'
+      ];
+    }
+
+    function isValidEmergencyAlertCreate(data) {
+      return data.keys().hasAll([
+          'id', 'motherId', 'motherName', 'assignedWorkerId',
+          'raisedByRole', 'raisedById', 'raisedByName',
+          'targetHospitalId', 'targetHospitalName', 'targetFacilityType',
+          'concernCategory', 'concernLabel', 'urgency', 'status',
+          'createdAtMs', 'createdAtIso', 'updatedAtMs', 'hospitalUpdates',
+          'escalated', 'isSynthetic'
+        ]) &&
+        data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+        data.motherId is string && data.motherId.size() > 0 && data.motherId.size() <= 128 &&
+        data.motherName is string && data.motherName.size() > 0 && data.motherName.size() <= 160 &&
+        data.assignedWorkerId is string && data.assignedWorkerId.size() > 0 && data.assignedWorkerId.size() <= 128 &&
+        data.raisedByRole in ['mother', 'worker', 'supervisor'] &&
+        data.raisedById is string && data.raisedById.size() > 0 && data.raisedById.size() <= 128 &&
+        data.raisedByName is string && data.raisedByName.size() > 0 && data.raisedByName.size() <= 160 &&
+        isAuthorizedHospitalId(data.targetHospitalId) &&
+        data.targetHospitalName is string && data.targetHospitalName.size() > 0 && data.targetHospitalName.size() <= 200 &&
+        data.targetFacilityType in ['PHC', 'CHC', 'District Hospital'] &&
+        data.concernCategory is string && data.concernCategory.size() > 0 && data.concernCategory.size() <= 64 &&
+        data.concernLabel is string && data.concernLabel.size() > 0 && data.concernLabel.size() <= 200 &&
+        data.urgency in ['moderate', 'urgent', 'critical'] &&
+        data.status in ['new', 'pending_acknowledgement'] &&
+        (!('symptoms' in data) || (data.symptoms is list && data.symptoms.size() <= 20)) &&
+        (!('description' in data) || (data.description is string && data.description.size() <= 3000)) &&
+        (!('additionalHealthInfo' in data) || (data.additionalHealthInfo is string && data.additionalHealthInfo.size() <= 1000)) &&
+        (!('serverProvenanceId' in data) || (data.serverProvenanceId is string && data.serverProvenanceId.size() <= 128)) &&
+        data.createdAtMs is number &&
+        data.createdAtIso is string && data.createdAtIso.size() <= 64 &&
+        data.updatedAtMs is number &&
+        data.hospitalUpdates is list && data.hospitalUpdates.size() <= 50 &&
+        data.escalated == false &&
+        (!('acknowledgedBy' in data) || data.acknowledgedBy == null) &&
+        (!('resolvedBy' in data) || data.resolvedBy == null) &&
+        (!('closedBy' in data) || data.closedBy == null) &&
+        data.isSynthetic is bool;
+    }
+
+    function isAlertTargetFacility(data) {
+      return hasAssignedHospital() && (
+        data.targetHospitalId == getHospitalId() ||
+        (('escalationTargetHospitalId' in data) && data.escalationTargetHospitalId == getHospitalId())
+      );
+    }
+
+    match /emergencyAlerts/{alertId} {
+      allow read: if isAuthenticated() && (
+        (isMother() && resource.data.motherId == getMotherId()) ||
+        (isWorker() && resource.data.assignedWorkerId == getStaffId()) ||
+        isSupervisor() ||
+        isAlertTargetFacility(resource.data)
+      );
+
+      allow create: if isValidEmergencyAlertId(alertId) &&
+        isValidEmergencyAlertCreate(request.resource.data);
+
+      allow update: if isValidEmergencyAlertId(alertId) &&
+        isAuthenticated() &&
+        resource.data.status != 'closed' &&
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'id', 'motherId', 'assignedWorkerId', 'raisedByRole', 'raisedById',
+          'raisedByAuthUid', 'createdAtMs', 'createdAtIso',
+          'serverCreatedAtMs', 'serverCreatedAtIso', 'serverProvenanceId', 'isSynthetic'
+        ]) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'status', 'updatedAtMs', 'updatedAt',
+          'acknowledgedAtMs', 'acknowledgedBy', 'hospitalResponse', 'hospitalUpdates',
+          'escalated', 'escalatedAtMs', 'escalatedBy', 'escalationReason',
+          'escalationTargetHospitalId', 'escalationTargetHospitalName',
+          'targetHospitalId', 'targetHospitalName', 'targetFacilityType',
+          'actionTakenSummary', 'referredFacilityName',
+          'resolvedAtMs', 'resolvedBy', 'resolutionNotes',
+          'closedAtMs', 'closedBy',
+          'urgency', 'transportRequested', 'syncStatus'
+        ]) &&
+        isValidEmergencyAlertStatus(request.resource.data.status) &&
+        isAuthorizedHospitalId(request.resource.data.targetHospitalId) &&
+        (!('escalationTargetHospitalId' in request.resource.data) || request.resource.data.escalationTargetHospitalId == null || isAuthorizedHospitalId(request.resource.data.escalationTargetHospitalId)) &&
+        (!('hospitalResponse' in request.resource.data) || request.resource.data.hospitalResponse == null || (request.resource.data.hospitalResponse is string && request.resource.data.hospitalResponse.size() <= 2000)) &&
+        (!('resolutionNotes' in request.resource.data) || request.resource.data.resolutionNotes == null || (request.resource.data.resolutionNotes is string && request.resource.data.resolutionNotes.size() <= 2000)) &&
+        (!('escalationReason' in request.resource.data) || request.resource.data.escalationReason == null || (request.resource.data.escalationReason is string && request.resource.data.escalationReason.size() <= 1000)) &&
+        (!('actionTakenSummary' in request.resource.data) || request.resource.data.actionTakenSummary == null || (request.resource.data.actionTakenSummary is string && request.resource.data.actionTakenSummary.size() <= 2000)) &&
+        request.resource.data.urgency in ['moderate', 'urgent', 'critical'] &&
+        request.resource.data.hospitalUpdates is list &&
+        request.resource.data.hospitalUpdates.size() <= 50 &&
+        (!('hospitalUpdates' in resource.data) || request.resource.data.hospitalUpdates.size() >= resource.data.hospitalUpdates.size()) && (
+          isAlertTargetFacility(resource.data) ||
+          (isSupervisor() &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             'status', 'updatedAtMs', 'updatedAt', 'hospitalUpdates',
+             'escalated', 'escalatedAtMs', 'escalatedBy', 'escalationReason',
+             'escalationTargetHospitalId', 'escalationTargetHospitalName',
+             'targetHospitalId', 'targetHospitalName', 'targetFacilityType',
+             'urgency', 'transportRequested', 'syncStatus'
+           ])) ||
+          (isWorker() &&
+           resource.data.assignedWorkerId == getStaffId() &&
+           request.resource.data.status == resource.data.status &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             'updatedAtMs', 'updatedAt', 'hospitalUpdates', 'transportRequested', 'syncStatus'
+           ])) ||
+          (isMother() &&
+           resource.data.motherId == getMotherId() &&
+           request.resource.data.status == resource.data.status &&
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+             'updatedAtMs', 'updatedAt', 'hospitalUpdates', 'transportRequested', 'syncStatus'
+           ]))
+        );
+
+      allow delete: if false;
+    }
+
+    // 16. Device Push Notification Tokens (canonical user subcollection + legacy top-level path)
+    function isValidFcmTokenDoc(tokenId, data) {
+      return isValidId(tokenId) && tokenId.size() >= 8 &&
+        data.id == tokenId &&
+        data.token is string && data.token.size() >= 20 && data.token.size() <= 4096 &&
+        data.uid is string && data.uid.size() > 0 && data.uid.size() <= 128 &&
+        data.role in ['mother', 'worker', 'supervisor', 'hospital_staff', 'hospital', 'facility'] &&
+        data.platform == 'web' &&
+        data.enabled is bool &&
+        data.updatedAtMs is number;
+    }
+
+    function isAuthorizedFcmTokenOwner(data) {
+      return (isMother() && data.role == 'mother' && (!('motherId' in data) || data.motherId == null || data.motherId == getMotherId())) ||
+        (isWorker() && data.role == 'worker' && (!('staffId' in data) || data.staffId == null || data.staffId == getStaffId())) ||
+        (isSupervisor() && data.role == 'supervisor' && (!('staffId' in data) || data.staffId == null || data.staffId == getStaffId())) ||
+        (hasAssignedHospital() && normalizeRole(data.role) == 'hospital_staff' && data.hospitalId == getHospitalId());
+    }
+
+    match /fcmTokens/{tokenId} {
+      allow get: if isAuthenticated() && (resource.data.uid == request.auth.uid || isSupervisor());
+
+      allow list: if isAuthenticated() && (isSupervisor() || resource.data.uid == request.auth.uid);
+
+      allow create, update: if isAuthenticated() &&
+        isValidFcmTokenDoc(tokenId, request.resource.data) &&
+        request.resource.data.uid == request.auth.uid &&
+        isAuthorizedFcmTokenOwner(request.resource.data);
+
+      allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+    }
+
+    // 17. Idempotent Server Notification Delivery Audit Log (server/Functions write only)
+    match /alertNotificationDeliveries/{deliveryId} {
+      allow read: if isAuthenticated() && isSupervisor();
+      allow write: if false;
+    }
+  }
+}

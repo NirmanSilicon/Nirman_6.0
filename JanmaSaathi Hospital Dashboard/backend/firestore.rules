@@ -1,0 +1,596 @@
+rules_version = '2';
+
+/**
+ * JanmaSaathi Ecosystem — Firestore Security Rules
+ *
+ * Target Firebase Project: outr-janmasaathi
+ * Target Named Database:   ai-studio-janmasaathi-8e8b2a1f-7b17-42e6-bc8e-284c5c28d2df
+ *
+ * Security Guarantees:
+ * - Zero blanket access for generic authenticated users (fail-closed by default).
+ * - Role & facility authorization resolved strictly from verified Firebase Auth custom
+ *   claims (request.auth.token) and/or users/{request.auth.uid} (non-self-editable).
+ * - Hospital personnel and supervisors can ONLY query and read/update records within
+ *   their authorized facilityId / hospitalId / allowedFacilityIds scope.
+ * - Query predicates on emergencyAlerts (where('facilityId', '==' / 'in', ...),
+ *   where('hospitalId', '==' / 'in', ...)) match the exact rule constraints so
+ *   unfiltered all-hospital queries are rejected by Firestore at query time.
+ * - Canonical emergency alerts live exclusively in emergencyAlerts/{alertId};
+ *   legacy alerts/{alertId} is locked down to prevent duplicate/stale records.
+ * - FCM device tokens live under users/{uid}/fcmTokens/{deviceId} bound strictly
+ *   to the authenticated user and contain zero patient medical data.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // AUTHENTICATION, CLAIMS, ROLE & FACILITY AUTHORIZATION HELPERS
+    // =========================================================================
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function userProfilePath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function hasUserProfile() {
+      return isSignedIn() && exists(userProfilePath());
+    }
+
+    function userProfile() {
+      return get(userProfilePath()).data;
+    }
+
+    function claimRole() {
+      return isSignedIn()
+        ? (
+            ('role' in request.auth.token && request.auth.token.role is string)
+              ? request.auth.token.role.lower()
+              : (
+                  ('userRole' in request.auth.token && request.auth.token.userRole is string)
+                    ? request.auth.token.userRole.lower()
+                    : ''
+                )
+          )
+        : '';
+    }
+
+    function profileRole() {
+      return hasUserProfile()
+        ? (
+            ('role' in userProfile() && userProfile().role is string)
+              ? userProfile().role.lower()
+              : (
+                  ('userRole' in userProfile() && userProfile().userRole is string)
+                    ? userProfile().userRole.lower()
+                    : ''
+                )
+          )
+        : '';
+    }
+
+    function normalizedRole() {
+      return profileRole() != '' ? profileRole() : claimRole();
+    }
+
+    function isHospitalStaff() {
+      return normalizedRole() in [
+        'hospital',
+        'hospital_staff',
+        'hospital_admin',
+        'hospital staff',
+        'hospital admin',
+        'doctor',
+        'ob-gyn',
+        'obgyn',
+        'medical_officer',
+        'medical officer',
+        'senior ob-gyn medical officer',
+        'nurse',
+        'staff nurse',
+        'triage nurse',
+        'triage_officer',
+        'triage officer',
+        'clinician',
+        'superintendent',
+        'admin'
+      ];
+    }
+
+    function isSupervisor() {
+      return normalizedRole() in [
+        'supervisor',
+        'clinical supervisor',
+        'block supervisor',
+        'block coordinator',
+        'medical officer & clinical supervisor'
+      ];
+    }
+
+    function isHealthWorker() {
+      return normalizedRole() in [
+        'health_worker',
+        'health worker',
+        'asha',
+        'asha worker',
+        'anm',
+        'anm nurse',
+        'chw',
+        'worker'
+      ];
+    }
+
+    function isMother() {
+      return normalizedRole() in ['mother', 'patient'];
+    }
+
+    function claimPrimaryFacility() {
+      return isSignedIn()
+        ? (
+            ('facilityId' in request.auth.token && request.auth.token.facilityId is string)
+              ? request.auth.token.facilityId
+              : (
+                  ('hospitalId' in request.auth.token && request.auth.token.hospitalId is string)
+                    ? request.auth.token.hospitalId
+                    : (
+                        ('facilityCode' in request.auth.token && request.auth.token.facilityCode is string)
+                          ? request.auth.token.facilityCode
+                          : (
+                              ('hospitalCode' in request.auth.token && request.auth.token.hospitalCode is string)
+                                ? request.auth.token.hospitalCode
+                                : ''
+                            )
+                      )
+                )
+          )
+        : '';
+    }
+
+    function profilePrimaryFacility() {
+      return hasUserProfile()
+        ? (
+            ('facilityId' in userProfile() && userProfile().facilityId is string)
+              ? userProfile().facilityId
+              : (
+                  ('hospitalId' in userProfile() && userProfile().hospitalId is string)
+                    ? userProfile().hospitalId
+                    : (
+                        ('facilityCode' in userProfile() && userProfile().facilityCode is string)
+                          ? userProfile().facilityCode
+                          : (
+                              ('hospitalCode' in userProfile() && userProfile().hospitalCode is string)
+                                ? userProfile().hospitalCode
+                                : ''
+                            )
+                      )
+                )
+          )
+        : '';
+    }
+
+    function userPrimaryFacility() {
+      return profilePrimaryFacility() != '' ? profilePrimaryFacility() : claimPrimaryFacility();
+    }
+
+    function claimAllowedFacilities() {
+      return isSignedIn()
+        ? (
+            ('allowedFacilityIds' in request.auth.token && request.auth.token.allowedFacilityIds is list)
+              ? request.auth.token.allowedFacilityIds
+              : (
+                  ('facilityIds' in request.auth.token && request.auth.token.facilityIds is list)
+                    ? request.auth.token.facilityIds
+                    : (
+                        ('hospitalIds' in request.auth.token && request.auth.token.hospitalIds is list)
+                          ? request.auth.token.hospitalIds
+                          : []
+                      )
+                )
+          )
+        : [];
+    }
+
+    function profileAllowedFacilities() {
+      return hasUserProfile()
+        ? (
+            ('allowedFacilityIds' in userProfile() && userProfile().allowedFacilityIds is list)
+              ? userProfile().allowedFacilityIds
+              : (
+                  ('facilityIds' in userProfile() && userProfile().facilityIds is list)
+                    ? userProfile().facilityIds
+                    : (
+                        ('hospitalIds' in userProfile() && userProfile().hospitalIds is list)
+                          ? userProfile().hospitalIds
+                          : []
+                      )
+                )
+          )
+        : [];
+    }
+
+    function userAllowedFacilities() {
+      return profileAllowedFacilities().size() > 0
+        ? profileAllowedFacilities()
+        : claimAllowedFacilities();
+    }
+
+    function isAuthorizedForFacility(targetFacilityId) {
+      return isSignedIn()
+        && targetFacilityId is string
+        && targetFacilityId.size() > 0
+        && (
+          (userPrimaryFacility() != '' && targetFacilityId == userPrimaryFacility())
+          || targetFacilityId in userAllowedFacilities()
+        );
+    }
+
+    /**
+     * Statically provable facility check for Firestore list queries:
+     * Directly compares resource.data.facilityId, hospitalId, facilityCode, or hospitalCode
+     * against the caller's authorized primary/allowed facilities so scoped queries
+     * are authorized while unfiltered queries fail closed.
+     */
+    function isAuthorizedForRecordFacility(data) {
+      return (
+        ('facilityId' in data && isAuthorizedForFacility(data.facilityId))
+        || ('hospitalId' in data && isAuthorizedForFacility(data.hospitalId))
+        || ('facilityCode' in data && isAuthorizedForFacility(data.facilityCode))
+        || ('hospitalCode' in data && isAuthorizedForFacility(data.hospitalCode))
+      );
+    }
+
+    function recordFacilityId(data) {
+      return ('facilityId' in data && data.facilityId is string && data.facilityId.size() > 0)
+        ? data.facilityId
+        : (
+            ('hospitalId' in data && data.hospitalId is string && data.hospitalId.size() > 0)
+              ? data.hospitalId
+              : (
+                  ('facilityCode' in data && data.facilityCode is string && data.facilityCode.size() > 0)
+                    ? data.facilityCode
+                    : (
+                        ('hospitalCode' in data && data.hospitalCode is string && data.hospitalCode.size() > 0)
+                          ? data.hospitalCode
+                          : ''
+                      )
+                )
+          );
+    }
+
+    function userStaffId() {
+      return hasUserProfile()
+        ? (
+            ('staffId' in userProfile() && userProfile().staffId is string)
+              ? userProfile().staffId
+              : (
+                  ('workerId' in userProfile() && userProfile().workerId is string)
+                    ? userProfile().workerId
+                    : (
+                        ('employeeId' in userProfile() && userProfile().employeeId is string)
+                          ? userProfile().employeeId
+                          : request.auth.uid
+                      )
+                )
+          )
+        : (
+            isSignedIn() && 'staffId' in request.auth.token && request.auth.token.staffId is string
+              ? request.auth.token.staffId
+              : (isSignedIn() ? request.auth.uid : '')
+          );
+    }
+
+    function userMotherId() {
+      return hasUserProfile()
+        ? (
+            ('motherId' in userProfile() && userProfile().motherId is string)
+              ? userProfile().motherId
+              : userStaffId()
+          )
+        : (
+            isSignedIn() && 'motherId' in request.auth.token && request.auth.token.motherId is string
+              ? request.auth.token.motherId
+              : userStaffId()
+          );
+    }
+
+    function isOwnMotherRecord(motherId, data) {
+      return isMother() && (
+        motherId == userMotherId()
+        || motherId == request.auth.uid
+        || ('owningUid' in data && data.owningUid == request.auth.uid)
+        || ('userId' in data && data.userId == request.auth.uid)
+      );
+    }
+
+    function isAssignedToHealthWorker(data) {
+      return isHealthWorker() && (
+        ('assignedHealthWorkerId' in data && data.assignedHealthWorkerId == userStaffId())
+        || ('healthWorkerId' in data && data.healthWorkerId == userStaffId())
+        || ('workerId' in data && data.workerId == userStaffId())
+        || ('owningUid' in data && data.owningUid == request.auth.uid)
+      );
+    }
+
+    function normalizedIncomingSourceRole(data) {
+      return ('sourceRole' in data && data.sourceRole is string)
+        ? data.sourceRole.lower()
+        : '';
+    }
+
+    function hasValidInitialAlertStatus(data) {
+      return !('status' in data)
+        || (
+          data.status is string
+          && data.status.lower() in ['new', 'open', 'pending', 'active']
+        );
+    }
+
+    function hasValidAlertSeverity(data) {
+      return (
+        ('priority' in data && data.priority is string && data.priority.lower() in ['critical', 'high priority', 'high', 'moderate', 'medium', 'low', 'emergency', 'urgent'])
+        || ('severity' in data && data.severity is string && data.severity.lower() in ['critical', 'high priority', 'high', 'moderate', 'medium', 'low', 'emergency', 'urgent'])
+      );
+    }
+
+    // =========================================================================
+    // 1. USERS & PER-DEVICE FCM TOKENS (Strict Self-Ownership)
+    // =========================================================================
+    match /users/{uid} {
+      // Users read only their own profile; hospital staff/supervisors may read
+      // staff profiles within their authorized facility.
+      allow read: if isSignedIn() && (
+        request.auth.uid == uid
+        || ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+      );
+
+      // Users cannot self-escalate role or facilityId.
+      allow create, update: if false;
+      allow delete: if false;
+
+      // Multi-device FCM registration tokens (zero patient data stored here).
+      match /fcmTokens/{deviceId} {
+        allow read: if isSignedIn() && request.auth.uid == uid;
+        allow create, update: if isSignedIn()
+          && request.auth.uid == uid
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.token is string
+          && request.resource.data.token.size() > 20
+          && request.resource.data.deviceId == deviceId
+          && request.resource.data.facilityId is string
+          && isAuthorizedForFacility(request.resource.data.facilityId);
+        allow delete: if isSignedIn() && request.auth.uid == uid;
+      }
+    }
+
+    // =========================================================================
+    // 2. MOTHERS (Facility-Scoped Hospital/Supervisor, Assigned HW, Self Mother)
+    // =========================================================================
+    match /mothers/{motherId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || isOwnMotherRecord(motherId, resource.data)
+      );
+
+      allow create: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor() || isHealthWorker()) && isAuthorizedForRecordFacility(request.resource.data))
+      );
+
+      allow update: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data) && isAuthorizedForRecordFacility(request.resource.data))
+        || (isAssignedToHealthWorker(resource.data) && isAuthorizedForRecordFacility(resource.data))
+      );
+
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 3. HEALTH WORKERS, SUPERVISORS & ASSIGNMENTS
+    // =========================================================================
+    match /healthWorkers/{workerId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || (isHealthWorker() && (workerId == userStaffId() || workerId == request.auth.uid))
+      );
+      allow write: if false;
+    }
+
+    match /supervisors/{supervisorId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+      );
+      allow write: if false;
+    }
+
+    match /assignments/{assignmentId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+      );
+      allow create, update: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(request.resource.data);
+      allow delete: if false;
+    }
+
+    // =========================================================================
+    // 4. CLINICAL RECORDS: ASSESSMENTS, HEALTH UPDATES, REFERRALS, APPOINTMENTS, REPORTS
+    // =========================================================================
+    match /assessments/{assessmentId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor() || isHealthWorker()) && isAuthorizedForRecordFacility(request.resource.data))
+      );
+
+      allow update: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+      );
+
+      allow delete: if false;
+    }
+
+    match /healthUpdates/{updateId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create: if isSignedIn() && (
+        (isMother() && request.resource.data.motherId == userMotherId())
+        || ((isHealthWorker() || isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(request.resource.data))
+      );
+
+      allow update: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(resource.data);
+
+      allow delete: if false;
+    }
+
+    match /referrals/{referralId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor() || isHealthWorker()) && isAuthorizedForRecordFacility(request.resource.data))
+      );
+
+      allow update: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(resource.data);
+
+      allow delete: if false;
+    }
+
+    match /appointments/{appointmentId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create, update: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(request.resource.data);
+
+      allow delete: if false;
+    }
+
+    match /reports/{reportId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor() || isHealthWorker()) && isAuthorizedForRecordFacility(request.resource.data))
+      );
+
+      allow update, delete: if false;
+    }
+
+    // =========================================================================
+    // 5. CANONICAL EMERGENCY ALERTS (Single Source of Truth)
+    // =========================================================================
+    match /emergencyAlerts/{alertId} {
+      // Strictly aligned with facility-filtered Firestore queries:
+      //   where('facilityId', '==', authFacility) / where('facilityId', 'in', allowedFacilities)
+      //   where('hospitalId', '==', authFacility) / where('hospitalId', 'in', allowedFacilities)
+      // Unfiltered queries across all hospitals are rejected by Firestore Rules.
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      // Mother, Health Worker, or Supervisor submits canonical alert into emergencyAlerts
+      allow create: if isSignedIn()
+        && hasValidInitialAlertStatus(request.resource.data)
+        && request.resource.data.motherId is string
+        && request.resource.data.motherId.size() > 0
+        && normalizedIncomingSourceRole(request.resource.data) in ['mother', 'health_worker', 'health worker', 'supervisor']
+        && hasValidAlertSeverity(request.resource.data)
+        && isAuthorizedForRecordFacility(request.resource.data)
+        && (
+          (isMother() && normalizedIncomingSourceRole(request.resource.data) == 'mother' && request.resource.data.motherId == userMotherId())
+          || (isHealthWorker() && normalizedIncomingSourceRole(request.resource.data) in ['health_worker', 'health worker'])
+          || (isSupervisor() && normalizedIncomingSourceRole(request.resource.data) == 'supervisor')
+          || isHospitalStaff()
+        );
+
+      // Only authorized Hospital Staff or Supervisors within the alert's facility may triage.
+      // Safety guard: Critical alerts cannot jump directly to CLOSED without passing through RESOLVED.
+      // Immutable audit fields (motherId, sourceRole, facilityId/hospitalId) cannot be rewritten.
+      allow update: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(resource.data)
+        && (!('motherId' in resource.data) || request.resource.data.motherId == resource.data.motherId)
+        && (!('sourceRole' in resource.data) || request.resource.data.sourceRole == resource.data.sourceRole)
+        && recordFacilityId(request.resource.data) == recordFacilityId(resource.data)
+        && !(
+          (('priority' in resource.data && resource.data.priority == 'Critical')
+            || ('severity' in resource.data && resource.data.severity is string && resource.data.severity.lower() == 'critical'))
+          && request.resource.data.status == 'CLOSED'
+          && resource.data.status != 'RESOLVED'
+        );
+
+      // Never delete emergency alerts to preserve clinical audit integrity.
+      allow delete: if false;
+    }
+
+    // Legacy / test alerts collection — explicitly locked down so no duplicate alert path exists.
+    match /alerts/{alertId} {
+      allow read, write: if false;
+    }
+
+    // =========================================================================
+    // 6. RETURN COMMUNICATION MESSAGES & IMMUTABLE AUDIT LOGS
+    // =========================================================================
+    match /messages/{messageId} {
+      allow read: if isSignedIn() && (
+        ((isHospitalStaff() || isSupervisor()) && isAuthorizedForRecordFacility(resource.data))
+        || isAssignedToHealthWorker(resource.data)
+        || (isMother() && resource.data.motherId == userMotherId())
+      );
+
+      allow create: if isSignedIn() && (
+        (isHospitalStaff() || isSupervisor())
+        || isHealthWorker()
+        || (isMother() && request.resource.data.motherId == userMotherId())
+      );
+
+      allow update, delete: if false;
+    }
+
+    match /auditLogs/{logId} {
+      allow read: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && isAuthorizedForRecordFacility(resource.data);
+
+      allow create: if isSignedIn()
+        && (isHospitalStaff() || isSupervisor())
+        && request.resource.data.actorUid == request.auth.uid
+        && isAuthorizedForRecordFacility(request.resource.data);
+
+      allow update, delete: if false;
+    }
+
+    // =========================================================================
+    // 7. DEFAULT DENY (Fail-Closed Catch-All)
+    // =========================================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

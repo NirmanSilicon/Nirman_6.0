@@ -1,0 +1,8 @@
+{
+  "name": "JanmaSaathi — Hospital Dashboard",
+  "description": "Desktop-first hospital management and maternal healthcare monitoring dashboard for the JanmaSaathi ecosystem.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
