@@ -1,0 +1,171 @@
+================================================================================
+GOLDENHOUR x SUPABASE: THE TECH ARCHITECTURE EXPLAINED (SIMPLE & INTUITIVE)
+NIRMAN 2026 / HackNation 2026 | Healthcare & MedTech Track
+================================================================================
+
+1. WHAT IS GOLDENHOUR?
+--------------------------------------------------------------------------------
+GoldenHour is NOT an ambulance app and NOT a doctor app. 
+GoldenHour owns the critical 12 to 15 minutes BEFORE the patient arrives at 
+the Emergency Room (the "Golden Hour" of trauma and stroke survival).
+
+Usually, hospitals have no preparation before an emergency patient arrives at 
+their door. Doctors are in other wards, blood trays are not ready, and resuscitation 
+beds are occupied.
+
+With GoldenHour:
+- As soon as a patient taps 4 simple questions on their phone, an emergency alert 
+  is sent to the nearest capable hospital.
+- 4 critical preparation tasks are instantly spawned:
+  1. Reserve an ED Bed (Counter Team)
+  2. Draw up life-saving emergency drugs (Medicine/Nurse Team)
+  3. Calibrate ECG, Defibrillator & O2 (Equipment Team)
+  4. Position a resuscitation stretcher at the entrance gate (Transport Team)
+- A live countdown timer starts for every task.
+- Hospital staff tap "Claim" on their phones, and the hospital ops wall screen 
+  updates instantly.
+- When the patient arrives, the medical team is standing at the gate, ready.
+
+
+================================================================================
+2. WHY SUPABASE IS THE PERFECT FIT FOR THIS HACKATHON
+================================================================================
+In a hackathon with strict time limits, building a custom Node.js/Python backend 
+with WebSocket servers, Redis caches, background worker queues, and custom auth 
+would take 48+ hours and still be fragile.
+
+Supabase gives us an enterprise-grade backend in a single platform:
+1. Zero custom backend servers needed: The database IS our backend engine.
+2. Built-in WebSockets (Realtime): We didn't have to write a single line of Socket.io.
+3. Sub-2-second sync: When a nurse taps "Claim" in a ward, the emergency wall screen 
+   flashes green across the hospital in less than 2 seconds.
+4. Military-grade security built-in: Row Level Security (RLS) ensures Hospital A 
+   cannot see Hospital B's patients, and nurses cannot read private doctor notes.
+5. Zero race conditions: Everything is solved right inside PostgreSQL using 
+   atomic transactions.
+
+
+================================================================================
+3. CORE SUPABASE FEATURES USED IN GOLDENHOUR (SIMPLE BREAKDOWN)
+================================================================================
+
+A. SUPABASE REALTIME (WebSockets)
+- What it does: Whenever an alert or task is created or updated in the database, 
+  Supabase automatically pushes that change to every open phone and dashboard over 
+  WebSockets.
+- Why it matters for GoldenHour: In emergencies, doctors cannot sit and refresh 
+  a browser page. When an alert arrives, the hospital screen immediately sounds 
+  a chime and displays the new card without page reloading.
+- Realtime Tables: alerts, alert_tasks, bed_holds, notification_outbox.
+
+B. DATABASE STORED PROCEDURES / RPCs ("The Engine in SQL")
+- Instead of writing business logic in standard API routes that can crash or lag, 
+  our entire state machine runs inside Supabase PostgreSQL as stored functions:
+  * claim_task(task_id):
+    Atomically assigns a task to the logged-in staff member. If two nurses tap 
+    "Claim" at the exact same millisecond, the database gives it to the first one 
+    and immediately informs the second who claimed it. Nobody is assigned twice!
+  * next_state(task_id, action):
+    Transitions tasks (OPEN -> CLAIMED -> DONE) and advances the emergency alert.
+  * escalate_overdue():
+    Checks if any task is taking longer than its SLA (e.g., 90s or 120s). If so, 
+    it immediately flags it as ESCALATED and triggers an alarm for the supervisor.
+  * engine_tick():
+    The heartbeat function. Runs every 10-30 seconds, checks all overdue timers, 
+    expires stale alerts, and safely returns unused beds. Protected by an 
+    Advisory Lock so two tickers never conflict.
+  * cancel_alert(alert_id):
+    If the family diverts to another hospital, one tap cancels the alert, 
+    immediately frees the held emergency bed, and records the reason in the ledger.
+
+C. ROW LEVEL SECURITY (RLS) & PRIVACY
+- In healthcare, patient privacy (HIPAA / GDPR) is non-negotiable.
+- Supabase RLS enforces rules at the database level:
+  * Hospital Isolation: Staff at Capital Hospital can NEVER see alerts belonging 
+    to AIIMS Bhubaneswar.
+  * Role Separation: Only emergency doctors can read full clinical diagnosis 
+    notes. Nurses receive a sanitized "nurse_safe_view" (medicines, allergies, 
+    watch-for items) without private doctor notes.
+  * Anti-Tampering: Regular users cannot bypass the system by writing direct 
+    UPDATE queries to change task states. All changes MUST go through the 
+    validated engine RPCs.
+
+D. EPHEMERAL BED HOLDS (Anti-Double Booking)
+- When an emergency alert fires, 1 hospital bed is reserved for 30 minutes.
+- We built a partial unique index:
+  CREATE UNIQUE INDEX uq_active_bed_hold ON bed_holds(facility_id, bed_label) 
+  WHERE released_at IS NULL;
+- This makes it physically impossible for two different patients to be assigned 
+  the same bed at the same time. If an alert is cancelled or arrives, the hold is 
+  cleanly released.
+
+E. TYPE-SAFE CLIENT INTEGRATION
+- Supabase allows exporting TypeScript types directly matching our PostgreSQL 
+  tables (Database['public']['Tables']).
+- Front-end developers have 100% autocomplete and compile-time type safety 
+  with zero guesswork.
+
+
+================================================================================
+4. REAL-LIFE 12-MINUTE SCENARIO (STEP-BY-STEP)
+================================================================================
+Minute 00:00 - Emergency Triggered
+- A patient experiencing chest pain submits 4 taps on the GoldenHour web app.
+- Supabase automatically inserts a row into 'alerts'.
+- A PostgreSQL database trigger instantly spawns 4 preparation tasks into 
+  'alert_tasks' with countdown deadlines (90s, 120s, 180s) and decrements 
+  the hospital's free bed count.
+- Supabase Realtime notifies the hospital intake screen with an audio chime.
+
+Minute 00:30 - Simultaneous Claim
+- Two nurses see the "Prepare cardiac medications" task.
+- Both tap "Claim" at the same second.
+- Supabase's 'claim_task' executes an atomic compare-and-set:
+  Nurse Arati wins the claim. Nurse Priyanka gets an instant polite notification: 
+  "Already claimed by Sister Arati Jena".
+- Task card turns from Gray (Open) to Blue (Claimed).
+
+Minute 02:00 - Overdue Escalation (The Clock Never Sleeps)
+- Stretcher team hasn't claimed their task after 90 seconds.
+- Background 'engine_tick' detects the breach, moves state to 'ESCALATED', 
+  and broadcasts an urgent AMBER flash to the supervisor wall screen.
+- Duty supervisor immediately delegates transport staff.
+
+Minute 08:00 - Pre-Arrival Completion
+- All 4 tasks reach 'DONE'.
+- Alert automatically moves to 'ALL_CLAIMED'.
+- Resuscitation bed is locked, IV medications drawn, ECG calibrated, stretcher 
+  waiting at gate.
+
+Minute 12:00 - Patient Crosses Gate
+- Front desk searches 6-character code and taps "Arrived".
+- Escalation clock freezes. Patient receives zero-delay emergency care!
+
+
+================================================================================
+5. HACKATHON PITCH CHEAT SHEET (WHAT TO TELL JUDGES)
+================================================================================
+Q: "Why did you choose Supabase instead of building a Node/Express backend?"
+A: "In emergency healthcare, every millisecond counts. By using Supabase, we 
+    eliminated entire network hops. Our business logic, concurrency control, and 
+    audit logging execute directly inside PostgreSQL through atomic RPCs. 
+    Plus, Supabase Realtime gives us sub-2-second WebSocket sync between mobile 
+    phones and hospital wall dashboards with zero infrastructure setup."
+
+Q: "How do you handle race conditions when multiple staff claim the same task?"
+A: "We handle this at the database level using atomic conditional updates inside 
+    a SECURITY DEFINER stored procedure. The first transaction locks the row; 
+    the second transaction cleanly fails and receives the winner's identity. 
+    Nobody is ever dispatched twice."
+
+Q: "How is patient data kept secure?"
+A: "We use Supabase Row Level Security (RLS) with hospital isolation functions. 
+    Staff can only access data belonging to their own facility, and clinical 
+    records are segregated by role—nurses read a sanitized view while doctors 
+    maintain diagnosis confidentiality."
+
+Q: "What makes this production-grade rather than a hackathon prototype?"
+A: "Our database includes advisory transaction locks, automated audit logging 
+    in an append-only events ledger, partial unique indexes for bed reservations, 
+    and fully synchronized TypeScript definitions across our Next.js frontend."
+================================================================================

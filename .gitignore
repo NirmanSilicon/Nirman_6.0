@@ -1,41 +1,78 @@
 # Dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# Testing
-/coverage
+node_modules/
+.pnp
+.pnp.js
 
 # Next.js
-/.next/
-/out/
+next-env.d.ts
+.next/
+out/
+build/
+dist/
+
+# Testing
+coverage/
 
 # Production
-/build
+*.tsbuildinfo
 
-# Misc
-.DS_Store
-Thumbs.db
-*.pem
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
 
-# Debug
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# Env files (keep .env.example)
-.env
-.env*.local
+# Supabase local development
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# Kilo Code internal files
+.kilo/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Package manager
+pnpm-store/
 
 # Vercel
-.vercel
+.vercel/
 
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
+# Turbo
+.turbo/
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Operating system
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Certificates and private keys
+*.pem
+*.key
