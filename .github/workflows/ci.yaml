@@ -16,16 +16,17 @@ jobs:
       - run: python -m pip install -c requirements.lock -e .
       - run: python -m unittest discover -s tests -v
       - run: python scripts/export_openapi.py --check
-      - name: Validate and build containers
-        run: docker compose --profile sandbox config --quiet
+      - name: Validate presentation configuration
+        run: docker compose --profile presentation config --quiet
       - run: docker compose -f compose.test.yaml up --build --abort-on-container-exit --exit-code-from tests
-      - name: Live consumer smoke against product sandbox profile
+      - name: Presentation and consumer smoke
         run: |
-          docker compose --profile sandbox up --build --wait
+          docker compose --profile presentation up --build --wait
           python scripts/smoke.py
+          python scripts/check_presentation.py
       - name: Container logs
         if: failure()
-        run: docker compose --profile sandbox logs --no-color
+        run: docker compose --profile presentation logs --no-color
       - name: Cleanup
         if: always()
-        run: docker compose --profile sandbox down
+        run: docker compose --profile presentation down

@@ -2,6 +2,22 @@
 
 Date: 2026-11-28. Project: **Agent-X**. Architecture reference: [AGENT-X-FINAL-ARCHITECTURE.md](AGENT-X-FINAL-ARCHITECTURE.md). Policy: `scaffold-1`; fixtures: `1.0.0`.
 
+## Initial evaluation and connected frontend update
+
+The shared `outliers` branch was fast-forwarded to include the team's frontend (`7dda389`). The imported UI had a landing page and hard-coded verdict examples, without backend wiring. It now calls the evaluation API and links to the standalone studio and extended lab.
+
+- **22/22 Python tests passed locally and inside the non-root Docker test container.** New tests cover the initial two-line invoice, 1-vs-0 observed deliveries, benign mode, annotation-free enforcement, reset isolation, scoped second-record denial, zero send-executor calls on denial, invalid-total rejection, guarded agents, and reviewer authentication.
+- **Next.js production build and TypeScript checks passed.** The frontend standalone Docker image built successfully.
+- **Full four-container presentation stack passed HTTP checks** on isolated verification ports: initial evaluation, eight scenarios, product evidence and export routes, reviewer authentication, approval/rejection, repeat resume, and both local agents. Those temporary containers were shut down after verification; the local presentation processes remain running.
+- **HTTP checks through the frontend passed:** landing/studio/lab pages, benign/incident/annotation-free evaluation, all eight catalog scenarios, product evidence lookup, exports, and both local task agents.
+- **Actual provider calls passed for both core tasks:** invoice extraction (~6.1 seconds) and quote comparison (~3.5 seconds), using `gpt-4.1-mini`. Both completed guarded reads and passed the final-output gate; the explicit demo probe caused no mock delivery. The model credential was read only server-side and was not printed or committed.
+- The initial evaluation remains one Python process with in-memory state and no dependency on a model key, the product/sandbox stack, or Node. The two-line initial fixture totals USD 40.00; the original extended invoice fixture remains USD 25.00.
+- Browser automation was attempted but stopped because the Windows browser URL could not be determined confidently. No visual-browser verification is claimed. The app is running for the user to inspect directly.
+
+Presentation URLs: `http://localhost:18082` (independent initial evaluation), `http://localhost:13080` (landing), `/evaluation` (same studio through the frontend), and `/lab` (extended agent/scenario lab). Start with `.\scripts\start-presentation.ps1`, or use `python scripts/present.py` for the initial evaluation alone. See [DEMO-GUIDE.md](DEMO-GUIDE.md) for the judge script.
+
+Local actual-model evidence was preserved in `reports/presentation/live-evidence.json`. Container HTTP-check evidence is in `reports/presentation/docker-evidence.json`. These files contain seeded demo data and no model credentials.
+
 ## Completed checks
 
 | Check | Result |
